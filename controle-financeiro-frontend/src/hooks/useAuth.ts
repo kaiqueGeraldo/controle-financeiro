@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { login, logout, register } from "@/services/authService";
-import { useRouter, useSearchParams } from "next/navigation";
-import {
-  validarEmail,
-  validarSenha,
-  validarNome,
-} from "@/validators/inputValidator";
-import { useUser } from "./useUser";
 import { removeAuthCookie, setAuthCookie } from "@/actions/authActions";
 import { useAuthModals } from "@/contexts/modals/authModalContext";
+import { login, logout, register } from "@/services/authService";
+import {
+  validarEmail,
+  validarNome,
+  validarSenha,
+} from "@/validators/inputValidator";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useUser } from "./useUser";
 
 export function useAuth() {
   const router = useRouter();
