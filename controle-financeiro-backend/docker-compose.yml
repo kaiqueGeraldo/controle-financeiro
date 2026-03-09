@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: controle-financeiro-db
+    environment:
+      POSTGRES_DB: financas_db
+      POSTGRES_USER: kaique
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kaique-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: kaique-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@kaique.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - kaique-net
+
+volumes:
+  postgres_data:
+
+networks:
+  kaique-net:
+    driver: bridge
