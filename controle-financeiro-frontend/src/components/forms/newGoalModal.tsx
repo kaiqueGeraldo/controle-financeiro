@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/contexts/toastContext";
 import { goalService } from "@/services/goalService";
+import { GoalType } from "@/types";
 import {
-  Loader2,
-  Target,
-  ShieldAlert,
   BookOpen,
-  Droplets,
-  Laptop,
   Car,
+  Droplets,
   Home,
+  Laptop,
+  Loader2,
   Plane,
+  ShieldAlert,
+  Target,
   Trophy,
 } from "lucide-react";
-import { GoalType } from "@/types";
-import { useToast } from "@/contexts/toastContext";
+import { useEffect, useState } from "react";
 
 interface NewGoalModalProps {
   isOpen: boolean;

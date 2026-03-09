@@ -1,17 +1,16 @@
-import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
-  ScrollText,
-  CreditCard,
-  Target,
-  TrendingUp,
   CalendarDays,
   Coins,
+  CreditCard,
   History,
   Landmark,
+  LayoutDashboard,
   ListTodo,
+  ScrollText,
+  Target
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function SidebarNavLinks() {
   const pathname = usePathname();

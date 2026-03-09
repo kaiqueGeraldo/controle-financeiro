@@ -1,15 +1,10 @@
-import {
-  ArrowUpCircle,
-  ArrowDownCircle,
-  Download,
-  Shield,
-  Receipt,
-  CheckCircle2,
-  CreditCard,
-  Wallet,
-} from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import {
+  CreditCard,
+  Receipt,
+  Wallet
+} from "lucide-react";
 
 interface CardsSummaryProps {
   totalLimit: number;

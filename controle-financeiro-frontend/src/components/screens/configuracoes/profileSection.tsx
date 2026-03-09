@@ -1,5 +1,5 @@
-import { Mail } from "lucide-react";
 import { Usuario } from "@/models/usuarioModel";
+import { Mail } from "lucide-react";
 
 interface ProfileSectionProps {
   user: Usuario | null;

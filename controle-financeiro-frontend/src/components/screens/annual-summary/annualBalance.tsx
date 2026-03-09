@@ -1,6 +1,6 @@
-import { Wallet } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { Wallet } from "lucide-react";
 
 interface AnnualBalanceProps {
   totalIncome: number;

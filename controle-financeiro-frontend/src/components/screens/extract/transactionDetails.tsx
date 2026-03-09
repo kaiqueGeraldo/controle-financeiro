@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  X,
-  Save,
-  Trash2,
-  Calendar,
-  Tag,
-  Wallet,
-  Clock,
-  Lock,
-  Loader2,
-} from "lucide-react";
-import { Transaction, Category, Account } from "@/types";
+import { Account, Category, Transaction } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Calendar,
+  Clock,
+  Loader2,
+  Lock,
+  Save,
+  Tag,
+  Trash2,
+  Wallet,
+  X,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 interface TransactionDetailsProps {
   transaction: Transaction | undefined;

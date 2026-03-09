@@ -1,17 +1,17 @@
-import { Transaction, Account } from "@/types";
-import {
-  ArrowUpCircle,
-  ArrowDownCircle,
-  Wallet,
-  Building2,
-  PiggyBank,
-  Landmark,
-  Clock,
-} from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { motion } from "framer-motion";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
+import { Account, Transaction } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { motion } from "framer-motion";
+import {
+  ArrowDownCircle,
+  ArrowUpCircle,
+  Building2,
+  Clock,
+  Landmark,
+  PiggyBank,
+  Wallet,
+} from "lucide-react";
 
 // Helper de Ícones
 const getAccountIcon = (type: string) => {

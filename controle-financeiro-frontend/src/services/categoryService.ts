@@ -1,5 +1,5 @@
+import { CreateCategoryDTO, TransactionType } from "@/types";
 import { apiRequest } from "./api";
-import { Category, CreateCategoryDTO, TransactionType } from "@/types";
 
 export const categoryService = {
   getAll: async (type?: TransactionType, signal?: AbortSignal) => {

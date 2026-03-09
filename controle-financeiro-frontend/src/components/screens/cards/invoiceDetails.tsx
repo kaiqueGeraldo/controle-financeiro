@@ -1,20 +1,20 @@
-import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { CreditCard } from "@/services/cardService";
+import { formatCurrency } from "@/utils/format";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  X,
-  ChevronLeft,
-  ChevronRight,
-  ShoppingBag,
-  Receipt,
-  Trash2,
-  Pencil,
-  Check,
   Banknote,
   Calendar,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Pencil,
+  Receipt,
+  ShoppingBag,
+  Trash2,
+  X,
 } from "lucide-react";
-import { CreditCard } from "@/services/cardService";
+import { useMemo, useState } from "react";
 import { getCardStyle } from "./creditCardItem";
-import { formatCurrency } from "@/utils/format";
 
 interface InvoiceDetailsProps {
   card: CreditCard | undefined;

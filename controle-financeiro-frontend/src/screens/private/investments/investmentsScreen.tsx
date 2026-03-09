@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Loader2, AlertCircle } from "lucide-react";
-import { useInvestments } from "@/hooks/useInvestments";
-import { InvestmentsSummary } from "@/components/screens/investments/investmentsSummary";
-import { InvestmentItem } from "@/components/screens/investments/investmentItem";
-import { InvestmentDetails } from "@/components/screens/investments/investmentDetails";
-import { useSidebar } from "@/hooks/useSidebar";
 import { ConfirmationModal } from "@/components/modals/confirmModal";
+import { InvestmentDetails } from "@/components/screens/investments/investmentDetails";
+import { InvestmentItem } from "@/components/screens/investments/investmentItem";
+import { InvestmentsSummary } from "@/components/screens/investments/investmentsSummary";
 import { useInvestmentModals } from "@/contexts/modals/investmentModalContext";
+import { useInvestments } from "@/hooks/useInvestments";
+import { useSidebar } from "@/hooks/useSidebar";
+import { AlertCircle, Loader2, Plus } from "lucide-react";
+import { useState } from "react";
 
 export default function InvestimentosScreen() {
   const { scrolled } = useSidebar();

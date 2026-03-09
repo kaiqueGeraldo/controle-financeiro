@@ -1,11 +1,11 @@
 "use client";
 
+import { useAuthModals } from "@/contexts/modals/authModalContext";
+import { useSidebar } from "@/hooks/useSidebar";
+import { SidebarFooter } from "./footer";
+import { SidebarNavLinks } from "./navLinks";
 import { OverlayMobile } from "./overlayMobile";
 import { SidebarUserProfile } from "./userProfile";
-import { SidebarNavLinks } from "./navLinks";
-import { SidebarFooter } from "./footer";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useAuthModals } from "@/contexts/modals/authModalContext";
 export function Sidebar() {
   const { sidebarOpen, setSidebarOpen } = useSidebar();
   const { openLogout } = useAuthModals();

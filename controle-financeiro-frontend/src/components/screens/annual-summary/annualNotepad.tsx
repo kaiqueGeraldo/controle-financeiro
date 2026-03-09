@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { StickyNote, Pencil, Save, Loader2 } from "lucide-react";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { Loader2, Pencil, Save, StickyNote } from "lucide-react";
+import { useState } from "react";
 
 interface AnnualNotepadProps {
   year: number;

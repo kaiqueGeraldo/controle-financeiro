@@ -1,22 +1,22 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
-import { investmentService } from "@/services/investmentService";
-import { useFinanceData } from "@/hooks/useFinanceData";
-import { Investment, InvestTransType } from "@/types";
-import {
-  Loader2,
-  TrendingUp,
-  TrendingDown,
-  DollarSign,
-  RefreshCw,
-  Wallet,
-  Calendar,
-} from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { PrivacyBlur } from "../ui/privacyBlur";
 import { useToast } from "@/contexts/toastContext";
+import { useFinanceData } from "@/hooks/useFinanceData";
+import { investmentService } from "@/services/investmentService";
+import { Investment, InvestTransType } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import {
+  Calendar,
+  DollarSign,
+  Loader2,
+  RefreshCw,
+  TrendingDown,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { PrivacyBlur } from "../ui/privacyBlur";
 
 interface OperationModalProps {
   isOpen: boolean;

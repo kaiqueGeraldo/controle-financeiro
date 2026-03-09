@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/contexts/toastContext";
 import { cardService } from "@/services/cardService";
 import { Loader2 } from "lucide-react";
-import { useToast } from "@/contexts/toastContext";
+import { useEffect, useState } from "react";
 
 interface NewCardModalProps {
   isOpen: boolean;

@@ -1,10 +1,10 @@
 "use client";
 
+import { NewTransactionModal } from "@/components/forms/newTransactionModal";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
 import { useFinanceData } from "@/hooks/useFinanceData";
 import { transactionService } from "@/services/transactionService";
-import { NewTransactionModal } from "@/components/forms/newTransactionModal";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
 
 export function TransactionModalManager() {
   const modals = useTransactionModals();

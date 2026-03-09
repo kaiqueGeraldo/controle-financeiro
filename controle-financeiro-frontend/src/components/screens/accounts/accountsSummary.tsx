@@ -1,6 +1,6 @@
-import { Eye, EyeOff, Wallet, Building2, TrendingUp } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { Building2, TrendingUp, Wallet } from "lucide-react";
 
 interface AccountsSummaryProps {
   total: number;

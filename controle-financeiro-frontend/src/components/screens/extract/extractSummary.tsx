@@ -1,10 +1,10 @@
+import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
 import {
-  ArrowUpCircle,
   ArrowDownCircle,
+  ArrowUpCircle,
   Download,
 } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { PrivacyBlur } from "@/components/ui/privacyBlur";
 
 interface ExtractSummaryProps {
   entries: number;

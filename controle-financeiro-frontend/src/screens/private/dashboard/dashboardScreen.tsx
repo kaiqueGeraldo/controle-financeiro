@@ -1,26 +1,26 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { Plus, Loader2, Landmark, History } from "lucide-react";
-import { useFinanceData } from "@/hooks/useFinanceData";
-import { useCards } from "@/hooks/useCards";
-import { useGoals } from "@/hooks/useGoals";
-import { BalanceCard } from "@/components/screens/dashboard/balanceCard";
-import { MonthlyFlowCard } from "@/components/screens/dashboard/monthlyFlowCard";
-import { InvoicesCard } from "@/components/screens/dashboard/invoicesCard";
-import { WealthChart } from "@/components/screens/dashboard/wealthChart";
-import { GoalsCard } from "@/components/screens/dashboard/goalsCard";
-import { useInvestments } from "@/hooks/useInvestments";
-import { useUser } from "@/hooks/useUser";
 import {
   DashboardCardConfig,
   DEFAULT_CONFIG,
 } from "@/components/forms/configDashboardModal";
-import { formatCurrency } from "@/utils/format";
+import { BalanceCard } from "@/components/screens/dashboard/balanceCard";
+import { GoalsCard } from "@/components/screens/dashboard/goalsCard";
+import { InvoicesCard } from "@/components/screens/dashboard/invoicesCard";
+import { MonthlyFlowCard } from "@/components/screens/dashboard/monthlyFlowCard";
+import { WealthChart } from "@/components/screens/dashboard/wealthChart";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
-import { useDashboard } from "@/hooks/useDashboard";
-import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
 import { useGoalModals } from "@/contexts/modals/goalModalContext";
+import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
+import { useCards } from "@/hooks/useCards";
+import { useDashboard } from "@/hooks/useDashboard";
+import { useFinanceData } from "@/hooks/useFinanceData";
+import { useGoals } from "@/hooks/useGoals";
+import { useInvestments } from "@/hooks/useInvestments";
+import { useUser } from "@/hooks/useUser";
+import { formatCurrency } from "@/utils/format";
+import { History, Landmark, Loader2, Plus } from "lucide-react";
+import { useMemo } from "react";
 
 const getCardColorClass = (name: string) => {
   const n = name.toLowerCase();

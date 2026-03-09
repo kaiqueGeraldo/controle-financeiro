@@ -1,7 +1,7 @@
-import { Settings, LogOut, Eye, EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { userService } from "@/services/userService";
+import { Eye, EyeOff, LogOut, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface SidebarFooterProps {
   onLogout: () => void;

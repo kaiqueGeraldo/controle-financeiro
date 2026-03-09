@@ -1,20 +1,20 @@
-import { motion } from "framer-motion";
-import {
-  Calendar,
-  Target,
-  ShieldAlert,
-  BookOpen,
-  Droplets,
-  Laptop,
-  Car,
-  Home,
-  Plane,
-  Trophy,
-} from "lucide-react";
-import { Goal, GoalType } from "@/types";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
+import { Goal, GoalType } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { motion } from "framer-motion";
+import {
+  BookOpen,
+  Calendar,
+  Car,
+  Droplets,
+  Home,
+  Laptop,
+  Plane,
+  ShieldAlert,
+  Target,
+  Trophy,
+} from "lucide-react";
 
 // --- HELPERS VISUAIS ---
 

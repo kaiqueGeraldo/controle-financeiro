@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
-import { categoryService } from "@/services/categoryService";
 import { Category, TransactionType } from "@/types";
 import { useFinanceData } from "@/hooks/useFinanceData";
 import {
@@ -27,7 +26,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { ConfirmationModal } from "../modals/confirmModal";
-import { useDashboard } from "@/hooks/useDashboard";
 
 const ICONS = [
   { name: "ShoppingCart", icon: <ShoppingCart size={20} /> },

@@ -1,10 +1,10 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { formatCurrency } from "@/utils/format";
-import { Investment, InvestType } from "@/types";
-import { ArrowUpRight, ArrowDownRight, Wallet, Building2, Bitcoin, Landmark, TrendingUp } from "lucide-react";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
+import { Investment, InvestType } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { motion } from "framer-motion";
+import { ArrowDownRight, ArrowUpRight, Bitcoin, Building2, Landmark, Wallet } from "lucide-react";
+import React from "react";
 
 // --- HELPERS ---
 export const getAssetIcon = (type: InvestType) => {

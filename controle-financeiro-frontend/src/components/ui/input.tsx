@@ -1,7 +1,7 @@
 "use client"
 
+import { Eye, EyeOff, X } from "lucide-react";
 import { useState } from "react";
-import { X, Eye, EyeOff } from "lucide-react";
 
 interface InputFieldProps {
   label: string;

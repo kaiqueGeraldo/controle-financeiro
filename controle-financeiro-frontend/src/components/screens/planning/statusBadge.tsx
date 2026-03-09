@@ -1,5 +1,5 @@
-import { CheckCircle2, Wallet, AlertCircle } from "lucide-react";
 import { PlanStatus } from "@/types";
+import { AlertCircle, CheckCircle2, Wallet } from "lucide-react";
 
 interface StatusBadgeProps {
   status: PlanStatus;

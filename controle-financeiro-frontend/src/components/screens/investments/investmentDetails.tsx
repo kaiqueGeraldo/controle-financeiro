@@ -1,9 +1,9 @@
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, History, Plus, RefreshCw, Loader2, Trash2 } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { Investment, InvestTransaction } from "@/types";
-import { getAssetColor, getAssetIcon, BadgeTipo } from "./investmentItem";
+import { formatCurrency } from "@/utils/format";
+import { AnimatePresence, motion } from "framer-motion";
+import { History, Loader2, Plus, RefreshCw, Trash2, X } from "lucide-react";
+import React from "react";
+import { BadgeTipo, getAssetColor, getAssetIcon } from "./investmentItem";
 
 interface InvestmentDetailsProps {
   isOpen: boolean;

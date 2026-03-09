@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Save, Trash2, Flame, Check, Minus, Loader2 } from "lucide-react";
 import { Habit } from "@/types";
-import { getGoalIcon, getGoalColorClass } from "../goals/goalItem";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, Flame, Loader2, Minus, Save, Trash2, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { getGoalColorClass, getGoalIcon } from "../goals/goalItem";
 
 interface HabitDetailsProps {
   isOpen: boolean;

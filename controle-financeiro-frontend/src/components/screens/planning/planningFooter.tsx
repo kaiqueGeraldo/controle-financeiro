@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Pencil, Check, X } from "lucide-react";
 import { formatCurrency } from "@/utils/format";
+import { Check, Pencil, X } from "lucide-react";
+import { useState } from "react";
 
 interface PlanningFooterProps {
   income: number;

@@ -1,8 +1,8 @@
-import { CreditCard } from "@/services/cardService";
-import { Wifi } from "lucide-react";
-import { motion } from "framer-motion";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
+import { CreditCard } from "@/services/cardService";
+import { motion } from "framer-motion";
+import { Wifi } from "lucide-react";
 import Image from "next/image";
 
 export const getCardStyle = (name: string, defaultColor: string) => {

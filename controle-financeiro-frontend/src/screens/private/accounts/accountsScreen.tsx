@@ -1,30 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Plus,
-  Loader2,
-  ArrowUpDown,
-  Wallet,
-  Banknote,
-  Building2,
-  PiggyBank,
-} from "lucide-react";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useFinanceData } from "@/hooks/useFinanceData";
-import { useRouter } from "next/navigation";
-import { AccountCard } from "@/components/screens/accounts/accountCard";
-import { AccountsSummary } from "@/components/screens/accounts/accountsSummary";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
-import { accountService } from "@/services/accountService";
-import { useUser } from "@/hooks/useUser";
-import { useInvestments } from "@/hooks/useInvestments";
-import { Account } from "@/types";
 import { EditAccountModal } from "@/components/forms/editAccountModal";
 import { ReorderModal } from "@/components/forms/reorderModal";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
+import { AccountCard } from "@/components/screens/accounts/accountCard";
+import { AccountsSummary } from "@/components/screens/accounts/accountsSummary";
+import { useAccountModals } from "@/contexts/modals/accountModalContext";
 import { useToast } from "@/contexts/toastContext";
 import { useDashboard } from "@/hooks/useDashboard";
-import { useAccountModals } from "@/contexts/modals/accountModalContext";
+import { useFinanceData } from "@/hooks/useFinanceData";
+import { useInvestments } from "@/hooks/useInvestments";
+import { useSidebar } from "@/hooks/useSidebar";
+import { useUser } from "@/hooks/useUser";
+import { accountService } from "@/services/accountService";
+import { Account } from "@/types";
+import {
+  ArrowUpDown,
+  Banknote,
+  Building2,
+  Loader2,
+  PiggyBank,
+  Plus,
+  Wallet,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function AccountsScreen() {
   const router = useRouter();

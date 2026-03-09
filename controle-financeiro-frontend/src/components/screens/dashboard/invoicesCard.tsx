@@ -1,6 +1,6 @@
-import { Receipt, CreditCard } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { CreditCard, Receipt } from "lucide-react";
 
 interface InvoiceItem {
   id: string;

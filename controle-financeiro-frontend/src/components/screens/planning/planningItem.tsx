@@ -1,15 +1,15 @@
-import { motion } from "framer-motion";
-import { formatCurrency } from "@/utils/format";
-import {
-  Calendar,
-  Trash2,
-  AlertCircle,
-  CheckCircle2,
-  GripVertical,
-} from "lucide-react";
-import { PlanItem, PlanStatus } from "@/types";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
+import { PlanItem, PlanStatus } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { motion } from "framer-motion";
+import {
+  AlertCircle,
+  Calendar,
+  CheckCircle2,
+  GripVertical,
+  Trash2,
+} from "lucide-react";
 
 interface PlanningItemProps {
   item: PlanItem;

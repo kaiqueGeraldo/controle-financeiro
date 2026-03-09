@@ -1,24 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
-import { ArrowLeft, AlertCircle, CheckCircle2, Info } from "lucide-react";
-import { useUser } from "@/hooks/useUser";
-import { useAuth } from "@/hooks/useAuth";
-import { userService } from "@/services/userService";
-import { transactionService } from "@/services/transactionService";
+import { ChangePasswordModal } from "@/components/forms/changePasswordModal";
+import { ConfigDashboardModal } from "@/components/forms/configDashboardModal";
+import { EditProfileModal } from "@/components/forms/editProfileModal";
+import { ManageCategoriesModal } from "@/components/forms/manageCategoriesModal";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { ProfileSection } from "@/components/screens/configuracoes/profileSection";
 import {
-  PreferencesSection,
   NotificationsSection,
+  PreferencesSection,
   SecuritySection,
 } from "@/components/screens/configuracoes/settingsSections";
-import { EditProfileModal } from "@/components/forms/editProfileModal";
-import { ChangePasswordModal } from "@/components/forms/changePasswordModal";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
-import { ManageCategoriesModal } from "@/components/forms/manageCategoriesModal";
-import { ConfigDashboardModal } from "@/components/forms/configDashboardModal";
-import { useSidebar } from "@/hooks/useSidebar";
 import { useAuthModals } from "@/contexts/modals/authModalContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useSidebar } from "@/hooks/useSidebar";
+import { useUser } from "@/hooks/useUser";
+import { transactionService } from "@/services/transactionService";
+import { userService } from "@/services/userService";
+import { AlertCircle, ArrowLeft, CheckCircle2, Info } from "lucide-react";
+import { useState } from "react";
 
 export default function ConfiguracoesScreen() {
   const { user, refetchUser } = useUser();

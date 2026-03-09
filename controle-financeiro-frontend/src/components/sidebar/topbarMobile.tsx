@@ -1,5 +1,5 @@
-import { Menu } from "lucide-react";
 import { useSidebar } from "@/hooks/useSidebar";
+import { Menu } from "lucide-react";
 
 export function SidebarTopbarMobile() {
   const { setSidebarOpen, scrolled } = useSidebar();

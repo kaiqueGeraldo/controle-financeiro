@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useMemo } from "react";
 import { Investment } from "@/types";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 interface InvestmentModalContextType {
   isNewAssetOpen: boolean;

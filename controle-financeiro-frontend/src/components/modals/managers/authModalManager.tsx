@@ -1,8 +1,8 @@
 "use client";
 
+import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { useAuthModals } from "@/contexts/modals/authModalContext";
 import { useAuth } from "@/hooks/useAuth";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
 
 export function AuthModalManager() {
   const { isLogoutOpen, isSessionExpired, closeLogout, closeSessionExpired } = useAuthModals();

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { formatCurrency } from "@/utils/format";
-import { useUser } from "@/hooks/useUser";
 import { useDashboard } from "@/hooks/useDashboard";
+import { useUser } from "@/hooks/useUser";
+import { formatCurrency } from "@/utils/format";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export function WealthChart() {
   const { user } = useUser();

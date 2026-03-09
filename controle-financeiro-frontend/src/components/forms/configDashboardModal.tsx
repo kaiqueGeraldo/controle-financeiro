@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/contexts/toastContext";
 import { useUser } from "@/hooks/useUser";
 import { userService } from "@/services/userService";
-import { Loader2, GripVertical, Eye, EyeOff, Wallet, TrendingUp, Receipt, LineChart, Target, History, Landmark, Columns } from "lucide-react";
 import { Reorder } from "framer-motion";
-import { useToast } from "@/contexts/toastContext";
+import { Columns, Eye, EyeOff, GripVertical, History, Landmark, LineChart, Loader2, Receipt, Target, TrendingUp, Wallet } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface ConfigDashboardModalProps {
   isOpen: boolean;

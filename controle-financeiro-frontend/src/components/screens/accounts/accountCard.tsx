@@ -1,16 +1,3 @@
-import { Account, AccountType } from "@/types";
-import {
-  Banknote,
-  Building2,
-  PiggyBank,
-  TrendingUp,
-  MoreHorizontal,
-  Wallet,
-  Trash2,
-  Pencil,
-} from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { motion } from "framer-motion";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +5,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { Account, AccountType } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { motion } from "framer-motion";
+import {
+  Banknote,
+  Building2,
+  MoreHorizontal,
+  Pencil,
+  PiggyBank,
+  Trash2,
+  TrendingUp
+} from "lucide-react";
 
 interface AccountCardProps {
   account: Account;

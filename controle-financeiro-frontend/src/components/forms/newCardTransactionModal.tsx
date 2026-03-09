@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/contexts/toastContext";
 import { cardService, CreditCard } from "@/services/cardService";
 import { Category } from "@/types";
-import { ChevronDown, Loader2, CreditCard as CardIcon } from "lucide-react";
-import { useToast } from "@/contexts/toastContext";
+import { CreditCard as CardIcon, ChevronDown, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface NewCardTransactionModalProps {
   isOpen: boolean;

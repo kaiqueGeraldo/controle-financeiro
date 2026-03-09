@@ -1,21 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Modal } from "@/components/ui/modal";
-import { investmentService } from "@/services/investmentService";
 import { useGoalsContext } from "@/contexts/goalsContext";
 import { useInvestmentsContext } from "@/contexts/investmentsContext";
+import { useToast } from "@/contexts/toastContext";
+import { investmentService } from "@/services/investmentService";
 import { InvestType } from "@/types";
 import {
-  Loader2,
-  TrendingUp,
-  Building2,
-  Wallet,
   Bitcoin,
+  Building2,
   Landmark,
+  Loader2,
   Target,
+  TrendingUp,
+  Wallet,
 } from "lucide-react";
-import { useToast } from "@/contexts/toastContext";
+import { useEffect, useState } from "react";
 
 interface NewAssetModalProps {
   isOpen: boolean;

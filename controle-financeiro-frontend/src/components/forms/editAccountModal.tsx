@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
-import { accountService } from "@/services/accountService";
-import { Account, AccountType } from "@/types";
-import { Loader2, Save } from "lucide-react";
 import { useToast } from "@/contexts/toastContext";
+import { accountService } from "@/services/accountService";
+import { Account } from "@/types";
+import { Loader2, Save } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface EditAccountModalProps {
   isOpen: boolean;

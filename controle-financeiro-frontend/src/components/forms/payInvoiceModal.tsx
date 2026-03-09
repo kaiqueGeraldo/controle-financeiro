@@ -1,18 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 import { cardService } from "@/services/cardService";
 import { Account } from "@/types";
 import {
-  Loader2,
-  Wallet,
-  Calendar,
-  DollarSign,
-  CheckCircle2,
-  Clock,
   AlertCircle,
+  CheckCircle2,
+  DollarSign,
+  Loader2,
+  Wallet
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface PayInvoiceModalProps {
   isOpen: boolean;

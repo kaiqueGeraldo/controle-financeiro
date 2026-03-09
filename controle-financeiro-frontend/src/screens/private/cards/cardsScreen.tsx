@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Receipt, Loader2, CreditCard, ArrowUpDown } from "lucide-react";
-import { useCards } from "@/hooks/useCards";
 import { NewCardTransactionModal } from "@/components/forms/newCardTransactionModal";
 import { PayInvoiceModal } from "@/components/forms/payInvoiceModal";
+import { ReorderModal } from "@/components/forms/reorderModal";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
+import { CardsSummary } from "@/components/screens/cards/cardsSummary";
 import { CreditCardItem } from "@/components/screens/cards/creditCardItem";
 import { InvoiceDetails } from "@/components/screens/cards/invoiceDetails";
-import { CardsSummary } from "@/components/screens/cards/cardsSummary";
-import { cardService } from "@/services/cardService";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
-import { ReorderModal } from "@/components/forms/reorderModal";
 import { useCardModals } from "@/contexts/modals/cardModalContext";
+import { useCards } from "@/hooks/useCards";
+import { cardService } from "@/services/cardService";
+import { ArrowUpDown, CreditCard, Loader2, Plus, Receipt } from "lucide-react";
+import { useState } from "react";
 
 export default function CartoesScreen() {
   const { openNewCard } = useCardModals();

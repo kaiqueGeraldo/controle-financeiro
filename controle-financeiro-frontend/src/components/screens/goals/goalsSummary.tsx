@@ -1,6 +1,6 @@
-import { Trophy } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { Trophy } from "lucide-react";
 
 interface GoalsSummaryProps {
   totalCurrent: number;

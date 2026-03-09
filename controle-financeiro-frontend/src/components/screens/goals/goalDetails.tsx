@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, Reorder } from "framer-motion";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
+import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { useGoalsContext } from "@/contexts/goalsContext";
+import { useHabitsContext } from "@/contexts/habitsContext";
+import { useInvestmentsContext } from "@/contexts/investmentsContext";
+import { useGoalModals } from "@/contexts/modals/goalModalContext";
+import { useToast } from "@/contexts/toastContext";
+import { CreditCard } from "@/services/cardService";
+import { goalService } from "@/services/goalService";
+import { Account, Goal, GoalHistory, GoalItem } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { AnimatePresence, motion, Reorder } from "framer-motion";
 import {
-  X,
-  History,
   ArrowUpCircle,
-  Plus,
-  Loader2,
-  Trash2,
-  Pencil,
   Check,
-  ListTodo,
   CheckCircle2,
   Circle,
-  ShoppingCart,
   GripVertical,
-  Wallet,
+  History,
   Landmark,
+  ListTodo,
+  Loader2,
+  Pencil,
+  Plus,
+  ShoppingCart,
   Sparkles,
+  Trash2,
+  Wallet,
+  X,
 } from "lucide-react";
-import { Goal, GoalHistory, Account, GoalItem } from "@/types";
-import { CreditCard } from "@/services/cardService";
+import React, { useEffect, useState } from "react";
 import {
+  formatarValorMeta,
   getGoalColorClass,
   getGoalIcon,
-  formatarValorMeta,
   ProgressBar,
   StatusBadge,
 } from "./goalItem";
-import { useInvestmentsContext } from "@/contexts/investmentsContext";
-import { goalService } from "@/services/goalService";
-import { useGoalsContext } from "@/contexts/goalsContext";
-import { PrivacyBlur } from "@/components/ui/privacyBlur";
-import { formatCurrency } from "@/utils/format";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
-import { useHabitsContext } from "@/contexts/habitsContext";
-import { useToast } from "@/contexts/toastContext";
-import { useGoalModals } from "@/contexts/modals/goalModalContext";
 
 interface GoalDetailsProps {
   isOpen: boolean;

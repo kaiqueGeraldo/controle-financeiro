@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/components/ui/modal";
-import { goalService } from "@/services/goalService";
 import { Account, Goal } from "@/types";
 import {
   Loader2,

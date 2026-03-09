@@ -1,6 +1,6 @@
-import { Wallet, ArrowUpRight } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { ArrowUpRight, Wallet } from "lucide-react";
 
 interface BalanceCardProps {
   saldoTotal: number;

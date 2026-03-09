@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Modal } from "@/components/ui/modal";
-import { habitService } from "@/services/habitService";
 import { useGoalsContext } from "@/contexts/goalsContext";
 import { useHabitsContext } from "@/contexts/habitsContext";
-import {
-  Loader2,
-  Target,
-  Flame,
-  Droplets,
-  BookOpen,
-  Dumbbell,
-  Zap,
-  Sunrise,
-  Moon,
-} from "lucide-react";
 import { useToast } from "@/contexts/toastContext";
+import { habitService } from "@/services/habitService";
 import { HabitFrequency } from "@/types";
+import {
+  BookOpen,
+  Droplets,
+  Dumbbell,
+  Flame,
+  Loader2,
+  Moon,
+  Sunrise,
+  Target,
+  Zap,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface NewHabitModalProps {
   isOpen: boolean;

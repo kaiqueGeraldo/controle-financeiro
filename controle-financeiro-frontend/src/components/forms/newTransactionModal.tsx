@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
+import { useToast } from "@/contexts/toastContext";
 import { transactionService } from "@/services/transactionService";
 import { Account, Category, TransactionType } from "@/types";
-import { ChevronDown, Loader2 } from "lucide-react";
-import { useToast } from "@/contexts/toastContext";
 import { formatCurrency } from "@/utils/format";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface NewTransactionModalProps {
   isOpen: boolean;

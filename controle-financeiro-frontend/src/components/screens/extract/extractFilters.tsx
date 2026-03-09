@@ -1,11 +1,11 @@
-import { Filter, ChevronDown } from "lucide-react";
-import { Account } from "@/types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Account } from "@/types";
+import { ChevronDown, Filter } from "lucide-react";
 
 interface ExtractFiltersProps {
   accounts: Account[];

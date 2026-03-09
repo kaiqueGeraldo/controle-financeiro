@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Loader2, Sparkles, ArrowUpDown } from "lucide-react";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useHabits } from "@/hooks/useHabits";
-import { HabitItem } from "@/components/screens/habits/habitItem";
-import { habitService } from "@/services/habitService";
-import { HabitDetails } from "@/components/screens/habits/habitDetails";
-import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { ReorderModal } from "@/components/forms/reorderModal";
+import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { getGoalColorClass, getGoalIcon } from "@/components/screens/goals/goalItem";
-import { useGoals } from "@/hooks/useGoals";
+import { HabitDetails } from "@/components/screens/habits/habitDetails";
+import { HabitItem } from "@/components/screens/habits/habitItem";
 import { useHabitModals } from "@/contexts/modals/habitModalContext";
+import { useGoals } from "@/hooks/useGoals";
+import { useHabits } from "@/hooks/useHabits";
+import { useSidebar } from "@/hooks/useSidebar";
+import { habitService } from "@/services/habitService";
+import { ArrowUpDown, Loader2, Plus, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 export default function HabitsScreen() {
   const { scrolled } = useSidebar();

@@ -1,9 +1,9 @@
+import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { useUser } from "@/hooks/useUser";
+import { Habit } from "@/types";
 import { motion } from "framer-motion";
 import { Check, Flame, Zap } from "lucide-react";
-import { Habit } from "@/types";
-import { getGoalIcon, getGoalColorClass } from "../goals/goalItem";
-import { useUser } from "@/hooks/useUser";
-import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { getGoalColorClass, getGoalIcon } from "../goals/goalItem";
 
 interface HabitItemProps {
   habit: Habit;

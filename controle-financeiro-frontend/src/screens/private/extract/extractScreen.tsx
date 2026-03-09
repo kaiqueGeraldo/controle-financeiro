@@ -1,19 +1,19 @@
 "use client";
 
+import { ExtractFilters } from "@/components/screens/extract/extractFilters";
+import { ExtractSummary } from "@/components/screens/extract/extractSummary";
+import { TransactionDetails } from "@/components/screens/extract/transactionDetails";
+import { TransactionItem } from "@/components/screens/extract/transactionItem";
+import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
+import { useExtract } from "@/hooks/useExtract";
+import { useSidebar } from "@/hooks/useSidebar";
 import {
+  AlertCircle,
   ChevronLeft,
   ChevronRight,
   Loader2,
-  AlertCircle,
   Plus,
 } from "lucide-react";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useExtract } from "@/hooks/useExtract";
-import { ExtractFilters } from "@/components/screens/extract/extractFilters";
-import { TransactionItem } from "@/components/screens/extract/transactionItem";
-import { TransactionDetails } from "@/components/screens/extract/transactionDetails";
-import { ExtractSummary } from "@/components/screens/extract/extractSummary";
-import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
 
 export default function ExtractScreen() {
   const { scrolled } = useSidebar();

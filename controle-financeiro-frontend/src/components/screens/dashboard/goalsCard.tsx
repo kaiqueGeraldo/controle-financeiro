@@ -1,7 +1,7 @@
-import { Target, Plus } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { Goal } from "@/types";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { Goal } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { Plus, Target } from "lucide-react";
 
 interface GoalsCardProps {
   goals: Goal[];

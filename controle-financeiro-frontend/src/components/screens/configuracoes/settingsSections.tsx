@@ -1,7 +1,15 @@
-import { 
-    Eye, EyeOff, Moon, Sun, Smartphone, Bell, Mail, 
-    Lock, Download, Shield, LogOut, Trash2, 
-    Tag
+import {
+  Bell,
+  Download,
+  Eye, EyeOff,
+  Lock,
+  LogOut,
+  Mail,
+  Moon,
+  Smartphone,
+  Sun,
+  Tag,
+  Trash2
 } from "lucide-react";
 import { ConfigItem, Toggle } from "./configItem";
 

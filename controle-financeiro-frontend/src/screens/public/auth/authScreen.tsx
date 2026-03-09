@@ -1,13 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import { 
-  Mail, Lock, User, ArrowRight, Loader2, 
-  CheckCircle2, AlertCircle, ArrowLeft, Eye, EyeOff, KeyRound
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
-import { solicitarToken, redefinirSenha } from "@/services/authService";
+import { redefinirSenha, solicitarToken } from "@/services/authService";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertCircle, ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Eye, EyeOff, KeyRound,
+  Loader2,
+  Lock,
+  Mail,
+  User
+} from "lucide-react";
+import React, { useState } from "react";
 
 export default function AuthScreen() {
   const { 

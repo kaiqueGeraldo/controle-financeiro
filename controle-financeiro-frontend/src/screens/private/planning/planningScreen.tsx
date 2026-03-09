@@ -1,13 +1,13 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Plus, Loader2, Copy } from "lucide-react";
-import { useSidebar } from "@/hooks/useSidebar";
-import { usePlanning } from "@/hooks/usePlanning";
-import { PlanningItem } from "@/components/screens/planning/planningItem";
-import { PlanningFooter } from "@/components/screens/planning/planningFooter";
 import { PlanningDetails } from "@/components/screens/planning/planningDetails";
-import { Reorder } from "framer-motion";
+import { PlanningFooter } from "@/components/screens/planning/planningFooter";
+import { PlanningItem } from "@/components/screens/planning/planningItem";
 import { usePlanningModals } from "@/contexts/modals/planningModalContext";
+import { usePlanning } from "@/hooks/usePlanning";
+import { useSidebar } from "@/hooks/useSidebar";
+import { Reorder } from "framer-motion";
+import { ChevronLeft, ChevronRight, Copy, Loader2, Plus } from "lucide-react";
 
 export default function PlanningScreen() {
   const { scrolled } = useSidebar();

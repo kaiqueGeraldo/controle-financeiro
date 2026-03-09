@@ -1,6 +1,6 @@
+import clsx from "clsx";
 import { Loader2 } from "lucide-react";
 import React from "react";
-import clsx from "clsx";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;

@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useMemo } from "react";
 import { Goal, GoalHistory } from "@/types";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 interface GoalModalContextType {
   isNewGoalOpen: boolean;

@@ -1,6 +1,6 @@
-import { PieChart, TrendingUp, TrendingDown } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { PieChart, TrendingDown, TrendingUp } from "lucide-react";
 
 interface InvestmentsSummaryProps {
   totalInvestido: number;

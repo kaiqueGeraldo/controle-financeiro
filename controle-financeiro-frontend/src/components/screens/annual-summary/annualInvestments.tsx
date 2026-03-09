@@ -1,7 +1,7 @@
-import { TrendingUp } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
-import { InvestmentBreakdown } from "@/types";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { InvestmentBreakdown } from "@/types";
+import { formatCurrency } from "@/utils/format";
+import { TrendingUp } from "lucide-react";
 
 interface AnnualInvestmentsProps {
   totalValue: number;

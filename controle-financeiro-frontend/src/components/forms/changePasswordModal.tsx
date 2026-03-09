@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { userService } from "@/services/userService";
-import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle } from "lucide-react";
 import { validarSenha } from "@/validators/inputValidator";
+import { AlertCircle, CheckCircle2, Eye, EyeOff, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 export function ChangePasswordModal({
   isOpen,

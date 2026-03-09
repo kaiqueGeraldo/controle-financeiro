@@ -1,15 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
-import { Plus, Loader2 } from "lucide-react";
-import { useGoals } from "@/hooks/useGoals";
-import { useFinanceData } from "@/hooks/useFinanceData";
-import { useCards } from "@/hooks/useCards";
-import { useSidebar } from "@/hooks/useSidebar";
-import { GoalsSummary } from "@/components/screens/goals/goalsSummary";
-import { GoalItem } from "@/components/screens/goals/goalItem";
 import { GoalDetails } from "@/components/screens/goals/goalDetails";
+import { GoalItem } from "@/components/screens/goals/goalItem";
+import { GoalsSummary } from "@/components/screens/goals/goalsSummary";
 import { useGoalModals } from "@/contexts/modals/goalModalContext";
+import { useCards } from "@/hooks/useCards";
+import { useFinanceData } from "@/hooks/useFinanceData";
+import { useGoals } from "@/hooks/useGoals";
+import { useSidebar } from "@/hooks/useSidebar";
+import { Loader2, Plus } from "lucide-react";
+import { useMemo } from "react";
 
 export default function GoalsScreen() {
   const { scrolled } = useSidebar();

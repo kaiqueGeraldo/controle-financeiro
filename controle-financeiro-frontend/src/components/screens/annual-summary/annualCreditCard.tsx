@@ -1,6 +1,6 @@
-import { CreditCard } from "lucide-react";
-import { formatCurrency } from "@/utils/format";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { formatCurrency } from "@/utils/format";
+import { CreditCard } from "lucide-react";
 
 interface AnnualCreditCardProps {
   totalSpent: number;

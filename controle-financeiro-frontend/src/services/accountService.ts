@@ -1,5 +1,5 @@
+import { CreateAccountDTO } from "@/types";
 import { apiRequest } from "./api";
-import { Account, CreateAccountDTO } from "@/types";
 
 export const accountService = {
   getAll: async () => {

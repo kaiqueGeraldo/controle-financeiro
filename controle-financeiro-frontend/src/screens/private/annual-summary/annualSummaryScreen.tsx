@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-import { ChevronLeft, ChevronRight, Loader2, Info } from "lucide-react";
-import { motion } from "framer-motion";
-import { useAnnualSummary } from "@/hooks/useAnnualSummary";
-import { useSidebar } from "@/hooks/useSidebar";
 import { AnnualBalance } from "@/components/screens/annual-summary/annualBalance";
 import { AnnualCreditCard } from "@/components/screens/annual-summary/annualCreditCard";
 import { AnnualInvestments } from "@/components/screens/annual-summary/annualInvestments";
 import { AnnualNotepad } from "@/components/screens/annual-summary/annualNotepad";
+import { useAnnualSummary } from "@/hooks/useAnnualSummary";
+import { useSidebar } from "@/hooks/useSidebar";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, Info, Loader2 } from "lucide-react";
 
 export default function AnnualSummaryScreen() {
   const { scrolled } = useSidebar();
