@@ -1,0 +1,38 @@
+name: CI Frontend (Next.js)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'controle-financeiro-frontend/**'
+      - '.github/workflows/ci-frontend.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'controle-financeiro-frontend/**'
+
+jobs:
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./controle-financeiro-frontend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+        cache: 'npm'
+        cache-dependency-path: './controle-financeiro-frontend/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Next.js
+      run: npm run build
+      env:
+        BACKEND_API_UR: http://localhost:8080
