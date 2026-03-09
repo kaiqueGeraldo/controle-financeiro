@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  /* LIGHT MODE */
+  color-scheme: light;
+  --bg-base: #e4e4e7; /* zinc-200 */
+  --bg-surface: #f4f4f5; /* zinc-100 */
+  --bg-surface-hover: #fafafa; /* zinc-50 */
+  --bg-blur-hover: #d4d4d8; /* zinc-300 */
+  --bg-button-hover: #d4d4d8; /* zinc-300 */
+  --border-divider: #d4d4d8; /* zinc-300 */
+  --text-main: #18181b; /* zinc-900 */
+  --text-muted: #52525b; /* zinc-600 */
+  --text-modal: #18181b; /* zinc-900 */
+  --text-notepad: #713f12; /* yellow-900 */
+  --text-notepad-two: #a16207; /* yellow-700 */
+}
+
+.dark {
+  /* DARK MODE */
+  color-scheme: dark;
+  --bg-base: #09090b; /* zinc-950 */
+  --bg-surface: #18181b; /* zinc-900 */
+  --bg-surface-hover: #27272a; /* zinc-800 */
+  --bg-blur-hover: #27272a; /* zinc-800 */
+  --bg-button-hover: #3f3f46; /* zinc-700 */
+  --border-divider: #27272a; /* zinc-800 */
+  --text-main: #ffffff; /* white */
+  --text-muted: #a1a1aa; /* zinc-400 */
+  --text-modal: #e4e4e7; /* zinc-200 */
+  --text-notepad: #eab308; /* yellow-500 */
+  --text-notepad-two: #fef9c2; /* yellow-100 */
+}
+
+@theme inline {
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-hover: var(--bg-surface-hover);
+  --color-bg-blur-hover: var(--bg-blur-hover);
+  --color-bg-button-hover: var(--bg-button-hover);
+  --color-border-divider: var(--border-divider);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-modal: var(--text-modal);
+  --color-text-notepad: var(--text-notepad);
+  --color-text-notepad-two: var(--text-notepad-two);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Customização de Scrollbar */
+.custom-scroll {
+  scrollbar-width: 6px;
+  -ms-overflow-style: none;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  position: absolute;
+  z-index: 10;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--text-muted);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.custom-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Estilização dos inputs de data e hora para ter um visual mais consistente */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
