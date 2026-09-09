@@ -1,0 +1,424 @@
+{
+  "seed": "cf004-v1",
+  "contract": "SPEC-002",
+  "productZone": "America/Sao_Paulo",
+  "timezones": [
+    "America/Sao_Paulo",
+    "UTC",
+    "Pacific/Kiritimati"
+  ],
+  "civil": [
+    {
+      "value": "2026-09-07",
+      "label": "07/09/2026"
+    },
+    {
+      "value": "2024-02-29",
+      "label": "29/02/2024"
+    },
+    {
+      "value": "2000-02-29",
+      "label": "29/02/2000"
+    },
+    {
+      "value": "2026-01-31",
+      "label": "31/01/2026"
+    },
+    {
+      "value": "2026-04-30",
+      "label": "30/04/2026"
+    },
+    {
+      "value": "0001-01-01",
+      "label": "01/01/0001"
+    },
+    {
+      "value": "9999-12-31",
+      "label": "31/12/9999"
+    }
+  ],
+  "invalidCivil": [
+    "2026-02-29",
+    "2026-02-31",
+    "1900-02-29",
+    "2026-04-31",
+    "2026-00-07",
+    "2026-13-07",
+    "2026-09-00",
+    "2026-9-7",
+    "07/09/2026",
+    "0000-01-01",
+    "10000-01-01",
+    "",
+    " ",
+    "2026-09-07T00:00:00",
+    "2026-09-07T00:00:00Z",
+    "2026-09-07T23:30:00-03:00"
+  ],
+  "clock": [
+    {
+      "instant": "2026-09-08T02:59:59Z",
+      "browser": [
+        "2026-09-07",
+        "2026-09-08",
+        "2026-09-08"
+      ],
+      "product": "2026-09-07"
+    },
+    {
+      "instant": "2026-09-08T03:00:00Z",
+      "browser": [
+        "2026-09-08",
+        "2026-09-08",
+        "2026-09-08"
+      ],
+      "product": "2026-09-08"
+    },
+    {
+      "instant": "2026-09-07T09:59:59Z",
+      "browser": [
+        "2026-09-07",
+        "2026-09-07",
+        "2026-09-07"
+      ],
+      "product": "2026-09-07"
+    },
+    {
+      "instant": "2026-09-07T10:00:00Z",
+      "browser": [
+        "2026-09-07",
+        "2026-09-07",
+        "2026-09-08"
+      ],
+      "product": "2026-09-07"
+    }
+  ],
+  "instant": {
+    "equivalent": [
+      "2026-09-07T23:30:00-03:00",
+      "2026-09-08T02:30:00Z",
+      "2026-09-08T16:30:00+14:00"
+    ],
+    "expectedUtc": "2026-09-08T02:30:00.000Z",
+    "productLabel": "07/09/2026 23:30"
+  },
+  "legacy": [
+    {
+      "value": "2026-09-07T23:30:00",
+      "provenance": "unknown",
+      "expectedUtc": null,
+      "expectedCivil": null
+    },
+    {
+      "value": "2026-09-07T00:00:00",
+      "provenance": "unknown",
+      "expectedUtc": null,
+      "expectedCivil": null
+    },
+    {
+      "value": "2026-09-07T00:00:00",
+      "provenance": "civil-atStartOfDay-proven",
+      "expectedUtc": null,
+      "expectedCivil": "2026-09-07"
+    },
+    {
+      "value": "2026-09-07T23:30:00",
+      "provenance": "audit-offset-proven",
+      "knownOffset": "-03:00",
+      "expectedUtc": "2026-09-08T02:30:00.000Z",
+      "expectedCivil": null
+    }
+  ],
+  "months": [
+    {
+      "input": "2026-01-29",
+      "delta": 1,
+      "expected": "2026-02-01"
+    },
+    {
+      "input": "2026-01-30",
+      "delta": 1,
+      "expected": "2026-02-01"
+    },
+    {
+      "input": "2026-01-31",
+      "delta": 1,
+      "expected": "2026-02-01"
+    },
+    {
+      "input": "2026-03-31",
+      "delta": -1,
+      "expected": "2026-02-01"
+    },
+    {
+      "input": "2026-12-31",
+      "delta": 1,
+      "expected": "2027-01-01"
+    },
+    {
+      "input": "2026-01-31",
+      "delta": -1,
+      "expected": "2025-12-01"
+    }
+  ],
+  "time": [
+    {
+      "input": "23:30",
+      "canonical": "23:30:00"
+    },
+    {
+      "input": "00:00",
+      "canonical": "00:00:00"
+    },
+    {
+      "input": "23:59:59",
+      "canonical": "23:59:59"
+    },
+    {
+      "input": null,
+      "canonical": null
+    }
+  ],
+  "invalidTime": [
+    "",
+    " ",
+    "24:00",
+    "12:60",
+    "25:00",
+    "23:59:60",
+    "08:15:00Z",
+    "08:15-03:00",
+    "2026-09-07T08:15:00"
+  ],
+  "requiredCivilWrites": [
+    {
+      "request": {},
+      "status": 400,
+      "field": "date"
+    },
+    {
+      "request": {
+        "date": null
+      },
+      "status": 400,
+      "field": "date"
+    },
+    {
+      "request": {
+        "date": ""
+      },
+      "status": 400,
+      "field": "date"
+    },
+    {
+      "request": {
+        "date": "2026-02-31"
+      },
+      "status": 400,
+      "field": "date"
+    }
+  ],
+  "writes": [
+    {
+      "id": "E01",
+      "request": {
+        "date": "2026-09-07",
+        "time": "23:30"
+      },
+      "recordingInstant": "2026-09-08T03:10:00Z",
+      "response": {
+        "date": "2026-09-07",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    },
+    {
+      "id": "E03",
+      "request": {
+        "date": "2026-09-07",
+        "time": null
+      },
+      "recordingInstant": "2026-09-08T03:10:00Z",
+      "response": {
+        "date": "2026-09-07",
+        "time": null,
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    },
+    {
+      "id": "E12",
+      "request": {
+        "date": "2026-09-07"
+      },
+      "response": {
+        "date": "2026-09-07"
+      },
+      "bankResponse": {
+        "date": "2026-09-07"
+      }
+    },
+    {
+      "id": "E14",
+      "request": {
+        "date": "2026-09-07"
+      },
+      "response": {
+        "date": "2026-09-07"
+      }
+    }
+  ],
+  "edits": [
+    {
+      "request": {
+        "date": "2026-09-06"
+      },
+      "before": {
+        "date": "2026-09-07",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      },
+      "after": {
+        "date": "2026-09-06",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    },
+    {
+      "request": {
+        "time": "08:15"
+      },
+      "before": {
+        "date": "2026-09-06",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      },
+      "after": {
+        "date": "2026-09-06",
+        "time": "08:15:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    },
+    {
+      "request": {},
+      "before": {
+        "date": "2026-09-07",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      },
+      "after": {
+        "date": "2026-09-07",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    },
+    {
+      "request": {
+        "time": null
+      },
+      "before": {
+        "date": "2026-09-07",
+        "time": "23:30:00",
+        "recordedAt": "2026-09-08T03:10:00Z"
+      },
+      "after": {
+        "date": "2026-09-07",
+        "time": null,
+        "recordedAt": "2026-09-08T03:10:00Z"
+      }
+    }
+  ],
+  "midnight": [
+    {
+      "state": "default",
+      "opened": "2026-09-08T02:59:59Z",
+      "after": "2026-09-08T03:00:00Z",
+      "browserZone": "America/Sao_Paulo",
+      "beforeFields": {
+        "date": "2026-09-07",
+        "time": "23:59"
+      },
+      "afterFields": {
+        "date": "2026-09-07",
+        "time": "23:59"
+      },
+      "reopenedDate": "2026-09-08"
+    },
+    {
+      "state": "edited",
+      "opened": "2026-09-08T02:59:59Z",
+      "after": "2026-09-08T03:00:00Z",
+      "browserZone": "America/Sao_Paulo",
+      "beforeFields": {
+        "date": "2026-09-01",
+        "time": "10:15"
+      },
+      "afterFields": {
+        "date": "2026-09-01",
+        "time": "10:15"
+      },
+      "reopenedDate": "2026-09-08"
+    }
+  ],
+  "deadlines": [
+    {
+      "today": "2026-09-07",
+      "deadline": "2026-09-06",
+      "complete": false,
+      "status": "overdue"
+    },
+    {
+      "today": "2026-09-07",
+      "deadline": "2026-09-07",
+      "complete": false,
+      "status": "on-time"
+    },
+    {
+      "today": "2026-09-07",
+      "deadline": "2026-09-08",
+      "complete": false,
+      "status": "on-time"
+    },
+    {
+      "today": "2026-09-08",
+      "deadline": "2026-09-07",
+      "complete": false,
+      "status": "overdue"
+    },
+    {
+      "today": "2026-09-08",
+      "deadline": "2026-09-06",
+      "complete": true,
+      "status": "complete"
+    },
+    {
+      "today": "2026-09-08",
+      "deadline": "2026-02-31",
+      "complete": false,
+      "status": "unavailable"
+    }
+  ],
+  "expiry": {
+    "issuedAt": "2026-09-08T02:55:00Z",
+    "durationSeconds": 600,
+    "expiresAt": "2026-09-08T03:05:00Z",
+    "checks": [
+      {
+        "now": "2026-09-08T03:04:59Z",
+        "expired": false
+      },
+      {
+        "now": "2026-09-08T03:05:00Z",
+        "expired": true
+      },
+      {
+        "now": "2026-09-08T03:05:01Z",
+        "expired": true
+      }
+    ]
+  },
+  "unresolved": {
+    "cardClosingDate": null,
+    "weeklyWindow": null,
+    "legacyOrigin": null
+  }
+}

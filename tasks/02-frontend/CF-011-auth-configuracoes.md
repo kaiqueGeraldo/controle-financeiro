@@ -1,0 +1,50 @@
+# CF-011 — Auditar e corrigir autenticação e configurações
+
+- Estado: proposta
+- Prioridade: P1
+- Modelo executor: gpt-5.6-terra
+- Esforço: high
+- Revisor sugerido: gpt-5.6-sol / high
+- Depende de: [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
+- Origem: T-008; F-015
+
+## Problema e resultado esperado
+
+Formulários públicos e preferências precisam de estados claros, teclado e persistência; falha de API deve continuar distinguível de entrada inválida.
+
+## Escopo e referências
+
+- `controle-financeiro-frontend/src/screens/public/auth/`
+- `controle-financeiro-frontend/src/screens/private/configuracoes/`
+- `controle-financeiro-frontend/src/components/screens/configuracoes/`
+- `controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx`
+
+Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos novos devem ser criados dentro desses alvos. Ler o [SDD](../../docs/sdd/README.md), a [execução](../EXECUCAO.md) e a [política de testes](../POLITICA-DE-TESTES.md). A origem acima mantém o vínculo com o diagnóstico e os épicos anteriores.
+
+## Trabalho
+
+1. Executar registro/login/recuperação/logout e edição de perfil/preferências com fixtures, sem envio real.
+2. Corrigir visual e feedback de erro, foco, campos, tema, privacidade e exportação; registrar defeitos novos individualmente.
+3. Testar reload e sessão expirada durante formulário com contratos de CF-008.
+
+## Aceite e testes adversariais
+
+- [ ] Sem corte de formulário ou mensagem em mobile; navegar por teclado e corrigir campos é possível.
+- [ ] Preferência salva reaparece após reload; falha de gravação não mostra preferência persistida fictícia.
+- [ ] Recuperação usa provedor falso; download falho mostra erro e não produz arquivo aparentemente válido.
+- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+## Fora de escopo
+
+Redesenhar autenticação no backend ou inferir segurança só porque o botão está oculto.
+
+## Modelo e revisão
+
+O escopo é delimitado por componentes/telas e contratos existentes; escalar para Sol se aparecer mudança financeira ou de estado compartilhado. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
+
+## Evidências e estado
+
+Ainda não executada. Usar `tasks/evidencias/CF-011/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+
+Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+

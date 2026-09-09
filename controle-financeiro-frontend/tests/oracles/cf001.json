@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "seed": "cf001-v1",
+  "purpose": "Dados sintéticos de especificação; não são DTOs da aplicação nem prova de execução do produto.",
+  "currency": "BRL",
+  "moneyScale": 2,
+  "baseDate": "2026-09-07",
+  "timezones": ["America/Sao_Paulo", "UTC", "Pacific/Kiritimati"],
+  "users": [
+    { "alias": "A", "id": "10000000-0000-4000-8000-000000000001", "name": "Pessoa Sintética A", "email": "cf001.a@example.invalid" },
+    { "alias": "B", "id": "10000000-0000-4000-8000-000000000002", "name": "Pessoa Sintética B", "email": "cf001.b@example.invalid" }
+  ],
+  "entities": [
+    { "alias": "accountA", "id": "20000000-0000-4000-8000-000000000001", "owner": "A", "kind": "account", "name": "Conta sintética", "openingBalance": "1000.00" },
+    { "alias": "accountB", "id": "20000000-0000-4000-8000-000000000002", "owner": "B", "kind": "account", "name": "Conta sintética", "openingBalance": "42.17" },
+    { "alias": "investmentA", "id": "30000000-0000-4000-8000-000000000001", "owner": "A", "kind": "investment", "currentValue": "500.00" },
+    { "alias": "debtA", "id": "40000000-0000-4000-8000-000000000001", "owner": "A", "kind": "openingDebt", "outstanding": "200.00", "competence": "2026-09" },
+    { "alias": "goalA", "id": "50000000-0000-4000-8000-000000000001", "owner": "A", "kind": "monetaryGoal", "source": "accountA", "allocated": "300.00", "target": "600.00", "deadline": "2026-09-07", "completed": false }
+  ],
+  "cases": [
+    {
+      "id": "D-CIVIL", "criteria": ["AC-TIME-001", "AC-TIME-006"], "source": "SPEC-002 contrato e aceite 1/5",
+      "rows": [
+        { "input": "2026-09-07", "expected": "07/09/2026" },
+        { "input": "2024-02-29", "expected": "29/02/2024" },
+        { "input": "2026-02-28", "expected": "28/02/2026" },
+        { "input": "2026-04-30", "expected": "30/04/2026" },
+        { "input": "2026-12-31", "expected": "31/12/2026" },
+        { "input": "2027-01-01", "expected": "01/01/2027" }
+      ],
+      "expectedAfterReload": "07/09/2026",
+      "reloadInput": "2026-09-07"
+    },
+    {
+      "id": "D-INVALID", "criteria": ["AC-TIME-002"], "source": "SPEC-002 contrato e aceite 5",
+      "inputs": ["", "2026-02-29", "2026-02-31", "2026-04-31", "2026-00-01", "2026-13-01", "2026-09-00", "07/09/2026", "2026-09-07T00:00:00Z"],
+      "expected": { "validCivilDate": false, "inputRejected": true, "normalizedDatePersisted": false, "presentation": "neutra, sem data válida inventada" },
+      "pendingDecision": "DEC-05"
+    },
+    {
+      "id": "D-CLOCK", "criteria": ["AC-TIME-003", "AC-TIME-009"], "source": "SPEC-002 hoje local; política de testes meia-noite",
+      "rows": [
+        { "instant": "2026-09-08T02:59:59Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-07", "UTC": "2026-09-08", "Pacific/Kiritimati": "2026-09-08" } },
+        { "instant": "2026-09-08T03:00:00Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-08", "UTC": "2026-09-08", "Pacific/Kiritimati": "2026-09-08" } },
+        { "instant": "2026-09-07T09:59:59Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-07", "UTC": "2026-09-07", "Pacific/Kiritimati": "2026-09-07" } },
+        { "instant": "2026-09-07T10:00:00Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-07", "UTC": "2026-09-07", "Pacific/Kiritimati": "2026-09-08" } },
+        { "instant": "2026-09-07T23:59:59Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-07", "UTC": "2026-09-07", "Pacific/Kiritimati": "2026-09-08" } },
+        { "instant": "2026-09-08T00:00:00Z", "expectedLocalDates": { "America/Sao_Paulo": "2026-09-07", "UTC": "2026-09-08", "Pacific/Kiritimati": "2026-09-08" } }
+      ],
+      "pendingMountedFormDecision": "DEC-01"
+    },
+    {
+      "id": "D-DEADLINE", "criteria": ["AC-TIME-004"], "source": "SPEC-002 contrato de atraso",
+      "rows": [
+        { "localNow": "2026-09-07T23:59:59", "deadline": "2026-09-06", "completed": false, "expectedOverdue": true },
+        { "localNow": "2026-09-07T23:59:59", "deadline": "2026-09-07", "completed": false, "expectedOverdue": false },
+        { "localNow": "2026-09-07T23:59:59", "deadline": "2026-09-08", "completed": false, "expectedOverdue": false },
+        { "localNow": "2026-09-08T00:00:00", "deadline": "2026-09-07", "completed": false, "expectedOverdue": true },
+        { "localNow": "2026-09-07T23:59:59", "deadline": "2026-09-06", "completed": true, "expectedOverdue": false }
+      ]
+    },
+    {
+      "id": "D-MONTH", "criteria": ["AC-TIME-005"], "source": "SPEC-002 navegação por competência",
+      "rows": [
+        { "input": "2026-01-29", "delta": 1, "expected": "2026-02-01" },
+        { "input": "2026-01-30", "delta": 1, "expected": "2026-02-01" },
+        { "input": "2026-01-31", "delta": 1, "expected": "2026-02-01" },
+        { "input": "2026-03-31", "delta": -1, "expected": "2026-02-01" },
+        { "input": "2024-01-31", "delta": 1, "expected": "2024-02-01" },
+        { "input": "2026-12-31", "delta": 1, "expected": "2027-01-01" },
+        { "input": "2026-01-31", "delta": -1, "expected": "2025-12-01" }
+      ],
+      "expectedInputUnchanged": true
+    },
+    {
+      "id": "D-INSTANT", "criteria": ["AC-TIME-007"], "source": "ADR-003; CF-004",
+      "equivalent": ["2026-09-07T23:30:00-03:00", "2026-09-08T02:30:00Z", "2026-09-08T16:30:00+14:00"],
+      "expectedUtcInstant": "2026-09-08T02:30:00Z",
+      "legacyWithoutKnownOrigin": "2026-09-07T23:30:00",
+      "expectedLegacyConversion": "não converter até conhecer origem",
+      "pendingDecision": "DEC-02"
+    },
+    {
+      "id": "F-OPEN", "actor": "A", "criteria": ["AC-FIN-001", "AC-FIN-002"], "source": "SPEC-001 invariantes 1-3; política de testes",
+      "input": { "account": "1000.00", "investment": "500.00", "debt": "200.00", "allocated": "300.00" },
+      "expected": { "assets": "1500.00", "netWorth": "1300.00", "freeAccount": "700.00", "openingIncome": "0.00" }
+    },
+    {
+      "id": "F-PENDING", "actor": "A", "criteria": ["AC-FIN-002"], "source": "SPEC-001 previsões; CF-016",
+      "input": { "pendingIncome": "250.00", "paid": false },
+      "expected": { "account": "1000.00", "investment": "500.00", "debt": "200.00", "netWorth": "1300.00", "realizedIncome": "0.00", "pendingIncome": "250.00" }
+    },
+    {
+      "id": "F-PAY", "actor": "A", "criteria": ["AC-FIN-003", "AC-FIN-010", "AC-UI-011"], "source": "SPEC-001 invariante 4; ADR-004",
+      "input": { "openingAccount": "1000.00", "openingDebt": "200.00", "payment": "200.00", "fee": "0.00", "investment": "500.00", "allocated": "300.00" },
+      "expected": { "account": "800.00", "debt": "0.00", "netWorth": "1300.00", "freeAccount": "500.00", "cashOutflow": "200.00", "newHistoricalPurchases": 0, "economicEffectsAfterReplay": 1 },
+      "pendingProtocolDecision": "DEC-07"
+    },
+    {
+      "id": "F-USER-B", "actor": "B", "criteria": ["AC-FIN-005"], "source": "SPEC-001 invariante 7; CF-023",
+      "input": { "account": "42.17", "investment": "0.00", "debt": "0.00", "allocated": "0.00" },
+      "expected": { "assets": "42.17", "netWorth": "42.17", "freeAccount": "42.17", "openingIncome": "0.00" },
+      "forbiddenReference": "accountA", "expectedForeignReadOrWrite": false,
+      "pendingStatusDecision": "DEC-09"
+    },
+    {
+      "id": "F-ZERO", "actor": "B", "criteria": ["AC-FIN-013"], "source": "SPEC-001 aceite perfil sem patrimônio",
+      "input": { "account": "0.00", "investment": "0.00", "debt": "0.00", "allocated": "0.00" },
+      "expected": { "assets": "0.00", "netWorth": "0.00", "freeAccount": "0.00", "openingIncome": "0.00" },
+      "isolatedVariant": true
+    },
+    {
+      "id": "F-NEGATIVE", "actor": "B", "criteria": ["AC-FIN-009", "AC-UI-003"], "source": "SPEC-001 contas e invariantes 1/2",
+      "input": { "account": "-125.45", "investment": "0.00", "debt": "0.00", "allocated": "0.00" },
+      "expected": { "assets": "-125.45", "netWorth": "-125.45", "freeAccount": "-125.45", "openingIncome": "0.00" },
+      "isolatedVariant": true
+    },
+    {
+      "id": "F-CENTS", "criteria": ["AC-FIN-009"], "source": "ADR-002 escala explícita; aritmética decimal exata",
+      "inputs": ["0.10", "0.20"], "expectedTotal": "0.30"
+    },
+    {
+      "id": "F-ALLOC", "actor": "A", "criteria": ["AC-FIN-008"], "source": "SPEC-001 destinação e invariante 6",
+      "rows": [
+        { "sourceBalance": "1000.00", "allocations": ["300.00", "700.00"], "expectedValid": true },
+        { "sourceBalance": "1000.00", "allocations": ["300.00", "700.01"], "expectedValid": false },
+        { "sourceBalance": "250.00", "allocations": ["300.00"], "expectedValid": false }
+      ]
+    },
+    {
+      "id": "F-REPLAY", "actor": "A", "criteria": ["AC-FIN-006"], "source": "SPEC-001 invariante 8 e API proposta; ADR-004",
+      "idempotencyKey": "cf001-v1-A-complete-01", "draftVersion": 3, "submissions": 2,
+      "expected": { "economicCompletions": 1, "sameReturnedIds": true, "account": "1000.00", "netWorth": "1300.00", "duplicatedDefaultWallets": 0 },
+      "proposedChangedPayloadStatus": 409, "contractRatificationTask": "CF-028"
+    },
+    {
+      "id": "F-ROLLBACK", "actor": "A", "criteria": ["AC-FIN-007"], "source": "SPEC-001 aceite atomicidade",
+      "input": { "failureAt": "último item da conclusão" },
+      "expected": { "createdOpeningEntities": 0, "changedOpeningBalances": 0, "draftRecoverable": true, "externalCallsInsideTransaction": 0 }
+    },
+    {
+      "id": "F-DRAFT", "actor": "A", "criteria": ["AC-FIN-013"], "source": "SPEC-001 jornada e persistência",
+      "input": { "alreadyPersisted": true, "stage": "metas", "draftVersion": 3, "account": "1000.00", "allocated": "300.00" },
+      "expectedAfterReload": { "stage": "metas", "draftVersion": 3, "account": "1000.00", "allocated": "300.00" },
+      "expectedAppliedBeforeComplete": false, "contractRatificationTask": "CF-028"
+    },
+    {
+      "id": "F-INSTALLMENTS", "actor": "A", "criteria": ["AC-FIN-014"], "source": "SPEC-001 parcelas, fatura corrente e aceite",
+      "input": { "currentInvoice": "200.00", "currentCompetence": "2026-09", "includedCurrentInstallment": "50.00", "future": [
+        { "competence": "2026-10", "value": "50.00" }, { "competence": "2026-11", "value": "50.00" }, { "competence": "2026-12", "value": "50.00" }
+      ] },
+      "expected": { "totalOutstanding": "350.00", "currentInstallmentOccurrences": 1, "recreatedPaidInstallments": 0 },
+      "pendingLimitDecision": "DEC-03"
+    },
+    {
+      "id": "V-LONG", "criteria": ["AC-UI-001"], "source": "CF-010; política de testes",
+      "text": "Reserva sintética para manutenção da casa, educação, transporte e planejamento de despesas extraordinárias com descrição extensa para testar legibilidade e acesso às ações",
+      "unbrokenText": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "expected": { "textOverlapsActions": false, "confirmationReachableByKeyboard": true, "focusReturnsToOpener": true, "fullTextAccessible": true },
+      "manyRowsRecipe": { "count": 100, "labelPrefix": "Registro sintético", "startIndex": 1, "uniqueIdsRequired": true }
+    },
+    {
+      "id": "V-MONEY", "criteria": ["AC-UI-003"], "source": "CF-012; moeda BRL pt-BR; política de testes",
+      "rows": [
+        { "input": "1300.00", "expected": "R$ 1.300,00" },
+        { "input": "0.00", "expected": "R$ 0,00" },
+        { "input": "-125.45", "expected": "-R$ 125,45" },
+        { "input": "1234567.89", "expected": "R$ 1.234.567,89" }
+      ],
+      "equivalentCurrencySpaces": ["U+0020", "U+00A0"],
+      "expectedWhenPrivacyOn": "valores ocultos nas superfícies cobertas; não definir máscara pela UI atual",
+      "pendingDecision": "DEC-06"
+    },
+    { "id": "V-EMPTY", "criteria": ["AC-UI-002"], "source": "CF-012", "input": { "httpStatus": 200, "items": [] }, "expected": "estado vazio legítimo, sem mensagem de falha" },
+    { "id": "V-LOADING", "criteria": ["AC-UI-002"], "source": "CF-012", "input": { "responsePending": true }, "expected": "carregamento identificável, sem afirmar saldo zero ou vazio definitivo" },
+    { "id": "V-ERROR", "criteria": ["AC-UI-002"], "source": "CF-012", "input": { "httpStatus": 503 }, "expected": "erro recuperável distinto de lista vazia; sem sucesso" },
+    { "id": "H-401", "criteria": ["AC-UI-004"], "source": "CF-008", "input": { "httpStatus": 401, "privateResource": true }, "expected": "exige autenticação; não retorna dados privados" },
+    { "id": "H-403", "criteria": ["AC-UI-004"], "source": "CF-008", "input": { "httpStatus": 403, "validSession": true }, "expected": "mantém sessão e exibe proibição; próxima leitura autorizada funciona" },
+    { "id": "H-400", "criteria": ["AC-UI-005", "AC-TIME-002"], "source": "CF-008", "input": { "invalidCivilDate": "2026-02-31" }, "expected": { "httpStatus": 400, "invalidFieldIdentified": true, "normalizedDatePersisted": false } },
+    { "id": "H-409", "criteria": ["AC-UI-005"], "source": "CF-008", "input": { "versionConflict": true }, "expected": { "httpStatus": 409, "reconciliationPossible": true, "falseSuccess": false } },
+    { "id": "H-500", "criteria": ["AC-UI-006", "AC-UI-007"], "source": "CF-008", "input": { "httpStatus": 500, "bodyKind": "erro JSON" }, "expected": "erro visível, sem sucesso, sem download aparentemente válido" },
+    { "id": "H-503", "criteria": ["AC-UI-006"], "source": "CF-008", "input": { "httpStatus": 503 }, "expected": "formulário recuperável e retry; não alegar gravação" },
+    { "id": "H-TIMEOUT", "criteria": ["AC-UI-006"], "source": "CF-008/009; ADR-004", "input": { "requestSent": true, "responseReceived": false }, "expected": "resultado desconhecido; reconciliar leitura/repetição segura sem perder formulário ou afirmar sucesso" },
+    { "id": "H-204", "criteria": ["AC-UI-007"], "source": "CF-008", "input": { "httpStatus": 204, "body": "" }, "expected": { "parseError": false } }
+  ]
+}

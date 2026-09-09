@@ -1,0 +1,35 @@
+{
+  "isolation": "Fresh JSON.parse copy in a separate Node process; disk fixture unchanged.",
+  "deltas": [
+    {
+      "mutation": "civil-shift",
+      "path": "writes[0].response.date",
+      "before": "2026-09-07",
+      "after": "2026-09-08"
+    },
+    {
+      "mutation": "assume-utc",
+      "path": "legacy[0].expectedUtc",
+      "before": null,
+      "after": "2026-09-07T23:30:00.000Z"
+    },
+    {
+      "mutation": "month-overflow",
+      "path": "months[2].expected",
+      "before": "2026-02-01",
+      "after": "2026-03-01"
+    },
+    {
+      "mutation": "rewrite-default",
+      "path": "midnight[0].afterFields.date",
+      "before": "2026-09-07",
+      "after": "2026-09-08"
+    },
+    {
+      "mutation": "rewrite-audit",
+      "path": "edits[0].after.recordedAt",
+      "before": "2026-09-08T03:10:00Z",
+      "after": "2026-09-06T23:30:00Z"
+    }
+  ]
+}

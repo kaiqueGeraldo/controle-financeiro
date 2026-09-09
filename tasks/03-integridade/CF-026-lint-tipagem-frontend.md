@@ -1,0 +1,49 @@
+# CF-026 — Eliminar dívida de lint e tipagem sem esconder defeitos
+
+- Estado: proposta
+- Prioridade: P2
+- Modelo executor: gpt-5.6-terra
+- Esforço: high
+- Revisor sugerido: gpt-5.6-sol / high
+- Depende de: [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md)
+- Origem: T-011; F-017
+
+## Problema e resultado esperado
+
+Baseline de 70 erros e 37 avisos precisa ser reavaliado após correções. Tipagem e hooks devem revelar contratos, não silenciar o compilador.
+
+## Escopo e referências
+
+- `docs/sdd/lint-baseline.md`
+- `controle-financeiro-frontend/src/`
+- `controle-financeiro-frontend/eslint.config.mjs`
+
+Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos novos devem ser criados dentro desses alvos. Ler o [SDD](../../docs/sdd/README.md), a [execução](../EXECUCAO.md) e a [política de testes](../POLITICA-DE-TESTES.md). A origem acima mantém o vínculo com o diagnóstico e os épicos anteriores.
+
+## Trabalho
+
+1. Reexecutar baseline e corrigir por regra/arquivo em lotes: DTOs desconhecidos, hooks, componentes estáticos, entidades JSX e variáveis.
+2. Substituir any por contratos/unknown com narrowing, sem casts cegos; preservar efeitos e dependências funcionais.
+3. Rodar testes dos consumidores a cada lote e atualizar baseline/resultados; escalar para Sol quando o problema for arquitetura de estado.
+
+## Aceite e testes adversariais
+
+- [ ] Lint final sem erros e avisos não justificados; nenhum disable global/ts-ignore/any artificial para passar.
+- [ ] Remover variável não remove efeito colateral necessário; alteração de hook tem regressão de atualização/cleanup.
+- [ ] Typecheck/build e fluxos tocados continuam aprovados; baseline não é reduzido apenas excluindo arquivos.
+- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+## Fora de escopo
+
+Reescrever todas as telas ou enfraquecer regras sem justificativa do contrato.
+
+## Modelo e revisão
+
+O escopo é delimitado por componentes/telas e contratos existentes; escalar para Sol se aparecer mudança financeira ou de estado compartilhado. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
+
+## Evidências e estado
+
+Ainda não executada. Usar `tasks/evidencias/CF-026/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+
+Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
