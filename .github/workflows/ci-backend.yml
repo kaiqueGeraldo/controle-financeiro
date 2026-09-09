@@ -29,6 +29,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Build with Maven
-      # Mantendo o skipTests até ter a suíte de testes pronta
-      run: ./mvnw clean package -DskipTests
+    - name: Verify with Maven and disposable PostgreSQL
+      run: ./mvnw --batch-mode clean verify

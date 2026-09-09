@@ -1,0 +1,38 @@
+api:
+  security:
+    token:
+      secret: cf002-test-only-secret-with-at-least-32-characters
+  brapi:
+    token: test-double-only
+  resend:
+    key: test-double-only
+    from: no-reply@example.test
+  cors:
+    origins: http://localhost
+
+spring:
+  datasource:
+    # A infraestrutura Java sobrescreve esta sentinela somente depois de iniciar
+    # um PostgreSQL descartavel. Sem ela, o perfil nunca tenta um banco real.
+    url: jdbc:postgresql://invalid.test:1/CF002_FORBIDDEN_EXTERNAL_DATABASE
+    username: forbidden
+    password: forbidden
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Schema efemero para testes; nao representa o baseline de producao.
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+  task:
+    scheduling:
+      enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.controlefinanceiro.api: INFO
+    org.testcontainers: INFO
