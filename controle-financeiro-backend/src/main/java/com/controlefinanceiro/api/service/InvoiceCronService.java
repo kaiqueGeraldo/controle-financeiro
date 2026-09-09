@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,14 +26,15 @@ public class InvoiceCronService {
     @Autowired private CardTransactionRepository transactionRepository;
     @Autowired private EmailService emailService;
     @Autowired private TransactionTemplate transactionTemplate;
+    @Autowired private Clock clock;
 
-    @Scheduled(cron = "0 5 0 * * ?", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 5 0 * * ?", zone = "${app.temporal.product-zone}")
     @SchedulerLock(name = "processInvoiceClosingLock", lockAtLeastFor = "1m", lockAtMostFor = "10m")
     public void processInvoiceClosing() {
         log.info("CRON-INVOICE: A verificar fecho de faturas...");
 
         List<Invoice> openInvoices = invoiceRepository.findByStatusWithCardAndUser(InvoiceStatus.OPEN);
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(clock);
 
         for (Invoice invoice : openInvoices) {
             try {

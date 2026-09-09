@@ -31,8 +31,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
@@ -51,6 +53,8 @@ public class TransactionService {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private Clock clock;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
@@ -79,7 +83,8 @@ public class TransactionService {
         transaction.setAmount(data.amount());
         transaction.setDate(data.date());
 
-        LocalTime time = DateUtil.getTimeOrDefault(data.time());
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalTime time = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
         transaction.setCreatedAt(data.date().atTime(time));
 
         transaction.setType(data.type());
@@ -187,7 +192,7 @@ public class TransactionService {
             startDate = LocalDate.of(year, month, 1);
             endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
         } else {
-            startDate = LocalDate.now().withDayOfMonth(1);
+            startDate = LocalDate.now(clock).withDayOfMonth(1);
             endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
         }
 

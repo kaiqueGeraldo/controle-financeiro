@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Clock;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +37,8 @@ public class AccountService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private Clock clock;
 
     @Transactional
     public AccountResponseDTO create(CreateAccountDTO data, User user) {
@@ -55,13 +57,14 @@ public class AccountService {
 
         if (initialBalance.compareTo(BigDecimal.ZERO) > 0) {
             log.info("Gerando transação de ajuste para saldo inicial da conta {}", savedAccount.getId());
+            ZonedDateTime now = ZonedDateTime.now(clock);
 
             Transaction initialTx = new Transaction();
             initialTx.setDescription("Saldo Inicial - " + savedAccount.getName());
             initialTx.setAmount(initialBalance);
             initialTx.setType(TransactionType.INCOME);
-            initialTx.setDate(LocalDate.now());
-            initialTx.setCreatedAt(LocalDateTime.now());
+            initialTx.setDate(now.toLocalDate());
+            initialTx.setCreatedAt(now.toLocalDateTime());
             initialTx.setPaid(true);
             initialTx.setAccount(savedAccount);
             initialTx.setUser(user);

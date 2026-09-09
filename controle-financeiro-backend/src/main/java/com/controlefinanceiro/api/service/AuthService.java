@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class AuthService {
     private TokenService tokenService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private Clock clock;
 
     @Transactional
     public void register(RegisterRequestDTO data) {
@@ -103,7 +106,7 @@ public class AuthService {
         String token = generateSecureToken();
 
         user.setRecoveryToken(token);
-        user.setRecoveryTokenExpiry(LocalDateTime.now().plusMinutes(10));
+        user.setRecoveryTokenExpiry(LocalDateTime.now(clock).plusMinutes(10));
         user.setResetAttempts(0);
         userRepository.save(user);
 
@@ -129,7 +132,7 @@ public class AuthService {
             throw new BusinessRuleException("Nenhuma solicitação de recuperação ativa para este usuário.");
         }
 
-        if (user.getRecoveryTokenExpiry().isBefore(LocalDateTime.now())) {
+        if (!user.getRecoveryTokenExpiry().isAfter(LocalDateTime.now(clock))) {
             throw new BusinessRuleException("O código expirou. Solicite um novo envio.");
         }
 

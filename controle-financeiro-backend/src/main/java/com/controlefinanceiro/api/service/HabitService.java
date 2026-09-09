@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +39,9 @@ public class HabitService {
 
     @Autowired
     private GoalRepository goalRepository;
+
+    @Autowired
+    private Clock clock;
 
     public List<HabitResponseDTO> listAll(User user) {
         log.info("SERVICE: Listando hábitos para o usuário {}", user.getEmail());
@@ -133,6 +138,7 @@ public class HabitService {
                 history.setGoal(goal);
                 history.setAmount(BigDecimal.ONE);
                 history.setNote(noteMsg);
+                history.setDate(LocalDateTime.now(clock));
                 goalHistoryRepository.save(history);
 
                 goal.setCurrentValue(goal.getCurrentValue().add(BigDecimal.ONE));

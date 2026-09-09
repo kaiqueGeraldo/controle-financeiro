@@ -5,6 +5,8 @@ import com.controlefinanceiro.api.domain.card.dto.*;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.CreditCardService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,8 +61,8 @@ public class CreditCardController {
     @GetMapping("/{id}/invoice")
     public ResponseEntity<InvoiceDetailsDTO> getInvoice(
             @PathVariable UUID id,
-            @RequestParam Integer month,
-            @RequestParam Integer year,
+            @RequestParam @Min(1) @Max(12) Integer month,
+            @RequestParam @Min(1) @Max(9999) Integer year,
             @AuthenticationPrincipal User user) {
         log.debug("API: Ler Fatura Cartão {} - {}/{}", id, month, year);
         return ResponseEntity.ok(service.getInvoiceDetails(id, month, year, user));

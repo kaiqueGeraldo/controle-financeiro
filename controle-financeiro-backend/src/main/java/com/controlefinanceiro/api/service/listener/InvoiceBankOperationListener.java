@@ -11,13 +11,10 @@ import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
-import com.controlefinanceiro.api.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalTime;
 
 @Slf4j
 @Component
@@ -50,8 +47,7 @@ public class InvoiceBankOperationListener {
         bankTransaction.setAmount(event.amount());
         bankTransaction.setDate(event.date());
 
-        LocalTime time = DateUtil.getTimeOrDefault(event.time());
-        bankTransaction.setCreatedAt(event.date().atTime(time));
+        bankTransaction.setCreatedAt(event.date().atTime(event.time()));
 
         bankTransaction.setType(TransactionType.EXPENSE);
         bankTransaction.setAccount(account);

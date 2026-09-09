@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AnnualSummaryService {
     @Autowired private InvestmentRepository investmentRepository;
     @Autowired private GoalRepository goalRepository;
     @Autowired private YearlyNoteRepository noteRepository;
+    @Autowired private Clock clock;
 
     @Cacheable(value = "annualSummary", key = "#user.id + '-' + #year")
     public AnnualSummaryDTO getSummary(User user, Integer year) {
@@ -51,8 +53,9 @@ public class AnnualSummaryService {
 
         // Média Mensal: Se for o ano atual, divide pelos meses que passaram. Se for ano passado, divide por 12.
         int monthsToDivide = 12;
-        if (year.equals(LocalDate.now().getYear())) {
-            monthsToDivide = Math.max(1, LocalDate.now().getMonthValue());
+        LocalDate today = LocalDate.now(clock);
+        if (year.equals(today.getYear())) {
+            monthsToDivide = Math.max(1, today.getMonthValue());
         }
         BigDecimal cardAverage = cardTotal.divide(BigDecimal.valueOf(monthsToDivide), 2, RoundingMode.HALF_UP);
 

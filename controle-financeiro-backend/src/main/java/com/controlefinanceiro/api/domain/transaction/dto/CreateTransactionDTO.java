@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.domain.transaction.dto;
 
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
+import com.controlefinanceiro.api.domain.validation.WallTime;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -19,7 +20,7 @@ public record CreateTransactionDTO(
         @NotNull(message = "A data é obrigatória")
         LocalDate date,
 
-        String time,
+        @WallTime String time,
 
         @NotNull(message = "O tipo de transação é obrigatório")
         TransactionType type,

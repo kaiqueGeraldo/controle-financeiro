@@ -14,6 +14,7 @@ import com.controlefinanceiro.api.domain.investment.*;
 import com.controlefinanceiro.api.domain.investment.dto.CreateInvestmentDTO;
 import com.controlefinanceiro.api.domain.investment.dto.InvestmentOperationDTO;
 import com.controlefinanceiro.api.domain.investment.dto.InvestmentResponseDTO;
+import com.controlefinanceiro.api.domain.investment.dto.InvestTransactionResponseDTO;
 import com.controlefinanceiro.api.domain.investment.dto.UpdateBalanceDTO;
 import com.controlefinanceiro.api.domain.transaction.Transaction;
 import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
@@ -29,8 +30,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +50,7 @@ public class InvestmentService {
     @Autowired private GoalHistoryRepository goalHistoryRepository;
     @Autowired private ApplicationEventPublisher eventPublisher;
     @Autowired private CategoryRepository categoryRepository;
+    @Autowired private Clock clock;
 
     public List<InvestmentResponseDTO> listAll(User user) {
         return investmentRepository.findAllByUserId(user.getId())
@@ -54,7 +59,7 @@ public class InvestmentService {
                 .toList();
     }
 
-    public List<InvestTransaction> getHistory(UUID investmentId, User user) {
+    public List<InvestTransactionResponseDTO> getHistory(UUID investmentId, User user) {
         Investment investment = investmentRepository.findById(investmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
@@ -62,7 +67,10 @@ public class InvestmentService {
             throw new BusinessRuleException("Acesso negado");
         }
 
-        return investTransactionRepository.findAllByInvestmentIdOrderByDateDesc(investmentId);
+        return investTransactionRepository.findAllByInvestmentIdOrderByDateDesc(investmentId)
+                .stream()
+                .map(InvestTransactionResponseDTO::new)
+                .toList();
     }
 
     @Transactional
@@ -94,6 +102,7 @@ public class InvestmentService {
     @Transactional
     public void performOperation(InvestmentOperationDTO data, User user) {
         log.info("SERVICE: Processando operação de {} no ativo ID {}", data.type(), data.investmentId());
+        ZonedDateTime now = ZonedDateTime.now(clock);
 
         Investment investment = investmentRepository.findById(data.investmentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
@@ -110,9 +119,9 @@ public class InvestmentService {
         }
 
         switch (data.type()) {
-            case BUY -> processBuy(investment, data, account, user);
-            case SELL -> processSell(investment, data, account, user);
-            case DIVIDEND, INTEREST -> processDividend(investment, data, account, user);
+            case BUY -> processBuy(investment, data, account, user, now);
+            case SELL -> processSell(investment, data, account, user, now);
+            case DIVIDEND, INTEREST -> processDividend(investment, data, account, user, now);
         }
 
         if (data.type() == InvestTransType.BUY || data.type() == InvestTransType.SELL) {
@@ -125,7 +134,7 @@ public class InvestmentService {
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
     }
 
-    private void processBuy(Investment investment, InvestmentOperationDTO data, Account account, User user) {
+    private void processBuy(Investment investment, InvestmentOperationDTO data, Account account, User user, ZonedDateTime now) {
         log.info("SERVICE: Executando lógica de COMPRA.");
 
         BigDecimal fees = data.fees() != null ? data.fees() : BigDecimal.ZERO;
@@ -140,7 +149,7 @@ public class InvestmentService {
         account.debit(totalCost);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE, "Aporte: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName());
+        Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE, "Aporte: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
 
         BigDecimal currentTotalCost = investment.getQuantity().multiply(investment.getAveragePrice());
         BigDecimal newQuantity = investment.getQuantity().add(data.quantity());
@@ -152,10 +161,10 @@ public class InvestmentService {
         investment.setQuantity(newQuantity);
 
         createInvestTransaction(investment, InvestTransType.BUY, data, bankTx);
-        syncToGoalHistory(investment, totalCost, "Aporte em " + investment.getTicker());
+        syncToGoalHistory(investment, totalCost, "Aporte em " + investment.getTicker(), now.toLocalDateTime());
     }
 
-    private void processSell(Investment investment, InvestmentOperationDTO data, Account account, User user) {
+    private void processSell(Investment investment, InvestmentOperationDTO data, Account account, User user, ZonedDateTime now) {
         log.info("SERVICE: Executando lógica de VENDA.");
 
         if (investment.getQuantity().compareTo(data.quantity()) < 0) {
@@ -173,13 +182,13 @@ public class InvestmentService {
         account.credit(netValue);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Resgate: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName());
+        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Resgate: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
         investment.setQuantity(investment.getQuantity().subtract(data.quantity()));
 
         createInvestTransaction(investment, InvestTransType.SELL, data, bankTx);
     }
 
-    private void processDividend(Investment investment, InvestmentOperationDTO data, Account account, User user) {
+    private void processDividend(Investment investment, InvestmentOperationDTO data, Account account, User user, ZonedDateTime now) {
         log.info("SERVICE: Processando recebimento de proventos.");
 
         BigDecimal fees = data.fees() != null ? data.fees() : BigDecimal.ZERO;
@@ -189,16 +198,17 @@ public class InvestmentService {
         account.credit(netValue);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName());
+        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
         createInvestTransaction(investment, data.type(), data, bankTx);
     }
 
-    private void syncToGoalHistory(Investment investment, BigDecimal amount, String note) {
+    private void syncToGoalHistory(Investment investment, BigDecimal amount, String note, LocalDateTime recordedTime) {
         if (investment.getGoal() != null) {
             GoalHistory history = new GoalHistory();
             history.setGoal(investment.getGoal());
             history.setAmount(amount);
             history.setNote(note);
+            history.setDate(recordedTime);
             goalHistoryRepository.save(history);
         }
     }
@@ -220,6 +230,7 @@ public class InvestmentService {
 
     @Transactional
     public void updateBalance(UpdateBalanceDTO data, User user) {
+        ZonedDateTime now = ZonedDateTime.now(clock);
         Investment investment = investmentRepository.findById(data.investmentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
@@ -248,7 +259,7 @@ public class InvestmentService {
             InvestTransaction t = new InvestTransaction();
             t.setInvestment(investment);
             t.setType(InvestTransType.INTEREST);
-            t.setDate(LocalDateTime.now());
+            t.setDate(now.toLocalDateTime());
             t.setQuantity(diff);
             t.setPrice(BigDecimal.ONE);
             t.setTotalValue(diff);
@@ -259,7 +270,7 @@ public class InvestmentService {
             investment.setQuantity(newBalance);
             investmentRepository.save(investment);
             updateLinkedGoal(investment);
-            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
         }
     }
 
@@ -347,15 +358,15 @@ public class InvestmentService {
         investTransactionRepository.save(t);
     }
 
-    private Transaction createBankTransaction(Account account, BigDecimal amount, TransactionType type, String desc, User user, String categoryName) {
+    private Transaction createBankTransaction(Account account, BigDecimal amount, TransactionType type, String desc, User user, String categoryName, LocalDate operationDate, LocalTime operationTime) {
         Category category = categoryRepository.findByUserIdAndName(user.getId(), categoryName).orElse(null);
         Transaction t = new Transaction();
         t.setAccount(account);
         t.setAmount(amount);
         t.setType(type);
         t.setDescription(desc);
-        t.setDate(java.time.LocalDate.now());
-        t.setCreatedAt(LocalDateTime.now());
+        t.setDate(operationDate);
+        t.setCreatedAt(operationDate.atTime(operationTime));
         t.setPaid(true);
         t.setUser(user);
         t.setSystemManaged(true);

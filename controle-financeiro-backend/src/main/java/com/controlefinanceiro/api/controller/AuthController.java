@@ -4,12 +4,15 @@ import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.domain.auth.dto.*;
 import com.controlefinanceiro.api.domain.user.dto.UserResponseDTO;
 import com.controlefinanceiro.api.service.AuthService;
+import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 
 @Slf4j
 @RestController
@@ -23,7 +26,7 @@ public class AuthController {
     public ResponseEntity<UserResponseDTO> getUser(@AuthenticationPrincipal User user) {
         if (user == null) {
             log.warn("API: Tentativa de buscar dados de usuário sem token válido.");
-            return ResponseEntity.status(401).build();
+            throw new InsufficientAuthenticationException("Token ausente ou inválido.");
         }
 
         return ResponseEntity.ok(new UserResponseDTO(
@@ -44,22 +47,17 @@ public class AuthController {
             log.info("API: Tentativa de login: {}", data.email());
             var response = authService.login(data);
             return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
+        } catch (BusinessRuleException e) {
             log.warn("API: Erro no login para {}: {}", data.email(), e.getMessage());
-            return ResponseEntity.status(401).build();
+            throw new BadCredentialsException("Credenciais inválidas.");
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterRequestDTO data) {
-        try {
-            log.info("API: Novo registro solicitado: {}", data.email());
-            authService.register(data);
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            log.error("API: Erro ao registrar: {}", e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        log.info("API: Novo registro solicitado: {}", data.email());
+        authService.register(data);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/recover-password")
@@ -70,15 +68,10 @@ public class AuthController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordDTO data) {
-        try {
-            log.info("API: Redefinição de senha com token.");
-            authService.resetPassword(data);
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            log.warn("API: Falha ao redefinir senha: {}", e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Void> resetPassword(@RequestBody @Valid ResetPasswordDTO data) {
+        log.info("API: Redefinição de senha com token.");
+        authService.resetPassword(data);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/logout")

@@ -25,9 +25,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,8 @@ public class GoalService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    @Autowired
+    private Clock clock;
 
     @Transactional
     public GoalResponseDTO create(CreateGoalDTO data, User user) {
@@ -100,6 +103,8 @@ public class GoalService {
     @Transactional
     public void addValue(UUID goalId, GoalDepositDTO data, User user) {
         log.info("Iniciando aporte na meta ID: {}. Valor solicitado: {}", goalId, data.amount());
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
 
         Goal goal = repository.findById(goalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
@@ -135,10 +140,10 @@ public class GoalService {
             Transaction transaction = new Transaction();
             transaction.setDescription("Depósito na Meta: " + goal.getTitle());
             transaction.setAmount(data.amount());
-            transaction.setDate(LocalDate.now());
+            transaction.setDate(today);
 
-            LocalTime time = DateUtil.getTimeOrDefault(data.time());
-            transaction.setCreatedAt(LocalDate.now().atTime(time));
+            LocalTime time = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
+            transaction.setCreatedAt(today.atTime(time));
 
             transaction.setType(TransactionType.EXPENSE);
             transaction.setAccount(account);
@@ -160,10 +165,11 @@ public class GoalService {
         history.setGoal(goal);
         history.setAmount(data.amount());
         history.setNote(data.note() != null ? data.note() : (goal.getType() == GoalType.MONETARY ? "Aporte financeiro" : "Registro de progresso"));
+        history.setDate(now.toLocalDateTime());
         historyRepository.save(history);
 
         log.info("Aporte na meta concluído com sucesso. Novo saldo da meta: {}", goal.getCurrentValue());
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), today.getYear()));
     }
 
     @Transactional
@@ -187,6 +193,8 @@ public class GoalService {
     @Transactional
     public void delete(UUID id, UUID targetAccountId, User user) {
         log.warn("Solicitação de exclusão da meta ID {}", id);
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
         Goal goal = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
@@ -236,10 +244,9 @@ public class GoalService {
             Transaction transaction = new Transaction();
             transaction.setDescription("Estorno de Meta: " + goal.getTitle());
             transaction.setAmount(valorEstorno);
-            transaction.setDate(LocalDate.now());
+            transaction.setDate(today);
 
-            LocalTime time = DateUtil.getTimeOrDefault(LocalTime.now().toString());
-            transaction.setCreatedAt(transaction.getDate().atTime(time));
+            transaction.setCreatedAt(today.atTime(now.toLocalTime()));
 
             transaction.setType(TransactionType.INCOME);
             transaction.setAccount(targetAccount);
@@ -254,12 +261,14 @@ public class GoalService {
 
         repository.delete(goal);
         log.info("Meta excluída com sucesso.");
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), today.getYear()));
     }
 
     @Transactional
     public void deleteHistory(UUID historyId, UUID targetAccountId, User user) {
         log.warn("Solicitação de exclusão de histórico/aporte ID {}", historyId);
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
 
         GoalHistory history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado"));
@@ -291,10 +300,9 @@ public class GoalService {
             Transaction transaction = new Transaction();
             transaction.setDescription("Estorno Aporte: " + goal.getTitle());
             transaction.setAmount(history.getAmount());
-            transaction.setDate(LocalDate.now());
+            transaction.setDate(today);
 
-            LocalTime time = DateUtil.getTimeOrDefault(LocalTime.now().toString());
-            transaction.setCreatedAt(transaction.getDate().atTime(time));
+            transaction.setCreatedAt(today.atTime(now.toLocalTime()));
 
             transaction.setType(TransactionType.INCOME);
             transaction.setAccount(targetAccount);
@@ -315,7 +323,7 @@ public class GoalService {
 
         historyRepository.delete(history);
         log.info("Registro de histórico excluído e saldo da meta ajustado.");
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), today.getYear()));
     }
 
     @Transactional
@@ -344,6 +352,8 @@ public class GoalService {
 
     @Transactional
     public GoalItemResponseDTO purchaseItem(UUID itemId, PurchaseGoalItemDTO data, User user) {
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
         GoalItem item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
         Goal goal = item.getGoal();
 
@@ -365,8 +375,8 @@ public class GoalService {
             Transaction tx = new Transaction();
             tx.setDescription("Compra Meta: " + item.getName());
             tx.setAmount(data.paidPrice());
-            tx.setDate(java.time.LocalDate.now());
-            tx.setCreatedAt(java.time.LocalDateTime.now());
+            tx.setDate(today);
+            tx.setCreatedAt(now.toLocalDateTime());
             tx.setType(TransactionType.EXPENSE);
             tx.setAccount(account);
             tx.setPaid(true);
@@ -390,8 +400,8 @@ public class GoalService {
             CreateCardTransactionDTO cardTx = new CreateCardTransactionDTO(
                     "Compra Meta: " + item.getName(),
                     data.paidPrice(),
-                    java.time.LocalDate.now(),
-                    java.time.LocalTime.now().toString(),
+                    today,
+                    now.toLocalTime().toString(),
                     cat.getId(),
                     data.cardId(),
                     parcelas
@@ -421,6 +431,7 @@ public class GoalService {
             history.setGoal(goal);
             history.setAmount(BigDecimal.ZERO);
             history.setNote("Checklist: Comprou " + item.getName() + " (-R$ " + data.paidPrice() + ")");
+            history.setDate(now.toLocalDateTime());
             historyRepository.save(history);
         }
 
@@ -430,13 +441,14 @@ public class GoalService {
         repository.save(goal);
         GoalItem savedItem = itemRepository.save(item);
 
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), today.getYear()));
 
         return new GoalItemResponseDTO(savedItem);
     }
 
     @Transactional
     public void deleteItem(UUID itemId, User user) {
+        LocalDate today = LocalDate.now(clock);
         GoalItem item = itemRepository.findById(itemId).orElseThrow();
         Goal goal = item.getGoal();
 
@@ -467,7 +479,7 @@ public class GoalService {
 
         repository.save(goal);
         itemRepository.delete(item);
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), today.getYear()));
     }
 
     @Transactional

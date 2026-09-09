@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.domain.goal.dto;
 
 import com.controlefinanceiro.api.domain.goal.GoalType;
+import com.controlefinanceiro.api.domain.validation.FutureInProductZone;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public record CreateGoalDTO(
         BigDecimal targetValue,
 
         @NotNull(message = "A data limite é obrigatória")
-        @Future(message = "A data deve ser no futuro")
+        @FutureInProductZone
         LocalDate deadline,
 
         String category,

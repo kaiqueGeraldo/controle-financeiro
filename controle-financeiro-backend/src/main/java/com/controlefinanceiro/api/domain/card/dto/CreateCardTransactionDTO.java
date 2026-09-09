@@ -1,5 +1,6 @@
 package com.controlefinanceiro.api.domain.card.dto;
 
+import com.controlefinanceiro.api.domain.validation.WallTime;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public record CreateCardTransactionDTO(
         @NotNull(message = "A data da compra é obrigatória")
         LocalDate date,
 
-        String time,
+        @WallTime String time,
 
         @NotNull(message = "A categoria é obrigatória")
         UUID categoryId,

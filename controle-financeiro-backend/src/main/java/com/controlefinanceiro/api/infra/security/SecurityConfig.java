@@ -1,5 +1,6 @@
 package com.controlefinanceiro.api.infra.security;
 
+import com.controlefinanceiro.api.infra.exception.RestSecurityErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,8 @@ public class SecurityConfig {
 
     @Autowired
     private SecurityFilter securityFilter;
+    @Autowired
+    private RestSecurityErrorHandler restSecurityErrorHandler;
 
     @Value("${api.cors.origins}")
     private String corsOrigins;
@@ -39,6 +42,10 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(restSecurityErrorHandler)
+                        .accessDeniedHandler(restSecurityErrorHandler)
+                )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()

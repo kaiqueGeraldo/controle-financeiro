@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,13 +31,15 @@ public class NotificationCronService {
     private TransactionRepository transactionRepository;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private Clock clock;
 
     // Roda todos os dias às 08:00h
-    @Scheduled(cron = "0 0 8 * * ?", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 0 8 * * ?", zone = "${app.temporal.product-zone}")
     @SchedulerLock(name = "notifyUpcomingBillsLock", lockAtLeastFor = "1m", lockAtMostFor = "10m")
     public void notifyUpcomingBills() {
         log.info("CRON: Iniciando verificação de contas a vencer para amanhã...");
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate tomorrow = LocalDate.now(clock).plusDays(1);
         List<User> usersToNotify = userRepository.findByNotifContasTrue();
 
         for (User user : usersToNotify) {
@@ -66,13 +69,14 @@ public class NotificationCronService {
     }
 
     // Roda toda Segunda-feira às 08:00h
-    @Scheduled(cron = "0 0 8 * * MON", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 0 8 * * MON", zone = "${app.temporal.product-zone}")
     public void sendWeeklySummary() {
         log.info("CRON: Iniciando envio do resumo semanal...");
         List<User> usersToNotify = userRepository.findByNotifSemanalTrue();
 
-        LocalDate lastMonday = LocalDate.now().minusDays(7);
-        LocalDate lastSunday = LocalDate.now().minusDays(1);
+        LocalDate today = LocalDate.now(clock);
+        LocalDate lastMonday = today.minusDays(7);
+        LocalDate lastSunday = today.minusDays(1);
 
         for (User user : usersToNotify) {
             List<Transaction> weeklyTransactions = transactionRepository.findByUserIdAndDateBetween(user.getId(), lastMonday, lastSunday);

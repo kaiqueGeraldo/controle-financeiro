@@ -1,5 +1,10 @@
 package com.controlefinanceiro.api.domain.card.dto;
 
+import com.controlefinanceiro.api.domain.validation.WallTime;
+import com.controlefinanceiro.api.utils.StrictIntegerDeserializer;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -17,12 +22,14 @@ public record PayInvoiceDTO(
         @NotNull(message = "A data do pagamento é obrigatória")
         LocalDate date,
 
-        String time,
+        @WallTime String time,
 
         @NotNull(message = "O mês da fatura é obrigatório")
+        @Min(1) @Max(12) @JsonDeserialize(using = StrictIntegerDeserializer.class)
         Integer month,
 
         @NotNull(message = "O ano da fatura é obrigatório")
+        @Min(1) @Max(9999) @JsonDeserialize(using = StrictIntegerDeserializer.class)
         Integer year,
 
         String description, // (ex: "Pagamento parcial")

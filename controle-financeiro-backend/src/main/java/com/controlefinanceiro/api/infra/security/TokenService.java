@@ -4,26 +4,33 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
 
+    private static final String ISSUER = "controle-financeiro-api";
+    private static final Duration TOKEN_TTL = Duration.ofHours(24);
+
     @Value("${api.security.token.secret}")
     private String secret;
+    @Autowired
+    private Clock clock;
 
     public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("controle-financeiro-api")
+                    .withIssuer(ISSUER)
                     .withSubject(user.getEmail())
                     .withClaim("id", user.getId().toString())
                     .withClaim("nome", user.getNome())
@@ -37,17 +44,24 @@ public class TokenService {
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm)
-                    .withIssuer("controle-financeiro-api")
-                    .build()
-                    .verify(token)
-                    .getSubject();
+            DecodedJWT decoded = JWT.decode(token);
+            algorithm.verify(decoded);
+
+            Instant expiresAt = decoded.getExpiresAtAsInstant();
+            if (!ISSUER.equals(decoded.getIssuer())
+                    || decoded.getSubject() == null
+                    || expiresAt == null
+                    || !expiresAt.isAfter(clock.instant())) {
+                return "";
+            }
+
+            return decoded.getSubject();
         } catch (JWTVerificationException exception) {
             return "";
         }
     }
 
     private Instant genExpirationDate() {
-        return LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00"));
+        return clock.instant().plus(TOKEN_TTL);
     }
 }

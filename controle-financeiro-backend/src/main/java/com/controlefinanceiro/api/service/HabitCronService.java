@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,13 +24,14 @@ public class HabitCronService {
     @Autowired private HabitRepository habitRepository;
     @Autowired private HabitLogRepository habitLogRepository;
     @Autowired private TransactionTemplate transactionTemplate;
+    @Autowired private Clock clock;
 
-    @Scheduled(cron = "0 5 0 * * ?", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 5 0 * * ?", zone = "${app.temporal.product-zone}")
     @SchedulerLock(name = "processDailyHabitsLock", lockAtLeastFor = "1m", lockAtMostFor = "10m")
     public void processDailyHabits() {
         log.info("CRON-HABITS: Iniciando processamento de Hábitos (Daily e Weekly Goals)...");
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(clock);
         LocalDate yesterday = today.minusDays(1);
         LocalDate dayBefore = yesterday.minusDays(1);
 

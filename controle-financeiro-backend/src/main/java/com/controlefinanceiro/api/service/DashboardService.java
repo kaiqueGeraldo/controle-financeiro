@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -27,6 +28,8 @@ public class DashboardService {
     private AccountRepository accountRepository;
     @Autowired
     private InvestmentRepository investmentRepository;
+    @Autowired
+    private Clock clock;
 
     public DashboardFlowDTO getMonthlyFlow(User user, int month, int year) {
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
@@ -60,7 +63,7 @@ public class DashboardService {
         BigDecimal currentBalance = accBalance.add(invBalance);
 
         List<ChartPointDTO> points = new ArrayList<>();
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(clock);
 
         if ("30D".equals(period)) {
             LocalDate startDate = today.minusDays(30);

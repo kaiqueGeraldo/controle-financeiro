@@ -1,7 +1,7 @@
 package com.controlefinanceiro.api.controller;
 
-import com.controlefinanceiro.api.domain.investment.InvestTransaction;
 import com.controlefinanceiro.api.domain.investment.dto.CreateInvestmentDTO;
+import com.controlefinanceiro.api.domain.investment.dto.InvestTransactionResponseDTO;
 import com.controlefinanceiro.api.domain.investment.dto.InvestmentOperationDTO;
 import com.controlefinanceiro.api.domain.investment.dto.InvestmentResponseDTO;
 import com.controlefinanceiro.api.domain.investment.dto.UpdateBalanceDTO;
@@ -31,7 +31,7 @@ public class InvestmentController {
     }
 
     @GetMapping("/{id}/history")
-    public ResponseEntity<List<InvestTransaction>> getHistory(
+    public ResponseEntity<List<InvestTransactionResponseDTO>> getHistory(
             @PathVariable UUID id,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(service.getHistory(id, user));

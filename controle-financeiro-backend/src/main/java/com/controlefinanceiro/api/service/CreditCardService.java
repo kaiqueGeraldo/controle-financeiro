@@ -27,9 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,8 @@ public class CreditCardService {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private Clock clock;
 
     public CreditCardResponseDTO createCard(CreateCardDTO data, User user) {
         log.info("Criando cartão '{}' (Final {})", data.name(), data.last4Digits());
@@ -108,7 +111,7 @@ public class CreditCardService {
         cardRepository.delete(card);
 
         // 5. Atualizar o cache de Dashboards e Resumo Anual
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), java.time.LocalDate.now().getYear()));
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now(clock).getYear()));
 
         log.info("SERVICE: Cartão {} excluído com sucesso do banco de dados.", id);
     }
@@ -118,6 +121,7 @@ public class CreditCardService {
     @Transactional
     public UUID createTransaction(CreateCardTransactionDTO data) {
         log.info("Nova compra no cartão ID {}: {} ({}x)", data.cardId(), data.amount(), data.totalInstallments());
+        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), ZonedDateTime.now(clock).toLocalTime());
 
         CreditCard card = cardRepository.findById(data.cardId()).orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -152,8 +156,7 @@ public class CreditCardService {
 
             transaction.setDate(dataParcela);
 
-            LocalTime time = DateUtil.getTimeOrDefault(data.time());
-            transaction.setCreatedAt(dataParcela.atTime(time));
+            transaction.setCreatedAt(dataParcela.atTime(operationTime));
 
             transaction.setCategory(category);
             transaction.setInvoice(invoice);
@@ -228,7 +231,7 @@ public class CreditCardService {
 
         List<UUID> cardIds = cards.stream().map(CreditCard::getId).toList();
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(clock);
         int currentMonth = today.getMonthValue();
         int currentYear = today.getYear();
 
@@ -397,6 +400,7 @@ public class CreditCardService {
     @Transactional
     public void payInvoice(UUID cardId, PayInvoiceDTO data, User user) {
         log.info("SERVICE: Processando regras de cartão para pagamento da fatura.");
+        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), ZonedDateTime.now(clock).toLocalTime());
 
         CreditCard card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
@@ -406,7 +410,7 @@ public class CreditCardService {
         }
 
         eventPublisher.publishEvent(new InvoicePaymentRequestedEvent(
-                data.accountId(), data.amount(), data.date(), data.time(), data.description(), card, user
+                data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user
         ));
 
         Invoice invoice = getOrCreateInvoice(card, data.month(), data.year());
@@ -419,22 +423,22 @@ public class CreditCardService {
         }
 
         if (Boolean.TRUE.equals(data.isPrepayment())) {
-            processPrepayment(invoice, data, user);
+            processPrepayment(invoice, data, operationTime, user);
         } else {
-            processInvoiceClosing(invoice, data, totalFatura, user);
+            processInvoiceClosing(invoice, data, operationTime, totalFatura, user);
         }
 
         eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
     }
 
-    private void processPrepayment(Invoice invoice, PayInvoiceDTO data, User user) {
+    private void processPrepayment(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, User user) {
         log.info("Processado como adiantamento de fatura.");
         CardTransaction creditTransaction = new CardTransaction();
         creditTransaction.setDescription("Adiantamento: " + (data.description() != null ? data.description() : ""));
         creditTransaction.setAmount(data.amount().negate());
         creditTransaction.setDate(data.date());
-        creditTransaction.setCreatedAt(data.date().atTime(DateUtil.getTimeOrDefault(data.time())));
+        creditTransaction.setCreatedAt(data.date().atTime(operationTime));
         creditTransaction.setInvoice(invoice);
 
         Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
@@ -444,7 +448,7 @@ public class CreditCardService {
         cardTransactionRepository.save(creditTransaction);
     }
 
-    private void processInvoiceClosing(Invoice invoice, PayInvoiceDTO data, BigDecimal totalFatura, User user) {
+    private void processInvoiceClosing(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, BigDecimal totalFatura, User user) {
         BigDecimal diferenca = totalFatura.subtract(data.amount());
 
         if (diferenca.compareTo(BigDecimal.ZERO) > 0) {
@@ -458,7 +462,7 @@ public class CreditCardService {
             rolloverTx.setDescription("Saldo rotativo da fatura anterior");
             rolloverTx.setAmount(diferenca);
             rolloverTx.setDate(data.date());
-            rolloverTx.setCreatedAt(java.time.LocalDateTime.now());
+            rolloverTx.setCreatedAt(data.date().atTime(operationTime));
             rolloverTx.setInvoice(nextInvoice);
 
             Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())

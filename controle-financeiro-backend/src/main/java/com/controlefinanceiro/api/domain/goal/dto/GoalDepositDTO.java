@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.domain.goal.dto;
 
 import com.controlefinanceiro.api.domain.goal.EvolutionProtocol;
+import com.controlefinanceiro.api.domain.validation.WallTime;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public record GoalDepositDTO(
         @Positive(message = "O valor deve ser positivo")
         BigDecimal amount,
 
-        String time,
+        @WallTime String time,
 
         String note,
 
