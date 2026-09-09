@@ -1,5 +1,6 @@
 import { CreditCard } from "@/services/cardService";
 import { formatCurrency } from "@/utils/format";
+import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Banknote,
@@ -289,7 +290,7 @@ export function InvoiceDetails({
                               {t.description}
                             </p>
                             <p className="text-[10px] text-text-muted flex items-center gap-1 mt-0.5">
-                              {new Date(t.date).toLocaleDateString()}{" "}
+                              {formatCalendarDate(t.date)}{" "}
                               <span className="w-1 h-1 bg-zinc-700 rounded-full shrink-0"></span>{" "}
                               <span className="truncate">{catName}</span>
                             </p>

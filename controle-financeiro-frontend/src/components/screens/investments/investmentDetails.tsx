@@ -1,5 +1,6 @@
 import { Investment, InvestTransaction } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import { History, Loader2, Plus, RefreshCw, Trash2, X } from "lucide-react";
 import React from "react";
@@ -236,7 +237,7 @@ export function InvestmentDetails({
                                   : "Dividendo"}
                           </p>
                           <p className="text-[10px] text-text-muted">
-                            {new Date(transacao.date).toLocaleDateString()}
+                            {formatCalendarDate(transacao.date)}
                           </p>
                         </div>
                       </div>

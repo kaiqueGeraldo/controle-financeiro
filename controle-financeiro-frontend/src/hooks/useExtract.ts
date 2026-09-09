@@ -3,6 +3,12 @@ import { useFinanceData } from "./useFinanceData";
 import { transactionService } from "@/services/transactionService";
 import { Transaction, CreateTransactionDTO } from "@/types";
 import { useOptimisticMutation } from "./useOptimisticMutation";
+import { shiftMonth } from "@/utils/date";
+import { useUser } from "./useUser";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "./useRequestCoordinator";
 
 interface ExtractCacheData {
   transactions: Transaction[];
@@ -18,13 +24,16 @@ export function useExtract() {
     refresh: refreshGlobal,
     isLoading: isLoadingGlobal,
   } = useFinanceData();
+  const { user, isLoading: isUserLoading } = useUser();
+  const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoadingList, setIsLoadingList] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
+  const [requestedPage, setRequestedPage] = useState(0);
   const [hasMore, setHasMore] = useState(false);
 
   const [selectedTransactionId, setSelectedTransactionId] = useState<
@@ -38,15 +47,22 @@ export function useExtract() {
 
   // CAMADA DE CACHE ESTRATÉGICA
   const extractCache = useRef<Record<string, ExtractCacheData>>({});
-  const abortControllerRef = useRef<AbortController | null>(null);
 
   const fetchExtract = useCallback(
     async (currentPage: number, append = false, invalidateCache = false) => {
+      if (isUserLoading || !userId) {
+        setIsLoadingList(false);
+        setIsFirstLoad(false);
+        return;
+      }
+
+      requests.invalidate("extract");
       setIsLoadingList(true);
+      setRequestedPage(currentPage);
 
       const month = dateRef.getMonth() + 1;
       const year = dateRef.getFullYear();
-      const cacheKey = `${year}-${month}-${filterType}-${filterAccountId}`;
+      const cacheKey = `${userId}:${year}-${month}-${filterType}-${filterAccountId}`;
 
       if (invalidateCache) {
         extractCache.current = {};
@@ -61,7 +77,6 @@ export function useExtract() {
         const cached = extractCache.current[cacheKey];
         setTransactions(cached.transactions);
         setPage(cached.page);
-        setTotalPages(cached.totalPages);
         setHasMore(cached.hasMore);
 
         setIsLoadingList(false);
@@ -69,12 +84,7 @@ export function useExtract() {
         return;
       }
 
-      // --- PROTEÇÃO CONTRA RACE CONDITION ---
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-      abortControllerRef.current = new AbortController();
-      const signal = abortControllerRef.current.signal;
+      const request = requests.begin("extract");
 
       try {
         const res = await transactionService.getAll({
@@ -84,10 +94,10 @@ export function useExtract() {
           year,
           type: filterType === "todos" ? undefined : filterType,
           accountId: filterAccountId === "todas" ? undefined : filterAccountId,
-          signal,
+          signal: request.signal,
         });
 
-        if (signal.aborted) return;
+        if (!request.isCurrent()) return;
 
         if (res?.data) {
           const newData = res.data;
@@ -107,27 +117,41 @@ export function useExtract() {
             return updatedTransactions;
           });
 
-          setTotalPages(newData.page.totalPages);
           setHasMore(newData.page.number < newData.page.totalPages - 1);
+          setPage(currentPage);
         }
-      } catch (error: any) {
-        if (error.name === "AbortError") return;
-        console.error("Erro ao buscar extrato paginado", error);
+      } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
+          console.error("Erro ao buscar extrato paginado", error);
+        }
       } finally {
-        if (!signal.aborted) {
+        if (request.isCurrent()) {
           setIsLoadingList(false);
           setIsFirstLoad(false);
         }
+        request.finish();
       }
     },
-    [dateRef, filterType, filterAccountId],
+    [
+      dateRef,
+      filterType,
+      filterAccountId,
+      isUserLoading,
+      userId,
+      requests,
+    ],
   );
 
   // Listener para filtros de navegação
   useEffect(() => {
+    extractCache.current = {};
+    setTransactions([]);
     setPage(0);
+    setHasMore(false);
+    setSelectedTransactionId(null);
+    setIsFirstLoad(true);
     fetchExtract(0, false);
-  }, [fetchExtract]);
+  }, [userId, fetchExtract]);
 
   // Listener de Mutações Globais (Nova Transação vinda do Modal Superior)
   useEffect(() => {
@@ -142,7 +166,6 @@ export function useExtract() {
   const loadMore = () => {
     if (hasMore && !isLoadingList) {
       const nextPage = page + 1;
-      setPage(nextPage);
       fetchExtract(nextPage, true);
     }
   };
@@ -155,7 +178,7 @@ export function useExtract() {
     });
 
     return Object.keys(groups)
-      .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+      .sort((a, b) => b.localeCompare(a))
       .map((date) => ({
         date,
         items: groups[date].sort(
@@ -182,28 +205,49 @@ export function useExtract() {
     new Date().getFullYear() * 12 + new Date().getMonth() + 1;
 
   const changeMonth = (direction: number) => {
-    const newDate = new Date(dateRef);
-    newDate.setMonth(dateRef.getMonth() + direction);
-    setDateRef(newDate);
+    setDateRef((previous) => shiftMonth(previous, direction));
   };
 
   const { mutate: deleteTransactionOptimistic } = useOptimisticMutation({
     mutationFn: (id: string) => transactionService.delete(id),
     onMutate: (id) => {
-      const previousTransactions = [...transactions];
+      const index = transactions.findIndex((transaction) => transaction.id === id);
+      const deletedTransaction =
+        index >= 0 ? transactions[index] : undefined;
 
       setTransactions((prev) => prev.filter((t) => t.id !== id));
       setSelectedTransactionId(null);
 
-      return previousTransactions;
+      return { deletedTransaction, index };
     },
-    onError: (err, id, previousTransactions) => {
-      setTransactions(previousTransactions);
+    onError: async (_error, _id, context) => {
+      const deletedTransaction = context.deletedTransaction;
+      if (deletedTransaction) {
+        setTransactions((current) => {
+          if (
+            current.some(
+              (transaction) => transaction.id === deletedTransaction.id,
+            )
+          ) {
+            return current;
+          }
+          const restored = [...current];
+          restored.splice(
+            Math.max(0, context.index),
+            0,
+            deletedTransaction,
+          );
+          return restored;
+        });
+      }
+      await fetchExtract(0, false, true);
     },
     onSuccess: () => {
       refreshGlobal();
       window.dispatchEvent(new Event("refreshExtract"));
     },
+    getMutationKey: (id) => id,
+    scopeKey: userId,
   });
 
   const { mutate: updateTransactionOptimistic } = useOptimisticMutation({
@@ -213,7 +257,9 @@ export function useExtract() {
     }) => transactionService.update(data.id, data.payload),
 
     onMutate: ({ id, payload }) => {
-      const previousTransactions = [...transactions];
+      const previousTransaction = transactions.find(
+        (transaction) => transaction.id === id,
+      );
 
       setTransactions((prev) =>
         prev.map((t) => {
@@ -231,24 +277,27 @@ export function useExtract() {
         }),
       );
 
-      return previousTransactions;
+      return { previousTransaction };
     },
-    onError: (err, vars, previousTransactions) => {
-      setTransactions(previousTransactions);
+    onError: async (_error, variables, context) => {
+      if (context.previousTransaction) {
+        setTransactions((current) =>
+          current.map((transaction) =>
+            transaction.id === variables.id
+              ? context.previousTransaction!
+              : transaction,
+          ),
+        );
+      }
+      await fetchExtract(0, false, true);
     },
     onSuccess: () => {
       refreshGlobal();
       window.dispatchEvent(new Event("refreshExtract"));
     },
+    getMutationKey: ({ id }) => id,
+    scopeKey: userId,
   });
-
-  useEffect(() => {
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-    };
-  }, []);
 
   return {
     groupedTransactions,
@@ -256,8 +305,8 @@ export function useExtract() {
     accounts,
     categories,
     isInitialLoading: isFirstLoad || isLoadingGlobal,
-    isFiltering: isLoadingList && !isFirstLoad && page === 0,
-    isLoadingMore: isLoadingList && page > 0,
+    isFiltering: isLoadingList && !isFirstLoad && requestedPage === 0,
+    isLoadingMore: isLoadingList && requestedPage > 0,
     hasMore,
     loadMore,
     filters: {
@@ -277,9 +326,15 @@ export function useExtract() {
     selectedTransaction: transactions.find(
       (t) => t.id === selectedTransactionId,
     ),
-    deleteTransaction: (id: string) => deleteTransactionOptimistic(id),
-    updateTransaction: (id: string, data: Partial<CreateTransactionDTO>) =>
-      updateTransactionOptimistic({ id, payload: data }),
+    deleteTransaction: async (id: string) => {
+      await deleteTransactionOptimistic(id);
+    },
+    updateTransaction: async (
+      id: string,
+      data: Partial<CreateTransactionDTO>,
+    ) => {
+      await updateTransactionOptimistic({ id, payload: data });
+    },
     canGoBack: currentViewValue > minLimitValue,
     canGoForward: currentViewValue < maxLimitValue,
   };

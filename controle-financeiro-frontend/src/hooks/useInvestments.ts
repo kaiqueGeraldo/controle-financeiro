@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import { useInvestmentsContext } from "@/contexts/investmentsContext";
 import { investmentService } from "@/services/investmentService";
 import { InvestTransaction } from "@/types";
+import { useUser } from "./useUser";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "./useRequestCoordinator";
 
 export function useInvestments() {
   const context = useInvestmentsContext();
+  const { user } = useUser();
+  const requests = useRequestCoordinator(user?.id);
   const [selectedInvestmentId, setSelectedInvestmentId] = useState<
     string | null
   >(null);
@@ -13,18 +20,32 @@ export function useInvestments() {
 
   useEffect(() => {
     if (selectedInvestmentId) {
-      setIsHistoryLoading(true);
+      const request = requests.begin("investment-history");
+      void Promise.resolve().then(() => {
+        if (request.isCurrent()) setIsHistoryLoading(true);
+      });
       investmentService
-        .getHistory(selectedInvestmentId)
+        .getHistory(selectedInvestmentId, request.signal)
         .then((res) => {
-          if (res?.data) setHistory(res.data);
+          if (request.isCurrent()) setHistory(res.data ?? []);
         })
-        .catch(() => setHistory([]))
-        .finally(() => setIsHistoryLoading(false));
+        .catch((error: unknown) => {
+          if (request.isCurrent() && !isAbortError(error)) setHistory([]);
+        })
+        .finally(() => {
+          if (request.isCurrent()) setIsHistoryLoading(false);
+          request.finish();
+        });
     } else {
-      setHistory([]);
+      requests.invalidate("investment-history");
+      void Promise.resolve().then(() => {
+        setHistory([]);
+        setIsHistoryLoading(false);
+      });
     }
-  }, [selectedInvestmentId, context.investments]);
+
+    return () => requests.invalidate("investment-history");
+  }, [selectedInvestmentId, context.investments, requests]);
 
   const deleteInvestment = async (id: string) => {
     await investmentService.delete(id);
@@ -36,13 +57,20 @@ export function useInvestments() {
     await investmentService.deleteHistory(transactionId);
     context.refreshInvestments();
     if (selectedInvestmentId) {
+      const request = requests.begin("investment-history");
       setIsHistoryLoading(true);
       investmentService
-        .getHistory(selectedInvestmentId)
+        .getHistory(selectedInvestmentId, request.signal)
         .then((res) => {
-          setHistory(res?.data || []);
+          if (request.isCurrent()) setHistory(res?.data || []);
         })
-        .finally(() => setIsHistoryLoading(false));
+        .catch((error: unknown) => {
+          if (request.isCurrent() && !isAbortError(error)) setHistory([]);
+        })
+        .finally(() => {
+          if (request.isCurrent()) setIsHistoryLoading(false);
+          request.finish();
+        });
     }
   };
 

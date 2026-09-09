@@ -21,6 +21,7 @@ export function InvestmentModalManager() {
         onClose={modals.closeOperation}
         asset={modals.operationAsset}
         onSuccess={refreshInvestments}
+        onReconcile={refreshInvestments}
       />
     </>
   );

@@ -14,15 +14,23 @@ import { dashboardService } from "@/services/dashboardService";
 import { transactionService } from "@/services/transactionService";
 import { useUserContext } from "./userContext";
 import { Transaction } from "@/types";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
+
+interface FlowData {
+  income: number;
+  expense: number;
+  balance: number;
+  percentage: number;
+}
+
+type ChartPoint = { label: string; valor: number };
 
 interface DashboardContextType {
-  flowData: {
-    income: number;
-    expense: number;
-    balance: number;
-    percentage: number;
-  };
-  chartData: { label: string; valor: number }[];
+  flowData: FlowData;
+  chartData: ChartPoint[];
   recentTransactions: Transaction[];
   isFlowLoading: boolean;
   isChartLoading: boolean;
@@ -44,6 +52,7 @@ const DashboardContext = createContext<DashboardContextType | undefined>(
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const { user, isLoading: isLoadingUser } = useUserContext();
   const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   const [flowData, setFlowData] = useState({
     income: 0,
@@ -51,9 +60,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     balance: 0,
     percentage: 0,
   });
-  const [chartData, setChartData] = useState<
-    { label: string; valor: number }[]
-  >([]);
+  const [chartData, setChartData] = useState<ChartPoint[]>([]);
   const [recentTransactions, setRecentTransactions] = useState<Transaction[]>(
     [],
   );
@@ -62,17 +69,16 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const [isChartLoading, setIsChartLoading] = useState(true);
   const [isRecentLoading, setIsRecentLoading] = useState(true);
 
-  const flowCache = useRef<Record<string, any>>({});
-  const chartCache = useRef<Record<string, any>>({});
-  const recentCache = useRef<Transaction[]>([]);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const flowCache = useRef<Record<string, FlowData>>({});
+  const chartCache = useRef<Record<string, ChartPoint[]>>({});
+  const recentCache = useRef<Record<string, Transaction[]>>({});
 
   const fetchFlowData = useCallback(
     async (invalidateCache = false, isBackground = false) => {
       if (isLoadingUser || !userId) return;
 
       const now = new Date();
-      const cacheKey = `${now.getMonth() + 1}-${now.getFullYear()}`;
+      const cacheKey = `${userId}:${now.getMonth() + 1}-${now.getFullYear()}`;
 
       if (invalidateCache) flowCache.current = {};
 
@@ -83,83 +89,99 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       }
 
       if (!isBackground) setIsFlowLoading(true);
+      const request = requests.begin("dashboard-flow");
 
       try {
         const res = await dashboardService.getMonthlyFlow(
           now.getMonth() + 1,
           now.getFullYear(),
+          request.signal,
         );
-        if (res?.data) {
+        if (request.isCurrent() && res?.data) {
           setFlowData(res.data);
           flowCache.current[cacheKey] = res.data;
         }
-      } catch (error) {
-        console.error("Erro ao buscar fluxo mensal", error);
+      } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
+          console.error("Erro ao buscar fluxo mensal", error);
+        }
       } finally {
-        if (!isBackground) setIsFlowLoading(false);
+        if (request.isCurrent() && !isBackground) setIsFlowLoading(false);
+        request.finish();
       }
     },
-    [userId, isLoadingUser],
+    [userId, isLoadingUser, requests],
   );
 
   const fetchChartData = useCallback(
     async (period: "30D" | "6M" | "1Y", invalidateCache = false) => {
       if (isLoadingUser || !userId) return;
       if (invalidateCache) chartCache.current = {};
-      if (!invalidateCache && chartCache.current[period]) {
-        setChartData(chartCache.current[period]);
+      const cacheKey = `${userId}:${period}`;
+      if (!invalidateCache && chartCache.current[cacheKey]) {
+        setChartData(chartCache.current[cacheKey]);
         setIsChartLoading(false);
         return;
       }
       setIsChartLoading(true);
-      if (abortControllerRef.current) abortControllerRef.current.abort();
-      abortControllerRef.current = new AbortController();
+      const request = requests.begin("dashboard-chart");
       try {
         const res = await dashboardService.getWealthChart(
           period,
-          abortControllerRef.current.signal,
+          request.signal,
         );
-        if (res?.data) {
+        if (request.isCurrent() && res?.data) {
           setChartData(res.data);
-          chartCache.current[period] = res.data;
+          chartCache.current[cacheKey] = res.data;
         }
-      } catch (error: any) {
-        if (error.name !== "AbortError")
+      } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
           console.error("Erro ao buscar gráfico", error);
+        }
       } finally {
-        setIsChartLoading(false);
+        if (request.isCurrent()) setIsChartLoading(false);
+        request.finish();
       }
     },
-    [userId, isLoadingUser],
+    [userId, isLoadingUser, requests],
   );
 
   const fetchRecentTransactions = useCallback(
     async (invalidateCache = false, isBackground = false) => {
       if (isLoadingUser || !userId) return;
 
-      if (invalidateCache) recentCache.current = [];
+      const cacheKey = userId;
+      if (invalidateCache) recentCache.current = {};
 
-      if (!invalidateCache && recentCache.current.length > 0) {
-        setRecentTransactions(recentCache.current);
+      if (!invalidateCache && recentCache.current[cacheKey]?.length > 0) {
+        setRecentTransactions(recentCache.current[cacheKey]);
         if (!isBackground) setIsRecentLoading(false);
         return;
       }
 
       if (!isBackground) setIsRecentLoading(true);
+      const request = requests.begin("dashboard-recent");
 
       try {
-        const res = await transactionService.getAll({ page: 0, size: 5 });
-        if (res?.data?.content) {
+        const res = await transactionService.getAll({
+          page: 0,
+          size: 5,
+          signal: request.signal,
+        });
+        if (request.isCurrent() && res?.data?.content) {
           setRecentTransactions(res.data.content);
-          recentCache.current = res.data.content;
+          recentCache.current[cacheKey] = res.data.content;
         }
-      } catch (error) {
-        console.error("Erro ao buscar transações recentes", error);
+      } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
+          console.error("Erro ao buscar transações recentes", error);
+        }
       } finally {
-        if (!isBackground) setIsRecentLoading(false);
+        if (request.isCurrent() && !isBackground) setIsRecentLoading(false);
+        request.finish();
       }
     },
-    [userId, isLoadingUser],
+    [userId, isLoadingUser, requests],
   );
 
   const refreshDashboard = useCallback(
@@ -187,17 +209,28 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   }, [refreshDashboard]);
 
   useEffect(() => {
+    flowCache.current = {};
+    chartCache.current = {};
+    recentCache.current = {};
+    setFlowData({ income: 0, expense: 0, balance: 0, percentage: 0 });
+    setChartData([]);
+    setRecentTransactions([]);
+
+    if (isLoadingUser) {
+      setIsFlowLoading(true);
+      setIsChartLoading(true);
+      setIsRecentLoading(true);
+    } else if (!userId) {
+      setIsFlowLoading(false);
+      setIsChartLoading(false);
+      setIsRecentLoading(false);
+    }
+  }, [userId, isLoadingUser]);
+
+  useEffect(() => {
     fetchFlowData();
     fetchRecentTransactions();
   }, [fetchFlowData, fetchRecentTransactions]);
-
-  useEffect(() => {
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-    };
-  }, []);
 
   const contextValue = useMemo(
     () => ({

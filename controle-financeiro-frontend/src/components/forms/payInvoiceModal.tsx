@@ -3,6 +3,7 @@
 import { Modal } from "@/components/ui/modal";
 import { cardService } from "@/services/cardService";
 import { Account } from "@/types";
+import { localDateString } from "@/utils/date";
 import {
   AlertCircle,
   CheckCircle2,
@@ -10,7 +11,7 @@ import {
   Loader2,
   Wallet
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface PayInvoiceModalProps {
   isOpen: boolean;
@@ -36,32 +37,44 @@ export function PayInvoiceModal({
   year,
 }: PayInvoiceModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const submitting = useRef(false);
   const [accountId, setAccountId] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [isPrepayment, setIsPrepayment] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const initializedInvoice = useRef<string | null>(null);
 
   useEffect(() => {
+    if (!isOpen) {
+      initializedInvoice.current = null;
+      return;
+    }
+    const invoiceKey = `${cardId}:${year}:${month}`;
+    if (initializedInvoice.current === invoiceKey) return;
+    initializedInvoice.current = invoiceKey;
     if (isOpen) {
+      const openedAt = new Date();
       setAmount(currentInvoiceValue > 0 ? currentInvoiceValue.toFixed(2) : "");
       setAccountId(accounts.length > 0 ? accounts[0].id : "");
       setIsPrepayment(false);
       setIsLoading(false);
       setErrorMessage(null);
-      setDate(new Date().toISOString().split("T")[0]);
+      setDate(localDateString(openedAt));
       setTime(
-        new Date().toLocaleTimeString("pt-BR", {
+        openedAt.toLocaleTimeString("pt-BR", {
           hour: "2-digit",
           minute: "2-digit",
         }),
       );
     }
-  }, [isOpen, currentInvoiceValue, accounts]);
+  }, [isOpen, currentInvoiceValue, accounts, cardId, year, month]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
     setIsLoading(true);
     setErrorMessage(null);
 
@@ -83,9 +96,10 @@ export function PayInvoiceModal({
 
       onSuccess();
       onClose();
-    } catch (error: any) {
-      setErrorMessage(error?.message || "Erro ao processar pagamento.");
+    } catch (error: unknown) {
+      setErrorMessage(error instanceof Error ? error.message : "Erro ao processar pagamento.");
     } finally {
+      submitting.current = false;
       setIsLoading(false);
     }
   };

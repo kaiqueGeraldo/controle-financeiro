@@ -14,6 +14,11 @@ import { planningService } from "@/services/planningService";
 import { categoryService } from "@/services/categoryService";
 import { PlanItem, Category } from "@/types";
 import { useUserContext } from "./userContext";
+import { shiftMonth } from "@/utils/date";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
 
 interface PlanningContextType {
   items: PlanItem[];
@@ -43,13 +48,22 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
 
   const { user, isLoading: isLoadingUser } = useUserContext();
   const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   // --- CACHE DE MEMÓRIA E CONTROLE DE DEBOUNCE ---
   const planCache = useRef<
     Record<string, { items: PlanItem[]; incomeForecast: number }>
   >({});
+  const categoryCache = useRef<Record<string, Category[]>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const timerResolveRef = useRef<(() => void) | null>(null);
+
+  const cancelScheduledFetch = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = null;
+    timerResolveRef.current?.();
+    timerResolveRef.current = null;
+  }, []);
 
   const fetchData = useCallback(
     async (invalidateCache = false, isBackground = false) => {
@@ -64,43 +78,43 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
 
       const month = dateRef.getMonth() + 1;
       const year = dateRef.getFullYear();
-      const cacheKey = `${month}-${year}`;
+      const cacheKey = `${userId}:${month}-${year}`;
+      const cachedCategories = categoryCache.current[userId];
 
       if (
         !invalidateCache &&
         planCache.current[cacheKey] &&
-        categories.length > 0
+        cachedCategories
       ) {
         setItems(planCache.current[cacheKey].items);
         setIncomeForecast(planCache.current[cacheKey].incomeForecast);
+        setCategories(cachedCategories);
         setIsLoading(false);
         return;
       }
 
       if (!isBackground) setIsLoading(true);
 
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
+      cancelScheduledFetch();
+      const request = requests.begin("planning");
 
       return new Promise<void>((resolve) => {
+        timerResolveRef.current = resolve;
         timerRef.current = setTimeout(async () => {
-          abortControllerRef.current = new AbortController();
-          const signal = abortControllerRef.current.signal;
+          timerRef.current = null;
+          timerResolveRef.current = null;
 
           try {
-            const fetchCategories = categories.length === 0;
+            const fetchCategories = !cachedCategories;
 
             const [plansRes, catsRes] = await Promise.all([
-              planningService.getByMonth(month, year, signal),
+              planningService.getByMonth(month, year, request.signal),
               fetchCategories
-                ? categoryService.getAll("EXPENSE", signal)
+                ? categoryService.getAll("EXPENSE", request.signal)
                 : Promise.resolve(null),
             ]);
+
+            if (!request.isCurrent()) return;
 
             if (plansRes?.data) {
               setItems(plansRes.data.items || []);
@@ -115,33 +129,59 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
               setIncomeForecast(0);
             }
 
-            if (catsRes?.data) setCategories(catsRes.data);
-          } catch (error: any) {
-            if (error.name === "AbortError") {
-              return;
+            if (catsRes?.data) {
+              categoryCache.current[userId] = catsRes.data;
+              setCategories(catsRes.data);
+            } else if (cachedCategories) {
+              setCategories(cachedCategories);
             }
-            if (error.status !== 403 && error.status !== 401) {
+          } catch (error: unknown) {
+            if (
+              request.isCurrent() &&
+              !isAbortError(error) &&
+              !isHttpStatus(error, 403) &&
+              !isHttpStatus(error, 401)
+            ) {
               console.error("Erro ao buscar planejamento", error);
             }
           } finally {
-            if (!signal.aborted) {
-              setIsLoading(false);
-              resolve();
-            }
+            if (request.isCurrent()) setIsLoading(false);
+            request.finish();
+            resolve();
           }
         }, 350);
       });
     },
-    [dateRef, userId, isLoadingUser, categories.length],
+    [
+      dateRef,
+      userId,
+      isLoadingUser,
+      requests,
+      cancelScheduledFetch,
+    ],
   );
+
+  useEffect(() => {
+    setItems([]);
+    setIncomeForecast(0);
+    setCategories([]);
+    planCache.current = {};
+    categoryCache.current = {};
+
+    if (isLoadingUser) {
+      setIsLoading(true);
+    } else if (!userId) {
+      setIsLoading(false);
+    }
+  }, [userId, isLoadingUser]);
 
   useEffect(() => {
     fetchData();
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      if (abortControllerRef.current) abortControllerRef.current.abort();
+      cancelScheduledFetch();
+      requests.invalidate("planning");
     };
-  }, [fetchData]);
+  }, [fetchData, cancelScheduledFetch, requests]);
 
   useEffect(() => {
     const handleRefresh = () => {
@@ -165,9 +205,7 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
       if (direction === -1 && !canGoBack) return;
       if (direction === 1 && !canGoForward) return;
       setDateRef((prev) => {
-        const newDate = new Date(prev);
-        newDate.setMonth(prev.getMonth() + direction);
-        return newDate;
+        return shiftMonth(prev, direction);
       });
     },
     [canGoBack, canGoForward],
@@ -209,6 +247,15 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
     <PlanningContext.Provider value={contextValue}>
       {children}
     </PlanningContext.Provider>
+  );
+}
+
+function isHttpStatus(error: unknown, status: number): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "status" in error &&
+    error.status === status
   );
 }
 

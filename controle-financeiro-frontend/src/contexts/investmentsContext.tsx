@@ -13,6 +13,10 @@ import { investmentService } from "@/services/investmentService";
 import { Investment } from "@/types";
 import { useUser } from "@/hooks/useUser";
 import { useFinanceData } from "@/hooks/useFinanceData";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
 
 interface InvestmentsContextType {
   investments: Investment[];
@@ -34,6 +38,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
   const { user, isLoading: isLoadingUser } = useUser();
   const { refresh: refreshFinance } = useFinanceData();
   const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   const refreshInvestments = useCallback(async () => {
     if (isLoadingUser || !userId) {
@@ -41,26 +46,37 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    const request = requests.begin("investments");
+    setIsLoading(true);
+
     try {
-      const res = await investmentService.getAll();
-      if (res?.data) setInvestments(res.data);
-    } catch (error) {
-      console.error("Erro ao buscar investimentos", error);
+      const res = await investmentService.getAll(request.signal);
+      if (request.isCurrent()) setInvestments(res.data ?? []);
+    } catch (error: unknown) {
+      if (request.isCurrent() && !isAbortError(error)) {
+        console.error("Erro ao buscar investimentos", error);
+      }
     } finally {
-      setIsLoading(false);
+      if (request.isCurrent()) setIsLoading(false);
+      request.finish();
     }
-  }, [userId, isLoadingUser]);
+  }, [userId, isLoadingUser, requests]);
 
   useEffect(() => {
+    setInvestments([]);
+    if (isLoadingUser) {
+      setIsLoading(true);
+      return;
+    }
     refreshInvestments();
-  }, [refreshInvestments]);
+  }, [userId, isLoadingUser, refreshInvestments]);
 
   const refreshAll = useCallback(async () => {
     await refreshInvestments();
     await refreshFinance();
   }, [refreshInvestments, refreshFinance]);
 
-  const { totalInvestido, custoTotal, lucroTotal, rentabilidadeGeral } =
+  const { totalInvestido, lucroTotal, rentabilidadeGeral } =
     useMemo(() => {
       const totalInv = investments.reduce(
         (acc, inv) => acc + inv.quantity * inv.currentPrice,
@@ -75,7 +91,6 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
 
       return {
         totalInvestido: totalInv,
-        custoTotal: custoTot,
         lucroTotal: lucroTot,
         rentabilidadeGeral: rentabilidade,
       };

@@ -10,10 +10,13 @@ import {
   useMemo,
 } from "react";
 import { habitService } from "@/services/habitService";
-import { Habit } from "@/types";
+import { Habit, HabitLog } from "@/types";
 import { useUser } from "@/hooks/useUser";
-import { useToast } from "@/contexts/toastContext";
 import { useOptimisticMutation } from "@/hooks/useOptimisticMutation";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
 
 interface HabitsContextType {
   habits: Habit[];
@@ -25,50 +28,60 @@ interface HabitsContextType {
 const HabitsContext = createContext<HabitsContextType | undefined>(undefined);
 
 // UTILITÁRIO DE BLINDAGEM DE DATA (Lida com o Array do Spring Boot)
-const normalizeDate = (d: any) => {
+const normalizeDate = (d: unknown) => {
   if (!d) return "";
   if (Array.isArray(d)) {
     return `${d[0]}-${String(d[1]).padStart(2, "0")}-${String(d[2]).padStart(2, "0")}`;
   }
-  return d;
+  return typeof d === "string" ? d : "";
 };
 
 export function HabitsProvider({ children }: { children: ReactNode }) {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoading: isLoadingUser } = useUser();
-  const toast = useToast();
+  const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   const refreshHabits = useCallback(
     async (isBackground = false) => {
-      if (isLoadingUser || !user?.id) {
+      if (isLoadingUser || !userId) {
         setIsLoading(false);
         return;
       }
 
+      const request = requests.begin("habits");
       if (!isBackground) setIsLoading(true);
       try {
-        const res = await habitService.getAll();
-        if (res?.data) setHabits(res.data);
-      } catch (error) {
-        console.error("Erro ao buscar hábitos", error);
+        const res = await habitService.getAll(request.signal);
+        if (request.isCurrent()) setHabits(res.data ?? []);
+      } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
+          console.error("Erro ao buscar hábitos", error);
+        }
       } finally {
-        setIsLoading(false);
+        if (request.isCurrent()) setIsLoading(false);
+        request.finish();
       }
     },
-    [user?.id, isLoadingUser],
+    [userId, isLoadingUser, requests],
   );
 
   useEffect(() => {
+    setHabits([]);
+    if (isLoadingUser) {
+      setIsLoading(true);
+      return;
+    }
     refreshHabits();
-  }, [refreshHabits]);
+  }, [userId, isLoadingUser, refreshHabits]);
 
   const { mutate: toggleHabitOptimistic } = useOptimisticMutation({
     mutationFn: (data: { id: string; date: string }) =>
       habitService.toggle(data.id, data.date),
 
     onMutate: ({ id, date }) => {
-      const previousHabits = [...habits];
+      const previousHabit = habits.find((habit) => habit.id === id);
 
       setHabits((prev) =>
         prev.map((habit) => {
@@ -79,52 +92,50 @@ export function HabitsProvider({ children }: { children: ReactNode }) {
             (l) => normalizeDate(l.date) === date,
           );
 
-          let newStreak = habit.currentStreak;
-          let newHighest = habit.highestStreak;
-
           if (existingLogIndex >= 0) {
             const currentLog = { ...logs[existingLogIndex] };
             if (currentLog.status === "COMPLETED") {
               currentLog.status = "PENDING";
-              if (habit.frequency === "DAILY" || !habit.frequency) {
-                  newStreak = Math.max(0, newStreak - 1);
-              }
             } else {
               currentLog.status = "COMPLETED";
-              if (habit.frequency === "DAILY" || !habit.frequency) {
-                  newStreak += 1;
-                  newHighest = Math.max(newHighest, newStreak);
-              }
             }
             logs[existingLogIndex] = currentLog;
           } else {
-            logs.push({ date, status: "COMPLETED" } as any);
-            if (habit.frequency === "DAILY" || !habit.frequency) {
-                newStreak += 1;
-                newHighest = Math.max(newHighest, newStreak);
-            }
+            logs.push({
+              id: `temp-${habit.id}-${date}`,
+              date,
+              status: "COMPLETED",
+            } satisfies HabitLog);
           }
 
           return {
             ...habit,
             logs,
-            currentStreak: newStreak,
-            highestStreak: newHighest,
           };
         }),
       );
 
-      return previousHabits;
+      // Sequências permanecem no último valor confirmado pelo servidor: não
+      // são contadores de cliques e podem envolver dias/semana concorrentes.
+      return { previousLog: previousHabit?.logs.find((log) => normalizeDate(log.date) === date) };
     },
 
-    onError: (err, vars, previousHabits) => {
-      setHabits(previousHabits);
+    onError: async (_error, variables, context) => {
+      setHabits((current) => current.map((habit) => {
+        if (habit.id !== variables.id) return habit;
+        const logs = habit.logs.filter((log) => normalizeDate(log.date) !== variables.date);
+        if (context.previousLog) logs.push(context.previousLog);
+        return { ...habit, logs };
+      }));
+      await refreshHabits(true);
     },
 
     onSuccess: () => {
       window.dispatchEvent(new Event("refreshGoals"));
       refreshHabits(true);
     },
+    getMutationKey: ({ id, date }) => `${id}:${date}`,
+    scopeKey: userId,
   });
 
   const contextValue = useMemo(
@@ -132,10 +143,11 @@ export function HabitsProvider({ children }: { children: ReactNode }) {
       habits,
       isLoading,
       refreshHabits,
-      toggleHabitOptimistic: async (id: string, date: string) =>
-        toggleHabitOptimistic({ id, date }),
+      toggleHabitOptimistic: async (id: string, date: string) => {
+        await toggleHabitOptimistic({ id, date });
+      },
     }),
-    [habits, isLoading, refreshHabits],
+    [habits, isLoading, refreshHabits, toggleHabitOptimistic],
   );
 
   return (

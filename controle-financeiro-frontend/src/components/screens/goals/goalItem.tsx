@@ -1,7 +1,9 @@
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
+import { useBrowserToday } from "@/contexts/browserTodayContext";
 import { useUser } from "@/hooks/useUser";
 import { Goal, GoalType } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { formatCalendarDate, isCalendarDatePast } from "@/utils/date";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -109,9 +111,10 @@ export const ProgressBar = ({
 };
 
 export const StatusBadge = ({ goal }: { goal: Goal }) => {
+  const today = useBrowserToday();
   const percent = goal.targetValue > 0 ? goal.currentValue / goal.targetValue : 0;
   const isComplete = percent >= 1;
-  const isLate = new Date(goal.deadline) < new Date() && !isComplete;
+  const isLate = today !== null && isCalendarDatePast(goal.deadline, today) && !isComplete;
 
   let style = {
     text: "No Foco",
@@ -189,9 +192,7 @@ export function GoalItem({ goal, onClick, layoutIdPrefix = "goals" }: GoalItemPr
                 <StatusBadge goal={goal} />
                 <span className="text-xs text-text-muted flex items-center gap-1">
                   <Calendar size={12} />{" "}
-                  {new Date(goal.deadline).toLocaleDateString("pt-BR", {
-                    timeZone: "UTC",
-                  })}
+                  {formatCalendarDate(goal.deadline)}
                 </span>
               </div>
             </div>

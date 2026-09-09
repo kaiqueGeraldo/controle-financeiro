@@ -2,9 +2,16 @@ import { useState, useEffect } from "react";
 import { goalService } from "@/services/goalService";
 import { useGoalsContext } from "@/contexts/goalsContext";
 import { GoalHistory } from "@/types";
+import { useUser } from "./useUser";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "./useRequestCoordinator";
 
 export function useGoals() {
   const { goals, isLoading, refreshGoals } = useGoalsContext();
+  const { user } = useUser();
+  const requests = useRequestCoordinator(user?.id);
   
   const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
   const [selectedGoalHistory, setSelectedGoalHistory] = useState<GoalHistory[]>([]);
@@ -15,23 +22,42 @@ export function useGoals() {
 
     if (selectedGoalId) {
         if (metaAindaExiste) {
-            setIsHistoryLoading(true);
-            goalService.getHistory(selectedGoalId)
+            const request = requests.begin("goal-history");
+            void Promise.resolve().then(() => {
+              if (request.isCurrent()) setIsHistoryLoading(true);
+            });
+            goalService.getHistory(selectedGoalId, request.signal)
                 .then(res => {
-                    if (res?.data) setSelectedGoalHistory(res.data);
+                    if (request.isCurrent()) {
+                      setSelectedGoalHistory(res.data ?? []);
+                    }
                 })
-                .catch(() => {
-                    setSelectedGoalHistory([]); 
+                .catch((error: unknown) => {
+                    if (request.isCurrent() && !isAbortError(error)) {
+                      setSelectedGoalHistory([]);
+                    }
                 })
-                .finally(() => setIsHistoryLoading(false));
+                .finally(() => {
+                  if (request.isCurrent()) setIsHistoryLoading(false);
+                  request.finish();
+                });
         } else {
-            setSelectedGoalId(null);
-            setSelectedGoalHistory([]);
+            requests.invalidate("goal-history");
+            void Promise.resolve().then(() => {
+              setSelectedGoalId(null);
+              setSelectedGoalHistory([]);
+            });
         }
     } else {
-        setSelectedGoalHistory([]);
+        requests.invalidate("goal-history");
+        void Promise.resolve().then(() => {
+          setSelectedGoalHistory([]);
+          setIsHistoryLoading(false);
+        });
     }
-  }, [selectedGoalId, goals]); 
+
+    return () => requests.invalidate("goal-history");
+  }, [selectedGoalId, goals, requests]);
 
   return {
     goals,

@@ -5,8 +5,10 @@ import { CreatePlanItemDTO, PlanItem, PlanStatus } from "@/types";
 import { useToast } from "@/contexts/toastContext";
 import { usePlanningModals } from "@/contexts/modals/planningModalContext";
 import { useOptimisticMutation } from "./useOptimisticMutation";
+import { useUser } from "./useUser";
 
 export function usePlanning() {
+  const { user } = useUser();
   const {
     items,
     categories,
@@ -35,45 +37,71 @@ export function usePlanning() {
     mutationFn: (data: { id: string; newStatus: PlanStatus }) =>
       planningService.updateStatus(data.id, data.newStatus),
     onMutate: (data) => {
-      const previousItems = [...orderedItems];
+      const previousItem = orderedItems.find((item) => item.id === data.id);
       setOrderedItems((prev) =>
         prev.map((i) =>
           i.id === data.id ? { ...i, status: data.newStatus } : i,
         ),
       );
-      return previousItems;
+      return { previousItem };
     },
-    onError: (err, vars, previousItems) => {
-      setOrderedItems(previousItems);
-      refreshPlanning(true, true);
+    onError: async (_error, variables, context) => {
+      if (context.previousItem) {
+        setOrderedItems((current) =>
+          current.map((item) =>
+            item.id === variables.id ? context.previousItem! : item,
+          ),
+        );
+      }
+      await refreshPlanning(true, true);
     },
     onSuccess: () => {
       refreshPlanning(true, true);
     },
+    getMutationKey: ({ id }) => id,
+    scopeKey: user?.id,
   });
 
   const { mutate: removeItem } = useOptimisticMutation({
     mutationFn: (id: string) => planningService.delete(id),
     onMutate: (id) => {
-      const previousItems = [...orderedItems];
+      const index = orderedItems.findIndex((item) => item.id === id);
+      const deletedItem = index >= 0 ? orderedItems[index] : undefined;
       setOrderedItems((prev) => prev.filter((i) => i.id !== id));
       setSelectedPlanItemId(null);
-      return previousItems;
+      return { deletedItem, index };
     },
-    onError: (err, id, previousItems) => {
-      setOrderedItems(previousItems);
+    onError: async (_error, _id, context) => {
+      const deletedItem = context.deletedItem;
+      if (deletedItem) {
+        setOrderedItems((current) => {
+          if (current.some((item) => item.id === deletedItem.id)) {
+            return current;
+          }
+          const restored = [...current];
+          restored.splice(Math.max(0, context.index), 0, deletedItem);
+          return restored;
+        });
+      }
+      await refreshPlanning(true, true);
     },
     onSuccess: () => {
       refreshPlanning(true, true);
     },
+    getMutationKey: (id) => id,
+    scopeKey: user?.id,
   });
 
   const handleUpdateStatus = (item: PlanItem) => {
     if (item.cardId) {
       if (item.status === "PENDING") {
-        updateStatus({ id: item.id, newStatus: "SAVED" });
+        void updateStatus({ id: item.id, newStatus: "SAVED" }).catch(
+          () => undefined,
+        );
       } else if (item.status === "SAVED") {
-        updateStatus({ id: item.id, newStatus: "PENDING" });
+        void updateStatus({ id: item.id, newStatus: "PENDING" }).catch(
+          () => undefined,
+        );
         toast.info("Para marcar como Pago, realize o pagamento na tela de Cartões.",);
       } else if (item.status === "PAID") {
         toast.info("Faturas pagas só podem ser estornadas na tela de Cartões.");
@@ -87,14 +115,16 @@ export function usePlanning() {
       PAID: "PENDING",
     };
 
-    updateStatus({ id: item.id, newStatus: map[item.status] });
+    void updateStatus({ id: item.id, newStatus: map[item.status] }).catch(
+      () => undefined,
+    );
   };
 
   const handleReorder = async (newOrder: PlanItem[]) => {
     setOrderedItems(newOrder);
     try {
       await planningService.reorder(newOrder.map((i) => i.id));
-    } catch (error) {
+    } catch {
       toast.error("Erro ao salvar nova ordem.");
       setOrderedItems(items);
     }
@@ -113,7 +143,7 @@ export function usePlanning() {
         newIncome,
       );
       refreshPlanning(true);
-    } catch (error) {
+    } catch {
       toast.error("Erro ao salvar receita");
     }
   };

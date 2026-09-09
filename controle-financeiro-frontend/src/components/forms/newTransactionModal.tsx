@@ -5,8 +5,9 @@ import { useToast } from "@/contexts/toastContext";
 import { transactionService } from "@/services/transactionService";
 import { Account, Category, TransactionType } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { localDateString } from "@/utils/date";
 import { ChevronDown, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ export function NewTransactionModal({
   initialDate,
 }: NewTransactionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const submitting = useRef(false);
   const [type, setType] = useState<TransactionType>("EXPENSE");
   const toast = useToast();
 
@@ -41,10 +43,11 @@ export function NewTransactionModal({
 
   useEffect(() => {
     if (isOpen) {
+      const openedAt = new Date();
       setFormData((prev) => ({
         ...prev,
-        date: initialDate || new Date().toISOString().split("T")[0],
-        time: new Date().toLocaleTimeString("pt-BR", {
+        date: initialDate || localDateString(openedAt),
+        time: openedAt.toLocaleTimeString("pt-BR", {
           hour: "2-digit",
           minute: "2-digit",
         }),
@@ -57,6 +60,8 @@ export function NewTransactionModal({
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
     setIsLoading(true);
 
     try {
@@ -79,6 +84,7 @@ export function NewTransactionModal({
       toast.error("Erro ao criar transação. Verifique se preencheu tudo.");
       console.error(error);
     } finally {
+      submitting.current = false;
       setIsLoading(false);
     }
   };

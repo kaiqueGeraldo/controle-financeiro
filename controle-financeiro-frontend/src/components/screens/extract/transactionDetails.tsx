@@ -1,4 +1,5 @@
 import { Account, Category, Transaction } from "@/types";
+import { formatCalendarDate } from "@/utils/date";
 import { formatCurrency } from "@/utils/format";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -107,6 +108,7 @@ export function TransactionDetails({
           >
             <div className="p-6 border-b border-border-divider relative bg-bg-surface">
               <button
+                type="button"
                 onClick={onClose}
                 className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-text-main transition cursor-pointer z-20"
               >
@@ -170,6 +172,7 @@ export function TransactionDetails({
                       type="number"
                       value={formData.amount}
                       min="0"
+                      step="0.01"
                       onChange={(e) =>
                         setFormData({
                           ...formData,
@@ -218,9 +221,7 @@ export function TransactionDetails({
                     />
                   ) : (
                     <span className="text-text-main font-bold text-sm">
-                      {new Date(
-                        formData.date + "T12:00:00",
-                      ).toLocaleDateString()}
+                      {formatCalendarDate(formData.date)}
                     </span>
                   )}
                 </div>
@@ -336,13 +337,19 @@ export function TransactionDetails({
               ) : (
                 <>
                   <button
+                    type="button"
                     onClick={() => onDelete(transaction.id)}
                     className="py-3 rounded-xl font-bold text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Trash2 size={18} /> Excluir
                   </button>
                   <button
-                    onClick={() => setIsEditing(true)}
+                    type="button"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      setIsEditing(true);
+                    }}
                     className="py-3 rounded-xl font-bold bg-bg-surface-hover hover:bg-bg-button-hover text-text-main transition cursor-pointer"
                   >
                     Editar

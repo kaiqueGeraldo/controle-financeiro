@@ -4,8 +4,9 @@ import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/contexts/toastContext";
 import { cardService, CreditCard } from "@/services/cardService";
 import { Category } from "@/types";
+import { localDateString } from "@/utils/date";
 import { CreditCard as CardIcon, ChevronDown, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface NewCardTransactionModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export function NewCardTransactionModal({
   defaultCardId,
 }: NewCardTransactionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const submitting = useRef(false);
   const [cards, setCards] = useState<CreditCard[]>([]);
   const toast = useToast();
 
@@ -40,10 +42,11 @@ export function NewCardTransactionModal({
 
   useEffect(() => {
     if (isOpen) {
+      const openedAt = new Date();
       setFormData((prev) => ({
         ...prev,
-        date: initialDate || new Date().toISOString().split("T")[0],
-        time: new Date().toLocaleTimeString("pt-BR", {
+        date: initialDate || localDateString(openedAt),
+        time: openedAt.toLocaleTimeString("pt-BR", {
           hour: "2-digit",
           minute: "2-digit",
         }),
@@ -63,6 +66,8 @@ export function NewCardTransactionModal({
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (submitting.current) return;
+    submitting.current = true;
     setIsLoading(true);
 
     try {
@@ -89,6 +94,7 @@ export function NewCardTransactionModal({
     } catch (error) {
       toast.error("Erro ao criar transação no cartão. Verifique os dados.");
     } finally {
+      submitting.current = false;
       setIsLoading(false);
     }
   };

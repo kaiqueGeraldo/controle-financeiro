@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { BrowserTodayProvider } from "@/contexts/browserTodayContext";
 import { ToastProvider } from "@/contexts/toastContext";
 import { UserProvider } from "@/contexts/userContext";
 import { SidebarProvider } from "@/contexts/sidebarContext";
@@ -21,44 +22,42 @@ import { HabitModalProvider } from "@/contexts/modals/habitModalContext";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
-    <ToastProvider>
-      <UserProvider>
-        <SidebarProvider>
-
-          <AuthModalProvider>
-            <TransactionModalProvider>
-              <AccountModalProvider>
-                <CardModalProvider>
-                  <PlanningModalProvider>
-                    <GoalModalProvider>
-                      <InvestmentModalProvider>
-                        <HabitModalProvider>
-                          
-                          <FinanceProvider>
-                            <DashboardProvider>
-                              <GoalsProvider>
-                                <PlanningProvider>
-                                  <InvestmentsProvider>
-                                    <HabitsProvider>
-                                      {children}
-                                    </HabitsProvider>
-                                  </InvestmentsProvider>
-                                </PlanningProvider>
-                              </GoalsProvider>
-                            </DashboardProvider>
-                          </FinanceProvider>
-
-                        </HabitModalProvider>
-                      </InvestmentModalProvider>
-                    </GoalModalProvider>
-                  </PlanningModalProvider>
-                </CardModalProvider>
-              </AccountModalProvider>
-            </TransactionModalProvider>
-          </AuthModalProvider>
-          
-        </SidebarProvider>
-      </UserProvider>
-    </ToastProvider>
+    <BrowserTodayProvider>
+      <ToastProvider>
+        <UserProvider>
+          <SidebarProvider>
+            <AuthModalProvider>
+              <TransactionModalProvider>
+                <AccountModalProvider>
+                  <CardModalProvider>
+                    <PlanningModalProvider>
+                      <GoalModalProvider>
+                        <InvestmentModalProvider>
+                          <HabitModalProvider>
+                            <FinanceProvider>
+                              <DashboardProvider>
+                                <GoalsProvider>
+                                  <PlanningProvider>
+                                    <InvestmentsProvider>
+                                      <HabitsProvider>
+                                        {children}
+                                      </HabitsProvider>
+                                    </InvestmentsProvider>
+                                  </PlanningProvider>
+                                </GoalsProvider>
+                              </DashboardProvider>
+                            </FinanceProvider>
+                          </HabitModalProvider>
+                        </InvestmentModalProvider>
+                      </GoalModalProvider>
+                    </PlanningModalProvider>
+                  </CardModalProvider>
+                </AccountModalProvider>
+              </TransactionModalProvider>
+            </AuthModalProvider>
+          </SidebarProvider>
+        </UserProvider>
+      </ToastProvider>
+    </BrowserTodayProvider>
   );
 }

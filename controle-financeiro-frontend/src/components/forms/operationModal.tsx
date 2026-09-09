@@ -4,8 +4,10 @@ import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/contexts/toastContext";
 import { useFinanceData } from "@/hooks/useFinanceData";
 import { investmentService } from "@/services/investmentService";
+import { ApiError } from "@/services/api";
 import { Investment, InvestTransType } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { localDateString } from "@/utils/date";
 import {
   Calendar,
   DollarSign,
@@ -15,13 +17,14 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PrivacyBlur } from "../ui/privacyBlur";
 
 interface OperationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  onReconcile?: () => void | Promise<void>;
   asset: Investment | null;
 }
 
@@ -31,16 +34,19 @@ export function OperationModal({
   isOpen,
   onClose,
   onSuccess,
+  onReconcile,
   asset,
 }: OperationModalProps) {
   const { accounts } = useFinanceData();
   const [isLoading, setIsLoading] = useState(false);
+  const submitting = useRef(false);
   const [activeTab, setActiveTab] = useState<TabType>("BUY");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [totalValue, setTotalValue] = useState("");
   const [date, setDate] = useState("");
   const [accountId, setAccountId] = useState("");
+  const initializedAsset = useRef<string | null>(null);
   const toast = useToast();
 
   const selectedAccountBalance =
@@ -49,20 +55,27 @@ export function OperationModal({
     asset?.type === "FIXED_INCOME" || asset?.type === "TREASURY";
 
   useEffect(() => {
+    if (!isOpen) {
+      initializedAsset.current = null;
+      return;
+    }
+    if (!asset || initializedAsset.current === asset.id) return;
+    initializedAsset.current = asset.id;
     if (isOpen && asset) {
       setActiveTab(isFixedIncome ? "UPDATE_BALANCE" : "BUY");
       setQuantity("");
       setPrice("");
       setTotalValue("");
       setAccountId(accounts.length > 0 ? accounts[0].id : "");
-      setDate(new Date().toISOString().split("T")[0]);
+      setDate(localDateString());
       setIsLoading(false);
     }
   }, [isOpen, asset, accounts, isFixedIncome]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!asset) return;
+    if (!asset || submitting.current) return;
+    submitting.current = true;
     setIsLoading(true);
 
     try {
@@ -103,13 +116,14 @@ export function OperationModal({
 
       onSuccess();
       onClose();
-    } catch (error: any) {
-      toast.error(error.message || "Erro ao realizar operação.");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Erro ao realizar operação.");
 
-      if (error.status === 409) {
-        onSuccess();
+      if (error instanceof ApiError && error.requiresReconciliation) {
+        await onReconcile?.();
       }
     } finally {
+      submitting.current = false;
       setIsLoading(false);
     }
   };

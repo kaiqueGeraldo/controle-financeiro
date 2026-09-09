@@ -1,7 +1,7 @@
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
 import { PlanItem, PlanStatus } from "@/types";
-import { formatCurrency } from "@/utils/format";
+import { formatCurrency, formatDate } from "@/utils/format";
 import { motion } from "framer-motion";
 import {
   AlertCircle,
@@ -117,11 +117,7 @@ export function PlanningItem({
             >
               Vence dia{" "}
               <span className="text-text-main">
-                {new Date(item.dueDate).toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  timeZone: "UTC",
-                })}
+                {formatDate(item.dueDate)}
               </span>
             </span>
             {isInvoice && (

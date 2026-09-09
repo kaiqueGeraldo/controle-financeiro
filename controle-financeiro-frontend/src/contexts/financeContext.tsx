@@ -12,6 +12,10 @@ import { categoryService } from "@/services/categoryService";
 import { Account, Category, CreateCategoryDTO } from "@/types";
 import { useUser } from "@/hooks/useUser";
 import { useOptimisticMutation } from "@/hooks/useOptimisticMutation";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
 
 interface FinanceContextType {
   accounts: Account[];
@@ -35,42 +39,58 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoading: isLoadingUser } = useUser();
   const userId = user?.id;
+  const requests = useRequestCoordinator(userId);
 
   const fetchData = useCallback(
-    async (forceCategories = false) => {
+    async () => {
       if (isLoadingUser || !userId) {
         setIsLoading(false);
         return;
       }
 
+      const request = requests.begin("finance-data");
       setIsLoading(true);
       try {
-        const promises: Promise<any>[] = [accountService.getAll()];
+        const [accountsResult, categoriesResult] = await Promise.all([
+          accountService.getAll(request.signal),
+          categoryService.getAll(undefined, request.signal),
+        ]);
 
-        const shouldFetchCats = categories.length === 0 || forceCategories;
-        if (shouldFetchCats) {
-          promises.push(categoryService.getAll());
-        }
-
-        const results = await Promise.all(promises);
-
-        if (results[0]?.data) setAccounts(results[0].data);
-        if (shouldFetchCats && results[1]?.data) {
-          setCategories(results[1].data);
-        }
-      } catch (error: any) {
-        if (error.status !== 403 && error.status !== 401) {
+        if (!request.isCurrent()) return;
+        setAccounts(accountsResult.data ?? []);
+        setCategories(categoriesResult.data ?? []);
+      } catch (error: unknown) {
+        if (
+          request.isCurrent() &&
+          !isAbortError(error) &&
+          (!isHttpStatus(error, 403) && !isHttpStatus(error, 401))
+        ) {
           console.error("Erro ao carregar dados financeiros", error);
         }
       } finally {
-        setIsLoading(false);
+        if (request.isCurrent()) setIsLoading(false);
+        request.finish();
       }
     },
-    [userId, isLoadingUser, categories.length],
+    [userId, isLoadingUser, requests],
   );
 
   useEffect(() => {
+    setAccounts([]);
+    setCategories([]);
+
+    if (isLoadingUser) {
+      setIsLoading(true);
+      return;
+    }
+
     fetchData();
+  }, [userId, isLoadingUser, fetchData]);
+
+  useEffect(() => {
+    const handleRefresh = () => { void fetchData(); };
+    window.addEventListener("refreshFinance", handleRefresh);
+    return () => window.removeEventListener("refreshFinance", handleRefresh);
   }, [fetchData]);
 
   const saldoTotal = useMemo(() => {
@@ -80,38 +100,80 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   const { mutate: createCategory } = useOptimisticMutation({
     mutationFn: (data: CreateCategoryDTO) => categoryService.create(data),
     onMutate: (data) => {
-      const prev = [...categories];
       const fakeCategory = { ...data, id: `temp-${Date.now()}` } as Category;
-      setCategories([...prev, fakeCategory]);
-      return prev;
+      setCategories((previous) => [...previous, fakeCategory]);
+      return { temporaryId: fakeCategory.id };
     },
-    onError: (err, vars, prev) => setCategories(prev),
-    onSuccess: () => fetchData(true),
+    onError: async (_error, _variables, context) => {
+      setCategories((current) =>
+        current.filter((category) => category.id !== context.temporaryId),
+      );
+      await fetchData();
+    },
+    onSuccess: () => fetchData(),
+    getMutationKey: () => "create-category",
+    scopeKey: userId,
   });
 
   const { mutate: updateCategory } = useOptimisticMutation({
     mutationFn: (data: { id: string; payload: Partial<CreateCategoryDTO> }) =>
       categoryService.update(data.id, data.payload),
     onMutate: ({ id, payload }) => {
-      const prev = [...categories];
-      setCategories(
-        prev.map((c) => (c.id === id ? { ...c, ...payload } : c)) as Category[],
+      const previousCategory = categories.find((category) => category.id === id);
+      setCategories((current) =>
+        current.map((category) =>
+          category.id === id ? { ...category, ...payload } : category,
+        ),
       );
-      return prev;
+      return { previousCategory };
     },
-    onError: (err, vars, prev) => setCategories(prev),
-    onSuccess: () => window.dispatchEvent(new Event("refreshExtract")),
+    onError: async (_error, variables, context) => {
+      if (context.previousCategory) {
+        setCategories((current) =>
+          current.map((category) =>
+            category.id === variables.id ? context.previousCategory! : category,
+          ),
+        );
+      }
+      await fetchData();
+    },
+    onSuccess: async () => {
+      await fetchData();
+      window.dispatchEvent(new Event("refreshExtract"));
+    },
+    getMutationKey: ({ id }) => id,
+    scopeKey: userId,
   });
 
   const { mutate: deleteCategory } = useOptimisticMutation({
     mutationFn: (id: string) => categoryService.delete(id),
     onMutate: (id) => {
-      const prev = [...categories];
-      setCategories(prev.filter((c) => c.id !== id));
-      return prev;
+      const index = categories.findIndex((category) => category.id === id);
+      const deletedCategory = index >= 0 ? categories[index] : undefined;
+      setCategories((current) =>
+        current.filter((category) => category.id !== id),
+      );
+      return { deletedCategory, index };
     },
-    onError: (err, id, prev) => setCategories(prev),
-    onSuccess: () => window.dispatchEvent(new Event("refreshExtract")),
+    onError: async (_error, _id, context) => {
+      const deletedCategory = context.deletedCategory;
+      if (deletedCategory) {
+        setCategories((current) => {
+          if (current.some((category) => category.id === deletedCategory.id)) {
+            return current;
+          }
+          const restored = [...current];
+          restored.splice(Math.max(0, context.index), 0, deletedCategory);
+          return restored;
+        });
+      }
+      await fetchData();
+    },
+    onSuccess: () => {
+      window.dispatchEvent(new Event("refreshExtract"));
+    },
+    getMutationKey: (id) => id,
+    scopeKey: userId,
   });
 
   const contextValue = useMemo(
@@ -121,18 +183,41 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       saldoTotal,
       isLoading,
       refresh: fetchData,
-      createCategory: async (data: CreateCategoryDTO) => createCategory(data),
-      updateCategory: async (id: string, data: Partial<CreateCategoryDTO>) =>
-        updateCategory({ id, payload: data }),
-      deleteCategory: async (id: string) => deleteCategory(id),
+      createCategory: async (data: CreateCategoryDTO) => {
+        await createCategory(data);
+      },
+      updateCategory: async (id: string, data: Partial<CreateCategoryDTO>) => {
+        await updateCategory({ id, payload: data });
+      },
+      deleteCategory: async (id: string) => {
+        await deleteCategory(id);
+      },
     }),
-    [accounts, categories, saldoTotal, isLoading, fetchData],
+    [
+      accounts,
+      categories,
+      saldoTotal,
+      isLoading,
+      fetchData,
+      createCategory,
+      updateCategory,
+      deleteCategory,
+    ],
   );
 
   return (
     <FinanceContext.Provider value={contextValue}>
       {children}
     </FinanceContext.Provider>
+  );
+}
+
+function isHttpStatus(error: unknown, status: number): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "status" in error &&
+    error.status === status
   );
 }
 
