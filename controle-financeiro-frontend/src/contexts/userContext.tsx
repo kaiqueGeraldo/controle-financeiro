@@ -1,5 +1,11 @@
 import { Usuario } from "@/models/usuarioModel";
 import { getUserFromToken } from "@/services/authService";
+import { ApiError } from "@/services/api";
+import { useToast } from "./toastContext";
+import {
+  isAbortError,
+  useRequestCoordinator,
+} from "@/hooks/useRequestCoordinator";
 import {
   createContext,
   useContext,
@@ -19,13 +25,20 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const toast = useToast();
   const [user, setUser] = useState<Usuario | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const requests = useRequestCoordinator("authenticated-user");
 
   const refetchUser = useCallback(async () => {
+    const request = requests.begin("current-user");
+    setIsLoading(true);
+
     try {
-      const response = await getUserFromToken();
+      const response = await getUserFromToken(request.signal);
       const userData = response?.data;
+
+      if (!request.isCurrent()) return;
 
       setUser({
         id: userData.id,
@@ -46,17 +59,25 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         localStorage.setItem("theme-preference", "light");
       }
     } catch (error: unknown) {
-      setUser(null);
-      window.dispatchEvent(new Event("sessionExpired"));
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+      if (!request.isCurrent() || isAbortError(error)) return;
 
-  const clearUser = () => {
+      if (error instanceof ApiError && error.status === 401) {
+        // The HTTP client owns the single sessionExpired event.
+        setUser(null);
+      } else {
+        toast.error(error instanceof Error ? error.message : "Não foi possível atualizar o perfil. Tente novamente.");
+      }
+    } finally {
+      if (request.isCurrent()) setIsLoading(false);
+      request.finish();
+    }
+  }, [requests, toast]);
+
+  const clearUser = useCallback(() => {
+    requests.invalidate("current-user");
     setUser(null);
-  };
+    setIsLoading(false);
+  }, [requests]);
 
   useEffect(() => {
     refetchUser();
@@ -69,7 +90,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       refetchUser,
       clearUser,
     }),
-    [user, isLoading, refetchUser],
+    [user, isLoading, refetchUser, clearUser],
   );
 
   return (

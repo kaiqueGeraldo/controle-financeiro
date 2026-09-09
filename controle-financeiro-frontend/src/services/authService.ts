@@ -1,11 +1,14 @@
 import { apiRequest } from "./api";
+import { Usuario } from "@/models/usuarioModel";
 
-export async function getUserFromToken() {
-  return apiRequest("/auth/user", { method: "GET" });
+type LoginResponse = { token: string };
+
+export async function getUserFromToken(signal?: AbortSignal) {
+  return apiRequest<Usuario>("/auth/user", { method: "GET", signal });
 }
 
 export async function login(email: string, senha: string) {
-  return apiRequest("/auth/login", {
+  return apiRequest<LoginResponse>("/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, senha }),

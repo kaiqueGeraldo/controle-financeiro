@@ -1,8 +1,9 @@
 import { apiRequest } from "./api";
+import { AnnualSummaryResponse } from "@/types";
 
 export const annualSummaryService = {
   getSummary: async (year: number, signal?: AbortSignal) => {
-    return apiRequest(`/annual-summary?year=${year}`, {
+    return apiRequest<AnnualSummaryResponse>(`/annual-summary?year=${year}`, {
       method: "GET",
       signal,
     });

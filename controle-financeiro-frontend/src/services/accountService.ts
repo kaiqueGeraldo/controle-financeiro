@@ -1,19 +1,19 @@
-import { CreateAccountDTO } from "@/types";
+import { Account, CreateAccountDTO } from "@/types";
 import { apiRequest } from "./api";
 
 export const accountService = {
-  getAll: async () => {
-    return apiRequest("/accounts", { method: "GET" });
+  getAll: async (signal?: AbortSignal) => {
+    return apiRequest<Account[]>("/accounts", { method: "GET", signal });
   },
   create: async (data: CreateAccountDTO) => {
-    return apiRequest("/accounts", {
+    return apiRequest<Account>("/accounts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
   },
   update: async (id: string, data: Partial<CreateAccountDTO>) => {
-    return apiRequest(`/accounts/${id}`, {
+    return apiRequest<Account>(`/accounts/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

@@ -1,23 +1,23 @@
-import { CreateCategoryDTO, TransactionType } from "@/types";
+import { Category, CreateCategoryDTO, TransactionType } from "@/types";
 import { apiRequest } from "./api";
 
 export const categoryService = {
   getAll: async (type?: TransactionType, signal?: AbortSignal) => {
     const query = type ? `?type=${type}` : "";
-    return apiRequest(`/categories${query}`, {
+    return apiRequest<Category[]>(`/categories${query}`, {
       method: "GET",
       signal,
     });
   },
   create: async (data: CreateCategoryDTO) => {
-    return apiRequest("/categories", {
+    return apiRequest<Category>("/categories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
   },
   update: async (id: string, data: Partial<CreateCategoryDTO>) => {
-    return apiRequest(`/categories/${id}`, {
+    return apiRequest<Category>(`/categories/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

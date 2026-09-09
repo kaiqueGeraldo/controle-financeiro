@@ -1,13 +1,13 @@
 import { apiRequest } from "./api";
-import { CreateHabitDTO } from "@/types";
+import { CreateHabitDTO, Habit } from "@/types";
 
 export const habitService = {
-  getAll: async () => {
-    return apiRequest("/habits", { method: "GET" });
+  getAll: async (signal?: AbortSignal) => {
+    return apiRequest<Habit[]>("/habits", { method: "GET", signal });
   },
   
   create: async (data: CreateHabitDTO) => {
-    return apiRequest("/habits", {
+    return apiRequest<Habit>("/habits", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -23,7 +23,7 @@ export const habitService = {
   },
 
   update: async (id: string, data: Partial<CreateHabitDTO>) => {
-    return apiRequest(`/habits/${id}`, {
+    return apiRequest<Habit>(`/habits/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

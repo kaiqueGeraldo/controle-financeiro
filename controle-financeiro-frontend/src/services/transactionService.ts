@@ -1,5 +1,5 @@
 import { apiRequest } from "./api";
-import { CreateTransactionDTO, TransactionType } from "@/types";
+import { CreateTransactionDTO, PageResponse, Transaction, TransactionType } from "@/types";
 
 export const transactionService = {
   getAll: async (params?: { 
@@ -23,20 +23,20 @@ export const transactionService = {
     }
 
     const queryString = queryParams.toString() ? `?${queryParams.toString()}` : "";
-    return apiRequest(`/transactions${queryString}`, { 
+    return apiRequest<PageResponse<Transaction>>(`/transactions${queryString}`, {
       method: "GET",
       signal: params?.signal
     });
   },
   create: async (data: CreateTransactionDTO) => {
-    return apiRequest("/transactions", {
+    return apiRequest<Transaction>("/transactions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
   },
   update: async (id: string, data: Partial<CreateTransactionDTO>) => {
-    return apiRequest(`/transactions/${id}`, {
+    return apiRequest<Transaction>(`/transactions/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -46,6 +46,9 @@ export const transactionService = {
     return apiRequest(`/transactions/${id}`, { method: "DELETE" });
   },
   exportExcel: async () => {
-    return apiRequest("/transactions/export", { method: "GET", isBlob: true });
+    return apiRequest<Blob>("/transactions/export", {
+      method: "GET", isBlob: true,
+      expectedContentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
   },
 };

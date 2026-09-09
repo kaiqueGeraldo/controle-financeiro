@@ -1,16 +1,16 @@
 import { apiRequest } from "./api";
-import { CreatePlanItemDTO, PlanItem, PlanStatus } from "@/types";
+import { CreatePlanItemDTO, MonthlyPlanResponse, PlanItem, PlanStatus } from "@/types";
 
 export const planningService = {
   getByMonth: async (month: number, year: number, signal?: AbortSignal) => {
-    return apiRequest(`/planning?month=${month}&year=${year}`, {
+    return apiRequest<MonthlyPlanResponse>(`/planning?month=${month}&year=${year}`, {
       method: "GET",
       signal,
     });
   },
 
   create: async (data: CreatePlanItemDTO) => {
-    return apiRequest("/planning", {
+    return apiRequest<PlanItem>("/planning", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -26,7 +26,7 @@ export const planningService = {
   },
 
   update: async (id: string, data: Partial<CreatePlanItemDTO>) => {
-    return apiRequest(`/planning/${id}`, {
+    return apiRequest<PlanItem>(`/planning/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

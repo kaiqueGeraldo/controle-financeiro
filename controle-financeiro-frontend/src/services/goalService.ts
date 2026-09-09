@@ -3,16 +3,19 @@ import {
   CreateGoalDTO,
   CreateGoalItemDTO,
   GoalDepositDTO,
+  Goal,
+  GoalHistory,
+  GoalItem,
   PurchaseGoalItemDTO,
 } from "@/types";
 
 export const goalService = {
-  getAll: async () => {
-    return apiRequest("/goals", { method: "GET" });
+  getAll: async (signal?: AbortSignal) => {
+    return apiRequest<Goal[]>("/goals", { method: "GET", signal });
   },
 
   create: async (data: CreateGoalDTO) => {
-    return apiRequest("/goals", {
+    return apiRequest<Goal>("/goals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -27,15 +30,18 @@ export const goalService = {
     });
   },
 
-  getHistory: async (id: string) => {
-    return apiRequest(`/goals/${id}/history`, { method: "GET" });
+  getHistory: async (id: string, signal?: AbortSignal) => {
+    return apiRequest<GoalHistory[]>(`/goals/${id}/history`, {
+      method: "GET",
+      signal,
+    });
   },
 
   update: async (
     id: string,
     data: { title?: string; targetValue?: number; deadline?: string },
   ) => {
-    return apiRequest(`/goals/${id}`, {
+    return apiRequest<Goal>(`/goals/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -60,7 +66,7 @@ export const goalService = {
   },
 
   addItem: async (goalId: string, data: CreateGoalItemDTO) => {
-    return apiRequest(`/goals/${goalId}/items`, {
+    return apiRequest<GoalItem>(`/goals/${goalId}/items`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -68,7 +74,7 @@ export const goalService = {
   },
 
   purchaseItem: async (itemId: string, data: PurchaseGoalItemDTO) => {
-    return apiRequest(`/goals/items/${itemId}/purchase`, {
+    return apiRequest<GoalItem>(`/goals/items/${itemId}/purchase`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

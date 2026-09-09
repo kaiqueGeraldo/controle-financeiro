@@ -40,12 +40,41 @@ export interface CreateCardTransactionDTO {
   totalInstallments: number;
 }
 
+export interface PayInvoiceDTO {
+  accountId: string;
+  amount: number;
+  date: string;
+  time?: string;
+  month: number;
+  year: number;
+  description?: string;
+  isPrepayment: boolean;
+}
+
+export interface CardInvoiceTransaction {
+  id: string;
+  description: string;
+  amount: number;
+  date: string;
+  categoryName?: string;
+  categoryColor?: string;
+}
+
+export interface CardInvoiceDetails {
+  id: string;
+  month: number;
+  year: number;
+  status: "OPEN" | "CLOSED" | "PAID";
+  totalAmount: number;
+  transactions: CardInvoiceTransaction[];
+}
+
 export const cardService = {
-  getAll: async () => {
-    return apiRequest("/cards", { method: "GET" });
+  getAll: async (signal?: AbortSignal) => {
+    return apiRequest<CreditCard[]>("/cards", { method: "GET", signal });
   },
   create: async (data: CreateCardDTO) => {
-    return apiRequest("/cards", {
+    return apiRequest<CreditCard>("/cards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -59,7 +88,7 @@ export const cardService = {
     });
   },
   update: async (id: string, data: UpdateCardDTO) => {
-    return apiRequest(`/cards/${id}`, {
+    return apiRequest<CreditCard>(`/cards/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -74,12 +103,12 @@ export const cardService = {
     year: number,
     signal?: AbortSignal,
   ) => {
-    return apiRequest(`/cards/${cardId}/invoice?month=${month}&year=${year}`, {
-      method: "GET",
-      signal,
-    });
+    return apiRequest<CardInvoiceDetails>(
+      `/cards/${cardId}/invoice?month=${month}&year=${year}`,
+      { method: "GET", signal },
+    );
   },
-  payInvoice: async (cardId: string, data: any) => {
+  payInvoice: async (cardId: string, data: PayInvoiceDTO) => {
     return apiRequest(`/cards/${cardId}/pay`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

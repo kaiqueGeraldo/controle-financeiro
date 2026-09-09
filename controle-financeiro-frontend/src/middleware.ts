@@ -12,7 +12,7 @@ function isTokenExpired(token: string) {
     const payloadString = atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/'));
     const payload = JSON.parse(payloadString);
     
-    if (payload.exp && payload.exp * 1000 < Date.now()) {
+    if (payload.exp && payload.exp * 1000 <= Date.now()) {
       return true; 
     }
     return false; 
