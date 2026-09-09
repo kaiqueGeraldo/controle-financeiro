@@ -1,0 +1,2666 @@
+{
+  "capturedAt": "2026-09-09T00:17:24.3657594-03:00",
+  "branch": "main",
+  "head": "169d7be4c7d3db97d4c318ff3f99d9de3a808067",
+  "status": [
+    " M .github/workflows/ci-backend.yml",
+    " M .github/workflows/ci-frontend.yml",
+    " M README.md",
+    " M controle-financeiro-backend/mvnw.cmd",
+    " M controle-financeiro-backend/pom.xml",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/AuthController.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/InvestmentController.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/TransactionController.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CreateCardTransactionDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/PayInvoiceDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/event/InvoicePaymentRequestedEvent.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/CreateGoalDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/GoalDepositDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitRepository.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/dto/CreateTransactionDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/dto/UpdateTransactionDTO.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/ResourceExceptionHandler.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/StandardError.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/security/SecurityConfig.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/security/TokenService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AccountService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AnnualSummaryService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AuthService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/CreditCardService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/DashboardService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/GoalService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/HabitCronService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/HabitService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/InvestmentService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/InvoiceCronService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/NotificationCronService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/TransactionService.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/listener/InvoiceBankOperationListener.java",
+    " M controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/DateUtil.java",
+    " M controle-financeiro-backend/src/main/resources/application-local.yml",
+    " M controle-financeiro-backend/src/main/resources/application.yml",
+    " M controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/ControleFinanceiroApiApplicationTests.java",
+    " M controle-financeiro-frontend/package-lock.json",
+    " M controle-financeiro-frontend/package.json",
+    " M controle-financeiro-frontend/src/app/api/[...path]/route.ts",
+    " M controle-financeiro-frontend/src/app/providers.tsx",
+    " M controle-financeiro-frontend/src/components/forms/newCardTransactionModal.tsx",
+    " M controle-financeiro-frontend/src/components/forms/newTransactionModal.tsx",
+    " M controle-financeiro-frontend/src/components/forms/operationModal.tsx",
+    " M controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx",
+    " M controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx",
+    " M controle-financeiro-frontend/src/components/screens/extract/transactionDetails.tsx",
+    " M controle-financeiro-frontend/src/components/screens/goals/goalItem.tsx",
+    " M controle-financeiro-frontend/src/components/screens/investments/investmentDetails.tsx",
+    " M controle-financeiro-frontend/src/components/screens/planning/planningItem.tsx",
+    " M controle-financeiro-frontend/src/contexts/dashboardContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/financeContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/goalsContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/habitsContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/investmentsContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/planningContext.tsx",
+    " M controle-financeiro-frontend/src/contexts/userContext.tsx",
+    " M controle-financeiro-frontend/src/hooks/useAnnualSummary.ts",
+    " M controle-financeiro-frontend/src/hooks/useCards.ts",
+    " M controle-financeiro-frontend/src/hooks/useExtract.ts",
+    " M controle-financeiro-frontend/src/hooks/useGoals.ts",
+    " M controle-financeiro-frontend/src/hooks/useInvestments.ts",
+    " M controle-financeiro-frontend/src/hooks/useOptimisticMutation.ts",
+    " M controle-financeiro-frontend/src/hooks/usePlanning.ts",
+    " M controle-financeiro-frontend/src/services/accountService.ts",
+    " M controle-financeiro-frontend/src/services/annualSummaryService.ts",
+    " M controle-financeiro-frontend/src/services/api.ts",
+    " M controle-financeiro-frontend/src/services/authService.ts",
+    " M controle-financeiro-frontend/src/services/cardService.ts",
+    " M controle-financeiro-frontend/src/services/categoryService.ts",
+    " M controle-financeiro-frontend/src/services/dashboardService.ts",
+    " M controle-financeiro-frontend/src/services/goalService.ts",
+    " M controle-financeiro-frontend/src/services/habitService.ts",
+    " M controle-financeiro-frontend/src/services/investmentService.ts",
+    " M controle-financeiro-frontend/src/services/planningService.ts",
+    " M controle-financeiro-frontend/src/services/transactionService.ts",
+    " M controle-financeiro-frontend/src/services/userService.ts",
+    " M controle-financeiro-frontend/src/utils/format.ts",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/InvestTransactionResponseDTO.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/FutureInProductZone.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/FutureInProductZoneValidator.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/WallTime.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/WallTimeValidator.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/RestSecurityErrorHandler.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/StrictLocalDateDeserializer.java",
+    "?? controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/TemporalConfig.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/PostgreSqlPersistenceTests.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/PostgreSqlTemporalRoundTripTests.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/SecurityHttpContractIntegrationTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/TemporalBrowserApiPostgresE2E.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/controller/AuthControllerContractTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/controller/HttpContractControllerTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/TemporalJsonContractTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/validation/FutureInProductZoneValidatorTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/CredentialExpiryClockTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/HabitServiceTemporalTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/InvestmentServiceTemporalTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/InvoiceBankOperationListenerTemporalTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/ScheduledCalendarClockTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/TransactionServiceTemporalTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/DisposablePostgresGuard.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/DisposablePostgresGuardTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/PostgresIntegrationTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/PostgresTestContainerInitializer.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/utils/DateUtilTest.java",
+    "?? controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/utils/TemporalConfigTest.java",
+    "?? controle-financeiro-backend/src/test/resources/application-test.yml",
+    "?? controle-financeiro-frontend/scripts/playwright.mjs",
+    "?? controle-financeiro-frontend/scripts/test.mjs",
+    "?? controle-financeiro-frontend/src/contexts/browserTodayContext.tsx",
+    "?? controle-financeiro-frontend/src/hooks/useRequestCoordinator.ts",
+    "?? controle-financeiro-frontend/src/services/HTTP-CONTRACT.md",
+    "?? controle-financeiro-frontend/src/types/temporal-contract/examples.json",
+    "?? controle-financeiro-frontend/src/types/temporal-contract/inventory.md",
+    "?? controle-financeiro-frontend/src/types/temporal-contract/validate.mjs",
+    "?? controle-financeiro-frontend/src/utils/date.ts",
+    "?? controle-financeiro-frontend/tests/README.md",
+    "?? controle-financeiro-frontend/tests/artifacts/.gitignore",
+    "?? controle-financeiro-frontend/tests/component/async-state.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/auth-screen.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/bff-contract.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/http-contract.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/setup.ts",
+    "?? controle-financeiro-frontend/tests/component/temporal-forms.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/temporal-navigation.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/temporal-presentation.test.tsx",
+    "?? controle-financeiro-frontend/tests/component/vitest.config.mts",
+    "?? controle-financeiro-frontend/tests/date.test.mjs",
+    "?? controle-financeiro-frontend/tests/e2e/auth.smoke.spec.ts",
+    "?? controle-financeiro-frontend/tests/e2e/controlled-clock.spec.ts",
+    "?? controle-financeiro-frontend/tests/e2e/playwright.config.ts",
+    "?? controle-financeiro-frontend/tests/e2e/playwright.integrated.config.ts",
+    "?? controle-financeiro-frontend/tests/e2e/support/controlled-clock.ts",
+    "?? controle-financeiro-frontend/tests/e2e/support/synthetic-auth.ts",
+    "?? controle-financeiro-frontend/tests/e2e/temporal.integrated.spec.ts",
+    "?? controle-financeiro-frontend/tests/oracles/README.md",
+    "?? controle-financeiro-frontend/tests/oracles/cf001.json",
+    "?? controle-financeiro-frontend/tests/oracles/validate.mjs",
+    "?? docs/sdd/README.md",
+    "?? docs/sdd/arquitetura.md",
+    "?? docs/sdd/diagnostico.md",
+    "?? docs/sdd/lint-baseline.md",
+    "?? docs/sdd/paridade-planilha.md",
+    "?? docs/sdd/specs/001-onboarding.md",
+    "?? docs/sdd/specs/002-datas.md",
+    "?? docs/sdd/specs/003-criterios-oracles.md",
+    "?? docs/sdd/specs/003-roteiro-exploratorio.md",
+    "?? docs/sdd/tarefas.md",
+    "?? docs/sdd/validacao-deploy.md",
+    "?? tasks/00-fundacao/CF-001-criterios-e-oracles.md",
+    "?? tasks/00-fundacao/CF-002-ambiente-backend.md",
+    "?? tasks/00-fundacao/CF-003-harness-frontend.md",
+    "?? tasks/01-datas-integracao/CF-004-contrato-temporal.md",
+    "?? tasks/01-datas-integracao/CF-005-datas-frontend.md",
+    "?? tasks/01-datas-integracao/CF-006-datas-backend.md",
+    "?? tasks/01-datas-integracao/CF-007-e2e-temporal.md",
+    "?? tasks/01-datas-integracao/CF-008-erros-e-contratos.md",
+    "?? tasks/01-datas-integracao/CF-009-estado-assincrono.md",
+    "?? tasks/02-frontend/CF-010-componentes-comuns.md",
+    "?? tasks/02-frontend/CF-011-auth-configuracoes.md",
+    "?? tasks/02-frontend/CF-012-dashboard-contas-extrato.md",
+    "?? tasks/02-frontend/CF-013-cartoes-planejamento.md",
+    "?? tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md",
+    "?? tasks/02-frontend/CF-015-revisao-marco-frontend.md",
+    "?? tasks/03-integridade/CF-016-regras-financeiras.md",
+    "?? tasks/03-integridade/CF-017-migracoes.md",
+    "?? tasks/03-integridade/CF-018-contas-transacoes.md",
+    "?? tasks/03-integridade/CF-019-cartoes-faturas.md",
+    "?? tasks/03-integridade/CF-020-investimentos-metas.md",
+    "?? tasks/03-integridade/CF-021-relatorios.md",
+    "?? tasks/03-integridade/CF-022-habitos-crons.md",
+    "?? tasks/03-integridade/CF-023-isolamento-autenticacao.md",
+    "?? tasks/03-integridade/CF-024-concorrencia-cache.md",
+    "?? tasks/03-integridade/CF-025-consultas-desempenho.md",
+    "?? tasks/03-integridade/CF-026-lint-tipagem-frontend.md",
+    "?? tasks/03-integridade/CF-027-fronteiras-backend.md",
+    "?? tasks/04-onboarding/CF-028-contrato-onboarding.md",
+    "?? tasks/04-onboarding/CF-029-rascunho-backend.md",
+    "?? tasks/04-onboarding/CF-030-finalizacao-backend.md",
+    "?? tasks/04-onboarding/CF-031-entrevista-frontend.md",
+    "?? tasks/04-onboarding/CF-032-e2e-financeiro.md",
+    "?? tasks/05-release/CF-033-revisao-adversarial.md",
+    "?? tasks/05-release/CF-034-gates-ci.md",
+    "?? tasks/05-release/CF-035-homologacao-preservacao.md",
+    "?? tasks/05-release/CF-036-publicacao.md",
+    "?? tasks/CATALOGO.md",
+    "?? tasks/EXECUCAO.md",
+    "?? tasks/MODELOS.md",
+    "?? tasks/POLITICA-DE-TESTES.md",
+    "?? tasks/RASTREABILIDADE.md",
+    "?? tasks/README.md",
+    "?? tasks/evidencias/CF-001/README.md",
+    "?? tasks/evidencias/CF-001/base-inicial.json",
+    "?? tasks/evidencias/CF-001/diff-check.txt",
+    "?? tasks/evidencias/CF-001/entrega-sha256.json",
+    "?? tasks/evidencias/CF-001/git-status-final.txt",
+    "?? tasks/evidencias/CF-001/preservacao.json",
+    "?? tasks/evidencias/CF-001/revisao-testes.md",
+    "?? tasks/evidencias/CF-001/runtime.json",
+    "?? tasks/evidencias/CF-001/testes-existentes-node.txt",
+    "?? tasks/evidencias/CF-001/testes-existentes.txt",
+    "?? tasks/evidencias/CF-001/validacao-oracles.txt",
+    "?? tasks/evidencias/CF-002/README.md",
+    "?? tasks/evidencias/CF-002/validacao.txt",
+    "?? tasks/evidencias/CF-003/README.md",
+    "?? tasks/evidencias/CF-003/validacao.txt",
+    "?? tasks/evidencias/CF-004/README.md",
+    "?? tasks/evidencias/CF-004/base-inicial.json",
+    "?? tasks/evidencias/CF-004/contrato.txt",
+    "?? tasks/evidencias/CF-004/dependencias.json",
+    "?? tasks/evidencias/CF-004/entrega-sha256.json",
+    "?? tasks/evidencias/CF-004/fechamento.txt",
+    "?? tasks/evidencias/CF-004/git-status-final.txt",
+    "?? tasks/evidencias/CF-004/lint-verificador.txt",
+    "?? tasks/evidencias/CF-004/mutacoes.json",
+    "?? tasks/evidencias/CF-004/mutacoes.txt",
+    "?? tasks/evidencias/CF-004/oracles-cf001.txt",
+    "?? tasks/evidencias/CF-004/preservacao.json",
+    "?? tasks/evidencias/CF-004/runtime.json",
+    "?? tasks/evidencias/CF-004/typecheck.txt",
+    "?? tasks/evidencias/CF-004/unitarios-existentes.txt",
+    "?? tasks/evidencias/CF-005/README.md",
+    "?? tasks/evidencias/CF-006/README.md",
+    "?? tasks/evidencias/CF-007/README.md",
+    "?? tasks/evidencias/CF-008/README.md",
+    "?? tasks/evidencias/CF-009/README.md",
+    "?? tasks/evidencias/README.md",
+    "?? tasks/templates/EVIDENCIA.md",
+    "?? tasks/templates/TAREFA.md"
+  ],
+  "staged": [],
+  "history": [
+    "169d7be add Suspense authPage",
+    "a45752d remove unsend class",
+    "b103018 Update CI configuration for frontend workflow",
+    "5573cca Add CI workflow for Spring Boot backend",
+    "d714bc2 remove unsend imports to frontend",
+    "d24d7b1 first commit",
+    "b550f8e Merge branch 'main' of https://github.com/kaiqueGeraldo/controle-financeiro",
+    "536659b first commit",
+    "753a4fe Revise README for Controle Financeiro project",
+    "965a789 Initial commit"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/ci-backend.yml",
+      "bytes": 756,
+      "sha256": "0459ca937bcab93498957b2980ca1ac539507a9e44f950c5ad58202c156f5ad7"
+    },
+    {
+      "path": ".github/workflows/ci-frontend.yml",
+      "bytes": 974,
+      "sha256": "080b0a20426643018184134b0cd0b51c7921560bd9aec1bdfacab5faf5c7c20a"
+    },
+    {
+      "path": "controle-financeiro-backend/.gitattributes",
+      "bytes": 40,
+      "sha256": "18be76f9008af08719be1d98d291e1286907ad6df86e7bd4e2dbed4ce0903fe8"
+    },
+    {
+      "path": "controle-financeiro-backend/.gitignore",
+      "bytes": 529,
+      "sha256": "4408e6208d07451b72886b0059168a82fb2a3354a1e19e3e23cad9b900c92ab1"
+    },
+    {
+      "path": "controle-financeiro-backend/.mvn/wrapper/maven-wrapper.properties",
+      "bytes": 171,
+      "sha256": "8d09fc561db2229b727bfa989f9f6eeb12b4928126401ec17bc21956baddbf4b"
+    },
+    {
+      "path": "controle-financeiro-backend/docker-compose.yml",
+      "bytes": 722,
+      "sha256": "8456bdf71e77c26e57f851c835c456b1a67c3cf4b18c5e3be44826213fb8d023"
+    },
+    {
+      "path": "controle-financeiro-backend/Dockerfile",
+      "bytes": 363,
+      "sha256": "b2263072b3c0a79571fac64fb63494693a3749f72463884facf286db146b6d11"
+    },
+    {
+      "path": "controle-financeiro-backend/mvnw",
+      "bytes": 11790,
+      "sha256": "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02"
+    },
+    {
+      "path": "controle-financeiro-backend/mvnw.cmd",
+      "bytes": 8520,
+      "sha256": "a391254a35a8c568d148ab0a7093a630cd12ce7c35982217b44b951fb234060b"
+    },
+    {
+      "path": "controle-financeiro-backend/pom.xml",
+      "bytes": 5037,
+      "sha256": "2f1cee8c6c4c1c7f4205cd0399b0aff24881483a276dc24da63adf3a3259c5a8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/ControleFinanceiroApiApplication.java",
+      "bytes": 966,
+      "sha256": "84c861e244e03a4a128e424c7a0701c3f6c6ab94a03774fd86039ed2a0ffd385"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/AccountController.java",
+      "bytes": 2401,
+      "sha256": "4253b36930213902892c0711bdbdaaff4b95e6f493833ceb1cc8579807ca13f6"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/AnnualSummaryController.java",
+      "bytes": 1415,
+      "sha256": "6b7a463f99e280c5436a128f1328d1cfb8cf87fbe86932f014c69456a87217ea"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/AuthController.java",
+      "bytes": 3274,
+      "sha256": "86576144d75226b014265d6a775bd38d8e0dae0f49b6d5e814c88404dde5a914"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/CategoryController.java",
+      "bytes": 2378,
+      "sha256": "9dcfcdcd17f727f90fdc227e0037a0f5c21aed7808cbc8b0a728ba74ae1cb120"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/CreditCardController.java",
+      "bytes": 4088,
+      "sha256": "28d0f563cacec0cd956f3176be5b32a9f904442430bb6c628e5d5c6ce85fa593"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/DashboardController.java",
+      "bytes": 1287,
+      "sha256": "427e14c1805bb29f8021ee8990f51d7316427dc2f91a6446a5a6606ad2c02236"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/GoalController.java",
+      "bytes": 4576,
+      "sha256": "6073d2f416418f2213ae70e6f79fdc7439b3d17bac9ef6ad49b1b28beb25fb7f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/HabitController.java",
+      "bytes": 2454,
+      "sha256": "436dee580b5255f095e74c81d52770a6ee7acaf6ec1f38f54390a0421a70703c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/InvestmentController.java",
+      "bytes": 3292,
+      "sha256": "0e0d44698c16468ed129d8e257e9fe862c01001300a4df6bbb1a9d0b74331ac9"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/PlanningController.java",
+      "bytes": 3629,
+      "sha256": "567b128afe078975905ccaee5a40a8e835a7c4913627e6cf06a85d907613fa9a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/TransactionController.java",
+      "bytes": 3822,
+      "sha256": "b36fff583073af07face289c454152230ebc1ed9ffefce7fa8caa9c2fc4f4db7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/controller/UserController.java",
+      "bytes": 1563,
+      "sha256": "b9a867d79427171a925815f86f1b4ee9f2ad6ef8698fb92e5189385912ecb206"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/Account.java",
+      "bytes": 1988,
+      "sha256": "daaebcb59b758a103d1ece087b56f76235a0260784cd8f6549704a34c099cedb"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/AccountRepository.java",
+      "bytes": 663,
+      "sha256": "1e3255676aad1d5136118ce8eaadfb5bbc665294e55044cdb81e5c1534c4388e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/AccountType.java",
+      "bytes": 213,
+      "sha256": "39a6efdd6cfcf612a20a85f12fc73e0af7d698b5d42f5139fdea2e2255e9f62d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/dto/AccountResponseDTO.java",
+      "bytes": 799,
+      "sha256": "43e64198e7973be997e0a74e17bbb5968c2efb26053d507b76cf888b0af1b4ca"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/dto/CreateAccountDTO.java",
+      "bytes": 606,
+      "sha256": "7684b7312fe1ee7cb7515583cce132f8d4294d00d01a158a8450c3ca6bb680fb"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/account/dto/UpdateAccountDTO.java",
+      "bytes": 459,
+      "sha256": "f272b331a54e50001e5fd720752a8ed6e93d9dc9a8805e64ad9e685a9e5869e3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/auth/dto/LoginRequestDTO.java",
+      "bytes": 405,
+      "sha256": "339c58b5c0effa2d174cd9c7c5a8fbb3aa4253e43138cab0bdf97bd8864d4b5b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/auth/dto/LoginResponseDTO.java",
+      "bytes": 129,
+      "sha256": "43c930946db491fe40911e6f1ee136e7df5ca0e89643dead5b6aee398a820892"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/auth/dto/RecoveryRequestDTO.java",
+      "bytes": 327,
+      "sha256": "2129c351addf664a917b4d6c9a1b5d268508c8cfaf8bdb2cd557286b5adc9d08"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/auth/dto/RegisterRequestDTO.java",
+      "bytes": 610,
+      "sha256": "436c6366403366c085e11932150271a5d1f468508d4f24d98dccfe3a36889025"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/auth/dto/ResetPasswordDTO.java",
+      "bytes": 619,
+      "sha256": "7c83374c1afa0b3679f58b8d5a5b54cf38a26dfc6ff245d8e87980bd2b3da1f3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java",
+      "bytes": 1222,
+      "sha256": "c3a100b1167af531077976d61a87ca20280d713e7cb20fb18d3ac89a4d42ca6a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransactionRepository.java",
+      "bytes": 1876,
+      "sha256": "6c501a495b64d31d8fca1113630d718cd63e30e6ebcef1ae0aed8df0f7ade687"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CreditCard.java",
+      "bytes": 1025,
+      "sha256": "ea3e90f41e5aab398a3e414609e75f43de6f68406c145f20dc4f10c8da0752a5"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CreditCardRepository.java",
+      "bytes": 318,
+      "sha256": "2268a33e3663ccffc318bd5b24875c19a382675c946d8858829116c8d136a47c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CardSummaryDTO.java",
+      "bytes": 384,
+      "sha256": "f651f34dd5bf6a4692c972a40fc86bc05252400c15a8d12925a2a5e85b3e7a42"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CardTransactionDTO.java",
+      "bytes": 279,
+      "sha256": "e0c34dfef5cf14fff6d88530de91b0b2011c37e99547e7f409c66267be12d97d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CreateCardDTO.java",
+      "bytes": 1148,
+      "sha256": "bca26bc3182833482eaf4b21e43e4474f7d21c88a55eeb49c4e945a0d3a624a7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CreateCardTransactionDTO.java",
+      "bytes": 1058,
+      "sha256": "c3145a02beda1cc6926679be8b214c82210e5b24a5cc0d10d24bbf4841e0dac7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/CreditCardResponseDTO.java",
+      "bytes": 618,
+      "sha256": "a90867afa5f5ccc85bdfa63bb35e3d626acb5005106ccc304c6b23c6278a4681"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/InvoiceDetailsDTO.java",
+      "bytes": 366,
+      "sha256": "c6a385dd765af3f22ecedd5a326d474e51414ca80276d0341722234967cd9326"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/PayInvoiceDTO.java",
+      "bytes": 1195,
+      "sha256": "58c548a342dd915451f5637f11f8057aa3b5f89a4799dd9c2e98ad6296b4f4a1"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/UpdateCardDTO.java",
+      "bytes": 502,
+      "sha256": "4249fce08ada56bef4ac849f6a33427cf5903ca2d9a5a481e8b16f91bad2ab37"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/dto/UpdateCardTransactionDTO.java",
+      "bytes": 180,
+      "sha256": "65d633440f2e0f528eb26ca9f8ea1d10f3ab186f60afe6627984a075bfaf96ae"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/Invoice.java",
+      "bytes": 810,
+      "sha256": "dd01b794aabde11f14239134b67103c175b6a07721cb6090eaf90776ebe09cac"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/InvoiceRepository.java",
+      "bytes": 1219,
+      "sha256": "7cd9cdcef875c9a6144a1fd482046876343c11137f0ef694f952b874153da096"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/InvoiceStatus.java",
+      "bytes": 149,
+      "sha256": "6a3065702ffe8fd732f025dbf34060db188be30d263546991578310829165475"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/category/Category.java",
+      "bytes": 966,
+      "sha256": "21e4a804c15e5da912f8aadc1be5f6636631511c7b8d27d5940409b1f82ea9ea"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/category/CategoryRepository.java",
+      "bytes": 686,
+      "sha256": "88dfcce24f1e4ab5004328397c0295775444bd053f288372d1d6d7c12fec7e0f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/category/DefaultCategory.java",
+      "bytes": 1969,
+      "sha256": "140ff9f4a8a08211882cc7d6a29b235edcd35e167ae9c6ed31a79950df64756a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/category/dto/CategoryResponseDTO.java",
+      "bytes": 506,
+      "sha256": "066c04f4f950a99c8ccbd43b403a908785257975254eca7cb8b69c891b1461b8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/category/dto/CreateCategoryDTO.java",
+      "bytes": 616,
+      "sha256": "9e5efb3f0373ae082079830b76e22394dd7aa0ebddd84f7846e98f3a77c3ab34"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/dashboard/dto/ChartPointDTO.java",
+      "bytes": 173,
+      "sha256": "8fedf0078a0cda44221512460e2597f15865db8000af2577a2bdb7cef8e0020b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/dashboard/dto/DashboardFlowDTO.java",
+      "bytes": 244,
+      "sha256": "ae56eb08bfcdf465e8803c8ec5c40ab9a0e2b00b94439f1508f4f73f96bbe161"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/event/InvoiceChangedEvent.java",
+      "bytes": 163,
+      "sha256": "6ef11caf6b3f62d3a3ba03acf04ff2a63dafc224c8d8c76956487909d88842ab"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/event/InvoicePaymentRequestedEvent.java",
+      "bytes": 495,
+      "sha256": "4533886c4194993154b4e76bcd4dd54f0acaff70f11297d2477cd0bf8cfabaf8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/event/UserFinancialDataChangedEvent.java",
+      "bytes": 172,
+      "sha256": "0609d372be229b2246d1e7c019962e9e8e972e311ff5d9b29175b39d56bea840"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/CreateGoalDTO.java",
+      "bytes": 872,
+      "sha256": "e8bdd3981f2ab7dc25859ed36da58e58062e02622b2850e9fcd146a99d7fec5b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/CreateGoalItemDTO.java",
+      "bytes": 393,
+      "sha256": "fb8af8e67268b5f1b4815bd71e32971c6412e305b86376329417f9954111a5e2"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/GoalDepositDTO.java",
+      "bytes": 645,
+      "sha256": "d61824237a953ca7ff252be68e2963d6746af7c976b3c0ccfa307525de6d48be"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/GoalItemResponseDTO.java",
+      "bytes": 679,
+      "sha256": "796ec0261b0fafe9793e527654b599ce97cd34ae54ee7a66c06a43fb97ab39b1"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/GoalResponseDTO.java",
+      "bytes": 853,
+      "sha256": "5e779ea326503dbab92c109a99d615475a78d851f198cb248283085436701506"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/PurchaseGoalItemDTO.java",
+      "bytes": 379,
+      "sha256": "14948d8f251a5d0f48ef4a18555a85c6ea49ba61942a0a830a6418c2d0947065"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/dto/UpdateGoalDTO.java",
+      "bytes": 234,
+      "sha256": "e82e5211c2531f7387d7924a1be80e620d51c3ac48b60b9340b11c2439c2ea54"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/EvolutionProtocol.java",
+      "bytes": 466,
+      "sha256": "63994e0d888251bb5d0b0192adc828e2d055204cf6bb1f72aa4f79fa7490b27b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/Goal.java",
+      "bytes": 1565,
+      "sha256": "ce2fcea5278bccba25319d91b74d2883da2434f56fe8ac2b534e0d5c4f67daf7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalHistory.java",
+      "bytes": 1033,
+      "sha256": "52eb88d5833cf8479c2cbfb42760e7ca3596418a42c8c53e430a7f325ebe3bad"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalHistoryRepository.java",
+      "bytes": 768,
+      "sha256": "31a0e592be9e3404245268f02a9ee1901242e4ec5f45d5acd1ae47610466f687"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalItem.java",
+      "bytes": 1293,
+      "sha256": "7e04b6468e011805a026a579aeb11871c24372e479d3496838c1fcb23bdc28e3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalItemRepository.java",
+      "bytes": 218,
+      "sha256": "2d6c327be3df03821da983ad5dc1a428e8b9c343ad0156b3cc0defe85f1c8ce7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalItemStatus.java",
+      "bytes": 111,
+      "sha256": "4f537a9e23fc30f57e7cc3c406fa74dbfb46ab699da94f01d8e0045d18858656"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalRepository.java",
+      "bytes": 298,
+      "sha256": "c50d290d791242957fbb9291aa4b00f55f83dfb8eeea350c45d019721813f8b2"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/goal/GoalType.java",
+      "bytes": 137,
+      "sha256": "e303df076b9121302d4df7f92928a966bb017eb3401c0d5b6f66b7a31b1d1436"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/dto/CreateHabitDTO.java",
+      "bytes": 488,
+      "sha256": "7dae978c18e1e2816c6be56e3773959496c14fbf3dfa3dd02e3a239a998a5308"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/dto/HabitLogDTO.java",
+      "bytes": 444,
+      "sha256": "785e565f71b1a6204a59bf9bb1618874ef25c9ce5935d1bef55569eb27559b41"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/dto/HabitResponseDTO.java",
+      "bytes": 1029,
+      "sha256": "942df4c2004e7b0a426b9d13dd918c45cb6ee52c56845e9cdc33f11f03281b2e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/dto/ToggleHabitDTO.java",
+      "bytes": 239,
+      "sha256": "c9e7086d93adc39e791c85a5eb2a2353164b40a87c97b151dd68c58909666d74"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/dto/UpdateHabitDTO.java",
+      "bytes": 362,
+      "sha256": "3c00a7e4a8f549033c13ac624516294cf152bb7898c0a81586bb152bde01a3bf"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/Habit.java",
+      "bytes": 2317,
+      "sha256": "1b56bfc4e857e60999846d61c492920bdf6d320b751af483399b7ad53c5610d1"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitFrequency.java",
+      "bytes": 112,
+      "sha256": "cf6b6a55a0321608ee8ea916a2d034cf4ab8745c16d0bf7fce0430f239e9e8fb"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitLog.java",
+      "bytes": 902,
+      "sha256": "b9c437981733694b585b8b13e24054efababc51b3bd801fdc4056aa5d61e5179"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitLogRepository.java",
+      "bytes": 1174,
+      "sha256": "1127f3ed778d257ad84b662dcc62bb88ebbf23d85bc83c2f5cae533d27584281"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitRepository.java",
+      "bytes": 400,
+      "sha256": "e60b9a9b7cdc99b8a8381b305b40cf372cf91ab75f9f1e848d5c4e72162570c4"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/habit/HabitStatus.java",
+      "bytes": 266,
+      "sha256": "244591a41ae82a7c49e7ed2d9db0164b3cb6063d32b5659eda355568ce1ce80e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/BrapiResponseDTO.java",
+      "bytes": 286,
+      "sha256": "10652ceb63c5173e3b2d02f30b29cf931e9ed0e02bdf457517af434795cb810d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/CreateInvestmentDTO.java",
+      "bytes": 411,
+      "sha256": "427f3d728d39749f0cb39fa0eb0cd4de358f003683fdc7583f9e7f320ed7e602"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/InvestmentOperationDTO.java",
+      "bytes": 653,
+      "sha256": "e7b621e8629dc3b2f9215de35518f4f7ddf7f36071324e90ba53c22c49e67557"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/InvestmentResponseDTO.java",
+      "bytes": 767,
+      "sha256": "1d5cc3f6a2b941a38d8262b4291ffdf192038766c82335b2fd2f0903fa703095"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/InvestTransactionResponseDTO.java",
+      "bytes": 911,
+      "sha256": "193606922eeae48161bb3d0ca8f6dfd18e2941154ed62eb4d3b6d6b8afd43eb1"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/dto/UpdateBalanceDTO.java",
+      "bytes": 338,
+      "sha256": "9da1ba368a5245487d6d6872dba0be428bdb7a45ff3db38cc1f98bc5c32b136a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/Investment.java",
+      "bytes": 1607,
+      "sha256": "60dc64f7bb9d617916fbf1ddd58648845ddb74371236a874d339987a7873ebe6"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/InvestmentRepository.java",
+      "bytes": 1206,
+      "sha256": "c7cb27fe32278fc198a44887d08bb06fa43bb03f6cf34aa0bd2b37ec2a9eb07b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/InvestTransaction.java",
+      "bytes": 1229,
+      "sha256": "6c438655614f6ad47c7298232283ec717ab1150627990ae6f33c304f9d69d14a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/InvestTransactionRepository.java",
+      "bytes": 352,
+      "sha256": "6c654eac966349d58588c53dcdb79e8bf63c21aec14918968b6061f7389611b8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/InvestTransType.java",
+      "bytes": 124,
+      "sha256": "d1db32d0b8cb97d5856218fb22b43977eed5c07643177a2e5e66c54339c69d86"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/investment/InvestType.java",
+      "bytes": 139,
+      "sha256": "4b5db95bef0ed149234426b3cb3d20a2c3b6139e38c8e06a9ac260d837a94d7f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/note/YearlyNote.java",
+      "bytes": 934,
+      "sha256": "14529c217a957b250aff55cb43ab50f5d12f03473078f099d7c4792f573086e9"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/note/YearlyNoteRepository.java",
+      "bytes": 324,
+      "sha256": "9e4dd51e1301193391b01cfcfd624551cbb9feb903987031d84f32293db1a932"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/dto/CreatePlanItemDTO.java",
+      "bytes": 788,
+      "sha256": "309a00f8f380f63ef1f553204c2615428c7e3cd50db44332af16bdb905d3c851"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/dto/MonthlyPlanDTO.java",
+      "bytes": 219,
+      "sha256": "59621de0c4470d82ae34d1160aa03df371a946c4d0148497c37c96c55ba65ad8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/dto/PlanItemDTO.java",
+      "bytes": 516,
+      "sha256": "7fc3ae491bf362a7b594bcceca8a1a240921cb90ee1f402daaf31598555e427e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/dto/UpdateIncomeDTO.java",
+      "bytes": 653,
+      "sha256": "0c3c4aaf6ed8c1492a67d33787685c65ee12c08259b605a938a2f738622ceddf"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/MonthlyPlan.java",
+      "bytes": 1052,
+      "sha256": "22f77f7d20152e752ab717d14e43e16d4186713b7e49c11d23b4646358d67f6d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/MonthlyPlanRepository.java",
+      "bytes": 821,
+      "sha256": "d10cc666f9adc9c7f63bb9faa02030fe56725372b8042fd03b4babc44d12a298"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/PlanItem.java",
+      "bytes": 1271,
+      "sha256": "ad8cfbe472c0d9839331dbd4acb5fef60993cc7ec1b298b29add89872a6f4c11"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/PlanItemRepository.java",
+      "bytes": 1133,
+      "sha256": "fe681a4df8662d699a8311fd69834088ae6ba70ef7ff7922df8470656ef30de4"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/planning/PlanItemStatus.java",
+      "bytes": 160,
+      "sha256": "f77aa5c2d428180433ce9a95dae65b0c15f1bbd4e4b4c344d9f213fed044b8fa"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/AnnualSummaryDTO.java",
+      "bytes": 302,
+      "sha256": "be043e5e6f6c74aecc03df7072d599a445b4c2e8efe7f20b71fc8d6bb7900eed"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/BalanceSummaryDTO.java",
+      "bytes": 256,
+      "sha256": "fb60565c5747d63c929069eaa252d3fdd0f88e286252d4da5e1bd5634920a263"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/CreditCardSummaryDTO.java",
+      "bytes": 251,
+      "sha256": "dd304d17480710187cccfc14e77d6dbdcfe2de8fa05681369b257d3428f53e9f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/InvestmentBreakdownDTO.java",
+      "bytes": 224,
+      "sha256": "822d0e8f394ce20ba5a8f67dc1bba6ec10cbeed003be6b15ed4a3def1781c759"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/InvestmentsSummaryDTO.java",
+      "bytes": 230,
+      "sha256": "56b5166b89019eb2a6ce14394df46ded1df29e6c1f4fe34b495b12a0606ddbb3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/UpdateNoteDTO.java",
+      "bytes": 196,
+      "sha256": "537e21b5dc49c6f2e0c832f5fa77d43699e92f87482c2d56e1d138a83a4bc953"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/summary/dto/YearlyComparisonDTO.java",
+      "bytes": 370,
+      "sha256": "b350aeb1ff9acf783c4c3c46581729bbe97419bad2c8415868e27881bf59de00"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/dto/CreateTransactionDTO.java",
+      "bytes": 1051,
+      "sha256": "b1710a4d7a08c0c55897b5f2e6afcbafd3dca16398d3e18e4788f1cd95f2cedd"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/dto/TransactionResponseDTO.java",
+      "bytes": 1365,
+      "sha256": "00647c75fd37a8d3e4548a3f1b1b5ca0234fec7b5d697ff58ad1060b9d3382d5"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/dto/UpdateTransactionDTO.java",
+      "bytes": 540,
+      "sha256": "c8c53b33b3755b96f8385c9d404dd2e3d8900d5d1bfa113b219d1a1310972777"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java",
+      "bytes": 1597,
+      "sha256": "48771e48d34e63f1420d27f5d6b3d7f7431c62fc5e2580a4ab20ff7aafa23345"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/TransactionRepository.java",
+      "bytes": 3736,
+      "sha256": "6770a2bc38aff58711118d47f2feacd18702b666a63cf528ce98a22a36d52cc7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/TransactionType.java",
+      "bytes": 177,
+      "sha256": "4ee429a68d95db653a0af265b66ba8622f54fe7a01bf0cbabf08f30ab5f5b6f5"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/dto/ChangePasswordDTO.java",
+      "bytes": 339,
+      "sha256": "5ec2cd0a5d1c27659139454af29b19d3374e95d420b973445a0b115bce3af2d9"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/dto/UpdatePreferencesDTO.java",
+      "bytes": 248,
+      "sha256": "106136e8cd3163b3990d9853405bc67bb90ee15389c88597e7985bfa15835d06"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/dto/UpdateProfileDTO.java",
+      "bytes": 336,
+      "sha256": "df11eca6fb4de1f5e9b122b7b0cda3912f86483c32bec0f4ae828fe1c9142dcc"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/dto/UserResponseDTO.java",
+      "bytes": 330,
+      "sha256": "5edcf66d9a0262510bd2ab73264fec852657d7ce67d70b4201dca0bbd0ecac3a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/User.java",
+      "bytes": 2619,
+      "sha256": "3038d49143df1d29bd4519acb2410a5054be32b6453320cffeb00fcc0d3dbd97"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/user/UserRepository.java",
+      "bytes": 566,
+      "sha256": "cc8b5d8e1caaf363bf75fa9f1a0b89b1cd752bd71ab12ea41085b4d1cb27f662"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/FutureInProductZone.java",
+      "bytes": 896,
+      "sha256": "6b08b49f118f4a5c7afbeb15e86e60c027f420de6274a5976dba9c863afd2399"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/FutureInProductZoneValidator.java",
+      "bytes": 673,
+      "sha256": "759c12263fda295c4bf82f6f1cf46b65cb4a9b42f40e43f55e1b702de61aaaf7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/WallTime.java",
+      "bytes": 891,
+      "sha256": "866525def149bf914e2d05f107dd7cf14cc92ee68cd2f0523ebf6259fc0742a5"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/validation/WallTimeValidator.java",
+      "bytes": 439,
+      "sha256": "e0f248b8cf375f178694fffaf3ced989ea41bd2fa9d831066c721cce219226ee"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/config/AsyncConfig.java",
+      "bytes": 901,
+      "sha256": "98b6be249e7b60a4ded8a7a2cc2f4b4fe5acf8aa6daad053fb9da3b71d7288f9"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/config/SchedulerConfig.java",
+      "bytes": 997,
+      "sha256": "83501f86cce1300ba253712b185fdd903adbdbb8766f625361aa1695cb6f8bc6"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/ResourceExceptionHandler.java",
+      "bytes": 8899,
+      "sha256": "da41b070a0e277536c47df39b801a0cb6b4b9fd84e2de70dffcc1b3417002e50"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/RestSecurityErrorHandler.java",
+      "bytes": 2427,
+      "sha256": "e01b137b05d922131306c737de1ec61966d9d9326d7444f4d0ebc29e0f21423f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/exception/StandardError.java",
+      "bytes": 657,
+      "sha256": "7533552497b01c7d000bc9a1db248e826ff70e1cd07de3675039c352e860fd93"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/mail/EmailService.java",
+      "bytes": 3685,
+      "sha256": "9cb3ec34186211c3b1586f365754d00d63f39404653d4c68798b224be096f852"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/security/SecurityConfig.java",
+      "bytes": 4125,
+      "sha256": "20d8d9a8b4843432f8384fea900043a803f1f2959aad516eaa8f96d1825ba364"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/security/SecurityFilter.java",
+      "bytes": 2312,
+      "sha256": "64222efa35735d4a17ec75721257a40e908dafc9a087ec669d53480d1cbbac87"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/security/TokenService.java",
+      "bytes": 2305,
+      "sha256": "40a87dc412053cc21b81b5d3f9ef3c1a94beb24637ac9205213bc6e8f677a8da"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AccountService.java",
+      "bytes": 5688,
+      "sha256": "98a40fab826fc03fa93c099273ca3cc9bec3e26a14f3cf084ad303db8348bc7e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AnnualSummaryService.java",
+      "bytes": 7488,
+      "sha256": "2b09e2670ae243dfaf6678ba4c8122c839ca8a79cc44c0ea972156f7bf3e5f93"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/AuthService.java",
+      "bytes": 9353,
+      "sha256": "11ee6462ff5d98e2ba90bb737fcb88cb057a1fb0742883b3a9b2f99476cb91eb"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/CategoryService.java",
+      "bytes": 4232,
+      "sha256": "1560d1fbcd018be7293499dc95857c42bc1b12f412243185df2987a5e0471504"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/CreditCardService.java",
+      "bytes": 22686,
+      "sha256": "03c9905d49b14144088cdddc079af247d7201187bbda5064e47f870c7ead1eba"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/DashboardService.java",
+      "bytes": 6391,
+      "sha256": "ff584aa054d0fa175fbfce9e2c89c0678cc028e0e93235609ed7b4fc326cecfe"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/exception/BusinessRuleException.java",
+      "bytes": 197,
+      "sha256": "c886483eeeda32216492fde28d99ff1cc76a029f9ddcd6f307496c4c56eae57b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/exception/ResourceNotFoundException.java",
+      "bytes": 205,
+      "sha256": "088ebc970a264be42ff3e5be115b5b6d29f6e4c6e81cd96c4a7683026b4c5acd"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/GoalService.java",
+      "bytes": 22755,
+      "sha256": "802695eb1f8f22200effadacc1017a418feff82e7bb36441f6e7b61ca293026f"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/HabitCronService.java",
+      "bytes": 5481,
+      "sha256": "636d84047482c281a629e1d5be0b6f2b2b1b72fb443c76559202ad334a61c648"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/HabitService.java",
+      "bytes": 7821,
+      "sha256": "2734fe347fb2deb2d3299cc38abeea774453f4bea58d2ec6c0dcaa4653e7ea05"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/InvestmentService.java",
+      "bytes": 17631,
+      "sha256": "9d68d9224f3a706c47819e1c5d5e6f31a3b36341f0513970f9b144bf5070addf"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/InvoiceCronService.java",
+      "bytes": 4553,
+      "sha256": "db6bfa538848c6deaef130418dcc729bb2af1059cbb11b24246a39f48f1bf5a3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/listener/CacheInvalidationListener.java",
+      "bytes": 711,
+      "sha256": "637db3b201fa56202201c94536d488000ba8cfba26dd3cf74aebedf8f247c3df"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/listener/InvoiceBankOperationListener.java",
+      "bytes": 3031,
+      "sha256": "a6a3bb0092db055e1527e53fec65aed537820ebc0019aaf89b269606f2179900"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/listener/InvoicePlanningListener.java",
+      "bytes": 2955,
+      "sha256": "caf8f95ee96733db8692cd7bfee67f25b257fd0b1c8bcf1b242e490006d09204"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/MarketDataService.java",
+      "bytes": 4693,
+      "sha256": "ec826f78a65c327cd5d8954d2ff1e1dfcc59026de08e6004f2d3175a5c914e9c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/NotificationCronService.java",
+      "bytes": 5946,
+      "sha256": "6ddc1a2f534e3daf196fb779d735c719ffffd084e10c11d8c6af62947b028285"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/PlanningService.java",
+      "bytes": 9860,
+      "sha256": "adf6f8672e8290c51b86a2bf40f4264e9b63ff74be08c3cb1b8a0212339bf7ce"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/TransactionService.java",
+      "bytes": 17703,
+      "sha256": "2bbe9ac75e8f46e9b972de33c313805a6ce244e5da5cc16e2403ac1afb23c6c3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/UserService.java",
+      "bytes": 6620,
+      "sha256": "51453088cb13be6297ec22e0c0ee970da2d7646d28e605e2d98a2028393fd90b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/DateUtil.java",
+      "bytes": 1505,
+      "sha256": "089015c4abdfa2d3c744c1935f994b2b36a2d12757666ca7f713c3d2a9c8014e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/StrictLocalDateDeserializer.java",
+      "bytes": 1710,
+      "sha256": "7813c2c19d6159d8734baac1700286967b837211a8532bf0c370e27880d4de1c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/utils/TemporalConfig.java",
+      "bytes": 1116,
+      "sha256": "35ef3ac19bcc8b22d3c2d85c517302e4d1f2bc5ebbc4c58e5885515448d19404"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/resources/application-local.yml",
+      "bytes": 1225,
+      "sha256": "19a2be30dc701a37dc07e49231d4e6aa8f008ad2a40a569be9977ade221c5067"
+    },
+    {
+      "path": "controle-financeiro-backend/src/main/resources/application.yml",
+      "bytes": 1117,
+      "sha256": "fb29ca5a0a554b6fef346bc36e78a05c0ae94c0060bef61dfb6cd2c4f3f9c33a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/ControleFinanceiroApiApplicationTests.java",
+      "bytes": 493,
+      "sha256": "dd5e661882c50bed6446185e45d70be58e1456fdd2d9f5fe164094acd61a10d7"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/controller/AuthControllerContractTest.java",
+      "bytes": 4027,
+      "sha256": "6b0998acf3365820d6ef00dd46cde3b8b5394959ed9b2e19e49642aa350d72be"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/controller/HttpContractControllerTest.java",
+      "bytes": 8570,
+      "sha256": "11d9bc85aa8cdc8ffe7cae094bd171e688119abf33c4d86885e2be68c2f08a7d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/TemporalJsonContractTest.java",
+      "bytes": 5737,
+      "sha256": "7b57553515e64ac275e3088faefe508eb78b5c3fe80226f979b5917b90030e4e"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/validation/FutureInProductZoneValidatorTest.java",
+      "bytes": 1238,
+      "sha256": "b982c526c829ae8121f0a6c3a3c10cadfc19eb521b56fc115710a17e1372027a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/PostgreSqlPersistenceTests.java",
+      "bytes": 3888,
+      "sha256": "02edd58cd5e43145a5f68ef26d39cccc9e83a6bbecd0c375c8616576c55aedc1"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/PostgreSqlTemporalRoundTripTests.java",
+      "bytes": 7095,
+      "sha256": "0adfee32e0d15075bb66492d912d4dc16b6b13f2caeae249542c54b91f8026a3"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/SecurityHttpContractIntegrationTest.java",
+      "bytes": 1308,
+      "sha256": "9d61223f9200ab80f23240efbf126dc2424cf32a1cd046ef03837efdbe2243f0"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/CredentialExpiryClockTest.java",
+      "bytes": 3753,
+      "sha256": "8341034ba83d443dd3e747f4c159c3554282cf2b9a7b2b0a89265f3d6ee21492"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/HabitServiceTemporalTest.java",
+      "bytes": 3861,
+      "sha256": "d25b1b13f4e4294aae737b2cd0e7b63d7a7382e1562b88a42fba9ca9810e2f9c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/InvestmentServiceTemporalTest.java",
+      "bytes": 5527,
+      "sha256": "8ffb33652fd50052da6afb43d6699596c044c08c1b3e9797f4293ea6c7802f2b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/InvoiceBankOperationListenerTemporalTest.java",
+      "bytes": 3666,
+      "sha256": "428af270bd3570250d2325c9ad8d6d2b9a8aa3c265da025b753110b13551f50a"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/ScheduledCalendarClockTest.java",
+      "bytes": 9783,
+      "sha256": "8f1060fa174c8c5aada7cfbad0810089ecf78e5396a68e103bc2b2a4b21295ef"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/service/TransactionServiceTemporalTest.java",
+      "bytes": 4050,
+      "sha256": "8cffcf35af1bbd5692ff9b3849e8c31e9d447c4b7730df0d4de77bab07b5811b"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/DisposablePostgresGuard.java",
+      "bytes": 1542,
+      "sha256": "2c8a0a20ae44a40f64bb4dc0c52949d44ba9c384b5ef14dfd89453c5d56e7fb8"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/DisposablePostgresGuardTest.java",
+      "bytes": 1592,
+      "sha256": "95d34b2a20b8a8d0b6e909059b898f0d85f92f3f60fddfc973e6dee5c92eb87c"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/PostgresIntegrationTest.java",
+      "bytes": 715,
+      "sha256": "2832b50d2d5a45372012ac9b63d6ca041d3542dc49dd79a87ef2a363037786da"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/support/PostgresTestContainerInitializer.java",
+      "bytes": 1831,
+      "sha256": "e57b9c34dee26cc0723d494320e014a92fd0d4654572b3836bff30dd06ce6788"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/TemporalBrowserApiPostgresE2E.java",
+      "bytes": 11065,
+      "sha256": "f7732bb2f12e2b76331905fdc7b961afbd5d432d7d6bc6cfce5e6dca013e3250"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/utils/DateUtilTest.java",
+      "bytes": 1035,
+      "sha256": "ff50958632a010a2b33642a345d9eebd597f804208539fa551f3b4375bc19b7d"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/utils/TemporalConfigTest.java",
+      "bytes": 1286,
+      "sha256": "2e68c0151d5273dcc2186469ca3170ccd24a35e5357c2fd1de19fb3d067c7098"
+    },
+    {
+      "path": "controle-financeiro-backend/src/test/resources/application-test.yml",
+      "bytes": 997,
+      "sha256": "f94da726d8778113c59edd1742094ae57b7b6e018938ed19e4741cc72d3e41f5"
+    },
+    {
+      "path": "controle-financeiro-frontend/.gitignore",
+      "bytes": 521,
+      "sha256": "cfdbd5a321f3ba279e434c025fc9a44bf2d3bd3a1af5affb8429d79bd18af054"
+    },
+    {
+      "path": "controle-financeiro-frontend/eslint.config.mjs",
+      "bytes": 483,
+      "sha256": "275a07c13fc7c83a652efcfa9fb6a207c451a2f5088e6793415ce44281285720"
+    },
+    {
+      "path": "controle-financeiro-frontend/next.config.ts",
+      "bytes": 530,
+      "sha256": "a9ef47a4d337b792c68ae3bd5a9fa24c19c28ac2d16ea1147729e40d6dcb785a"
+    },
+    {
+      "path": "controle-financeiro-frontend/package-lock.json",
+      "bytes": 387471,
+      "sha256": "5472c692bdb80727d8ff53538d3c2bd3d17820f8cf50074aa79baf5faec7cd7e"
+    },
+    {
+      "path": "controle-financeiro-frontend/package.json",
+      "bytes": 1357,
+      "sha256": "16ce3e74b69c01dfc920b1e812cd8b0844b9d9cf3b3d40d3ea3ff3d7d2080747"
+    },
+    {
+      "path": "controle-financeiro-frontend/postcss.config.mjs",
+      "bytes": 101,
+      "sha256": "7b299d3d3b16699ddda397c0b2373b3af4f25f8fc9ccc9b3d9e64ef083bc1c21"
+    },
+    {
+      "path": "controle-financeiro-frontend/public/file.svg",
+      "bytes": 391,
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "controle-financeiro-frontend/public/globe.svg",
+      "bytes": 1035,
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "controle-financeiro-frontend/public/next.svg",
+      "bytes": 1375,
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc"
+    },
+    {
+      "path": "controle-financeiro-frontend/public/vercel.svg",
+      "bytes": 128,
+      "sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4"
+    },
+    {
+      "path": "controle-financeiro-frontend/public/window.svg",
+      "bytes": 385,
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    },
+    {
+      "path": "controle-financeiro-frontend/scripts/playwright.mjs",
+      "bytes": 5348,
+      "sha256": "04547c5751a1e631def2bd53a5583c9b765c98d2532c850e5432eb65b745e7b0"
+    },
+    {
+      "path": "controle-financeiro-frontend/scripts/test.mjs",
+      "bytes": 539,
+      "sha256": "206f76b867ea6c77738fd6692e72a4701065fe3626d844cf3d2e3d424f5fc064"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/actions/authActions.ts",
+      "bytes": 476,
+      "sha256": "07be72c55f9344df21767c8b6b7780883ea6fb3087c06a108112898847d1afd0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/(dashboard)/page.tsx",
+      "bytes": 223,
+      "sha256": "957716584d9d457d7ba3f984b2055985381c7361751d59a8f0a3c61a9abd8936"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/cartoes/page.tsx",
+      "bytes": 202,
+      "sha256": "3b9065bb928b0a03944b98d2a66336df5bd535467c299797196e15460f906dac"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/configuracoes/page.tsx",
+      "bytes": 249,
+      "sha256": "eff8ce6862fc7781b55548d9a80444714f067941f45a25bb11bcb711c62ed490"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/contas/page.tsx",
+      "bytes": 217,
+      "sha256": "8ad012b847913f31eaa30fb2b3ad3341cb8066d811dd8e55abe6f73215fea306"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/extrato/page.tsx",
+      "bytes": 211,
+      "sha256": "c2f547da83996fd628af143beb267661a32bb16e2f84f491cdcf8aa06aa30516"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/habitos/page.tsx",
+      "bytes": 218,
+      "sha256": "68529c3298aa3388e55133cf80c3670ddf2d993abd494c917a7b513f09c9c411"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/investimentos/page.tsx",
+      "bytes": 237,
+      "sha256": "3ba899240e2fc0339c3c73f894ec497234c2a01a574f5e950e6224a233d26003"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/layout.tsx",
+      "bytes": 340,
+      "sha256": "487b0057d2907889236bf79c24703415bd268cd17132e86f02b0dd8b1159ed98"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/metas/page.tsx",
+      "bytes": 199,
+      "sha256": "ca4b91addde6963417049b7b44e071b07103f438317d999efe523e49d1d17337"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/planejamento/page.tsx",
+      "bytes": 221,
+      "sha256": "847e23c651505ba95155753af8f0e790c735cd41f9c038abbcc051cc9548d9d5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(private)/resumo-anual/page.tsx",
+      "bytes": 247,
+      "sha256": "8d8fcaf6f9c1830a70fe4cac9c177dc6016c692a9db72680524ee0b2fec7c5bf"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/(public)/auth/page.tsx",
+      "bytes": 524,
+      "sha256": "589ead9eb063471604d86a5c74d75777ce67772ab1670f2f8042e1a15262b010"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/api/[...path]/route.ts",
+      "bytes": 3754,
+      "sha256": "d95960ec22c2c0c20e9c18a07f1e278299b33b98ee30820278ecbcb85b9475f9"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/favicon.ico",
+      "bytes": 3067015,
+      "sha256": "bacd5b0dc2409b2d38dbb2b4e42ae89bc61ea88d477230b1ee6f6acbc6d280ce"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/globals.css",
+      "bytes": 2859,
+      "sha256": "11940d9b53b14449a5d46923f88ca0567db2b9df03c93eebc260e912cfed94eb"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/layout.tsx",
+      "bytes": 1301,
+      "sha256": "0880e2ac69d7c5ea251c45a76958052c896ec7b5fc0b7fc6aeb7f2a17f92084a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/not-found.tsx",
+      "bytes": 1503,
+      "sha256": "7f6d47cafe80af392df69e2a505723347d136977fcb000e1a280a46e946ab7a1"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/app/providers.tsx",
+      "bytes": 2949,
+      "sha256": "3e1a8455fd6599c7e2a6d8b3ee744bc84a1ab88cd05588693032917991895ed9"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx",
+      "bytes": 5174,
+      "sha256": "fc723c5b39cf1a3249d5fec44174c70f8dff05718b46adbecdaa116be7f57cd7"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/configDashboardModal.tsx",
+      "bytes": 8705,
+      "sha256": "660bc7b90a442e54a585b392d30445d39015a432e3b4bfdf95a540eb868ea851"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/deleteGoalModal.tsx",
+      "bytes": 4236,
+      "sha256": "09ce131c1def9f736e676a093316eecd7f91d40fb6c198ea6e7ce13435183f7a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/deleteHistoryModal.tsx",
+      "bytes": 4447,
+      "sha256": "5798178744c3aaa70dfed3bdadc034e0407b799d5cbb64e2ce0a4965926b2335"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/depositGoalModal.tsx",
+      "bytes": 12187,
+      "sha256": "98b8115d3e9024b3b2c6e55af022c1874890ba22b4e68e7e692872a810aa7315"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/editAccountModal.tsx",
+      "bytes": 2253,
+      "sha256": "6085b37037f21b663e7cd70d79e2eeb209da4a9c4b8ef6204bacfb78e3b18a1a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/editProfileModal.tsx",
+      "bytes": 4038,
+      "sha256": "ac5bb07a222f1c46ea6787fd3c24f3602913202f1eca5546bdf2650d73cd559c"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/manageAccountsModal.tsx",
+      "bytes": 16380,
+      "sha256": "a5e562cafbc231bb824c199d8da787246c7052de35c171c185a247e609e89c3e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/manageCategoriesModal.tsx",
+      "bytes": 13030,
+      "sha256": "5b145015a5a904660547c56b37fe56055c8bd8124ce24eb0041187215f219ce8"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newAssetModal.tsx",
+      "bytes": 7233,
+      "sha256": "a0d5eda05e43755e419872230bec900e079472ccdd79de9b2c61973d0caeab6e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newCardModal.tsx",
+      "bytes": 6977,
+      "sha256": "c5e95c0db8f3d4c0ad763353f349dbe33a6c8b333aafeb3d55efbed2756c6464"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newCardTransactionModal.tsx",
+      "bytes": 9661,
+      "sha256": "59c151c92ee18ddff45ca04457d2d0f94409c319df2ab308501b402e6c1dafa0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newGoalModal.tsx",
+      "bytes": 11380,
+      "sha256": "35c94683fcfe1a66387618e553808ba594809448eab8c876b8a928d8f71d9394"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newHabitModal.tsx",
+      "bytes": 9480,
+      "sha256": "dd40b68099b1a31c4f42f7113a7c50631569155cc8e9cd7bb556e568e39a74f3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newPlanModal.tsx",
+      "bytes": 5020,
+      "sha256": "53156d8290d58f41c72928620873ac13667906f49a617f5184077daed567cdac"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/newTransactionModal.tsx",
+      "bytes": 9200,
+      "sha256": "f225fd776408696b0f7b1d94c755aca0ff4c5562aed1874fd0793ee4a1554100"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/operationModal.tsx",
+      "bytes": 13239,
+      "sha256": "c8bae5cf8b7f108fd10f97e877882312d86780f67230371b287facbba847bb87"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx",
+      "bytes": 7488,
+      "sha256": "3973aaedb4311aba57583d5ef621efde6c348c99cef562a74902f767ad9e6311"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/forms/reorderModal.tsx",
+      "bytes": 2354,
+      "sha256": "3730fdf8956e652a9c43f581173a610474018a8d7cfaa15bdfa59efa4d45b489"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/confirmModal.tsx",
+      "bytes": 2383,
+      "sha256": "5965996858387c3526a629200cb72c9be90e63cf71b134a31bbaca75a72aab0b"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/accountModalManager.tsx",
+      "bytes": 541,
+      "sha256": "d4dc5b5699221bc153abc86d30a8dfaf4927f260cdc5a1c0dcfdcded149d7fc5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/authModalManager.tsx",
+      "bytes": 1350,
+      "sha256": "ead07098e4044d3ea64a29e74817e2366241f7cffce1dfb678e2736d8fd07cbc"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/cardModalManager.tsx",
+      "bytes": 2252,
+      "sha256": "72faafe4c4546f3d9b52fb22e9a6d0be60e1cffc7e07f2fa01a7f4957556298f"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/goalModalManager.tsx",
+      "bytes": 2651,
+      "sha256": "056ccaf952d3773ad621063a67479a4ce62396f5426021f329fea0e73e290c2d"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/habitModalManager.tsx",
+      "bytes": 339,
+      "sha256": "343757f1444a1482dd500bb3e576257f62fcf0bb0c598dc0c0f3922f85cfad29"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/investmentModalManager.tsx",
+      "bytes": 837,
+      "sha256": "0d7a47bfb80ed28d0e8768a37bca514e3e060dc2cae6632f366f975b6d873169"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/planningModalManager.tsx",
+      "bytes": 2009,
+      "sha256": "9323bf22c2c19caf6cda031805bde4235383b01c668752066330441c01321b4b"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/modals/managers/transactionModalManager.tsx",
+      "bytes": 1359,
+      "sha256": "56ba80082412eee2331c7882dad55a17d0635a52b4da3cc9ffafe7614b180023"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/accounts/accountCard.tsx",
+      "bytes": 5379,
+      "sha256": "0191a37a270b4e3ed1e26edded271c6b7f13c47a09fa35efd5c697c2a09e0c08"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/accounts/accountsSummary.tsx",
+      "bytes": 2386,
+      "sha256": "f8cf8ea81524b97f2e2a413308cb9d8e930bd0f66da9282698402fed39d20187"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/annual-summary/annualBalance.tsx",
+      "bytes": 2249,
+      "sha256": "effeaf84b33a3ffc0c6b8c98e7aca0ce7cfeb2be7c0ebce12366bb4caa634010"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/annual-summary/annualCreditCard.tsx",
+      "bytes": 1786,
+      "sha256": "f24c0a4c211b68d25c232eab46cf7f754c586d312e5fee1ce4b99c63bdb548e4"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/annual-summary/annualInvestments.tsx",
+      "bytes": 2132,
+      "sha256": "b0dd99900163aee530e48ecf510381ff02cce20ef992d34c2f3e431a8bf387ab"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/annual-summary/annualNotepad.tsx",
+      "bytes": 2597,
+      "sha256": "d16c01ca58380c86488cfec69c6c7dce148d5e336b14ac972b3d2bbf8cdc748a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/cards/cardsSummary.tsx",
+      "bytes": 2193,
+      "sha256": "0db38a7503e0fd65dae7ef541642b18c5abf445cd7192b74698c77782417caee"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/cards/creditCardItem.tsx",
+      "bytes": 5512,
+      "sha256": "63eead51aad19ea155f86ff7a5d4a46874503ebee34447ee3328e9d9b20d3a38"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx",
+      "bytes": 18497,
+      "sha256": "70b3492d594b65483bfc5b9d3c22276966bd379b3137cdd7965712bc2ff6c5f3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/configuracoes/configItem.tsx",
+      "bytes": 1952,
+      "sha256": "ea73f0c30cc27213e90a333903cfef85a85f8887f0cfe63bba965a244d75240b"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/configuracoes/profileSection.tsx",
+      "bytes": 1569,
+      "sha256": "f56ed352cc79fc47495f4bfe3d9f6475a2285e6054c979c35cd315ec7858ef19"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/configuracoes/settingsSections.tsx",
+      "bytes": 3738,
+      "sha256": "24c490af31f6f00b632c8211a199854f8805906840b6b3437a9c79df94ced675"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/dashboard/balanceCard.tsx",
+      "bytes": 2110,
+      "sha256": "13c23501117884f0f1f3df56243180777a02c19255e0ddb75bd5963fd60b3189"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/dashboard/goalsCard.tsx",
+      "bytes": 3660,
+      "sha256": "4bb938545566225086ddfef0a28b32a13343538c33d24e22a7f433071fb48e64"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/dashboard/invoicesCard.tsx",
+      "bytes": 2310,
+      "sha256": "c8d432d48a9f4c982da79802875b2b1608e4715a965a6f93bba273bae40d9ad0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/dashboard/monthlyFlowCard.tsx",
+      "bytes": 2059,
+      "sha256": "c98107d3e485197e6d5a06fecc169f49c6d84c8f44172524b01dcdefb8ed1f26"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/dashboard/wealthChart.tsx",
+      "bytes": 3700,
+      "sha256": "79eac43499957b29e49562bc6130033bdd037e401b065994c3987083ad06ea32"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/extract/extractFilters.tsx",
+      "bytes": 3567,
+      "sha256": "17b6deaf0d5d20db8ae19d4d1abaa5743c781fc6cacd84821a0ba6f69d792b53"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/extract/extractSummary.tsx",
+      "bytes": 2355,
+      "sha256": "54632c6246b82080589c216934ef88e9eb42bb838f7ae39716b975d0602a3dfb"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/extract/transactionDetails.tsx",
+      "bytes": 15255,
+      "sha256": "d2293212d3e3e983941c4c7baf893dda2214b86584ada76b2ee32de3d0dd8301"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/extract/transactionItem.tsx",
+      "bytes": 4328,
+      "sha256": "326af57d1c850c4c3b535bc41c51fafbddca0049581ef7f58def9a652099d226"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/goals/goalDetails.tsx",
+      "bytes": 42311,
+      "sha256": "26d523bce69b8eb1ab6ff5987f434e125f027974794ce3689a914b415d88620c"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/goals/goalItem.tsx",
+      "bytes": 6941,
+      "sha256": "43aae8ffb6eebe76b4240c1edc5f1992add19f973bc00610534e7cac8fc019e8"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/goals/goalsSummary.tsx",
+      "bytes": 2124,
+      "sha256": "2e51bb03e489d4449d818d0d9abf8ba4886fad52047a70f9f712a59f4880edb6"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/habits/habitDetails.tsx",
+      "bytes": 10837,
+      "sha256": "e5f00de76a2691e606ea649dec7c88bc33d388c7862bb4b6f37671fb7c6ceb98"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/habits/habitItem.tsx",
+      "bytes": 5579,
+      "sha256": "aab5262d140ce46d4fa73c7d6a42b2d7e7ebd26716a7cb2a01a20ffb33932db6"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/investments/investmentDetails.tsx",
+      "bytes": 12402,
+      "sha256": "e03e9d3d607831bc8579bbd70c6bf70bf097a0a72f94205486d5feaccb956ef9"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/investments/investmentItem.tsx",
+      "bytes": 5549,
+      "sha256": "c878d626b8f802068b3dc4749c0b2980cf42e90072ff4d6d93b2c5cc009b1026"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/investments/investmentsSummary.tsx",
+      "bytes": 3313,
+      "sha256": "3b1058b50e027102887611f6d4b8214cc72021f53faeb2b56842b09b76cbcbb4"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/planning/planningDetails.tsx",
+      "bytes": 11462,
+      "sha256": "92d7aaf666dcf4888073847a89b20aee598086be9f2ad6126378afe7802f7b88"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/planning/planningFooter.tsx",
+      "bytes": 4238,
+      "sha256": "291ec2a843f4d11f601629dc49c4765b59879c3c2859b339b156f745c0f654b8"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/planning/planningItem.tsx",
+      "bytes": 5343,
+      "sha256": "8f403fb94eb0a485cb82bb51be045bcee66bae9fdb2747118efdb74ce4975688"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/screens/planning/statusBadge.tsx",
+      "bytes": 1290,
+      "sha256": "2714a59d670f13deae3d421d63e7a0706b8641798209eb69a2c363e9dfc34b5d"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/footer.tsx",
+      "bytes": 2381,
+      "sha256": "1844aa72d969f867a1106d0866bc9701f307db24ab1504f037e4bc0e09919f6f"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/navLinks.tsx",
+      "bytes": 2265,
+      "sha256": "5dee76f6ed52dfa0e9c17a76b72af8cee07a34633bb4e74da2d92f7e91145561"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/overlayMobile.tsx",
+      "bytes": 483,
+      "sha256": "38b940daca58ec1c2b1d6e84dac61e615e1eb2e3702f194ece8b64d195dfcaf6"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/sidebar.tsx",
+      "bytes": 1241,
+      "sha256": "f80521596ab39b0ef217c4fc5818be57a5c00f47fe1c0e0bde09e9076cf5e1f3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/topbarMobile.tsx",
+      "bytes": 1174,
+      "sha256": "e1a374218a97ef9108eb087956bbf804cdb9297085eb64fe7db34333cb47ce26"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/sidebar/userProfile.tsx",
+      "bytes": 850,
+      "sha256": "4b2c169f219b4df3862115911a7dcfa24bbedb6adcd502e92a10894cc9462edc"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/backButton.tsx",
+      "bytes": 494,
+      "sha256": "035d043210bb3ed867c95e76c36116e12b290ed1c32713d766338734f650fef7"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/button.tsx",
+      "bytes": 1148,
+      "sha256": "472b37166c141067c7ce444789686046be8295a0efa45e87e460a26f157055bd"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/card.tsx",
+      "bytes": 2062,
+      "sha256": "8f5f7a4fc9d8885300aee6f527cd5d0ab7aae99caff7625dd8515876bb547d74"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/dropdown-menu.tsx",
+      "bytes": 8487,
+      "sha256": "3535ee41a400dbc772df612ae9b5ff46e76e8b24b96d8f86e0da3dee24517bee"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/input.tsx",
+      "bytes": 2607,
+      "sha256": "fbf85e14a2863ca79955fe38ec0369dee2870d7545cb35c5e18f184c650d17f3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/modal.tsx",
+      "bytes": 1608,
+      "sha256": "38dc9c79f4f0f3613719a637b9ea9b9b18ba75cb271345f8167d5892f8efeae2"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/privacyBlur.tsx",
+      "bytes": 598,
+      "sha256": "2b164b99c286ce7d9041e762cd1d780d50502e45bff39e88d23716a6eb091c0e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/sideModal.tsx",
+      "bytes": 1376,
+      "sha256": "753c851fb0001a66eca220333a9d77a009586bba4493b49648becc760fce01e5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/ui/skeleton.tsx",
+      "bytes": 289,
+      "sha256": "5e045dc0265a2a7ea183bb689b440068b9b18b59affc7039efd85ad1bd083ad8"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/components/userCard.tsx",
+      "bytes": 2070,
+      "sha256": "a456e8003f064307e189c9e9f1c631395971462f485fe758b3db018328a4c644"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/browserTodayContext.tsx",
+      "bytes": 1807,
+      "sha256": "0be2aa9bb830e3f6ce6a5a78dd4eb28f3ec2277365c0434ec38318e29f7f9d39"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/dashboardContext.tsx",
+      "bytes": 7988,
+      "sha256": "563f9499a0b54b30a618641c2edd70a4113521a7c548f7812aee9bb10d916957"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/financeContext.tsx",
+      "bytes": 6629,
+      "sha256": "77fa42bf7408ae8439c9ac49e06b27e7ed20350e5fc2ec25593e3f671c7d4fcf"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/goalsContext.tsx",
+      "bytes": 3703,
+      "sha256": "14e46d5c9fd708fc911d7e353567627b6397b48873e72bec2ba8806470eb8949"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/habitsContext.tsx",
+      "bytes": 5308,
+      "sha256": "4480317ea4f7141a66117654aa5d5a7b1903d134c52760584240d9d63a45d05e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/investmentsContext.tsx",
+      "bytes": 3506,
+      "sha256": "affb14b405902c0249619d1e6030f528b5afca38ef97aaee908522c2b23c34d9"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/accountModalContext.tsx",
+      "bytes": 1077,
+      "sha256": "fd660fed9c3f3c74918e0cfbd2f6c01a4f055c94b4aec73f7e393a39a4c11a47"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/authModalContext.tsx",
+      "bytes": 1421,
+      "sha256": "24a7588aa90b06489e8ec25c462e40e44b1ce8a35c0bd057fc8212417555db7d"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/cardModalContext.tsx",
+      "bytes": 2532,
+      "sha256": "f3cbff6fa53601536894bb424c7c2c093664215c26ac5460f79e8e4ebd2fa0b1"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/goalModalContext.tsx",
+      "bytes": 2513,
+      "sha256": "faf0e24fa5c8910179b2750962592e6ba02204ef13de885fd478ac24561c4b13"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/habitModalContext.tsx",
+      "bytes": 940,
+      "sha256": "e122cc2c5675d3b487bc266fd81f57742542e93bf864602b5787626b4555e608"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/investmentModalContext.tsx",
+      "bytes": 1382,
+      "sha256": "eb801e84469b7510607bfb3fea65e667d3c913e05a861b85cd2afe4e915a15ba"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/planningModalContext.tsx",
+      "bytes": 1850,
+      "sha256": "e1c203ab112270d573fef1b5fdd2968f79cee0b22d7970d802728eaf5bdf8b1e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/modals/transactionModalContext.tsx",
+      "bytes": 1498,
+      "sha256": "d481d090bd1d3f867384af08ebf12808a8cba7b5bcae5c71f375e4de14b71ad5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/planningContext.tsx",
+      "bytes": 7483,
+      "sha256": "db8210b41d31d9e18d953ea7f85293caaf2566eaf4d6037352f4334cb0e1932e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/sidebarContext.tsx",
+      "bytes": 2498,
+      "sha256": "68ccee276acaeb22238cb5a2c824dea73b90017c8eb075ff422e41e5998dd8ae"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/toastContext.tsx",
+      "bytes": 3552,
+      "sha256": "5ee25298e92acd4dfac7fba593e08e8f4466b1f15fa2b2692602f2edfa624e32"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/contexts/userContext.tsx",
+      "bytes": 2775,
+      "sha256": "f582d86da0d8f3cdc3bf2dbf14b73f7990e656c9ba335839c00cbb2d42cc6dc0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useAnnualSummary.ts",
+      "bytes": 4054,
+      "sha256": "aa74705bea27764afb64c311b01cec406ec15b4bc3036f005e1d869bc84473d0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useAuth.ts",
+      "bytes": 4508,
+      "sha256": "7cdace40323b114e6e90c12bb8e6fb5a607a579eb1d19a2586aca39492cc70f4"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useCards.ts",
+      "bytes": 7806,
+      "sha256": "d02d0122d9e7be250e6e660b5be68f68ba17deaec68d563edb7a078bde4849af"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useDashboard.ts",
+      "bytes": 138,
+      "sha256": "e3024f1ae207e74d3c7217d7d2100a36a04fd696c57050bb75ed4d5fe61f9d9f"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useExtract.ts",
+      "bytes": 10107,
+      "sha256": "21f41cb4b405dcf41a888aa9bc1fd42a29e0222df955368a9a857ea32681bfbd"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useFinanceData.ts",
+      "bytes": 134,
+      "sha256": "219be26f50a9502bd619baef85ee7d886af2fbd830662f0973bff9d6e35511d5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useGoals.ts",
+      "bytes": 2438,
+      "sha256": "a39b2641d3f819ed4ee7cc557af6e01572e286a8a6b3b142decab7411e82d2ee"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useHabits.ts",
+      "bytes": 126,
+      "sha256": "08e69ea9782488da7b2caf6771a04162cefb4accf19f8ffa67611a8635751ae9"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useInvestments.ts",
+      "bytes": 2888,
+      "sha256": "2d35b2400710ecdf45c06168589c20bffe315140c2e88b77cd0e4145189abcdd"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useOptimisticMutation.ts",
+      "bytes": 4732,
+      "sha256": "c7fabe7d10a7fd239224830eb7616f6281a2b89d4ffb22b63e6e925bb3d606f0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/usePlanning.ts",
+      "bytes": 5844,
+      "sha256": "b86565bb69a1ac0579ee68cb8252f4807ca6623b8b594601dfccc313331efc46"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useRequestCoordinator.ts",
+      "bytes": 2616,
+      "sha256": "03506eead368399d94576ef8a33cfbb69a62b02b6a70db67fd2f77dccc38db9d"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useSidebar.ts",
+      "bytes": 130,
+      "sha256": "35cdcad68726a28cd1f3f7ea23f47658894ca17fe7fbcc71e4c0697eb951d306"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/hooks/useUser.ts",
+      "bytes": 120,
+      "sha256": "8ff6a1536e353f1dbc6363a5a0f02727825255f7c3b3b0875f59c3c1fdbb6886"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/layouts/PrivateLayout.tsx",
+      "bytes": 2012,
+      "sha256": "ce07f5392147401f63748d79016bfa334f2b622870b96cf1a1367fc90fd798ef"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/lib/utils.ts",
+      "bytes": 172,
+      "sha256": "74a147991a119f1c4cdc25a4d9b22713632fa32eb136e55ab6939b006d71b9d6"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/middleware.ts",
+      "bytes": 1297,
+      "sha256": "18baa58862610a9d0ef5281140a24c0c693f1aa29972537823231cc4611b02d1"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/models/usuarioModel.ts",
+      "bytes": 206,
+      "sha256": "d642fef74babf4a8b27b652f8d288ce894f88a4163e6ae7a29809a9d9412a43a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/accounts/accountsScreen.tsx",
+      "bytes": 7786,
+      "sha256": "a13048d5c51b161452568d1085bf8c5e366aa304057849c2d6015658ba454114"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/annual-summary/annualSummaryScreen.tsx",
+      "bytes": 5404,
+      "sha256": "080c67a72612d15d1b8c63f78caec33421d833b423876a83574e6bc0f0909014"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/cards/cardsScreen.tsx",
+      "bytes": 9587,
+      "sha256": "dd9d7a73ff381306177a9e69b9b05acf6e744740e9393eaa7c85a15f48a4a4a3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/configuracoes/configuracoesScreen.tsx",
+      "bytes": 8081,
+      "sha256": "907e8546e86c0fb26d181e60bd580b8b46050bf05f9fcf0cf8e305617f38fb11"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/dashboard/dashboardScreen.tsx",
+      "bytes": 9724,
+      "sha256": "0ac15b741802956441de369d762930be6636d4cd2c6fa1f240c4e282770bd18a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/extract/extractScreen.tsx",
+      "bytes": 8474,
+      "sha256": "eff15a1bf96108f9a5d5f4fb503579e0475019a9771e8b3d5e6b9fba5308a787"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/goals/goalsScreen.tsx",
+      "bytes": 4478,
+      "sha256": "2b2b5ee3b806ae4a47ca2f552d48750a00dce386d487124811c98e4174ae51fb"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/habits/habitsScreen.tsx",
+      "bytes": 6744,
+      "sha256": "143b039d7250bcb3228d0deb1d4514bca7d072880992b85554733291f9e0e8ad"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/investments/investmentsScreen.tsx",
+      "bytes": 5914,
+      "sha256": "e012eedfb56a7a9d4576af720f8a51d9b42394130a44cdc327119a9440be8b58"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/private/planning/planningScreen.tsx",
+      "bytes": 6583,
+      "sha256": "0946f8653f32e70864ecc9f59ef48c19f556f51abdb6f6063ac3a1cb323c3f2a"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/screens/public/auth/authScreen.tsx",
+      "bytes": 20656,
+      "sha256": "4918d330496c6ba9e84525d04fd960a5d96a3555c455fc847d05a7cadbde208e"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/accountService.ts",
+      "bytes": 1057,
+      "sha256": "255c15a081fffd32b489d9b4bcb4768c15c46de9e513fed386f14e06db755a95"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/annualSummaryService.ts",
+      "bytes": 575,
+      "sha256": "c801fdfaf334087afadae05f3dd4143fed758c30d7c99da4b8864e79ed704451"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/api.ts",
+      "bytes": 6146,
+      "sha256": "5797f2e59f54f9d94db8d776cc27b3d919af56f90aff223ddc914aab4adb55d0"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/authService.ts",
+      "bytes": 1371,
+      "sha256": "4b2811c0f025873ddd4a64eebddd36ce1dfdd14a9b05d1ad1da981b8f79224aa"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/cardService.ts",
+      "bytes": 3458,
+      "sha256": "79645f11ad45919c6c5ca0aa0a3bac333a430a73c1efefbe09cd75a841cd2526"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/categoryService.ts",
+      "bytes": 963,
+      "sha256": "9df7836254b86501366985cc71935d78459a8a4ae01699509669ba5886e9f773"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/dashboardService.ts",
+      "bytes": 662,
+      "sha256": "350158dd3659440e790a6a7480bc67a2c97efebfdc84d6ad08ba4394f6ef85e5"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/goalService.ts",
+      "bytes": 2850,
+      "sha256": "9527d87939a6ad516565a650560c9cb6361ed1707204820796c7b21fed834c6b"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/habitService.ts",
+      "bytes": 1272,
+      "sha256": "a902590d7f19f2add0ad50efbdf575fae7d0201aabeffe7fdebe646feb550a5f"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/HTTP-CONTRACT.md",
+      "bytes": 8258,
+      "sha256": "c975fdc946e833601d1b6cff763ce3172cb9dbb941210103f87cd3c7eb09ce59"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/investmentService.ts",
+      "bytes": 1517,
+      "sha256": "f740b75df1888f4061634f982be3ec68c82bfcb266207a2354a64688e31c4dff"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/planningService.ts",
+      "bytes": 1973,
+      "sha256": "1c9f4aa02854891a292c206be92124def2349549a4495d2cc7135971f123d477"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/transactionService.ts",
+      "bytes": 1996,
+      "sha256": "2be7e841e141e52b1426e659a8889591f7fd58c22e1bf4c4b826c23c3f4692b3"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/services/userService.ts",
+      "bytes": 1096,
+      "sha256": "776c35799412d5c5bcccebbdcb0f388fb0ec98657ac13583c7bef88e8544db6c"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/types/index.ts",
+      "bytes": 5867,
+      "sha256": "e8a35e2c784629bc6e1b701d04fc05622f9d8e31aa8b3bb734c7d73c8cb4c773"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/types/temporal-contract/examples.json",
+      "bytes": 8300,
+      "sha256": "e3d7b43dde28c52dd5e5362008d89a506ace9b48c15d4fefb0a87eb8bb0ff1e8"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/types/temporal-contract/inventory.md",
+      "bytes": 18019,
+      "sha256": "e918cdee76186fb0839158d85e915d8d0e6c8e830732cefffe5de9b1066e4107"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/types/temporal-contract/validate.mjs",
+      "bytes": 9659,
+      "sha256": "c211ded821d5696aecee01ff0245d1097f05fbe59c3c1ffd2e1c4c909280680d"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/utils/date.ts",
+      "bytes": 1566,
+      "sha256": "214ed5b3d1a5583b5efc243ab58ed16dab03b59b4e2c6bc5cbc395f4bd1315ea"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/utils/format.ts",
+      "bytes": 395,
+      "sha256": "2ee4981d1b373004983d8c31adbff16b3bbfdeaf9fea0b336510e983b0dd7b06"
+    },
+    {
+      "path": "controle-financeiro-frontend/src/validators/inputValidator.ts",
+      "bytes": 1709,
+      "sha256": "7f04e552d879eaa89bf704f1f4e234d7b640ab9e6aa5cc3f3d742e54f068b79c"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/artifacts/.gitignore",
+      "bytes": 14,
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/async-state.test.tsx",
+      "bytes": 14378,
+      "sha256": "f5c41939b3f1843bc596132a56281ed8649be161814fd561925a99010da3bbbf"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/auth-screen.test.tsx",
+      "bytes": 2252,
+      "sha256": "772fdef1e0a4c1b13636b03184bea5eff55ccd30ba1bf5f695d899429a037c9e"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/bff-contract.test.tsx",
+      "bytes": 4239,
+      "sha256": "3bd34dfe5a8787ca0bf24f76b2646e08b94dd776c9b610d10f611e2904b7a360"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/http-contract.test.tsx",
+      "bytes": 7279,
+      "sha256": "e619281b4c5ae8d72f2412944bcba0f4baccdb8d40093e9252d7810ea1b3910b"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/setup.ts",
+      "bytes": 606,
+      "sha256": "88aeff6473013985bf89632799c0e7cca2395ffa94e73d527133233946aaf6b4"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/temporal-forms.test.tsx",
+      "bytes": 7434,
+      "sha256": "8d3e7fa35b8deab13381cb7c884c5201e80ac72f25272c51886c915473ab588d"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/temporal-navigation.test.tsx",
+      "bytes": 4272,
+      "sha256": "0906ada2d694ae29a26c6f11a9cb57aead48cd0323c6a582e1f1a45d5e4af19b"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/temporal-presentation.test.tsx",
+      "bytes": 5253,
+      "sha256": "486ce5c3939976b18570b830414019e352627a62b9a04515389d970b7c4d1bb3"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/component/vitest.config.mts",
+      "bytes": 487,
+      "sha256": "7b328dcd9be9efa384ffe230c9b1b1d01c46c37b1df8c62b22923619802cb442"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/date.test.mjs",
+      "bytes": 2091,
+      "sha256": "cd97f82a241a3022ff70aaa1c28404fddbb73483d6c4c5110dc5f97707b60826"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/auth.smoke.spec.ts",
+      "bytes": 1260,
+      "sha256": "c4285bba4a6100eefcd090750bf037021b1f65582e25d43594eb2944aa5162d9"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/controlled-clock.spec.ts",
+      "bytes": 632,
+      "sha256": "812d79d40cdbd6d04b117cab4a07abaf30cfb257a1e2c1fcaf63305ee2be22b0"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/playwright.config.ts",
+      "bytes": 1370,
+      "sha256": "0ed17a86349d6fffaf363937ff8c421decb55d0d0212995a0bb8b7017ba7498a"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/playwright.integrated.config.ts",
+      "bytes": 1504,
+      "sha256": "a527a6c000b7840950d7f6ec5947becdf588b1566fe43d33da0b4298e9390e32"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/support/controlled-clock.ts",
+      "bytes": 304,
+      "sha256": "cfa6405e5eb96a74a27605ed5385f890df999d3e1ba17dd7f85778aecebe5dfd"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/support/synthetic-auth.ts",
+      "bytes": 1067,
+      "sha256": "b3e03f79dd95573bafa1ff98c4874c1787090ef49a75e8d78d19414ea9b81527"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/e2e/temporal.integrated.spec.ts",
+      "bytes": 20081,
+      "sha256": "6eea099ad09079d591ba1d4592c2202f4c27d9a208f969f6687bf638cc5ca1e1"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/oracles/cf001.json",
+      "bytes": 13932,
+      "sha256": "eac0fc5b8f04a623f067d10f26d0830869d7c4547529c0b0d62cdc30e6907d05"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/oracles/README.md",
+      "bytes": 4300,
+      "sha256": "964f65ed068c26339c20ab31e5d89af32fdbc28487e04f32e63d4f98a0208dd4"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/oracles/validate.mjs",
+      "bytes": 7748,
+      "sha256": "9f4f123eebe99c1b5900aecb901ae5531702bc30c0af924c437ece73a04bb4c0"
+    },
+    {
+      "path": "controle-financeiro-frontend/tests/README.md",
+      "bytes": 2311,
+      "sha256": "0364353dcf2ce24d2c1ed99a011dbf540091aa1b14bf362b028f4ec4dfe3ccfb"
+    },
+    {
+      "path": "controle-financeiro-frontend/tsconfig.json",
+      "bytes": 704,
+      "sha256": "dbacf04aa5f38c1ce4b0f030fbb84e5adff19306fb785b2e4aafef9c58705658"
+    },
+    {
+      "path": "docs/sdd/arquitetura.md",
+      "bytes": 4014,
+      "sha256": "47b94d626d7d5cb602d5a455fa540ea809282be6d71b5f5520ad64889b586a50"
+    },
+    {
+      "path": "docs/sdd/diagnostico.md",
+      "bytes": 6944,
+      "sha256": "29a5dd7a4159f8278cb966277c5d529ce39119d8e071b78d6a6a8c6b6d238e3e"
+    },
+    {
+      "path": "docs/sdd/lint-baseline.md",
+      "bytes": 7264,
+      "sha256": "a3ebaf0d870dc197ea0d33c9b12b21d496f0e2706ee9812718857b1327e113b4"
+    },
+    {
+      "path": "docs/sdd/paridade-planilha.md",
+      "bytes": 2868,
+      "sha256": "f789548849f1ff0d4e12c17d4657a80cb3da89f01ae5fad696cf7445f1511d1a"
+    },
+    {
+      "path": "docs/sdd/README.md",
+      "bytes": 2757,
+      "sha256": "55c273e0849d8c885a164cf70fee53ce60d2328b164d0e79cc3db808c9bb3ebf"
+    },
+    {
+      "path": "docs/sdd/specs/001-onboarding.md",
+      "bytes": 7800,
+      "sha256": "d16c6276b80d878c5eddee0f4a4f387324692929f177780e9f026698a6d28669"
+    },
+    {
+      "path": "docs/sdd/specs/002-datas.md",
+      "bytes": 17834,
+      "sha256": "61bdb35f257065b9360d3efe4a9cb4039161cb96689ce2bbe87063d0fb250c79"
+    },
+    {
+      "path": "docs/sdd/specs/003-criterios-oracles.md",
+      "bytes": 24912,
+      "sha256": "af65d3f0674f4bc3b7f13f17077e7cad729f69a5eff989caed08f1874927acc4"
+    },
+    {
+      "path": "docs/sdd/specs/003-roteiro-exploratorio.md",
+      "bytes": 11347,
+      "sha256": "1e79c14f5e5625fb180c3dd6c61830bbaf022732fc39d52141d8b92f55b7c824"
+    },
+    {
+      "path": "docs/sdd/tarefas.md",
+      "bytes": 9766,
+      "sha256": "a40bde396429be4edd25a7a5ecaf0ed7471c03c6a94e8cadb5badf91fcc4e20a"
+    },
+    {
+      "path": "docs/sdd/validacao-deploy.md",
+      "bytes": 6653,
+      "sha256": "6884d10f9957706cc7b24217ecccf340ef60e3551e4b340a1561ea35321303a4"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1091,
+      "sha256": "91fa18090aa4117f872ca0ebcd19387ac585e5191332fae01238106574069c65"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8122,
+      "sha256": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca"
+    },
+    {
+      "path": "tasks/00-fundacao/CF-001-criterios-e-oracles.md",
+      "bytes": 4042,
+      "sha256": "7323447fc2a7d44534b9420478874c4bd9e7a0661bd5e67ab8b240cb6f0e6a66"
+    },
+    {
+      "path": "tasks/00-fundacao/CF-002-ambiente-backend.md",
+      "bytes": 4148,
+      "sha256": "96816f2ef93cab46dc6de779cfd79d4db5b0e3a05733574dd110b3f8e252a284"
+    },
+    {
+      "path": "tasks/00-fundacao/CF-003-harness-frontend.md",
+      "bytes": 4007,
+      "sha256": "e980344827302e07b73352e4105b2a8e543b2fdad82578ed7739560edd887640"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-004-contrato-temporal.md",
+      "bytes": 5268,
+      "sha256": "83348f8785ea8d8ba77186f39c5cb6ab285202de2b09ed41103b949c0a9b984e"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-005-datas-frontend.md",
+      "bytes": 4743,
+      "sha256": "10986d5042e4a3df35763735a9617904916ce300f7f78557f374cf3e2ea6de22"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-006-datas-backend.md",
+      "bytes": 4175,
+      "sha256": "3630832a426d0708de4689248090a2b02b502e348317223f15b14627cd7f3dbc"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-007-e2e-temporal.md",
+      "bytes": 4259,
+      "sha256": "6b96ea7cf1414fb48d780273630c269a33d346740020721ea26658e3f11b5178"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-008-erros-e-contratos.md",
+      "bytes": 5000,
+      "sha256": "a4441fd1eb8d1ca46c23d02d14e2743e1f5a7e242df139789008ed1590c94085"
+    },
+    {
+      "path": "tasks/01-datas-integracao/CF-009-estado-assincrono.md",
+      "bytes": 3949,
+      "sha256": "8e724648a596e573396e8439fd5ba92835ebac5d140a0cc6158797af9a87dc7f"
+    },
+    {
+      "path": "tasks/02-frontend/CF-010-componentes-comuns.md",
+      "bytes": 2917,
+      "sha256": "2e1f36fa9bf49d2e7ebbdc2d71bc40ca86fa6ff47f222d49aa368f1965e4f23a"
+    },
+    {
+      "path": "tasks/02-frontend/CF-011-auth-configuracoes.md",
+      "bytes": 3034,
+      "sha256": "d469af62f2adc8055df1d431dd7d065df9f010a26d374b6f48445658a1f877ce"
+    },
+    {
+      "path": "tasks/02-frontend/CF-012-dashboard-contas-extrato.md",
+      "bytes": 3220,
+      "sha256": "a5c66a853c7ff5dc714f1c5a8b8bbd449c8aac11964ca778b726704aabe88429"
+    },
+    {
+      "path": "tasks/02-frontend/CF-013-cartoes-planejamento.md",
+      "bytes": 3050,
+      "sha256": "1613a33136d3e917176cf60bcaf82fb9ca75dfc869a289b501b50b1d75eb9531"
+    },
+    {
+      "path": "tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md",
+      "bytes": 3214,
+      "sha256": "6c5f591bed3a1a5619798b98edb5bedc8d2e7abbf0d79069cc5238af51993059"
+    },
+    {
+      "path": "tasks/02-frontend/CF-015-revisao-marco-frontend.md",
+      "bytes": 3250,
+      "sha256": "d62582d73725cb3b966781aa65344ff2ceac6368b82e036422c49c76b6cee4ef"
+    },
+    {
+      "path": "tasks/03-integridade/CF-016-regras-financeiras.md",
+      "bytes": 3033,
+      "sha256": "96d82037ac1c250660a72d46e886f75bb1127744b81f4e8d6f145694a193d260"
+    },
+    {
+      "path": "tasks/03-integridade/CF-017-migracoes.md",
+      "bytes": 3098,
+      "sha256": "95897539ca86103704a95165a35a4a49b4963fe8575029eb0f17215ca284040e"
+    },
+    {
+      "path": "tasks/03-integridade/CF-018-contas-transacoes.md",
+      "bytes": 3190,
+      "sha256": "78e699b5b2abdf2072ff51771b2889d7b6d5f1eda4d809b61addb89d27f9b911"
+    },
+    {
+      "path": "tasks/03-integridade/CF-019-cartoes-faturas.md",
+      "bytes": 3244,
+      "sha256": "fb674a7977185537474214b820e3bdc1e06f97e5d1e94e8221a731741f86c979"
+    },
+    {
+      "path": "tasks/03-integridade/CF-020-investimentos-metas.md",
+      "bytes": 3213,
+      "sha256": "20953b9726d5906bc87f5200b0f0773a694a179f79a3bc4b3ba29b8d7e5b9a0d"
+    },
+    {
+      "path": "tasks/03-integridade/CF-021-relatorios.md",
+      "bytes": 3203,
+      "sha256": "78cdd5b72a61b31271b15377efe55dfa8695e7228df33e3033d3007cd1604d2b"
+    },
+    {
+      "path": "tasks/03-integridade/CF-022-habitos-crons.md",
+      "bytes": 2935,
+      "sha256": "da6fcabf4ebb6c3ca0c7013016abcc175f97ae50ffbdbf05aaed3944b6b2ef4c"
+    },
+    {
+      "path": "tasks/03-integridade/CF-023-isolamento-autenticacao.md",
+      "bytes": 3143,
+      "sha256": "9f7394c651943d2be16b772ad5df9b18cd214c24a72dbd7c3d80cac9315ac4ba"
+    },
+    {
+      "path": "tasks/03-integridade/CF-024-concorrencia-cache.md",
+      "bytes": 3167,
+      "sha256": "3456ae74b03a81c2ebec877713768b5ef7cf27a39ccf08736185eb1d01a5327e"
+    },
+    {
+      "path": "tasks/03-integridade/CF-025-consultas-desempenho.md",
+      "bytes": 3032,
+      "sha256": "da83f1c010121382df1c4313b223381517d3a18567eb8769dbd92d6eb883d19a"
+    },
+    {
+      "path": "tasks/03-integridade/CF-026-lint-tipagem-frontend.md",
+      "bytes": 2959,
+      "sha256": "eebf24d888719af3193f3351a549363910fa49b11f43f4a5e63c752a6995ddda"
+    },
+    {
+      "path": "tasks/03-integridade/CF-027-fronteiras-backend.md",
+      "bytes": 3178,
+      "sha256": "79f4d59b26d0b807a5dd8d2252e245443058ceaaeae16216f1d1225c5d09d33b"
+    },
+    {
+      "path": "tasks/04-onboarding/CF-028-contrato-onboarding.md",
+      "bytes": 3075,
+      "sha256": "8553e99f60d505b2aa659115be57f3cb5bbc5504dcf182b5fd3f4848001e709a"
+    },
+    {
+      "path": "tasks/04-onboarding/CF-029-rascunho-backend.md",
+      "bytes": 2872,
+      "sha256": "681180752c025c961b4c56941b1e1f6094eccff1c2cff2c69999b1c6ec7b41f6"
+    },
+    {
+      "path": "tasks/04-onboarding/CF-030-finalizacao-backend.md",
+      "bytes": 3092,
+      "sha256": "45b6d07c651a8e87c432531ffb123c6e4df1a91dabf1591ce08f6ce4adb9b3e6"
+    },
+    {
+      "path": "tasks/04-onboarding/CF-031-entrevista-frontend.md",
+      "bytes": 3051,
+      "sha256": "e5b6ae16ab188a70b905a238f5735d6098d322bb9487c568c2d2c9a58e53fba3"
+    },
+    {
+      "path": "tasks/04-onboarding/CF-032-e2e-financeiro.md",
+      "bytes": 3152,
+      "sha256": "abe8088020894f022b46641de0b1e3687b7ed2e6046f83377210fb758d35eaec"
+    },
+    {
+      "path": "tasks/05-release/CF-033-revisao-adversarial.md",
+      "bytes": 3052,
+      "sha256": "9a41022a678cd117f96ceee7f36a0dda912df3f0bf46ad45a6cdaf9d8e98f7b9"
+    },
+    {
+      "path": "tasks/05-release/CF-034-gates-ci.md",
+      "bytes": 3190,
+      "sha256": "70f1f98ac92b8b5052920ce0dca5ac407209fdc8352b66eb9ff261eaf7fcfae2"
+    },
+    {
+      "path": "tasks/05-release/CF-035-homologacao-preservacao.md",
+      "bytes": 3026,
+      "sha256": "2d6c70a3e8dd7bffc970a4ccd5214d9b84283771a0a3b8ba22cc4764676f277c"
+    },
+    {
+      "path": "tasks/05-release/CF-036-publicacao.md",
+      "bytes": 2981,
+      "sha256": "a0577ff79968655d0cf5be50344d87842f938db1859ceb70a602ca0661700099"
+    },
+    {
+      "path": "tasks/CATALOGO.md",
+      "bytes": 12335,
+      "sha256": "f00dfef0bf0662e8ee1bb8b370ffc27eb4849d835403c50a379a848bd7d1241a"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/base-inicial.json",
+      "bytes": 76858,
+      "sha256": "a679729fd4719389a2b9b51a9b02e1431b6ffc3b20fccbedd13d4b2066a08f47"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/diff-check.txt",
+      "bytes": 2313,
+      "sha256": "3b0f26c361424804f8a933d313592f2376bac85ab6bbd66068cd92433bc94b4f"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/entrega-sha256.json",
+      "bytes": 2786,
+      "sha256": "378b2ed829f91c8689524c20eab8c2c1928f084553c4256c578214d9517a4b22"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/git-status-final.txt",
+      "bytes": 1098,
+      "sha256": "0e63c9dfb1d806ecc35a6e4a024efc4a83bb11c52bb852b3c928986381abf2ad"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/preservacao.json",
+      "bytes": 512,
+      "sha256": "70fc9dbe9f05c2194cef4c15fc4f650f31dc4be520cc7c30abff3b55af8b4040"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/README.md",
+      "bytes": 7578,
+      "sha256": "2f28bea228a10f224c044ee649dc391d9ace2b5e195ec46064f0e79aa89c7d4f"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/revisao-testes.md",
+      "bytes": 7195,
+      "sha256": "9f9578e6911eab69df5115be2b68e1170538983602f30ee2840525e58490abb7"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/runtime.json",
+      "bytes": 279,
+      "sha256": "06d6fe28e003c6537abed2585a7c75eb0f57e6ade0804ccd4bf61206edd3575f"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/testes-existentes-node.txt",
+      "bytes": 3345,
+      "sha256": "50b7b43fbb1f194f547f22536e3b5c0846f6ddd32c99de97bbe8e49470ad2522"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/testes-existentes.txt",
+      "bytes": 817,
+      "sha256": "2f003fe3541cf2dc30e5a5caba765ef0e48c75844da0295f9876d49475f289a3"
+    },
+    {
+      "path": "tasks/evidencias/CF-001/validacao-oracles.txt",
+      "bytes": 311,
+      "sha256": "1926685b81a5660d96da2f31e61bd548a04fe1c014789f03132998989fd6811f"
+    },
+    {
+      "path": "tasks/evidencias/CF-002/README.md",
+      "bytes": 7656,
+      "sha256": "91379a1933bafe1f7513e1445c5f7450c166059cbbda436fe7eabe508f948550"
+    },
+    {
+      "path": "tasks/evidencias/CF-002/validacao.txt",
+      "bytes": 1479,
+      "sha256": "2958f94f9a2ff176c6fa67c4014083908312d522660ea5f800193645408afbdd"
+    },
+    {
+      "path": "tasks/evidencias/CF-003/README.md",
+      "bytes": 10765,
+      "sha256": "cc06bfae38af33bcc4b251948e055529c20dee352531f5f04b5d6a2d798f147a"
+    },
+    {
+      "path": "tasks/evidencias/CF-003/validacao.txt",
+      "bytes": 1538,
+      "sha256": "783d955ab6756ad14785d0b69b0c376e0e51b1935fa7f38a68a4bf916f8c34c5"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/base-inicial.json",
+      "bytes": 83826,
+      "sha256": "7068d3137d58f315a939e347bed9ca410d7df77d0173d2e6b672caaed4afa549"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/contrato.txt",
+      "bytes": 1360,
+      "sha256": "299601e90343730b906db3fbcc2dc35d301c7c8ea2b735706c040f8e8c72f74a"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/dependencias.json",
+      "bytes": 1127,
+      "sha256": "9b7fca5bd36da4cc31d0a54c99b0bcd6406b83149b4c5d234b36dc1b2b03b2a3"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/entrega-sha256.json",
+      "bytes": 3084,
+      "sha256": "24c277361cf1d0c1c120e483349b1c65988c0ef96d7c905123210b3ad652802e"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/fechamento.txt",
+      "bytes": 3315,
+      "sha256": "3f6b709eafdeb0f1685f62d485db8f88b031f11b5e4dcb80220986ec67c8d2f8"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/git-status-final.txt",
+      "bytes": 1704,
+      "sha256": "ffe57623c9e6458539bba2fed9de19a4034fa53dde5e83a6767106f1db668bbc"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/lint-verificador.txt",
+      "bytes": 98,
+      "sha256": "6136e98aebc66732d61362c6030cc6567930269551b7ff1dbb0779aaf352cf25"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/mutacoes.json",
+      "bytes": 872,
+      "sha256": "ddc55000d6ea8dfebbc762b746c4c6d744e3a60d5bb76d851b3af18bd7c9b311"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/mutacoes.txt",
+      "bytes": 3326,
+      "sha256": "d353c0fa44a9c49b792e59186eee0792a8d6ef984fbfb21308269ad4687030b8"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/oracles-cf001.txt",
+      "bytes": 297,
+      "sha256": "4eba83787b4c4626a8808f41e6c387889e3ce13a7177e7e2752e25f65b76ebd7"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/preservacao.json",
+      "bytes": 268,
+      "sha256": "556eebb331ad18109d5852948cc8f2e4f895adf1ef6cb3d7836e0c97a362496e"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/README.md",
+      "bytes": 11648,
+      "sha256": "38fec3daf3ef97496b93f2777b50f89ca05a80e4ab70cb217601098dc805cedf"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/runtime.json",
+      "bytes": 355,
+      "sha256": "b35f54040f400eb0f2b71b4010f2152fa7f27b7c7ec2042bac44b850687f7e48"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/typecheck.txt",
+      "bytes": 99,
+      "sha256": "7dc06285b0eefe743ad8393fbcead9f8fe759cd79c22fcb81299927ba519eda1"
+    },
+    {
+      "path": "tasks/evidencias/CF-004/unitarios-existentes.txt",
+      "bytes": 3325,
+      "sha256": "d25745359619a7932ce468dcf316235878335ca0e489658c8ee136a05bf8efcf"
+    },
+    {
+      "path": "tasks/evidencias/CF-005/README.md",
+      "bytes": 10385,
+      "sha256": "2fa97d6e3f1f01c6a1b84bdaeb521c12e417bb02bc0c3eb7bc45e8a23e208de2"
+    },
+    {
+      "path": "tasks/evidencias/CF-006/README.md",
+      "bytes": 13487,
+      "sha256": "9758e8a7eeda7cc91b413f097f27e33e12d03c2bbcc6268c6a46c6c51654b7d2"
+    },
+    {
+      "path": "tasks/evidencias/CF-007/README.md",
+      "bytes": 9255,
+      "sha256": "5545b13d4f7c81fe48af4e24f91a4bc0c31efc84702251f4f898b863f7852c8e"
+    },
+    {
+      "path": "tasks/evidencias/CF-008/README.md",
+      "bytes": 9676,
+      "sha256": "700b18a156e43e063c64669c55825bf308fb78ee14b0cfbe67ecf58b41d6a573"
+    },
+    {
+      "path": "tasks/evidencias/CF-009/README.md",
+      "bytes": 9967,
+      "sha256": "e2c423a651bf0b2c3566725a31caf3aa938c46a3b1bf77f16fc58fffae5079dc"
+    },
+    {
+      "path": "tasks/evidencias/README.md",
+      "bytes": 704,
+      "sha256": "31bfa5da707366e9e45affe9e0d30b63e4d2c8ef86e53527f3ecb79e5ffa174f"
+    },
+    {
+      "path": "tasks/EXECUCAO.md",
+      "bytes": 4187,
+      "sha256": "779b038fda35729ffa143d1c187d743d0e542b4beff0b51f9b405526e8465c95"
+    },
+    {
+      "path": "tasks/MODELOS.md",
+      "bytes": 3194,
+      "sha256": "e1d06e1a6cc5076b9ba08efe9ed0ef47ff4b78dbc2d61a08b1f3f1cb94c662cb"
+    },
+    {
+      "path": "tasks/POLITICA-DE-TESTES.md",
+      "bytes": 5898,
+      "sha256": "36f4e0eac9c83a409311546e10986b1a60ea1d3b98b5c863a035cc7524169f3d"
+    },
+    {
+      "path": "tasks/RASTREABILIDADE.md",
+      "bytes": 7737,
+      "sha256": "d1bc9324d0b84d951f78288c4c0a85d2b0f05aa350b8ff788f40c9d32e2250c9"
+    },
+    {
+      "path": "tasks/README.md",
+      "bytes": 3414,
+      "sha256": "24b70a336e403fe4e736a459bd2c9b829e5855963a91ff281309ebb86a6e1b95"
+    },
+    {
+      "path": "tasks/templates/EVIDENCIA.md",
+      "bytes": 1194,
+      "sha256": "2391a72c7e35507f8d0d7986aa6c83b75ab89477fa2c8be4585f9ad2b20db7b9"
+    },
+    {
+      "path": "tasks/templates/TAREFA.md",
+      "bytes": 1138,
+      "sha256": "856f0597845a9d92872158c01f778ca74ed89b8346be800128854434d98160f1"
+    }
+  ]
+}
