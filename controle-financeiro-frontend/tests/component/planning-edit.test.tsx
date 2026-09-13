@@ -44,4 +44,5 @@ test("item gerenciado por fatura não oferece edição", () => {
     onClose={vi.fn()} onDelete={vi.fn()} onUpdate={vi.fn()} />);
   expect(screen.queryByRole("button", { name: "Editar" })).toBeNull();
   expect(screen.getByText("Este item é gerenciado pela fatura do cartão.")).toBeDefined();
+  expect(screen.getByText("30/01/2027")).toBeDefined();
 });

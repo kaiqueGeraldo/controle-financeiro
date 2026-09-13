@@ -37,6 +37,12 @@ export default defineConfig({
   webServer: {
     command:
       "node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 3107",
+    env: {
+      CF_E2E_SERVER_CLOCK: "1",
+      CF_E2E_AUTH_NOW: process.env.CF_E2E_AUTH_NOW ?? "",
+      // Next dev cria um worker: o preload precisa alcançar também esse processo.
+      NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ""} --require ./tests/e2e/support/server-clock.cjs`,
+    },
     cwd: "../..",
     url: `${baseURL}/auth`,
     reuseExistingServer: false,

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,6 +43,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TemporalBrowserApiPostgresE2E {
 
     private static final Instant FIXED_NOW = Instant.parse("2027-01-31T05:00:00Z");
+    // Autenticação deliberadamente posterior à antiga expiração; calendário de negócio estável.
+    private static final Instant AUTH_NOW = FIXED_NOW.plus(Duration.ofDays(2));
     private static final ZoneId PRODUCT_ZONE = ZoneId.of("America/Sao_Paulo");
 
     @LocalServerPort
@@ -95,6 +98,7 @@ class TemporalBrowserApiPostgresE2E {
         playwright.environment().put("BACKEND_API_URL", "http://127.0.0.1:" + backendPort);
         playwright.environment().put("CF_TEST_BASE_URL", "http://127.0.0.1:3107");
         playwright.environment().put("CF_TEST_FIXED_NOW", FIXED_NOW.toString());
+        playwright.environment().put("CF_E2E_AUTH_NOW", AUTH_NOW.toString());
         playwright.environment().put("CF_TEST_SEED", "cf007-v1");
         playwright.environment().put("CF_E2E_NAMESPACE", namespace);
         playwright.environment().put("CF_E2E_EXPORT_DIR", exportDirectory.toString());
@@ -278,6 +282,20 @@ class TemporalBrowserApiPostgresE2E {
 
     @TestConfiguration(proxyBeanMethods = false)
     static class FixedClockConfiguration {
+
+        @Bean
+        static org.springframework.beans.factory.config.BeanPostProcessor testCredentialClock() {
+            return new org.springframework.beans.factory.config.BeanPostProcessor() {
+                @Override
+                public Object postProcessBeforeInitialization(Object bean, String name) {
+                    if (bean instanceof com.controlefinanceiro.api.infra.security.TokenService
+                            || bean instanceof com.controlefinanceiro.api.service.AuthService) {
+                        org.springframework.test.util.ReflectionTestUtils.setField(bean, "clock", Clock.fixed(AUTH_NOW, PRODUCT_ZONE));
+                    }
+                    return bean;
+                }
+            };
+        }
 
         @Bean
         @Primary

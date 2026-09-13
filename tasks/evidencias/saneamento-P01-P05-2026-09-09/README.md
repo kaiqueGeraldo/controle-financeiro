@@ -57,3 +57,39 @@ Vitest `planning-edit`: **3/3, zero skips**, consumidor real com mock somente HT
 nessa camada de componente. Logs `P03-green.log`/`P03-frontend-green.log`.
 Percurso integrado adicionado com edição pela UI, PUT real, reload, GET e assert SQL;
 a execução dele fica para a integração final após saneamento do relógio P04.
+
+## P04 — relógios do harness (13/09)
+
+Reprodução causal: a configuração E2E antiga emitiu expiração `2027-02-01T05:00Z`
+quando o teste exigia emissão no relógio de autenticação posterior, com vencimento
+`2027-02-03T05:00Z`: `P04-red.log`, uma falha por valor, sem erro de ambiente.
+O middleware produtivo compara Date.now; um token com a primeira expiração já é
+recusado no instante de autenticação `2027-02-02T05:00Z`.
+
+Correção exclusivamente em testes: negócio/browser permanecem em 31/01; autenticação
+Spring e processo/worker Next compartilham 02/02, definido como negócio + 48 h.
+Não se troca o ano por outro futuro nem se depende da data real do host. Preload
+explícito somente no comando integrado, com opt-in/loopback e bloqueio em produção.
+Clock injetado nas credenciais somente pela TestConfiguration importada pelo E2E.
+Assinatura, TTL 24 h, expiração no limite e recuperação 10 min continuam ativos.
+Trade-off: congelar Date no processo Next de teste também afeta timestamps internos;
+timers continuam reais. O produto/build não carrega esse mecanismo.
+
+Maven `-Dtest=HarnessCredentialClockTest,CredentialExpiryClockTest test`: **3/3**;
+Vitest `harness-credential-clock middleware-expiry-review`: **7/7**; zero skips.
+Cobrem token válido, fronteira exata, instante após expiração antiga e recusa de
+preload fora do harness. Logs `P04-green.log` e `P04-frontend-green.log`.
+Primeira execução do teste novo frontend falhou por resolução file URL no jsdom
+(`P04-frontend-path-error.log`); corrigida para caminho do workspace. Essa falha
+**não** foi contada como detecção de P04. Integração real ainda será registrada.
+
+Primeira tentativa integrada não iniciou Next: preload duplicado em CLI e
+NODE_OPTIONS fez o worker concatenar caminhos. Removida duplicação, mantendo
+NODE_OPTIONS exclusivo do harness; artefato ignorado `saneamento-integration-P04-preload-error.log`.
+Tentativa seguinte (`cf007-defa8062`): **2 fluxos financeiros passaram nos dois fusos**,
+**2 percursos P03 falharam** no detalhe sem ano (`29/01`, exigido `29/01/2027`).
+PUT e retorno à tela editada ocorreram, mas não se conta o percurso todo como verde.
+Detalhe corrigido para formato civil completo da SPEC-002 e adicionada regressão
+de componente; assertion E2E preservada. O último GET/SQL do P03 aguarda nova execução.
+Esse ajuste é registrado com P04 porque apareceu na validação conjunta; não é
+alteração da regra de competência nem evidência de revisão independente.

@@ -1,6 +1,7 @@
 import { Category, PlanItem, UpdatePlanItemDTO } from "@/types";
 import { ApiError } from "@/services/api";
-import { formatCurrency, formatDate } from "@/utils/format";
+import { formatCurrency } from "@/utils/format";
+import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import { Calendar, Loader2, Save, Tag, Trash2, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
@@ -215,7 +216,7 @@ export function PlanningDetails({
                   />
                 ) : (
                   <span className="text-text-main font-bold text-sm">
-                    {formatDate(item.dueDate)}
+                    {formatCalendarDate(item.dueDate)}
                   </span>
                 )}
               </div>

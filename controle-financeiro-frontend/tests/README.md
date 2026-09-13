@@ -21,6 +21,17 @@ Java `TemporalBrowserApiPostgresE2E`, que sobe Spring em porta aleatória e roda
 `tests/e2e/playwright.integrated.config.ts`. O comando reproduzível está na
 evidência da CF-007; não apontar esse teste para banco compartilhado ou real.
 
+P04 (13/09): o orquestrador mantém negócio/browser em `2027-01-31T05:00:00Z`
+e define autenticação 48 h depois, `2027-02-02T05:00:00Z`, já após a expiração
+antiga. Somente a `@TestConfiguration` injeta esse Clock em TokenService/AuthService.
+Next dev e seu worker recebem o preload `tests/e2e/support/server-clock.cjs` via
+comando/NODE_OPTIONS exclusivo do webServer integrado. Ele exige opt-in, backend
+loopback e recusa NODE_ENV=production. O código produtivo não importa o preload
+nem lê um override de relógio; JWT segue com assinatura e TTL de 24 h, sem bypass.
+Relógio de autenticação avançado exige nova emissão e continua distinguindo tokens
+válidos/expirados. `CF_E2E_AUTH_NOW` é transmitido pelo Java; não iniciar esse
+config manualmente apontando para uma API sem o mesmo contrato de teste.
+
 O wrapper de Playwright fixa `PLAYWRIGHT_BROWSERS_PATH=0`, mantendo o binário
 do navegador sob `node_modules`, e imprime fuso, viewports, seed e relógio.
 Ele recusa uma porta ocupada, aguarda `/auth` responder e encerra somente a
