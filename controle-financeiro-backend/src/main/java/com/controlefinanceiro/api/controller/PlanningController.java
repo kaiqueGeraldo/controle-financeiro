@@ -6,6 +6,7 @@ import com.controlefinanceiro.api.domain.planning.dto.CreatePlanItemDTO;
 import com.controlefinanceiro.api.domain.planning.dto.MonthlyPlanDTO;
 import com.controlefinanceiro.api.domain.planning.dto.PlanItemDTO;
 import com.controlefinanceiro.api.domain.planning.dto.UpdateIncomeDTO;
+import com.controlefinanceiro.api.domain.planning.dto.UpdatePlanItemDTO;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.PlanningService;
 import jakarta.validation.Valid;
@@ -51,6 +52,12 @@ public class PlanningController {
             @RequestBody @Valid CopyPreviousPlanDTO payload) {
         service.copyFromPreviousMonth(user, payload.month(), payload.year());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PlanItemDTO> update(@PathVariable UUID id,
+            @RequestBody @Valid UpdatePlanItemDTO data, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.updateItem(id, data, user));
     }
 
     @PatchMapping("/{id}/status")

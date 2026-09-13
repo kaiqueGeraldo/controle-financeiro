@@ -562,3 +562,34 @@ test("preserva datas civis no navegador, BFF, Spring e PostgreSQL", async ({
   await createAndToggleHabit(page, tag);
   await exportThroughUi(page, testInfo, key);
 });
+
+test("P03: edita planejamento pela UI e relê pela API após reload", async ({ page }, testInfo) => {
+  const tag = `${runNamespace}-${projectKey(testInfo)}-planning`;
+  await installControlledClock(page, fixedNow);
+  await registerThroughUi(page, testInfo, tag);
+  const plan = await postJson<{ id: string }>(page, "/planning", {
+    description: `${tag}-original`, amount: 25, dueDate: "2027-01-30", status: "SAVED",
+  }, "criar planejamento sintético");
+  await page.goto("/planejamento");
+  await page.getByText(`${tag}-original`, { exact: true }).click();
+  await page.getByRole("button", { name: "Editar", exact: true }).click();
+  await page.getByLabel("Descrição", { exact: true }).fill(`${tag}-editado`);
+  await page.getByLabel("Valor previsto", { exact: true }).fill("35.50");
+  await page.getByLabel("Vencimento", { exact: true }).fill("2027-01-29");
+  const saved = page.waitForResponse((response) => apiPath(response) === `/api/planning/${plan.id}` && response.request().method() === "PUT");
+  await page.getByRole("button", { name: "Salvar", exact: true }).click();
+  const response = await saved;
+  expect(response.status()).toBe(200);
+  expect(response.request().postDataJSON()).toEqual({ description: `${tag}-editado`, amount: 35.5,
+    dueDate: "2027-01-29", categoryId: null });
+  expect(await response.json()).toMatchObject({ id: plan.id, dueDate: "2027-01-29", amount: 35.5, status: "SAVED" });
+  await expect(page.getByRole("button", { name: "Editar", exact: true })).toBeVisible();
+  await page.reload();
+  await page.getByText(`${tag}-editado`, { exact: true }).click();
+  await expect(page.getByText("29/01/2027", { exact: true }).last()).toBeVisible();
+  const reloaded = await page.request.get("/api/planning?month=1&year=2027");
+  expect(reloaded.status()).toBe(200);
+  expect((await reloaded.json()).items).toEqual(expect.arrayContaining([
+    expect.objectContaining({ id: plan.id, description: `${tag}-editado`, dueDate: "2027-01-29", amount: 35.5, status: "SAVED" }),
+  ]));
+});

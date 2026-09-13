@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { planningService } from "@/services/planningService";
 import { usePlanningContext } from "@/contexts/planningContext";
-import { CreatePlanItemDTO, PlanItem, PlanStatus } from "@/types";
+import { CreatePlanItemDTO, UpdatePlanItemDTO, PlanItem, PlanStatus } from "@/types";
 import { useToast } from "@/contexts/toastContext";
 import { usePlanningModals } from "@/contexts/modals/planningModalContext";
 import { useOptimisticMutation } from "./useOptimisticMutation";
@@ -148,9 +148,9 @@ export function usePlanning() {
     }
   };
 
-  const updateItem = async (id: string, data: Partial<CreatePlanItemDTO>) => {
+  const updateItem = async (id: string, data: UpdatePlanItemDTO) => {
     await planningService.update(id, data);
-    refreshPlanning(true);
+    await refreshPlanning(true);
   };
 
   const copyPreviousMonth = async () => {

@@ -2,6 +2,7 @@ package com.controlefinanceiro.api.infra.exception;
 
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
+import com.controlefinanceiro.api.service.exception.InvalidFieldException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,11 @@ import java.util.Map;
 @Slf4j
 @ControllerAdvice
 public class ResourceExceptionHandler {
+
+    @ExceptionHandler(InvalidFieldException.class)
+    public ResponseEntity<StandardError> invalidField(InvalidFieldException e, HttpServletRequest request) {
+        return badRequest(e.getMessage(), request, Map.of(e.getField(), List.of(e.getMessage())));
+    }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {

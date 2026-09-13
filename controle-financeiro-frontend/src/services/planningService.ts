@@ -1,5 +1,5 @@
 import { apiRequest } from "./api";
-import { CreatePlanItemDTO, MonthlyPlanResponse, PlanItem, PlanStatus } from "@/types";
+import { CreatePlanItemDTO, UpdatePlanItemDTO, MonthlyPlanResponse, PlanItem, PlanStatus } from "@/types";
 
 export const planningService = {
   getByMonth: async (month: number, year: number, signal?: AbortSignal) => {
@@ -25,7 +25,7 @@ export const planningService = {
     });
   },
 
-  update: async (id: string, data: Partial<CreatePlanItemDTO>) => {
+  update: async (id: string, data: UpdatePlanItemDTO) => {
     return apiRequest<PlanItem>(`/planning/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

@@ -92,6 +92,13 @@ export interface CreatePlanItemDTO {
   status: PlanStatus;
 }
 
+export interface UpdatePlanItemDTO {
+  description?: string;
+  amount?: number;
+  dueDate?: string;
+  categoryId?: string | null;
+}
+
 export interface MonthlyPlanResponse {
   incomeForecast: number;
   items: PlanItem[];

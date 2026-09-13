@@ -1,15 +1,16 @@
-import { Category, PlanItem } from "@/types";
+import { Category, PlanItem, UpdatePlanItemDTO } from "@/types";
+import { ApiError } from "@/services/api";
 import { formatCurrency, formatDate } from "@/utils/format";
 import { AnimatePresence, motion } from "framer-motion";
 import { Calendar, Loader2, Save, Tag, Trash2, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface PlanningDetailsProps {
   isOpen: boolean;
   onClose: () => void;
   item: PlanItem | undefined;
   categories: Category[];
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: UpdatePlanItemDTO) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
@@ -23,38 +24,55 @@ export function PlanningDetails({
 }: PlanningDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState({ description: "", amount: "", dueDate: "", categoryId: "" });
+  const [error, setError] = useState<string | null>(null);
+  const submitting = useRef(false);
+  const editingIdentity = useRef<string | null>(null);
 
   const isInvoice = item && !!item.cardId;
 
   useEffect(() => {
-    if (item && isOpen) {
+    if (!isOpen) editingIdentity.current = null;
+    if (item && isOpen && editingIdentity.current !== item.id) {
+      editingIdentity.current = item.id;
       setFormData({
         description: item.description,
-        amount: Number(item.amount),
+        amount: String(item.amount),
         dueDate: item.dueDate,
-        categoryId: item.categoryId,
+        categoryId: item.categoryId ?? "",
       });
       setIsEditing(false);
+      setError(null);
     }
   }, [item, isOpen]);
 
   const handleSave = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!item) return;
+    if (!item || isInvoice || submitting.current) return;
+    submitting.current = true;
+    setError(null);
     setIsSaving(true);
     try {
-      await onUpdate(item.id, formData);
+      await onUpdate(item.id, { ...formData, amount: Number(formData.amount), categoryId: formData.categoryId || null });
       setIsEditing(false);
+    } catch (failure) {
+      setError(failure instanceof ApiError && failure.requiresReconciliation
+        ? "Não foi possível confirmar a edição. Recarregue o planejamento antes de tentar novamente."
+        : failure instanceof Error ? failure.message : "Erro ao editar planejamento.");
     } finally {
+      submitting.current = false;
       setIsSaving(false);
     }
   };
 
   const categoryDisplay =
-    categories.find((c) => c.id === formData.categoryId)?.name ||
     item?.categoryName ||
     "Geral";
+
+  const firstDay = item ? item.dueDate.slice(0, 7) + "-01" : undefined;
+  const monthEnd = new Date(0);
+  if (item) monthEnd.setUTCFullYear(Number(item.dueDate.slice(0, 4)), Number(item.dueDate.slice(5, 7)), 0);
+  const lastDay = item ? item.dueDate.slice(0, 7) + "-" + monthEnd.getUTCDate() : undefined;
 
   return (
     <AnimatePresence>
@@ -102,6 +120,7 @@ export function PlanningDetails({
                   {isEditing && !isInvoice ? (
                     <input
                       required
+                      aria-label="Descrição"
                       value={formData.description}
                       onChange={(e) =>
                         setFormData({
@@ -141,9 +160,11 @@ export function PlanningDetails({
                     </span>
                     <input
                       required
+                      aria-label="Valor previsto"
                       type="number"
                       value={formData.amount}
-                      min="0"
+                      min="0.01"
+                      step="0.01"
                       onChange={(e) =>
                         setFormData({
                           ...formData,
@@ -159,7 +180,7 @@ export function PlanningDetails({
                     layoutId={`plan-amount-${item.id}`}
                     className="text-4xl font-bold text-text-main"
                   >
-                    {formatCurrency(Number(formData.amount || item.amount))}
+                    {formatCurrency(Number(item.amount))}
                   </motion.p>
                 )}
               </div>
@@ -181,7 +202,10 @@ export function PlanningDetails({
                 </div>
                 {isEditing ? (
                   <input
+                    aria-label="Vencimento"
                     type="date"
+                    min={firstDay}
+                    max={lastDay}
                     value={formData.dueDate}
                     onChange={(e) =>
                       setFormData({ ...formData, dueDate: e.target.value })
@@ -191,7 +215,7 @@ export function PlanningDetails({
                   />
                 ) : (
                   <span className="text-text-main font-bold text-sm">
-                    {formatDate(formData.dueDate)}
+                    {formatDate(item.dueDate)}
                   </span>
                 )}
               </div>
@@ -204,13 +228,14 @@ export function PlanningDetails({
                 </div>
                 {isEditing ? (
                   <select
+                    aria-label="Categoria"
                     value={formData.categoryId}
                     onChange={(e) =>
                       setFormData({ ...formData, categoryId: e.target.value })
                     }
                     className="bg-bg-base border border-border-divider text-text-main rounded px-2 py-1 text-sm w-40 cursor-pointer outline-none"
-                    required
                   >
+                    <option value="">Sem categoria</option>
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name}
@@ -226,6 +251,8 @@ export function PlanningDetails({
             </motion.div>
 
             {/* Footer Actions */}
+            {isEditing && <p className="px-6 text-xs text-text-muted">O vencimento deve permanecer no mês deste planejamento.</p>}
+            {error && <p role="alert" className="px-6 py-2 text-sm text-rose-500">{error}</p>}
             <div className="p-6 border-t border-border-divider bg-bg-surface grid grid-cols-2 gap-4">
               {isEditing ? (
                 <>
@@ -267,7 +294,11 @@ export function PlanningDetails({
                       </button>
                       <button
                         type="button"
-                        onClick={() => setIsEditing(true)}
+                        onClick={() => {
+                          setFormData({ description: item.description, amount: String(item.amount), dueDate: item.dueDate, categoryId: item.categoryId ?? "" });
+                          setError(null);
+                          setIsEditing(true);
+                        }}
                         className="py-3 rounded-xl font-bold bg-bg-surface-hover hover:bg-zinc-200 text-text-main transition cursor-pointer"
                       >
                         Editar

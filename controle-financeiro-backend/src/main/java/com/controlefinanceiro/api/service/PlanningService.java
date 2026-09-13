@@ -7,6 +7,8 @@ import com.controlefinanceiro.api.domain.planning.dto.CreatePlanItemDTO;
 import com.controlefinanceiro.api.domain.planning.dto.MonthlyPlanDTO;
 import com.controlefinanceiro.api.domain.planning.dto.PlanItemDTO;
 import com.controlefinanceiro.api.domain.planning.dto.UpdateIncomeDTO;
+import com.controlefinanceiro.api.domain.planning.dto.UpdatePlanItemDTO;
+import com.controlefinanceiro.api.service.exception.InvalidFieldException;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
@@ -35,6 +37,32 @@ public class PlanningService {
     private CategoryRepository categoryRepository;
 
     private static final Pattern INSTALLMENT_PATTERN = Pattern.compile("^(.*?)\\s*\\(?(\\d+)/(\\d+)\\)?$");
+
+    @Transactional
+    public PlanItemDTO updateItem(UUID id, UpdatePlanItemDTO data, User user) {
+        PlanItem item = itemRepository.findOwnedForUpdate(id, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
+        if (item.getCard() != null) {
+            throw new InvalidFieldException("cardId", "Este item é gerenciado pela fatura do cartão.");
+        }
+        LocalDate dueDate = data.getDueDate();
+        if (dueDate != null && (dueDate.getMonthValue() != item.getPlan().getMonth()
+                || dueDate.getYear() != item.getPlan().getYear())) {
+            throw new InvalidFieldException("dueDate", "Vencimento deve permanecer na competência do planejamento.");
+        }
+        Category category = null;
+        if (data.hasCategoryId() && data.getCategoryId() != null) {
+            category = categoryRepository.findById(data.getCategoryId())
+                    .filter(value -> value.getUser().getId().equals(user.getId()))
+                    .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+        }
+        // Validar todas as referências antes de modificar a entidade gerenciada.
+        if (data.getDescription() != null) item.setDescription(data.getDescription());
+        if (data.getAmount() != null) item.setAmount(data.getAmount());
+        if (dueDate != null) item.setDueDate(dueDate);
+        if (data.hasCategoryId()) item.setCategory(category);
+        return convertToDTO(itemRepository.save(item));
+    }
 
     public MonthlyPlanDTO getPlanByMonth(User user, Integer month, Integer year) {
         MonthlyPlan plan = planRepository.findByUserIdAndMonthAndYearWithDetails(user.getId(), month, year)

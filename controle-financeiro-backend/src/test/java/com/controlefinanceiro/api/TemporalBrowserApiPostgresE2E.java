@@ -124,6 +124,7 @@ class TemporalBrowserApiPostgresE2E {
             assertInvestmentPersistence(tag, key);
             assertGoalPersistence(tag);
             assertHabitPersistence(tag);
+            assertPlanningPersistence(tag);
             assertExport(exportDirectory.resolve(key + ".xlsx"), tag);
         }
     }
@@ -259,6 +260,15 @@ class TemporalBrowserApiPostgresE2E {
                     .as("exportação deve conter a transação editada de %s", tag)
                     .isTrue();
         }
+    }
+
+    private void assertPlanningPersistence(String tag) {
+        assertThat(count("""
+                select count(*) from plan_items i join monthly_plans p on p.id=i.plan_id
+                join users u on u.id=p.user_id where u.email like ? and i.description=?
+                and i.due_date=? and i.amount=35.50 and i.status='SAVED' and p.month=1 and p.year=2027
+                """, "%" + tag + "-planning%", tag + "-planning-editado", LocalDate.of(2027, 1, 29)))
+                .as("P03: edição persiste na competência e preserva status").isEqualTo(1);
     }
 
     private int count(String sql, Object... arguments) {

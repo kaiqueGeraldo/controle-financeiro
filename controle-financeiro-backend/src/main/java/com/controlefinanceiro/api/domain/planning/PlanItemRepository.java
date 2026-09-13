@@ -11,6 +11,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PlanItemRepository extends JpaRepository<PlanItem, UUID> {
+    // Serializa edições parciais do mesmo item; referências são carregadas em uma consulta.
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT p FROM PlanItem p JOIN FETCH p.plan plan WHERE p.id = :id AND plan.user.id = :userId")
+    Optional<PlanItem> findOwnedForUpdate(@Param("id") UUID id, @Param("userId") UUID userId);
+
     Optional<PlanItem> findByPlanIdAndCardId(UUID planId, UUID cardId);
 
     @Query("SELECT p FROM PlanItem p WHERE p.plan.user.id = :userId AND p.dueDate = :targetDate AND p.status = 'PENDING'")

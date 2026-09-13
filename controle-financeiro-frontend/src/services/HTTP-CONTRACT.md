@@ -82,6 +82,7 @@ Spring. Corpos e cabeçalhos `Content-Type`, `Content-Disposition` e
 | cards | `PATCH /cards/reorder` | `UUID[]` | 204 Ø |
 | planning | `GET /planning?month=&year=` | inteiros obrigatórios | 200 `MonthlyPlanDTO` |
 | planning | `POST /planning` | `CreatePlanItemDTO` | 200 `PlanItemDTO` |
+| planning | `PUT /planning/{id}` | `UpdatePlanItemDTO`, parcial explícito abaixo | 200 `PlanItemDTO` |
 | planning | `POST /planning/copy-previous` | `CopyPreviousPlanDTO` | 200 Ø |
 | planning | `PATCH /planning/{id}/status` | `UpdatePlanStatusDTO` (enum obrigatório) | 204 Ø |
 | planning | `PATCH /planning/income` | `UpdateIncomeDTO` | 204 Ø |
@@ -138,8 +139,18 @@ fazem parte dos requests de criação.
 - Exportação só aceita o MIME XLSX esperado; JSON ou HTML com status 200 não
   viram download válido. JSON malformado após escrita exige reconciliação.
 - Resposta de uma leitura já cancelada não emite expiração de sessão.
-- `planningService.update` ainda aponta para `PUT /planning/{id}` sem endpoint
-  correspondente. Lacuna aberta P03/CF-008/013; a tabela não promete esse fluxo.
+- P03: `PUT /planning/{id}` edita descrição não vazia (máx. 255), valor positivo,
+  vencimento civil válido na mesma competência e categoria própria opcional.
+  Omissão preserva cada campo; corpo vazio relê sem alterar. `categoryId: null`
+  remove categoria; null nos outros três campos e categoria vazia/malformada são 400.
+  Status, ordem, plano/proprietário e vínculo com cartão não são editáveis por este
+  endpoint (inclusive null); campos desconhecidos são 400 com campo identificado.
+  Item inexistente/alheio e categoria inexistente/alheia são 404 indistinguíveis,
+  sem escrita parcial. Item vinculado ao cartão é gerenciado pela fatura e recebe 400.
+  O modelo atual não tem outro flag de gestão automática em PlanItem; não inferir
+  gestão por descrição/categoria. A edição não realiza pagamento, não move entre
+  competências e preserva status, ordem e plano. Restrição de competência explícita
+  na UI; eventual movimentação é outra operação a definir na CF-013.
 
 - O cliente tipa os responses consumidos, mas ainda não executa validação de
   schema em runtime para cada resposta 200; incompatibilidades futuras exigem
