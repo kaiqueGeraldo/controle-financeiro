@@ -64,3 +64,10 @@ sobre a conclusão histórica acima para o aceite atual. Somente o conjunto fina
 foi verificado; commits intermediários não são apresentados como testados.
 
 - [ ] Fechar as pendências atribuídas a esta tarefa no parecer independente.
+
+## Saneamento — 13/09/2026
+
+P03 implementa PUT com contrato explícito; P01/P02 acrescentam erros por campo, DTO e perfil temporal candidato. Adoção real permanece pendente.
+
+[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Estado permanece em_revisao; esta execução não substitui revisão independente.

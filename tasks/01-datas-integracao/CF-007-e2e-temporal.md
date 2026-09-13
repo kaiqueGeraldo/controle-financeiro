@@ -63,3 +63,10 @@ sobre a conclusão histórica acima para o aceite atual. Somente o conjunto fina
 foi verificado; commits intermediários não são apresentados como testados.
 
 - [ ] Fechar as pendências atribuídas a esta tarefa no parecer independente.
+
+## Saneamento — 13/09/2026
+
+P04 separa relógios somente no harness; P03 tem percurso de edição UI/BFF/Spring/PostgreSQL. Os gates e tentativas finais estão na evidência de saneamento.
+
+[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Estado permanece em_revisao; esta execução não substitui revisão independente.

@@ -64,3 +64,10 @@ sobre a conclusão histórica acima para o aceite atual. Somente o conjunto fina
 foi verificado; commits intermediários não são apresentados como testados.
 
 - [ ] Fechar as pendências atribuídas a esta tarefa no parecer independente.
+
+## Saneamento — 13/09/2026
+
+P01/P02 receberam armazenamento aditivo candidato, writers explícitos e testes PostgreSQL. Migração real/proveniência continuam abertas na derivada CF-017.
+
+[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Estado permanece em_revisao; esta execução não substitui revisão independente.

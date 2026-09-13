@@ -204,3 +204,10 @@ um check global verde.
 
 Referência técnica consultada para a validação de parâmetros, além do código
 Spring disponível localmente: [validação de controllers Spring MVC](https://docs.spring.io/spring-framework/reference/7.1/web/webmvc/mvc-controller/ann-validation.html).
+
+## Encaminhamento posterior — 13/09/2026
+
+[Execução de saneamento P01–P05](../saneamento-P01-P05-2026-09-09/README.md):
+correções e autotestes posteriores, com pendências de adoção P01/P02 rastreadas na
+CF-017. Este link não altera o parecer histórico acima nem constitui revisão
+independente das novas alterações. O estado mais recente dos gates está no saneamento.
