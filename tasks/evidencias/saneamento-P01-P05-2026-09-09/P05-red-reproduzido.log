@@ -1,0 +1,56 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/cf-review-open-probes-7SHzyf
+
+stdout | tests/component/habit-product-day.test.tsx
+[harness] layer=component timezone=Pacific/Kiritimati viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/habit-product-day.test.tsx > P05: marcar hoje em UTC+14 envia o dia do produto, ainda 07 em Brasília 73ms
+   → expected "vi.fn()" to be called with arguments: [ 'synthetic-habit', '2026-09-07' ]
+
+Received:
+
+  1st vi.fn() call:
+
+  [
+    "synthetic-habit",
+-   "2026-09-07",
++   "2026-09-08",
+  ]
+
+
+Number of calls: 1
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  09:01:54
+   Duration  1.26s (transform 76ms, setup 157ms, import 356ms, tests 74ms, environment 478ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/habit-product-day.test.tsx > P05: marcar hoje em UTC+14 envia o dia do produto, ainda 07 em Brasília
+AssertionError: expected "vi.fn()" to be called with arguments: [ 'synthetic-habit', '2026-09-07' ]
+
+Received:
+
+  1st vi.fn() call:
+
+  [
+    "synthetic-habit",
+-   "2026-09-07",
++   "2026-09-08",
+  ]
+
+
+Number of calls: 1
+
+ ❯ tests/component/habit-product-day.test.tsx:22:22
+     20|     render(<HabitItem habit={habit} onToggle={onToggle} onClick={vi.fn…
+     21|     fireEvent.click(screen.getByRole("button", { name: "Marcar Feito" …
+     22|     expect(onToggle).toHaveBeenCalledWith("synthetic-habit", "2026-09-…
+       |                      ^
+     23|   } finally { vi.useRealTimers(); }
+     24| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯

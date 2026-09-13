@@ -33,6 +33,49 @@ export function localDateString(date: Date = new Date()): string {
   ].join("-");
 }
 
+export const PRODUCT_TIME_ZONE = "America/Sao_Paulo";
+const productDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: PRODUCT_TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
+});
+
+export function productDateString(instant: Date): string {
+  const parts = productDateFormatter.formatToParts(instant);
+  return ["year", "month", "day"].map((type) =>
+    parts.find((part) => part.type === type)!.value.padStart(type === "year" ? 4 : 2, "0"),
+  ).join("-");
+}
+
+/** Busca o próximo limite na zona IANA, inclusive dias de 23/25 horas. */
+export function delayUntilNextProductDay(now: Date): number {
+  const today = productDateString(now);
+  let low = now.getTime();
+  let high = low + 36 * 60 * 60 * 1000;
+  while (high - low > 1) {
+    const middle = Math.floor((low + high) / 2);
+    if (productDateString(new Date(middle)) === today) low = middle;
+    else high = middle;
+  }
+  return high - now.getTime();
+}
+
+export function addCalendarDays(value: string, days: number): string {
+  const date = parseCalendarDate(value);
+  if (!date) throw new Error("Data civil inválida");
+  date.setUTCDate(date.getUTCDate() + days);
+  return [String(date.getUTCFullYear()).padStart(4, "0"),
+    String(date.getUTCMonth() + 1).padStart(2, "0"),
+    String(date.getUTCDate()).padStart(2, "0")].join("-");
+}
+
+/** Preserva a janela segunda–domingo existente; não define streak/recorrência. */
+export function calendarWeekBounds(today: string): { monday: string; sunday: string } {
+  const date = parseCalendarDate(today);
+  if (!date) throw new Error("Data civil inválida");
+  const day = date.getUTCDay();
+  const monday = addCalendarDays(today, day === 0 ? -6 : 1 - day);
+  return { monday, sunday: addCalendarDays(monday, 6) };
+}
+
 export function isCalendarDatePast(
   value: string,
   today: Date | string = new Date(),

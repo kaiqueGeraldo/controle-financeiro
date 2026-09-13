@@ -8,9 +8,10 @@ import {
   useState,
 } from "react";
 
-import { localDateString } from "@/utils/date";
+import { delayUntilNextProductDay, localDateString, productDateString } from "@/utils/date";
 
-const BrowserTodayContext = createContext<string | null | undefined>(undefined);
+type CalendarToday = { browser: string; product: string };
+const BrowserTodayContext = createContext<CalendarToday | null | undefined>(undefined);
 
 function delayUntilNextLocalDay(now: Date): number {
   const nextDay = new Date(now);
@@ -19,19 +20,22 @@ function delayUntilNextLocalDay(now: Date): number {
 }
 
 export function BrowserTodayProvider({ children }: { children: ReactNode }) {
-  const [today, setToday] = useState<string | null>(null);
+  const [today, setToday] = useState<CalendarToday | null>(null);
 
   useEffect(() => {
     let timerId: number | undefined;
 
     const scheduleNextRefresh = () => {
       const now = new Date();
-      setToday(localDateString(now));
+      const browser = localDateString(now);
+      const product = productDateString(now);
+      setToday((previous) => previous?.browser === browser && previous.product === product
+        ? previous : { browser, product });
 
       if (timerId !== undefined) window.clearTimeout(timerId);
       timerId = window.setTimeout(
         scheduleNextRefresh,
-        delayUntilNextLocalDay(now),
+        Math.min(delayUntilNextLocalDay(now), delayUntilNextProductDay(now)),
       );
     };
 
@@ -57,12 +61,20 @@ export function BrowserTodayProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useBrowserToday(): string | null {
+function useCalendarToday(): CalendarToday | null {
   const today = useContext(BrowserTodayContext);
   if (today === undefined) {
     throw new Error(
-      "useBrowserToday deve ser usado dentro de BrowserTodayProvider",
+      "O calendário deve ser usado dentro de BrowserTodayProvider",
     );
   }
   return today;
+}
+
+export function useBrowserToday(): string | null {
+  return useCalendarToday()?.browser ?? null;
+}
+
+export function useProductToday(): string | null {
+  return useCalendarToday()?.product ?? null;
 }

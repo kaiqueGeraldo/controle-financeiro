@@ -1,6 +1,8 @@
 "use client";
 
 import { Habit } from "@/types";
+import { useProductToday } from "@/contexts/browserTodayContext";
+import { addCalendarDays, formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Flame, Loader2, Minus, Save, Trash2, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -27,6 +29,7 @@ export function HabitDetails({
   onDelete,
 }: HabitDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const todayStr = useProductToday();
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({ name: "", description: "" });
 
@@ -54,15 +57,8 @@ export function HabitDetails({
   const colorClass = getGoalColorClass(habit.color);
   const [textColor, bgColor] = colorClass.split(" ");
 
-  const getLocalDateString = (d: Date) =>
-    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-
-  const todayStr = getLocalDateString(new Date());
-  const last28Days = Array.from({ length: 28 }).map((_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - (27 - i));
-    return getLocalDateString(d);
-  });
+  const last28Days = todayStr ? Array.from({ length: 28 }, (_, i) =>
+    addCalendarDays(todayStr, i - 27)) : [];
 
   const getLogStatus = (dateStr: string) => {
     const log = habit.logs?.find((l) => normalizeDate(l.date) === dateStr);
@@ -177,7 +173,7 @@ export function HabitDetails({
             {/* BODY */}
             <div className="p-6 bg-bg-base/50">
               <p className="text-xs text-text-muted uppercase font-bold tracking-wider mb-4">
-                Últimos 28 dias
+                Últimos 28 dias · horário de Brasília
               </p>
               <div className="grid grid-cols-7 gap-2">
                 {last28Days.map((dateStr) => {
@@ -197,9 +193,8 @@ export function HabitDetails({
                   return (
                     <div
                       key={dateStr}
-                      title={new Date(dateStr + "T12:00:00").toLocaleDateString(
-                        "pt-BR",
-                      )}
+                      title={formatCalendarDate(dateStr)}
+                      aria-current={isToday ? "date" : undefined}
                       className={`aspect-square rounded-lg border flex items-center justify-center transition-colors ${squareClass} ${isToday ? "ring-2 ring-offset-2 ring-offset-bg-base ring-emerald-500/50" : ""}`}
                     >
                       {status === "SKIPPED" && <Minus size={14} />}

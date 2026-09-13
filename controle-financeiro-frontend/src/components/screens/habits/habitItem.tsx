@@ -1,6 +1,8 @@
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
 import { Habit } from "@/types";
+import { useProductToday } from "@/contexts/browserTodayContext";
+import { calendarWeekBounds } from "@/utils/date";
 import { motion } from "framer-motion";
 import { Check, Flame, Zap } from "lucide-react";
 import { getGoalColorClass, getGoalIcon } from "../goals/goalItem";
@@ -17,25 +19,6 @@ const normalizeDate = (d: any) =>
     ? `${d[0]}-${String(d[1]).padStart(2, "0")}-${String(d[2]).padStart(2, "0")}`
     : d;
 
-const getWeekBoundaries = () => {
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-  const distToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-
-  const monday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + distToMonday,
-  );
-  monday.setHours(0, 0, 0, 0);
-
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  sunday.setHours(23, 59, 59, 999);
-
-  return { monday, sunday };
-};
-
 export function HabitItem({
   habit,
   onToggle,
@@ -45,19 +28,18 @@ export function HabitItem({
   const { user } = useUser();
   const colorClass = getGoalColorClass(habit.color);
   const [textColor, bgColor] = colorClass.split(" ");
-  const dObj = new Date();
-  const today = `${dObj.getFullYear()}-${String(dObj.getMonth() + 1).padStart(2, "0")}-${String(dObj.getDate()).padStart(2, "0")}`;
+  const today = useProductToday();
 
   const isCompletedToday = habit.logs?.some(
     (l) => normalizeDate(l.date) === today && l.status === "COMPLETED",
   );
 
   let completedThisWeek = 0;
-  if (habit.frequency === "WEEKLY_GOAL") {
-    const { monday, sunday } = getWeekBoundaries();
+  if (habit.frequency === "WEEKLY_GOAL" && today) {
+    const { monday, sunday } = calendarWeekBounds(today);
     completedThisWeek = (habit.logs || []).filter((l) => {
       if (l.status !== "COMPLETED") return false;
-      const logDate = new Date(normalizeDate(l.date) + "T12:00:00");
+      const logDate = normalizeDate(l.date);
       return logDate >= monday && logDate <= sunday;
     }).length;
   }
@@ -112,9 +94,11 @@ export function HabitItem({
       </div>
 
       <button
+        disabled={!today}
+        title="Hoje no horário de Brasília (America/Sao_Paulo)"
         onClick={(e) => {
           e.stopPropagation();
-          !user?.privacyMode && onToggle(habit.id, today);
+          if (!user?.privacyMode && today) onToggle(habit.id, today);
         }}
         className={`w-full py-3 rounded-xl font-bold flex items-center justify-center transition-all ${
           user?.privacyMode
