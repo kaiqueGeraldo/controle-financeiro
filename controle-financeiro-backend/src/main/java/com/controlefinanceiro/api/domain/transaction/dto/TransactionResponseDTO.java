@@ -23,7 +23,11 @@ public record TransactionResponseDTO(
         String categoryName,
         String categoryColor,
         @JsonProperty("isSystemManaged")
-        boolean isSystemManaged
+        boolean isSystemManaged,
+        java.time.LocalTime time,
+        String timeOrigin,
+        java.time.Instant recordedAt,
+        LocalDateTime legacyCreatedAtRaw
 ) {
     public TransactionResponseDTO(Transaction t) {
         this(
@@ -32,7 +36,9 @@ public record TransactionResponseDTO(
                 t.getCategory() != null ? t.getCategory().getId() : null,
                 t.getCategory() != null ? t.getCategory().getName() : null,
                 t.getCategory() != null ? t.getCategory().getColor() : null,
-                t.isSystemManaged()
+                t.isSystemManaged(), t.getTime(),
+                t.getTimeOrigin() == null ? "UNKNOWN" : t.getTimeOrigin().name(), t.getRecordedAt(),
+                t.getLegacyCreatedAtRaw() == null ? t.getCreatedAt() : t.getLegacyCreatedAtRaw()
         );
     }
 }

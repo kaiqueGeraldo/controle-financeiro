@@ -35,6 +35,10 @@ public final class DateUtil {
         }
     }
 
+    public static LocalTime optionalWallTime(String value) {
+        return value == null ? null : parseWallTime(value);
+    }
+
     public static boolean isValidWallTime(String timeString) {
         if (timeString == null) {
             return true;

@@ -1,3 +1,4 @@
+import { compactWallTime, informedTime } from "@/services/temporal";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
 import { Account, Transaction } from "@/types";
@@ -59,12 +60,8 @@ export function TransactionItem({
     accounts.find((a) => a.id === item.accountId)?.type ||
     item.account?.type ||
     "CHECKING";
-  const horario = item.createdAt
-    ? new Date(item.createdAt).toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "--:--";
+  const time = informedTime(item);
+  const horario = time ? compactWallTime(time) : null;
 
   return (
     <motion.div
@@ -106,7 +103,7 @@ export function TransactionItem({
           <div className="flex items-center flex-wrap gap-2 text-xs text-text-muted mt-0.5">
             {/* Horário */}
             <span className="flex items-center gap-1 text-text-muted bg-bg-surface px-1.5 py-0.5 rounded border border-border-divider">
-              <Clock size={10} /> {horario}
+              <Clock size={10} /><span aria-label={horario ? "Horário informado" : "Horário não informado"}>{horario ?? "—"}</span>
             </span>
 
             {/* Categoria */}

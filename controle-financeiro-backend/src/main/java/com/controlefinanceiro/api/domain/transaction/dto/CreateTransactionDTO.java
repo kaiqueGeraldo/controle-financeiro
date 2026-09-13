@@ -30,4 +30,4 @@ public record CreateTransactionDTO(
 
         UUID categoryId,
         Boolean isPaid
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

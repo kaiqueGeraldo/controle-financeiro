@@ -14,5 +14,7 @@ public record InvoicePaymentRequestedEvent(
         LocalTime time,
         String description,
         CreditCard card,
-        User user
+        User user,
+        LocalTime informedTime,
+        java.time.Instant recordedAt
 ) {}

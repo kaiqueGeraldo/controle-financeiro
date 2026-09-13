@@ -11,4 +11,4 @@ public record PurchaseGoalItemDTO(
         UUID accountId,
         UUID cardId,
         Integer installments
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

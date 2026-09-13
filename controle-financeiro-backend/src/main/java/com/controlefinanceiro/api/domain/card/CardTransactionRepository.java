@@ -24,7 +24,7 @@ public interface CardTransactionRepository extends JpaRepository<CardTransaction
     @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c WHERE c.invoice.id = :invoiceId")
     BigDecimal sumAmountByInvoiceId(@Param("invoiceId") UUID invoiceId);
 
-    @Query("SELECT c FROM CardTransaction c LEFT JOIN FETCH c.category WHERE c.invoice.id = :invoiceId ORDER BY c.date DESC, c.createdAt DESC")
+    @Query("SELECT c FROM CardTransaction c LEFT JOIN FETCH c.category WHERE c.invoice.id = :invoiceId ORDER BY c.date DESC, CASE WHEN c.time IS NULL THEN 1 ELSE 0 END, c.time DESC, c.id DESC")
     List<CardTransaction> findByInvoiceIdWithDetails(@Param("invoiceId") UUID invoiceId);
 
     @Query("SELECT c.invoice.id, COALESCE(SUM(c.amount), 0) FROM CardTransaction c WHERE c.invoice.id IN :invoiceIds GROUP BY c.invoice.id")

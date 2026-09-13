@@ -83,7 +83,7 @@ export function NewCardTransactionModal({
         description: formData.description,
         amount: amountClean,
         date: formData.date,
-        time: formData.time,
+        time: formData.time || null,
         categoryId: formData.categoryId,
         cardId: formData.cardId,
         totalInstallments: Number(formData.installments),
@@ -165,7 +165,7 @@ export function NewCardTransactionModal({
             </label>
             <input
               type="time"
-              required
+              aria-label="Horário informado (opcional)"
               value={formData.time}
               onChange={(e) =>
                 setFormData({ ...formData, time: e.target.value })

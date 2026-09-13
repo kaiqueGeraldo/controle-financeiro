@@ -16,4 +16,4 @@ public record CreateAccountDTO(
         BigDecimal initialBalance,
 
         String color
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

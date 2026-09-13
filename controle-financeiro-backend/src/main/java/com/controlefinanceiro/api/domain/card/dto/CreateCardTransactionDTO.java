@@ -30,4 +30,4 @@ public record CreateCardTransactionDTO(
 
         @Min(value = 1, message = "Mínimo de 1 parcela")
         Integer totalInstallments
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

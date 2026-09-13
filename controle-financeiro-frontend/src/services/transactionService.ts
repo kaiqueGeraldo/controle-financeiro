@@ -1,4 +1,5 @@
 import { apiRequest } from "./api";
+import { normalizeTransaction } from "./temporal";
 import { CreateTransactionDTO, PageResponse, Transaction, TransactionType } from "@/types";
 
 export const transactionService = {
@@ -26,21 +27,21 @@ export const transactionService = {
     return apiRequest<PageResponse<Transaction>>(`/transactions${queryString}`, {
       method: "GET",
       signal: params?.signal
-    });
+    }).then((response) => ({ ...response, data: { ...response.data, content: response.data.content.map(normalizeTransaction) } }));
   },
   create: async (data: CreateTransactionDTO) => {
     return apiRequest<Transaction>("/transactions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
+    }).then((response) => ({ ...response, data: normalizeTransaction(response.data) }));
   },
   update: async (id: string, data: Partial<CreateTransactionDTO>) => {
     return apiRequest<Transaction>(`/transactions/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
+    }).then((response) => ({ ...response, data: normalizeTransaction(response.data) }));
   },
   delete: async (id: string) => {
     return apiRequest(`/transactions/${id}`, { method: "DELETE" });

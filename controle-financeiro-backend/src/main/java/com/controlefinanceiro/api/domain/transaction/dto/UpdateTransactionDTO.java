@@ -6,13 +6,36 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record UpdateTransactionDTO(
-        String description,
-        BigDecimal amount,
-        LocalDate date,
-        @WallTime String time,
-        TransactionType type,
-        UUID accountId,
-        UUID categoryId,
-        Boolean isPaid
-) {}
+public class UpdateTransactionDTO implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    private String description;
+    private BigDecimal amount;
+    private LocalDate date;
+    @WallTime private String time;
+    private boolean timePresent;
+    private TransactionType type;
+    private UUID accountId;
+    private UUID categoryId;
+    private Boolean isPaid;
+
+    public String description() { return description; }
+    public BigDecimal amount() { return amount; }
+    public LocalDate date() { return date; }
+    public String time() { return time; }
+    public boolean hasTime() { return timePresent; }
+    public TransactionType type() { return type; }
+    public UUID accountId() { return accountId; }
+    public UUID categoryId() { return categoryId; }
+    public Boolean isPaid() { return isPaid; }
+
+    public void setDescription(String value) { description = value; }
+    public void setAmount(BigDecimal value) { amount = value; }
+    @com.fasterxml.jackson.annotation.JsonSetter(nulls = com.fasterxml.jackson.annotation.Nulls.FAIL)
+    public void setDate(LocalDate value) { date = value; }
+    @com.fasterxml.jackson.annotation.JsonSetter
+    public void setTime(String value) { time = value; timePresent = true; }
+    public void setType(TransactionType value) { type = value; }
+    public void setAccountId(UUID value) { accountId = value; }
+    public void setCategoryId(UUID value) { categoryId = value; }
+    @com.fasterxml.jackson.annotation.JsonSetter("isPaid")
+    public void setPaid(Boolean value) { isPaid = value; }
+}

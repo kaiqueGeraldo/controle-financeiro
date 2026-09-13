@@ -38,4 +38,4 @@ public record PayInvoiceDTO(
         // Se for FALSE, marca a fatura como PAGA (fechamento).
         @NotNull(message = "Defina se é um adiantamento ou pagamento final")
         Boolean isPrepayment
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

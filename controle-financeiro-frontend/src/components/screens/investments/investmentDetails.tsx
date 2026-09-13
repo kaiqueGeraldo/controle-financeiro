@@ -1,3 +1,4 @@
+import { normalizeInvestmentHistory } from "@/services/temporal";
 import { Investment, InvestTransaction } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { formatCalendarDate } from "@/utils/date";
@@ -202,7 +203,7 @@ export function InvestmentDetails({
                     <Loader2 className="animate-spin text-emerald-500" />
                   </div>
                 ) : history.length > 0 ? (
-                  history.map((transacao) => (
+                  history.map(normalizeInvestmentHistory).map((transacao) => (
                     <div
                       key={transacao.id}
                       className="flex justify-between items-center p-3 rounded-xl bg-bg-surface/50 border border-border-divider hover:bg-bg-surface transition-colors"
@@ -237,7 +238,8 @@ export function InvestmentDetails({
                                   : "Dividendo"}
                           </p>
                           <p className="text-[10px] text-text-muted">
-                            {formatCalendarDate(transacao.date)}
+                            {transacao.date ? formatCalendarDate(transacao.date) : <span aria-label="Data indisponível">—</span>}
+                            {!transacao.date && transacao.legacyDateRaw && <span className="block break-all">{transacao.legacyDateRaw} · Fuso desconhecido</span>}
                           </p>
                         </div>
                       </div>

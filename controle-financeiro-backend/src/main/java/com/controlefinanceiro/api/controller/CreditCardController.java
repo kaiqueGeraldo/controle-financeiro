@@ -80,7 +80,7 @@ public class CreditCardController {
     }
 
     @PatchMapping("/transaction/{id}")
-    public ResponseEntity<CardTransaction> updateTransaction(
+    public ResponseEntity<CardTransactionDTO> updateTransaction(
             @PathVariable UUID id,
             @RequestBody @Valid UpdateCardTransactionDTO data,
             @AuthenticationPrincipal User user) {

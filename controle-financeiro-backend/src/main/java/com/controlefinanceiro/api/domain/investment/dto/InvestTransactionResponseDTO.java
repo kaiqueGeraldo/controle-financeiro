@@ -14,17 +14,21 @@ public record InvestTransactionResponseDTO(
         BigDecimal quantity,
         BigDecimal price,
         BigDecimal totalValue,
-        BigDecimal fees
+        BigDecimal fees,
+        String dateOrigin,
+        java.time.LocalDateTime legacyDateRaw
 ) {
     public InvestTransactionResponseDTO(InvestTransaction transaction) {
         this(
                 transaction.getId(),
                 transaction.getType(),
-                transaction.getDate().toLocalDate(),
+                transaction.getDateOrigin() == null ? null : transaction.getOperationDate(),
                 transaction.getQuantity(),
                 transaction.getPrice(),
                 transaction.getTotalValue(),
-                transaction.getFees()
+                transaction.getFees(),
+                transaction.getDateOrigin() == null ? "UNKNOWN" : transaction.getDateOrigin().name(),
+                transaction.getDate()
         );
     }
 }

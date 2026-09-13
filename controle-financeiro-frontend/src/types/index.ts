@@ -33,6 +33,10 @@ export interface Transaction {
   amount: number;
   date: string;
   createdAt: string;
+  time?: string | null;
+  timeOrigin?: "USER_INPUT" | "NOT_PROVIDED" | "UNKNOWN";
+  recordedAt?: string | null;
+  legacyCreatedAtRaw?: string | null;
   isPaid: boolean;
   type: TransactionType;
   accountId: string;
@@ -55,7 +59,7 @@ export interface CreateTransactionDTO {
   description: string;
   amount: number;
   date: string;
-  time: string;
+  time?: string | null;
   type: TransactionType;
   accountId: string;
   categoryId: string;
@@ -185,7 +189,9 @@ export type InvestTransType = "BUY" | "SELL" | "DIVIDEND" | "INTEREST";
 export interface InvestTransaction {
   id: string;
   type: InvestTransType;
-  date: string;
+  date: string | null;
+  dateOrigin?: "USER_INPUT" | "PRODUCT_CALENDAR" | "UNKNOWN";
+  legacyDateRaw?: string | null;
   quantity: number;
   price: number;
   totalValue: number;

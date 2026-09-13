@@ -22,7 +22,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     List<Transaction> findByUserIdAndDateBetween(UUID userId, LocalDate startDate, LocalDate endDate);
 
     @Query(
-            value = "SELECT t FROM Transaction t JOIN FETCH t.account LEFT JOIN FETCH t.category WHERE t.user.id = :userId",
+            value = "SELECT t FROM Transaction t JOIN FETCH t.account LEFT JOIN FETCH t.category WHERE t.user.id = :userId ORDER BY t.date DESC, CASE WHEN t.time IS NULL THEN 1 ELSE 0 END, t.time DESC, t.id DESC",
             countQuery = "SELECT COUNT(t) FROM Transaction t WHERE t.user.id = :userId"
     )
     Page<Transaction> findAllByUserIdWithDetails(@Param("userId") UUID userId, Pageable pageable);
@@ -46,7 +46,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                     "WHERE t.user.id = :userId " +
                     "AND t.date >= :startDate AND t.date <= :endDate " +
                     "AND (CAST(:type AS text) IS NULL OR t.type = :type) " +
-                    "AND (CAST(:accountId AS uuid) IS NULL OR a.id = :accountId)",
+                    "AND (CAST(:accountId AS uuid) IS NULL OR a.id = :accountId) ORDER BY t.date DESC, CASE WHEN t.time IS NULL THEN 1 ELSE 0 END, t.time DESC, t.id DESC",
             countQuery = "SELECT COUNT(t) FROM Transaction t JOIN t.account a " +
                     "WHERE t.user.id = :userId " +
                     "AND t.date >= :startDate AND t.date <= :endDate " +

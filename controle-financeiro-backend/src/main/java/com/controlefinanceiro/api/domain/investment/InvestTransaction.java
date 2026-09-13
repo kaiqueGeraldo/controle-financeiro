@@ -28,6 +28,13 @@ public class InvestTransaction {
     @Column(nullable = false)
     private LocalDateTime date;
 
+    @Column(name = "operation_date")
+    private java.time.LocalDate operationDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "date_origin")
+    private com.controlefinanceiro.api.domain.temporal.DateOrigin dateOrigin;
+
     @Column(nullable = false)
     private BigDecimal quantity;
 

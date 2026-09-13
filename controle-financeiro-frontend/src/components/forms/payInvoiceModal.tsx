@@ -85,7 +85,7 @@ export function PayInvoiceModal({
         accountId,
         amount: valorNumerico,
         date,
-        time,
+        time: time || null,
         month,
         year,
         isPrepayment,
@@ -210,7 +210,7 @@ export function PayInvoiceModal({
             </label>
             <input
               type="time"
-              required
+              aria-label="Horário informado (opcional)"
               value={time}
               onChange={(e) => setTime(e.target.value)}
               className="w-full bg-bg-base border border-border-divider rounded-xl py-3 pl-4 pr-4 text-text-main focus:outline-none focus:border-emerald-500"

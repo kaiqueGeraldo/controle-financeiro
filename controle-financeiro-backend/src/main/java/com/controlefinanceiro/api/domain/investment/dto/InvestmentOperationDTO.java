@@ -15,4 +15,4 @@ public record InvestmentOperationDTO(
         BigDecimal fees,
         @NotNull LocalDate date,
         @NotNull UUID accountId // De onde sai/entra o dinheiro
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

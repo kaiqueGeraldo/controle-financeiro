@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class CardTransaction {
+public class CardTransaction extends com.controlefinanceiro.api.domain.temporal.OperationTemporal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

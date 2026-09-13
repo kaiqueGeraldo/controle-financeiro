@@ -65,6 +65,7 @@ public class AccountService {
             initialTx.setType(TransactionType.INCOME);
             initialTx.setDate(now.toLocalDate());
             initialTx.setCreatedAt(now.toLocalDateTime());
+            initialTx.captureTemporal(null, now.toInstant(), initialTx.getCreatedAt());
             initialTx.setPaid(true);
             initialTx.setAccount(savedAccount);
             initialTx.setUser(user);

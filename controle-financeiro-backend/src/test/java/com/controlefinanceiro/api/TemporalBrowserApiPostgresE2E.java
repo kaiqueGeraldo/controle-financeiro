@@ -142,6 +142,9 @@ class TemporalBrowserApiPostgresE2E {
                    and t.description = ?
                    and t.date = ?
                    and t.created_at = ?
+                   and t.operation_time = time '08:15:00' and t.time_origin = 'USER_INPUT'
+                   and t.recorded_at = timestamptz '2027-01-31 05:00:00+00'
+                   and t.legacy_created_at_raw = timestamp '2027-01-30 23:30:00'
                 """,
                 "%" + tag + "%",
                 tag + "-transacao",
@@ -173,6 +176,8 @@ class TemporalBrowserApiPostgresE2E {
                    and ct.description = ?
                    and ct.date = ?
                    and ct.created_at = ?
+                   and ct.operation_time = time '23:30:00' and ct.time_origin = 'USER_INPUT'
+                   and ct.recorded_at = timestamptz '2027-01-31 05:00:00+00'
                 """,
                 "%" + tag + "%",
                 tag + "-compra-cartao",
@@ -192,6 +197,7 @@ class TemporalBrowserApiPostgresE2E {
                    and i.ticker = ?
                    and it.type = 'BUY'
                    and it.date = ?
+                   and it.operation_date = date '2027-01-30' and it.date_origin = 'USER_INPUT'
                 """,
                 "%" + tag + "%",
                 ticker,

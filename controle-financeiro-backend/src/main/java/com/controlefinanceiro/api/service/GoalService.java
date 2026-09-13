@@ -144,6 +144,7 @@ public class GoalService {
 
             LocalTime time = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
             transaction.setCreatedAt(today.atTime(time));
+            transaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), transaction.getCreatedAt());
 
             transaction.setType(TransactionType.EXPENSE);
             transaction.setAccount(account);
@@ -247,6 +248,7 @@ public class GoalService {
             transaction.setDate(today);
 
             transaction.setCreatedAt(today.atTime(now.toLocalTime()));
+            transaction.captureTemporal(null, now.toInstant(), transaction.getCreatedAt());
 
             transaction.setType(TransactionType.INCOME);
             transaction.setAccount(targetAccount);
@@ -303,6 +305,7 @@ public class GoalService {
             transaction.setDate(today);
 
             transaction.setCreatedAt(today.atTime(now.toLocalTime()));
+            transaction.captureTemporal(null, now.toInstant(), transaction.getCreatedAt());
 
             transaction.setType(TransactionType.INCOME);
             transaction.setAccount(targetAccount);
@@ -377,6 +380,7 @@ public class GoalService {
             tx.setAmount(data.paidPrice());
             tx.setDate(today);
             tx.setCreatedAt(now.toLocalDateTime());
+            tx.captureTemporal(null, now.toInstant(), tx.getCreatedAt());
             tx.setType(TransactionType.EXPENSE);
             tx.setAccount(account);
             tx.setPaid(true);

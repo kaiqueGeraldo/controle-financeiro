@@ -86,6 +86,7 @@ public class TransactionService {
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime time = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
         transaction.setCreatedAt(data.date().atTime(time));
+        transaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), transaction.getCreatedAt());
 
         transaction.setType(data.type());
         transaction.setPaid(data.isPaid() != null ? data.isPaid() : true);
@@ -177,7 +178,7 @@ public class TransactionService {
     }
 
     public Page<TransactionResponseDTO> listAll(User user, Pageable pageable) {
-        return repository.findAllByUserIdWithDetails(user.getId(), pageable)
+        return repository.findAllByUserIdWithDetails(user.getId(), unsortedPage(pageable))
                 .map(TransactionResponseDTO::new);
     }
 
@@ -196,8 +197,12 @@ public class TransactionService {
             endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
         }
 
-        return repository.findFilteredByUserId(user.getId(), startDate, endDate, type, accountId, pageable)
+        return repository.findFilteredByUserId(user.getId(), startDate, endDate, type, accountId, unsortedPage(pageable))
                 .map(TransactionResponseDTO::new);
+    }
+
+    private Pageable unsortedPage(Pageable pageable) {
+        return pageable.isPaged() ? org.springframework.data.domain.PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()) : Pageable.unpaged();
     }
 
     // --- Métodos Auxiliares ---
@@ -223,7 +228,9 @@ public class TransactionService {
     private void updateTransactionData(Transaction t, UpdateTransactionDTO data) {
         if (data.description() != null) t.setDescription(data.description());
         if (data.amount() != null) t.setAmount(data.amount());
-        if (data.date() != null || data.time() != null) {
+        if (data.date() != null || data.hasTime()) {
+            t.preserveLegacyValue(t.getCreatedAt());
+            if (data.hasTime()) t.changeInformedTime(DateUtil.optionalWallTime(data.time()));
             LocalDate newDate = data.date() != null ? data.date() : t.getDate();
             LocalTime newTime;
             if (data.time() != null && !data.time().isBlank()) {
@@ -354,8 +361,7 @@ public class TransactionService {
             do {
                 pageData = repository.findAllByUserIdWithDetails(
                         user.getId(),
-                        org.springframework.data.domain.PageRequest.of(pageNumber, pageSize,
-                                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "date", "createdAt"))
+                        org.springframework.data.domain.PageRequest.of(pageNumber, pageSize)
                 );
 
                 for (Transaction t : pageData.getContent()) {
@@ -363,7 +369,7 @@ public class TransactionService {
                     Row row = sheet.createRow(rowIdx++);
 
                     row.createCell(0).setCellValue(dto.date() != null ? dto.date().format(dateFmt) : "");
-                    row.createCell(1).setCellValue(dto.createdAt() != null ? dto.createdAt().format(timeFmt) : "");
+                    row.createCell(1).setCellValue(dto.time() != null ? dto.time().format(timeFmt) : "—");
                     row.createCell(2).setCellValue(dto.description());
                     row.createCell(3).setCellValue(dto.categoryName() != null ? dto.categoryName() : "Geral");
                     row.createCell(4).setCellValue(dto.accountName() != null ? dto.accountName() : "-");

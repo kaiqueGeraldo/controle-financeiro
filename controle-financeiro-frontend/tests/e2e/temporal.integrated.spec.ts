@@ -240,7 +240,8 @@ async function createAndEditTransaction(
   expect(created.status()).toBe(200);
   expect(await created.json()).toMatchObject({
     date: "2027-01-30",
-    createdAt: "2027-01-30T23:30:00",
+      createdAt: "2027-01-30T23:30:00",
+      time: "23:30:00", timeOrigin: "USER_INPUT", recordedAt: "2027-01-31T05:00:00Z",
   });
   await expect(page.getByText(description, { exact: true })).toBeVisible();
 
@@ -291,7 +292,9 @@ async function createAndEditTransaction(
   expect(updated.status()).toBe(200);
   expect(await updated.json()).toMatchObject({
     date: "2027-01-29",
-    createdAt: "2027-01-29T08:15:00",
+      createdAt: "2027-01-29T08:15:00",
+      time: "08:15:00", timeOrigin: "USER_INPUT", recordedAt: "2027-01-31T05:00:00Z",
+      legacyCreatedAtRaw: "2027-01-30T23:30:00",
   });
 
   await page.reload();
@@ -417,7 +420,7 @@ async function createInvestmentOperation(
     `releitura do histórico de ${tag}`,
   );
   expect(history).toContainEqual(
-    expect.objectContaining({ date: "2027-01-30", type: "BUY" }),
+    expect.objectContaining({ date: "2027-01-30", type: "BUY", dateOrigin: "USER_INPUT", legacyDateRaw: "2027-01-30T00:00:00" }),
   );
 }
 

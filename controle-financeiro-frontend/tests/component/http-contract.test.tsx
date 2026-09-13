@@ -171,7 +171,7 @@ describe("contrato HTTP do cliente [AC-UI-004/005/006/007]", () => {
 
   test("503 preserva falha recuperável e paginação usa nomes do contrato", async () => {
     const page = {
-      content: [{ id: "tx-1", date: "2026-09-07" }],
+      content: [{ id: "tx-1", date: "2026-09-07", time: null, timeOrigin: "UNKNOWN", recordedAt: null, legacyCreatedAtRaw: null }],
       page: { size: 30, number: 0, totalElements: 1, totalPages: 1 },
     };
     vi.stubGlobal(

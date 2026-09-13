@@ -27,7 +27,7 @@ test("P04: Next usa authNow controlado depois da antiga expiração e distingue 
   }
 });
 
-test.each([{ NODE_ENV: "production" }, { CF_E2E_SERVER_CLOCK: "0" }, { BACKEND_API_URL: "https://example.test" }])(
+test.each<Record<string, string>>([{ NODE_ENV: "production" }, { CF_E2E_SERVER_CLOCK: "0" }, { BACKEND_API_URL: "https://example.test" }])(
   "preload recusa fora do harness: %j", (environment) => {
     const server = serverClock(environment);
     expect(server.status).not.toBe(0);

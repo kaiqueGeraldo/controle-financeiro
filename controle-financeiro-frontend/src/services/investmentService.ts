@@ -1,4 +1,5 @@
 import { apiRequest } from "./api";
+import { normalizeInvestmentHistory } from "./temporal";
 import {
   CreateInvestmentDTO,
   InvestmentOperationDTO,
@@ -40,7 +41,7 @@ export const investmentService = {
     return apiRequest<InvestTransaction[]>(`/investments/${id}/history`, {
       method: "GET",
       signal,
-    });
+    }).then((response) => ({ ...response, data: response.data.map(normalizeInvestmentHistory) }));
   },
 
   delete: async (id: string) => {

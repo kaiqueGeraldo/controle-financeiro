@@ -1,4 +1,5 @@
 import { CreditCard } from "@/services/cardService";
+import { normalizeOperationTemporal } from "@/services/temporal";
 import { formatCurrency } from "@/utils/format";
 import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
@@ -243,6 +244,7 @@ export function InvoiceDetails({
                 invoiceData.transactions.map((t: any) => {
                   const isEditing = editingTxId === t.id;
                   const catName = t.categoryName || "Geral";
+                  const temporal = normalizeOperationTemporal(t);
 
                   return (
                     <div
@@ -294,6 +296,12 @@ export function InvoiceDetails({
                               <span className="w-1 h-1 bg-zinc-700 rounded-full shrink-0"></span>{" "}
                               <span className="truncate">{catName}</span>
                             </p>
+                            <details className="text-[10px] text-text-muted mt-1 break-all">
+                              <summary className="cursor-pointer">Horário e registro</summary>
+                              <p>Hora: <span aria-label={temporal.time ? "Horário informado" : "Horário não informado"}>{temporal.time ?? "—"}</span></p>
+                              <p>Registro do servidor: {temporal.recordedAt ?? "Indisponível"}</p>
+                              {temporal.legacyCreatedAtRaw && <p>{temporal.legacyCreatedAtRaw} · Fuso desconhecido</p>}
+                            </details>
                           </div>
                         )}
                       </div>

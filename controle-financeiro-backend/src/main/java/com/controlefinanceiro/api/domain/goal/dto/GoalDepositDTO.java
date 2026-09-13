@@ -19,4 +19,4 @@ public record GoalDepositDTO(
         String note,
 
         EvolutionProtocol protocol
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

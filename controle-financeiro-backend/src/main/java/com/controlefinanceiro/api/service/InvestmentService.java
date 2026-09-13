@@ -67,7 +67,7 @@ public class InvestmentService {
             throw new BusinessRuleException("Acesso negado");
         }
 
-        return investTransactionRepository.findAllByInvestmentIdOrderByDateDesc(investmentId)
+        return investTransactionRepository.findHistory(investmentId)
                 .stream()
                 .map(InvestTransactionResponseDTO::new)
                 .toList();
@@ -149,7 +149,7 @@ public class InvestmentService {
         account.debit(totalCost);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE, "Aporte: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
+        Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE, "Aporte: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now);
 
         BigDecimal currentTotalCost = investment.getQuantity().multiply(investment.getAveragePrice());
         BigDecimal newQuantity = investment.getQuantity().add(data.quantity());
@@ -182,7 +182,7 @@ public class InvestmentService {
         account.credit(netValue);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Resgate: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
+        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Resgate: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now);
         investment.setQuantity(investment.getQuantity().subtract(data.quantity()));
 
         createInvestTransaction(investment, InvestTransType.SELL, data, bankTx);
@@ -198,7 +198,7 @@ public class InvestmentService {
         account.credit(netValue);
         accountRepository.save(account);
 
-        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now.toLocalTime());
+        Transaction bankTx = createBankTransaction(account, netValue, TransactionType.INCOME, "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now);
         createInvestTransaction(investment, data.type(), data, bankTx);
     }
 
@@ -260,6 +260,8 @@ public class InvestmentService {
             t.setInvestment(investment);
             t.setType(InvestTransType.INTEREST);
             t.setDate(now.toLocalDateTime());
+            t.setOperationDate(now.toLocalDate());
+            t.setDateOrigin(com.controlefinanceiro.api.domain.temporal.DateOrigin.PRODUCT_CALENDAR);
             t.setQuantity(diff);
             t.setPrice(BigDecimal.ONE);
             t.setTotalValue(diff);
@@ -284,7 +286,7 @@ public class InvestmentService {
         }
 
         Goal goal = investment.getGoal();
-        List<InvestTransaction> history = investTransactionRepository.findAllByInvestmentIdOrderByDateDesc(id);
+        List<InvestTransaction> history = investTransactionRepository.findHistory(id);
 
         for (InvestTransaction tx : history) {
             Transaction bankTx = tx.getBankTransaction();
@@ -350,6 +352,8 @@ public class InvestmentService {
         t.setInvestment(investment);
         t.setType(type);
         t.setDate(data.date().atStartOfDay());
+        t.setOperationDate(data.date());
+        t.setDateOrigin(com.controlefinanceiro.api.domain.temporal.DateOrigin.USER_INPUT);
         t.setQuantity(data.quantity());
         t.setPrice(data.price());
         t.setFees(data.fees() != null ? data.fees() : BigDecimal.ZERO);
@@ -358,7 +362,7 @@ public class InvestmentService {
         investTransactionRepository.save(t);
     }
 
-    private Transaction createBankTransaction(Account account, BigDecimal amount, TransactionType type, String desc, User user, String categoryName, LocalDate operationDate, LocalTime operationTime) {
+    private Transaction createBankTransaction(Account account, BigDecimal amount, TransactionType type, String desc, User user, String categoryName, LocalDate operationDate, ZonedDateTime now) {
         Category category = categoryRepository.findByUserIdAndName(user.getId(), categoryName).orElse(null);
         Transaction t = new Transaction();
         t.setAccount(account);
@@ -366,7 +370,8 @@ public class InvestmentService {
         t.setType(type);
         t.setDescription(desc);
         t.setDate(operationDate);
-        t.setCreatedAt(operationDate.atTime(operationTime));
+        t.setCreatedAt(operationDate.atTime(now.toLocalTime()));
+        t.captureTemporal(null, now.toInstant(), t.getCreatedAt());
         t.setPaid(true);
         t.setUser(user);
         t.setSystemManaged(true);

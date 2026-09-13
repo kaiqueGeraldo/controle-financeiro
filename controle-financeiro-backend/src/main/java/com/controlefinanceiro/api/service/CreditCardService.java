@@ -121,7 +121,8 @@ public class CreditCardService {
     @Transactional
     public UUID createTransaction(CreateCardTransactionDTO data) {
         log.info("Nova compra no cartão ID {}: {} ({}x)", data.cardId(), data.amount(), data.totalInstallments());
-        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), ZonedDateTime.now(clock).toLocalTime());
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
 
         CreditCard card = cardRepository.findById(data.cardId()).orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -157,6 +158,7 @@ public class CreditCardService {
             transaction.setDate(dataParcela);
 
             transaction.setCreatedAt(dataParcela.atTime(operationTime));
+            transaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), transaction.getCreatedAt());
 
             transaction.setCategory(category);
             transaction.setInvoice(invoice);
@@ -205,7 +207,7 @@ public class CreditCardService {
     }
 
     @Transactional
-    public CardTransaction updateTransaction(UUID transactionId, UpdateCardTransactionDTO data, User user) {
+    public CardTransactionDTO updateTransaction(UUID transactionId, UpdateCardTransactionDTO data, User user) {
         CardTransaction tx = cardTransactionRepository.findById(transactionId).orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
         if (!tx.getInvoice().getCard().getUser().getId().equals(user.getId())) {
@@ -222,7 +224,7 @@ public class CreditCardService {
             tx.setCategory(cat);
         }
 
-        return cardTransactionRepository.save(tx);
+        return new CardTransactionDTO(cardTransactionRepository.save(tx));
     }
 
     public List<CardSummaryDTO> listAllWithSummary(User user) {
@@ -318,11 +320,7 @@ public class CreditCardService {
         List<CardTransaction> rawTransactions = cardTransactionRepository.findByInvoiceIdWithDetails(invoice.getId());
 
         List<CardTransactionDTO> transactions = rawTransactions.stream()
-                .map(t -> new CardTransactionDTO(
-                        t.getId(), t.getDescription(), t.getAmount(), t.getDate(),
-                        t.getCategory() != null ? t.getCategory().getName() : "Geral",
-                        t.getCategory() != null ? t.getCategory().getColor() : null
-                )).toList();
+                .map(CardTransactionDTO::new).toList();
 
         BigDecimal total = cardTransactionRepository.sumAmountByInvoiceId(invoice.getId());
 
@@ -400,7 +398,8 @@ public class CreditCardService {
     @Transactional
     public void payInvoice(UUID cardId, PayInvoiceDTO data, User user) {
         log.info("SERVICE: Processando regras de cartão para pagamento da fatura.");
-        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), ZonedDateTime.now(clock).toLocalTime());
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
 
         CreditCard card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
@@ -410,7 +409,8 @@ public class CreditCardService {
         }
 
         eventPublisher.publishEvent(new InvoicePaymentRequestedEvent(
-                data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user
+                data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user,
+                DateUtil.optionalWallTime(data.time()), now.toInstant()
         ));
 
         Invoice invoice = getOrCreateInvoice(card, data.month(), data.year());
@@ -423,22 +423,23 @@ public class CreditCardService {
         }
 
         if (Boolean.TRUE.equals(data.isPrepayment())) {
-            processPrepayment(invoice, data, operationTime, user);
+            processPrepayment(invoice, data, operationTime, now, user);
         } else {
-            processInvoiceClosing(invoice, data, operationTime, totalFatura, user);
+            processInvoiceClosing(invoice, data, operationTime, now, totalFatura, user);
         }
 
         eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
     }
 
-    private void processPrepayment(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, User user) {
+    private void processPrepayment(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, ZonedDateTime now, User user) {
         log.info("Processado como adiantamento de fatura.");
         CardTransaction creditTransaction = new CardTransaction();
         creditTransaction.setDescription("Adiantamento: " + (data.description() != null ? data.description() : ""));
         creditTransaction.setAmount(data.amount().negate());
         creditTransaction.setDate(data.date());
         creditTransaction.setCreatedAt(data.date().atTime(operationTime));
+        creditTransaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), creditTransaction.getCreatedAt());
         creditTransaction.setInvoice(invoice);
 
         Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
@@ -448,7 +449,7 @@ public class CreditCardService {
         cardTransactionRepository.save(creditTransaction);
     }
 
-    private void processInvoiceClosing(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, BigDecimal totalFatura, User user) {
+    private void processInvoiceClosing(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, ZonedDateTime now, BigDecimal totalFatura, User user) {
         BigDecimal diferenca = totalFatura.subtract(data.amount());
 
         if (diferenca.compareTo(BigDecimal.ZERO) > 0) {
@@ -463,6 +464,7 @@ public class CreditCardService {
             rolloverTx.setAmount(diferenca);
             rolloverTx.setDate(data.date());
             rolloverTx.setCreatedAt(data.date().atTime(operationTime));
+            rolloverTx.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), rolloverTx.getCreatedAt());
             rolloverTx.setInvoice(nextInvoice);
 
             Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())

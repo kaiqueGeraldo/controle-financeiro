@@ -8,4 +8,4 @@ import java.util.UUID;
 public record UpdateBalanceDTO(
         @NotNull UUID investmentId,
         @NotNull @Positive BigDecimal newBalance
-) {}
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}

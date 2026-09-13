@@ -34,7 +34,7 @@ export interface CreateCardTransactionDTO {
   description: string;
   amount: number;
   date: string;
-  time: string;
+  time?: string | null;
   categoryId: string;
   cardId: string;
   totalInstallments: number;
@@ -44,7 +44,7 @@ export interface PayInvoiceDTO {
   accountId: string;
   amount: number;
   date: string;
-  time?: string;
+  time?: string | null;
   month: number;
   year: number;
   description?: string;
@@ -58,6 +58,10 @@ export interface CardInvoiceTransaction {
   date: string;
   categoryName?: string;
   categoryColor?: string;
+  time?: string | null;
+  timeOrigin?: "USER_INPUT" | "NOT_PROVIDED" | "UNKNOWN";
+  recordedAt?: string | null;
+  legacyCreatedAtRaw?: string | null;
 }
 
 export interface CardInvoiceDetails {

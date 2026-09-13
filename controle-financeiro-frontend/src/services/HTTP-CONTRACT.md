@@ -133,6 +133,51 @@ fazem parte dos requests de criação.
 
 ## Limites deliberados
 
+### Candidato P01/P02 — 13/09/2026, adoção depende da CF-017
+
+`TransactionResponseDTO` preserva `createdAt` como alias **misto legado** e acrescenta
+`time` (HH:mm:ss ou null), `timeOrigin` (USER_INPUT/NOT_PROVIDED/UNKNOWN),
+`recordedAt` (instante com offset, UTC na API, ou null) e `legacyCreatedAtRaw`.
+Hora omitida/null em POST significa não informada. Em PUT, omissão preserva; null
+remove somente a hora informada. Date omitida preserva; null explícito é 400.
+Meia-noite explícita é conhecida. Edição não altera recordedAt e conserva o bruto
+original mesmo quando precisa atualizar o alias createdAt por compatibilidade.
+O instante é capturado do Clock do servidor uma vez por operação, armazenado em
+microssegundos; não é reconstruído para linhas históricas.
+
+Requests financeiros rejeitam campos temporais exclusivos da resposta, inclusive
+null, com erro de campo 400: recordedAt, createdAt, legacyCreatedAtRaw, timeOrigin,
+dateOrigin, operationDate e legacyDateRaw. Nenhum desses campos concede proveniência.
+
+Histórico de investimento: `date` civil somente quando há origem persistida
+USER_INPUT ou PRODUCT_CALENDAR. Linhas antigas retornam `date:null`,
+`dateOrigin:UNKNOWN` e `legacyDateRaw` intacto. Tipo/prefixo/meia-noite não são prova.
+Histórico de metas possui outro contrato e não usa esse adaptador.
+
+Detalhe de fatura e PATCH `/cards/transaction/{id}` retornam CardTransactionDTO
+com os mesmos metadados de hora/auditoria. PATCH mantém apenas descrição/categoria
+como campos editáveis e preserva os metadados; a entidade JPA não é serializada.
+Campos de relacionamentos internos não integram esse DTO. A compra POST mantém 200
+sem corpo, conforme consumidor existente. O formulário de compra, pagamento e
+transação permite limpar a hora, enviando null; default visível intocado continua
+sendo enviado como mostrado, conforme SPEC-002 DEC-01.
+
+Os adaptadores tratam perfis antigos/novos: ausência de origem não recebe hora do
+alias nem uma data operacional inferida. Compacto usa — com nome acessível;
+detalhe conserva bruto com Fuso desconhecido. Auditoria sem offset não é aceita
+como instante. Excel usa hora canônica ou —. Ordem de extrato/fatura: dia civil
+decrescente, horas conhecidas decrescentes, desconhecidos depois, ID decrescente.
+GET de extrato ignora sort recebido para conservar essa ordem global paginada.
+Histórico de investimento usa dias comprovados e ID, desconhecidos depois;
+jamais ordena bruto desconhecido como instante.
+
+[Adoção, colunas, rollout e limitações](../../../tasks/03-integridade/CF-017-P01-P02-adocao-temporal.md).
+Não publicar backend candidato antes das colunas nem misturar writers de versões
+antigas/novas. Sem inventário remoto, backup, migrador e proveniência, P01/P02 não
+estão concluídos e CF-017 permanece proposta.
+
+### Demais limites
+
 - Competências usam mês 1–12/ano 1–9999. Transações permitem omitir ambos
   para usar o mês do produto; par parcial, vazio ou inválido é 400. Ano vazio
   do resumo também é 400. Corpos JSON de competência rejeitam frações/strings.

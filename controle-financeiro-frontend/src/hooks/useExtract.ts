@@ -1,3 +1,4 @@
+import { compareOperationTime } from "@/services/temporal";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useFinanceData } from "./useFinanceData";
 import { transactionService } from "@/services/transactionService";
@@ -183,8 +184,7 @@ export function useExtract() {
         date,
         items: groups[date].sort(
           (a, b) =>
-            new Date(b.createdAt || 0).getTime() -
-            new Date(a.createdAt || 0).getTime(),
+            compareOperationTime(a, b),
         ),
       }));
   }, [transactions]);

@@ -205,6 +205,11 @@ public class ResourceExceptionHandler {
     private String jacksonField(Throwable throwable) {
         Throwable current = throwable;
         while (current != null) {
+            if (current instanceof InvalidFieldException fieldException) return fieldException.getField();
+            current = current.getCause();
+        }
+        current = throwable;
+        while (current != null) {
             if (current instanceof JacksonException jacksonException) {
                 return jacksonException.getPath().stream()
                         .map(JacksonException.Reference::getPropertyName)

@@ -59,7 +59,7 @@ class InvoiceBankOperationListenerTemporalTest {
                 operationTime,
                 null,
                 card,
-                user
+                user, null, java.time.Instant.parse("2026-09-08T03:10:00Z")
         );
 
         when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
@@ -74,6 +74,9 @@ class InvoiceBankOperationListenerTemporalTest {
         ArgumentCaptor<Transaction> captor = ArgumentCaptor.forClass(Transaction.class);
         verify(transactionRepository).save(captor.capture());
         assertThat(captor.getValue().getDate()).isEqualTo(operationDate);
+        assertThat(captor.getValue().getTime()).isNull();
+        assertThat(captor.getValue().getTimeOrigin()).isEqualTo(com.controlefinanceiro.api.domain.temporal.TimeOrigin.NOT_PROVIDED);
+        assertThat(captor.getValue().getRecordedAt()).isEqualTo(java.time.Instant.parse("2026-09-08T03:10:00Z"));
         assertThat(captor.getValue().getCreatedAt()).isEqualTo(
                 LocalDateTime.of(operationDate, operationTime)
         );

@@ -48,6 +48,7 @@ public class InvoiceBankOperationListener {
         bankTransaction.setDate(event.date());
 
         bankTransaction.setCreatedAt(event.date().atTime(event.time()));
+        bankTransaction.captureTemporal(event.informedTime(), event.recordedAt(), bankTransaction.getCreatedAt());
 
         bankTransaction.setType(TransactionType.EXPENSE);
         bankTransaction.setAccount(account);

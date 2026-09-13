@@ -144,6 +144,7 @@ describe("apresentação temporal", () => {
         history={[
           {
             id: "investment-transaction-synthetic",
+            dateOrigin: "USER_INPUT",
             type: "BUY",
             date: "2026-09-07",
             quantity: 1,
@@ -169,6 +170,7 @@ describe("apresentação temporal", () => {
       amount: 10,
       date: "2026-02-29",
       createdAt: "2026-02-28T12:00:00",
+      time: "12:00:00", timeOrigin: "USER_INPUT",
       isPaid: true,
       type: "EXPENSE",
       accountId: "account-synthetic",

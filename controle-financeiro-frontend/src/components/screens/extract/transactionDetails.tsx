@@ -1,4 +1,5 @@
-import { Account, Category, Transaction } from "@/types";
+import { compactWallTime, informedTime, normalizeTransaction } from "@/services/temporal";
+import { Account, Category, Transaction, CreateTransactionDTO } from "@/types";
 import { formatCalendarDate } from "@/utils/date";
 import { formatCurrency } from "@/utils/format";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,8 +22,21 @@ interface TransactionDetailsProps {
   accounts: Account[];
   isOpen: boolean;
   onClose: () => void;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: Partial<CreateTransactionDTO>) => Promise<void>;
   onDelete: (id: string) => void;
+}
+
+function transactionForm(transaction: Transaction) {
+  return {
+    description: transaction.description,
+    amount: Number(transaction.amount),
+    categoryId: transaction.categoryId || transaction.category?.id || "",
+    accountId: transaction.accountId || transaction.account?.id || "",
+    date: transaction.date,
+    time: informedTime(transaction) ?? "",
+    type: transaction.type,
+    isPaid: transaction.isPaid,
+  };
 }
 
 export function TransactionDetails({
@@ -36,28 +50,13 @@ export function TransactionDetails({
 }: TransactionDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [formData, setFormData] = useState<any>({});
+  const [timeChanged, setTimeChanged] = useState(false);
+  const [formData, setFormData] = useState<Omit<CreateTransactionDTO, "amount" | "time"> & { amount: string | number; time: string }>({ description: "", amount: "", date: "", time: "", type: "EXPENSE", accountId: "", categoryId: "", isPaid: false });
 
   useEffect(() => {
-    const dateObj = new Date(
-      transaction?.createdAt || transaction?.date || Date.now(),
-    );
-    const timeString = dateObj.toLocaleTimeString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
     if (transaction && isOpen) {
-      setFormData({
-        description: transaction.description,
-        amount: Number(transaction.amount),
-        categoryId: transaction.categoryId || transaction.category?.id || "",
-        accountId: transaction.accountId || transaction.account?.id || "",
-        date: transaction.date,
-        time: timeString,
-        type: transaction.type,
-        isPaid: transaction.isPaid,
-      });
+      setFormData(transactionForm(transaction));
+      setTimeChanged(false);
       setIsEditing(false);
     }
   }, [transaction, isOpen]);
@@ -79,7 +78,9 @@ export function TransactionDetails({
     if (!transaction) return;
     setIsSaving(true);
     try {
-      await onUpdate(transaction.id, formData);
+      const { time, ...fields } = formData;
+      await onUpdate(transaction.id, { ...fields, amount: Number(fields.amount), ...(timeChanged ? { time: time || null } : {}) });
+      setTimeChanged(false);
       setIsEditing(false);
       onClose();
     } finally {
@@ -87,6 +88,7 @@ export function TransactionDetails({
     }
   };
 
+  const temporal = transaction ? normalizeTransaction(transaction) : null;
   const isSystemManaged = transaction?.isSystemManaged === true;
 
   return (
@@ -233,16 +235,18 @@ export function TransactionDetails({
                   {isEditing ? (
                     <input
                       type="time"
+                      aria-label="Horário informado"
+                      step="1"
                       value={formData.time}
-                      onChange={(e) =>
-                        setFormData({ ...formData, time: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setTimeChanged(true);
+                        setFormData({ ...formData, time: e.target.value });
+                      }}
                       className="bg-bg-base border border-border-divider text-text-main rounded px-2 py-1 text-sm cursor-pointer w-24"
-                      required
                     />
                   ) : (
                     <span className="text-text-main font-bold text-sm">
-                      {formData.time}
+                      {formData.time ? compactWallTime(formData.time) : <span aria-label="Horário não informado">—</span>}
                     </span>
                   )}
                 </div>
@@ -303,6 +307,8 @@ export function TransactionDetails({
                   </span>
                 )}
               </div>
+              {temporal?.legacyCreatedAtRaw && <p className="text-xs text-text-muted break-all">Valor legado: {temporal.legacyCreatedAtRaw} · Fuso desconhecido</p>}
+              <p className="text-xs text-text-muted break-all">Registro do servidor: {temporal?.recordedAt ?? "Indisponível"}</p>
             </motion.div>
             <div className="p-6 border-t border-border-divider bg-bg-surface grid grid-cols-2 gap-4">
               {isSystemManaged ? (
@@ -315,7 +321,11 @@ export function TransactionDetails({
                 <>
                   <button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={() => {
+                      setFormData(transactionForm(transaction));
+                      setTimeChanged(false);
+                      setIsEditing(false);
+                    }}
                     className="py-3 rounded-xl font-bold text-text-muted hover:bg-bg-button-hover transition cursor-pointer"
                   >
                     Cancelar
@@ -348,6 +358,8 @@ export function TransactionDetails({
                     onClick={(event) => {
                       event.preventDefault();
                       event.stopPropagation();
+                      setFormData(transactionForm(transaction));
+                      setTimeChanged(false);
                       setIsEditing(true);
                     }}
                     className="py-3 rounded-xl font-bold bg-bg-surface-hover hover:bg-bg-button-hover text-text-main transition cursor-pointer"
