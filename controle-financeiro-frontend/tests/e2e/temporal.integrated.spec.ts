@@ -167,7 +167,7 @@ async function verifyRejectedWriteKeepsInput(
   await expect(page.getByRole("heading", { name: "Extrato" })).toBeVisible();
   await page.getByRole("button", { name: "Lançar" }).click();
 
-  const modal = page.getByRole("heading", { name: "Nova Transação" }).locator("..");
+  const modal = page.getByRole("dialog", { name: "Nova Transação", exact: true });
   await modal.getByPlaceholder("0,00").fill("10.00");
   await modal.getByPlaceholder("Ex: Mercado, Salário...").fill(`${tag}-rejeitada`);
   await modal.locator('input[type="date"]').fill("2027-01-30");
@@ -217,7 +217,7 @@ async function createAndEditTransaction(
   await expect(page.getByRole("heading", { name: "Extrato" })).toBeVisible();
   await page.getByRole("button", { name: "Lançar" }).click();
 
-  const modal = page.getByRole("heading", { name: "Nova Transação" }).locator("..");
+  const modal = page.getByRole("dialog", { name: "Nova Transação", exact: true });
   await expect(modal.locator('input[type="date"]')).toHaveValue("2027-01-31");
   await modal.getByPlaceholder("0,00").fill("25.50");
   await modal.getByPlaceholder("Ex: Mercado, Salário...").fill(description);
@@ -320,9 +320,7 @@ async function createCardPurchase(
   await page.goto("/cartoes");
   await expect(page.getByRole("heading", { name: "Carteira" })).toBeVisible();
   await page.getByRole("button", { name: "Lançar Compra" }).click();
-  const modal = page
-    .getByRole("heading", { name: "Nova Despesa no Crédito" })
-    .locator("..");
+  const modal = page.getByRole("dialog", { name: "Nova Despesa no Crédito", exact: true });
   await expect(modal.locator('input[type="date"]')).toHaveValue("2027-01-31");
   await modal.getByPlaceholder("0,00").fill("40.00");
   await modal.getByPlaceholder("Ex: Uber, Amazon, Jantar...").fill(description);
@@ -388,9 +386,7 @@ async function createInvestmentOperation(
   await expect(page.getByRole("heading", { name: "Investimentos" })).toBeVisible();
   await page.getByText(setup.investment.ticker, { exact: true }).click();
   await page.getByRole("button", { name: "Aportar" }).click();
-  const modal = page
-    .getByRole("heading", { name: `${setup.investment.ticker} - Operação` })
-    .locator("..");
+  const modal = page.getByRole("dialog", { name: `${setup.investment.ticker} - Operação`, exact: true });
   await expect(modal.locator('input[type="date"]')).toHaveValue("2027-01-31");
   await modal.getByPlaceholder("0", { exact: true }).fill("2");
   await modal.getByPlaceholder("0,00").fill("50.00");
@@ -431,7 +427,7 @@ async function createGoal(page: Page, tag: string): Promise<void> {
     page.getByRole("heading", { name: "Metas & Objetivos" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Nova Meta" }).click();
-  const modal = page.getByRole("heading", { name: "Nova Meta" }).locator("..");
+  const modal = page.getByRole("dialog", { name: "Nova Meta", exact: true });
   await modal.getByPlaceholder("Ex: Reserva de Emergência").fill(title);
   await modal.getByPlaceholder("0,00").fill("250.00");
   await modal.locator('input[type="date"]').fill("2027-02-02");
@@ -468,7 +464,7 @@ async function createAndToggleHabit(page: Page, tag: string): Promise<void> {
   await page.goto("/habitos");
   await expect(page.getByRole("heading", { name: "Hábitos" })).toBeVisible();
   await page.getByRole("button", { name: "Novo Hábito" }).click();
-  const modal = page.getByRole("heading", { name: "Novo Hábito" }).locator("..");
+  const modal = page.getByRole("dialog", { name: "Novo Hábito", exact: true });
   await modal.getByPlaceholder("Ex: Beber 3L de Água").fill(name);
 
   const createdResponse = page.waitForResponse(
