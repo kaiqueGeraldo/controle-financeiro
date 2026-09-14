@@ -1,6 +1,6 @@
 # CF-014 — Auditar metas, investimentos, hábitos e resumo anual
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -49,3 +49,8 @@ Ainda não executada. Usar `tasks/evidencias/CF-014/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+## Parecer independente CF-015 — 14/09/2026
+
+R01/R04 reproduzem ano obsoleto e rascunho exibido como salvo sem persistir. P05 revalidado nos três fusos; posição histórica indisponível não encerra os defeitos de estado/nota.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.

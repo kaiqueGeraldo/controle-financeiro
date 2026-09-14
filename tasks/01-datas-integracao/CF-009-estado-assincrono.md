@@ -1,6 +1,6 @@
 # CF-009 — Corrigir corridas de requisição e mutações otimistas
 
-- Estado: concluida
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -77,3 +77,9 @@ R03/R09/R10/R11/R12/R13/R14 corrigidos. Rollback testado no provider de hábitos
 O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
+
+## Parecer independente CF-015 — 14/09/2026
+
+R01/R02 reproduzem respostas obsoletas no retorno a uma seleção em cache. Cenários anteriores de logout/troca de usuário passam, mas não encerram o contrato de seleção.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.

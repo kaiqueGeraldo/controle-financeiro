@@ -1,6 +1,6 @@
 # CF-011 — Auditar e corrigir autenticação e configurações
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -48,3 +48,8 @@ Ainda não executada. Usar `tasks/evidencias/CF-011/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+## Parecer independente CF-015 — 14/09/2026
+
+R07 reproduz sobrescrita de rascunho no refetch do mesmo usuário. Registro e preferências têm evidência parcial integrada; os limites e o estado do roteiro visual constam do parecer.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.

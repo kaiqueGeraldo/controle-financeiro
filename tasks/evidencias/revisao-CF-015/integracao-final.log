@@ -1,0 +1,439 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+05:30:53.384 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+05:30:53.540 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+05:30:53.540 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-14 05:30:53.860 - INFO 21652 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-14 05:30:54.142 - INFO 21652 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-14 05:30:57.746 - INFO 21652 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-14 05:30:57.746 - INFO 21652 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-14 05:30:57.765 - INFO 21652 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-14 05:30:58.318 - INFO 21652 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-14 05:30:58.318 - INFO 21652 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-14 05:30:58.318 - INFO 21652 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-14 05:30:59.503 - INFO 21652 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : Starting TemporalBrowserApiPostgresE2E using Java 21.0.12.1 with PID 21652 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-14 05:30:59.503 - INFO 21652 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-14 05:31:06.469 - WARN 21652 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-14 05:31:12.490 - INFO 21652 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : Started TemporalBrowserApiPostgresE2E in 18.941 seconds (process running for 36.583)
+-2026-09-14 05:31:19.139 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:19.158 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:19.510 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 9f083997-b004-496c-8c4f-6cb73273e6d7
+-2026-09-14 05:31:19.510 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 9f083997-b004-496c-8c4f-6cb73273e6d7
+-2026-09-14 05:31:19.673 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:19.882 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:20.327 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:20.393 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:20.802 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:20.803 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9f083997-b004-496c-8c4f-6cb73273e6d7
+-2026-09-14 05:31:20.803 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta dda32349-1527-4bc3-bdbe-76c288fd8d83
+-2026-09-14 05:31:20.923 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:20.924 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-09-14 05:31:21.010 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-09-14 05:31:21.011 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-09-14 05:31:21.105 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:21.105 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:21.105 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 6cb87779-8f7d-4a26-9a32-be3264f32859
+-2026-09-14 05:31:22.218 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:22.264 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:24.342 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:24.385 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:25.281 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:25.302 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:25.335 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:26.065 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:26.085 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:26.861 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:26.927 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:27.769 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:27.806 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:28.450 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:28.490 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:29.150 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:29.207 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:30.297 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:30.341 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:31.703 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:31.728 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:32.436 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:32.446 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:33.402 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:33.453 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:34.181 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:34.188 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:34.239 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:35.010 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:35.016 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:35.773 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:35.814 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:37.061 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:37.110 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:37.738 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:37.775 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:38.377 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:38.449 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:39.076 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:39.119 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:40.240 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:40.293 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:41.348 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:41.409 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:42.630 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:42.692 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:43.630 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:43.635 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:43.712 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:44.651 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:44.671 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:45.674 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:45.737 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:46.762 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:46.812 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:47.526 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:47.572 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:48.340 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:48.394 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:49.198 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:49.288 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:50.706 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:50.754 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:51.571 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:51.620 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:52.886 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-sp@example.invalid
+-2026-09-14 05:31:52.944 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:55.129 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:55.131 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:55.223 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: d2a47e93-7b3e-45b2-b5ac-1a7d1594906a
+-2026-09-14 05:31:55.228 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID d2a47e93-7b3e-45b2-b5ac-1a7d1594906a
+-2026-09-14 05:31:55.301 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:55.407 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:55.610 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:55.611 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:56.209 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.controller.AccountController     : API: Criar Conta 'cf007-2cecfbec-sao-paulo-conta'. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:56.210 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Criando nova conta para o usu�rio d2a47e93-7b3e-45b2-b5ac-1a7d1594906a
+-2026-09-14 05:31:56.210 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta bf8a56a6-a664-446d-8506-b6b8c32e0f7e
+-2026-09-14 05:31:56.265 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.controller.CategoryController    : API: Criar Categoria 'cf007-2cecfbec-sao-paulo-categoria'
+-2026-09-14 05:31:56.265 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.CategoryService          : Criando categoria: cf007-2cecfbec-sao-paulo-categoria
+-2026-09-14 05:31:56.328 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'cf007-2cecfbec-sao-paulo-cartao'. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:56.328 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Criando cart�o 'cf007-2cecfbec-sao-paulo-cartao' (Final 7001)
+-2026-09-14 05:31:56.374 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF7SP' (OTHER) para usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:56.374 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF7SP' (OTHER) para usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:56.375 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f7f91539-7085-457d-8685-0fb26fea3028
+-2026-09-14 05:31:56.998 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:57.001 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:57.046 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:57.851 - WARN 21652 --- [o-auto-1-exec-8] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [date]]
+-2026-09-14 05:31:58.525 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:58.559 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:31:58.613 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:31:59.515 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | Valor: 25.5 | Tipo: EXPENSE
+-2026-09-14 05:31:59.515 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=25.5, ContaID=bf8a56a6-a664-446d-8506-b6b8c32e0f7e
+-2026-09-14 05:31:59.526 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta bf8a56a6-a664-446d-8506-b6b8c32e0f7e. Novo saldo: 974.50
+-2026-09-14 05:31:59.527 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 634d103a-cfb6-46f2-acea-5d05594f5e5e
+-2026-09-14 05:31:59.571 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:31:59.571 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:04.393 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 12 | Conta: null
+-2026-09-14 05:32:04.475 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:32:05.139 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:32:05.169 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:05.189 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:06.556 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 634d103a-cfb6-46f2-acea-5d05594f5e5e. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:06.557 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Atualizando transa��o ID 634d103a-cfb6-46f2-acea-5d05594f5e5e
+-2026-09-14 05:32:06.665 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:06.665 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:32:07.235 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:32:07.240 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:07.277 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:08.299 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:08.335 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:09.124 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:09.172 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:09.914 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 8ee2e92c-4e54-4801-9817-ff5ac24e7b10. Valor: 40. Parcelas: 1
+-2026-09-14 05:32:09.914 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 8ee2e92c-4e54-4801-9817-ff5ac24e7b10: 40 (1x)
+-2026-09-14 05:32:09.940 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-14 05:32:10.541 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:10.580 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:12.255 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:12.285 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:13.591 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID f7f91539-7085-457d-8685-0fb26fea3028. Qtd: 2, Pre�o: 50
+-2026-09-14 05:32:13.593 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID f7f91539-7085-457d-8685-0fb26fea3028
+-2026-09-14 05:32:13.596 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de COMPRA.
+-2026-09-14 05:32:13.599 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-14 05:32:14.097 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:14.153 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:14.997 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:15.039 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:15.698 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.controller.GoalController        : API: Criar Meta 'cf007-2cecfbec-sao-paulo-meta' para usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:15.699 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.GoalService              : Criando nova meta: cf007-2cecfbec-sao-paulo-meta
+-2026-09-14 05:32:16.213 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:16.249 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:16.888 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:16.954 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:17.559 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Criando novo h�bito 'cf007-2cecfbec-sao-paulo-habito' para usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:17.607 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:40.794 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito a075ad01-93bb-4168-afe4-a3b444e8acca para a data 2027-01-31
+-2026-09-14 05:32:40.804 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-14 05:32:40.805 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-14 05:32:40.832 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:41.376 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:41.435 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:41.520 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:42.172 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:42.226 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:42.310 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:42.310 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo@example.invalid
+-2026-09-14 05:32:45.300 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:45.303 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:45.394 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 355617f2-70f0-444c-bd2f-828b71b13569
+-2026-09-14 05:32:45.394 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 355617f2-70f0-444c-bd2f-828b71b13569
+-2026-09-14 05:32:45.457 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:45.552 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:45.720 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:45.721 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:46.275 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.controller.PlanningController    : API: Novo item no planejamento: cf007-2cecfbec-sao-paulo-planning-original - Valor: 25
+-2026-09-14 05:32:46.275 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.PlanningService          : Adicionando item ao planejamento: cf007-2cecfbec-sao-paulo-planning-original (Valor: 25)
+-2026-09-14 05:32:46.876 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:46.929 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:50.678 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid
+-2026-09-14 05:32:50.730 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:54.731 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:54.734 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:54.875 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 65431abf-5034-4f21-8a16-3a27ac1608ea
+-2026-09-14 05:32:54.875 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 65431abf-5034-4f21-8a16-3a27ac1608ea
+-2026-09-14 05:32:54.956 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.078 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.326 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.330 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:55.646 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.646 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 65431abf-5034-4f21-8a16-3a27ac1608ea
+-2026-09-14 05:32:55.647 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta 44c4baaf-d62b-427f-8c82-53d8bf291d34
+-2026-09-14 05:32:55.756 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.756 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-09-14 05:32:55.821 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-09-14 05:32:55.821 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-09-14 05:32:55.973 - INFO 21652 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.974 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:55.975 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1a32de85-da9a-4795-ad37-36ec5cb73539
+-2026-09-14 05:32:56.922 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:56.977 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:58.126 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:58.191 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:32:59.193 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:32:59.243 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:32:59.320 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:00.265 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:00.307 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:01.226 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:01.267 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:02.149 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:02.188 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:02.789 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:02.821 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:03.408 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:03.460 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:04.116 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:04.155 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:05.459 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:05.489 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:06.251 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:06.285 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:07.185 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:07.219 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:07.919 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:07.930 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:07.964 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:08.636 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:08.675 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:09.449 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:09.486 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:10.436 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:10.467 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:11.098 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:11.135 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:11.711 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:11.745 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:12.314 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:12.370 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:13.212 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:13.253 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:14.109 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:14.153 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:15.247 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:15.299 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:16.063 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:16.091 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:16.126 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:16.851 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:16.891 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:17.630 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:17.695 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:18.568 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:18.604 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:19.327 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:19.380 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:20.068 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:20.116 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:20.735 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:20.799 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:21.701 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:21.749 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:22.424 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:22.469 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:23.890 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-2cecfbec-visual-kir@example.invalid
+-2026-09-14 05:33:23.952 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-2cecfbec-visual-kir@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:25.878 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:25.881 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:26.008 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 1254942a-c5df-4929-adee-42c7c75afa44
+-2026-09-14 05:33:26.008 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 1254942a-c5df-4929-adee-42c7c75afa44
+-2026-09-14 05:33:26.068 - INFO 21652 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:26.185 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:26.426 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:26.427 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:27.056 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'cf007-2cecfbec-kiritimati-conta'. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:27.056 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 1254942a-c5df-4929-adee-42c7c75afa44
+-2026-09-14 05:33:27.057 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta c7586502-5124-4c23-881d-9d43c6f7831f
+-2026-09-14 05:33:27.134 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.controller.CategoryController    : API: Criar Categoria 'cf007-2cecfbec-kiritimati-categoria'
+-2026-09-14 05:33:27.134 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.CategoryService          : Criando categoria: cf007-2cecfbec-kiritimati-categoria
+-2026-09-14 05:33:27.199 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'cf007-2cecfbec-kiritimati-cartao'. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:27.199 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Criando cart�o 'cf007-2cecfbec-kiritimati-cartao' (Final 7002)
+-2026-09-14 05:33:27.259 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF7KIR' (OTHER) para usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:27.259 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF7KIR' (OTHER) para usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:27.260 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1de125ff-0bfe-4f72-b8be-9f6b80ce43c1
+-2026-09-14 05:33:28.032 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:28.055 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:28.109 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:28.970 - WARN 21652 --- [-auto-1-exec-10] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [date]]
+-2026-09-14 05:33:29.566 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:29.576 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:29.604 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:30.404 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | Valor: 25.5 | Tipo: EXPENSE
+-2026-09-14 05:33:30.404 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=25.5, ContaID=c7586502-5124-4c23-881d-9d43c6f7831f
+-2026-09-14 05:33:30.406 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta c7586502-5124-4c23-881d-9d43c6f7831f. Novo saldo: 974.50
+-2026-09-14 05:33:30.407 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c2e1ec1f-489c-4466-ada5-f323b9b31edb
+-2026-09-14 05:33:30.436 - INFO 21652 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:30.443 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:35.678 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 12 | Conta: null
+-2026-09-14 05:33:35.764 - INFO 21652 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:36.301 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:36.327 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:36.360 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:37.669 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o c2e1ec1f-489c-4466-ada5-f323b9b31edb. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:37.669 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Atualizando transa��o ID c2e1ec1f-489c-4466-ada5-f323b9b31edb
+-2026-09-14 05:33:37.738 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:37.739 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:38.288 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 05:33:38.296 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:38.327 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:39.177 - INFO 21652 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:39.233 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:40.102 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:40.143 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:40.805 - INFO 21652 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 7621b8a4-789b-4367-9ee0-233bef5448a1. Valor: 40. Parcelas: 1
+-2026-09-14 05:33:40.805 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 7621b8a4-789b-4367-9ee0-233bef5448a1: 40 (1x)
+-2026-09-14 05:33:40.816 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-14 05:33:41.414 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:41.453 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:43.080 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:43.110 - INFO 21652 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:44.776 - INFO 21652 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 1de125ff-0bfe-4f72-b8be-9f6b80ce43c1. Qtd: 2, Pre�o: 50
+-2026-09-14 05:33:44.776 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 1de125ff-0bfe-4f72-b8be-9f6b80ce43c1
+-2026-09-14 05:33:44.778 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de COMPRA.
+-2026-09-14 05:33:44.779 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-14 05:33:45.226 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:45.258 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:46.078 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:46.125 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:46.822 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Criar Meta 'cf007-2cecfbec-kiritimati-meta' para usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:46.823 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.GoalService              : Criando nova meta: cf007-2cecfbec-kiritimati-meta
+-2026-09-14 05:33:47.444 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:47.479 - INFO 21652 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:48.171 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:48.228 - INFO 21652 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:33:48.824 - INFO 21652 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Criando novo h�bito 'cf007-2cecfbec-kiritimati-habito' para usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:33:48.921 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:12.671 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito cac1682f-3a25-4b9e-ae07-326611d78b1f para a data 2027-01-31
+-2026-09-14 05:34:12.674 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-14 05:34:12.674 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-14 05:34:12.690 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:13.128 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:13.157 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:34:13.244 - INFO 21652 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:13.840 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:13.862 - INFO 21652 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:34:13.984 - INFO 21652 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:13.985 - INFO 21652 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf007-2cecfbec-kiritimati@example.invalid
+-2026-09-14 05:34:15.603 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:15.605 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:15.702 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: a642e4e0-4ed2-406a-8a1c-9f925f9de2ce
+-2026-09-14 05:34:15.702 - INFO 21652 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID a642e4e0-4ed2-406a-8a1c-9f925f9de2ce
+-2026-09-14 05:34:15.755 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:15.855 - INFO 21652 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:16.071 - INFO 21652 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:16.076 - INFO 21652 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:34:16.667 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.controller.PlanningController    : API: Novo item no planejamento: cf007-2cecfbec-kiritimati-planning-original - Valor: 25
+-2026-09-14 05:34:16.667 - INFO 21652 --- [o-auto-1-exec-7] c.c.api.service.PlanningService          : Adicionando item ao planejamento: cf007-2cecfbec-kiritimati-planning-original (Valor: 25)
+-2026-09-14 05:34:17.251 - INFO 21652 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:17.296 - INFO 21652 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 05:34:20.741 - INFO 21652 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid
+-2026-09-14 05:34:20.785 - INFO 21652 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-2cecfbec-kiritimati-planning@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 209.9 s -- in com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  04:02 min
+[INFO] Finished at: 2026-09-14T05:34:23Z
+[INFO] ------------------------------------------------------------------------

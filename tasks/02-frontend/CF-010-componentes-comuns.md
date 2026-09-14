@@ -1,6 +1,6 @@
 # CF-010 — Corrigir modais, layout e acessibilidade compartilhados
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -48,3 +48,8 @@ Ainda não executada. Usar `tasks/evidencias/CF-010/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+## Parecer independente CF-015 — 14/09/2026
+
+R10 confirma sobreposição/recorte no tablet; R08 mostra consumidor com foco inadequado; R11 acrescenta quatro avisos de lint. R09 corrigiu seis seletores do harness sem alterar expected.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.

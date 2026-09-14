@@ -1,6 +1,6 @@
 # CF-012 — Auditar e corrigir dashboard, contas e extrato
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -50,3 +50,8 @@ Ainda não executada. Usar `tasks/evidencias/CF-012/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+## Parecer independente CF-015 — 14/09/2026
+
+R02 reproduz gráfico do período abandonado; R10 confirma problemas de geometria no tablet e R12 identifica ação mobile sem nome acessível. F-018 permanece aberto quanto ao escopo do total do extrato.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.

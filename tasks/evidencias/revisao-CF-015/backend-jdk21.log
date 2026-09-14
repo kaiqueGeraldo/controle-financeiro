@@ -1,0 +1,190 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.PlanningEditIntegrationTest
+22:45:27.716 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:45:27.851 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.PlanningEditIntegrationTest
+22:45:28.030 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+22:45:28.030 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-13 22:45:28.363 - INFO 31476 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-13 22:45:28.620 - INFO 31476 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-13 22:45:33.147 - INFO 31476 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-13 22:45:33.147 - INFO 31476 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-13 22:45:33.164 - INFO 31476 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-13 22:45:33.840 - INFO 31476 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-13 22:45:33.840 - INFO 31476 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-13 22:45:33.841 - INFO 31476 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-13 22:45:35.084 - INFO 31476 --- [           main] c.c.api.PlanningEditIntegrationTest      : Starting PlanningEditIntegrationTest using Java 21.0.12.1 with PID 31476 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-13 22:45:35.084 - INFO 31476 --- [           main] c.c.api.PlanningEditIntegrationTest      : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-13 22:45:40.807 - WARN 31476 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-13 22:45:47.558 - INFO 31476 --- [           main] c.c.api.PlanningEditIntegrationTest      : Started PlanningEditIntegrationTest in 19.511 seconds (process running for 35.455)
+-2026-09-13 22:45:48.062 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [description]]
+-2026-09-13 22:45:48.259 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [description]]
+-2026-09-13 22:45:48.283 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [amount]]
+-2026-09-13 22:45:48.296 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [amount]]
+-2026-09-13 22:45:48.310 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [dueDate]]
+-2026-09-13 22:45:48.320 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [dueDate]]
+-2026-09-13 22:45:48.325 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [dueDate]]
+-2026-09-13 22:45:48.363 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [dueDate]]
+-2026-09-13 22:45:48.369 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [status]]
+-2026-09-13 22:45:48.376 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [cardId]]
+-2026-09-13 22:45:48.382 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [planId]]
+-2026-09-13 22:45:48.389 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [orderIndex]]
+-2026-09-13 22:45:48.395 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [isSystemManaged]]
+-2026-09-13 22:45:48.400 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/6b3797c8-57f8-45d0-8e90-0af7e21469bc; campos: [categoryId]]
+-2026-09-13 22:45:48.564 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Item n�o encontrado [URI: /planning/01212836-9edd-42d8-8107-5dd75ea34a1b]
+-2026-09-13 22:45:48.576 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Item n�o encontrado [URI: /planning/5c7d8ea0-2c16-4ecb-bcb3-1287ff37b38c]
+-2026-09-13 22:45:48.594 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Categoria n�o encontrada [URI: /planning/5c7d8ea0-2c16-4ecb-bcb3-1287ff37b38c]
+-2026-09-13 22:45:48.606 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Categoria n�o encontrada [URI: /planning/5c7d8ea0-2c16-4ecb-bcb3-1287ff37b38c]
+-2026-09-13 22:45:48.638 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/94c40248-2a52-4bf7-81fa-ec541b19f230; campos: [cardId]]
+-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.12 s -- in com.controlefinanceiro.api.PlanningEditIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.CredentialExpiryClockTest
+2026-09-13 22:45:48.865 - INFO 31476 --- [           main] c.c.api.service.AuthService              : Tentativa de reset de senha solicitada para o e-mail: credencial@example.test
+-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.232 s -- in com.controlefinanceiro.api.service.CredentialExpiryClockTest
+[INFO] Running com.controlefinanceiro.api.service.HabitServiceTemporalTest
+2026-09-13 22:45:49.103 - INFO 31476 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito 60000000-0000-0000-0000-000000000003 para a data 2026-09-06
+-2026-09-13 22:45:49.103 - INFO 31476 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-13 22:45:49.103 - INFO 31476 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.236 s -- in com.controlefinanceiro.api.service.HabitServiceTemporalTest
+[INFO] Running com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-13 19:45:49.193 - INFO 31476 --- [           main] c.a.TemporalCompatibilityIntegrationTest : Starting TemporalCompatibilityIntegrationTest using Java 21.0.12.1 with PID 31476 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-13 19:45:49.193 - INFO 31476 --- [           main] c.a.TemporalCompatibilityIntegrationTest : The following 1 profile is active: "test"
+-2026-09-13 19:45:49.927 - WARN 31476 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-13 19:45:51.427 - INFO 31476 --- [           main] c.a.TemporalCompatibilityIntegrationTest : Started TemporalCompatibilityIntegrationTest in 2.294 seconds (process running for 39.324)
+-2026-09-13 19:45:51.499 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:51.499 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=8d61382a-b06d-4bbf-a0fb-7c9eed050632
+-2026-09-13 19:45:51.562 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 93e6a39d-8f7f-45fb-afce-5e06ccaddfd5
+-2026-09-13 19:45:51.596 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:51.596 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=8d61382a-b06d-4bbf-a0fb-7c9eed050632
+-2026-09-13 19:45:51.600 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ad3f31ca-c2ab-4698-b444-f27c11b2fc4b
+-2026-09-13 19:45:51.610 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:51.610 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=8d61382a-b06d-4bbf-a0fb-7c9eed050632
+-2026-09-13 19:45:51.613 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID cd3547b6-1c46-48bd-bc74-e697185ce55e
+-2026-09-13 19:45:51.632 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | M�s: 9 | Conta: null
+-2026-09-13 19:45:51.677 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | M�s: 9 | Conta: null
+-2026-09-13 19:45:51.695 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test | M�s: 9 | Conta: null
+-2026-09-13 19:45:51.708 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test
+-2026-09-13 19:45:51.708 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cdb3e83c-5f25-478f-a7a9-47d6b6f69857@example.test
+-2026-09-13 19:45:52.857 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 5fc0539e-34b4-4146-afa0-1dd69848269c@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:52.857 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=949bd07d-aad0-4749-8793-01f3bf8937b8
+-2026-09-13 19:45:52.860 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 951ea1e2-1d09-4f0b-b906-43959dbb7222
+-2026-09-13 19:45:52.867 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [recordedAt]]
+-2026-09-13 19:45:52.881 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/951ea1e2-1d09-4f0b-b906-43959dbb7222; campos: [recordedAt]]
+-2026-09-13 19:45:52.887 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [createdAt]]
+-2026-09-13 19:45:52.891 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/951ea1e2-1d09-4f0b-b906-43959dbb7222; campos: [createdAt]]
+-2026-09-13 19:45:52.896 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [legacyCreatedAtRaw]]
+-2026-09-13 19:45:52.901 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/951ea1e2-1d09-4f0b-b906-43959dbb7222; campos: [legacyCreatedAtRaw]]
+-2026-09-13 19:45:52.905 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [timeOrigin]]
+-2026-09-13 19:45:52.910 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/951ea1e2-1d09-4f0b-b906-43959dbb7222; campos: [timeOrigin]]
+-2026-09-13 19:45:53.031 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 058e0833-b6d4-4fc0-9676-3eba05918638@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:53.031 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=c9771c03-97d0-4754-b6aa-12886f64e243
+-2026-09-13 19:45:53.033 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 46b092df-8bd7-4d87-81a3-f9c100ad78e8
+-2026-09-13 19:45:53.043 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 058e0833-b6d4-4fc0-9676-3eba05918638@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:53.044 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=c9771c03-97d0-4754-b6aa-12886f64e243
+-2026-09-13 19:45:53.046 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6d88412d-cc4a-445d-8880-891e517e1808
+-2026-09-13 19:45:53.054 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 058e0833-b6d4-4fc0-9676-3eba05918638@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:53.054 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=c9771c03-97d0-4754-b6aa-12886f64e243
+-2026-09-13 19:45:53.057 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9668c5e3-aa57-4878-81f9-240cb7612730
+-2026-09-13 19:45:53.075 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-09-13 19:45:53.075 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=6eecddc8-ae92-4769-aad9-4e8731dd4f02
+-2026-09-13 19:45:53.077 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a4ef80a4-ed57-4b57-b64c-c65edcb985b9
+-2026-09-13 19:45:53.086 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a4ef80a4-ed57-4b57-b64c-c65edcb985b9. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test
+-2026-09-13 19:45:53.086 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a4ef80a4-ed57-4b57-b64c-c65edcb985b9
+-2026-09-13 19:45:53.097 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a4ef80a4-ed57-4b57-b64c-c65edcb985b9. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test
+-2026-09-13 19:45:53.097 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a4ef80a4-ed57-4b57-b64c-c65edcb985b9
+-2026-09-13 19:45:53.107 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a4ef80a4-ed57-4b57-b64c-c65edcb985b9. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test
+-2026-09-13 19:45:53.107 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a4ef80a4-ed57-4b57-b64c-c65edcb985b9
+-2026-09-13 19:45:53.115 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a4ef80a4-ed57-4b57-b64c-c65edcb985b9. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test
+-2026-09-13 19:45:53.115 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a4ef80a4-ed57-4b57-b64c-c65edcb985b9
+-2026-09-13 19:45:53.125 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: d682483e-915f-4b8e-af09-0e6e91f02e07@example.test | M�s: 9 | Conta: null
+-2026-09-13 19:45:53.148 - INFO 31476 --- [           main] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 4ba60657-0e0d-4611-9d97-8623b7b55369. Qtd: 1, Pre�o: 10
+-2026-09-13 19:45:53.148 - INFO 31476 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 4ba60657-0e0d-4611-9d97-8623b7b55369
+-2026-09-13 19:45:53.158 - INFO 31476 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de COMPRA.
+-2026-09-13 19:45:53.164 - INFO 31476 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-13 19:45:53.189 - INFO 31476 --- [           main] c.c.api.controller.InvestmentController  : API: Atualiza��o manual de saldo para ativo ID 11cd03fc-3aa3-46c4-9560-2cde9397d1ec
+-2026-09-13 19:45:53.191 - INFO 31476 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Rendimento detectado: +20.00
+-2026-09-13 19:45:53.207 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: d1f41261-2544-404c-bf46-c66b88096ede@example.test | M�s: 9 | Conta: null
+-2026-09-13 19:45:53.227 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o ae90cdb5-6b7e-40f9-b00e-99a189de0939. Usu�rio: 4083a931-be28-4185-bebb-02deee6c490d@example.test
+-2026-09-13 19:45:53.227 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID ae90cdb5-6b7e-40f9-b00e-99a189de0939
+-2026-09-13 19:45:53.238 - INFO 31476 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o ae90cdb5-6b7e-40f9-b00e-99a189de0939. Usu�rio: 4083a931-be28-4185-bebb-02deee6c490d@example.test
+-2026-09-13 19:45:53.238 - INFO 31476 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID ae90cdb5-6b7e-40f9-b00e-99a189de0939
+-2026-09-13 19:45:53.269 - INFO 31476 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o c86848e1-f0ee-42aa-8697-20e63623449f. Valor: 10. Parcelas: 1
+-2026-09-13 19:45:53.269 - INFO 31476 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID c86848e1-f0ee-42aa-8697-20e63623449f: 10 (1x)
+-2026-09-13 19:45:53.300 - INFO 31476 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-13 19:45:53.330 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/11aeab0d-e0a4-4f13-831a-c75702f5b687; campos: [recordedAt]]
+-2026-09-13 19:45:53.335 - INFO 31476 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o c86848e1-f0ee-42aa-8697-20e63623449f. Valor: 10. Parcelas: 1
+-2026-09-13 19:45:53.335 - INFO 31476 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID c86848e1-f0ee-42aa-8697-20e63623449f: 10 (1x)
+-2026-09-13 19:45:53.348 - INFO 31476 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-13 19:45:53.372 - WARN 31476 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/fdff2c66-9146-40a3-8263-a039ec4b7221; campos: [recordedAt]]
+-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.256 s -- in com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+[INFO] Running com.controlefinanceiro.api.utils.TemporalConfigTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.controlefinanceiro.api.utils.TemporalConfigTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  55.192 s
+[INFO] Finished at: 2026-09-13T22:45:54Z
+[INFO] ------------------------------------------------------------------------

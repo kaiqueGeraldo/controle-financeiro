@@ -1,0 +1,80 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/cf015-chart-race.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/cf015-chart-race.test.tsx > CF015-R02: 6M em cache permanece selecionado após resposta tardia de 1Y 20ms
+   → expected [ Array(1) ] to deeply equal [ Array(1) ]
+stdout | tests/component/cf015-annual-races.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/cf015-annual-races.test.tsx > CF015-R01: voltar ao ano em cache invalida a resposta do ano abandonado 17ms
+   → expected 2025 to be 2026 // Object.is equality
+ × tests/component/cf015-annual-races.test.tsx > CF015-R04: texto digitado durante gravação não aparece confirmado sem persistir 54ms
+   → expected null not to be null
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/cf015-annual-races.test.tsx > CF015-R01: voltar ao ano em cache invalida a resposta do ano abandonado
+AssertionError: expected 2025 to be 2026 // Object.is equality
+
+- Expected
++ Received
+
+- 2026
++ 2025
+
+ ❯ tests/component/cf015-annual-races.test.tsx:39:40
+     37|   await act(async () => { old.resolve({ status: 200, data: response(20…
+     38|   expect(result.current.year).toBe(2026);
+     39|   expect(result.current.summary?.year).toBe(2026);
+       |                                        ^
+     40|   expect(result.current.noteContent).toBe("nota 2026");
+     41| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/component/cf015-annual-races.test.tsx > CF015-R04: texto digitado durante gravação não aparece confirmado sem persistir
+AssertionError: expected null not to be null
+ ❯ tests/component/cf015-annual-races.test.tsx:64:45
+     62|   expect(persisted).toBe("enviado");
+     63|   // SPEC AC-UI-009: preservar edição posterior e indicar que ainda re…
+     64|   expect(screen.queryByRole("textbox")).not.toBeNull();
+       |                                             ^
+     65|   expect((screen.getByRole("textbox") as HTMLTextAreaElement).value).t…
+     66| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/component/cf015-chart-race.test.tsx > CF015-R02: 6M em cache permanece selecionado após resposta tardia de 1Y
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]
+
+- Expected
++ Received
+
+  [
+    {
+-     "label": "seis meses",
+-     "valor": 1300,
++     "label": "ano inteiro",
++     "valor": 900,
+    },
+  ]
+
+ ❯ tests/component/cf015-chart-race.test.tsx:25:36
+     23|   expect(result.current.chartData).toEqual([{ label: "seis meses", val…
+     24|   await act(async () => { resolve({ status: 200, data: [{ label: "ano …
+     25|   expect(result.current.chartData).toEqual([{ label: "seis meses", val…
+       |                                    ^
+     26| });
+     27|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed (3)
+   Start at  19:46:21
+   Duration  796ms (transform 111ms, setup 252ms, import 164ms, tests 95ms, environment 697ms)
+

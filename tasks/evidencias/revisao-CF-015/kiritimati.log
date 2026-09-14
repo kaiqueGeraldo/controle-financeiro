@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/harness-credential-clock.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/harness-credential-clock.test.tsx > P04: Next usa authNow controlado depois da antiga expiração e distingue JWT válido/expirado 82ms
+ ✓ tests/component/harness-credential-clock.test.tsx > preload recusa fora do harness: {"NODE_ENV":"production"} 61ms
+ ✓ tests/component/harness-credential-clock.test.tsx > preload recusa fora do harness: {"CF_E2E_SERVER_CLOCK":"0"} 58ms
+ ✓ tests/component/harness-credential-clock.test.tsx > preload recusa fora do harness: {"BACKEND_API_URL":"https://example.test"} 57ms
+stdout | tests/component/habit-product-day.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/temporal-compatibility.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: extrato não apresenta hora legada sem proveniência como informada 31ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: detalhe preserva bruto desconhecido e editar não preenche hora artificial 58ms
+ ✓ tests/component/habit-product-day.test.tsx > P05: lista, detalhe e payload usam dia 07 antes da meia-noite de Brasília 85ms
+ ✓ tests/component/habit-product-day.test.tsx > página aberta muda destaque, janela e payload juntos sem remapear logs 32ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em focus e limpa o timer 23ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em visibilitychange e limpa o timer 22ms
+ ✓ tests/component/habit-product-day.test.tsx > limite IANA respeita o dia de 23 horas de São Paulo em 2018 0ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P01: nenhuma inferência pelo bruto 2026-09-07T00:00:00 9ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P01: nenhuma inferência pelo bruto 2026-09-07T23:30:45.123456 10ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P01: origem explícita conserva civil válida; inválido não vira hoje 1ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: meia-noite explícita é conhecida; auditoria sem offset não é instante 6ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: edição distingue omissão de remoção explícita, remover=false 33ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: edição distingue omissão de remoção explícita, remover=true 34ms
+ ✓ tests/component/temporal-compatibility.test.tsx > P02: ordem usa hora conhecida e ID, independentemente do bruto 2ms
+
+ Test Files  3 passed (3)
+      Tests  18 passed (18)
+   Start at  12:50:56
+   Duration  1.23s (transform 257ms, setup 382ms, import 896ms, tests 612ms, environment 1.08s)
+

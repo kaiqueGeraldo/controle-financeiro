@@ -1,6 +1,6 @@
 # CF-015 — Revisar independentemente o marco de datas e frontend
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-6-astra
 - Esforço: xhigh
@@ -30,9 +30,9 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [ ] Nenhum P0/P1 do marco fica sem correção ou decisão explícita que impeça alegar conclusão.
-- [ ] Testes detectam os defeitos temporais e de estado representativos; falha não decorre só de import/ambiente.
-- [ ] Relatório distingue automação/funcional manual/visual e lista cenários não executados; não promete zero bugs.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Testes detectam os defeitos temporais e de estado representativos; falha não decorre só de import/ambiente.
+- [x] Relatório distingue automação/funcional manual/visual e lista cenários não executados; não promete zero bugs.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,12 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-015/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Executada em 13–14/09/2026, com parecer e evidências em [revisao-CF-015](../evidencias/revisao-CF-015/README.md), conforme o caminho solicitado para esta revisão. O marco permanece sem aprovação pelos achados abertos e lacunas registradas. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+## Parecer independente CF-015 — 14/09/2026
+
+Revisão executada e parecer emitido com restrições. Marco não aprovado; achados de produto permanecem abertos. P03 (PUT), P04 e P05 revalidados no escopo dirigido; P01/P02 conservam dependência de adoção CF-017. Nenhuma publicação, banco real ou avanço para CF-016.
+
+Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
