@@ -11,9 +11,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSidebar } from "@/hooks/useSidebar";
 
 export function SidebarNavLinks() {
   const pathname = usePathname();
+  const { setSidebarOpen } = useSidebar();
 
   const menuItems = [
     {
@@ -71,6 +73,7 @@ export function SidebarNavLinks() {
           <Link
             key={index}
             href={item.link}
+            onClick={() => setSidebarOpen(false)}
             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
               isActive
                 ? "bg-bg-surface-hover text-emerald-400 font-medium shadow-lg shadow-black/20"

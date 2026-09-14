@@ -32,6 +32,7 @@ Prioridade P0 bloqueia uso com dados reais por integridade/isolamento confirmado
 | F-015 | P1, investigação visual pendente | Relato do usuário em diversas telas; nenhum inventário visual executado neste diagnóstico | Registrar viewport, tema, estado, passos e captura por falha; não inferir correção visual apenas pelo código |
 | F-016 | P1, bloqueio local confirmado | mvnw.cmd acessa `.Target[0]` quando Target é nulo no PowerShell local | Wrapper não inicia neste ambiente. Diferenciar falha de ferramenta de erro de compilação; usar distribuição Maven já instalada para diagnóstico |
 | F-017 | P2, confirmado por execução | ESLint: 70 erros e 37 avisos em 54 arquivos | Dívida de tipagem, hooks e componentes. Tratar por regra/arquivo conforme lint-baseline.md; não confundir build aprovado com lint aprovado |
+| F-018 | P1, confirmado por semântica do código | `useExtract` calcula `summary` apenas sobre `transactions`, que contém a página carregada (30 itens) | O rótulo “Saldo do Período” pode mudar ao carregar outra página e não representa o período/filtro completo. Exigir total agregado no contrato; tratar em CF-021, sem recalcular no componente. |
 
 ## Investigações adicionais delimitadas
 

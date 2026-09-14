@@ -20,6 +20,7 @@ export function useCards() {
   const [cards, setCards] = useState<CreditCard[]>([]);
 
   const [isLoading, setIsLoading] = useState(true); // Loading principal da tela
+  const [error, setError] = useState<Error | null>(null);
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [viewDate, setViewDate] = useState(new Date());
   const [invoiceDetails, setInvoiceDetails] =
@@ -38,12 +39,16 @@ export function useCards() {
 
     const request = requests.begin("cards");
     if (!background) setIsLoading(true);
+    setError(null);
 
     try {
       const res = await cardService.getAll(request.signal);
       if (request.isCurrent()) setCards(res.data ?? []);
     } catch (error: unknown) {
       if (request.isCurrent() && !isAbortError(error)) {
+        setError(
+          error instanceof Error ? error : new Error("Falha ao carregar cartões."),
+        );
         console.error("Erro ao buscar cartões", error);
       }
     } finally {
@@ -58,6 +63,7 @@ export function useCards() {
   useEffect(() => {
     invoiceCache.current = {};
     setCards([]);
+    setError(null);
     setSelectedCardId(null);
     setInvoiceDetails(null);
     isFirstLoad.current = true;
@@ -249,6 +255,7 @@ export function useCards() {
     accounts,
     categories,
     isLoading: isLoading && isFirstLoad.current,
+    error,
     summary,
 
     selectedCardId,

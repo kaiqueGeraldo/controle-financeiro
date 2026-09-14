@@ -23,7 +23,7 @@ export function ProfileSection({ user, onEditClick }: ProfileSectionProps) {
             <Mail size={14} className="shrink-0" />
             <span className="text-sm truncate">{user?.email || "..."}</span>
           </div>
-          <button onClick={onEditClick} className="mt-3 text-sm text-emerald-500 font-bold hover:text-emerald-400 transition cursor-pointer">
+          <button type="button" onClick={onEditClick} className="mt-3 text-sm text-emerald-500 font-bold hover:text-emerald-400 transition cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500">
             Editar informações
           </button>
         </div>

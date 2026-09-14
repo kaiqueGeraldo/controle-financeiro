@@ -2,7 +2,7 @@ import { useSidebar } from "@/hooks/useSidebar";
 import { Menu } from "lucide-react";
 
 export function SidebarTopbarMobile() {
-  const { setSidebarOpen, scrolled } = useSidebar();
+  const { sidebarOpen, setSidebarOpen, scrolled } = useSidebar();
 
   return (
     <div
@@ -14,8 +14,12 @@ export function SidebarTopbarMobile() {
     >
       <div className="flex items-center gap-3">
         <button
+          type="button"
           className="p-2 -ml-2 rounded-xl text-text-main bg-bg-surface border border-border-divider shadow-sm hover:text-emerald-500 hover:border-emerald-500/50 active:scale-95 transition-all cursor-pointer"
           onClick={() => setSidebarOpen(true)}
+          aria-label="Abrir menu de navegação"
+          aria-expanded={sidebarOpen}
+          aria-controls="main-navigation"
         >
           <Menu className="w-5 h-5" />
         </button>

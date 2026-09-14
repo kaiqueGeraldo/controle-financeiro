@@ -13,6 +13,7 @@ export function useAnnualSummary() {
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [summary, setSummary] = useState<AnnualSummaryResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const [noteContent, setNoteContent] = useState("");
   const [isSavingNote, setIsSavingNote] = useState(false);
   const toast = useToast();
@@ -31,11 +32,15 @@ export function useAnnualSummary() {
       if (!forceRefresh && summaryCache.current[cacheKey]) {
         setSummary(summaryCache.current[cacheKey]);
         setNoteContent(summaryCache.current[cacheKey].note || "");
+        setError(null);
         setIsLoading(false);
         return;
       }
 
       setIsLoading(true);
+      setError(null);
+      setSummary(null);
+      setNoteContent("");
 
       if (timerRef.current) clearTimeout(timerRef.current);
       const request = requests.begin("annual-summary");
@@ -53,6 +58,11 @@ export function useAnnualSummary() {
           }
         } catch (error: unknown) {
           if (request.isCurrent() && !isAbortError(error)) {
+            setError(
+              error instanceof Error
+                ? error
+                : new Error("Falha ao carregar resumo anual."),
+            );
             console.error("Erro ao buscar resumo anual:", error);
           }
         } finally {
@@ -87,8 +97,8 @@ export function useAnnualSummary() {
     };
   }, [year, fetchSummary]);
 
-  const saveNote = async () => {
-    if (summary?.note === noteContent) return;
+  const saveNote = async (): Promise<boolean> => {
+    if (summary?.note === noteContent) return true;
 
     setIsSavingNote(true);
     const savedYear = year;
@@ -98,7 +108,7 @@ export function useAnnualSummary() {
     try {
       await annualSummaryService.updateNote(savedYear, noteContent);
 
-      if (!request.isCurrent()) return;
+      if (!request.isCurrent()) return false;
 
       if (cacheKey && summaryCache.current[cacheKey]) {
         summaryCache.current[cacheKey].note = noteContent;
@@ -110,10 +120,12 @@ export function useAnnualSummary() {
         }
         return prev;
       });
+      return true;
     } catch (error) {
       if (request.isCurrent() && !isAbortError(error)) {
         toast.error("Erro ao salvar nota.");
       }
+      return false;
     } finally {
       if (request.isCurrent()) setIsSavingNote(false);
       request.finish();
@@ -125,6 +137,7 @@ export function useAnnualSummary() {
     setYear,
     summary,
     isLoading,
+    error,
     noteContent,
     setNoteContent,
     saveNote,

@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Sem corte de formulário ou mensagem em mobile; navegar por teclado e corrigir campos é possível.
-- [ ] Preferência salva reaparece após reload; falha de gravação não mostra preferência persistida fictícia.
-- [ ] Recuperação usa provedor falso; download falho mostra erro e não produz arquivo aparentemente válido.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Sem corte de formulário ou mensagem em mobile; navegar por teclado e corrigir campos é possível.
+- [x] Preferência salva reaparece após reload; falha de gravação não mostra preferência persistida fictícia.
+- [x] Recuperação usa provedor falso; download falho mostra erro e não produz arquivo aparentemente válido.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,9 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-011/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Concluída em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch inicial das tarefas anteriores. Login, recuperação, logout, configurações, perfil e troca de senha receberam validação e semântica de teclado; preferências não atualizam a UI de modo otimista; exportação exige um blob não vazio, evita concorrência e revoga a URL temporária. A validação final aprovou typecheck, 90 testes de componente e o fluxo público em três viewports. [Evidências, mutação e limitações](../evidencias/CF-011/README.md).
+
+Limites: o build não pôde baixar fontes externas no sandbox, e não houve E2E autenticado com backend/PostgreSQL descartável. CF-015 deve fazer a revisão independente do marco e verificar esse percurso integrado.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

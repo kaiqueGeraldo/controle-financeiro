@@ -2,11 +2,13 @@
 
 import { ExtractFilters } from "@/components/screens/extract/extractFilters";
 import { ExtractSummary } from "@/components/screens/extract/extractSummary";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { TransactionDetails } from "@/components/screens/extract/transactionDetails";
 import { TransactionItem } from "@/components/screens/extract/transactionItem";
 import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
 import { useExtract } from "@/hooks/useExtract";
 import { useSidebar } from "@/hooks/useSidebar";
+import { formatCalendarDate } from "@/utils/date";
 import {
   AlertCircle,
   ChevronLeft,
@@ -40,12 +42,22 @@ export default function ExtractScreen() {
     hasMore,
     loadMore,
     isLoadingMore,
+    error,
+    retry,
   } = useExtract();
 
   if (isInitialLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError onRetry={retry} />
       </div>
     );
   }
@@ -157,10 +169,9 @@ export default function ExtractScreen() {
               <div key={grupo.date} className="space-y-3">
                 {/* Data Sticky */}
                 <h3 className="text-sm font-semibold text-text-muted sticky top-44 md:top-48 z-10 bg-bg-base/95 backdrop-blur w-fit px-3 py-1 rounded-full border border-border-divider shadow-sm">
-                  {new Date(grupo.date + "T12:00:00").toLocaleDateString(
-                    "pt-BR",
-                    { day: "2-digit", month: "short", weekday: "short" },
-                  )}
+                  {formatCalendarDate(grupo.date, {
+                    day: "2-digit", month: "short", weekday: "short",
+                  })}
                 </h3>
 
                 <div className="bg-bg-surface border border-border-divider rounded-2xl overflow-hidden shadow-sm">

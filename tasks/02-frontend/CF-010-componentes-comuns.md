@@ -44,7 +44,15 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-010/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Concluída em 13/09/2026 sobre `main`, preservando o patch local preexistente em
+`README.md`. A dependência CF-003 estava concluída e integrada na base testada.
+Foram corrigidos diálogo, foco, rolagem, erro de formulário e controles móveis
+nos componentes compartilhados, com regressão causal, inspeção visual clara/escura
+e validação em viewport efetiva de zoom 200%. [Evidência, comandos e limitações](../evidencias/CF-010/README.md).
+
+Limitações: não há consumidor de `SideModal` para modal aninhado real; as
+capturas usam backend sentinela indisponível e viewport CSS equivalente a 200%,
+não configuração nativa de zoom. A revisão independente segue em CF-015.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

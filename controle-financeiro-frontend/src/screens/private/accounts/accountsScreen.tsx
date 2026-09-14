@@ -5,12 +5,12 @@ import { ReorderModal } from "@/components/forms/reorderModal";
 import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { AccountCard } from "@/components/screens/accounts/accountCard";
 import { AccountsSummary } from "@/components/screens/accounts/accountsSummary";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useAccountModals } from "@/contexts/modals/accountModalContext";
 import { useToast } from "@/contexts/toastContext";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useFinanceData } from "@/hooks/useFinanceData";
 import { useInvestments } from "@/hooks/useInvestments";
-import { useSidebar } from "@/hooks/useSidebar";
 import { useUser } from "@/hooks/useUser";
 import { accountService } from "@/services/accountService";
 import { Account } from "@/types";
@@ -29,9 +29,8 @@ import { useState } from "react";
 export default function AccountsScreen() {
   const router = useRouter();
   const { user } = useUser();
-  const { scrolled } = useSidebar();
   const { refreshDashboard } = useDashboard();
-  const { accounts, isLoading, saldoTotal, refresh } = useFinanceData();
+  const { accounts, isLoading, saldoTotal, error, refresh } = useFinanceData();
   const { openManageAccount } = useAccountModals();
   const [accountToDelete, setAccountToDelete] = useState<string | null>(null);
   const [accountToEdit, setAccountToEdit] = useState<Account | null>(null);
@@ -44,6 +43,14 @@ export default function AccountsScreen() {
     .reduce((acc, curr) => acc + curr.balance, 0);
 
   const total = saldoTotal + totalInvestido;
+
+  if (!isLoading && error) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError onRetry={refresh} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
@@ -146,8 +153,12 @@ export default function AccountsScreen() {
               setAccountToDelete(null);
               refresh();
               refreshDashboard(true);
-            } catch (error: any) {
-              toast.error(error.message || "Erro ao excluir conta.");
+            } catch (error: unknown) {
+              toast.error(
+                error instanceof Error
+                  ? error.message
+                  : "Erro ao excluir conta.",
+              );
             }
           }
         }}

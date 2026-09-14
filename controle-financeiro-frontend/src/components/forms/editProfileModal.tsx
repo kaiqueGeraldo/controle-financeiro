@@ -6,6 +6,7 @@ import { userService } from "@/services/userService";
 import { useUser } from "@/hooks/useUser";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2, AlertTriangle, AlertCircle } from "lucide-react";
+import { validarEmail, validarNome } from "@/validators/inputValidator";
 
 export function EditProfileModal({
   isOpen,
@@ -32,8 +33,15 @@ export function EditProfileModal({
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError(null);
+
+    const validationError = validarNome(formData.nome) || validarEmail(formData.email);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       await userService.updateProfile(formData.nome, formData.email);
@@ -55,7 +63,7 @@ export function EditProfileModal({
     <Modal isOpen={isOpen} onClose={onClose} title="Editar Informações">
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-start gap-2 text-sm font-medium">
+          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-start gap-2 text-sm font-medium">
             <AlertCircle size={18} className="shrink-0 mt-0.5" /> {error}
           </div>
         )}
@@ -74,10 +82,11 @@ export function EditProfileModal({
         )}
 
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="profile-name" className="text-xs text-text-muted font-bold uppercase ml-1">
             Nome
           </label>
           <input
+            id="profile-name"
             required
             value={formData.nome}
             onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
@@ -85,10 +94,11 @@ export function EditProfileModal({
           />
         </div>
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="profile-email" className="text-xs text-text-muted font-bold uppercase ml-1">
             E-mail
           </label>
           <input
+            id="profile-email"
             type="email"
             required
             value={formData.email}

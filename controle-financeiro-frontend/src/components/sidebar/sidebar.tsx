@@ -15,6 +15,8 @@ export function Sidebar() {
       {sidebarOpen && <OverlayMobile onClose={() => setSidebarOpen(false)} />}
 
       <aside
+        id="main-navigation"
+        aria-label="Navegação principal"
         className={`
           fixed md:relative z-50 md:z-40 h-full w-72 
           bg-bg-surface border-r border-border-divider

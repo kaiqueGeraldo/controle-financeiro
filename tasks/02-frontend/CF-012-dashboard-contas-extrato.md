@@ -31,10 +31,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente.
-- [ ] Erro de API não aparece como saldo zero ou lista vazia legítima; retry funciona.
-- [ ] Filtro/página não altera indevidamente a interpretação do total; divergência de cálculo tem achado separado.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [ ] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente (validação visual autenticada pendente).
+- [x] Erro de API não aparece como saldo zero ou lista vazia legítima; retry funciona.
+- [x] Filtro/página não altera indevidamente a interpretação do total; divergência de cálculo tem achado separado (F-018 → CF-021).
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -46,7 +46,11 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-012/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementação concluída e em revisão em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch local preexistente. Foram corrigidos os estados que convertiam falha de API em totais/listas vazios, com retry verificável, e os consumers de data civil restantes nas telas auditadas. A paginação revelou o achado **F-018**, encaminhado a CF-021 sem inventar agregado financeiro no componente. [Evidência completa, mutação, comandos e limitações](../evidencias/CF-012/README.md).
+
+Validação local: 95/95 testes de componente, typecheck, lint direcionado e `git diff --check` aprovados. O build de produção foi tentado, mas o host não alcançou Google Fonts; navegador autenticado com backend descartável não estava disponível. Esses limites e a revisão independente de CF-015 permanecem explícitos.
+
+O fechamento depende de validação visual autenticada em navegador; CF-015 não deve consumir CF-012 como concluída até esse roteiro. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

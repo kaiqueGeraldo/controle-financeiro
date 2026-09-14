@@ -21,6 +21,7 @@ import {
 interface GoalsContextType {
   goals: Goal[];
   isLoading: boolean;
+  error: Error | null;
   refreshGoals: () => Promise<void>;
   depositOptimistic: (id: string, data: GoalDepositDTO) => Promise<void>;
 }
@@ -30,6 +31,7 @@ const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
 export function GoalsProvider({ children }: { children: ReactNode }) {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const { user, isLoading: isLoadingUser } = useUser();
   const userId = user?.id;
   const requests = useRequestCoordinator(userId);
@@ -42,11 +44,17 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
 
     const request = requests.begin("goals");
     setIsLoading(true);
+    setError(null);
 
     try {
       const res = await goalService.getAll(request.signal);
       if (request.isCurrent()) setGoals(res.data ?? []);
     } catch (error: unknown) {
+      if (request.isCurrent() && !isAbortError(error)) {
+        setError(
+          error instanceof Error ? error : new Error("Falha ao carregar metas."),
+        );
+      }
       if (
         request.isCurrent() &&
         !isAbortError(error) &&
@@ -63,6 +71,7 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setGoals([]);
+    setError(null);
     if (isLoadingUser) {
       setIsLoading(true);
       return;
@@ -108,11 +117,12 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo(() => ({
     goals,
     isLoading,
+    error,
     refreshGoals,
     depositOptimistic: async (id: string, data: GoalDepositDTO) => {
       await depositOptimistic({ id, data });
     },
-  }), [goals, isLoading, refreshGoals, depositOptimistic]);
+  }), [goals, isLoading, error, refreshGoals, depositOptimistic]);
 
   return (
     <GoalsContext.Provider value={contextValue}>

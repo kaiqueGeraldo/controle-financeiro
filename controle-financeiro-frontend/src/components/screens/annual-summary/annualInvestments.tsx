@@ -6,9 +6,10 @@ import { TrendingUp } from "lucide-react";
 interface AnnualInvestmentsProps {
   totalValue: number;
   items: InvestmentBreakdown[];
+  positionDateLabel: string;
 }
 
-export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps) {
+export function AnnualInvestments({ totalValue, items, positionDateLabel }: AnnualInvestmentsProps) {
   const getBadgeColor = (color: string) => {
     const map: Record<string, string> = {
         EMERALD: "text-emerald-400", BLUE: "text-blue-400", CYAN: "text-cyan-400",
@@ -21,7 +22,10 @@ export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps)
     <div className="bg-bg-surface border border-border-divider rounded-3xl p-6 flex flex-col h-full">
         <div className="flex items-center gap-2 mb-6 text-text-muted">
           <TrendingUp className="w-5 h-5" />
-          <h3 className="text-sm font-bold uppercase tracking-wider">Metas e Investimentos</h3>
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider">Posição atual de metas e investimentos</h3>
+            <p className="mt-1 text-xs normal-case tracking-normal">{positionDateLabel}</p>
+          </div>
         </div>
         
         <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-2 max-h-40">
@@ -40,7 +44,7 @@ export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps)
         </div>
 
         <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center font-bold text-base">
-          <span className="text-text-main">Total Acumulado</span>
+          <span className="text-text-main">Total na posição atual</span>
           <PrivacyBlur className="text-emerald-500">{formatCurrency(totalValue)}</PrivacyBlur>
         </div>
     </div>

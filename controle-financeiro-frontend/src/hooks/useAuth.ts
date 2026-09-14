@@ -46,7 +46,9 @@ export function useAuth() {
     const emailError = validarEmail(formData.email);
     if (emailError) newErrors.email = emailError;
 
-    if (!isLogin) {
+    if (isLogin) {
+      if (!formData.senha) newErrors.senha = "A senha é obrigatória.";
+    } else {
       const nomeError = validarNome(formData.nome);
       if (nomeError) newErrors.nome = nomeError;
 

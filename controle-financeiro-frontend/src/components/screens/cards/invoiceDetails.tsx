@@ -1,5 +1,10 @@
-import { CreditCard } from "@/services/cardService";
+import {
+  CardInvoiceTransaction,
+  CardInvoiceDetails,
+  CreditCard,
+} from "@/services/cardService";
 import { normalizeOperationTemporal } from "@/services/temporal";
+import { Category } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,22 +20,30 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { getCardStyle } from "./creditCardItem";
+
+type InvoiceViewData = Omit<CardInvoiceDetails, "id" | "transactions"> & {
+  id?: string;
+  transactions?: CardInvoiceTransaction[];
+};
 
 interface InvoiceDetailsProps {
   card: CreditCard | undefined;
   isOpen: boolean;
   onClose: () => void;
-  invoiceData: any;
+  invoiceData: InvoiceViewData | null;
   isLoadingInvoice: boolean;
   viewDateFormatted: string;
   onChangeMonth: (dir: number) => void;
   onPay: () => void;
   onDelete: () => void;
   onUpdateLimit: (newLimit: number) => Promise<void>;
-  categories?: any[];
-  onUpdateTransaction?: (id: string, data: any) => Promise<void>;
+  categories?: Category[];
+  onUpdateTransaction?: (
+    id: string,
+    data: { description?: string; categoryId?: string },
+  ) => Promise<void>;
   onDeleteTransaction?: (id: string) => Promise<void>;
   canGoBack?: boolean;
   canGoForward?: boolean;
@@ -53,6 +66,7 @@ export function InvoiceDetails({
   canGoBack = false,
   canGoForward = false,
 }: InvoiceDetailsProps) {
+  const titleId = useId();
   const [isEditingLimit, setIsEditingLimit] = useState(false);
   const [tempLimit, setTempLimit] = useState("");
   const [editingTxId, setEditingTxId] = useState<string | null>(null);
@@ -91,6 +105,7 @@ export function InvoiceDetails({
 
   const styles = getCardStyle(card.name, card.color || "#333");
   const totalAmount = invoiceData?.totalAmount || 0;
+  const transactions = invoiceData?.transactions ?? [];
 
   const isPaid = invoiceData?.status === "PAID";
   const isClosed = invoiceData?.status === "CLOSED";
@@ -143,13 +158,18 @@ export function InvoiceDetails({
           {/* Container Principal */}
           <motion.div
             layoutId={`card-container-${card.id}`}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
             className="relative w-full max-w-lg bg-bg-surface border border-border-divider rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col h-[85vh] sm:max-h-[85vh] z-10 shadow-2xl">
             {/* NAVEGADOR DE DATA */}
             <div className="flex justify-center items-center relative">
               <div className="flex items-center justify-between bg-bg-base/50 p-2 rounded-xl border border-border-divider/50 my-2">
                 <button
+                  type="button"
                   disabled={!canGoBack}
                   onClick={() => onChangeMonth(-1)}
+                  aria-label="Mês anterior da fatura"
                   className={`p-2 rounded-lg transition ${canGoBack ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
                 >
                   <ChevronLeft size={16} />
@@ -161,15 +181,19 @@ export function InvoiceDetails({
                   </span>
                 </div>
                 <button
+                  type="button"
                   disabled={!canGoForward}
                   onClick={() => onChangeMonth(1)}
+                  aria-label="Próximo mês da fatura"
                   className={`p-2 rounded-lg transition ${canGoForward ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
                 >
                   <ChevronRight size={16} />
                 </button>
               </div>
               <button
+                type="button"
                 onClick={() => onClose()}
+                aria-label="Fechar detalhes da fatura"
                 className="absolute right-6 p-4 text-rose-500 hover:bg-rose-500/10 rounded-xl cursor-pointer"
               >
                 <X size={14} />
@@ -184,7 +208,7 @@ export function InvoiceDetails({
             >
               <div className="flex justify-between items-start z-10">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-white/70 tracking-widest mb-1">
+                  <p id={titleId} className="text-[10px] uppercase font-bold text-white/70 tracking-widest mb-1">
                     {card.name} •••• {card.last4Digits}
                   </p>
                   <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">
@@ -240,8 +264,8 @@ export function InvoiceDetails({
                     />
                   ))}
                 </div>
-              ) : invoiceData?.transactions?.length > 0 ? (
-                invoiceData.transactions.map((t: any) => {
+              ) : transactions.length > 0 ? (
+                transactions.map((t) => {
                   const isEditing = editingTxId === t.id;
                   const catName = t.categoryName || "Geral";
                   const temporal = normalizeOperationTemporal(t);
@@ -338,7 +362,7 @@ export function InvoiceDetails({
                                 onClick={() => {
                                   setEditTxData({
                                     description: t.description,
-                                    categoryId: t.category?.id,
+                                    categoryId: "",
                                   });
                                   setEditingTxId(t.id);
                                 }}
@@ -381,6 +405,7 @@ export function InvoiceDetails({
                       placeholder="Limite"
                     />
                     <button
+                      type="button"
                       onClick={() => {
                         onUpdateLimit(Number(tempLimit));
                         setIsEditingLimit(false);
@@ -390,6 +415,7 @@ export function InvoiceDetails({
                       <Check size={14} />
                     </button>
                     <button
+                      type="button"
                       onClick={() => setIsEditingLimit(false)}
                       className="p-1 text-rose-500 hover:bg-rose-500/10 rounded cursor-pointer"
                     >
@@ -398,6 +424,7 @@ export function InvoiceDetails({
                   </div>
                 ) : (
                   <button
+                    type="button"
                     onClick={() => {
                       setTempLimit(card.limit.toString());
                       setIsEditingLimit(true);
@@ -410,6 +437,7 @@ export function InvoiceDetails({
                 )}
 
                 <button
+                  type="button"
                   onClick={onDelete}
                   className="text-rose-500/70 hover:text-rose-500 font-bold flex items-center gap-1.5 transition text-xs cursor-pointer"
                 >
@@ -419,6 +447,7 @@ export function InvoiceDetails({
               </div>
 
               <button
+                type="button"
                 onClick={onPay}
                 disabled={isPayDisabled}
                 className={`w-full font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg cursor-pointer ${btnClass}`}

@@ -21,6 +21,7 @@ import {
 interface InvestmentsContextType {
   investments: Investment[];
   isLoading: boolean;
+  error: Error | null;
   refreshInvestments: () => Promise<void>;
   totalInvestido: number;
   lucroTotal: number;
@@ -34,6 +35,7 @@ const InvestmentsContext = createContext<InvestmentsContextType | undefined>(
 export function InvestmentsProvider({ children }: { children: ReactNode }) {
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const { user, isLoading: isLoadingUser } = useUser();
   const { refresh: refreshFinance } = useFinanceData();
@@ -48,12 +50,18 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
 
     const request = requests.begin("investments");
     setIsLoading(true);
+    setError(null);
 
     try {
       const res = await investmentService.getAll(request.signal);
       if (request.isCurrent()) setInvestments(res.data ?? []);
     } catch (error: unknown) {
       if (request.isCurrent() && !isAbortError(error)) {
+        setError(
+          error instanceof Error
+            ? error
+            : new Error("Falha ao carregar investimentos."),
+        );
         console.error("Erro ao buscar investimentos", error);
       }
     } finally {
@@ -64,6 +72,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setInvestments([]);
+    setError(null);
     if (isLoadingUser) {
       setIsLoading(true);
       return;
@@ -100,6 +109,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
     () => ({
       investments,
       isLoading,
+      error,
       refreshInvestments: refreshAll,
       totalInvestido,
       lucroTotal,
@@ -108,6 +118,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
     [
       investments,
       isLoading,
+      error,
       refreshAll,
       totalInvestido,
       lucroTotal,

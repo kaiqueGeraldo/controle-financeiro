@@ -1,6 +1,7 @@
 "use client";
 
 import { Modal } from "@/components/ui/modal";
+import { ApiError } from "@/services/api";
 import { cardService } from "@/services/cardService";
 import { Account } from "@/types";
 import { localDateString } from "@/utils/date";
@@ -16,7 +17,7 @@ import { useEffect, useRef, useState } from "react";
 interface PayInvoiceModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: () => void | Promise<void>;
   cardId: string;
   cardName: string;
   accounts: Account[];
@@ -94,10 +95,16 @@ export function PayInvoiceModal({
           : "Pagamento de Fatura",
       });
 
-      onSuccess();
+      await onSuccess();
       onClose();
     } catch (error: unknown) {
-      setErrorMessage(error instanceof Error ? error.message : "Erro ao processar pagamento.");
+      setErrorMessage(
+        error instanceof ApiError && error.requiresReconciliation
+          ? "Não foi possível confirmar o pagamento. Recarregue a fatura antes de tentar novamente."
+          : error instanceof Error
+            ? error.message
+            : "Erro ao processar pagamento.",
+      );
     } finally {
       submitting.current = false;
       setIsLoading(false);
@@ -131,12 +138,13 @@ export function PayInvoiceModal({
 
         {/* Conta de Origem */}
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="invoice-payment-account" className="text-xs text-text-muted font-bold uppercase ml-1">
             Pagar com
           </label>
           <div className="relative mt-1">
             <Wallet className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
             <select
+              id="invoice-payment-account"
               required
               value={accountId}
               onChange={(e) => setAccountId(e.target.value)}
@@ -153,12 +161,13 @@ export function PayInvoiceModal({
 
         {/* Valor */}
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="invoice-payment-amount" className="text-xs text-text-muted font-bold uppercase ml-1">
             Valor do Pagamento
           </label>
           <div className="relative mt-1">
             <DollarSign className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
             <input
+              id="invoice-payment-amount"
               required
               type="number"
               step="0.01"
@@ -181,7 +190,7 @@ export function PayInvoiceModal({
 
         {/* FEEDBACK DE ERRO */}
         {errorMessage && (
-          <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-2">
+          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-2">
             <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <p className="text-xs text-rose-400 font-medium">{errorMessage}</p>
           </div>
@@ -191,10 +200,11 @@ export function PayInvoiceModal({
         <div className="grid grid-cols-2 gap-3">
           {/* Data */}
           <div>
-            <label className="text-xs text-text-muted font-bold uppercase ml-1">
+            <label htmlFor="invoice-payment-date" className="text-xs text-text-muted font-bold uppercase ml-1">
               Data do Pagamento
             </label>
             <input
+              id="invoice-payment-date"
               required
               type="date"
               value={date}
@@ -205,10 +215,11 @@ export function PayInvoiceModal({
 
           {/* Hora */}
           <div>
-            <label className="text-xs text-text-muted font-bold uppercase ml-1">
+            <label htmlFor="invoice-payment-time" className="text-xs text-text-muted font-bold uppercase ml-1">
               Hora
             </label>
             <input
+              id="invoice-payment-time"
               type="time"
               aria-label="Horário informado (opcional)"
               value={time}

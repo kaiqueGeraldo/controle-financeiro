@@ -9,7 +9,7 @@ import {
 } from "./useRequestCoordinator";
 
 export function useGoals() {
-  const { goals, isLoading, refreshGoals } = useGoalsContext();
+  const { goals, isLoading, error, refreshGoals } = useGoalsContext();
   const { user } = useUser();
   const requests = useRequestCoordinator(user?.id);
   
@@ -62,6 +62,7 @@ export function useGoals() {
   return {
     goals,
     isLoading,
+    error,
     refreshGoals,
     selectedGoalId,
     setSelectedGoalId,

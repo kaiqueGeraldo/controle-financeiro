@@ -5,6 +5,7 @@ import {
   DEFAULT_CONFIG,
 } from "@/components/forms/configDashboardModal";
 import { BalanceCard } from "@/components/screens/dashboard/balanceCard";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { GoalsCard } from "@/components/screens/dashboard/goalsCard";
 import { InvoicesCard } from "@/components/screens/dashboard/invoicesCard";
 import { MonthlyFlowCard } from "@/components/screens/dashboard/monthlyFlowCard";
@@ -19,6 +20,7 @@ import { useGoals } from "@/hooks/useGoals";
 import { useInvestments } from "@/hooks/useInvestments";
 import { useUser } from "@/hooks/useUser";
 import { formatCurrency } from "@/utils/format";
+import { formatCalendarDate } from "@/utils/date";
 import { History, Landmark, Loader2, Plus } from "lucide-react";
 import { useMemo } from "react";
 
@@ -31,21 +33,50 @@ const getCardColorClass = (name: string) => {
   return "text-emerald-500";
 };
 
+type StoredDashboardCard = Partial<DashboardCardConfig> & { id: string };
+
 export default function DashboardScreen() {
   const { user } = useUser();
   const {
     accounts,
     saldoTotal,
     isLoading: isLoadingFinance,
+    error: financeError,
   } = useFinanceData();
-  const { cards, isLoading: isLoadingCards } = useCards();
-  const { goals, isLoading: isLoadingGoals } = useGoals();
-  const { totalInvestido } = useInvestments();
+  const { cards, isLoading: isLoadingCards, error: cardsError, refreshAll: refreshCards } = useCards();
+  const { goals, isLoading: isLoadingGoals, error: goalsError, refreshGoals } = useGoals();
+  const {
+    totalInvestido,
+    isLoading: isLoadingInvestments,
+    error: investmentsError,
+    refreshInvestments,
+  } = useInvestments();
   const { openNewTransaction } = useTransactionModals();
   const { openNewGoal } = useGoalModals();
-  const { flowData, recentTransactions } = useDashboard();
+  const {
+    flowData,
+    recentTransactions,
+    isFlowLoading,
+    isRecentLoading,
+    flowError,
+    recentTransactionsError,
+    refreshDashboard,
+  } = useDashboard();
 
-  const isLoading = isLoadingFinance || isLoadingCards || isLoadingGoals;
+  const isLoading =
+    isLoadingFinance ||
+    isLoadingCards ||
+    isLoadingGoals ||
+    isLoadingInvestments ||
+    isFlowLoading ||
+    isRecentLoading;
+  const loadError =
+    financeError ||
+    cardsError ||
+    goalsError ||
+    investmentsError ||
+    flowError ||
+    recentTransactionsError;
   const patrimonioTotal = saldoTotal + totalInvestido;
 
   const resumoFaturas = useMemo(() => {
@@ -76,7 +107,7 @@ export default function DashboardScreen() {
 
       if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_CONFIG;
 
-      const validIds = [
+      const validIds = new Set<DashboardCardConfig["id"]>([
         "BALANCE",
         "FLOW",
         "INVOICES",
@@ -84,12 +115,25 @@ export default function DashboardScreen() {
         "GOALS",
         "RECENT_TX",
         "ACCOUNTS",
-      ];
-      const result = parsed
-        .filter((p: any) => validIds.includes(p.id))
-        .map((p: any) => {
-          const def = DEFAULT_CONFIG.find((d) => d.id === p.id);
-          return { ...def, ...p, span: p.span || def?.span || 1 }; // Garante o span
+      ]);
+      const result: DashboardCardConfig[] = parsed
+        .filter((value): value is StoredDashboardCard => {
+          return (
+            typeof value === "object" &&
+            value !== null &&
+            "id" in value &&
+            typeof value.id === "string" &&
+            validIds.has(value.id as DashboardCardConfig["id"])
+          );
+        })
+        .map((stored) => {
+          const def = DEFAULT_CONFIG.find((item) => item.id === stored.id)!;
+          return {
+            ...def,
+            visible:
+              typeof stored.visible === "boolean" ? stored.visible : def.visible,
+            span: stored.span === 2 || stored.span === 3 ? stored.span : 1,
+          };
         });
 
       DEFAULT_CONFIG.forEach((def) => {
@@ -210,9 +254,7 @@ export default function DashboardScreen() {
                         {tx.description}
                       </p>
                       <p className="text-[10px] text-text-muted">
-                        {new Date(tx.date + "T12:00:00").toLocaleDateString(
-                          "pt-BR",
-                        )}
+                        {formatCalendarDate(tx.date)}
                       </p>
                     </div>
                     <PrivacyBlur
@@ -241,6 +283,23 @@ export default function DashboardScreen() {
     return (
       <div className="min-h-screen bg-bg-base flex items-center justify-center text-text-muted">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError
+          onRetry={() =>
+            Promise.all([
+              refreshCards(),
+              refreshGoals(),
+              refreshInvestments(),
+              refreshDashboard(true),
+            ]).then(() => undefined)
+          }
+        />
       </div>
     );
   }

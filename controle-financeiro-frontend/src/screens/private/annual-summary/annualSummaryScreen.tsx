@@ -4,6 +4,7 @@ import { AnnualBalance } from "@/components/screens/annual-summary/annualBalance
 import { AnnualCreditCard } from "@/components/screens/annual-summary/annualCreditCard";
 import { AnnualInvestments } from "@/components/screens/annual-summary/annualInvestments";
 import { AnnualNotepad } from "@/components/screens/annual-summary/annualNotepad";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useAnnualSummary } from "@/hooks/useAnnualSummary";
 import { useSidebar } from "@/hooks/useSidebar";
 import { motion } from "framer-motion";
@@ -16,10 +17,12 @@ export default function AnnualSummaryScreen() {
     setYear,
     summary,
     isLoading,
+    error,
     noteContent,
     setNoteContent,
     saveNote,
     isSavingNote,
+    refresh,
   } = useAnnualSummary();
   const currentYear = new Date().getFullYear();
   const MIN_YEAR = 2020;
@@ -29,6 +32,14 @@ export default function AnnualSummaryScreen() {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError onRetry={() => refresh()} />
       </div>
     );
   }
@@ -110,10 +121,25 @@ export default function AnnualSummaryScreen() {
                   monthlyAverage={summary.creditCard.monthlyAverage}
                 />
 
-                <AnnualInvestments
-                  totalValue={summary.investments.totalValue}
-                  items={summary.investments.items}
-                />
+                {year === currentYear ? (
+                  <AnnualInvestments
+                    totalValue={summary.investments.totalValue}
+                    items={summary.investments.items}
+                    positionDateLabel="Valores calculados na posição atual; não representam fechamento anual."
+                  />
+                ) : (
+                  <section
+                    aria-labelledby="historical-position-unavailable"
+                    className="rounded-3xl border border-border-divider bg-bg-surface p-6"
+                  >
+                    <h3 id="historical-position-unavailable" className="text-sm font-bold text-text-main">
+                      Posição de metas e investimentos indisponível
+                    </h3>
+                    <p className="mt-2 text-sm text-text-muted">
+                      O fechamento de {year} ainda não é reconstruído pelo produto. A posição atual não é exibida como dado histórico.
+                    </p>
+                  </section>
+                )}
               </div>
             </div>
 

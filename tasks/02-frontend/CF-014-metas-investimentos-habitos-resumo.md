@@ -45,7 +45,18 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-014/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Concluída em 13/09/2026 sobre a base local
+`1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch preexistente
+das CF-010–013. Metas, investimentos e resumo anual agora distinguem leitura
+com falha de coleção vazia; a posição atual não é exibida como fechamento de
+ano passado; e nota anual só fecha a edição após confirmação. A [evidência
+completa](../evidencias/CF-014/README.md) registra os oracles, mutações,
+comandos e limites.
+
+CF-015 recebe esta dependência como satisfeita, mas ainda não está formalmente
+liberada enquanto CF-012 e CF-013 permanecerem `em_revisao`. CF-020, CF-021 e
+CF-022 não foram alteradas: continuam donas, respectivamente, de
+alocações/posições, reconstrução histórica e regras de hábito.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

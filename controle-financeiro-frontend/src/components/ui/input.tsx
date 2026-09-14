@@ -53,9 +53,11 @@ export default function InputField({
           disabled={disabled}
           readOnly={readOnly}
           maxLength={maxLength}
-          className={`w-full pr-12 pl-4 py-2 rounded-md bg-[#051026] border ${
-            error ? "border-red-500" : "border-[#113A8C]"
-          } text-text-main placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#11468C]`}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${name}-error` : undefined}
+          className={`w-full rounded-md border px-4 py-2 pr-12 ${
+            error ? "border-red-600 dark:border-red-400" : "border-border-divider"
+          } bg-bg-base text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-emerald-500`}
           {...props}
         />
 
@@ -84,7 +86,11 @@ export default function InputField({
         )}
       </div>
 
-      {error && <p className="text-sm text-red-400 mt-1">{error}</p>}
+      {error && (
+        <p id={`${name}-error`} role="alert" className="mt-1 text-sm text-red-600 dark:text-red-400">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

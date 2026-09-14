@@ -7,15 +7,14 @@ interface AnnualNotepadProps {
   content: string;
   isSaving: boolean;
   onContentChange: (content: string) => void;
-  onSave: () => Promise<void>;
+  onSave: () => Promise<boolean>;
 }
 
 export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave }: AnnualNotepadProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = async () => {
-    await onSave();
-    setIsEditing(false);
+    if (await onSave()) setIsEditing(false);
   };
 
   return (

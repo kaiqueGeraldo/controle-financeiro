@@ -106,7 +106,7 @@ export default function AuthScreen() {
       <div className="w-full max-w-md bg-bg-surface/80 backdrop-blur-xl border border-border-divider rounded-3xl shadow-2xl relative z-10 overflow-hidden">
         
         {/* CABEÇALHO DO CARD */}
-        <div className="p-8 pb-0 text-center">
+        <div className="p-5 pb-0 text-center sm:p-8 sm:pb-0">
           <div className="w-16 h-16 bg-linear-to-tr from-emerald-500 to-emerald-300 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-6">
             <span className="text-zinc-900 font-bold text-2xl">K</span>
           </div>
@@ -121,7 +121,7 @@ export default function AuthScreen() {
         </div>
 
         {/* CORPO DO FORMULÁRIO */}
-        <div className="p-8 pt-6">
+        <div className="p-5 pt-6 sm:p-8 sm:pt-6">
           
           <AnimatePresence mode="wait">
             
@@ -135,7 +135,7 @@ export default function AuthScreen() {
               >
                 {/* Alerta de erro da recuperação */}
                 {recoverError && (
-                  <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 flex items-start gap-2 mb-4">
+                  <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 flex items-start gap-2 mb-4">
                     <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                     <p className="text-xs text-rose-400 font-medium">{recoverError}</p>
                   </div>
@@ -145,10 +145,11 @@ export default function AuthScreen() {
                   /* TELA 1: PEDIR E-MAIL */
                   <form onSubmit={handleRequestToken} className="space-y-4">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">E-mail Cadastrado</label>
+                      <label htmlFor="recovery-email" className="text-xs font-bold text-text-muted uppercase ml-1">E-mail Cadastrado</label>
                       <div className="relative group">
                         <Mail className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                         <input 
+                          id="recovery-email"
                           type="email" 
                           name="email"
                           value={formData.email}
@@ -177,10 +178,11 @@ export default function AuthScreen() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Código de 6 dígitos</label>
+                      <label htmlFor="recovery-token" className="text-xs font-bold text-text-muted uppercase ml-1">Código de 6 dígitos</label>
                       <div className="relative group">
                         <KeyRound className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                         <input 
+                          id="recovery-token"
                           type="text" 
                           maxLength={6}
                           value={resetToken}
@@ -193,10 +195,11 @@ export default function AuthScreen() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Criar Nova Senha</label>
+                      <label htmlFor="recovery-password" className="text-xs font-bold text-text-muted uppercase ml-1">Criar Nova Senha</label>
                       <div className="relative group">
                         <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                         <input 
+                          id="recovery-password"
                           type={showPassword ? "text" : "password"} 
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
@@ -208,6 +211,7 @@ export default function AuthScreen() {
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
                           className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
+                          aria-label={showPassword ? "Ocultar nova senha" : "Mostrar nova senha"}
                         >
                           {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -261,44 +265,50 @@ export default function AuthScreen() {
                       exit={{ height: 0, opacity: 0 }}
                       className="space-y-2 overflow-hidden"
                     >
-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Nome Completo</label>
+                      <label htmlFor="auth-name" className="text-xs font-bold text-text-muted uppercase ml-1">Nome Completo</label>
                       <div className="relative group">
                         <User className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                         <input 
+                          id="auth-name"
                           name="nome"
                           type="text" 
                           placeholder="Seu nome"
                           value={formData.nome}
                           onChange={handleChange}
+                          aria-invalid={Boolean(errors.nome)}
+                          aria-describedby={errors.nome ? "auth-name-error" : undefined}
                           className={`w-full bg-bg-base border ${errors.nome ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
                         />
                       </div>
-                      {errors.nome && <span className="text-xs text-rose-500 ml-1">{errors.nome}</span>}
+                      {errors.nome && <span id="auth-name-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.nome}</span>}
                     </motion.div>
                   )}
                 </AnimatePresence>
 
                 {/* Campo Email */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-text-muted uppercase ml-1">E-mail</label>
+                  <label htmlFor="auth-email" className="text-xs font-bold text-text-muted uppercase ml-1">E-mail</label>
                   <div className="relative group">
                     <Mail className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                     <input 
+                      id="auth-email"
                       name="email"
                       type="email" 
                       placeholder="seu@email.com"
                       value={formData.email}
                       onChange={handleChange}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "auth-email-error" : undefined}
                       className={`w-full bg-bg-base border ${errors.email ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
                     />
                   </div>
-                  {errors.email && <span className="text-xs text-rose-500 ml-1">{errors.email}</span>}
+                  {errors.email && <span id="auth-email-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.email}</span>}
                 </div>
 
                 {/* Campo Senha */}
                 <div className="space-y-2">
                   <div className="flex justify-between items-center px-1">
-                    <label className="text-xs font-bold text-text-muted uppercase">Senha</label>
+                    <label htmlFor="auth-password" className="text-xs font-bold text-text-muted uppercase">Senha</label>
                     {isLogin && (
                       <button 
                         type="button"
@@ -315,22 +325,26 @@ export default function AuthScreen() {
                   <div className="relative group">
                     <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                     <input 
+                      id="auth-password"
                       name="senha"
                       type={showPassword ? "text" : "password"} 
                       placeholder="••••••••"
                       value={formData.senha}
                       onChange={handleChange}
+                      aria-invalid={Boolean(errors.senha)}
+                      aria-describedby={errors.senha ? "auth-password-error" : undefined}
                       className={`w-full bg-bg-base border ${errors.senha ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-12 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
                     />
                     <button 
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
+                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
-                  {errors.senha && <span className="text-xs text-rose-500 ml-1">{errors.senha}</span>}
+                  {errors.senha && <span id="auth-password-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.senha}</span>}
                 </div>
 
                  {/* Campo Confirmar Senha (Só no Cadastro) */}
@@ -342,33 +356,37 @@ export default function AuthScreen() {
                       exit={{ height: 0, opacity: 0 }}
                       className="space-y-2 overflow-hidden"
                     >
-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Confirmar Senha</label>
+                      <label htmlFor="auth-confirm-password" className="text-xs font-bold text-text-muted uppercase ml-1">Confirmar Senha</label>
                       <div className="relative group">
                         <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
                         <input 
+                          id="auth-confirm-password"
                           name="confirmarSenha"
                           type={showConfirmPassword ? "text" : "password"} 
                           placeholder="••••••••"
                           value={formData.confirmarSenha}
                           onChange={handleChange}
+                          aria-invalid={Boolean(errors.confirmarSenha)}
+                          aria-describedby={errors.confirmarSenha ? "auth-confirm-password-error" : undefined}
                           className={`w-full bg-bg-base border ${errors.confirmarSenha ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-12 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
                         />
                         <button 
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
+                          aria-label={showConfirmPassword ? "Ocultar confirmação de senha" : "Mostrar confirmação de senha"}
                         >
                           {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
                       </div>
-                       {errors.confirmarSenha && <span className="text-xs text-rose-500 ml-1">{errors.confirmarSenha}</span>}
+                       {errors.confirmarSenha && <span id="auth-confirm-password-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.confirmarSenha}</span>}
                     </motion.div>
                   )}
                 </AnimatePresence>
 
                 {/* Erro Geral da API */}
                 {apiError && (
-                  <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-3">
+                  <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
                     <p className="text-sm text-rose-400">{apiError}</p>
                   </div>
@@ -397,10 +415,11 @@ export default function AuthScreen() {
 
         {/* FOOTER DO CARD (Toggle) */}
         {!forgotPasswordMode && (
-          <div className="bg-bg-base/50 p-6 border-t border-border-divider text-center">
+          <div className="bg-bg-base/50 p-5 sm:p-6 border-t border-border-divider text-center">
             <p className="text-text-muted text-sm">
               {isLogin ? "Ainda não tem uma conta?" : "Já possui cadastro?"}
               <button 
+                type="button"
                 onClick={toggleMode}
                 className="ml-2 text-emerald-400 font-bold hover:underline cursor-pointer transition-colors"
               >

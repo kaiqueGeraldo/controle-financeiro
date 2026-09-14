@@ -3,6 +3,7 @@
 import { GoalDetails } from "@/components/screens/goals/goalDetails";
 import { GoalItem } from "@/components/screens/goals/goalItem";
 import { GoalsSummary } from "@/components/screens/goals/goalsSummary";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useGoalModals } from "@/contexts/modals/goalModalContext";
 import { useCards } from "@/hooks/useCards";
 import { useFinanceData } from "@/hooks/useFinanceData";
@@ -21,6 +22,8 @@ export default function GoalsScreen() {
     selectedGoal,
     history,
     isHistoryLoading,
+    error,
+    refreshGoals,
   } = useGoals();
   const { refresh, accounts } = useFinanceData();
   const { cards } = useCards();
@@ -53,6 +56,14 @@ export default function GoalsScreen() {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError onRetry={refreshGoals} />
       </div>
     );
   }

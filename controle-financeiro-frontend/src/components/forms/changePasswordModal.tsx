@@ -30,6 +30,11 @@ export function ChangePasswordModal({
     setError(null);
     setSuccess(false);
 
+    if (!formData.current) {
+      setError("Informe sua senha atual.");
+      return;
+    }
+
     const valid = validarSenha(formData.newPass, formData.confirm, "novaSenha");
     if (Object.keys(valid).length > 0) {
       setError(valid.novaSenha || valid.confirmarNovaSenha);
@@ -65,17 +70,18 @@ export function ChangePasswordModal({
         )}
 
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center gap-2 text-sm font-medium">
+          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center gap-2 text-sm font-medium">
             <AlertCircle size={18} className="shrink-0" /> {error}
           </div>
         )}
 
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="current-password" className="text-xs text-text-muted font-bold uppercase ml-1">
             Senha Atual
           </label>
           <div className="relative mt-1">
             <input
+              id="current-password"
               type={showCurrent ? "text" : "password"}
               required
               value={formData.current}
@@ -88,6 +94,7 @@ export function ChangePasswordModal({
               type="button"
               onClick={() => setShowCurrent(!showCurrent)}
               className="absolute right-4 top-3.5 text-text-muted hover:text-text-main"
+              aria-label={showCurrent ? "Ocultar senha atual" : "Mostrar senha atual"}
             >
               {showCurrent ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -95,11 +102,12 @@ export function ChangePasswordModal({
         </div>
 
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="new-password" className="text-xs text-text-muted font-bold uppercase ml-1">
             Nova Senha
           </label>
           <div className="relative mt-1">
             <input
+              id="new-password"
               type={showNew ? "text" : "password"}
               required
               value={formData.newPass}
@@ -112,6 +120,7 @@ export function ChangePasswordModal({
               type="button"
               onClick={() => setShowNew(!showNew)}
               className="absolute right-4 top-3.5 text-text-muted hover:text-text-main"
+              aria-label={showNew ? "Ocultar nova senha" : "Mostrar nova senha"}
             >
               {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -119,10 +128,11 @@ export function ChangePasswordModal({
         </div>
 
         <div>
-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
+          <label htmlFor="confirm-new-password" className="text-xs text-text-muted font-bold uppercase ml-1">
             Confirmar Nova Senha
           </label>
           <input
+            id="confirm-new-password"
             type={showNew ? "text" : "password"}
             required
             value={formData.confirm}

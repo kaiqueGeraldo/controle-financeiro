@@ -2,12 +2,13 @@ import { useDashboard } from "@/hooks/useDashboard";
 import { useUser } from "@/hooks/useUser";
 import { formatCurrency } from "@/utils/format";
 import { Loader2 } from "lucide-react";
+import { DataLoadError } from "./dataLoadError";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export function WealthChart() {
   const { user } = useUser();
-  const { chartData, fetchChartData, isChartLoading } = useDashboard();
+  const { chartData, fetchChartData, isChartLoading, chartError } = useDashboard();
   const [period, setPeriod] = useState<"30D" | "6M" | "1Y">("6M");
 
   useEffect(() => {
@@ -37,7 +38,12 @@ export function WealthChart() {
       </div>
 
       <div className="w-full h-62.5 md:h-75 mt-2 relative">
-        {isChartLoading ? (
+        {chartError ? (
+          <DataLoadError
+            onRetry={() => fetchChartData(period, true)}
+            isRetrying={isChartLoading}
+          />
+        ) : isChartLoading ? (
           <div className="absolute inset-0 flex items-center justify-center bg-bg-surface/50 backdrop-blur-sm z-10 rounded-xl">
              <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
           </div>
@@ -68,7 +74,7 @@ export function WealthChart() {
             <Tooltip
               contentStyle={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-divider)", borderRadius: "8px", color: "var(--text-main)", fontSize: '12px' }}
               itemStyle={{ color: "#10b981", fontWeight: 'bold' }}
-              formatter={(value: any) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Patrimônio"]}
+              formatter={(value: unknown) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Patrimônio"]}
             />
             
             <Area type="monotone" dataKey="valor" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorValor)" />

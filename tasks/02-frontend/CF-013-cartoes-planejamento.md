@@ -44,7 +44,9 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-013/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementada em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando todas as alterações locais preexistentes. O cartão é acionável por teclado, o detalhe de fatura é um diálogo nomeado e tipado, e o pagamento aguarda a releitura antes de fechar; falhas de resultado desconhecido preservam os dados e orientam reconciliação. A validação de componente, typecheck e lint focal foram aprovadas; a mutação que remove o `await` falhou pelo fechamento prematuro e foi restaurada. [Evidência completa, comandos e limites](../evidencias/CF-013/README.md).
+
+Estado em revisão, não concluído: faltam captura visual em navegador e E2E BFF→Spring→PostgreSQL com reload. O build local ficou bloqueado apenas pelo download de fontes Geist em `fonts.googleapis.com`; o aviso de `middleware` depreciado é preexistente. O usuário confirmou a finalização das tarefas anteriores, mas CF-005 e CF-008 ainda registram `em_revisao`, divergência documental mantida como limitação. CF-019 continua dona de algoritmo bancário e da representação de pagamento parcial; este lote não mudou esses cálculos.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

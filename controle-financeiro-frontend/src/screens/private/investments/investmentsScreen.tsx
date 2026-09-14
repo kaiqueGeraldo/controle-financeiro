@@ -4,6 +4,7 @@ import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { InvestmentDetails } from "@/components/screens/investments/investmentDetails";
 import { InvestmentItem } from "@/components/screens/investments/investmentItem";
 import { InvestmentsSummary } from "@/components/screens/investments/investmentsSummary";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useInvestmentModals } from "@/contexts/modals/investmentModalContext";
 import { useInvestments } from "@/hooks/useInvestments";
 import { useSidebar } from "@/hooks/useSidebar";
@@ -25,6 +26,8 @@ export default function InvestimentosScreen() {
     isHistoryLoading,
     deleteInvestment,
     deleteHistory,
+    error,
+    refreshInvestments,
   } = useInvestments();
 
   const { openNewAsset, openOperation } = useInvestmentModals();
@@ -35,6 +38,14 @@ export default function InvestimentosScreen() {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-bg-base font-sans text-text-main">
+        <DataLoadError onRetry={refreshInvestments} />
       </div>
     );
   }

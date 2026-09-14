@@ -15,8 +15,12 @@ import { ConfigItem, Toggle } from "./configItem";
 
 // --- PREFERÊNCIAS ---
 export function PreferencesSection({ 
-    privacyMode, darkMode, onTogglePrivacy, onToggleDark, onConfigDashboard, onManageCategories 
-}: any) {
+    privacyMode, darkMode, onTogglePrivacy, onToggleDark, onConfigDashboard, onManageCategories, pendingPreference,
+}: {
+  privacyMode: boolean; darkMode: boolean; onTogglePrivacy: () => void; onToggleDark: () => void;
+  onConfigDashboard: () => void; onManageCategories: () => void;
+  pendingPreference: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null;
+}) {
   return (
     <section>
       <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Preferências</h2>
@@ -25,15 +29,13 @@ export function PreferencesSection({
           icon={privacyMode ? <EyeOff size={20} /> : <Eye size={20} />}
           title="Modo Privacidade"
           description="Ocultar valores monetários na interface"
-          rightElement={<Toggle isOn={privacyMode} onToggle={onTogglePrivacy} />}
-          onClick={onTogglePrivacy}
+          rightElement={<Toggle label="Modo Privacidade" isOn={privacyMode} onToggle={onTogglePrivacy} disabled={pendingPreference === "privacyMode"} />}
         />
         <ConfigItem 
           icon={darkMode ? <Moon size={20} /> : <Sun size={20} />}
           title="Tema Escuro"
           description="Alternar entre modo claro e escuro"
-          rightElement={<Toggle isOn={darkMode} onToggle={onToggleDark} />}
-          onClick={onToggleDark}
+          rightElement={<Toggle label="Tema Escuro" isOn={darkMode} onToggle={onToggleDark} disabled={pendingPreference === "darkMode"} />}
         />
         <ConfigItem 
           icon={<Tag size={20} />}
@@ -54,19 +56,22 @@ export function PreferencesSection({
 
 // --- NOTIFICAÇÕES ---
 export function NotificationsSection({ 
-    notifContas, notifSemanal, onToggleContas, onToggleSemanal 
-}: any) {
+    notifContas, notifSemanal, onToggleContas, onToggleSemanal, pendingPreference,
+}: {
+  notifContas: boolean; notifSemanal: boolean; onToggleContas: () => void; onToggleSemanal: () => void;
+  pendingPreference: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null;
+}) {
   return (
     <section>
       <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Notificações</h2>
       <div className="flex flex-col">
         <ConfigItem 
           icon={<Bell size={20} />} title="Lembretes de Contas" description="Receber alerta por e-mail um dia antes do vencimento"
-          rightElement={<Toggle isOn={notifContas} onToggle={onToggleContas} />} onClick={onToggleContas}
+          rightElement={<Toggle label="Lembretes de Contas" isOn={notifContas} onToggle={onToggleContas} disabled={pendingPreference === "notifContas"} />}
         />
         <ConfigItem 
           icon={<Mail size={20} />} title="Resumo Semanal" description="Receber relatório por e-mail toda segunda"
-          rightElement={<Toggle isOn={notifSemanal} onToggle={onToggleSemanal} />} onClick={onToggleSemanal}
+          rightElement={<Toggle label="Resumo Semanal" isOn={notifSemanal} onToggle={onToggleSemanal} disabled={pendingPreference === "notifSemanal"} />}
         />
       </div>
     </section>
@@ -75,15 +80,18 @@ export function NotificationsSection({
 
 // --- SEGURANÇA E CONTA ---
 export function SecuritySection({ 
-    onChangePassword, onExportData, onManageDevices, onLogout, onDeleteAccount 
-}: any) {
+    onChangePassword, onExportData, onLogout, onDeleteAccount, isExporting,
+}: {
+  onChangePassword: () => void; onExportData: () => void; onLogout: () => void; onDeleteAccount: () => void;
+  isExporting: boolean;
+}) {
   return (
     <>
       <section>
         <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Dados e Segurança</h2>
         <div className="flex flex-col">
           <ConfigItem icon={<Lock size={20} />} title="Alterar Senha" description="Atualize sua senha de acesso" onClick={onChangePassword} />
-          <ConfigItem icon={<Download size={20} />} title="Exportar Dados" description="Baixar extrato completo em Excel" onClick={onExportData} />
+          <ConfigItem icon={<Download size={20} />} title="Exportar Dados" description={isExporting ? "Gerando extrato em Excel..." : "Baixar extrato completo em Excel"} onClick={onExportData} disabled={isExporting} />
         </div>
       </section>
 

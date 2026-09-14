@@ -35,6 +35,9 @@ interface DashboardContextType {
   isFlowLoading: boolean;
   isChartLoading: boolean;
   isRecentLoading: boolean;
+  flowError: Error | null;
+  chartError: Error | null;
+  recentTransactionsError: Error | null;
   refreshDashboard: (
     invalidateCache?: boolean,
     isBackground?: boolean,
@@ -68,6 +71,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const [isFlowLoading, setIsFlowLoading] = useState(true);
   const [isChartLoading, setIsChartLoading] = useState(true);
   const [isRecentLoading, setIsRecentLoading] = useState(true);
+  const [flowError, setFlowError] = useState<Error | null>(null);
+  const [chartError, setChartError] = useState<Error | null>(null);
+  const [recentTransactionsError, setRecentTransactionsError] =
+    useState<Error | null>(null);
 
   const flowCache = useRef<Record<string, FlowData>>({});
   const chartCache = useRef<Record<string, ChartPoint[]>>({});
@@ -76,6 +83,8 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const fetchFlowData = useCallback(
     async (invalidateCache = false, isBackground = false) => {
       if (isLoadingUser || !userId) return;
+
+      setFlowError(null);
 
       const now = new Date();
       const cacheKey = `${userId}:${now.getMonth() + 1}-${now.getFullYear()}`;
@@ -103,6 +112,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         }
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
+          setFlowError(
+            error instanceof Error
+              ? error
+              : new Error("Falha ao carregar o fluxo mensal."),
+          );
           console.error("Erro ao buscar fluxo mensal", error);
         }
       } finally {
@@ -116,6 +130,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const fetchChartData = useCallback(
     async (period: "30D" | "6M" | "1Y", invalidateCache = false) => {
       if (isLoadingUser || !userId) return;
+      setChartError(null);
       if (invalidateCache) chartCache.current = {};
       const cacheKey = `${userId}:${period}`;
       if (!invalidateCache && chartCache.current[cacheKey]) {
@@ -136,6 +151,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         }
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
+          setChartError(
+            error instanceof Error
+              ? error
+              : new Error("Falha ao carregar o gráfico."),
+          );
           console.error("Erro ao buscar gráfico", error);
         }
       } finally {
@@ -149,6 +169,8 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const fetchRecentTransactions = useCallback(
     async (invalidateCache = false, isBackground = false) => {
       if (isLoadingUser || !userId) return;
+
+      setRecentTransactionsError(null);
 
       const cacheKey = userId;
       if (invalidateCache) recentCache.current = {};
@@ -174,6 +196,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         }
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
+          setRecentTransactionsError(
+            error instanceof Error
+              ? error
+              : new Error("Falha ao carregar as transações recentes."),
+          );
           console.error("Erro ao buscar transações recentes", error);
         }
       } finally {
@@ -215,6 +242,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setFlowData({ income: 0, expense: 0, balance: 0, percentage: 0 });
     setChartData([]);
     setRecentTransactions([]);
+    setFlowError(null);
+    setChartError(null);
+    setRecentTransactionsError(null);
 
     if (isLoadingUser) {
       setIsFlowLoading(true);
@@ -240,6 +270,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       isFlowLoading,
       isChartLoading,
       isRecentLoading,
+      flowError,
+      chartError,
+      recentTransactionsError,
       refreshDashboard,
       fetchChartData,
     }),
@@ -250,6 +283,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       isFlowLoading,
       isChartLoading,
       isRecentLoading,
+      flowError,
+      chartError,
+      recentTransactionsError,
       refreshDashboard,
       fetchChartData,
     ],

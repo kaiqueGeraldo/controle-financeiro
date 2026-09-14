@@ -35,6 +35,10 @@ export default function ConfiguracoesScreen() {
     message: string;
     type: "success" | "error" | "info";
   } | null>(null);
+  const [pendingPreference, setPendingPreference] = useState<
+    "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null
+  >(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   const showFeedback = (
     message: string,
@@ -47,14 +51,17 @@ export default function ConfiguracoesScreen() {
   const handleTogglePreference = async (
     key: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal",
   ) => {
-    if (!user) return;
+    if (!user || pendingPreference) return;
+    setPendingPreference(key);
     try {
       const newVal = !user[key];
       await userService.updatePreferences({ [key]: newVal });
       await refetchUser();
       showFeedback("Preferência atualizada com sucesso!", "success");
-    } catch (e) {
+    } catch {
       showFeedback("Erro ao alterar preferência", "error");
+    } finally {
+      setPendingPreference(null);
     }
   };
 
@@ -71,26 +78,28 @@ export default function ConfiguracoesScreen() {
   };
 
   const handleExportData = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
     showFeedback("Gerando planilha Excel, aguarde...", "info");
     try {
       const res = await transactionService.exportExcel();
-      if (res?.data) {
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute(
-          "download",
-          `Extrato_KaiqueFinancas_${new Date().getTime()}.xlsx`,
-        );
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode?.removeChild(link);
-
-        showFeedback("Planilha gerada com sucesso!", "success");
+      if (!(res?.data instanceof Blob) || res.data.size === 0) {
+        throw new Error("A exportação não retornou um arquivo válido.");
       }
-    } catch (error) {
-      console.error(error);
+
+      const url = window.URL.createObjectURL(res.data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `Extrato_KaiqueFinancas_${new Date().getTime()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      showFeedback("Planilha gerada com sucesso!", "success");
+    } catch {
       showFeedback("Erro ao exportar a planilha. Tente novamente.", "error");
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -108,9 +117,10 @@ export default function ConfiguracoesScreen() {
         `}
       >
         <div className="px-6 md:px-8 max-w-3xl mx-auto flex items-center gap-4">
-          <button 
+          <button type="button"
             onClick={() => window.history.back()}
             className="p-2 -ml-2 text-text-muted hover:text-text-main hover:bg-bg-surface-hover rounded-xl transition-colors cursor-pointer"
+            aria-label="Voltar"
           >
              <ArrowLeft size={20} />
           </button>
@@ -125,6 +135,8 @@ export default function ConfiguracoesScreen() {
         {/* COMPONENTE DE FEEDBACK INLINE */}
         {feedback && (
           <div
+            role={feedback.type === "error" ? "alert" : "status"}
+            aria-live={feedback.type === "error" ? "assertive" : "polite"}
             className={`p-4 rounded-xl border flex items-start gap-3 transition-all animate-in fade-in slide-in-from-top-4 
             ${feedback.type === "success" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : ""}
             ${feedback.type === "error" ? "bg-rose-500/10 border-rose-500/20 text-rose-400" : ""}
@@ -156,6 +168,7 @@ export default function ConfiguracoesScreen() {
           onToggleDark={() => handleTogglePreference("darkMode")}
           onManageCategories={() => setIsManageCategoriesOpen(true)}
           onConfigDashboard={() => setIsConfigDashOpen(true)}
+          pendingPreference={pendingPreference}
         />
 
         <NotificationsSection
@@ -163,6 +176,7 @@ export default function ConfiguracoesScreen() {
           notifSemanal={user?.notifSemanal ?? true}
           onToggleContas={() => handleTogglePreference("notifContas")}
           onToggleSemanal={() => handleTogglePreference("notifSemanal")}
+          pendingPreference={pendingPreference}
         />
 
         <SecuritySection
@@ -170,6 +184,7 @@ export default function ConfiguracoesScreen() {
           onExportData={handleExportData}
           onLogout={openLogout}
           onDeleteAccount={() => setIsDeleteAccOpen(true)}
+          isExporting={isExporting}
         />
 
         <div className="text-center pt-8 pb-4">

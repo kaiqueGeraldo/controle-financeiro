@@ -32,6 +32,7 @@ export function useExtract() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoadingList, setIsLoadingList] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const [page, setPage] = useState(0);
   const [requestedPage, setRequestedPage] = useState(0);
@@ -59,6 +60,7 @@ export function useExtract() {
 
       requests.invalidate("extract");
       setIsLoadingList(true);
+      setError(null);
       setRequestedPage(currentPage);
 
       const month = dateRef.getMonth() + 1;
@@ -123,6 +125,11 @@ export function useExtract() {
         }
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
+          setError(
+            error instanceof Error
+              ? error
+              : new Error("Falha ao carregar o extrato."),
+          );
           console.error("Erro ao buscar extrato paginado", error);
         }
       } finally {
@@ -307,6 +314,8 @@ export function useExtract() {
     isInitialLoading: isFirstLoad || isLoadingGlobal,
     isFiltering: isLoadingList && !isFirstLoad && requestedPage === 0,
     isLoadingMore: isLoadingList && requestedPage > 0,
+    error,
+    retry: () => fetchExtract(0, false, true),
     hasMore,
     loadMore,
     filters: {

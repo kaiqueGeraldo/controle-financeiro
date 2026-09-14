@@ -57,10 +57,13 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
   );
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
       layoutId={`card-container-${card.id}`}
-      onClick={() => !user?.privacyMode && onClick(card)}
-      className={`group perspective-1000 relative w-full ${user?.privacyMode ? "cursor-default" : "cursor-pointer"}`}
+      onClick={() => onClick(card)}
+      disabled={user?.privacyMode}
+      aria-label={`Ver fatura de ${card.name}, final ${card.last4Digits}`}
+      className={`group perspective-1000 relative w-full appearance-none border-0 bg-transparent p-0 text-left ${user?.privacyMode ? "cursor-default" : "cursor-pointer"}`}
       whileHover={user?.privacyMode ? {} : { y: -5 }}
     >
       {/* O CARTÃO FÍSICO */}
@@ -142,6 +145,6 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
           />
         </div>
       </motion.div>
-    </motion.div>
+    </motion.button>
   );
 }

@@ -11,6 +11,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { FinanceProvider, useFinanceContext } from "@/contexts/financeContext";
 import { useCards } from "@/hooks/useCards";
 import { useOptimisticMutation } from "@/hooks/useOptimisticMutation";
+import { useExtract } from "@/hooks/useExtract";
 import { accountService } from "@/services/accountService";
 import {
   cardService,
@@ -18,6 +19,7 @@ import {
   type CreditCard,
 } from "@/services/cardService";
 import { categoryService } from "@/services/categoryService";
+import { transactionService } from "@/services/transactionService";
 import type { Account, Category } from "@/types";
 
 const toastError = vi.fn();
@@ -66,6 +68,14 @@ vi.mock("@/services/categoryService", () => ({
     create: vi.fn(),
     delete: vi.fn(),
     getAll: vi.fn(),
+    update: vi.fn(),
+  },
+}));
+
+vi.mock("@/services/transactionService", () => ({
+  transactionService: {
+    getAll: vi.fn(),
+    delete: vi.fn(),
     update: vi.fn(),
   },
 }));
@@ -360,6 +370,58 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
     await act(async () => { window.dispatchEvent(new Event("refreshFinance")); });
     expect(result.current.saldoTotal).toBe(90);
     expect(accountService.getAll).toHaveBeenCalledTimes(2);
+  });
+
+  test("CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.mocked(accountService.getAll)
+      .mockRejectedValueOnce(new Error("503 sintético"))
+      .mockResolvedValueOnce({ status: 200, data: [account("a", "Conta recuperada", 42)] });
+    vi.mocked(categoryService.getAll)
+      .mockRejectedValueOnce(new Error("503 sintético"))
+      .mockResolvedValueOnce({ status: 200, data: [] });
+
+    const { result } = renderHook(() => useFinanceContext(), { wrapper: FinanceProvider });
+    await act(async () => Promise.resolve());
+
+    expect(result.current.error?.message).toBe("503 sintético");
+    expect(result.current.accounts).toEqual([]);
+
+    await act(async () => {
+      await result.current.refresh();
+    });
+
+    expect(result.current.error).toBeNull();
+    expect(result.current.saldoTotal).toBe(42);
+    consoleError.mockRestore();
+  });
+
+  test("CF-012: extrato com erro não vira página vazia e retry requisita a primeira página", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.mocked(transactionService.getAll)
+      .mockRejectedValueOnce(new Error("503 sintético"))
+      .mockResolvedValueOnce({
+        status: 200,
+        data: { content: [], page: { number: 0, size: 30, totalElements: 0, totalPages: 0 } },
+    });
+
+    const { result } = renderHook(() => useExtract());
+    await act(async () => {
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(result.current.error?.message).toBe("503 sintético");
+    expect(result.current.groupedTransactions).toEqual([]);
+
+    await act(async () => {
+      await result.current.retry();
+    });
+
+    expect(result.current.error).toBeNull();
+    expect(transactionService.getAll).toHaveBeenLastCalledWith(
+      expect.objectContaining({ page: 0, size: 30 }),
+    );
+    consoleError.mockRestore();
   });
 });
 

@@ -22,6 +22,7 @@ interface FinanceContextType {
   categories: Category[];
   saldoTotal: number;
   isLoading: boolean;
+  error: Error | null;
   refresh: () => Promise<void>;
   createCategory: (data: CreateCategoryDTO) => Promise<void>;
   updateCategory: (
@@ -37,6 +38,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const { user, isLoading: isLoadingUser } = useUser();
   const userId = user?.id;
   const requests = useRequestCoordinator(userId);
@@ -50,6 +52,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
 
       const request = requests.begin("finance-data");
       setIsLoading(true);
+      setError(null);
       try {
         const [accountsResult, categoriesResult] = await Promise.all([
           accountService.getAll(request.signal),
@@ -60,6 +63,13 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
         setAccounts(accountsResult.data ?? []);
         setCategories(categoriesResult.data ?? []);
       } catch (error: unknown) {
+        if (request.isCurrent() && !isAbortError(error)) {
+          setError(
+            error instanceof Error
+              ? error
+              : new Error("Falha ao carregar dados financeiros."),
+          );
+        }
         if (
           request.isCurrent() &&
           !isAbortError(error) &&
@@ -78,6 +88,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setAccounts([]);
     setCategories([]);
+    setError(null);
 
     if (isLoadingUser) {
       setIsLoading(true);
@@ -182,6 +193,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       categories,
       saldoTotal,
       isLoading,
+      error,
       refresh: fetchData,
       createCategory: async (data: CreateCategoryDTO) => {
         await createCategory(data);
@@ -198,6 +210,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       categories,
       saldoTotal,
       isLoading,
+      error,
       fetchData,
       createCategory,
       updateCategory,
