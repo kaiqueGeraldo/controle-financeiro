@@ -71,3 +71,9 @@ Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
 preservado como registro histórico.
+
+## Revalidação independente CF-015 — 21/09/2026
+
+R08/R11 revalidados; recortes de R10 corrigidos nos tamanhos examinados. Zoom nativo 200% segue pendência explícita do aceite AC-UI-001. Estado em_revisao mantido; viewport reduzido não certifica zoom.
+
+[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).

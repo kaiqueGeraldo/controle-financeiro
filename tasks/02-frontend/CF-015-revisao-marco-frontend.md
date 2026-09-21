@@ -63,3 +63,9 @@ Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
 preservado como registro histórico.
+
+## Revalidação independente CF-015 — 21/09/2026
+
+Revalidação independente concluída com parecer não aprovador. R03 continua aberto por RV01 (P1), demonstrado por teste determinístico novo; zoom nativo 200% permanece lacuna de CF-010. Recomendação: corrigir achado bloqueante e completar zoom antes de reapresentar. CF-015 permanece em_revisao; CF-016 não iniciada. CF-017/P01/P02 e CF-024 mantêm seus escopos/gates próprios, sem fechamento implícito nem bloqueio automático de interface independente.
+
+[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).

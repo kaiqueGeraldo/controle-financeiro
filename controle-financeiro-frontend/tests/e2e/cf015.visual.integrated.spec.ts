@@ -40,7 +40,7 @@ test("CF015: inspeção autenticada nas três larguras e nota após reload", asy
       expect(geometry.right).toBeLessThanOrEqual(geometry.containerRight + 1);
     }
   };
-  const directory = path.resolve("../tasks/evidencias/saneamento-CF-015/visual", info.project.name);
+  const directory = path.resolve(process.env.CF015_VISUAL_DIR ?? "../tasks/evidencias/saneamento-CF-015/visual", info.project.name);
   await mkdir(directory, { recursive: true });
   const observations = [];
   for (const viewport of [{ width: 360, height: 800 }, { width: 768, height: 1024 }, { width: 1440, height: 900 }]) {

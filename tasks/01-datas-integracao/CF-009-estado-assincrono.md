@@ -30,7 +30,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Resposta atrasada da seleção anterior não substitui a seleção atual; rollback não apaga mutação posterior válida.
-- [x] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso.
+- [ ] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. Reaberto por RV01/R03 na revalidação CF-015.
 - [x] Cache de usuário A não aparece após login B; dupla chamada é testada e backend continua responsável pela integridade.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
@@ -93,3 +93,9 @@ Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
 preservado como registro histórico.
+
+## Revalidação independente CF-015 — 21/09/2026
+
+R01/R02 revalidados com defeitos originais reintroduzidos em cópia isolada. RV01/R03 confirma falha na propagação de erro de reconciliação substituída; aceite de erro reaberto. Estado em_revisao mantido.
+
+[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).

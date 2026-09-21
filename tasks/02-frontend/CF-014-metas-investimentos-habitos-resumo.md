@@ -75,3 +75,9 @@ Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
 preservado como registro histórico.
+
+## Revalidação independente CF-015 — 21/09/2026
+
+R01/R04 encerrados no escopo original; nota confirmada verificada por GET, reload e SQL. A revisão dirigida não certifica integralmente todos os módulos da tarefa. Estado em_revisao mantido.
+
+[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).

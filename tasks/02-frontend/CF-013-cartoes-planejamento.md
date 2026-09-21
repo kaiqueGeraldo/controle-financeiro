@@ -65,3 +65,9 @@ Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
 preservado como registro histórico.
+
+## Revalidação independente CF-015 — 21/09/2026
+
+R05/R06/R08 revalidados. Pagamento sequencial e jornada BFF/Spring/PostgreSQL/reload aprovados, mas R03 permanece aberto por RV01: sobreposição de refresh absorve falha e fecha modal. Corrigir esse bloqueio; idempotência durável CF-024 não foi encerrada. Estado em_revisao mantido.
+
+[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).

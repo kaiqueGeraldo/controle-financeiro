@@ -51,9 +51,11 @@ class CF015PlanningOwnershipTest extends PostgresIntegrationTest {
                     """.formatted(description, privateCategory.getId())))
                 .andReturn().getResponse();
         int persisted = sql.queryForObject("select count(*) from plan_items where description=?", Integer.class, description);
+        int partialPlans = sql.queryForObject("select count(*) from monthly_plans where user_id=? and month=1 and year=2027", Integer.class, owner.getId());
         assertAll("CF015-R06: isolamento deve valer também na criação",
                 () -> assertThat(response.getStatus()).isEqualTo(404),
                 () -> assertThat(persisted).isZero(),
+                () -> assertThat(partialPlans).isZero(),
                 () -> assertThat(response.getContentAsString()).doesNotContain("Categoria privada de B"));
     }
     @Test void ownCategoryWorksAndMissingCategoryDoesNotCreateEvenAPlan() throws Exception {
