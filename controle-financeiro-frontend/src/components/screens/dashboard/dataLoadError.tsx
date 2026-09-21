@@ -11,7 +11,7 @@ export function DataLoadError({ onRetry, isRetrying = false }: DataLoadErrorProp
       <AlertCircle className="mb-4 h-9 w-9 text-rose-500" aria-hidden="true" />
       <h2 className="text-lg font-bold text-text-main">Não foi possível carregar os dados.</h2>
       <p className="mt-1 max-w-sm text-sm text-text-muted">
-        Seus dados não foram alterados. Tente novamente para atualizar esta tela.
+        A leitura está indisponível. Tente novamente para atualizar esta tela.
       </p>
       <button
         type="button"

@@ -28,7 +28,7 @@ export default function AnnualSummaryScreen() {
   const MIN_YEAR = 2020;
   const MAX_YEAR = currentYear + 5;
 
-  if (isLoading) {
+  if (isLoading && !summary) {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
@@ -36,7 +36,7 @@ export default function AnnualSummaryScreen() {
     );
   }
 
-  if (error) {
+  if (error && !summary) {
     return (
       <div className="min-h-screen bg-bg-base font-sans text-text-main">
         <DataLoadError onRetry={() => refresh()} />
@@ -83,6 +83,8 @@ export default function AnnualSummaryScreen() {
 
       {/* CONTEÚDO */}
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6">
+        {error && <><p role="alert">Resumo desatualizado. Seu rascunho foi preservado.</p><DataLoadError onRetry={refresh} /></>}
+        {isLoading && <p role="status">Atualizando resumo; edição preservada.</p>}
         {!summary ? (
           <div className="text-center py-20 text-text-muted">
             Nenhum dado encontrado para {year}.

@@ -73,7 +73,7 @@ export default function ExtractScreen() {
       >
         <div className="px-6 md:px-8 max-w-5xl mx-auto flex flex-col gap-4">
           {/* Linha 1: Título, Data, Botão Novo */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-between items-center gap-4">
             {/* Mobile: Título (Esq) + Botão Novo (Dir) */}
             <div className="flex items-center justify-between w-full md:w-auto">
               <div>
@@ -91,6 +91,7 @@ export default function ExtractScreen() {
               </div>
               <button
                 onClick={openNewTransaction}
+                aria-label="Novo lançamento"
                 className="md:hidden p-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-lg cursor-pointer"
               >
                 <Plus size={20} />

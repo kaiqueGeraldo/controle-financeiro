@@ -2,7 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { useEffect, useId, useRef } from "react";
+import { useId } from "react";
+import { createPortal } from "react-dom";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 interface ModalProps {
   isOpen: boolean;
@@ -12,76 +14,10 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const previousActiveElementRef = useRef<HTMLElement | null>(null);
-  const onCloseRef = useRef(onClose);
+  const dialogRef = useDialogFocus(isOpen, onClose);
   const titleId = useId();
 
-  useEffect(() => {
-    onCloseRef.current = onClose;
-  }, [onClose]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    previousActiveElementRef.current = document.activeElement as HTMLElement;
-    closeButtonRef.current?.focus();
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onCloseRef.current();
-        return;
-      }
-
-      if (event.key !== "Tab") {
-        return;
-      }
-
-      const dialog = dialogRef.current;
-      if (!dialog) {
-        return;
-      }
-
-      const focusableElements = Array.from(
-        dialog.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        ),
-      ).filter((element) => element.getAttribute("aria-hidden") !== "true");
-
-      if (focusableElements.length === 0) {
-        event.preventDefault();
-        dialog.focus();
-        return;
-      }
-
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-      const activeElement = document.activeElement;
-
-      if (
-        event.shiftKey &&
-        (activeElement === firstElement || !dialog.contains(activeElement))
-      ) {
-        event.preventDefault();
-        lastElement.focus();
-      } else if (!event.shiftKey && activeElement === lastElement) {
-        event.preventDefault();
-        firstElement.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      previousActiveElementRef.current?.focus();
-    };
-  }, [isOpen]);
-
-  return (
+  return typeof document === "undefined" ? null : createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -112,7 +48,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
                 </h2>
               )}
               <button
-                ref={closeButtonRef}
+                data-dialog-close
                 type="button"
                 onClick={onClose}
                 className="shrink-0 rounded-md p-1 text-text-main transition hover:bg-bg-surface-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
@@ -128,6 +64,6 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>, document.body
   );
 }

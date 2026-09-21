@@ -34,7 +34,7 @@ export function MonthlyFlowCard({ despesas, receitas, percentual }: MonthlyFlowC
           />
         </div>
 
-        <div className="flex justify-between text-[10px] mt-2 font-bold uppercase tracking-wider">
+        <div className="flex flex-wrap gap-3 justify-between text-[10px] mt-2 font-bold uppercase tracking-wider [overflow-wrap:anywhere]">
           <span className="text-text-muted">
             Saídas <b className="text-rose-400"><PrivacyBlur>{formatCurrency(despesas)}</PrivacyBlur></b>
           </span>

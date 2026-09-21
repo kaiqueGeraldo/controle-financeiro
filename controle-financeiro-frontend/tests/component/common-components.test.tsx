@@ -9,19 +9,14 @@ import InputField from "@/components/ui/input";
 vi.mock("framer-motion", async () => {
   const React = await import("react");
 
-  const MotionDiv = ({
-    children,
-    initial: _initial,
-    animate: _animate,
-    exit: _exit,
-    transition: _transition,
-    ...props
-  }: React.HTMLAttributes<HTMLDivElement> & {
+  const MotionDiv = (props: React.HTMLAttributes<HTMLDivElement> & {
     initial?: unknown;
     animate?: unknown;
     exit?: unknown;
     transition?: unknown;
-  }) => <div {...props}>{children}</div>;
+  }) => <div {...Object.fromEntries(Object.entries(props).filter(([key]) =>
+    !["initial", "animate", "exit", "transition"].includes(key)
+  ))} />;
 
   return {
     AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,

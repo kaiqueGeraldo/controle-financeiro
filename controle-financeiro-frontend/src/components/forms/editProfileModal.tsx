@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 import { userService } from "@/services/userService";
 import { useUser } from "@/hooks/useUser";
@@ -21,9 +21,15 @@ export function EditProfileModal({
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({ nome: "", email: "" });
   const [error, setError] = useState<string | null>(null);
+  const initializedUser = useRef<string | null>(null);
 
   useEffect(() => {
-    if (user && isOpen) {
+    if (!isOpen || !user) {
+      initializedUser.current = null;
+      return;
+    }
+    if (initializedUser.current !== user.id) {
+      initializedUser.current = user.id;
       setFormData({ nome: user.nome, email: user.email });
       setError(null);
     }

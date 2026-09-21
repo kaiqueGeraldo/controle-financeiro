@@ -14,6 +14,7 @@ import { dashboardService } from "@/services/dashboardService";
 import { transactionService } from "@/services/transactionService";
 import { useUserContext } from "./userContext";
 import { Transaction } from "@/types";
+import { completeReads, onFinancialReconciliation } from "@/utils/financialReconciliation";
 import {
   isAbortError,
   useRequestCoordinator,
@@ -79,9 +80,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const flowCache = useRef<Record<string, FlowData>>({});
   const chartCache = useRef<Record<string, ChartPoint[]>>({});
   const recentCache = useRef<Record<string, Transaction[]>>({});
+  const chartPeriod = useRef<"30D" | "6M" | "1Y">("6M");
 
   const fetchFlowData = useCallback(
-    async (invalidateCache = false, isBackground = false) => {
+    async (invalidateCache = false, isBackground = false, requireSuccess = false) => {
       if (isLoadingUser || !userId) return;
 
       setFlowError(null);
@@ -90,6 +92,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       const cacheKey = `${userId}:${now.getMonth() + 1}-${now.getFullYear()}`;
 
       if (invalidateCache) flowCache.current = {};
+      requests.invalidate("dashboard-flow");
 
       if (!invalidateCache && flowCache.current[cacheKey]) {
         setFlowData(flowCache.current[cacheKey]);
@@ -110,6 +113,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           setFlowData(res.data);
           flowCache.current[cacheKey] = res.data;
         }
+        if (requireSuccess && (!request.isCurrent() || !res?.data)) throw new Error("Fluxo mensal não reconciliado.");
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
           setFlowError(
@@ -119,6 +123,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           );
           console.error("Erro ao buscar fluxo mensal", error);
         }
+        if (requireSuccess) throw error;
       } finally {
         if (request.isCurrent() && !isBackground) setIsFlowLoading(false);
         request.finish();
@@ -128,11 +133,13 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   );
 
   const fetchChartData = useCallback(
-    async (period: "30D" | "6M" | "1Y", invalidateCache = false) => {
+    async (period: "30D" | "6M" | "1Y", invalidateCache = false, requireSuccess = false) => {
       if (isLoadingUser || !userId) return;
+      chartPeriod.current = period;
       setChartError(null);
       if (invalidateCache) chartCache.current = {};
       const cacheKey = `${userId}:${period}`;
+      requests.invalidate("dashboard-chart");
       if (!invalidateCache && chartCache.current[cacheKey]) {
         setChartData(chartCache.current[cacheKey]);
         setIsChartLoading(false);
@@ -149,6 +156,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           setChartData(res.data);
           chartCache.current[cacheKey] = res.data;
         }
+        if (requireSuccess && (!request.isCurrent() || !res?.data)) throw new Error("Gráfico não reconciliado.");
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
           setChartError(
@@ -158,6 +166,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           );
           console.error("Erro ao buscar gráfico", error);
         }
+        if (requireSuccess) throw error;
       } finally {
         if (request.isCurrent()) setIsChartLoading(false);
         request.finish();
@@ -167,13 +176,14 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   );
 
   const fetchRecentTransactions = useCallback(
-    async (invalidateCache = false, isBackground = false) => {
+    async (invalidateCache = false, isBackground = false, requireSuccess = false) => {
       if (isLoadingUser || !userId) return;
 
       setRecentTransactionsError(null);
 
       const cacheKey = userId;
       if (invalidateCache) recentCache.current = {};
+      requests.invalidate("dashboard-recent");
 
       if (!invalidateCache && recentCache.current[cacheKey]?.length > 0) {
         setRecentTransactions(recentCache.current[cacheKey]);
@@ -194,6 +204,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           setRecentTransactions(res.data.content);
           recentCache.current[cacheKey] = res.data.content;
         }
+        if (requireSuccess && (!request.isCurrent() || !res?.data?.content)) throw new Error("Transações recentes não reconciliadas.");
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
           setRecentTransactionsError(
@@ -203,6 +214,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
           );
           console.error("Erro ao buscar transações recentes", error);
         }
+        if (requireSuccess) throw error;
       } finally {
         if (request.isCurrent() && !isBackground) setIsRecentLoading(false);
         request.finish();
@@ -220,6 +232,12 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     },
     [fetchFlowData, fetchRecentTransactions],
   );
+
+  useEffect(() => onFinancialReconciliation(() => completeReads([
+    fetchFlowData(true, false, true),
+    fetchRecentTransactions(true, false, true),
+    fetchChartData(chartPeriod.current, true, true),
+  ])), [fetchFlowData, fetchRecentTransactions, fetchChartData]);
 
   useEffect(() => {
     const handleSilentRefresh = () => refreshDashboard(true, true);

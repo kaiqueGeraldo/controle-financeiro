@@ -7,6 +7,7 @@ import {
 import { useFinanceData } from "./useFinanceData";
 import { shiftMonth } from "@/utils/date";
 import { useUser } from "./useUser";
+import { completeReads, reconcileFinancialViews } from "@/utils/financialReconciliation";
 import {
   isAbortError,
   useRequestCoordinator,
@@ -26,14 +27,16 @@ export function useCards() {
   const [invoiceDetails, setInvoiceDetails] =
     useState<CardInvoiceDetails | null>(null);
   const [isInvoiceLoading, setIsInvoiceLoading] = useState(false);
+  const [invoiceError, setInvoiceError] = useState<Error | null>(null);
 
   // --- CACHE EM MEMÓRIA ---
   const invoiceCache = useRef<Record<string, CardInvoiceDetails>>({});
   const isFirstLoad = useRef(true);
 
-  const fetchCards = useCallback(async (background = false) => {
+  const fetchCards = useCallback(async (background = false, requireSuccess = false) => {
     if (isUserLoading || !userId) {
       setIsLoading(false);
+      if (requireSuccess) throw new Error("Sessão indisponível para reconciliar cartões.");
       return;
     }
 
@@ -44,6 +47,7 @@ export function useCards() {
     try {
       const res = await cardService.getAll(request.signal);
       if (request.isCurrent()) setCards(res.data ?? []);
+      else if (requireSuccess) throw new Error("Leitura de cartões substituída; atualize novamente.");
     } catch (error: unknown) {
       if (request.isCurrent() && !isAbortError(error)) {
         setError(
@@ -51,6 +55,7 @@ export function useCards() {
         );
         console.error("Erro ao buscar cartões", error);
       }
+      if (requireSuccess) throw error;
     } finally {
       if (request.isCurrent()) {
         if (!background) setIsLoading(false);
@@ -66,6 +71,7 @@ export function useCards() {
     setError(null);
     setSelectedCardId(null);
     setInvoiceDetails(null);
+    setInvoiceError(null);
     isFirstLoad.current = true;
 
     if (isUserLoading) {
@@ -77,6 +83,8 @@ export function useCards() {
   }, [userId, isUserLoading, fetchCards]);
 
   useEffect(() => {
+    requests.invalidate("invoice");
+    setInvoiceError(null);
     if (!userId || !selectedCardId) {
       setInvoiceDetails(null);
       setIsInvoiceLoading(false);
@@ -113,6 +121,7 @@ export function useCards() {
         }
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
+          setInvoiceError(error instanceof Error ? error : new Error("Falha ao carregar fatura."));
           console.error("Erro ao buscar fatura", error);
         }
       } finally {
@@ -130,6 +139,7 @@ export function useCards() {
   // --- ACTIONS ---
 
   const selectCard = (card: CreditCard) => {
+    requests.invalidate("cards-reconciliation");
     requests.invalidate("invoice");
     const now = new Date();
     if (now.getDate() >= card.closingDay) {
@@ -144,6 +154,7 @@ export function useCards() {
   const changeMonth = (direction: number) => {
     if (direction === -1 && !canGoBack) return;
     if (direction === 1 && !canGoForward) return;
+    requests.invalidate("cards-reconciliation");
     requests.invalidate("invoice");
     setViewDate((previous) => shiftMonth(previous, direction));
   };
@@ -160,8 +171,9 @@ export function useCards() {
     fetchCards(true);
   };
 
-  const refreshAll = useCallback(async () => {
-    const refreshes: Promise<unknown>[] = [fetchCards(true)];
+  const refreshAll = useCallback(async (reconcileConsumers = true) => {
+    const reconciliation = requests.begin("cards-reconciliation");
+    const refreshes: Promise<unknown>[] = [fetchCards(true, true)];
 
     invoiceCache.current = {};
 
@@ -173,6 +185,8 @@ export function useCards() {
       const request = requests.begin("invoice");
 
       setIsInvoiceLoading(true);
+      setInvoiceDetails(null);
+      setInvoiceError(null);
       refreshes.push(
         cardService
           .getInvoiceDetails(cardId, month, year, request.signal)
@@ -180,12 +194,14 @@ export function useCards() {
             if (request.isCurrent() && res?.data) {
               setInvoiceDetails(res.data);
               invoiceCache.current[cacheKey] = res.data;
-            }
+            } else throw new Error("Leitura da fatura substituída; atualize novamente.");
           })
           .catch((error: unknown) => {
             if (request.isCurrent() && !isAbortError(error)) {
               console.error("Erro ao atualizar fatura", error);
+              setInvoiceError(error instanceof Error ? error : new Error("Falha ao atualizar fatura."));
             }
+            throw error;
           })
           .finally(() => {
             if (request.isCurrent()) setIsInvoiceLoading(false);
@@ -198,9 +214,15 @@ export function useCards() {
       setIsInvoiceLoading(false);
     }
 
-    refreshes.push(refreshGlobal());
-    window.dispatchEvent(new Event("refreshPlanning"));
-    await Promise.all(refreshes);
+    refreshes.push(refreshGlobal(true));
+    if (reconcileConsumers) refreshes.push(reconcileFinancialViews());
+    try {
+      await completeReads(refreshes);
+    } catch (error) {
+      if (reconciliation.isCurrent()) throw error;
+    } finally {
+      reconciliation.finish();
+    }
   }, [
     fetchCards,
     selectedCardId,
@@ -211,6 +233,7 @@ export function useCards() {
   ]);
 
   const closeCardDetails = useCallback(() => {
+    requests.invalidate("cards-reconciliation");
     requests.invalidate("invoice");
     setSelectedCardId(null);
     setInvoiceDetails(null);
@@ -220,7 +243,7 @@ export function useCards() {
   // --- EVENT LISTENER ---
   useEffect(() => {
     const handleRefresh = () => {
-      refreshAll();
+      void refreshAll().catch(() => { /* Errors remain visible in their consumers. */ });
     };
 
     window.addEventListener("refreshCards", handleRefresh);
@@ -251,11 +274,13 @@ export function useCards() {
   }, [cards]);
 
   return {
+    userId,
     cards,
     accounts,
     categories,
     isLoading: isLoading && isFirstLoad.current,
     error,
+    invoiceError,
     summary,
 
     selectedCardId,

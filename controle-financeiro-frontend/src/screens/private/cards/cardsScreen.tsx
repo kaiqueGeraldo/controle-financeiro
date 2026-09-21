@@ -7,6 +7,7 @@ import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { CardsSummary } from "@/components/screens/cards/cardsSummary";
 import { CreditCardItem } from "@/components/screens/cards/creditCardItem";
 import { InvoiceDetails } from "@/components/screens/cards/invoiceDetails";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useCardModals } from "@/contexts/modals/cardModalContext";
 import { useCards } from "@/hooks/useCards";
 import { cardService } from "@/services/cardService";
@@ -17,10 +18,13 @@ export default function CartoesScreen() {
   const { openNewCard } = useCardModals();
 
   const {
+    userId,
     cards,
     accounts,
     categories,
     isLoading,
+    error,
+    invoiceError,
     summary,
     selectedCardId,
     selectedCard,
@@ -58,7 +62,7 @@ export default function CartoesScreen() {
     <div className="min-h-screen bg-bg-base text-text-main pb-20 font-sans">
       {/* HEADER */}
       <header className="sticky top-0 z-30 bg-bg-base/90 backdrop-blur-md py-6 border-b border-border-divider transition-all">
-        <div className="px-6 md:px-8 max-w-5xl mx-auto flex justify-between items-center gap-4">
+        <div className="px-6 md:px-8 max-w-5xl mx-auto flex flex-wrap justify-between items-center gap-4">
           <div>
             <h1 className="text-xl md:text-2xl font-bold tracking-tight">Carteira</h1>
             <p className="text-text-muted text-sm hidden md:block mt-0.5">
@@ -101,6 +105,7 @@ export default function CartoesScreen() {
 
       {/* CONTEÚDO */}
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6">
+        {error ? <DataLoadError onRetry={() => refreshAll().catch(() => undefined)} /> : <>
         {/* RESUMO */}
         <CardsSummary
           totalLimit={summary.totalLimit}
@@ -138,6 +143,7 @@ export default function CartoesScreen() {
             ))}
           </div>
         )}
+        </>}
       </main>
 
       {/* MODAL DETALHES */}
@@ -149,13 +155,15 @@ export default function CartoesScreen() {
         card={selectedCard}
         invoiceData={invoiceDetails}
         isLoadingInvoice={isInvoiceLoading}
+        invoiceError={invoiceError}
+        onRetry={() => refreshAll().catch(() => undefined)}
         viewDateFormatted={viewDateFormatted}
         onChangeMonth={changeMonth}
         onPay={() => setIsPayModalOpen(true)}
         categories={categories}
         onUpdateTransaction={async (id, data) => {
           await cardService.updateTransaction(id, data);
-          refreshAll();
+          await refreshAll();
         }}
         onDeleteTransaction={async (id) => setTransactionToDelete(id)}
         onDelete={() => setCardToDelete(selectedCardId)}
@@ -174,6 +182,7 @@ export default function CartoesScreen() {
 
       {selectedCard && (
         <PayInvoiceModal
+          ownerId={userId}
           isOpen={isPayModalOpen}
           onClose={() => setIsPayModalOpen(false)}
           onSuccess={refreshAll}
@@ -197,7 +206,7 @@ export default function CartoesScreen() {
         onConfirm={async () => {
           if (transactionToDelete) {
             await cardService.deleteTransaction(transactionToDelete);
-            refreshAll();
+            void refreshAll().catch(() => undefined);
             setTransactionToDelete(null);
           }
         }}
@@ -226,7 +235,7 @@ export default function CartoesScreen() {
         items={cards}
         onSave={async (ids) => {
           await cardService.reorder(ids);
-          refreshAll();
+          void refreshAll().catch(() => undefined);
         }}
         renderItem={(card) => (
           <div className="flex items-center gap-3">

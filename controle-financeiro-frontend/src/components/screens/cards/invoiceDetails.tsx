@@ -21,7 +21,10 @@ import {
   X,
 } from "lucide-react";
 import { useId, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { getCardStyle } from "./creditCardItem";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
+import { DataLoadError } from "../dashboard/dataLoadError";
 
 type InvoiceViewData = Omit<CardInvoiceDetails, "id" | "transactions"> & {
   id?: string;
@@ -34,6 +37,8 @@ interface InvoiceDetailsProps {
   onClose: () => void;
   invoiceData: InvoiceViewData | null;
   isLoadingInvoice: boolean;
+  invoiceError?: Error | null;
+  onRetry?: () => Promise<void>;
   viewDateFormatted: string;
   onChangeMonth: (dir: number) => void;
   onPay: () => void;
@@ -55,6 +60,8 @@ export function InvoiceDetails({
   onClose,
   invoiceData,
   isLoadingInvoice,
+  invoiceError,
+  onRetry,
   viewDateFormatted,
   onChangeMonth,
   onPay,
@@ -67,6 +74,7 @@ export function InvoiceDetails({
   canGoForward = false,
 }: InvoiceDetailsProps) {
   const titleId = useId();
+  const dialogRef = useDialogFocus(isOpen && !!card, onClose);
   const [isEditingLimit, setIsEditingLimit] = useState(false);
   const [tempLimit, setTempLimit] = useState("");
   const [editingTxId, setEditingTxId] = useState<string | null>(null);
@@ -125,7 +133,8 @@ export function InvoiceDetails({
     isOverdue = !isPaid && todayObj > dueDateObj;
   }
 
-  const isPayDisabled = isPaid || isEmpty;
+  const unavailable = isLoadingInvoice || !!invoiceError || !invoiceData;
+  const isPayDisabled = unavailable || isPaid || isEmpty;
 
   let btnClass =
     "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20 text-white";
@@ -134,7 +143,7 @@ export function InvoiceDetails({
   if (isPayDisabled) {
     btnClass =
       "bg-bg-surface-hover text-text-muted cursor-not-allowed shadow-none border border-border-divider";
-    btnText = isPaid ? "Fatura Paga" : "Fatura Zerada";
+    btnText = unavailable ? "Fatura indisponível" : isPaid ? "Fatura Paga" : "Fatura Zerada";
   } else if (isOverdue) {
     btnClass = "bg-rose-600 hover:bg-rose-500 shadow-rose-900/20 text-white";
     btnText = "Pagar Atrasada";
@@ -143,7 +152,7 @@ export function InvoiceDetails({
     btnText = "Pagar Fatura";
   }
 
-  return (
+  return typeof document === "undefined" ? null : createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
@@ -157,13 +166,15 @@ export function InvoiceDetails({
 
           {/* Container Principal */}
           <motion.div
+            ref={dialogRef}
+            tabIndex={-1}
             layoutId={`card-container-${card.id}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
             className="relative w-full max-w-lg bg-bg-surface border border-border-divider rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col h-[85vh] sm:max-h-[85vh] z-10 shadow-2xl">
             {/* NAVEGADOR DE DATA */}
-            <div className="flex justify-center items-center relative">
+            <div className="flex shrink-0 justify-between items-center gap-2 px-2 relative">
               <div className="flex items-center justify-between bg-bg-base/50 p-2 rounded-xl border border-border-divider/50 my-2">
                 <button
                   type="button"
@@ -194,7 +205,8 @@ export function InvoiceDetails({
                 type="button"
                 onClick={() => onClose()}
                 aria-label="Fechar detalhes da fatura"
-                className="absolute right-6 p-4 text-rose-500 hover:bg-rose-500/10 rounded-xl cursor-pointer"
+                data-dialog-close
+                className="shrink-0 p-3 text-rose-500 hover:bg-rose-500/10 rounded-xl cursor-pointer"
               >
                 <X size={14} />
               </button>
@@ -206,13 +218,13 @@ export function InvoiceDetails({
               className={`w-full p-6 flex flex-col justify-between relative shrink-0 z-20 shadow-md ${styles.bg}`}
               style={styles.style}
             >
-              <div className="flex justify-between items-start z-10">
+              <div className="flex flex-wrap gap-2 justify-between items-start z-10">
                 <div>
                   <p id={titleId} className="text-[10px] uppercase font-bold text-white/70 tracking-widest mb-1">
                     {card.name} •••• {card.last4Digits}
                   </p>
-                  <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">
-                    {formatCurrency(totalAmount)}
+                  <p className="text-4xl [overflow-wrap:anywhere] font-bold text-white tracking-tight drop-shadow-md">
+                    {unavailable ? "—" : formatCurrency(totalAmount)}
                   </p>
 
                   {/* DATAS DE FECHAMENTO E VENCIMENTO */}
@@ -244,7 +256,7 @@ export function InvoiceDetails({
                           : "text-amber-100 border-amber-400/30 bg-amber-500/30"
                     }`}
                 >
-                  {invoiceData?.status === "OPEN"
+                  {unavailable ? "Indisponível" : invoiceData?.status === "OPEN"
                     ? "Aberta"
                     : invoiceData?.status === "PAID"
                       ? "Paga"
@@ -264,6 +276,8 @@ export function InvoiceDetails({
                     />
                   ))}
                 </div>
+              ) : invoiceError || !invoiceData ? (
+                <DataLoadError onRetry={() => onRetry?.().catch(() => undefined)} />
               ) : transactions.length > 0 ? (
                 transactions.map((t) => {
                   const isEditing = editingTxId === t.id;
@@ -459,6 +473,6 @@ export function InvoiceDetails({
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>, document.body
   );
 }

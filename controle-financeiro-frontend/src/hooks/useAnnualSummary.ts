@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react";
 import { annualSummaryService } from "@/services/annualSummaryService";
 import { AnnualSummaryResponse } from "@/types";
 import { useUser } from "./useUser";
@@ -14,7 +14,9 @@ export function useAnnualSummary() {
   const [summary, setSummary] = useState<AnnualSummaryResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [noteContent, setNoteContent] = useState("");
+  const [noteContent, setNoteText] = useState("");
+  const draft = useRef({ key: "", text: "", version: 0, dirty: false });
+  const saving = useRef(false);
   const [isSavingNote, setIsSavingNote] = useState(false);
   const toast = useToast();
   const userId = user?.id;
@@ -24,14 +26,36 @@ export function useAnnualSummary() {
   const summaryCache = useRef<Record<string, AnnualSummaryResponse>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  useLayoutEffect(() => {
+    draft.current = { key: `${userId}:${year}`, text: "", version: 0, dirty: false };
+    saving.current = false;
+    setIsSavingNote(false);
+    setNoteText("");
+    requests.invalidate("annual-note");
+    requests.invalidate("annual-summary");
+  }, [userId, year, requests]);
+
+  const setNoteContent = (text: string) => {
+    draft.current = { ...draft.current, text, version: draft.current.version + 1, dirty: true };
+    setNoteText(text);
+  };
+
+  const receiveNote = useCallback((key: string, text: string) => {
+    if (draft.current.key !== key || draft.current.dirty) return;
+    draft.current.text = text;
+    setNoteText(text);
+  }, []);
+
   const fetchSummary = useCallback(
     async (selectedYear: number, forceRefresh = false) => {
       if (isUserLoading || !userId) return;
       const cacheKey = `${userId}:${selectedYear}`;
+      requests.invalidate("annual-summary");
+      if (timerRef.current) clearTimeout(timerRef.current);
 
       if (!forceRefresh && summaryCache.current[cacheKey]) {
         setSummary(summaryCache.current[cacheKey]);
-        setNoteContent(summaryCache.current[cacheKey].note || "");
+        receiveNote(cacheKey, summaryCache.current[cacheKey].note || "");
         setError(null);
         setIsLoading(false);
         return;
@@ -39,10 +63,8 @@ export function useAnnualSummary() {
 
       setIsLoading(true);
       setError(null);
-      setSummary(null);
-      setNoteContent("");
+      setSummary(previous => previous?.year === selectedYear ? previous : null);
 
-      if (timerRef.current) clearTimeout(timerRef.current);
       const request = requests.begin("annual-summary");
 
       timerRef.current = setTimeout(async () => {
@@ -53,7 +75,7 @@ export function useAnnualSummary() {
           );
           if (request.isCurrent() && res?.data) {
             setSummary(res.data);
-            setNoteContent(res.data.note || "");
+            receiveNote(cacheKey, res.data.note || "");
             summaryCache.current[cacheKey] = res.data;
           }
         } catch (error: unknown) {
@@ -71,7 +93,7 @@ export function useAnnualSummary() {
         }
       }, 350);
     },
-    [userId, isUserLoading, requests],
+    [userId, isUserLoading, requests, receiveNote],
   );
 
   // Limpeza no unmount
@@ -85,7 +107,7 @@ export function useAnnualSummary() {
   useEffect(() => {
     summaryCache.current = {};
     setSummary(null);
-    setNoteContent("");
+    setNoteText("");
     if (isUserLoading) setIsLoading(true);
     else if (!userId) setIsLoading(false);
   }, [userId, isUserLoading]);
@@ -94,40 +116,60 @@ export function useAnnualSummary() {
     fetchSummary(year);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      requests.invalidate("annual-summary");
     };
-  }, [year, fetchSummary]);
+  }, [year, fetchSummary, requests]);
 
   const saveNote = async (): Promise<boolean> => {
-    if (summary?.note === noteContent) return true;
+    if (!userId || !summary || saving.current) return false;
+    const submitted = { ...draft.current };
+    if (summary.note === submitted.text) {
+      draft.current.dirty = false;
+      return true;
+    }
 
+    saving.current = true;
     setIsSavingNote(true);
     const savedYear = year;
-    const request = requests.begin(`annual-note:${savedYear}`);
+    const request = requests.begin("annual-note");
+    requests.invalidate("annual-summary");
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsLoading(false);
     const cacheKey = userId ? `${userId}:${savedYear}` : null;
+    // A completed write may outlive this screen/year. Never reuse its old note.
+    if (cacheKey) delete summaryCache.current[cacheKey];
 
     try {
-      await annualSummaryService.updateNote(savedYear, noteContent);
+      await annualSummaryService.updateNote(savedYear, submitted.text);
 
       if (!request.isCurrent()) return false;
+      requests.invalidate("annual-summary");
+      if (timerRef.current) clearTimeout(timerRef.current);
+      setIsLoading(false);
 
       if (cacheKey && summaryCache.current[cacheKey]) {
-        summaryCache.current[cacheKey].note = noteContent;
+        summaryCache.current[cacheKey] = { ...summaryCache.current[cacheKey], note: submitted.text };
       }
 
       setSummary((prev) => {
         if (prev && prev.year === savedYear) {
-          return { ...prev, note: noteContent };
+          return { ...prev, note: submitted.text };
         }
         return prev;
       });
-      return true;
+      const unchanged = draft.current.key === submitted.key && draft.current.version === submitted.version;
+      if (unchanged) draft.current.dirty = false;
+      return unchanged;
     } catch (error) {
       if (request.isCurrent() && !isAbortError(error)) {
         toast.error("Erro ao salvar nota.");
       }
       return false;
     } finally {
-      if (request.isCurrent()) setIsSavingNote(false);
+      if (request.isCurrent()) {
+        saving.current = false;
+        setIsSavingNote(false);
+      }
       request.finish();
     }
   };

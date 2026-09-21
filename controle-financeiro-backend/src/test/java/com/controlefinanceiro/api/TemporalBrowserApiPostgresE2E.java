@@ -130,7 +130,32 @@ class TemporalBrowserApiPostgresE2E {
             assertHabitPersistence(tag);
             assertPlanningPersistence(tag);
             assertExport(exportDirectory.resolve(key + ".xlsx"), tag);
+            for (String mode : List.of("ok", "read", "lost")) {
+                assertPaymentPersistence(namespace + "-pay-" + mode + "-" + (key.equals("sao-paulo") ? "sp" : "kir"));
+            }
+            assertThat(count("""
+                    select count(*) from yearly_notes n join users u on u.id=n.user_id
+                    where u.email like ? and n.content='rascunho posterior'
+                    """, "%" + namespace + "-note-" + (key.equals("sao-paulo") ? "sp" : "kir") + "%"))
+                    .as("R04: somente a segunda versão confirmada persiste no PostgreSQL").isEqualTo(1);
         }
+    }
+
+    private void assertPaymentPersistence(String tag) {
+        assertThat(jdbcTemplate.queryForObject("select balance from accounts where name=?", java.math.BigDecimal.class, tag))
+                .as("R03: débito único confirmado por SQL após navegador/reload").isEqualByComparingTo("900");
+        assertThat(count("""
+                select count(*) from transactions t join accounts a on a.id=t.account_id
+                 where a.name=? and t.description='Pagamento de Fatura' and t.amount=100 and t.is_paid=true
+                """, tag)).isEqualTo(1);
+        assertThat(count("""
+                select count(*) from invoices i join credit_cards c on c.id=i.card_id
+                 where c.name=? and i.month=1 and i.year=2027 and i.status='PAID'
+                """, tag)).isEqualTo(1);
+        assertThat(count("""
+                select count(*) from plan_items p join credit_cards c on c.id=p.card_id
+                 where c.name=? and p.status='PAID' and p.amount=100
+                """, tag)).isEqualTo(1);
     }
 
     private void assertTransactionPersistence(String tag) {

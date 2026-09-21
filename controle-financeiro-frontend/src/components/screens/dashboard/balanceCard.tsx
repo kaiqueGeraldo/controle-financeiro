@@ -28,12 +28,12 @@ export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos }: Bal
         <span className="text-text-muted text-xs font-bold uppercase tracking-wider">
           Patrimônio Total
         </span>
-        <PrivacyBlur className="text-3xl font-bold mt-1 text-text-main tracking-tight w-min">
+        <PrivacyBlur className="text-3xl font-bold mt-1 text-text-main tracking-tight [overflow-wrap:anywhere]">
           {formatCurrency(saldoTotal)}
         </PrivacyBlur>
 
         {/* SUBTÍTULO DETALHADO */}
-        <div className="flex items-center gap-2 mt-2 text-[10px] uppercase font-bold text-text-muted tracking-wider">
+        <div className="flex flex-wrap items-center gap-2 mt-2 text-[10px] uppercase font-bold text-text-muted tracking-wider">
           <span className="flex items-center gap-1">
             Contas: <PrivacyBlur>{formatCurrency(saldoContas)}</PrivacyBlur>
           </span>

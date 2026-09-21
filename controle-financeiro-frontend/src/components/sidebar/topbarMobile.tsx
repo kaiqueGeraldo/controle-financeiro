@@ -6,7 +6,7 @@ export function SidebarTopbarMobile() {
 
   return (
     <div
-      className={`md:hidden shrink-0 w-full flex items-center justify-between px-6 py-3 relative z-40 transition-all duration-300 ease-in-out ${
+      className={`xl:hidden shrink-0 w-full flex items-center justify-between px-6 py-3 relative z-40 transition-all duration-300 ease-in-out ${
         scrolled
           ? "bg-bg-base/80 backdrop-blur-xl border-b border-border-divider shadow-[0_4px_20px_-10px_rgba(0,0,0,0.15)]"
           : "bg-bg-base border-b border-transparent"

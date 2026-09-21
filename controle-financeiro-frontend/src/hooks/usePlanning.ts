@@ -14,6 +14,7 @@ export function usePlanning() {
     categories,
     incomeForecast,
     isLoading,
+    error,
     dateRef,
     changeMonth,
     refreshPlanning,
@@ -172,6 +173,7 @@ export function usePlanning() {
     categories,
     incomeForecast,
     isLoading,
+    error,
     dateRef,
     monthFormatted,
     totals: {

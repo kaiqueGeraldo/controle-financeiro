@@ -14,7 +14,7 @@ export function OverlayMobile({ onClose }: OverlayMobileProps) {
     <button
       type="button"
       aria-label="Fechar menu de navegação"
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden transition-opacity cursor-pointer"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 xl:hidden transition-opacity cursor-pointer"
       {...handlers}
       onClick={onClose}
     />

@@ -56,7 +56,7 @@ export default function AccountsScreen() {
     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
       {/* HEADER */}
       <header className="sticky top-0 z-30 bg-bg-base/90 backdrop-blur-md py-6 border-b border-border-divider transition-all">
-        <div className="px-6 md:px-8 max-w-5xl mx-auto flex justify-between items-center gap-4">
+        <div className="px-6 md:px-8 max-w-5xl mx-auto flex flex-wrap justify-between items-center gap-4">
           <div>
             <h1 className="text-xl md:text-2xl font-bold tracking-tight">
               Minhas Contas

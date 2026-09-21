@@ -1,6 +1,6 @@
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { Loader2, Pencil, Save, StickyNote } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface AnnualNotepadProps {
   year: number;
@@ -10,11 +10,17 @@ interface AnnualNotepadProps {
   onSave: () => Promise<boolean>;
 }
 
-export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave }: AnnualNotepadProps) {
+export function AnnualNotepad(props: AnnualNotepadProps) {
+  return <AnnualNoteEditor key={props.year} {...props} />;
+}
+
+function AnnualNoteEditor({ year, content, isSaving, onContentChange, onSave }: AnnualNotepadProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const editVersion = useRef(0);
 
   const handleSave = async () => {
-    if (await onSave()) setIsEditing(false);
+    const version = editVersion.current;
+    if (await onSave() && version === editVersion.current) setIsEditing(false);
   };
 
   return (
@@ -26,6 +32,7 @@ export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave
             </div>
             <button 
               onClick={isEditing ? handleSave : () => setIsEditing(true)}
+              aria-label={isEditing ? "Salvar nota" : "Editar nota"}
               disabled={isSaving}
               className="p-2 hover:bg-yellow-500/10 rounded-lg transition cursor-pointer text-text-notepad"
             >
@@ -36,7 +43,7 @@ export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave
         {isEditing ? (
           <textarea 
             value={content}
-            onChange={(e) => onContentChange(e.target.value)}
+            onChange={(e) => { editVersion.current++; onContentChange(e.target.value); }}
             className="w-full flex-1 min-h-0 bg-transparent resize-none focus:outline-none text-text-notepad-two/90 font-medium leading-relaxed custom-scroll pr-2"
             autoFocus
             placeholder="Escreva suas anotações do ano aqui..."
@@ -51,7 +58,7 @@ export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave
         )}
         
         <div className="mt-4 pt-4 border-t border-yellow-500/10 text-[10px] text-text-notepad/40 text-center uppercase tracking-widest font-bold shrink-0">
-          Notas salvas para {year}
+          {isEditing ? (isSaving ? "Salvando versão enviada..." : "Edição em andamento — salve para confirmar") : `Notas salvas para ${year}`}
         </div>
     </div>
   );

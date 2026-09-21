@@ -149,9 +149,9 @@ export default function DashboardScreen() {
 
   // Helper para injetar a classe correta do Tailwind
   const getColSpanClass = (span: number) => {
-    if (span === 3) return "md:col-span-3";
-    if (span === 2) return "md:col-span-2";
-    return "md:col-span-1";
+    if (span === 3) return "xl:col-span-3";
+    if (span === 2) return "xl:col-span-2";
+    return "xl:col-span-1";
   };
 
   const renderCard = (item: DashboardCardConfig) => {
@@ -160,7 +160,7 @@ export default function DashboardScreen() {
     switch (item.id) {
       case "BALANCE":
         return (
-          <div key={item.id} className={spanClass}>
+          <div key={item.id} className={`min-w-0 ${spanClass}`}>
             <BalanceCard
               saldoTotal={patrimonioTotal}
               saldoContas={saldoTotal}
@@ -214,12 +214,12 @@ export default function DashboardScreen() {
                 accounts.slice(0, 4).map((acc) => (
                   <div
                     key={acc.id}
-                    className="flex justify-between items-center text-sm border-b border-border-divider/50 pb-2 last:border-0 last:pb-0"
+                    className="flex flex-wrap gap-2 justify-between items-center text-sm border-b border-border-divider/50 pb-2 last:border-0 last:pb-0"
                   >
-                    <span className="text-text-main font-medium truncate pr-2">
+                    <span className="min-w-0 flex-1 basis-36 text-text-main font-medium truncate pr-2">
                       {acc.name}
                     </span>
-                    <PrivacyBlur className="font-bold text-text-main">
+                    <PrivacyBlur className="max-w-full shrink-0 [overflow-wrap:anywhere] font-bold text-text-main">
                       {formatCurrency(acc.balance)}
                     </PrivacyBlur>
                   </div>
@@ -247,9 +247,9 @@ export default function DashboardScreen() {
                 recentTransactions.slice(0, 4).map((tx) => (
                   <div
                     key={tx.id}
-                    className="flex justify-between items-center text-sm border-b border-border-divider/50 pb-2 last:border-0 last:pb-0"
+                    className="flex flex-wrap gap-2 justify-between items-center text-sm border-b border-border-divider/50 pb-2 last:border-0 last:pb-0"
                   >
-                    <div>
+                    <div className="min-w-0 flex-1 basis-36">
                       <p className="text-text-main font-medium truncate max-w-37.5 sm:max-w-50">
                         {tx.description}
                       </p>
@@ -258,7 +258,7 @@ export default function DashboardScreen() {
                       </p>
                     </div>
                     <PrivacyBlur
-                      className={`font-bold ${tx.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
+                      className={`max-w-full shrink-0 [overflow-wrap:anywhere] font-bold ${tx.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
                     >
                       {tx.type === "EXPENSE" ? "-" : "+"}
                       {formatCurrency(tx.amount)}
@@ -293,11 +293,11 @@ export default function DashboardScreen() {
         <DataLoadError
           onRetry={() =>
             Promise.all([
-              refreshCards(),
+              refreshCards(false),
               refreshGoals(),
               refreshInvestments(),
               refreshDashboard(true),
-            ]).then(() => undefined)
+            ]).then(() => undefined).catch(() => undefined)
           }
         />
       </div>
@@ -310,7 +310,7 @@ export default function DashboardScreen() {
         <h1 className="text-2xl font-bold">Dashboard</h1>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 grid-flow-dense">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 grid-flow-dense">
         {config.filter((item) => item.visible).map((item) => renderCard(item))}
       </div>
 

@@ -23,7 +23,7 @@ interface FinanceContextType {
   saldoTotal: number;
   isLoading: boolean;
   error: Error | null;
-  refresh: () => Promise<void>;
+  refresh: (requireSuccess?: boolean) => Promise<void>;
   createCategory: (data: CreateCategoryDTO) => Promise<void>;
   updateCategory: (
     id: string,
@@ -44,9 +44,10 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   const requests = useRequestCoordinator(userId);
 
   const fetchData = useCallback(
-    async () => {
+    async (requireSuccess = false) => {
       if (isLoadingUser || !userId) {
         setIsLoading(false);
+        if (requireSuccess) throw new Error("Sessão indisponível para reconciliar contas.");
         return;
       }
 
@@ -59,7 +60,10 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
           categoryService.getAll(undefined, request.signal),
         ]);
 
-        if (!request.isCurrent()) return;
+        if (!request.isCurrent()) {
+          if (requireSuccess) throw new Error("Leitura de contas substituída; atualize novamente.");
+          return;
+        }
         setAccounts(accountsResult.data ?? []);
         setCategories(categoriesResult.data ?? []);
       } catch (error: unknown) {
@@ -77,6 +81,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
         ) {
           console.error("Erro ao carregar dados financeiros", error);
         }
+        if (requireSuccess) throw error;
       } finally {
         if (request.isCurrent()) setIsLoading(false);
         request.finish();

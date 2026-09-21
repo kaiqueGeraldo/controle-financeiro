@@ -27,7 +27,7 @@ export function PlanningFooter({ income, expenses, remaining, onUpdateIncome }: 
   };
 
   return (
-    <div className="fixed bottom-0 left-0 md:left-72 right-0 bg-bg-base/90 backdrop-blur-xl border-t border-border-divider p-3 md:p-6 z-30 shadow-[0_-5px_20px_rgba(0,0,0,0.3)]">
+    <div className="fixed bottom-0 left-0 xl:left-72 right-0 bg-bg-base/90 backdrop-blur-xl border-t border-border-divider p-3 md:p-6 z-30 shadow-[0_-5px_20px_rgba(0,0,0,0.3)]">
       <div className="max-w-5xl mx-auto flex justify-between items-center px-1 md:px-0">
         
         {/* Coluna Receita */}

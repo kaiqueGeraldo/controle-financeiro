@@ -6,6 +6,7 @@ import { PlanningItem } from "@/components/screens/planning/planningItem";
 import { usePlanningModals } from "@/contexts/modals/planningModalContext";
 import { usePlanning } from "@/hooks/usePlanning";
 import { useSidebar } from "@/hooks/useSidebar";
+import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { Reorder } from "framer-motion";
 import { ChevronLeft, ChevronRight, Copy, Loader2, Plus } from "lucide-react";
 
@@ -20,6 +21,8 @@ export default function PlanningScreen() {
     categories,
     incomeForecast,
     isLoading,
+    error,
+    refreshPlanning,
     monthFormatted,
     totals,
     changeMonth,
@@ -34,6 +37,8 @@ export default function PlanningScreen() {
     canGoForward,
   } = usePlanning();
 
+  if (error) return <DataLoadError onRetry={() => refreshPlanning(true, false)} />;
+
   return (
     <div className="min-h-screen bg-bg-base font-sans text-text-main relative pb-48">
       {/* HEADER */}
@@ -46,7 +51,7 @@ export default function PlanningScreen() {
         `}
       >
         <div className="px-6 md:px-8 max-w-5xl mx-auto flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-between items-center gap-4">
             
             {/* Mobile: Título + Ações Curtas */}
             <div className="flex items-center justify-between w-full md:w-auto">

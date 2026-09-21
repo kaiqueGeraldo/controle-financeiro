@@ -13,6 +13,7 @@ import {
   Wallet
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useRequestCoordinator } from "@/hooks/useRequestCoordinator";
 
 interface PayInvoiceModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ interface PayInvoiceModalProps {
   currentInvoiceValue: number;
   month: number;
   year: number;
+  ownerId?: string;
 }
 
 export function PayInvoiceModal({
@@ -36,6 +38,7 @@ export function PayInvoiceModal({
   currentInvoiceValue,
   month,
   year,
+  ownerId,
 }: PayInvoiceModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const submitting = useRef(false);
@@ -46,13 +49,27 @@ export function PayInvoiceModal({
   const [isPrepayment, setIsPrepayment] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const initializedInvoice = useRef<string | null>(null);
+  const [outcome, setOutcome] = useState<"ready" | "confirmed" | "unknown">("ready");
+  const outcomeRef = useRef(outcome);
+  const scope = `${ownerId}:${cardId}:${year}:${month}`;
+  const requests = useRequestCoordinator(scope);
+  const storageKey = ownerId ? `invoice-payment:${scope}` : null;
+  const remember = (value: typeof outcome) => {
+    outcomeRef.current = value;
+    setOutcome(value);
+    if (storageKey) {
+      if (value === "ready") sessionStorage.removeItem(storageKey);
+      else sessionStorage.setItem(storageKey, value);
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) {
       initializedInvoice.current = null;
+      requests.invalidate();
       return;
     }
-    const invoiceKey = `${cardId}:${year}:${month}`;
+    const invoiceKey = scope;
     if (initializedInvoice.current === invoiceKey) return;
     initializedInvoice.current = invoiceKey;
     if (isOpen) {
@@ -61,7 +78,14 @@ export function PayInvoiceModal({
       setAccountId(accounts.length > 0 ? accounts[0].id : "");
       setIsPrepayment(false);
       setIsLoading(false);
-      setErrorMessage(null);
+      submitting.current = false;
+      const stored = storageKey ? sessionStorage.getItem(storageKey) : null;
+      const initialOutcome = stored === "confirmed" || stored === "unknown" ? stored : "ready";
+      outcomeRef.current = initialOutcome;
+      setOutcome(initialOutcome);
+      setErrorMessage(initialOutcome === "confirmed"
+        ? "Pagamento confirmado. Atualize os dados para concluir a reconciliação."
+        : initialOutcome === "unknown" ? "Não foi possível confirmar o pagamento. Atualize os dados e confira a fatura e o extrato; não repita o pagamento." : null);
       setDate(localDateString(openedAt));
       setTime(
         openedAt.toLocaleTimeString("pt-BR", {
@@ -70,17 +94,45 @@ export function PayInvoiceModal({
         }),
       );
     }
-  }, [isOpen, currentInvoiceValue, accounts, cardId, year, month]);
+  }, [isOpen, currentInvoiceValue, accounts, scope, storageKey, requests]);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const reconcile = async () => {
     if (submitting.current) return;
     submitting.current = true;
     setIsLoading(true);
+    const request = requests.begin("payment");
+    try {
+      await onSuccess();
+      if (!request.isCurrent()) return;
+      if (outcomeRef.current === "confirmed") {
+        remember("ready");
+        onClose();
+      } else {
+        setErrorMessage("Dados atualizados para conferência. O resultado deste pagamento continua desconhecido. Confira o extrato e a fatura; não repita a operação.");
+      }
+    } catch {
+      if (request.isCurrent()) setErrorMessage(outcomeRef.current === "confirmed"
+        ? "Pagamento confirmado, mas a atualização da tela falhou. Tente reconciliar novamente; o pagamento não será reenviado."
+        : "Não foi possível confirmar o pagamento nem atualizar todos os dados. Tente atualizar novamente, sem reenviar a operação.");
+    } finally {
+      if (request.isCurrent()) { submitting.current = false; setIsLoading(false); }
+      request.finish();
+    }
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (submitting.current || outcomeRef.current !== "ready") return;
+    submitting.current = true;
+    setIsLoading(true);
     setErrorMessage(null);
+    const request = requests.begin("payment");
+    let confirmed = false;
 
     try {
       const valorNumerico = Number(amount);
+      // Persist before dispatch: reload after a lost response must not offer a resend.
+      remember("unknown");
 
       await cardService.payInvoice(cardId, {
         accountId,
@@ -94,27 +146,36 @@ export function PayInvoiceModal({
           ? "Adiantamento de Fatura"
           : "Pagamento de Fatura",
       });
-
+      confirmed = true;
+      if (storageKey) sessionStorage.setItem(storageKey, "confirmed");
+      if (!request.isCurrent()) return;
+      remember("confirmed");
       await onSuccess();
+      if (!request.isCurrent()) return;
+      remember("ready");
       onClose();
     } catch (error: unknown) {
-      setErrorMessage(
-        error instanceof ApiError && error.requiresReconciliation
-          ? "Não foi possível confirmar o pagamento. Recarregue a fatura antes de tentar novamente."
-          : error instanceof Error
-            ? error.message
-            : "Erro ao processar pagamento.",
-      );
+      if (!request.isCurrent()) return;
+      if (confirmed) {
+        setErrorMessage("Pagamento confirmado, mas a atualização da tela falhou. Tente reconciliar novamente; o pagamento não será reenviado.");
+      } else if (error instanceof ApiError && !error.requiresReconciliation && error.status >= 400 && error.status < 500) {
+        remember("ready");
+        setErrorMessage(`Pagamento recusado: ${error.message}`);
+      } else {
+        setErrorMessage("Não foi possível confirmar o pagamento. Atualize os dados e confira a fatura e o extrato; não repita o pagamento.");
+        // Even an unknown write invalidates every affected read.
+        await Promise.resolve().then(onSuccess).catch(() => undefined);
+      }
     } finally {
-      submitting.current = false;
-      setIsLoading(false);
+      if (request.isCurrent()) { submitting.current = false; setIsLoading(false); }
+      request.finish();
     }
   };
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => { if (!submitting.current) onClose(); }}
       title={`Pagar Fatura - ${cardName}`}
     >
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
@@ -229,8 +290,13 @@ export function PayInvoiceModal({
           </div>
         </div>
 
+        {outcome !== "ready" && !isLoading && (
+          <button type="button" onClick={() => void reconcile()} className="w-full rounded-xl border border-border-divider p-3 font-bold">
+            Atualizar dados sem repetir pagamento
+          </button>
+        )}
         <button
-          disabled={isLoading}
+          disabled={isLoading || outcome !== "ready"}
           type="submit"
           className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl mt-2 flex justify-center items-center gap-2 transition cursor-pointer"
         >

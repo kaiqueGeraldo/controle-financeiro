@@ -15,6 +15,7 @@ import { categoryService } from "@/services/categoryService";
 import { PlanItem, Category } from "@/types";
 import { useUserContext } from "./userContext";
 import { shiftMonth } from "@/utils/date";
+import { onFinancialReconciliation } from "@/utils/financialReconciliation";
 import {
   isAbortError,
   useRequestCoordinator,
@@ -25,6 +26,7 @@ interface PlanningContextType {
   incomeForecast: number;
   categories: Category[];
   isLoading: boolean;
+  error: Error | null;
   dateRef: Date;
   changeMonth: (direction: number) => void;
   refreshPlanning: (
@@ -45,6 +47,7 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
   const [incomeForecast, setIncomeForecast] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const { user, isLoading: isLoadingUser } = useUserContext();
   const userId = user?.id;
@@ -66,7 +69,7 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const fetchData = useCallback(
-    async (invalidateCache = false, isBackground = false) => {
+    async (invalidateCache = false, isBackground = false, requireSuccess = false) => {
       if (isLoadingUser || !userId) {
         setIsLoading(false);
         return;
@@ -80,6 +83,9 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
       const year = dateRef.getFullYear();
       const cacheKey = `${userId}:${month}-${year}`;
       const cachedCategories = categoryCache.current[userId];
+      cancelScheduledFetch();
+      requests.invalidate("planning");
+      setError(null);
 
       if (
         !invalidateCache &&
@@ -98,8 +104,11 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
       cancelScheduledFetch();
       const request = requests.begin("planning");
 
-      return new Promise<void>((resolve) => {
-        timerResolveRef.current = resolve;
+      return new Promise<void>((resolve, reject) => {
+        timerResolveRef.current = () => {
+          if (requireSuccess) reject(new Error("Reconciliação do planejamento cancelada; atualize novamente."));
+          else resolve();
+        };
         timerRef.current = setTimeout(async () => {
           timerRef.current = null;
           timerResolveRef.current = null;
@@ -114,7 +123,10 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
                 : Promise.resolve(null),
             ]);
 
-            if (!request.isCurrent()) return;
+            if (!request.isCurrent()) {
+              if (requireSuccess) reject(new Error("Leitura do planejamento substituída."));
+              return;
+            }
 
             if (plansRes?.data) {
               setItems(plansRes.data.items || []);
@@ -136,6 +148,10 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
               setCategories(cachedCategories);
             }
           } catch (error: unknown) {
+            if (request.isCurrent() && !isAbortError(error)) {
+              setError(error instanceof Error ? error : new Error("Falha ao carregar planejamento."));
+            }
+            if (requireSuccess) reject(error);
             if (
               request.isCurrent() &&
               !isAbortError(error) &&
@@ -191,6 +207,8 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("refreshPlanning", handleRefresh);
   }, [fetchData]);
 
+  useEffect(() => onFinancialReconciliation(() => fetchData(true, false, true)), [fetchData]);
+
   // --- LIMITES DE DATA ---
   const currentViewValue = dateRef.getFullYear() * 12 + dateRef.getMonth();
   const minLimitValue = 2025 * 12 + 0;
@@ -224,6 +242,7 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
       incomeForecast,
       categories,
       isLoading,
+      error,
       dateRef,
       changeMonth: handleChangeMonth,
       refreshPlanning: handleRefreshPlanning,
@@ -235,6 +254,7 @@ export function PlanningProvider({ children }: { children: ReactNode }) {
       incomeForecast,
       categories,
       isLoading,
+      error,
       dateRef,
       handleChangeMonth,
       handleRefreshPlanning,

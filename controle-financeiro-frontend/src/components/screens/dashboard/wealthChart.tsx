@@ -6,6 +6,8 @@ import { DataLoadError } from "./dataLoadError";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+const compactAmount = new Intl.NumberFormat("pt-BR", { notation: "compact", maximumFractionDigits: 1 });
+
 export function WealthChart() {
   const { user } = useUser();
   const { chartData, fetchChartData, isChartLoading, chartError } = useDashboard();
@@ -17,7 +19,7 @@ export function WealthChart() {
 
   return (
     <div className="lg:col-span-2 bg-bg-surface border border-border-divider rounded-2xl p-6 shadow-sm min-h-87.5 flex flex-col transition-colors">
-      <div className="flex justify-between items-center mb-6 gap-4">
+      <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
         <h3 className="text-lg font-bold text-text-main flex items-center gap-2">
           Evolução Patrimonial
         </h3>
@@ -66,9 +68,9 @@ export function WealthChart() {
                 stroke="var(--text-muted)" 
                 tickLine={false} 
                 axisLine={false} 
-                tickFormatter={(value) => user?.privacyMode ? '***' : `R$${value >= 1000 ? value / 1000 + 'k' : value}`} 
+                tickFormatter={(value) => user?.privacyMode ? '***' : `R$${compactAmount.format(value)}`}
                 style={{ fontSize: '10px' }} 
-                width={50}
+                width={64}
             />
             
             <Tooltip
