@@ -71,3 +71,13 @@ P03 implementa PUT com contrato explícito; P01/P02 acrescentam erros por campo,
 
 [Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
 Estado permanece em_revisao; esta execução não substitui revisão independente.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R06: criação, edição e cópia de planejamento validam a propriedade da categoria no backend antes de persistir. Integração com dois usuários e PostgreSQL observa sucesso legítimo, 404 e ausência de persistência parcial.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

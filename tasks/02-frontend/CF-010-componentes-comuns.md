@@ -61,3 +61,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 R10 confirma sobreposição/recorte no tablet; R08 mostra consumidor com foco inadequado; R11 acrescenta quatro avisos de lint. R09 corrigiu seis seletores do harness sem alterar expected.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R08: modal comum e detalhe de fatura compartilham foco, Tab/Shift+Tab, Escape no topo e retorno em diálogos aninhados. R10 ajusta geometria e sidebar; R11 remove os quatro avisos do double. R09 foi preservado.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

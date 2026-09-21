@@ -53,3 +53,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Revisão executada e parecer emitido com restrições. Marco não aprovado; achados de produto permanecem abertos. P03 (PUT), P04 e P05 revalidados no escopo dirigido; P01/P02 conservam dependência de adoção CF-017. Nenhuma publicação, banco real ou avanço para CF-016.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+Saneamento dos achados R01–R12 executado como preparação de candidato. O relatório por achado, execuções, limites, commits e intervalo exato para revalidação estão no registro abaixo. Esta execução não é revisão independente nem aprovação do marco.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

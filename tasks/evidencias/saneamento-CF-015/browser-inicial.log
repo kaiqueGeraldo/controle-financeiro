@@ -1,0 +1,820 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+11:13:37.256 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+11:13:37.440 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+11:13:37.440 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-14 11:13:37.756 - INFO 35648 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-14 11:13:38.022 - INFO 35648 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-14 11:13:38.567 - INFO 35648 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-14 11:13:38.567 - INFO 35648 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-14 11:13:38.591 - INFO 35648 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-14 11:13:39.417 - INFO 35648 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-14 11:13:39.417 - INFO 35648 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-14 11:13:39.418 - INFO 35648 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-14 11:13:40.877 - INFO 35648 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : Starting TemporalBrowserApiPostgresE2E using Java 21.0.12.1 with PID 35648 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-14 11:13:40.878 - INFO 35648 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-14 11:13:47.795 - WARN 35648 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-14 11:13:54.506 - INFO 35648 --- [           main] c.c.api.TemporalBrowserApiPostgresE2E    : Started TemporalBrowserApiPostgresE2E in 17.066 seconds (process running for 18.185)
+-2026-09-14 11:14:00.358 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:00.380 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:00.658 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 52f51399-74d6-4c3f-8325-ac6ff0b17c28
+-2026-09-14 11:14:00.658 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 52f51399-74d6-4c3f-8325-ac6ff0b17c28
+-2026-09-14 11:14:00.780 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:00.973 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:01.224 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:01.363 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:01.730 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:01.732 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 52f51399-74d6-4c3f-8325-ac6ff0b17c28
+-2026-09-14 11:14:01.732 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta bc42b433-b0c4-4d8c-9da8-decb76c9e569
+-2026-09-14 11:14:01.824 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:01.824 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-09-14 11:14:01.896 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-09-14 11:14:01.896 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-09-14 11:14:02.001 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:02.002 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:02.003 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 231136d4-4c30-4403-8630-e46a1e099e5d
+-2026-09-14 11:14:02.949 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:02.982 - INFO 35648 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:04.058 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:04.141 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:05.100 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: 9 | Conta: null
+-2026-09-14 11:14:05.134 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:05.142 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:06.039 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:06.089 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:07.026 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:07.075 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:08.148 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:08.199 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:08.935 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:08.977 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:09.665 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:09.736 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:10.436 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:10.487 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:11.971 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:12.016 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:12.821 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:12.871 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:14.013 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:14.102 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:14.986 - INFO 35648 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: 9 | Conta: null
+-2026-09-14 11:14:15.000 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:15.058 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:16.032 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:16.049 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:16.917 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:16.974 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:17.972 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:18.022 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:18.734 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:18.774 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:19.464 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:19.506 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:20.196 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:20.288 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:21.479 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:21.526 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:22.302 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:22.358 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:23.514 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:23.564 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:24.462 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: 9 | Conta: null
+-2026-09-14 11:14:24.488 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:24.533 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:25.360 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:25.406 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:26.228 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:26.288 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:27.231 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:27.275 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:28.104 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:28.179 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:28.818 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:28.876 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:29.560 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:29.604 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:30.897 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:31.011 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:31.798 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:31.887 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:33.387 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:33.459 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:35.165 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:35.200 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:35.600 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:35.659 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:36.458 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:36.525 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:37.279 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: 9 | Conta: null
+-2026-09-14 11:14:37.298 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-visual-sp@example.invalid
+-2026-09-14 11:14:37.358 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-visual-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:40.226 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:40.229 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:40.357 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: a5b64213-2993-451e-bbcf-a53b5580f059
+-2026-09-14 11:14:40.357 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID a5b64213-2993-451e-bbcf-a53b5580f059
+-2026-09-14 11:14:40.442 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:40.562 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:40.812 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:40.828 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-name-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:14:41.836 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-name-sp@example.invalid | M�s: 9 | Conta: null
+-2026-09-14 11:14:41.846 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-b-cf007-3f033a94-name-sp@example.invalid
+-2026-09-14 11:14:41.904 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf007-3f033a94-name-sp@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:02.622 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:02.630 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:02.800 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: e095fb96-7b1b-44e4-855f-94d6afe2a94e
+-2026-09-14 11:15:02.800 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID e095fb96-7b1b-44e4-855f-94d6afe2a94e
+-2026-09-14 11:15:02.912 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:03.059 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:03.467 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:03.495 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:04.635 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'cf007-3f033a94-sao-paulo-conta'. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:04.635 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e095fb96-7b1b-44e4-855f-94d6afe2a94e
+-2026-09-14 11:15:04.636 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Gerando transa��o de ajuste para saldo inicial da conta 09afed4b-8b3e-4025-8591-a5a56eb6b125
+-2026-09-14 11:15:04.712 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.controller.CategoryController    : API: Criar Categoria 'cf007-3f033a94-sao-paulo-categoria'
+-2026-09-14 11:15:04.713 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.CategoryService          : Criando categoria: cf007-3f033a94-sao-paulo-categoria
+-2026-09-14 11:15:04.784 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'cf007-3f033a94-sao-paulo-cartao'. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:04.784 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'cf007-3f033a94-sao-paulo-cartao' (Final 7001)
+-2026-09-14 11:15:04.837 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF7SP' (OTHER) para usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:04.837 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF7SP' (OTHER) para usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:04.838 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b65ea8ca-15c8-43d4-8673-17dcb0c644c1
+-2026-09-14 11:15:06.219 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:06.221 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:06.356 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:07.856 - WARN 35648 --- [o-auto-1-exec-9] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [date]]
+-2026-09-14 11:15:09.823 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:09.892 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:10.083 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:11.516 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | Valor: 25.5 | Tipo: EXPENSE
+-2026-09-14 11:15:11.517 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=25.5, ContaID=09afed4b-8b3e-4025-8591-a5a56eb6b125
+-2026-09-14 11:15:11.533 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 09afed4b-8b3e-4025-8591-a5a56eb6b125. Novo saldo: 974.50
+-2026-09-14 11:15:11.536 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0d71badd-49f3-4aae-8687-75cd9c9da6ab
+-2026-09-14 11:15:11.657 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:11.660 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:20.331 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 12 | Conta: null
+-2026-09-14 11:15:20.440 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:21.712 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:21.717 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:21.820 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:23.346 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 0d71badd-49f3-4aae-8687-75cd9c9da6ab. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:23.346 - INFO 35648 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Atualizando transa��o ID 0d71badd-49f3-4aae-8687-75cd9c9da6ab
+-2026-09-14 11:15:23.486 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:23.488 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:24.119 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: 1 | Conta: null
+-2026-09-14 11:15:24.131 - INFO 35648 --- [o-auto-1-exec-6] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:24.171 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:25.463 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:25.516 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:27.031 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:27.150 - INFO 35648 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:28.040 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 53828f22-9997-47fe-bba8-cd5906b7282c. Valor: 40. Parcelas: 1
+-2026-09-14 11:15:28.041 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 53828f22-9997-47fe-bba8-cd5906b7282c: 40 (1x)
+-2026-09-14 11:15:28.081 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-14 11:15:29.096 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:29.145 - INFO 35648 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:31.333 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:31.438 - INFO 35648 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:33.290 - INFO 35648 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID b65ea8ca-15c8-43d4-8673-17dcb0c644c1. Qtd: 2, Pre�o: 50
+-2026-09-14 11:15:33.291 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID b65ea8ca-15c8-43d4-8673-17dcb0c644c1
+-2026-09-14 11:15:33.297 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de COMPRA.
+-2026-09-14 11:15:33.301 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-14 11:15:33.995 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:34.064 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:35.458 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:35.522 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:36.293 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Criar Meta 'cf007-3f033a94-sao-paulo-meta' para usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:36.293 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.GoalService              : Criando nova meta: cf007-3f033a94-sao-paulo-meta
+-2026-09-14 11:15:37.192 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:37.251 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:38.179 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:38.261 - INFO 35648 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:15:39.446 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Criando novo h�bito 'cf007-3f033a94-sao-paulo-habito' para usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:15:39.494 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:17.264 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito 749824ee-f9ea-441c-96af-4d2e641141b0 para a data 2027-01-31
+-2026-09-14 11:16:17.276 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-14 11:16:17.276 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-14 11:16:17.297 - INFO 35648 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:17.712 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:17.748 - INFO 35648 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:16:17.796 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:18.334 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:18.396 - INFO 35648 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:16:18.538 - INFO 35648 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:18.539 - INFO 35648 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf007-3f033a94-sao-paulo@example.invalid
+-2026-09-14 11:16:21.065 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:21.068 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:21.182 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 6a701cd5-5309-485f-88c6-500a9ef27349
+-2026-09-14 11:16:21.182 - INFO 35648 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 6a701cd5-5309-485f-88c6-500a9ef27349
+-2026-09-14 11:16:21.241 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:21.340 - INFO 35648 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:21.577 - INFO 35648 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:21.585 - INFO 35648 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:16:22.384 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.controller.PlanningController    : API: Novo item no planejamento: cf007-3f033a94-sao-paulo-planning-original - Valor: 25
+-2026-09-14 11:16:22.385 - INFO 35648 --- [o-auto-1-exec-4] c.c.api.service.PlanningService          : Adicionando item ao planejamento: cf007-3f033a94-sao-paulo-planning-original (Valor: 25)
+-2026-09-14 11:16:23.041 - INFO 35648 --- [o-auto-1-exec-8] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:23.105 - INFO 35648 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-2026-09-14 11:16:25.612 - INFO 35648 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid
+-2026-09-14 11:16:25.665 - INFO 35648 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf007-3f033a94-sao-paulo-planning@example.invalid | M�s: null | Conta: null
+-[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 171.1 s <<< FAILURE! -- in com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E
+[ERROR] com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E.browserBffSpringAndPostgresKeepTheSameCivilDates -- Time elapsed: 153.5 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[fluxo Playwright integrado deve aprovar nos dois fusos.
+[WebServer] (node:4740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ? The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:33872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 4 tests using 1 worker
+
+(node:30360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:8:5 � CF015: inspe��o autenticada nas tr�s larguras e nota ap�s reload
+[WebServer] (node:37244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:20356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:16036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:13808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:12604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:21320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:10088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:21816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:5404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:3100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px
+[WebServer] (node:6748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:22332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px 
+
+    Error: expect(locator).toHaveAccessibleName(expected) failed
+
+    Locator: getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button')
+    Expected pattern: /lan�ar|lan�amento|transa��o/i
+    Received string:  ""
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveAccessibleName" getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button') with timeout 15000ms
+      - waiting for getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button')
+        33 � locator resolved to <button class="md:hidden p-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-lg cursor-pointer">�</button>
+           - unexpected value ""
+
+
+      100 |   const action = page.getByRole("heading", { name: "Extrato", exact: true }).locator("../..").getByRole("button");
+      101 |   await expect(action).toBeVisible();
+    > 102 |   await expect(action).toHaveAccessibleName(/lan�ar|lan�amento|transa��o/i);
+          |                        ^
+      103 | });
+      104 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\cf015.visual.integrated.spec.ts:102:24
+
+    attachment #1: screenshot (image/png) ??????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\test-failed-1.png
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+    attachment #2: video (video/webm) ??????????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\video.webm
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+    Error Context: tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\error-context.md
+
+    attachment #4: trace (application/zip) ?????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\trace.zip
+
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+
+(node:37484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\temporal.integrated.spec.ts:530:5 � preserva datas civis no navegador, BFF, Spring e PostgreSQL
+[WebServer] (node:25880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:9940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:23828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:6272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:12968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:2624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:28372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:8432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:24904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\temporal.integrated.spec.ts:565:5 � P03: edita planejamento pela UI e rel� pela API ap�s reload
+[WebServer] (node:24588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:29244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:20236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:29664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1 failed
+    [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px 
+  3 passed (2.5m)
+] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.TemporalBrowserApiPostgresE2E.browserBffSpringAndPostgresKeepTheSameCivilDates(TemporalBrowserApiPostgresE2E.java:119)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   TemporalBrowserApiPostgresE2E.browserBffSpringAndPostgresKeepTheSameCivilDates:119 [fluxo Playwright integrado deve aprovar nos dois fusos.
+[WebServer] (node:4740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ? The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:33872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 4 tests using 1 worker
+
+(node:30360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:8:5 � CF015: inspe��o autenticada nas tr�s larguras e nota ap�s reload
+[WebServer] (node:37244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:20356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:16036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:13808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:12604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:21320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:10088) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:21816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:5404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:3100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px
+[WebServer] (node:6748) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:22332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px 
+
+    Error: expect(locator).toHaveAccessibleName(expected) failed
+
+    Locator: getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button')
+    Expected pattern: /lan�ar|lan�amento|transa��o/i
+    Received string:  ""
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveAccessibleName" getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button') with timeout 15000ms
+      - waiting for getByRole('heading', { name: 'Extrato', exact: true }).locator('../..').getByRole('button')
+        33 � locator resolved to <button class="md:hidden p-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-lg cursor-pointer">�</button>
+           - unexpected value ""
+
+
+      100 |   const action = page.getByRole("heading", { name: "Extrato", exact: true }).locator("../..").getByRole("button");
+      101 |   await expect(action).toBeVisible();
+    > 102 |   await expect(action).toHaveAccessibleName(/lan�ar|lan�amento|transa��o/i);
+          |                        ^
+      103 | });
+      104 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\cf015.visual.integrated.spec.ts:102:24
+
+    attachment #1: screenshot (image/png) ??????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\test-failed-1.png
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+    attachment #2: video (video/webm) ??????????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\video.webm
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+    Error Context: tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\error-context.md
+
+    attachment #4: trace (application/zip) ?????????????????????????????????????????????????????????
+    tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\artifacts\cf007\playwright-results\cf015.visual.integrated-CF-eacf0-tinua-identificada-em-360px-chromium-desktop-sao-paulo-cf007-v1\trace.zip
+
+    ????????????????????????????????????????????????????????????????????????????????????????????????
+
+
+(node:37484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\temporal.integrated.spec.ts:530:5 � preserva datas civis no navegador, BFF, Spring e PostgreSQL
+[WebServer] (node:25880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:9940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:31248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38804) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:23828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:6272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:12968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:2624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:28372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:8432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:24904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/4] [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\temporal.integrated.spec.ts:565:5 � P03: edita planejamento pela UI e rel� pela API ap�s reload
+[WebServer] (node:24588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:29244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:20236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:29664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1 failed
+    [chromium-desktop-sao-paulo-cf007-v1] � tests\e2e\cf015.visual.integrated.spec.ts:95:5 � CF015-R12: a��o de novo lan�amento continua identificada em 360px 
+  3 passed (2.5m)
+] 
+expected: 0
+ but was: 1
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:54 min
+[INFO] Finished at: 2026-09-14T11:16:28Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

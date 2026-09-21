@@ -65,3 +65,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 R01/R04 reproduzem ano obsoleto e rascunho exibido como salvo sem persistir. P05 revalidado nos três fusos; posição histórica indisponível não encerra os defeitos de estado/nota.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R01/R04: resumo e nota respeitam ano/sessão/versão enviada. Refetch e falha preservam rascunho, confirmação tardia não fecha edição posterior e texto confirmado é verificado após HTTP/reload/PostgreSQL. Metadados e contrato temporal foram preservados.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

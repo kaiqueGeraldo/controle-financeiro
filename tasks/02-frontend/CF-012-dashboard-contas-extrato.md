@@ -59,3 +59,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 R02 reproduz gráfico do período abandonado; R10 confirma problemas de geometria no tablet e R12 identifica ação mobile sem nome acessível. F-018 permanece aberto quanto ao escopo do total do extrato.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R02: gráfico ignora respostas obsoletas, inclusive após cache hit. R10 ajusta grades/controles/valores; R12 nomeia a ação mobile. Dashboard e contas participam da releitura após pagamento e apresentam falha quando não atualizados.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

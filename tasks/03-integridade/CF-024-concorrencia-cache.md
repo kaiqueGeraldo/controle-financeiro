@@ -45,5 +45,17 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 Ainda não executada. Usar `tasks/evidencias/CF-024/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
-Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+Dependência concreta encontrada no saneamento CF-015/R03: fechamento repetido
+de fatura PAID debitava novamente; chamadas concorrentes também não tinham uma
+resposta de conflito consistente. O saneamento adiciona lock por cartão e recusa
+antes do débito, com regressões PostgreSQL sequencial/concorrente. Ver
+[decisões e limites](../evidencias/saneamento-CF-015/DECISOES.md).
+Isso não executa nem conclui CF-024. Permanecem nesta tarefa a idempotência
+durável por operação (incluindo adiantamentos), recibo recuperável após perda de
+resposta e a matriz de concorrência entre writers/fontes distintas. O frontend
+mantém resultado desconhecido e não reenvia; sessionStorage não é garantia
+financeira entre abas/dispositivos ou após sua perda. Revalidar ordem de locks,
+rollback e cache após commit no escopo desta tarefa, sem inferir cobertura a
+partir do lock localizado de CF-015.
 
+Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

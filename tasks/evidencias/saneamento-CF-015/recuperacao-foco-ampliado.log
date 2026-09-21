@@ -1,0 +1,54 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/cf015-invoice-focus.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-recovery-expanded.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf015-invoice-focus.test.tsx > CF015-R08: abrir detalhe da fatura por teclado leva foco para o diálogo 226ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: duplo envio faz um POST; falha de releitura recupera só com GETs 311ms
+ ✓ tests/component/cf015-invoice-focus.test.tsx > R08: Tab fica no diálogo superior, Escape fecha só o filho e foco retorna 455ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado
+Erro ao buscar cartões Error: 503 cards
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:80:57
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: resultado desconhecido continua protegido após remontagem e atualização 136ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: recusa HTTP permite corrigir a entrada sem confirmação falsa 70ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado 62ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera
+Erro ao buscar fatura Error: 503 invoice
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:93:28
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera 364ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura 16ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados 9ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão 8ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R07: troca de identidade e cancelar/reabrir inicializam o formulário correto 46ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade 6ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior 6ms
+
+ Test Files  2 passed (2)
+      Tests  13 passed (13)
+   Start at  22:13:14
+   Duration  3.40s (transform 606ms, setup 552ms, import 2.06s, tests 1.73s, environment 1.44s)
+

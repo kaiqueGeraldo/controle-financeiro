@@ -1,0 +1,2539 @@
+diff --git a/controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx b/controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx
+index a765732..aa57dfb 100644
+--- a/controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx
++++ b/controle-financeiro-frontend/src/components/forms/changePasswordModal.tsx
+@@ -30,6 +30,11 @@ export function ChangePasswordModal({
+     setError(null);
+     setSuccess(false);
+ 
++    if (!formData.current) {
++      setError("Informe sua senha atual.");
++      return;
++    }
++
+     const valid = validarSenha(formData.newPass, formData.confirm, "novaSenha");
+     if (Object.keys(valid).length > 0) {
+       setError(valid.novaSenha || valid.confirmarNovaSenha);
+@@ -65,17 +70,18 @@ export function ChangePasswordModal({
+         )}
+ 
+         {error && (
+-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center gap-2 text-sm font-medium">
++          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-center gap-2 text-sm font-medium">
+             <AlertCircle size={18} className="shrink-0" /> {error}
+           </div>
+         )}
+ 
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="current-password" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Senha Atual
+           </label>
+           <div className="relative mt-1">
+             <input
++              id="current-password"
+               type={showCurrent ? "text" : "password"}
+               required
+               value={formData.current}
+@@ -88,6 +94,7 @@ export function ChangePasswordModal({
+               type="button"
+               onClick={() => setShowCurrent(!showCurrent)}
+               className="absolute right-4 top-3.5 text-text-muted hover:text-text-main"
++              aria-label={showCurrent ? "Ocultar senha atual" : "Mostrar senha atual"}
+             >
+               {showCurrent ? <EyeOff size={18} /> : <Eye size={18} />}
+             </button>
+@@ -95,11 +102,12 @@ export function ChangePasswordModal({
+         </div>
+ 
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="new-password" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Nova Senha
+           </label>
+           <div className="relative mt-1">
+             <input
++              id="new-password"
+               type={showNew ? "text" : "password"}
+               required
+               value={formData.newPass}
+@@ -112,6 +120,7 @@ export function ChangePasswordModal({
+               type="button"
+               onClick={() => setShowNew(!showNew)}
+               className="absolute right-4 top-3.5 text-text-muted hover:text-text-main"
++              aria-label={showNew ? "Ocultar nova senha" : "Mostrar nova senha"}
+             >
+               {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
+             </button>
+@@ -119,10 +128,11 @@ export function ChangePasswordModal({
+         </div>
+ 
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="confirm-new-password" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Confirmar Nova Senha
+           </label>
+           <input
++            id="confirm-new-password"
+             type={showNew ? "text" : "password"}
+             required
+             value={formData.confirm}
+diff --git a/controle-financeiro-frontend/src/components/forms/editProfileModal.tsx b/controle-financeiro-frontend/src/components/forms/editProfileModal.tsx
+index ef979ac..1a37c43 100644
+--- a/controle-financeiro-frontend/src/components/forms/editProfileModal.tsx
++++ b/controle-financeiro-frontend/src/components/forms/editProfileModal.tsx
+@@ -6,6 +6,7 @@ import { userService } from "@/services/userService";
+ import { useUser } from "@/hooks/useUser";
+ import { useAuth } from "@/hooks/useAuth";
+ import { Loader2, AlertTriangle, AlertCircle } from "lucide-react";
++import { validarEmail, validarNome } from "@/validators/inputValidator";
+ 
+ export function EditProfileModal({
+   isOpen,
+@@ -32,9 +33,16 @@ export function EditProfileModal({
+ 
+   const handleSubmit = async (e: React.SyntheticEvent) => {
+     e.preventDefault();
+-    setIsLoading(true);
+     setError(null);
+ 
++    const validationError = validarNome(formData.nome) || validarEmail(formData.email);
++    if (validationError) {
++      setError(validationError);
++      return;
++    }
++
++    setIsLoading(true);
++
+     try {
+       await userService.updateProfile(formData.nome, formData.email);
+ 
+@@ -55,7 +63,7 @@ export function EditProfileModal({
+     <Modal isOpen={isOpen} onClose={onClose} title="Editar Informações">
+       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+         {error && (
+-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-start gap-2 text-sm font-medium">
++          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-start gap-2 text-sm font-medium">
+             <AlertCircle size={18} className="shrink-0 mt-0.5" /> {error}
+           </div>
+         )}
+@@ -74,10 +82,11 @@ export function EditProfileModal({
+         )}
+ 
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="profile-name" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Nome
+           </label>
+           <input
++            id="profile-name"
+             required
+             value={formData.nome}
+             onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+@@ -85,10 +94,11 @@ export function EditProfileModal({
+           />
+         </div>
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="profile-email" className="text-xs text-text-muted font-bold uppercase ml-1">
+             E-mail
+           </label>
+           <input
++            id="profile-email"
+             type="email"
+             required
+             value={formData.email}
+diff --git a/controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx b/controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx
+index 884cb2e..46da080 100644
+--- a/controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx
++++ b/controle-financeiro-frontend/src/components/forms/payInvoiceModal.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ 
+ import { Modal } from "@/components/ui/modal";
++import { ApiError } from "@/services/api";
+ import { cardService } from "@/services/cardService";
+ import { Account } from "@/types";
+ import { localDateString } from "@/utils/date";
+@@ -16,7 +17,7 @@ import { useEffect, useRef, useState } from "react";
+ interface PayInvoiceModalProps {
+   isOpen: boolean;
+   onClose: () => void;
+-  onSuccess: () => void;
++  onSuccess: () => void | Promise<void>;
+   cardId: string;
+   cardName: string;
+   accounts: Account[];
+@@ -94,10 +95,16 @@ export function PayInvoiceModal({
+           : "Pagamento de Fatura",
+       });
+ 
+-      onSuccess();
++      await onSuccess();
+       onClose();
+     } catch (error: unknown) {
+-      setErrorMessage(error instanceof Error ? error.message : "Erro ao processar pagamento.");
++      setErrorMessage(
++        error instanceof ApiError && error.requiresReconciliation
++          ? "Não foi possível confirmar o pagamento. Recarregue a fatura antes de tentar novamente."
++          : error instanceof Error
++            ? error.message
++            : "Erro ao processar pagamento.",
++      );
+     } finally {
+       submitting.current = false;
+       setIsLoading(false);
+@@ -131,12 +138,13 @@ export function PayInvoiceModal({
+ 
+         {/* Conta de Origem */}
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="invoice-payment-account" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Pagar com
+           </label>
+           <div className="relative mt-1">
+             <Wallet className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
+             <select
++              id="invoice-payment-account"
+               required
+               value={accountId}
+               onChange={(e) => setAccountId(e.target.value)}
+@@ -153,12 +161,13 @@ export function PayInvoiceModal({
+ 
+         {/* Valor */}
+         <div>
+-          <label className="text-xs text-text-muted font-bold uppercase ml-1">
++          <label htmlFor="invoice-payment-amount" className="text-xs text-text-muted font-bold uppercase ml-1">
+             Valor do Pagamento
+           </label>
+           <div className="relative mt-1">
+             <DollarSign className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
+             <input
++              id="invoice-payment-amount"
+               required
+               type="number"
+               step="0.01"
+@@ -181,7 +190,7 @@ export function PayInvoiceModal({
+ 
+         {/* FEEDBACK DE ERRO */}
+         {errorMessage && (
+-          <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-2">
++          <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-2">
+             <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+             <p className="text-xs text-rose-400 font-medium">{errorMessage}</p>
+           </div>
+@@ -191,10 +200,11 @@ export function PayInvoiceModal({
+         <div className="grid grid-cols-2 gap-3">
+           {/* Data */}
+           <div>
+-            <label className="text-xs text-text-muted font-bold uppercase ml-1">
++            <label htmlFor="invoice-payment-date" className="text-xs text-text-muted font-bold uppercase ml-1">
+               Data do Pagamento
+             </label>
+             <input
++              id="invoice-payment-date"
+               required
+               type="date"
+               value={date}
+@@ -205,10 +215,11 @@ export function PayInvoiceModal({
+ 
+           {/* Hora */}
+           <div>
+-            <label className="text-xs text-text-muted font-bold uppercase ml-1">
++            <label htmlFor="invoice-payment-time" className="text-xs text-text-muted font-bold uppercase ml-1">
+               Hora
+             </label>
+             <input
++              id="invoice-payment-time"
+               type="time"
+               aria-label="Horário informado (opcional)"
+               value={time}
+diff --git a/controle-financeiro-frontend/src/components/screens/annual-summary/annualInvestments.tsx b/controle-financeiro-frontend/src/components/screens/annual-summary/annualInvestments.tsx
+index 9ecec37..491a6b0 100644
+--- a/controle-financeiro-frontend/src/components/screens/annual-summary/annualInvestments.tsx
++++ b/controle-financeiro-frontend/src/components/screens/annual-summary/annualInvestments.tsx
+@@ -6,9 +6,10 @@ import { TrendingUp } from "lucide-react";
+ interface AnnualInvestmentsProps {
+   totalValue: number;
+   items: InvestmentBreakdown[];
++  positionDateLabel: string;
+ }
+ 
+-export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps) {
++export function AnnualInvestments({ totalValue, items, positionDateLabel }: AnnualInvestmentsProps) {
+   const getBadgeColor = (color: string) => {
+     const map: Record<string, string> = {
+         EMERALD: "text-emerald-400", BLUE: "text-blue-400", CYAN: "text-cyan-400",
+@@ -21,7 +22,10 @@ export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps)
+     <div className="bg-bg-surface border border-border-divider rounded-3xl p-6 flex flex-col h-full">
+         <div className="flex items-center gap-2 mb-6 text-text-muted">
+           <TrendingUp className="w-5 h-5" />
+-          <h3 className="text-sm font-bold uppercase tracking-wider">Metas e Investimentos</h3>
++          <div>
++            <h3 className="text-sm font-bold uppercase tracking-wider">Posição atual de metas e investimentos</h3>
++            <p className="mt-1 text-xs normal-case tracking-normal">{positionDateLabel}</p>
++          </div>
+         </div>
+         
+         <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-2 max-h-40">
+@@ -40,9 +44,9 @@ export function AnnualInvestments({ totalValue, items }: AnnualInvestmentsProps)
+         </div>
+ 
+         <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center font-bold text-base">
+-          <span className="text-text-main">Total Acumulado</span>
++          <span className="text-text-main">Total na posição atual</span>
+           <PrivacyBlur className="text-emerald-500">{formatCurrency(totalValue)}</PrivacyBlur>
+         </div>
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/screens/annual-summary/annualNotepad.tsx b/controle-financeiro-frontend/src/components/screens/annual-summary/annualNotepad.tsx
+index ea448aa..b3510c3 100644
+--- a/controle-financeiro-frontend/src/components/screens/annual-summary/annualNotepad.tsx
++++ b/controle-financeiro-frontend/src/components/screens/annual-summary/annualNotepad.tsx
+@@ -7,15 +7,14 @@ interface AnnualNotepadProps {
+   content: string;
+   isSaving: boolean;
+   onContentChange: (content: string) => void;
+-  onSave: () => Promise<void>;
++  onSave: () => Promise<boolean>;
+ }
+ 
+ export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave }: AnnualNotepadProps) {
+   const [isEditing, setIsEditing] = useState(false);
+ 
+   const handleSave = async () => {
+-    await onSave();
+-    setIsEditing(false);
++    if (await onSave()) setIsEditing(false);
+   };
+ 
+   return (
+@@ -56,4 +55,4 @@ export function AnnualNotepad({ year, content, isSaving, onContentChange, onSave
+         </div>
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/screens/cards/creditCardItem.tsx b/controle-financeiro-frontend/src/components/screens/cards/creditCardItem.tsx
+index bb8c8f1..d601d7d 100644
+--- a/controle-financeiro-frontend/src/components/screens/cards/creditCardItem.tsx
++++ b/controle-financeiro-frontend/src/components/screens/cards/creditCardItem.tsx
+@@ -57,10 +57,13 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
+   );
+ 
+   return (
+-    <motion.div
++    <motion.button
++      type="button"
+       layoutId={`card-container-${card.id}`}
+-      onClick={() => !user?.privacyMode && onClick(card)}
+-      className={`group perspective-1000 relative w-full ${user?.privacyMode ? "cursor-default" : "cursor-pointer"}`}
++      onClick={() => onClick(card)}
++      disabled={user?.privacyMode}
++      aria-label={`Ver fatura de ${card.name}, final ${card.last4Digits}`}
++      className={`group perspective-1000 relative w-full appearance-none border-0 bg-transparent p-0 text-left ${user?.privacyMode ? "cursor-default" : "cursor-pointer"}`}
+       whileHover={user?.privacyMode ? {} : { y: -5 }}
+     >
+       {/* O CARTÃO FÍSICO */}
+@@ -142,6 +145,6 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
+           />
+         </div>
+       </motion.div>
+-    </motion.div>
++    </motion.button>
+   );
+ }
+diff --git a/controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx b/controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx
+index 641b19a..42bd845 100644
+--- a/controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx
++++ b/controle-financeiro-frontend/src/components/screens/cards/invoiceDetails.tsx
+@@ -1,5 +1,10 @@
+-import { CreditCard } from "@/services/cardService";
++import {
++  CardInvoiceTransaction,
++  CardInvoiceDetails,
++  CreditCard,
++} from "@/services/cardService";
+ import { normalizeOperationTemporal } from "@/services/temporal";
++import { Category } from "@/types";
+ import { formatCurrency } from "@/utils/format";
+ import { formatCalendarDate } from "@/utils/date";
+ import { AnimatePresence, motion } from "framer-motion";
+@@ -15,22 +20,30 @@ import {
+   Trash2,
+   X,
+ } from "lucide-react";
+-import { useMemo, useState } from "react";
++import { useId, useMemo, useState } from "react";
+ import { getCardStyle } from "./creditCardItem";
+ 
++type InvoiceViewData = Omit<CardInvoiceDetails, "id" | "transactions"> & {
++  id?: string;
++  transactions?: CardInvoiceTransaction[];
++};
++
+ interface InvoiceDetailsProps {
+   card: CreditCard | undefined;
+   isOpen: boolean;
+   onClose: () => void;
+-  invoiceData: any;
++  invoiceData: InvoiceViewData | null;
+   isLoadingInvoice: boolean;
+   viewDateFormatted: string;
+   onChangeMonth: (dir: number) => void;
+   onPay: () => void;
+   onDelete: () => void;
+   onUpdateLimit: (newLimit: number) => Promise<void>;
+-  categories?: any[];
+-  onUpdateTransaction?: (id: string, data: any) => Promise<void>;
++  categories?: Category[];
++  onUpdateTransaction?: (
++    id: string,
++    data: { description?: string; categoryId?: string },
++  ) => Promise<void>;
+   onDeleteTransaction?: (id: string) => Promise<void>;
+   canGoBack?: boolean;
+   canGoForward?: boolean;
+@@ -53,6 +66,7 @@ export function InvoiceDetails({
+   canGoBack = false,
+   canGoForward = false,
+ }: InvoiceDetailsProps) {
++  const titleId = useId();
+   const [isEditingLimit, setIsEditingLimit] = useState(false);
+   const [tempLimit, setTempLimit] = useState("");
+   const [editingTxId, setEditingTxId] = useState<string | null>(null);
+@@ -91,6 +105,7 @@ export function InvoiceDetails({
+ 
+   const styles = getCardStyle(card.name, card.color || "#333");
+   const totalAmount = invoiceData?.totalAmount || 0;
++  const transactions = invoiceData?.transactions ?? [];
+ 
+   const isPaid = invoiceData?.status === "PAID";
+   const isClosed = invoiceData?.status === "CLOSED";
+@@ -143,13 +158,18 @@ export function InvoiceDetails({
+           {/* Container Principal */}
+           <motion.div
+             layoutId={`card-container-${card.id}`}
++            role="dialog"
++            aria-modal="true"
++            aria-labelledby={titleId}
+             className="relative w-full max-w-lg bg-bg-surface border border-border-divider rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col h-[85vh] sm:max-h-[85vh] z-10 shadow-2xl">
+             {/* NAVEGADOR DE DATA */}
+             <div className="flex justify-center items-center relative">
+               <div className="flex items-center justify-between bg-bg-base/50 p-2 rounded-xl border border-border-divider/50 my-2">
+                 <button
++                  type="button"
+                   disabled={!canGoBack}
+                   onClick={() => onChangeMonth(-1)}
++                  aria-label="Mês anterior da fatura"
+                   className={`p-2 rounded-lg transition ${canGoBack ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
+                 >
+                   <ChevronLeft size={16} />
+@@ -161,15 +181,19 @@ export function InvoiceDetails({
+                   </span>
+                 </div>
+                 <button
++                  type="button"
+                   disabled={!canGoForward}
+                   onClick={() => onChangeMonth(1)}
++                  aria-label="Próximo mês da fatura"
+                   className={`p-2 rounded-lg transition ${canGoForward ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
+                 >
+                   <ChevronRight size={16} />
+                 </button>
+               </div>
+               <button
++                type="button"
+                 onClick={() => onClose()}
++                aria-label="Fechar detalhes da fatura"
+                 className="absolute right-6 p-4 text-rose-500 hover:bg-rose-500/10 rounded-xl cursor-pointer"
+               >
+                 <X size={14} />
+@@ -184,7 +208,7 @@ export function InvoiceDetails({
+             >
+               <div className="flex justify-between items-start z-10">
+                 <div>
+-                  <p className="text-[10px] uppercase font-bold text-white/70 tracking-widest mb-1">
++                  <p id={titleId} className="text-[10px] uppercase font-bold text-white/70 tracking-widest mb-1">
+                     {card.name} •••• {card.last4Digits}
+                   </p>
+                   <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">
+@@ -240,8 +264,8 @@ export function InvoiceDetails({
+                     />
+                   ))}
+                 </div>
+-              ) : invoiceData?.transactions?.length > 0 ? (
+-                invoiceData.transactions.map((t: any) => {
++              ) : transactions.length > 0 ? (
++                transactions.map((t) => {
+                   const isEditing = editingTxId === t.id;
+                   const catName = t.categoryName || "Geral";
+                   const temporal = normalizeOperationTemporal(t);
+@@ -338,7 +362,7 @@ export function InvoiceDetails({
+                                 onClick={() => {
+                                   setEditTxData({
+                                     description: t.description,
+-                                    categoryId: t.category?.id,
++                                    categoryId: "",
+                                   });
+                                   setEditingTxId(t.id);
+                                 }}
+@@ -381,6 +405,7 @@ export function InvoiceDetails({
+                       placeholder="Limite"
+                     />
+                     <button
++                      type="button"
+                       onClick={() => {
+                         onUpdateLimit(Number(tempLimit));
+                         setIsEditingLimit(false);
+@@ -390,6 +415,7 @@ export function InvoiceDetails({
+                       <Check size={14} />
+                     </button>
+                     <button
++                      type="button"
+                       onClick={() => setIsEditingLimit(false)}
+                       className="p-1 text-rose-500 hover:bg-rose-500/10 rounded cursor-pointer"
+                     >
+@@ -398,6 +424,7 @@ export function InvoiceDetails({
+                   </div>
+                 ) : (
+                   <button
++                    type="button"
+                     onClick={() => {
+                       setTempLimit(card.limit.toString());
+                       setIsEditingLimit(true);
+@@ -410,6 +437,7 @@ export function InvoiceDetails({
+                 )}
+ 
+                 <button
++                  type="button"
+                   onClick={onDelete}
+                   className="text-rose-500/70 hover:text-rose-500 font-bold flex items-center gap-1.5 transition text-xs cursor-pointer"
+                 >
+@@ -419,6 +447,7 @@ export function InvoiceDetails({
+               </div>
+ 
+               <button
++                type="button"
+                 onClick={onPay}
+                 disabled={isPayDisabled}
+                 className={`w-full font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg cursor-pointer ${btnClass}`}
+diff --git a/controle-financeiro-frontend/src/components/screens/configuracoes/configItem.tsx b/controle-financeiro-frontend/src/components/screens/configuracoes/configItem.tsx
+index 07f7d82..14794ab 100644
+--- a/controle-financeiro-frontend/src/components/screens/configuracoes/configItem.tsx
++++ b/controle-financeiro-frontend/src/components/screens/configuracoes/configItem.tsx
+@@ -2,16 +2,28 @@ import { ChevronRight } from "lucide-react";
+ import React from "react";
+ 
+ // --- TOGGLE SUAVE ---
+-export const Toggle = ({ isOn, onToggle }: { isOn: boolean; onToggle: () => void }) => (
++export const Toggle = ({
++  isOn,
++  onToggle,
++  label,
++  disabled = false,
++}: {
++  isOn: boolean;
++  onToggle: () => void;
++  label: string;
++  disabled?: boolean;
++}) => (
+   <button
+     type="button"
+     role="switch"
+     aria-checked={isOn}
++    aria-label={label}
++    disabled={disabled}
+     onClick={(e) => { 
+         e.stopPropagation(); 
+         onToggle(); 
+     }}
+-    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none ${
++    className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:cursor-not-allowed disabled:opacity-50 ${
+       isOn ? 'bg-emerald-500' : 'bg-zinc-700'
+     }`}
+   >
+@@ -30,24 +42,32 @@ interface ConfigItemProps {
+   rightElement?: React.ReactNode;
+   onClick?: () => void; 
+   isDanger?: boolean;
++  disabled?: boolean;
+ }
+ 
+-export const ConfigItem = ({ icon, title, description, rightElement, onClick, isDanger }: ConfigItemProps) => (
+-  <div 
+-    onClick={onClick} 
+-    className="flex items-center justify-between p-4 bg-bg-surface border border-border-divider first:rounded-t-2xl last:rounded-b-2xl border-b-0 last:border-b hover:bg-bg-surface-hover/50 transition-colors cursor-pointer group"
+-  >
+-    <div className="flex items-center gap-4">
++export const ConfigItem = ({ icon, title, description, rightElement, onClick, isDanger, disabled = false }: ConfigItemProps) => {
++  const content = <>
++    <div className="flex min-w-0 items-start gap-4 text-left">
+       <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDanger ? 'bg-rose-500/10 text-rose-500' : 'bg-bg-surface-hover text-text-muted group-hover:text-text-main'}`}>
+         {icon}
+       </div>
+-      <div>
++      <div className="min-w-0">
+         <p className={`font-medium ${isDanger ? 'text-rose-500' : 'text-text-main'}`}>{title}</p>
+-        {description && <p className="text-xs text-text-muted">{description}</p>}
++        {description && <p className="text-xs text-text-muted break-words">{description}</p>}
+       </div>
+     </div>
+-    <div>
++    <div className="shrink-0">
+         {rightElement || <ChevronRight size={18} className="text-text-muted group-hover:text-text-muted" />}
+     </div>
+-  </div>
+-);
+\ No newline at end of file
++  </>;
++
++  const className = "flex w-full items-center justify-between gap-4 border border-border-divider border-b-0 bg-bg-surface p-4 transition-colors first:rounded-t-2xl last:rounded-b-2xl last:border-b";
++
++  return onClick ? (
++    <button type="button" onClick={onClick} disabled={disabled} className={`${className} group cursor-pointer hover:bg-bg-surface-hover/50 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-emerald-500 disabled:cursor-not-allowed disabled:opacity-50`}>
++      {content}
++    </button>
++  ) : (
++    <div className={`${className} group`}>{content}</div>
++  );
++};
+diff --git a/controle-financeiro-frontend/src/components/screens/configuracoes/profileSection.tsx b/controle-financeiro-frontend/src/components/screens/configuracoes/profileSection.tsx
+index 79fb408..3dd9179 100644
+--- a/controle-financeiro-frontend/src/components/screens/configuracoes/profileSection.tsx
++++ b/controle-financeiro-frontend/src/components/screens/configuracoes/profileSection.tsx
+@@ -23,11 +23,11 @@ export function ProfileSection({ user, onEditClick }: ProfileSectionProps) {
+             <Mail size={14} className="shrink-0" />
+             <span className="text-sm truncate">{user?.email || "..."}</span>
+           </div>
+-          <button onClick={onEditClick} className="mt-3 text-sm text-emerald-500 font-bold hover:text-emerald-400 transition cursor-pointer">
++          <button type="button" onClick={onEditClick} className="mt-3 text-sm text-emerald-500 font-bold hover:text-emerald-400 transition cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500">
+             Editar informações
+           </button>
+         </div>
+       </div>
+     </section>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/screens/configuracoes/settingsSections.tsx b/controle-financeiro-frontend/src/components/screens/configuracoes/settingsSections.tsx
+index be253d6..b70e24d 100644
+--- a/controle-financeiro-frontend/src/components/screens/configuracoes/settingsSections.tsx
++++ b/controle-financeiro-frontend/src/components/screens/configuracoes/settingsSections.tsx
+@@ -15,8 +15,12 @@ import { ConfigItem, Toggle } from "./configItem";
+ 
+ // --- PREFERÊNCIAS ---
+ export function PreferencesSection({ 
+-    privacyMode, darkMode, onTogglePrivacy, onToggleDark, onConfigDashboard, onManageCategories 
+-}: any) {
++    privacyMode, darkMode, onTogglePrivacy, onToggleDark, onConfigDashboard, onManageCategories, pendingPreference,
++}: {
++  privacyMode: boolean; darkMode: boolean; onTogglePrivacy: () => void; onToggleDark: () => void;
++  onConfigDashboard: () => void; onManageCategories: () => void;
++  pendingPreference: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null;
++}) {
+   return (
+     <section>
+       <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Preferências</h2>
+@@ -25,15 +29,13 @@ export function PreferencesSection({
+           icon={privacyMode ? <EyeOff size={20} /> : <Eye size={20} />}
+           title="Modo Privacidade"
+           description="Ocultar valores monetários na interface"
+-          rightElement={<Toggle isOn={privacyMode} onToggle={onTogglePrivacy} />}
+-          onClick={onTogglePrivacy}
++          rightElement={<Toggle label="Modo Privacidade" isOn={privacyMode} onToggle={onTogglePrivacy} disabled={pendingPreference === "privacyMode"} />}
+         />
+         <ConfigItem 
+           icon={darkMode ? <Moon size={20} /> : <Sun size={20} />}
+           title="Tema Escuro"
+           description="Alternar entre modo claro e escuro"
+-          rightElement={<Toggle isOn={darkMode} onToggle={onToggleDark} />}
+-          onClick={onToggleDark}
++          rightElement={<Toggle label="Tema Escuro" isOn={darkMode} onToggle={onToggleDark} disabled={pendingPreference === "darkMode"} />}
+         />
+         <ConfigItem 
+           icon={<Tag size={20} />}
+@@ -54,19 +56,22 @@ export function PreferencesSection({
+ 
+ // --- NOTIFICAÇÕES ---
+ export function NotificationsSection({ 
+-    notifContas, notifSemanal, onToggleContas, onToggleSemanal 
+-}: any) {
++    notifContas, notifSemanal, onToggleContas, onToggleSemanal, pendingPreference,
++}: {
++  notifContas: boolean; notifSemanal: boolean; onToggleContas: () => void; onToggleSemanal: () => void;
++  pendingPreference: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null;
++}) {
+   return (
+     <section>
+       <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Notificações</h2>
+       <div className="flex flex-col">
+         <ConfigItem 
+           icon={<Bell size={20} />} title="Lembretes de Contas" description="Receber alerta por e-mail um dia antes do vencimento"
+-          rightElement={<Toggle isOn={notifContas} onToggle={onToggleContas} />} onClick={onToggleContas}
++          rightElement={<Toggle label="Lembretes de Contas" isOn={notifContas} onToggle={onToggleContas} disabled={pendingPreference === "notifContas"} />}
+         />
+         <ConfigItem 
+           icon={<Mail size={20} />} title="Resumo Semanal" description="Receber relatório por e-mail toda segunda"
+-          rightElement={<Toggle isOn={notifSemanal} onToggle={onToggleSemanal} />} onClick={onToggleSemanal}
++          rightElement={<Toggle label="Resumo Semanal" isOn={notifSemanal} onToggle={onToggleSemanal} disabled={pendingPreference === "notifSemanal"} />}
+         />
+       </div>
+     </section>
+@@ -75,15 +80,18 @@ export function NotificationsSection({
+ 
+ // --- SEGURANÇA E CONTA ---
+ export function SecuritySection({ 
+-    onChangePassword, onExportData, onManageDevices, onLogout, onDeleteAccount 
+-}: any) {
++    onChangePassword, onExportData, onLogout, onDeleteAccount, isExporting,
++}: {
++  onChangePassword: () => void; onExportData: () => void; onLogout: () => void; onDeleteAccount: () => void;
++  isExporting: boolean;
++}) {
+   return (
+     <>
+       <section>
+         <h2 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-3 ml-1">Dados e Segurança</h2>
+         <div className="flex flex-col">
+           <ConfigItem icon={<Lock size={20} />} title="Alterar Senha" description="Atualize sua senha de acesso" onClick={onChangePassword} />
+-          <ConfigItem icon={<Download size={20} />} title="Exportar Dados" description="Baixar extrato completo em Excel" onClick={onExportData} />
++          <ConfigItem icon={<Download size={20} />} title="Exportar Dados" description={isExporting ? "Gerando extrato em Excel..." : "Baixar extrato completo em Excel"} onClick={onExportData} disabled={isExporting} />
+         </div>
+       </section>
+ 
+@@ -96,4 +104,4 @@ export function SecuritySection({
+       </section>
+     </>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/screens/dashboard/wealthChart.tsx b/controle-financeiro-frontend/src/components/screens/dashboard/wealthChart.tsx
+index 8ec65ef..b0c0d86 100644
+--- a/controle-financeiro-frontend/src/components/screens/dashboard/wealthChart.tsx
++++ b/controle-financeiro-frontend/src/components/screens/dashboard/wealthChart.tsx
+@@ -2,12 +2,13 @@ import { useDashboard } from "@/hooks/useDashboard";
+ import { useUser } from "@/hooks/useUser";
+ import { formatCurrency } from "@/utils/format";
+ import { Loader2 } from "lucide-react";
++import { DataLoadError } from "./dataLoadError";
+ import { useEffect, useState } from "react";
+ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+ 
+ export function WealthChart() {
+   const { user } = useUser();
+-  const { chartData, fetchChartData, isChartLoading } = useDashboard();
++  const { chartData, fetchChartData, isChartLoading, chartError } = useDashboard();
+   const [period, setPeriod] = useState<"30D" | "6M" | "1Y">("6M");
+ 
+   useEffect(() => {
+@@ -37,7 +38,12 @@ export function WealthChart() {
+       </div>
+ 
+       <div className="w-full h-62.5 md:h-75 mt-2 relative">
+-        {isChartLoading ? (
++        {chartError ? (
++          <DataLoadError
++            onRetry={() => fetchChartData(period, true)}
++            isRetrying={isChartLoading}
++          />
++        ) : isChartLoading ? (
+           <div className="absolute inset-0 flex items-center justify-center bg-bg-surface/50 backdrop-blur-sm z-10 rounded-xl">
+              <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+           </div>
+@@ -68,7 +74,7 @@ export function WealthChart() {
+             <Tooltip
+               contentStyle={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-divider)", borderRadius: "8px", color: "var(--text-main)", fontSize: '12px' }}
+               itemStyle={{ color: "#10b981", fontWeight: 'bold' }}
+-              formatter={(value: any) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Patrimônio"]}
++              formatter={(value: unknown) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Patrimônio"]}
+             />
+             
+             <Area type="monotone" dataKey="valor" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorValor)" />
+@@ -77,4 +83,4 @@ export function WealthChart() {
+       </div>
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/sidebar/navLinks.tsx b/controle-financeiro-frontend/src/components/sidebar/navLinks.tsx
+index c2e42a1..f9887e7 100644
+--- a/controle-financeiro-frontend/src/components/sidebar/navLinks.tsx
++++ b/controle-financeiro-frontend/src/components/sidebar/navLinks.tsx
+@@ -11,9 +11,11 @@ import {
+ } from "lucide-react";
+ import Link from "next/link";
+ import { usePathname } from "next/navigation";
++import { useSidebar } from "@/hooks/useSidebar";
+ 
+ export function SidebarNavLinks() {
+   const pathname = usePathname();
++  const { setSidebarOpen } = useSidebar();
+ 
+   const menuItems = [
+     {
+@@ -71,6 +73,7 @@ export function SidebarNavLinks() {
+           <Link
+             key={index}
+             href={item.link}
++            onClick={() => setSidebarOpen(false)}
+             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
+               isActive
+                 ? "bg-bg-surface-hover text-emerald-400 font-medium shadow-lg shadow-black/20"
+diff --git a/controle-financeiro-frontend/src/components/sidebar/overlayMobile.tsx b/controle-financeiro-frontend/src/components/sidebar/overlayMobile.tsx
+index e63199b..9fb7b7e 100644
+--- a/controle-financeiro-frontend/src/components/sidebar/overlayMobile.tsx
++++ b/controle-financeiro-frontend/src/components/sidebar/overlayMobile.tsx
+@@ -11,10 +11,12 @@ export function OverlayMobile({ onClose }: OverlayMobileProps) {
+   });
+ 
+   return (
+-    <div
++    <button
++      type="button"
++      aria-label="Fechar menu de navegação"
+       className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden transition-opacity cursor-pointer"
+       {...handlers}
+       onClick={onClose}
+     />
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/sidebar/sidebar.tsx b/controle-financeiro-frontend/src/components/sidebar/sidebar.tsx
+index 15a3967..39d824d 100644
+--- a/controle-financeiro-frontend/src/components/sidebar/sidebar.tsx
++++ b/controle-financeiro-frontend/src/components/sidebar/sidebar.tsx
+@@ -15,6 +15,8 @@ export function Sidebar() {
+       {sidebarOpen && <OverlayMobile onClose={() => setSidebarOpen(false)} />}
+ 
+       <aside
++        id="main-navigation"
++        aria-label="Navegação principal"
+         className={`
+           fixed md:relative z-50 md:z-40 h-full w-72 
+           bg-bg-surface border-r border-border-divider
+@@ -35,4 +37,4 @@ export function Sidebar() {
+       </aside>
+     </>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/sidebar/topbarMobile.tsx b/controle-financeiro-frontend/src/components/sidebar/topbarMobile.tsx
+index 0bfe760..25d0ce8 100644
+--- a/controle-financeiro-frontend/src/components/sidebar/topbarMobile.tsx
++++ b/controle-financeiro-frontend/src/components/sidebar/topbarMobile.tsx
+@@ -2,7 +2,7 @@ import { useSidebar } from "@/hooks/useSidebar";
+ import { Menu } from "lucide-react";
+ 
+ export function SidebarTopbarMobile() {
+-  const { setSidebarOpen, scrolled } = useSidebar();
++  const { sidebarOpen, setSidebarOpen, scrolled } = useSidebar();
+ 
+   return (
+     <div
+@@ -14,8 +14,12 @@ export function SidebarTopbarMobile() {
+     >
+       <div className="flex items-center gap-3">
+         <button
++          type="button"
+           className="p-2 -ml-2 rounded-xl text-text-main bg-bg-surface border border-border-divider shadow-sm hover:text-emerald-500 hover:border-emerald-500/50 active:scale-95 transition-all cursor-pointer"
+           onClick={() => setSidebarOpen(true)}
++          aria-label="Abrir menu de navegação"
++          aria-expanded={sidebarOpen}
++          aria-controls="main-navigation"
+         >
+           <Menu className="w-5 h-5" />
+         </button>
+@@ -26,4 +30,4 @@ export function SidebarTopbarMobile() {
+       </div>
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/src/components/ui/input.tsx b/controle-financeiro-frontend/src/components/ui/input.tsx
+index 1d6939a..81acaa7 100644
+--- a/controle-financeiro-frontend/src/components/ui/input.tsx
++++ b/controle-financeiro-frontend/src/components/ui/input.tsx
+@@ -53,9 +53,11 @@ export default function InputField({
+           disabled={disabled}
+           readOnly={readOnly}
+           maxLength={maxLength}
+-          className={`w-full pr-12 pl-4 py-2 rounded-md bg-[#051026] border ${
+-            error ? "border-red-500" : "border-[#113A8C]"
+-          } text-text-main placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#11468C]`}
++          aria-invalid={Boolean(error)}
++          aria-describedby={error ? `${name}-error` : undefined}
++          className={`w-full rounded-md border px-4 py-2 pr-12 ${
++            error ? "border-red-600 dark:border-red-400" : "border-border-divider"
++          } bg-bg-base text-text-main placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-emerald-500`}
+           {...props}
+         />
+ 
+@@ -84,7 +86,11 @@ export default function InputField({
+         )}
+       </div>
+ 
+-      {error && <p className="text-sm text-red-400 mt-1">{error}</p>}
++      {error && (
++        <p id={`${name}-error`} role="alert" className="mt-1 text-sm text-red-600 dark:text-red-400">
++          {error}
++        </p>
++      )}
+     </div>
+   );
+ }
+diff --git a/controle-financeiro-frontend/src/components/ui/modal.tsx b/controle-financeiro-frontend/src/components/ui/modal.tsx
+index 36c9b6c..7ff04dd 100644
+--- a/controle-financeiro-frontend/src/components/ui/modal.tsx
++++ b/controle-financeiro-frontend/src/components/ui/modal.tsx
+@@ -1,5 +1,8 @@
++"use client";
++
+ import { AnimatePresence, motion } from "framer-motion";
+ import { X } from "lucide-react";
++import { useEffect, useId, useRef } from "react";
+ 
+ interface ModalProps {
+   isOpen: boolean;
+@@ -9,41 +12,119 @@ interface ModalProps {
+ }
+ 
+ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
++  const dialogRef = useRef<HTMLDivElement>(null);
++  const closeButtonRef = useRef<HTMLButtonElement>(null);
++  const previousActiveElementRef = useRef<HTMLElement | null>(null);
++  const onCloseRef = useRef(onClose);
++  const titleId = useId();
++
++  useEffect(() => {
++    onCloseRef.current = onClose;
++  }, [onClose]);
++
++  useEffect(() => {
++    if (!isOpen) {
++      return;
++    }
++
++    previousActiveElementRef.current = document.activeElement as HTMLElement;
++    closeButtonRef.current?.focus();
++
++    const handleKeyDown = (event: KeyboardEvent) => {
++      if (event.key === "Escape") {
++        event.preventDefault();
++        onCloseRef.current();
++        return;
++      }
++
++      if (event.key !== "Tab") {
++        return;
++      }
++
++      const dialog = dialogRef.current;
++      if (!dialog) {
++        return;
++      }
++
++      const focusableElements = Array.from(
++        dialog.querySelectorAll<HTMLElement>(
++          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
++        ),
++      ).filter((element) => element.getAttribute("aria-hidden") !== "true");
++
++      if (focusableElements.length === 0) {
++        event.preventDefault();
++        dialog.focus();
++        return;
++      }
++
++      const firstElement = focusableElements[0];
++      const lastElement = focusableElements[focusableElements.length - 1];
++      const activeElement = document.activeElement;
++
++      if (
++        event.shiftKey &&
++        (activeElement === firstElement || !dialog.contains(activeElement))
++      ) {
++        event.preventDefault();
++        lastElement.focus();
++      } else if (!event.shiftKey && activeElement === lastElement) {
++        event.preventDefault();
++        firstElement.focus();
++      }
++    };
++
++    document.addEventListener("keydown", handleKeyDown);
++    return () => {
++      document.removeEventListener("keydown", handleKeyDown);
++      previousActiveElementRef.current?.focus();
++    };
++  }, [isOpen]);
++
+   return (
+     <AnimatePresence>
+       {isOpen && (
+         <motion.div
+-          className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50"
++          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-xs"
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           exit={{ opacity: 0 }}
+           onClick={onClose}
+         >
+           <motion.div
+-            className="bg-bg-surface rounded-2xl shadow-lg p-6 w-full max-w-md relative"
++            ref={dialogRef}
++            role="dialog"
++            aria-modal="true"
++            aria-labelledby={title ? titleId : undefined}
++            aria-label={title ? undefined : "Diálogo"}
++            tabIndex={-1}
++            className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-bg-surface shadow-lg"
+             onClick={(e) => e.stopPropagation()}
+             initial={{ scale: 0.8, opacity: 0 }}
+             animate={{ scale: 1, opacity: 1 }}
+             exit={{ scale: 0.8, opacity: 0 }}
+             transition={{ type: "spring", stiffness: 300, damping: 20 }}
+           >
+-            {/* Botão de fechar */}
+-            <button
+-              onClick={onClose}
+-              className="absolute top-4 right-4 transition cursor-pointer"
+-            >
+-              <X className="w-6 h-6" />
+-            </button>
+-
+-            {/* Título */}
+-            {title && (
+-              <h2 className="text-2xl font-bold text-center text-text-main mb-4">
+-                {title}
+-              </h2>
+-            )}
+-
+-            {/* Conteúdo */}
+-            {children}
++            <div className="flex shrink-0 items-start justify-between gap-4 px-4 pb-3 pt-4 sm:px-6 sm:pt-6">
++              {title && (
++                <h2 id={titleId} className="pr-2 text-xl font-bold text-text-main sm:text-2xl">
++                  {title}
++                </h2>
++              )}
++              <button
++                ref={closeButtonRef}
++                type="button"
++                onClick={onClose}
++                className="shrink-0 rounded-md p-1 text-text-main transition hover:bg-bg-surface-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
++                aria-label="Fechar modal"
++              >
++                <X className="h-6 w-6" aria-hidden="true" />
++              </button>
++            </div>
++
++            <div className="min-h-0 overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-6">
++              {children}
++            </div>
+           </motion.div>
+         </motion.div>
+       )}
+diff --git a/controle-financeiro-frontend/src/contexts/dashboardContext.tsx b/controle-financeiro-frontend/src/contexts/dashboardContext.tsx
+index 49ee9d2..48ed7ff 100644
+--- a/controle-financeiro-frontend/src/contexts/dashboardContext.tsx
++++ b/controle-financeiro-frontend/src/contexts/dashboardContext.tsx
+@@ -35,6 +35,9 @@ interface DashboardContextType {
+   isFlowLoading: boolean;
+   isChartLoading: boolean;
+   isRecentLoading: boolean;
++  flowError: Error | null;
++  chartError: Error | null;
++  recentTransactionsError: Error | null;
+   refreshDashboard: (
+     invalidateCache?: boolean,
+     isBackground?: boolean,
+@@ -68,6 +71,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+   const [isFlowLoading, setIsFlowLoading] = useState(true);
+   const [isChartLoading, setIsChartLoading] = useState(true);
+   const [isRecentLoading, setIsRecentLoading] = useState(true);
++  const [flowError, setFlowError] = useState<Error | null>(null);
++  const [chartError, setChartError] = useState<Error | null>(null);
++  const [recentTransactionsError, setRecentTransactionsError] =
++    useState<Error | null>(null);
+ 
+   const flowCache = useRef<Record<string, FlowData>>({});
+   const chartCache = useRef<Record<string, ChartPoint[]>>({});
+@@ -77,6 +84,8 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+     async (invalidateCache = false, isBackground = false) => {
+       if (isLoadingUser || !userId) return;
+ 
++      setFlowError(null);
++
+       const now = new Date();
+       const cacheKey = `${userId}:${now.getMonth() + 1}-${now.getFullYear()}`;
+ 
+@@ -103,6 +112,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+         }
+       } catch (error: unknown) {
+         if (request.isCurrent() && !isAbortError(error)) {
++          setFlowError(
++            error instanceof Error
++              ? error
++              : new Error("Falha ao carregar o fluxo mensal."),
++          );
+           console.error("Erro ao buscar fluxo mensal", error);
+         }
+       } finally {
+@@ -116,6 +130,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+   const fetchChartData = useCallback(
+     async (period: "30D" | "6M" | "1Y", invalidateCache = false) => {
+       if (isLoadingUser || !userId) return;
++      setChartError(null);
+       if (invalidateCache) chartCache.current = {};
+       const cacheKey = `${userId}:${period}`;
+       if (!invalidateCache && chartCache.current[cacheKey]) {
+@@ -136,6 +151,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+         }
+       } catch (error: unknown) {
+         if (request.isCurrent() && !isAbortError(error)) {
++          setChartError(
++            error instanceof Error
++              ? error
++              : new Error("Falha ao carregar o gráfico."),
++          );
+           console.error("Erro ao buscar gráfico", error);
+         }
+       } finally {
+@@ -150,6 +170,8 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+     async (invalidateCache = false, isBackground = false) => {
+       if (isLoadingUser || !userId) return;
+ 
++      setRecentTransactionsError(null);
++
+       const cacheKey = userId;
+       if (invalidateCache) recentCache.current = {};
+ 
+@@ -174,6 +196,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+         }
+       } catch (error: unknown) {
+         if (request.isCurrent() && !isAbortError(error)) {
++          setRecentTransactionsError(
++            error instanceof Error
++              ? error
++              : new Error("Falha ao carregar as transações recentes."),
++          );
+           console.error("Erro ao buscar transações recentes", error);
+         }
+       } finally {
+@@ -215,6 +242,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+     setFlowData({ income: 0, expense: 0, balance: 0, percentage: 0 });
+     setChartData([]);
+     setRecentTransactions([]);
++    setFlowError(null);
++    setChartError(null);
++    setRecentTransactionsError(null);
+ 
+     if (isLoadingUser) {
+       setIsFlowLoading(true);
+@@ -240,6 +270,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+       isFlowLoading,
+       isChartLoading,
+       isRecentLoading,
++      flowError,
++      chartError,
++      recentTransactionsError,
+       refreshDashboard,
+       fetchChartData,
+     }),
+@@ -250,6 +283,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
+       isFlowLoading,
+       isChartLoading,
+       isRecentLoading,
++      flowError,
++      chartError,
++      recentTransactionsError,
+       refreshDashboard,
+       fetchChartData,
+     ],
+diff --git a/controle-financeiro-frontend/src/contexts/financeContext.tsx b/controle-financeiro-frontend/src/contexts/financeContext.tsx
+index e11b133..9353177 100644
+--- a/controle-financeiro-frontend/src/contexts/financeContext.tsx
++++ b/controle-financeiro-frontend/src/contexts/financeContext.tsx
+@@ -22,6 +22,7 @@ interface FinanceContextType {
+   categories: Category[];
+   saldoTotal: number;
+   isLoading: boolean;
++  error: Error | null;
+   refresh: () => Promise<void>;
+   createCategory: (data: CreateCategoryDTO) => Promise<void>;
+   updateCategory: (
+@@ -37,6 +38,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+   const [accounts, setAccounts] = useState<Account[]>([]);
+   const [categories, setCategories] = useState<Category[]>([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [error, setError] = useState<Error | null>(null);
+   const { user, isLoading: isLoadingUser } = useUser();
+   const userId = user?.id;
+   const requests = useRequestCoordinator(userId);
+@@ -50,6 +52,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+ 
+       const request = requests.begin("finance-data");
+       setIsLoading(true);
++      setError(null);
+       try {
+         const [accountsResult, categoriesResult] = await Promise.all([
+           accountService.getAll(request.signal),
+@@ -60,6 +63,13 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+         setAccounts(accountsResult.data ?? []);
+         setCategories(categoriesResult.data ?? []);
+       } catch (error: unknown) {
++        if (request.isCurrent() && !isAbortError(error)) {
++          setError(
++            error instanceof Error
++              ? error
++              : new Error("Falha ao carregar dados financeiros."),
++          );
++        }
+         if (
+           request.isCurrent() &&
+           !isAbortError(error) &&
+@@ -78,6 +88,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+   useEffect(() => {
+     setAccounts([]);
+     setCategories([]);
++    setError(null);
+ 
+     if (isLoadingUser) {
+       setIsLoading(true);
+@@ -182,6 +193,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+       categories,
+       saldoTotal,
+       isLoading,
++      error,
+       refresh: fetchData,
+       createCategory: async (data: CreateCategoryDTO) => {
+         await createCategory(data);
+@@ -198,6 +210,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
+       categories,
+       saldoTotal,
+       isLoading,
++      error,
+       fetchData,
+       createCategory,
+       updateCategory,
+diff --git a/controle-financeiro-frontend/src/contexts/goalsContext.tsx b/controle-financeiro-frontend/src/contexts/goalsContext.tsx
+index 16a6542..9d8589f 100644
+--- a/controle-financeiro-frontend/src/contexts/goalsContext.tsx
++++ b/controle-financeiro-frontend/src/contexts/goalsContext.tsx
+@@ -21,6 +21,7 @@ import {
+ interface GoalsContextType {
+   goals: Goal[];
+   isLoading: boolean;
++  error: Error | null;
+   refreshGoals: () => Promise<void>;
+   depositOptimistic: (id: string, data: GoalDepositDTO) => Promise<void>;
+ }
+@@ -30,6 +31,7 @@ const GoalsContext = createContext<GoalsContextType | undefined>(undefined);
+ export function GoalsProvider({ children }: { children: ReactNode }) {
+   const [goals, setGoals] = useState<Goal[]>([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [error, setError] = useState<Error | null>(null);
+   const { user, isLoading: isLoadingUser } = useUser();
+   const userId = user?.id;
+   const requests = useRequestCoordinator(userId);
+@@ -42,11 +44,17 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
+ 
+     const request = requests.begin("goals");
+     setIsLoading(true);
++    setError(null);
+ 
+     try {
+       const res = await goalService.getAll(request.signal);
+       if (request.isCurrent()) setGoals(res.data ?? []);
+     } catch (error: unknown) {
++      if (request.isCurrent() && !isAbortError(error)) {
++        setError(
++          error instanceof Error ? error : new Error("Falha ao carregar metas."),
++        );
++      }
+       if (
+         request.isCurrent() &&
+         !isAbortError(error) &&
+@@ -63,6 +71,7 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
+ 
+   useEffect(() => {
+     setGoals([]);
++    setError(null);
+     if (isLoadingUser) {
+       setIsLoading(true);
+       return;
+@@ -108,11 +117,12 @@ export function GoalsProvider({ children }: { children: ReactNode }) {
+   const contextValue = useMemo(() => ({
+     goals,
+     isLoading,
++    error,
+     refreshGoals,
+     depositOptimistic: async (id: string, data: GoalDepositDTO) => {
+       await depositOptimistic({ id, data });
+     },
+-  }), [goals, isLoading, refreshGoals, depositOptimistic]);
++  }), [goals, isLoading, error, refreshGoals, depositOptimistic]);
+ 
+   return (
+     <GoalsContext.Provider value={contextValue}>
+diff --git a/controle-financeiro-frontend/src/contexts/investmentsContext.tsx b/controle-financeiro-frontend/src/contexts/investmentsContext.tsx
+index 84a9b01..8254af2 100644
+--- a/controle-financeiro-frontend/src/contexts/investmentsContext.tsx
++++ b/controle-financeiro-frontend/src/contexts/investmentsContext.tsx
+@@ -21,6 +21,7 @@ import {
+ interface InvestmentsContextType {
+   investments: Investment[];
+   isLoading: boolean;
++  error: Error | null;
+   refreshInvestments: () => Promise<void>;
+   totalInvestido: number;
+   lucroTotal: number;
+@@ -34,6 +35,7 @@ const InvestmentsContext = createContext<InvestmentsContextType | undefined>(
+ export function InvestmentsProvider({ children }: { children: ReactNode }) {
+   const [investments, setInvestments] = useState<Investment[]>([]);
+   const [isLoading, setIsLoading] = useState(true);
++  const [error, setError] = useState<Error | null>(null);
+ 
+   const { user, isLoading: isLoadingUser } = useUser();
+   const { refresh: refreshFinance } = useFinanceData();
+@@ -48,12 +50,18 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
+ 
+     const request = requests.begin("investments");
+     setIsLoading(true);
++    setError(null);
+ 
+     try {
+       const res = await investmentService.getAll(request.signal);
+       if (request.isCurrent()) setInvestments(res.data ?? []);
+     } catch (error: unknown) {
+       if (request.isCurrent() && !isAbortError(error)) {
++        setError(
++          error instanceof Error
++            ? error
++            : new Error("Falha ao carregar investimentos."),
++        );
+         console.error("Erro ao buscar investimentos", error);
+       }
+     } finally {
+@@ -64,6 +72,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
+ 
+   useEffect(() => {
+     setInvestments([]);
++    setError(null);
+     if (isLoadingUser) {
+       setIsLoading(true);
+       return;
+@@ -100,6 +109,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
+     () => ({
+       investments,
+       isLoading,
++      error,
+       refreshInvestments: refreshAll,
+       totalInvestido,
+       lucroTotal,
+@@ -108,6 +118,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
+     [
+       investments,
+       isLoading,
++      error,
+       refreshAll,
+       totalInvestido,
+       lucroTotal,
+diff --git a/controle-financeiro-frontend/src/hooks/useAnnualSummary.ts b/controle-financeiro-frontend/src/hooks/useAnnualSummary.ts
+index 7c7d8ff..b2e2ea2 100644
+--- a/controle-financeiro-frontend/src/hooks/useAnnualSummary.ts
++++ b/controle-financeiro-frontend/src/hooks/useAnnualSummary.ts
+@@ -13,6 +13,7 @@ export function useAnnualSummary() {
+   const [year, setYear] = useState<number>(new Date().getFullYear());
+   const [summary, setSummary] = useState<AnnualSummaryResponse | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
++  const [error, setError] = useState<Error | null>(null);
+   const [noteContent, setNoteContent] = useState("");
+   const [isSavingNote, setIsSavingNote] = useState(false);
+   const toast = useToast();
+@@ -31,11 +32,15 @@ export function useAnnualSummary() {
+       if (!forceRefresh && summaryCache.current[cacheKey]) {
+         setSummary(summaryCache.current[cacheKey]);
+         setNoteContent(summaryCache.current[cacheKey].note || "");
++        setError(null);
+         setIsLoading(false);
+         return;
+       }
+ 
+       setIsLoading(true);
++      setError(null);
++      setSummary(null);
++      setNoteContent("");
+ 
+       if (timerRef.current) clearTimeout(timerRef.current);
+       const request = requests.begin("annual-summary");
+@@ -53,6 +58,11 @@ export function useAnnualSummary() {
+           }
+         } catch (error: unknown) {
+           if (request.isCurrent() && !isAbortError(error)) {
++            setError(
++              error instanceof Error
++                ? error
++                : new Error("Falha ao carregar resumo anual."),
++            );
+             console.error("Erro ao buscar resumo anual:", error);
+           }
+         } finally {
+@@ -87,8 +97,8 @@ export function useAnnualSummary() {
+     };
+   }, [year, fetchSummary]);
+ 
+-  const saveNote = async () => {
+-    if (summary?.note === noteContent) return;
++  const saveNote = async (): Promise<boolean> => {
++    if (summary?.note === noteContent) return true;
+ 
+     setIsSavingNote(true);
+     const savedYear = year;
+@@ -98,7 +108,7 @@ export function useAnnualSummary() {
+     try {
+       await annualSummaryService.updateNote(savedYear, noteContent);
+ 
+-      if (!request.isCurrent()) return;
++      if (!request.isCurrent()) return false;
+ 
+       if (cacheKey && summaryCache.current[cacheKey]) {
+         summaryCache.current[cacheKey].note = noteContent;
+@@ -110,10 +120,12 @@ export function useAnnualSummary() {
+         }
+         return prev;
+       });
++      return true;
+     } catch (error) {
+       if (request.isCurrent() && !isAbortError(error)) {
+         toast.error("Erro ao salvar nota.");
+       }
++      return false;
+     } finally {
+       if (request.isCurrent()) setIsSavingNote(false);
+       request.finish();
+@@ -125,6 +137,7 @@ export function useAnnualSummary() {
+     setYear,
+     summary,
+     isLoading,
++    error,
+     noteContent,
+     setNoteContent,
+     saveNote,
+diff --git a/controle-financeiro-frontend/src/hooks/useAuth.ts b/controle-financeiro-frontend/src/hooks/useAuth.ts
+index e307f7e..abd1e61 100644
+--- a/controle-financeiro-frontend/src/hooks/useAuth.ts
++++ b/controle-financeiro-frontend/src/hooks/useAuth.ts
+@@ -46,7 +46,9 @@ export function useAuth() {
+     const emailError = validarEmail(formData.email);
+     if (emailError) newErrors.email = emailError;
+ 
+-    if (!isLogin) {
++    if (isLogin) {
++      if (!formData.senha) newErrors.senha = "A senha é obrigatória.";
++    } else {
+       const nomeError = validarNome(formData.nome);
+       if (nomeError) newErrors.nome = nomeError;
+ 
+diff --git a/controle-financeiro-frontend/src/hooks/useCards.ts b/controle-financeiro-frontend/src/hooks/useCards.ts
+index 2194baf..cb05b77 100644
+--- a/controle-financeiro-frontend/src/hooks/useCards.ts
++++ b/controle-financeiro-frontend/src/hooks/useCards.ts
+@@ -20,6 +20,7 @@ export function useCards() {
+   const [cards, setCards] = useState<CreditCard[]>([]);
+ 
+   const [isLoading, setIsLoading] = useState(true); // Loading principal da tela
++  const [error, setError] = useState<Error | null>(null);
+   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+   const [viewDate, setViewDate] = useState(new Date());
+   const [invoiceDetails, setInvoiceDetails] =
+@@ -38,12 +39,16 @@ export function useCards() {
+ 
+     const request = requests.begin("cards");
+     if (!background) setIsLoading(true);
++    setError(null);
+ 
+     try {
+       const res = await cardService.getAll(request.signal);
+       if (request.isCurrent()) setCards(res.data ?? []);
+     } catch (error: unknown) {
+       if (request.isCurrent() && !isAbortError(error)) {
++        setError(
++          error instanceof Error ? error : new Error("Falha ao carregar cartões."),
++        );
+         console.error("Erro ao buscar cartões", error);
+       }
+     } finally {
+@@ -58,6 +63,7 @@ export function useCards() {
+   useEffect(() => {
+     invoiceCache.current = {};
+     setCards([]);
++    setError(null);
+     setSelectedCardId(null);
+     setInvoiceDetails(null);
+     isFirstLoad.current = true;
+@@ -249,6 +255,7 @@ export function useCards() {
+     accounts,
+     categories,
+     isLoading: isLoading && isFirstLoad.current,
++    error,
+     summary,
+ 
+     selectedCardId,
+diff --git a/controle-financeiro-frontend/src/hooks/useExtract.ts b/controle-financeiro-frontend/src/hooks/useExtract.ts
+index 8a895a2..b05ae5e 100644
+--- a/controle-financeiro-frontend/src/hooks/useExtract.ts
++++ b/controle-financeiro-frontend/src/hooks/useExtract.ts
+@@ -32,6 +32,7 @@ export function useExtract() {
+   const [transactions, setTransactions] = useState<Transaction[]>([]);
+   const [isLoadingList, setIsLoadingList] = useState(true);
+   const [isFirstLoad, setIsFirstLoad] = useState(true);
++  const [error, setError] = useState<Error | null>(null);
+ 
+   const [page, setPage] = useState(0);
+   const [requestedPage, setRequestedPage] = useState(0);
+@@ -59,6 +60,7 @@ export function useExtract() {
+ 
+       requests.invalidate("extract");
+       setIsLoadingList(true);
++      setError(null);
+       setRequestedPage(currentPage);
+ 
+       const month = dateRef.getMonth() + 1;
+@@ -123,6 +125,11 @@ export function useExtract() {
+         }
+       } catch (error: unknown) {
+         if (request.isCurrent() && !isAbortError(error)) {
++          setError(
++            error instanceof Error
++              ? error
++              : new Error("Falha ao carregar o extrato."),
++          );
+           console.error("Erro ao buscar extrato paginado", error);
+         }
+       } finally {
+@@ -307,6 +314,8 @@ export function useExtract() {
+     isInitialLoading: isFirstLoad || isLoadingGlobal,
+     isFiltering: isLoadingList && !isFirstLoad && requestedPage === 0,
+     isLoadingMore: isLoadingList && requestedPage > 0,
++    error,
++    retry: () => fetchExtract(0, false, true),
+     hasMore,
+     loadMore,
+     filters: {
+diff --git a/controle-financeiro-frontend/src/hooks/useGoals.ts b/controle-financeiro-frontend/src/hooks/useGoals.ts
+index 6083b5c..a3b6e18 100644
+--- a/controle-financeiro-frontend/src/hooks/useGoals.ts
++++ b/controle-financeiro-frontend/src/hooks/useGoals.ts
+@@ -9,7 +9,7 @@ import {
+ } from "./useRequestCoordinator";
+ 
+ export function useGoals() {
+-  const { goals, isLoading, refreshGoals } = useGoalsContext();
++  const { goals, isLoading, error, refreshGoals } = useGoalsContext();
+   const { user } = useUser();
+   const requests = useRequestCoordinator(user?.id);
+   
+@@ -62,6 +62,7 @@ export function useGoals() {
+   return {
+     goals,
+     isLoading,
++    error,
+     refreshGoals,
+     selectedGoalId,
+     setSelectedGoalId,
+diff --git a/controle-financeiro-frontend/src/screens/private/accounts/accountsScreen.tsx b/controle-financeiro-frontend/src/screens/private/accounts/accountsScreen.tsx
+index 26c21f3..52b9f7d 100644
+--- a/controle-financeiro-frontend/src/screens/private/accounts/accountsScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/accounts/accountsScreen.tsx
+@@ -5,12 +5,12 @@ import { ReorderModal } from "@/components/forms/reorderModal";
+ import { ConfirmationModal } from "@/components/modals/confirmModal";
+ import { AccountCard } from "@/components/screens/accounts/accountCard";
+ import { AccountsSummary } from "@/components/screens/accounts/accountsSummary";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { useAccountModals } from "@/contexts/modals/accountModalContext";
+ import { useToast } from "@/contexts/toastContext";
+ import { useDashboard } from "@/hooks/useDashboard";
+ import { useFinanceData } from "@/hooks/useFinanceData";
+ import { useInvestments } from "@/hooks/useInvestments";
+-import { useSidebar } from "@/hooks/useSidebar";
+ import { useUser } from "@/hooks/useUser";
+ import { accountService } from "@/services/accountService";
+ import { Account } from "@/types";
+@@ -29,9 +29,8 @@ import { useState } from "react";
+ export default function AccountsScreen() {
+   const router = useRouter();
+   const { user } = useUser();
+-  const { scrolled } = useSidebar();
+   const { refreshDashboard } = useDashboard();
+-  const { accounts, isLoading, saldoTotal, refresh } = useFinanceData();
++  const { accounts, isLoading, saldoTotal, error, refresh } = useFinanceData();
+   const { openManageAccount } = useAccountModals();
+   const [accountToDelete, setAccountToDelete] = useState<string | null>(null);
+   const [accountToEdit, setAccountToEdit] = useState<Account | null>(null);
+@@ -45,6 +44,14 @@ export default function AccountsScreen() {
+ 
+   const total = saldoTotal + totalInvestido;
+ 
++  if (!isLoading && error) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError onRetry={refresh} />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
+       {/* HEADER */}
+@@ -146,8 +153,12 @@ export default function AccountsScreen() {
+               setAccountToDelete(null);
+               refresh();
+               refreshDashboard(true);
+-            } catch (error: any) {
+-              toast.error(error.message || "Erro ao excluir conta.");
++            } catch (error: unknown) {
++              toast.error(
++                error instanceof Error
++                  ? error.message
++                  : "Erro ao excluir conta.",
++              );
+             }
+           }
+         }}
+diff --git a/controle-financeiro-frontend/src/screens/private/annual-summary/annualSummaryScreen.tsx b/controle-financeiro-frontend/src/screens/private/annual-summary/annualSummaryScreen.tsx
+index aec8bb6..709caf3 100644
+--- a/controle-financeiro-frontend/src/screens/private/annual-summary/annualSummaryScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/annual-summary/annualSummaryScreen.tsx
+@@ -4,6 +4,7 @@ import { AnnualBalance } from "@/components/screens/annual-summary/annualBalance
+ import { AnnualCreditCard } from "@/components/screens/annual-summary/annualCreditCard";
+ import { AnnualInvestments } from "@/components/screens/annual-summary/annualInvestments";
+ import { AnnualNotepad } from "@/components/screens/annual-summary/annualNotepad";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { useAnnualSummary } from "@/hooks/useAnnualSummary";
+ import { useSidebar } from "@/hooks/useSidebar";
+ import { motion } from "framer-motion";
+@@ -16,10 +17,12 @@ export default function AnnualSummaryScreen() {
+     setYear,
+     summary,
+     isLoading,
++    error,
+     noteContent,
+     setNoteContent,
+     saveNote,
+     isSavingNote,
++    refresh,
+   } = useAnnualSummary();
+   const currentYear = new Date().getFullYear();
+   const MIN_YEAR = 2020;
+@@ -33,6 +36,14 @@ export default function AnnualSummaryScreen() {
+     );
+   }
+ 
++  if (error) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError onRetry={() => refresh()} />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
+       {/* HEADER FIXO */}
+@@ -110,10 +121,25 @@ export default function AnnualSummaryScreen() {
+                   monthlyAverage={summary.creditCard.monthlyAverage}
+                 />
+ 
+-                <AnnualInvestments
+-                  totalValue={summary.investments.totalValue}
+-                  items={summary.investments.items}
+-                />
++                {year === currentYear ? (
++                  <AnnualInvestments
++                    totalValue={summary.investments.totalValue}
++                    items={summary.investments.items}
++                    positionDateLabel="Valores calculados na posição atual; não representam fechamento anual."
++                  />
++                ) : (
++                  <section
++                    aria-labelledby="historical-position-unavailable"
++                    className="rounded-3xl border border-border-divider bg-bg-surface p-6"
++                  >
++                    <h3 id="historical-position-unavailable" className="text-sm font-bold text-text-main">
++                      Posição de metas e investimentos indisponível
++                    </h3>
++                    <p className="mt-2 text-sm text-text-muted">
++                      O fechamento de {year} ainda não é reconstruído pelo produto. A posição atual não é exibida como dado histórico.
++                    </p>
++                  </section>
++                )}
+               </div>
+             </div>
+ 
+diff --git a/controle-financeiro-frontend/src/screens/private/configuracoes/configuracoesScreen.tsx b/controle-financeiro-frontend/src/screens/private/configuracoes/configuracoesScreen.tsx
+index 7b524cd..8736944 100644
+--- a/controle-financeiro-frontend/src/screens/private/configuracoes/configuracoesScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/configuracoes/configuracoesScreen.tsx
+@@ -35,6 +35,10 @@ export default function ConfiguracoesScreen() {
+     message: string;
+     type: "success" | "error" | "info";
+   } | null>(null);
++  const [pendingPreference, setPendingPreference] = useState<
++    "privacyMode" | "darkMode" | "notifContas" | "notifSemanal" | null
++  >(null);
++  const [isExporting, setIsExporting] = useState(false);
+ 
+   const showFeedback = (
+     message: string,
+@@ -47,14 +51,17 @@ export default function ConfiguracoesScreen() {
+   const handleTogglePreference = async (
+     key: "privacyMode" | "darkMode" | "notifContas" | "notifSemanal",
+   ) => {
+-    if (!user) return;
++    if (!user || pendingPreference) return;
++    setPendingPreference(key);
+     try {
+       const newVal = !user[key];
+       await userService.updatePreferences({ [key]: newVal });
+       await refetchUser();
+       showFeedback("Preferência atualizada com sucesso!", "success");
+-    } catch (e) {
++    } catch {
+       showFeedback("Erro ao alterar preferência", "error");
++    } finally {
++      setPendingPreference(null);
+     }
+   };
+ 
+@@ -71,26 +78,28 @@ export default function ConfiguracoesScreen() {
+   };
+ 
+   const handleExportData = async () => {
++    if (isExporting) return;
++    setIsExporting(true);
+     showFeedback("Gerando planilha Excel, aguarde...", "info");
+     try {
+       const res = await transactionService.exportExcel();
+-      if (res?.data) {
+-        const url = window.URL.createObjectURL(new Blob([res.data]));
+-        const link = document.createElement("a");
+-        link.href = url;
+-        link.setAttribute(
+-          "download",
+-          `Extrato_KaiqueFinancas_${new Date().getTime()}.xlsx`,
+-        );
+-        document.body.appendChild(link);
+-        link.click();
+-        link.parentNode?.removeChild(link);
+-
+-        showFeedback("Planilha gerada com sucesso!", "success");
++      if (!(res?.data instanceof Blob) || res.data.size === 0) {
++        throw new Error("A exportação não retornou um arquivo válido.");
+       }
+-    } catch (error) {
+-      console.error(error);
++
++      const url = window.URL.createObjectURL(res.data);
++      const link = document.createElement("a");
++      link.href = url;
++      link.setAttribute("download", `Extrato_KaiqueFinancas_${new Date().getTime()}.xlsx`);
++      document.body.appendChild(link);
++      link.click();
++      link.remove();
++      window.URL.revokeObjectURL(url);
++      showFeedback("Planilha gerada com sucesso!", "success");
++    } catch {
+       showFeedback("Erro ao exportar a planilha. Tente novamente.", "error");
++    } finally {
++      setIsExporting(false);
+     }
+   };
+ 
+@@ -108,9 +117,10 @@ export default function ConfiguracoesScreen() {
+         `}
+       >
+         <div className="px-6 md:px-8 max-w-3xl mx-auto flex items-center gap-4">
+-          <button 
++          <button type="button"
+             onClick={() => window.history.back()}
+             className="p-2 -ml-2 text-text-muted hover:text-text-main hover:bg-bg-surface-hover rounded-xl transition-colors cursor-pointer"
++            aria-label="Voltar"
+           >
+              <ArrowLeft size={20} />
+           </button>
+@@ -125,6 +135,8 @@ export default function ConfiguracoesScreen() {
+         {/* COMPONENTE DE FEEDBACK INLINE */}
+         {feedback && (
+           <div
++            role={feedback.type === "error" ? "alert" : "status"}
++            aria-live={feedback.type === "error" ? "assertive" : "polite"}
+             className={`p-4 rounded-xl border flex items-start gap-3 transition-all animate-in fade-in slide-in-from-top-4 
+             ${feedback.type === "success" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : ""}
+             ${feedback.type === "error" ? "bg-rose-500/10 border-rose-500/20 text-rose-400" : ""}
+@@ -156,6 +168,7 @@ export default function ConfiguracoesScreen() {
+           onToggleDark={() => handleTogglePreference("darkMode")}
+           onManageCategories={() => setIsManageCategoriesOpen(true)}
+           onConfigDashboard={() => setIsConfigDashOpen(true)}
++          pendingPreference={pendingPreference}
+         />
+ 
+         <NotificationsSection
+@@ -163,6 +176,7 @@ export default function ConfiguracoesScreen() {
+           notifSemanal={user?.notifSemanal ?? true}
+           onToggleContas={() => handleTogglePreference("notifContas")}
+           onToggleSemanal={() => handleTogglePreference("notifSemanal")}
++          pendingPreference={pendingPreference}
+         />
+ 
+         <SecuritySection
+@@ -170,6 +184,7 @@ export default function ConfiguracoesScreen() {
+           onExportData={handleExportData}
+           onLogout={openLogout}
+           onDeleteAccount={() => setIsDeleteAccOpen(true)}
++          isExporting={isExporting}
+         />
+ 
+         <div className="text-center pt-8 pb-4">
+diff --git a/controle-financeiro-frontend/src/screens/private/dashboard/dashboardScreen.tsx b/controle-financeiro-frontend/src/screens/private/dashboard/dashboardScreen.tsx
+index 5565dd1..d1368de 100644
+--- a/controle-financeiro-frontend/src/screens/private/dashboard/dashboardScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/dashboard/dashboardScreen.tsx
+@@ -5,6 +5,7 @@ import {
+   DEFAULT_CONFIG,
+ } from "@/components/forms/configDashboardModal";
+ import { BalanceCard } from "@/components/screens/dashboard/balanceCard";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { GoalsCard } from "@/components/screens/dashboard/goalsCard";
+ import { InvoicesCard } from "@/components/screens/dashboard/invoicesCard";
+ import { MonthlyFlowCard } from "@/components/screens/dashboard/monthlyFlowCard";
+@@ -19,6 +20,7 @@ import { useGoals } from "@/hooks/useGoals";
+ import { useInvestments } from "@/hooks/useInvestments";
+ import { useUser } from "@/hooks/useUser";
+ import { formatCurrency } from "@/utils/format";
++import { formatCalendarDate } from "@/utils/date";
+ import { History, Landmark, Loader2, Plus } from "lucide-react";
+ import { useMemo } from "react";
+ 
+@@ -31,21 +33,50 @@ const getCardColorClass = (name: string) => {
+   return "text-emerald-500";
+ };
+ 
++type StoredDashboardCard = Partial<DashboardCardConfig> & { id: string };
++
+ export default function DashboardScreen() {
+   const { user } = useUser();
+   const {
+     accounts,
+     saldoTotal,
+     isLoading: isLoadingFinance,
++    error: financeError,
+   } = useFinanceData();
+-  const { cards, isLoading: isLoadingCards } = useCards();
+-  const { goals, isLoading: isLoadingGoals } = useGoals();
+-  const { totalInvestido } = useInvestments();
++  const { cards, isLoading: isLoadingCards, error: cardsError, refreshAll: refreshCards } = useCards();
++  const { goals, isLoading: isLoadingGoals, error: goalsError, refreshGoals } = useGoals();
++  const {
++    totalInvestido,
++    isLoading: isLoadingInvestments,
++    error: investmentsError,
++    refreshInvestments,
++  } = useInvestments();
+   const { openNewTransaction } = useTransactionModals();
+   const { openNewGoal } = useGoalModals();
+-  const { flowData, recentTransactions } = useDashboard();
++  const {
++    flowData,
++    recentTransactions,
++    isFlowLoading,
++    isRecentLoading,
++    flowError,
++    recentTransactionsError,
++    refreshDashboard,
++  } = useDashboard();
+ 
+-  const isLoading = isLoadingFinance || isLoadingCards || isLoadingGoals;
++  const isLoading =
++    isLoadingFinance ||
++    isLoadingCards ||
++    isLoadingGoals ||
++    isLoadingInvestments ||
++    isFlowLoading ||
++    isRecentLoading;
++  const loadError =
++    financeError ||
++    cardsError ||
++    goalsError ||
++    investmentsError ||
++    flowError ||
++    recentTransactionsError;
+   const patrimonioTotal = saldoTotal + totalInvestido;
+ 
+   const resumoFaturas = useMemo(() => {
+@@ -76,7 +107,7 @@ export default function DashboardScreen() {
+ 
+       if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_CONFIG;
+ 
+-      const validIds = [
++      const validIds = new Set<DashboardCardConfig["id"]>([
+         "BALANCE",
+         "FLOW",
+         "INVOICES",
+@@ -84,12 +115,25 @@ export default function DashboardScreen() {
+         "GOALS",
+         "RECENT_TX",
+         "ACCOUNTS",
+-      ];
+-      const result = parsed
+-        .filter((p: any) => validIds.includes(p.id))
+-        .map((p: any) => {
+-          const def = DEFAULT_CONFIG.find((d) => d.id === p.id);
+-          return { ...def, ...p, span: p.span || def?.span || 1 }; // Garante o span
++      ]);
++      const result: DashboardCardConfig[] = parsed
++        .filter((value): value is StoredDashboardCard => {
++          return (
++            typeof value === "object" &&
++            value !== null &&
++            "id" in value &&
++            typeof value.id === "string" &&
++            validIds.has(value.id as DashboardCardConfig["id"])
++          );
++        })
++        .map((stored) => {
++          const def = DEFAULT_CONFIG.find((item) => item.id === stored.id)!;
++          return {
++            ...def,
++            visible:
++              typeof stored.visible === "boolean" ? stored.visible : def.visible,
++            span: stored.span === 2 || stored.span === 3 ? stored.span : 1,
++          };
+         });
+ 
+       DEFAULT_CONFIG.forEach((def) => {
+@@ -210,9 +254,7 @@ export default function DashboardScreen() {
+                         {tx.description}
+                       </p>
+                       <p className="text-[10px] text-text-muted">
+-                        {new Date(tx.date + "T12:00:00").toLocaleDateString(
+-                          "pt-BR",
+-                        )}
++                        {formatCalendarDate(tx.date)}
+                       </p>
+                     </div>
+                     <PrivacyBlur
+@@ -245,6 +287,23 @@ export default function DashboardScreen() {
+     );
+   }
+ 
++  if (loadError) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError
++          onRetry={() =>
++            Promise.all([
++              refreshCards(),
++              refreshGoals(),
++              refreshInvestments(),
++              refreshDashboard(true),
++            ]).then(() => undefined)
++          }
++        />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base p-6 md:p-8 font-sans text-text-main space-y-6 pb-24">
+       <div className="flex justify-between items-center mb-2">
+diff --git a/controle-financeiro-frontend/src/screens/private/extract/extractScreen.tsx b/controle-financeiro-frontend/src/screens/private/extract/extractScreen.tsx
+index 403dbf1..d042b81 100644
+--- a/controle-financeiro-frontend/src/screens/private/extract/extractScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/extract/extractScreen.tsx
+@@ -2,11 +2,13 @@
+ 
+ import { ExtractFilters } from "@/components/screens/extract/extractFilters";
+ import { ExtractSummary } from "@/components/screens/extract/extractSummary";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { TransactionDetails } from "@/components/screens/extract/transactionDetails";
+ import { TransactionItem } from "@/components/screens/extract/transactionItem";
+ import { useTransactionModals } from "@/contexts/modals/transactionModalContext";
+ import { useExtract } from "@/hooks/useExtract";
+ import { useSidebar } from "@/hooks/useSidebar";
++import { formatCalendarDate } from "@/utils/date";
+ import {
+   AlertCircle,
+   ChevronLeft,
+@@ -40,6 +42,8 @@ export default function ExtractScreen() {
+     hasMore,
+     loadMore,
+     isLoadingMore,
++    error,
++    retry,
+   } = useExtract();
+ 
+   if (isInitialLoading) {
+@@ -50,6 +54,14 @@ export default function ExtractScreen() {
+     );
+   }
+ 
++  if (error) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError onRetry={retry} />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
+       {/* HEADER FIXO */}
+@@ -157,10 +169,9 @@ export default function ExtractScreen() {
+               <div key={grupo.date} className="space-y-3">
+                 {/* Data Sticky */}
+                 <h3 className="text-sm font-semibold text-text-muted sticky top-44 md:top-48 z-10 bg-bg-base/95 backdrop-blur w-fit px-3 py-1 rounded-full border border-border-divider shadow-sm">
+-                  {new Date(grupo.date + "T12:00:00").toLocaleDateString(
+-                    "pt-BR",
+-                    { day: "2-digit", month: "short", weekday: "short" },
+-                  )}
++                  {formatCalendarDate(grupo.date, {
++                    day: "2-digit", month: "short", weekday: "short",
++                  })}
+                 </h3>
+ 
+                 <div className="bg-bg-surface border border-border-divider rounded-2xl overflow-hidden shadow-sm">
+diff --git a/controle-financeiro-frontend/src/screens/private/goals/goalsScreen.tsx b/controle-financeiro-frontend/src/screens/private/goals/goalsScreen.tsx
+index e5b1ba4..645a787 100644
+--- a/controle-financeiro-frontend/src/screens/private/goals/goalsScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/goals/goalsScreen.tsx
+@@ -3,6 +3,7 @@
+ import { GoalDetails } from "@/components/screens/goals/goalDetails";
+ import { GoalItem } from "@/components/screens/goals/goalItem";
+ import { GoalsSummary } from "@/components/screens/goals/goalsSummary";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { useGoalModals } from "@/contexts/modals/goalModalContext";
+ import { useCards } from "@/hooks/useCards";
+ import { useFinanceData } from "@/hooks/useFinanceData";
+@@ -21,6 +22,8 @@ export default function GoalsScreen() {
+     selectedGoal,
+     history,
+     isHistoryLoading,
++    error,
++    refreshGoals,
+   } = useGoals();
+   const { refresh, accounts } = useFinanceData();
+   const { cards } = useCards();
+@@ -57,6 +60,14 @@ export default function GoalsScreen() {
+     );
+   }
+ 
++  if (error) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError onRetry={refreshGoals} />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
+       {/* HEADER FIXO */}
+diff --git a/controle-financeiro-frontend/src/screens/private/investments/investmentsScreen.tsx b/controle-financeiro-frontend/src/screens/private/investments/investmentsScreen.tsx
+index f8f4886..efd7f1b 100644
+--- a/controle-financeiro-frontend/src/screens/private/investments/investmentsScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/private/investments/investmentsScreen.tsx
+@@ -4,6 +4,7 @@ import { ConfirmationModal } from "@/components/modals/confirmModal";
+ import { InvestmentDetails } from "@/components/screens/investments/investmentDetails";
+ import { InvestmentItem } from "@/components/screens/investments/investmentItem";
+ import { InvestmentsSummary } from "@/components/screens/investments/investmentsSummary";
++import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
+ import { useInvestmentModals } from "@/contexts/modals/investmentModalContext";
+ import { useInvestments } from "@/hooks/useInvestments";
+ import { useSidebar } from "@/hooks/useSidebar";
+@@ -25,6 +26,8 @@ export default function InvestimentosScreen() {
+     isHistoryLoading,
+     deleteInvestment,
+     deleteHistory,
++    error,
++    refreshInvestments,
+   } = useInvestments();
+ 
+   const { openNewAsset, openOperation } = useInvestmentModals();
+@@ -39,6 +42,14 @@ export default function InvestimentosScreen() {
+     );
+   }
+ 
++  if (error) {
++    return (
++      <div className="min-h-screen bg-bg-base font-sans text-text-main">
++        <DataLoadError onRetry={refreshInvestments} />
++      </div>
++    );
++  }
++
+   return (
+     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">
+       {/* HEADER FIXO */}
+diff --git a/controle-financeiro-frontend/src/screens/public/auth/authScreen.tsx b/controle-financeiro-frontend/src/screens/public/auth/authScreen.tsx
+index d41a7f2..0b4c286 100644
+--- a/controle-financeiro-frontend/src/screens/public/auth/authScreen.tsx
++++ b/controle-financeiro-frontend/src/screens/public/auth/authScreen.tsx
+@@ -106,7 +106,7 @@ export default function AuthScreen() {
+       <div className="w-full max-w-md bg-bg-surface/80 backdrop-blur-xl border border-border-divider rounded-3xl shadow-2xl relative z-10 overflow-hidden">
+         
+         {/* CABEÇALHO DO CARD */}
+-        <div className="p-8 pb-0 text-center">
++        <div className="p-5 pb-0 text-center sm:p-8 sm:pb-0">
+           <div className="w-16 h-16 bg-linear-to-tr from-emerald-500 to-emerald-300 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-6">
+             <span className="text-zinc-900 font-bold text-2xl">K</span>
+           </div>
+@@ -121,7 +121,7 @@ export default function AuthScreen() {
+         </div>
+ 
+         {/* CORPO DO FORMULÁRIO */}
+-        <div className="p-8 pt-6">
++        <div className="p-5 pt-6 sm:p-8 sm:pt-6">
+           
+           <AnimatePresence mode="wait">
+             
+@@ -135,7 +135,7 @@ export default function AuthScreen() {
+               >
+                 {/* Alerta de erro da recuperação */}
+                 {recoverError && (
+-                  <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 flex items-start gap-2 mb-4">
++                  <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 flex items-start gap-2 mb-4">
+                     <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                     <p className="text-xs text-rose-400 font-medium">{recoverError}</p>
+                   </div>
+@@ -145,10 +145,11 @@ export default function AuthScreen() {
+                   /* TELA 1: PEDIR E-MAIL */
+                   <form onSubmit={handleRequestToken} className="space-y-4">
+                     <div className="space-y-2">
+-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">E-mail Cadastrado</label>
++                      <label htmlFor="recovery-email" className="text-xs font-bold text-text-muted uppercase ml-1">E-mail Cadastrado</label>
+                       <div className="relative group">
+                         <Mail className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                         <input 
++                          id="recovery-email"
+                           type="email" 
+                           name="email"
+                           value={formData.email}
+@@ -177,10 +178,11 @@ export default function AuthScreen() {
+                     </div>
+ 
+                     <div className="space-y-2">
+-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Código de 6 dígitos</label>
++                      <label htmlFor="recovery-token" className="text-xs font-bold text-text-muted uppercase ml-1">Código de 6 dígitos</label>
+                       <div className="relative group">
+                         <KeyRound className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                         <input 
++                          id="recovery-token"
+                           type="text" 
+                           maxLength={6}
+                           value={resetToken}
+@@ -193,10 +195,11 @@ export default function AuthScreen() {
+                     </div>
+ 
+                     <div className="space-y-2">
+-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Criar Nova Senha</label>
++                      <label htmlFor="recovery-password" className="text-xs font-bold text-text-muted uppercase ml-1">Criar Nova Senha</label>
+                       <div className="relative group">
+                         <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                         <input 
++                          id="recovery-password"
+                           type={showPassword ? "text" : "password"} 
+                           value={newPassword}
+                           onChange={(e) => setNewPassword(e.target.value)}
+@@ -208,6 +211,7 @@ export default function AuthScreen() {
+                           type="button"
+                           onClick={() => setShowPassword(!showPassword)}
+                           className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
++                          aria-label={showPassword ? "Ocultar nova senha" : "Mostrar nova senha"}
+                         >
+                           {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                         </button>
+@@ -261,44 +265,50 @@ export default function AuthScreen() {
+                       exit={{ height: 0, opacity: 0 }}
+                       className="space-y-2 overflow-hidden"
+                     >
+-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Nome Completo</label>
++                      <label htmlFor="auth-name" className="text-xs font-bold text-text-muted uppercase ml-1">Nome Completo</label>
+                       <div className="relative group">
+                         <User className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                         <input 
++                          id="auth-name"
+                           name="nome"
+                           type="text" 
+                           placeholder="Seu nome"
+                           value={formData.nome}
+                           onChange={handleChange}
++                          aria-invalid={Boolean(errors.nome)}
++                          aria-describedby={errors.nome ? "auth-name-error" : undefined}
+                           className={`w-full bg-bg-base border ${errors.nome ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
+                         />
+                       </div>
+-                      {errors.nome && <span className="text-xs text-rose-500 ml-1">{errors.nome}</span>}
++                      {errors.nome && <span id="auth-name-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.nome}</span>}
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+ 
+                 {/* Campo Email */}
+                 <div className="space-y-2">
+-                  <label className="text-xs font-bold text-text-muted uppercase ml-1">E-mail</label>
++                  <label htmlFor="auth-email" className="text-xs font-bold text-text-muted uppercase ml-1">E-mail</label>
+                   <div className="relative group">
+                     <Mail className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                     <input 
++                      id="auth-email"
+                       name="email"
+                       type="email" 
+                       placeholder="seu@email.com"
+                       value={formData.email}
+                       onChange={handleChange}
++                      aria-invalid={Boolean(errors.email)}
++                      aria-describedby={errors.email ? "auth-email-error" : undefined}
+                       className={`w-full bg-bg-base border ${errors.email ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
+                     />
+                   </div>
+-                  {errors.email && <span className="text-xs text-rose-500 ml-1">{errors.email}</span>}
++                  {errors.email && <span id="auth-email-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.email}</span>}
+                 </div>
+ 
+                 {/* Campo Senha */}
+                 <div className="space-y-2">
+                   <div className="flex justify-between items-center px-1">
+-                    <label className="text-xs font-bold text-text-muted uppercase">Senha</label>
++                    <label htmlFor="auth-password" className="text-xs font-bold text-text-muted uppercase">Senha</label>
+                     {isLogin && (
+                       <button 
+                         type="button"
+@@ -315,22 +325,26 @@ export default function AuthScreen() {
+                   <div className="relative group">
+                     <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                     <input 
++                      id="auth-password"
+                       name="senha"
+                       type={showPassword ? "text" : "password"} 
+                       placeholder="••••••••"
+                       value={formData.senha}
+                       onChange={handleChange}
++                      aria-invalid={Boolean(errors.senha)}
++                      aria-describedby={errors.senha ? "auth-password-error" : undefined}
+                       className={`w-full bg-bg-base border ${errors.senha ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-12 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
+                     />
+                     <button 
+                       type="button"
+                       onClick={() => setShowPassword(!showPassword)}
+                       className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
++                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                     >
+                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                     </button>
+                   </div>
+-                  {errors.senha && <span className="text-xs text-rose-500 ml-1">{errors.senha}</span>}
++                  {errors.senha && <span id="auth-password-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.senha}</span>}
+                 </div>
+ 
+                  {/* Campo Confirmar Senha (Só no Cadastro) */}
+@@ -342,33 +356,37 @@ export default function AuthScreen() {
+                       exit={{ height: 0, opacity: 0 }}
+                       className="space-y-2 overflow-hidden"
+                     >
+-                      <label className="text-xs font-bold text-text-muted uppercase ml-1">Confirmar Senha</label>
++                      <label htmlFor="auth-confirm-password" className="text-xs font-bold text-text-muted uppercase ml-1">Confirmar Senha</label>
+                       <div className="relative group">
+                         <Lock className="absolute left-4 top-3.5 w-5 h-5 text-text-muted group-focus-within:text-emerald-500 transition-colors" />
+                         <input 
++                          id="auth-confirm-password"
+                           name="confirmarSenha"
+                           type={showConfirmPassword ? "text" : "password"} 
+                           placeholder="••••••••"
+                           value={formData.confirmarSenha}
+                           onChange={handleChange}
++                          aria-invalid={Boolean(errors.confirmarSenha)}
++                          aria-describedby={errors.confirmarSenha ? "auth-confirm-password-error" : undefined}
+                           className={`w-full bg-bg-base border ${errors.confirmarSenha ? 'border-rose-500' : 'border-border-divider'} text-text-main rounded-xl py-3 pl-12 pr-12 focus:outline-none focus:border-emerald-500 transition-all placeholder:text-text-muted`}
+                         />
+                         <button 
+                           type="button"
+                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                           className="absolute right-4 top-3.5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
++                          aria-label={showConfirmPassword ? "Ocultar confirmação de senha" : "Mostrar confirmação de senha"}
+                         >
+                           {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                         </button>
+                       </div>
+-                       {errors.confirmarSenha && <span className="text-xs text-rose-500 ml-1">{errors.confirmarSenha}</span>}
++                       {errors.confirmarSenha && <span id="auth-confirm-password-error" role="alert" className="text-xs text-rose-500 ml-1">{errors.confirmarSenha}</span>}
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
+ 
+                 {/* Erro Geral da API */}
+                 {apiError && (
+-                  <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-3">
++                  <div role="alert" className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 flex items-start gap-3">
+                     <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                     <p className="text-sm text-rose-400">{apiError}</p>
+                   </div>
+@@ -397,10 +415,11 @@ export default function AuthScreen() {
+ 
+         {/* FOOTER DO CARD (Toggle) */}
+         {!forgotPasswordMode && (
+-          <div className="bg-bg-base/50 p-6 border-t border-border-divider text-center">
++          <div className="bg-bg-base/50 p-5 sm:p-6 border-t border-border-divider text-center">
+             <p className="text-text-muted text-sm">
+               {isLogin ? "Ainda não tem uma conta?" : "Já possui cadastro?"}
+               <button 
++                type="button"
+                 onClick={toggleMode}
+                 className="ml-2 text-emerald-400 font-bold hover:underline cursor-pointer transition-colors"
+               >
+@@ -412,4 +431,4 @@ export default function AuthScreen() {
+       </div>
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/controle-financeiro-frontend/tests/component/async-state.test.tsx b/controle-financeiro-frontend/tests/component/async-state.test.tsx
+index 3e7e3ba..d6da2ee 100644
+--- a/controle-financeiro-frontend/tests/component/async-state.test.tsx
++++ b/controle-financeiro-frontend/tests/component/async-state.test.tsx
+@@ -11,6 +11,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+ import { FinanceProvider, useFinanceContext } from "@/contexts/financeContext";
+ import { useCards } from "@/hooks/useCards";
+ import { useOptimisticMutation } from "@/hooks/useOptimisticMutation";
++import { useExtract } from "@/hooks/useExtract";
+ import { accountService } from "@/services/accountService";
+ import {
+   cardService,
+@@ -18,6 +19,7 @@ import {
+   type CreditCard,
+ } from "@/services/cardService";
+ import { categoryService } from "@/services/categoryService";
++import { transactionService } from "@/services/transactionService";
+ import type { Account, Category } from "@/types";
+ 
+ const toastError = vi.fn();
+@@ -70,6 +72,14 @@ vi.mock("@/services/categoryService", () => ({
+   },
+ }));
+ 
++vi.mock("@/services/transactionService", () => ({
++  transactionService: {
++    getAll: vi.fn(),
++    delete: vi.fn(),
++    update: vi.fn(),
++  },
++}));
++
+ interface Deferred<T> {
+   promise: Promise<T>;
+   resolve: (value: T) => void;
+@@ -361,6 +371,58 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
+     expect(result.current.saldoTotal).toBe(90);
+     expect(accountService.getAll).toHaveBeenCalledTimes(2);
+   });
++
++  test("CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro", async () => {
++    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
++    vi.mocked(accountService.getAll)
++      .mockRejectedValueOnce(new Error("503 sintético"))
++      .mockResolvedValueOnce({ status: 200, data: [account("a", "Conta recuperada", 42)] });
++    vi.mocked(categoryService.getAll)
++      .mockRejectedValueOnce(new Error("503 sintético"))
++      .mockResolvedValueOnce({ status: 200, data: [] });
++
++    const { result } = renderHook(() => useFinanceContext(), { wrapper: FinanceProvider });
++    await act(async () => Promise.resolve());
++
++    expect(result.current.error?.message).toBe("503 sintético");
++    expect(result.current.accounts).toEqual([]);
++
++    await act(async () => {
++      await result.current.refresh();
++    });
++
++    expect(result.current.error).toBeNull();
++    expect(result.current.saldoTotal).toBe(42);
++    consoleError.mockRestore();
++  });
++
++  test("CF-012: extrato com erro não vira página vazia e retry requisita a primeira página", async () => {
++    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
++    vi.mocked(transactionService.getAll)
++      .mockRejectedValueOnce(new Error("503 sintético"))
++      .mockResolvedValueOnce({
++        status: 200,
++        data: { content: [], page: { number: 0, size: 30, totalElements: 0, totalPages: 0 } },
++    });
++
++    const { result } = renderHook(() => useExtract());
++    await act(async () => {
++      await Promise.resolve();
++      await Promise.resolve();
++    });
++    expect(result.current.error?.message).toBe("503 sintético");
++    expect(result.current.groupedTransactions).toEqual([]);
++
++    await act(async () => {
++      await result.current.retry();
++    });
++
++    expect(result.current.error).toBeNull();
++    expect(transactionService.getAll).toHaveBeenLastCalledWith(
++      expect.objectContaining({ page: 0, size: 30 }),
++    );
++    consoleError.mockRestore();
++  });
+ });
+ 
+ describe("AC-UI-009: mutações otimistas concorrentes", () => {
+diff --git a/docs/sdd/diagnostico.md b/docs/sdd/diagnostico.md
+index 00efcab..6583f7b 100644
+--- a/docs/sdd/diagnostico.md
++++ b/docs/sdd/diagnostico.md
+@@ -32,6 +32,7 @@ Prioridade P0 bloqueia uso com dados reais por integridade/isolamento confirmado
+ | F-015 | P1, investigação visual pendente | Relato do usuário em diversas telas; nenhum inventário visual executado neste diagnóstico | Registrar viewport, tema, estado, passos e captura por falha; não inferir correção visual apenas pelo código |
+ | F-016 | P1, bloqueio local confirmado | mvnw.cmd acessa `.Target[0]` quando Target é nulo no PowerShell local | Wrapper não inicia neste ambiente. Diferenciar falha de ferramenta de erro de compilação; usar distribuição Maven já instalada para diagnóstico |
+ | F-017 | P2, confirmado por execução | ESLint: 70 erros e 37 avisos em 54 arquivos | Dívida de tipagem, hooks e componentes. Tratar por regra/arquivo conforme lint-baseline.md; não confundir build aprovado com lint aprovado |
++| F-018 | P1, confirmado por semântica do código | `useExtract` calcula `summary` apenas sobre `transactions`, que contém a página carregada (30 itens) | O rótulo “Saldo do Período” pode mudar ao carregar outra página e não representa o período/filtro completo. Exigir total agregado no contrato; tratar em CF-021, sem recalcular no componente. |
+ 
+ ## Investigações adicionais delimitadas
+ 
+diff --git a/tasks/02-frontend/CF-010-componentes-comuns.md b/tasks/02-frontend/CF-010-componentes-comuns.md
+index 01b0a19..7bd9260 100644
+--- a/tasks/02-frontend/CF-010-componentes-comuns.md
++++ b/tasks/02-frontend/CF-010-componentes-comuns.md
+@@ -44,7 +44,15 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
+ 
+ ## Evidências e estado
+ 
+-Ainda não executada. Usar `tasks/evidencias/CF-010/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
++Concluída em 13/09/2026 sobre `main`, preservando o patch local preexistente em
++`README.md`. A dependência CF-003 estava concluída e integrada na base testada.
++Foram corrigidos diálogo, foco, rolagem, erro de formulário e controles móveis
++nos componentes compartilhados, com regressão causal, inspeção visual clara/escura
++e validação em viewport efetiva de zoom 200%. [Evidência, comandos e limitações](../evidencias/CF-010/README.md).
++
++Limitações: não há consumidor de `SideModal` para modal aninhado real; as
++capturas usam backend sentinela indisponível e viewport CSS equivalente a 200%,
++não configuração nativa de zoom. A revisão independente segue em CF-015.
+ 
+ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+ 
+diff --git a/tasks/02-frontend/CF-011-auth-configuracoes.md b/tasks/02-frontend/CF-011-auth-configuracoes.md
+index 2507398..67ace82 100644
+--- a/tasks/02-frontend/CF-011-auth-configuracoes.md
++++ b/tasks/02-frontend/CF-011-auth-configuracoes.md
+@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
+ 
+ ## Aceite e testes adversariais
+ 
+-- [ ] Sem corte de formulário ou mensagem em mobile; navegar por teclado e corrigir campos é possível.
+-- [ ] Preferência salva reaparece após reload; falha de gravação não mostra preferência persistida fictícia.
+-- [ ] Recuperação usa provedor falso; download falho mostra erro e não produz arquivo aparentemente válido.
+-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
++- [x] Sem corte de formulário ou mensagem em mobile; navegar por teclado e corrigir campos é possível.
++- [x] Preferência salva reaparece após reload; falha de gravação não mostra preferência persistida fictícia.
++- [x] Recuperação usa provedor falso; download falho mostra erro e não produz arquivo aparentemente válido.
++- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+ 
+ ## Fora de escopo
+ 
+@@ -44,7 +44,9 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
+ 
+ ## Evidências e estado
+ 
+-Ainda não executada. Usar `tasks/evidencias/CF-011/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
++Concluída em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch inicial das tarefas anteriores. Login, recuperação, logout, configurações, perfil e troca de senha receberam validação e semântica de teclado; preferências não atualizam a UI de modo otimista; exportação exige um blob não vazio, evita concorrência e revoga a URL temporária. A validação final aprovou typecheck, 90 testes de componente e o fluxo público em três viewports. [Evidências, mutação e limitações](../evidencias/CF-011/README.md).
++
++Limites: o build não pôde baixar fontes externas no sandbox, e não houve E2E autenticado com backend/PostgreSQL descartável. CF-015 deve fazer a revisão independente do marco e verificar esse percurso integrado.
+ 
+ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+ 
+diff --git a/tasks/02-frontend/CF-012-dashboard-contas-extrato.md b/tasks/02-frontend/CF-012-dashboard-contas-extrato.md
+index 584b499..5c40956 100644
+--- a/tasks/02-frontend/CF-012-dashboard-contas-extrato.md
++++ b/tasks/02-frontend/CF-012-dashboard-contas-extrato.md
+@@ -31,10 +31,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
+ 
+ ## Aceite e testes adversariais
+ 
+-- [ ] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente.
+-- [ ] Erro de API não aparece como saldo zero ou lista vazia legítima; retry funciona.
+-- [ ] Filtro/página não altera indevidamente a interpretação do total; divergência de cálculo tem achado separado.
+-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
++- [ ] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente (validação visual autenticada pendente).
++- [x] Erro de API não aparece como saldo zero ou lista vazia legítima; retry funciona.
++- [x] Filtro/página não altera indevidamente a interpretação do total; divergência de cálculo tem achado separado (F-018 → CF-021).
++- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+ 
+ ## Fora de escopo
+ 
+@@ -46,7 +46,11 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
+ 
+ ## Evidências e estado
+ 
+-Ainda não executada. Usar `tasks/evidencias/CF-012/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
++Implementação concluída e em revisão em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch local preexistente. Foram corrigidos os estados que convertiam falha de API em totais/listas vazios, com retry verificável, e os consumers de data civil restantes nas telas auditadas. A paginação revelou o achado **F-018**, encaminhado a CF-021 sem inventar agregado financeiro no componente. [Evidência completa, mutação, comandos e limitações](../evidencias/CF-012/README.md).
++
++Validação local: 95/95 testes de componente, typecheck, lint direcionado e `git diff --check` aprovados. O build de produção foi tentado, mas o host não alcançou Google Fonts; navegador autenticado com backend descartável não estava disponível. Esses limites e a revisão independente de CF-015 permanecem explícitos.
++
++O fechamento depende de validação visual autenticada em navegador; CF-015 não deve consumir CF-012 como concluída até esse roteiro. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+ 
+ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+ 
+diff --git a/tasks/02-frontend/CF-013-cartoes-planejamento.md b/tasks/02-frontend/CF-013-cartoes-planejamento.md
+index 333331e..4599bf6 100644
+--- a/tasks/02-frontend/CF-013-cartoes-planejamento.md
++++ b/tasks/02-frontend/CF-013-cartoes-planejamento.md
+@@ -44,7 +44,9 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
+ 
+ ## Evidências e estado
+ 
+-Ainda não executada. Usar `tasks/evidencias/CF-013/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
++Implementada em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando todas as alterações locais preexistentes. O cartão é acionável por teclado, o detalhe de fatura é um diálogo nomeado e tipado, e o pagamento aguarda a releitura antes de fechar; falhas de resultado desconhecido preservam os dados e orientam reconciliação. A validação de componente, typecheck e lint focal foram aprovadas; a mutação que remove o `await` falhou pelo fechamento prematuro e foi restaurada. [Evidência completa, comandos e limites](../evidencias/CF-013/README.md).
++
++Estado em revisão, não concluído: faltam captura visual em navegador e E2E BFF→Spring→PostgreSQL com reload. O build local ficou bloqueado apenas pelo download de fontes Geist em `fonts.googleapis.com`; o aviso de `middleware` depreciado é preexistente. O usuário confirmou a finalização das tarefas anteriores, mas CF-005 e CF-008 ainda registram `em_revisao`, divergência documental mantida como limitação. CF-019 continua dona de algoritmo bancário e da representação de pagamento parcial; este lote não mudou esses cálculos.
+ 
+ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+ 
+diff --git a/tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md b/tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md
+index 6ea0e6e..481a74d 100644
+--- a/tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md
++++ b/tasks/02-frontend/CF-014-metas-investimentos-habitos-resumo.md
+@@ -45,7 +45,18 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
+ 
+ ## Evidências e estado
+ 
+-Ainda não executada. Usar `tasks/evidencias/CF-014/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
++Concluída em 13/09/2026 sobre a base local
++`1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch preexistente
++das CF-010–013. Metas, investimentos e resumo anual agora distinguem leitura
++com falha de coleção vazia; a posição atual não é exibida como fechamento de
++ano passado; e nota anual só fecha a edição após confirmação. A [evidência
++completa](../evidencias/CF-014/README.md) registra os oracles, mutações,
++comandos e limites.
++
++CF-015 recebe esta dependência como satisfeita, mas ainda não está formalmente
++liberada enquanto CF-012 e CF-013 permanecerem `em_revisao`. CF-020, CF-021 e
++CF-022 não foram alteradas: continuam donas, respectivamente, de
++alocações/posições, reconstrução histórica e regras de hábito.
+ 
+ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+ 

@@ -1,0 +1,39 @@
+{
+  "command": "node node_modules/eslint/bin/eslint.js . --format json --output-file <log>",
+  "before": {
+    "errors": 31,
+    "warnings": 30
+  },
+  "after": {
+    "errors": 31,
+    "warnings": 26
+  },
+  "introduced": [],
+  "removed": [
+    {
+      "file": "tests/component/common-components.test.tsx",
+      "rule": "@typescript-eslint/no-unused-vars",
+      "severity": 1,
+      "message": "'_initial' is defined but never used."
+    },
+    {
+      "file": "tests/component/common-components.test.tsx",
+      "rule": "@typescript-eslint/no-unused-vars",
+      "severity": 1,
+      "message": "'_animate' is defined but never used."
+    },
+    {
+      "file": "tests/component/common-components.test.tsx",
+      "rule": "@typescript-eslint/no-unused-vars",
+      "severity": 1,
+      "message": "'_exit' is defined but never used."
+    },
+    {
+      "file": "tests/component/common-components.test.tsx",
+      "rule": "@typescript-eslint/no-unused-vars",
+      "severity": 1,
+      "message": "'_transition' is defined but never used."
+    }
+  ],
+  "note": "Mesmos arquivos/escopo; deslocamento de linha não constitui diagnóstico novo. O texto da regra inclui snippets, que precisam de inspeção quando mudam."
+}

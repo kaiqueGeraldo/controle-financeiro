@@ -55,3 +55,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 R03: pagamento fecha sem reconciliar após 503; R05: erro de leitura vira vazio; R06: POST de planejamento aceita categoria alheia e persiste; R08/R10: foco/layout. O PUT de planejamento saneado foi revalidado; isso não aprova criação ou pagamento.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R03 distingue recusa, confirmação com releitura pendente e resultado desconhecido; recovery não repete POST. A proteção backend contra fechamento repetido/concorrente é localizada e não encerra CF-024. R05 explicita indisponibilidade; R06 protege categorias em todos os writers investigados; R08/R10 tratam foco e geometria.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

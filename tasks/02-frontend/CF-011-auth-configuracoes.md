@@ -55,3 +55,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 R07 reproduz sobrescrita de rascunho no refetch do mesmo usuário. Registro e preferências têm evidência parcial integrada; os limites e o estado do roteiro visual constam do parecer.
 
 Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+
+## Candidato de saneamento CF-015 — 21/09/2026
+
+R07: perfil conserva rascunho no refetch do mesmo usuário; cancelar/reabrir e troca de identidade têm regressão. Não houve alteração no contrato de autenticação.
+
+[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Estado mantido em_revisao; fechamento depende de nova revisão independente.
+CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
+sintéticos não certificam migração ou publicação. O parecer anterior permanece
+preservado como registro histórico.

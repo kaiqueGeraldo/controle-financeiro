@@ -1,0 +1,43 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/cf015-recovery-regression-gw8FSH
+
+stdout | tests/component/cf015-recovery-expanded.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R03: duplo envio faz um POST; falha de releitura recupera só com GETs
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R03: resultado desconhecido continua protegido após remontagem e atualização
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R03: recusa HTTP permite corrigir a entrada sem confirmação falsa
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera
+ × tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura 46ms
+   → expected 'original' to be 'rascunho' // Object.is equality
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R07: troca de identidade e cancelar/reabrir inicializam o formulário correto
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade
+ ↓ tests/component/cf015-recovery-expanded.test.tsx > R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 skipped (11)
+   Start at  22:15:04
+   Duration  2.44s (transform 493ms, setup 259ms, import 1.21s, tests 52ms, environment 696ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura
+AssertionError: expected 'original' to be 'rascunho' // Object.is equality
+
+Expected: "rascunho"
+Received: "original"
+
+ ❯ tests/component/cf015-recovery-expanded.test.tsx:116:43
+    114|   act(() => view.result.current.setNoteContent("rascunho"));
+    115|   await act(async () => { await view.result.current.refresh(); await v…
+    116|   expect(view.result.current.noteContent).toBe("rascunho");
+       |                                           ^
+    117|   await act(async () => expect(await view.result.current.saveNote()).t…
+    118|   expect(persisted).toBe("original");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
