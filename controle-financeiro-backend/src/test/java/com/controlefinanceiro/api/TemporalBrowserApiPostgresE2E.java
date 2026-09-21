@@ -130,7 +130,7 @@ class TemporalBrowserApiPostgresE2E {
             assertHabitPersistence(tag);
             assertPlanningPersistence(tag);
             assertExport(exportDirectory.resolve(key + ".xlsx"), tag);
-            for (String mode : List.of("ok", "read", "lost")) {
+            for (String mode : List.of("ok", "read", "lost", "overlap")) {
                 assertPaymentPersistence(namespace + "-pay-" + mode + "-" + (key.equals("sao-paulo") ? "sp" : "kir"));
             }
             assertThat(count("""

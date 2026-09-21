@@ -7,7 +7,7 @@ async function post(page: Page, endpoint: string, data: unknown) {
   return response.status() === 204 || !(await response.text()) ? undefined : response.json();
 }
 
-for (const mode of ["ok", "read", "lost"] as const) {
+for (const mode of ["ok", "read", "lost", "overlap"] as const) {
   test(`R03: pagamento real ${mode}, conta/dívida/planejamento e reload`, async ({ page }, info) => {
     const key = info.project.name.includes("kiritimati") ? "kir" : "sp";
     const tag = `${process.env.CF_E2E_NAMESPACE}-pay-${mode}-${key}`;
@@ -27,13 +27,20 @@ for (const mode of ["ok", "read", "lost"] as const) {
     await payment.getByLabel("Pagar com").selectOption(account.id);
     await payment.getByLabel("Data do Pagamento").fill("2027-01-15");
     let posts = 0, failRead = false;
+    let invoiceReads = 0;
+    const firstRead = Promise.withResolvers<void>();
+    const releaseFirst = Promise.withResolvers<void>();
     await page.route(`**/api/cards/${card.id}/invoice?*`, async route => {
+      if (mode === "overlap" && failRead && ++invoiceReads === 1) {
+        firstRead.resolve();
+        await releaseFirst.promise;
+      }
       if (failRead) await route.fulfill({ status: 503, contentType: "application/json", body: '{"message":"synthetic read outage"}' });
       else await route.continue();
     });
     await page.route(`**/api/cards/${card.id}/pay`, async route => {
       posts++;
-      if (mode === "read") failRead = true;
+      if (mode === "read" || mode === "overlap") failRead = true;
       if (mode === "lost") {
         const response = await route.fetch(); // Real BFF → Spring → PG commit, then lose only the response.
         expect(response.ok(), await response.text()).toBe(true);
@@ -41,16 +48,25 @@ for (const mode of ["ok", "read", "lost"] as const) {
       } else await route.continue();
     });
     await payment.getByRole("button", { name: "Confirmar Pagamento" }).click();
+    if (mode === "overlap") {
+      await firstRead.promise;
+      await page.evaluate(() => window.dispatchEvent(new Event("refreshCards")));
+      await expect.poll(() => invoiceReads).toBe(2);
+      // The second read is configured to fail while the first route is held.
+      // The browser may abort the first transport; neither cancellation nor 503 is success.
+      releaseFirst.resolve();
+    }
     if (mode === "ok") await expect(payment).toHaveCount(0);
     else {
-      await expect(payment.getByRole("alert")).toContainText(mode === "read" ? "Pagamento confirmado" : "Não foi possível confirmar");
+      await expect(payment.getByRole("alert")).toContainText(mode === "lost" ? "Não foi possível confirmar" : "Pagamento confirmado");
+      if (mode === "overlap") await expect(payment.getByRole("alert")).toContainText("cancelada ou substituída");
       await expect(payment.getByRole("button", { name: "Confirmar Pagamento" })).toBeDisabled();
-      if (mode === "read") {
+      if (mode === "read" || mode === "overlap") {
         await expect(detail.getByRole("button", { name: "Fatura indisponível" })).toBeDisabled();
         failRead = false;
       }
       await payment.getByRole("button", { name: "Atualizar dados sem repetir pagamento" }).click();
-      if (mode === "read") await expect(payment).toHaveCount(0);
+      if (mode === "read" || mode === "overlap") await expect(payment).toHaveCount(0);
       else {
         await expect(payment.getByRole("alert")).toContainText("continua desconhecido");
         await payment.getByRole("button", { name: "Fechar modal" }).click();

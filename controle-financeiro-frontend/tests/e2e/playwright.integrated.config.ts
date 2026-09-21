@@ -18,7 +18,8 @@ const projects = [
 
 export default defineConfig({
   testDir: ".",
-  testMatch: ["**/temporal.integrated.spec.ts", "**/cf015.visual.integrated.spec.ts", "**/cf015.recovery.integrated.spec.ts"],
+  testMatch: ["**/temporal.integrated.spec.ts", "**/cf015.visual.integrated.spec.ts", "**/cf015.recovery.integrated.spec.ts",
+    ...(process.env.CF015_NATIVE_ZOOM === "1" ? ["**/cf015.native-zoom.integrated.spec.ts"] : [])],
   fullyParallel: false,
   workers: 1,
   retries: 0,
