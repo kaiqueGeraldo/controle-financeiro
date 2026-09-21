@@ -71,3 +71,12 @@ preservado como registro histórico.
 R05/R06/R08 revalidados. Pagamento sequencial e jornada BFF/Spring/PostgreSQL/reload aprovados, mas R03 permanece aberto por RV01: sobreposição de refresh absorve falha e fecha modal. Corrigir esse bloqueio; idempotência durável CF-024 não foi encerrada. Estado em_revisao mantido.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+## Correção dirigida R03/RV01 — 21/09/2026
+
+Reconciliação substituída não resolve como sucesso: o modal conserva confirmação
+financeira e atualização pendente, com recuperação por leitura sem reenviar.
+O teste intacto do revisor falhou antes e passou depois da correção. Candidato
+aguarda confirmação independente; estado em_revisao mantido, sem reabrir R05/R06/R08
+ou alterar regras backend/CF-024:
+[rodada, cenários e limites](../evidencias/saneamento-CF-015-RV01/README.md).

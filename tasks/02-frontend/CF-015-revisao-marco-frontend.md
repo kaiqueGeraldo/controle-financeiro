@@ -69,3 +69,20 @@ preservado como registro histórico.
 Revalidação independente concluída com parecer não aprovador. R03 continua aberto por RV01 (P1), demonstrado por teste determinístico novo; zoom nativo 200% permanece lacuna de CF-010. Recomendação: corrigir achado bloqueante e completar zoom antes de reapresentar. CF-015 permanece em_revisao; CF-016 não iniciada. CF-017/P01/P02 e CF-024 mantêm seus escopos/gates próprios, sem fechamento implícito nem bloqueio automático de interface independente.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+## Rodada dirigida R03/RV01 e R10 — 21/09/2026
+
+Sobre a base f550b9e, a reconciliação substituída passa a rejeitar explicitamente
+para seu chamador; não autoriza fechamento do pagamento. Teste original do
+revisor reproduzido vermelho antes da edição e aprovado sem alteração depois.
+Sobreposições, respostas antigas e recuperação sem POST adicional cobertas.
+R03/RV01 corrigido pelo executor, aguardando confirmação independente.
+
+Zoom nativo 200% continua **pendente**: a ferramenta recusou acessar a janela
+de teste mesmo após renovar sua seleção. Nenhuma evidência de viewport foi
+promovida a prova de zoom. Tentativas, roteiro manual e intervalo de revisão:
+[rodada dirigida](../evidencias/saneamento-CF-015-RV01/README.md).
+
+CF-015 permanece em_revisao; pronta para confirmação independente da correção,
+sem aprovação integral do marco. CF-016 não iniciada; achados já encerrados
+preservam os limites do parecer anterior. README raiz e relatórios preservados.

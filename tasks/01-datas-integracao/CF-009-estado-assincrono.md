@@ -99,3 +99,11 @@ preservado como registro histórico.
 R01/R02 revalidados com defeitos originais reintroduzidos em cópia isolada. RV01/R03 confirma falha na propagação de erro de reconciliação substituída; aceite de erro reaberto. Estado em_revisao mantido.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+## Correção dirigida RV01 — 21/09/2026
+
+Cada chamada de reconciliação conserva sua Promise/geração: falha propaga o
+erro, cancelamento/substituição rejeita explicitamente e somente lote atual
+com leituras concluídas resolve. R01/R02 não foram reabertos. Candidato para
+confirmação independente, estado em_revisao mantido:
+[contrato, regressões e evidências](../evidencias/saneamento-CF-015-RV01/README.md).

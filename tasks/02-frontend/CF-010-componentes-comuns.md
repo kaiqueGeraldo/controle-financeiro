@@ -77,3 +77,11 @@ preservado como registro histórico.
 R08/R11 revalidados; recortes de R10 corrigidos nos tamanhos examinados. Zoom nativo 200% segue pendência explícita do aceite AC-UI-001. Estado em_revisao mantido; viewport reduzido não certifica zoom.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+## Tentativa dirigida de zoom — 21/09/2026
+
+R10: zoom nativo 200% ainda sem comprovação. Chrome for Testing isolado abriu
+com viewport 1424×905 a 100%, mas o controle nativo recusou o identificador da
+janela após nova seleção. Nenhum ajuste de produto para contornar ferramenta;
+viewport reduzido não conta como zoom. Manter aceite aberto e estado em_revisao:
+[tentativa e roteiro manual](../evidencias/saneamento-CF-015-RV01/ZOOM.md).
