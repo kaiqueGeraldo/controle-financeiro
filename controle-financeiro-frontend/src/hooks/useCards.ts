@@ -7,7 +7,7 @@ import {
 import { useFinanceData } from "./useFinanceData";
 import { shiftMonth } from "@/utils/date";
 import { useUser } from "./useUser";
-import { completeReads, reconcileFinancialViews } from "@/utils/financialReconciliation";
+import { completeReads, reconcileFinancialViews, ReconciliationCancelledError } from "@/utils/financialReconciliation";
 import {
   isAbortError,
   useRequestCoordinator,
@@ -218,8 +218,13 @@ export function useCards() {
     if (reconcileConsumers) refreshes.push(reconcileFinancialViews());
     try {
       await completeReads(refreshes);
+      // Only this still-current batch can certify the caller's reconciliation.
+      if (!reconciliation.isCurrent()) throw new ReconciliationCancelledError();
     } catch (error) {
-      if (reconciliation.isCurrent()) throw error;
+      if (!reconciliation.isCurrent()) {
+        throw new ReconciliationCancelledError({ cause: error });
+      }
+      throw error;
     } finally {
       reconciliation.finish();
     }

@@ -175,7 +175,10 @@ export default function CartoesScreen() {
       <NewCardTransactionModal
         isOpen={isTransactionOpen}
         onClose={() => setIsTransactionOpen(false)}
-        onSuccess={refreshAll}
+        onSuccess={() => {
+          // This notification does not await reconciliation; read errors stay in the views.
+          void refreshAll().catch(() => undefined);
+        }}
         categories={categories}
         defaultCardId={selectedCardId || undefined}
       />

@@ -5,6 +5,7 @@ import { ApiError } from "@/services/api";
 import { cardService } from "@/services/cardService";
 import { Account } from "@/types";
 import { localDateString } from "@/utils/date";
+import { ReconciliationCancelledError } from "@/utils/financialReconciliation";
 import {
   AlertCircle,
   CheckCircle2,
@@ -26,6 +27,12 @@ interface PayInvoiceModalProps {
   month: number;
   year: number;
   ownerId?: string;
+}
+
+function confirmedReconciliationMessage(error: unknown) {
+  return error instanceof ReconciliationCancelledError
+    ? "Pagamento confirmado, mas a atualização foi cancelada ou substituída. Atualize os dados novamente; o pagamento não será reenviado."
+    : "Pagamento confirmado, mas a atualização da tela falhou. Tente reconciliar novamente; o pagamento não será reenviado.";
 }
 
 export function PayInvoiceModal({
@@ -110,9 +117,9 @@ export function PayInvoiceModal({
       } else {
         setErrorMessage("Dados atualizados para conferência. O resultado deste pagamento continua desconhecido. Confira o extrato e a fatura; não repita a operação.");
       }
-    } catch {
+    } catch (error: unknown) {
       if (request.isCurrent()) setErrorMessage(outcomeRef.current === "confirmed"
-        ? "Pagamento confirmado, mas a atualização da tela falhou. Tente reconciliar novamente; o pagamento não será reenviado."
+        ? confirmedReconciliationMessage(error)
         : "Não foi possível confirmar o pagamento nem atualizar todos os dados. Tente atualizar novamente, sem reenviar a operação.");
     } finally {
       if (request.isCurrent()) { submitting.current = false; setIsLoading(false); }
@@ -157,7 +164,7 @@ export function PayInvoiceModal({
     } catch (error: unknown) {
       if (!request.isCurrent()) return;
       if (confirmed) {
-        setErrorMessage("Pagamento confirmado, mas a atualização da tela falhou. Tente reconciliar novamente; o pagamento não será reenviado.");
+        setErrorMessage(confirmedReconciliationMessage(error));
       } else if (error instanceof ApiError && !error.requiresReconciliation && error.status >= 400 && error.status < 500) {
         remember("ready");
         setErrorMessage(`Pagamento recusado: ${error.message}`);

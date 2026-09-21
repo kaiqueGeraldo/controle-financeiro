@@ -200,7 +200,8 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
         status: 200,
         data: invoice("invoice-a", 9),
       });
-      await refreshPromise;
+      // Abandoning A protects B's state AND reports cancellation to A's caller.
+      await expect(refreshPromise).rejects.toMatchObject({ name: "ReconciliationCancelledError" });
     });
 
     expect(result.current.selectedCardId).toBe("card-b");
