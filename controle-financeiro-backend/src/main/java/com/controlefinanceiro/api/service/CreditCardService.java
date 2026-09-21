@@ -401,19 +401,13 @@ public class CreditCardService {
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
 
-        CreditCard card = cardRepository.findById(cardId)
+        CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
-        if (!card.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
-
-        eventPublisher.publishEvent(new InvoicePaymentRequestedEvent(
-                data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user,
-                DateUtil.optionalWallTime(data.time()), now.toInstant()
-        ));
-
         Invoice invoice = getOrCreateInvoice(card, data.month(), data.year());
+        if (invoice.getStatus() == InvoiceStatus.PAID) {
+            throw new BusinessRuleException("Esta fatura já está paga.");
+        }
 
         List<CardTransaction> transactions = cardTransactionRepository.findByInvoiceIdOrderByDateDescCreatedAtDesc(invoice.getId());
         BigDecimal totalFatura = transactions.stream().map(CardTransaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -421,6 +415,11 @@ public class CreditCardService {
         if (data.amount().compareTo(totalFatura) > 0) {
             throw new BusinessRuleException("O valor do pagamento (" + data.amount() + ") excede o saldo da fatura (" + totalFatura + ").");
         }
+
+        eventPublisher.publishEvent(new InvoicePaymentRequestedEvent(
+                data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user,
+                DateUtil.optionalWallTime(data.time()), now.toInstant()
+        ));
 
         if (Boolean.TRUE.equals(data.isPrepayment())) {
             processPrepayment(invoice, data, operationTime, now, user);
