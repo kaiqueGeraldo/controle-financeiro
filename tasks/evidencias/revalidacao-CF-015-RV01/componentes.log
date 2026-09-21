@@ -1,0 +1,126 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/async-state.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-financial-consumers.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de accounts impede reconciliação e recuperação atualiza providers reais
+Erro ao carregar dados financeiros Error: 503 accounts
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:39:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de dashboard impede reconciliação e recuperação atualiza providers reais
+Erro ao buscar fluxo mensal Error: 503 dashboard
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:39:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de planning impede reconciliação e recuperação atualiza providers reais
+Erro ao buscar planejamento Error: 503 planning
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:39:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de accounts impede reconciliação e recuperação atualiza providers reais 33ms
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de dashboard impede reconciliação e recuperação atualiza providers reais 6ms
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de planning impede reconciliação e recuperação atualiza providers reais 6ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh antigo de A/setembro não substitui B/outubro mesmo se o cliente ignorar abort 27ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh de fatura pode ser repetido depois de erro real 6ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > resposta tardia do usuário A não aparece depois do login do usuário B 22ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > R09: evento de alteração financeira invalida o saldo das contas 3ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro 4ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: extrato com erro não vira página vazia e retry requisita a primeira página 5ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado success de sessão anterior A não atua após A/logout/A 3ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado failure de sessão anterior A não atua após A/logout/A 3ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: desmontagem invalida callbacks da mutação pendente 2ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > duas chamadas da mesma chave no mesmo tick compartilham uma requisição e a falha propaga 55ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > rollback tardio de M1 restaura só seu item e preserva M2 válida 3ms
+stdout | tests/component/cf015-revalidation-overlap.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-payment-reconciliation.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-reconciliation-lifecycle.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cards-planning-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stderr | tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado
+Erro ao atualizar fatura Error: 503 sintético: releitura indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-payment-reconciliation.test.tsx:33:62
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado 156ms
+stderr | tests/component/cf015-revalidation-overlap.test.tsx > R03 revalidação: refresh concorrente não transforma releitura recusada em reconciliação concluída
+Erro ao atualizar fatura Error: 503 substituta
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-revalidation-overlap.test.tsx:44:40
+    at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\@testing-library\react\dist\act-compat.js:47:24
+    at process.env.NODE_ENV.exports.act (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\react\cjs\react.development.js:814:22)
+    at Proxy.<anonymous> (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\@testing-library\react\dist\act-compat.js:46:25)
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-revalidation-overlap.test.tsx:44:9
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cf015-revalidation-overlap.test.tsx > R03 revalidação: refresh concorrente não transforma releitura recusada em reconciliação concluída 186ms
+stdout | tests/component/cf015-recovery-expanded.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession failure-first preserves pending payment and read-only recovery 192ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession success-first preserves pending payment and read-only recovery 54ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession late-success preserves pending payment and read-only recovery 51ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession late-error preserves pending payment and read-only recovery 73ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: session cancels even a batch whose reads all succeed 5ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: unmount cancels even a batch whose reads all succeed 2ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: current batch preserves the actual read failure 2ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: duplo envio faz um POST; falha de releitura recupera só com GETs 130ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: resultado desconhecido continua protegido após remontagem e atualização 82ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado
+Erro ao buscar cartões Error: 503 cards
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:80:57
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: recusa HTTP permite corrigir a entrada sem confirmação falsa 38ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado 45ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > o cartão inteiro é uma ação de detalhe alcançável por teclado 115ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura OPEN com status e ação coerentes 26ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura CLOSED com status e ação coerentes 16ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura PAID com status e ação coerentes 15ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera
+Erro ao buscar fatura Error: 503 invoice
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:93:28
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável 315ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > pagamento parcial aguarda a releitura antes de fechar o formulário 34ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > falha de resultado desconhecido conserva o pagamento e orienta a reconciliação 29ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera 132ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura 5ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados 2ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão 3ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R07: troca de identidade e cancelar/reabrir inicializam o formulário correto 15ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade 4ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior 2ms
+
+ Test Files  7 passed (7)
+      Tests  41 passed (41)
+   Start at  20:03:36
+   Duration  2.94s (transform 1.06s, setup 2.21s, import 4.07s, tests 1.93s, environment 6.74s)
+

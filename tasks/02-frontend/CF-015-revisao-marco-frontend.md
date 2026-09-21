@@ -29,7 +29,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Nenhum P0/P1 do marco fica sem correção ou decisão explícita que impeça alegar conclusão.
+- [x] Nenhum P0/P1 do marco fica sem correção ou decisão explícita que impeça alegar conclusão. R03/RV01 encerrado na revalidação dirigida de e4079a9; zoom permanece pendência separada de aceite.
 - [x] Testes detectam os defeitos temporais e de estado representativos; falha não decorre só de import/ambiente.
 - [x] Relatório distingue automação/funcional manual/visual e lista cenários não executados; não promete zero bugs.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
@@ -86,3 +86,15 @@ promovida a prova de zoom. Tentativas, roteiro manual e intervalo de revisão:
 CF-015 permanece em_revisao; pronta para confirmação independente da correção,
 sem aprovação integral do marco. CF-016 não iniciada; achados já encerrados
 preservam os limites do parecer anterior. README raiz e relatórios preservados.
+
+## Parecer dirigido R03/RV01 — 21/09/2026
+
+R03/RV01 encerrado por revalidação independente de f550b9e..e4079a9, preservando
+os encerramentos anteriores. Zoom nativo 200% continua sem evidência e sem
+aprovação; CF-015 permanece em_revisao por esse aceite pendente de CF-010.
+
+A pendência não impede iniciar a especificação CF-016 por suas dependências
+reais: CF-001 e CF-004 estão concluídas/integradas, e o guia permite antecipar
+especificação financeira. Isso não equivale à aprovação integral do marco ou
+publicação. CF-016 não foi iniciada nem teve seu estado alterado nesta revisão.
+[Conclusões separadas, comandos e evidências](../evidencias/revalidacao-CF-015-RV01/README.md).

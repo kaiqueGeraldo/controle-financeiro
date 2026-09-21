@@ -30,7 +30,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Resposta atrasada da seleção anterior não substitui a seleção atual; rollback não apaga mutação posterior válida.
-- [ ] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. Reaberto por RV01/R03 na revalidação CF-015.
+- [x] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. RV01/R03 encerrado na revalidação dirigida de e4079a9.
 - [x] Cache de usuário A não aparece após login B; dupla chamada é testada e backend continua responsável pela integridade.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
@@ -107,3 +107,12 @@ erro, cancelamento/substituição rejeita explicitamente e somente lote atual
 com leituras concluídas resolve. R01/R02 não foram reabertos. Candidato para
 confirmação independente, estado em_revisao mantido:
 [contrato, regressões e evidências](../evidencias/saneamento-CF-015-RV01/README.md).
+
+## Confirmação independente de RV01 — 21/09/2026
+
+R03/RV01 encerrado no intervalo f550b9e..e4079a9: teste original intacto,
+contraprovas isoladas sensíveis, 41 componentes e jornada integrada aprovados.
+Substituição rejeita para o chamador; recuperação não repete pagamento.
+Encerramentos de R01/R02 preservados. O aceite reaberto por RV01 foi restabelecido;
+esta revisão dirigida não muda a tarefa inteira para concluida.
+[Parecer e limites](../evidencias/revalidacao-CF-015-RV01/README.md).

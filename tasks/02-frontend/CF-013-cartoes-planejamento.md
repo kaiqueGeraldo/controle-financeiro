@@ -80,3 +80,12 @@ O teste intacto do revisor falhou antes e passou depois da correção. Candidato
 aguarda confirmação independente; estado em_revisao mantido, sem reabrir R05/R06/R08
 ou alterar regras backend/CF-024:
 [rodada, cenários e limites](../evidencias/saneamento-CF-015-RV01/README.md).
+
+## Confirmação independente de R03/RV01 — 21/09/2026
+
+R03/RV01 encerrado no intervalo f550b9e..e4079a9. Teste original preservado e
+capaz de detectar o defeito; reconciliação substituída não fecha como sucesso.
+41 componentes, nove E2E e SQL/Excel aprovados, com recuperação sem novo POST.
+R05/R06/R08 e limites anteriores preservados; esta revisão não conclui toda
+CF-013 nem idempotência durável CF-024. Estado em_revisao mantido.
+[Parecer dirigido](../evidencias/revalidacao-CF-015-RV01/README.md).
