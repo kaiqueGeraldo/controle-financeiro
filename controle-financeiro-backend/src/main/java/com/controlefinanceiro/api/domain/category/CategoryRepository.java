@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
+    Optional<Category> findByIdAndUserId(UUID id, UUID userId);
     List<Category> findAllByUserId(UUID userId);
     List<Category> findByType(TransactionType type);
     List<CategoryResponseDTO> findAllByUserIdAndType(UUID userId, TransactionType type);

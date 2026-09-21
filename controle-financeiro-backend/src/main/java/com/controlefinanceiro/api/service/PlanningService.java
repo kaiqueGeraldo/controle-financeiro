@@ -52,8 +52,7 @@ public class PlanningService {
         }
         Category category = null;
         if (data.hasCategoryId() && data.getCategoryId() != null) {
-            category = categoryRepository.findById(data.getCategoryId())
-                    .filter(value -> value.getUser().getId().equals(user.getId()))
+            category = categoryRepository.findByIdAndUserId(data.getCategoryId(), user.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
         }
         // Validar todas as referências antes de modificar a entidade gerenciada.
@@ -90,6 +89,10 @@ public class PlanningService {
         int month = data.dueDate().getMonthValue();
         int year = data.dueDate().getYear();
 
+        Category category = data.categoryId() == null ? null : categoryRepository
+                .findByIdAndUserId(data.categoryId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+
         MonthlyPlan plan = planRepository.findByUserIdAndMonthAndYear(user.getId(), month, year)
                 .orElseGet(() -> {
                     MonthlyPlan newPlan = new MonthlyPlan();
@@ -106,11 +109,7 @@ public class PlanningService {
         item.setStatus(data.status() != null ? data.status() : PlanItemStatus.PENDING);
         item.setPlan(plan);
 
-        if (data.categoryId() != null) {
-            Category category = categoryRepository.findById(data.categoryId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
-            item.setCategory(category);
-        }
+        item.setCategory(category);
 
         item = itemRepository.save(item);
         return convertToDTO(item);
@@ -121,9 +120,20 @@ public class PlanningService {
         LocalDate targetDate = LocalDate.of(targetYear, targetMonth, 1);
         LocalDate prevDate = targetDate.minusMonths(1);
 
-        MonthlyPlan prevPlan = planRepository.findByUserIdAndMonthAndYear(
+        MonthlyPlan prevPlan = planRepository.findByUserIdAndMonthAndYearWithDetails(
                 user.getId(), prevDate.getMonthValue(), prevDate.getYear()
         ).orElseThrow(() -> new ResourceNotFoundException("Não há planejamento no mês anterior para copiar."));
+
+        List<PlanItem> itemsToCopy = prevPlan.getItems();
+        if (itemsToCopy == null) return;
+        // A cópia também é um writer: não propagar vínculos legados inválidos.
+        // Categorias vêm no fetch join; ler IDs de proxies não consulta cada usuário.
+        for (PlanItem item : itemsToCopy) {
+            if (item.getCard() == null && item.getCategory() != null
+                    && !item.getCategory().getUser().getId().equals(user.getId())) {
+                throw new ResourceNotFoundException("Categoria não encontrada");
+            }
+        }
 
         MonthlyPlan targetPlan = planRepository.findByUserIdAndMonthAndYear(user.getId(), targetMonth, targetYear)
                 .orElseGet(() -> {
@@ -134,9 +144,6 @@ public class PlanningService {
                     newPlan.setIncomeForecast(prevPlan.getIncomeForecast());
                     return planRepository.save(newPlan);
                 });
-
-        List<PlanItem> itemsToCopy = prevPlan.getItems();
-        if (itemsToCopy == null) return;
 
         for (PlanItem item : itemsToCopy) {
             // 1. PULA FATURA DE CARTÃO
