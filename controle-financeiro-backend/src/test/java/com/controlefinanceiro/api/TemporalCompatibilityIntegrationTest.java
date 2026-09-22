@@ -201,15 +201,15 @@ class TemporalCompatibilityIntegrationTest extends PostgresIntegrationTest {
             try {
                 statement.execute("CREATE SCHEMA " + schema);
                 statement.execute("SET LOCAL search_path TO " + schema);
-                statement.execute("CREATE TABLE transactions (id integer primary key, date date not null, created_at timestamp(6) not null)");
-                statement.execute("CREATE TABLE card_transactions (LIKE transactions INCLUDING ALL)");
+                statement.execute("CREATE TABLE transactions (id integer primary key, date date not null, created_at timestamp(6) not null, user_id uuid)");
+                statement.execute("CREATE TABLE card_transactions (id integer primary key, date date not null, created_at timestamp(6) not null, invoice_id uuid)");
                 statement.execute("CREATE TABLE invest_transactions (id integer primary key, date timestamp(6) not null)");
                 for (String table : new String[]{"transactions", "card_transactions"})
-                    statement.execute("INSERT INTO " + table + " VALUES (1, '2026-09-07', '2026-09-07 00:00:00'), (2, '2026-09-07', '2026-09-07 23:30:45.123456')");
+                    statement.execute("INSERT INTO " + table + " (id,date,created_at) VALUES (1, '2026-09-07', '2026-09-07 00:00:00'), (2, '2026-09-07', '2026-09-07 23:30:45.123456')");
                 statement.execute("INSERT INTO invest_transactions VALUES (1, '2026-09-07 00:00:00'), (2, '2026-09-07 23:30:45.123456')");
                 var beforeUpgrade = connection.setSavepoint();
                 org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript(connection,
-                        new org.springframework.core.io.ClassPathResource("temporal-compatibility-upgrade.sql"));
+                        new org.springframework.core.io.ClassPathResource("db/migration/V2__adopt_temporal_metadata.sql"));
                 for (String table : new String[]{"transactions", "card_transactions"}) {
                     try (var rows = statement.executeQuery("SELECT count(*) FROM " + table + " WHERE operation_time IS NULL AND time_origin IS NULL AND recorded_at IS NULL AND legacy_created_at_raw IS NULL")) {
                         rows.next(); assertThat(rows.getInt(1)).isEqualTo(2);

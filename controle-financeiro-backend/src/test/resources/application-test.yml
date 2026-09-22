@@ -11,6 +11,10 @@ api:
     origins: http://localhost
 
 spring:
+  flyway:
+    # A suite legada ainda usa create-drop. Os testes CF-017 sobrescrevem esta
+    # chave e exercitam Flyway + Hibernate validate em schemas descartaveis.
+    enabled: false
   datasource:
     # A infraestrutura Java sobrescreve esta sentinela somente depois de iniciar
     # um PostgreSQL descartavel. Sem ela, o perfil nunca tenta um banco real.

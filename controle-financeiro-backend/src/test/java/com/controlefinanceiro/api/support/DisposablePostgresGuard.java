@@ -3,7 +3,7 @@ package com.controlefinanceiro.api.support;
 import java.net.URI;
 import java.util.Set;
 
-final class DisposablePostgresGuard {
+public final class DisposablePostgresGuard {
 
     private static final String JDBC_PREFIX = "jdbc:";
     private static final Set<String> LOOPBACK_HOSTS = Set.of("localhost", "127.0.0.1", "[::1]", "::1");
@@ -11,7 +11,7 @@ final class DisposablePostgresGuard {
     private DisposablePostgresGuard() {
     }
 
-    static void requireDisposable(String jdbcUrl, String expectedDatabaseName) {
+    public static void requireDisposable(String jdbcUrl, String expectedDatabaseName) {
         if (jdbcUrl == null || !jdbcUrl.startsWith("jdbc:postgresql://")) {
             throw unsafe(jdbcUrl, "somente jdbc:postgresql e permitido");
         }

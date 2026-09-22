@@ -30,6 +30,13 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+  flyway:
+    baseline-on-migrate: false
+    clean-disabled: true
+    out-of-order: false
+    validate-migration-naming: true
+    validate-on-migrate: true
+
   jpa:
     show-sql: false
     hibernate:
