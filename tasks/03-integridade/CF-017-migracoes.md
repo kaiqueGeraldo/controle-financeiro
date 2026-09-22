@@ -1,6 +1,6 @@
 # CF-017 — Criar migrações reproduzíveis e plano para banco legado
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -28,10 +28,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Migrações aplicam uma vez e nova execução é estável; constraints e versões ficam verificadas.
-- [ ] Fixture de dados permanece reconciliada após upgrade; falha de migração não deixa versão falsamente aplicada.
+- [x] Migrações aplicam uma vez e nova execução é estável; constraints e versões ficam verificadas.
+- [x] Fixture de dados permanece reconciliada após upgrade; falha de migração não deixa versão falsamente aplicada.
 - [ ] Compatibilidade com banco real só pode ser concluída com schema/backup conhecidos; caso contrário registrar bloqueio dessa parte.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -46,6 +46,13 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 Preparação de 13/09/2026: [derivada P01/P02 de adoção temporal](CF-017-P01-P02-adocao-temporal.md).
 Há candidato aditivo e testes sintéticos; CF-017 não foi executada nem concluída.
 
-Ainda não executada. Usar `tasks/evidencias/CF-017/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Execução local de 22/09/2026 sobre `2269b22`: Flyway 11.14.1, V1 pré-temporal,
+V2 aditiva, fixture legada independente, Hibernate validate, checksum,
+falha/recuperação e backup/restore sintético implementados e aprovados em PostgreSQL
+16 descartável. `ddl-auto=update` local foi substituído por `validate`; baseline
+automática e clean permanecem desabilitados. [Evidência, inventário e rollout](../evidencias/CF-017/README.md).
+Implementação/testes: `ae494c0be844dc1d7fa3d39073ab2acef2005533`.
 
-Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+Permanece `em_revisao`: revisão independente e schema/volume/backup/restore reais
+não existem nesta base. Logo compatibilidade Railway, baseline real, deploy e
+liberação de writers continuam não comprovados e bloqueados. CF-018 não foi iniciada.

@@ -1,6 +1,6 @@
 # CF-017/P01/P02 — Adoção coordenada dos metadados temporais
 
-- Estado: proposta; bloqueia publicação do candidato P01/P02 sobre banco existente
+- Estado: em_revisao local; continua bloqueando publicação do candidato P01/P02 sobre banco existente
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
@@ -31,9 +31,10 @@ legada é transitória, não uma garantia de escrita simultânea entre versões.
 - [ ] Identificar schema real em leitura: tipos, precisão, constraints, índices,
   versões, volumes, zonas históricas e trilhas de origem por linha/lote. Não inferir
   origem por tipo, nome, descrição, 00:00, timezone atual ou isSystemManaged.
-- [ ] Definir baseline/migrador versionado em CF-017. O [SQL candidato de teste](../../controle-financeiro-backend/src/test/resources/temporal-compatibility-upgrade.sql)
-  é preparação, não migração produtiva/idempotente. Conferir tipos/precisão com o
-  schema efetivo e executar Hibernate validate após upgrade em cópia descartável.
+- [x] Definir baseline/migrador versionado em CF-017. O SQL candidato foi
+  substituído pela V2 versionada e o teste passou a executá-la. Tipos/precisão
+  foram confrontados localmente e Hibernate validate aprovou banco vazio e fixture
+  legada descartável; o schema efetivo remoto continua desconhecido.
 - [ ] Produzir backup restaurável e ensaiar restore, contagens e reconciliação de
   valores originais, saldos e metadados. Testar schema vazio, legado representativo,
   reaplicação, falha no meio e versionamento; nenhum default/backfill indiscriminado.
@@ -42,7 +43,7 @@ legada é transitória, não uma garantia de escrita simultânea entre versões.
   manter UNKNOWN/null e bruto. Nunca inventar recordedAt histórico.
 - [ ] Verificar todos os writers (conta, transação, cartão/pagamento, metas,
   investimento/ajuste), BFF, DTOs, listagem/detalhe, ordenação global e exportação.
-- [ ] Planejar rollout e reversão. Antes de escrita nova, DDL transacional pode ser
+- [x] Planejar rollout e reversão. Antes de escrita nova, DDL transacional pode ser
   revertido; após escrita nova, não apagar colunas e perder metadados. Preservar
   dados, suspender escrita e escolher versão compatível ou correção progressiva.
 - [ ] Medir EXPLAIN/índices para ordem por usuário, dia, hora conhecida e ID. Sort
@@ -57,5 +58,8 @@ TemporalCompatibilityIntegrationTest verifica tabelas legadas sintéticas em sch
 privado do PostgreSQL descartável, preservação de bruto/null e rollback por savepoint.
 Também testa novos writes via HTTP/serviço/ORM, reload, hora ausente versus 00:00,
 edição, auditoria protegida, investimento manual/automático, cartão, paginação e Excel.
-Isso não cobre schema remoto, migrador, backup real, rollout de versões nem backfill.
-CF-017 permanece proposta e P01/P02 permanecem abertos nesses critérios.
+Isso agora exercita a V2 versionada, mas não cobre schema remoto, backup real,
+rollout coordenado de versões nem backfill com proveniência real.
+CF-017 está em revisão com [evidência local](../evidencias/CF-017/README.md).
+P01/P02 permanecem abertos nos critérios de schema/backup/proveniência reais,
+coordenação de writers, consumidores completos e revisão independente.
