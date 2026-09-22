@@ -1,0 +1,14 @@
+{
+  "seed": "cf016-v1",
+  "purpose": "Aritmetica documental em centavos; nao executa regras de produto.",
+  "rounding": [
+    { "id": "B03-empate", "numerator": "1005", "denominator": "10", "expected": "1.01" },
+    { "id": "B03-abaixo", "numerator": "1004", "denominator": "10", "expected": "1.00" },
+    { "id": "B03-fracao", "numerator": "1255", "denominator": "10", "expected": "1.26" }
+  ],
+  "installments": [
+    { "id": "B01-cem", "total": "100.00", "expected": ["33.33", "33.33", "33.34"] },
+    { "id": "B01-cinco-centavos", "total": "0.05", "expected": ["0.02", "0.03"] }
+  ],
+  "costReleases": { "total": "1.00", "initialUnits": 3, "expected": ["0.33", "0.34", "0.33"] }
+}

@@ -10,7 +10,7 @@ Direção: identity, accounts/transactions, cards, planning, goals, investments,
 
 ## ADR-002 — Posição inicial com origem explícita
 
-Proposta para implementação após T-004: posição de abertura na data-base, sem criar receita, compra ou depósito histórico fictício. Metas monetárias representam destinação de recursos; investimento ligado a meta não acrescenta um segundo ativo ao patrimônio.
+Contrato detalhado pela CF-016 na [SPEC-004](specs/004-regras-financeiras.md), ainda para implementação: posição de abertura na data-base, sem criar receita, compra ou depósito histórico fictício. Metas monetárias representam destinação de recursos; investimento ligado a meta não acrescenta um segundo ativo ao patrimônio. O contrato distingue caixa realizado, consumo, dívida, custo, avaliação e estorno; decide seção atual datada no relatório anual e indisponibilidade histórica quando faltam dados.
 
 Benefício: dashboard não inventa desempenho. Custo: schema e relatórios precisam distinguir abertura, fluxo realizado, compromisso e valorização. Migração: não reclassificar dados legados por texto da descrição sem revisão e reconciliação.
 

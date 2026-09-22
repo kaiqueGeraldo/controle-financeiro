@@ -15,6 +15,7 @@ A planilha `Controle-Financeiro.xlsx` é referência funcional, não fonte de in
 - [Decisões de arquitetura](arquitetura.md): limites, alternativas, contratos e riscos.
 - [Especificação da entrevista inicial](specs/001-onboarding.md): jornada, dados iniciais e consistência.
 - [Especificação de datas](specs/002-datas.md): datas civis, instantes e competências.
+- [Regras financeiras CF-016](specs/004-regras-financeiras.md): abertura, caixa, consumo, dívida, investimentos, destinações, precisão e estornos; contrato para implementação futura.
 - [Tarefas executáveis (O/S)](../../tasks/README.md): 36 arquivos individuais, dependências, modelos, testes e critérios de aceite.
 - [Épicos originais](tarefas.md): registro histórico, com vínculo para a rastreabilidade atual.
 - [Validação e publicação](validacao-deploy.md): evidências locais, homologação e liberação.
