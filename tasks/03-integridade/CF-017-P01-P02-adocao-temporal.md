@@ -1,6 +1,6 @@
 # CF-017/P01/P02 — Adoção coordenada dos metadados temporais
 
-- Estado: em_revisao local; continua bloqueando publicação do candidato P01/P02 sobre banco existente
+- Estado: em_revisao; base local V1/V2 apta para CF-018, adoção/publicação em banco existente bloqueada
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
@@ -62,4 +62,10 @@ Isso agora exercita a V2 versionada, mas não cobre schema remoto, backup real,
 rollout coordenado de versões nem backfill com proveniência real.
 CF-017 está em revisão com [evidência local](../evidencias/CF-017/README.md).
 P01/P02 permanecem abertos nos critérios de schema/backup/proveniência reais,
-coordenação de writers, consumidores completos e revisão independente.
+coordenação de writers e consumidores completos do ambiente alvo.
+
+Revisão independente de 22/09/2026 aprovou a fundação local para a CF-018, sem
+aprovar banco real. O preflight sintético não detectou uma FK removida e o oracle
+de restore é parcial; ambos mantêm o gate remoto fechado. A revisão independente
+dos writers/consumidores temporais já existente continua válida apenas nos cenários
+sintéticos documentados. [Parecer CF-017](../evidencias/revisao-CF-017/README.md).

@@ -46,5 +46,11 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 Ainda não executada. Usar `tasks/evidencias/CF-018/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
-Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+Gate de início revisado em 22/09/2026: **pode iniciar localmente** sobre V1/V2 em
+PostgreSQL descartável. A parte necessária de CF-008 (contratos HTTP/temporais de
+contas/transações) está comprovada nos limites registrados; pendências de
+planejamento, hábitos, UI e a política global CF-023/024 não exigem encerrar toda
+a CF-008 antes desta implementação. Adoção de banco real continua bloqueada e não
+faz parte dessa autorização local. [Parecer dirigido CF-017](../evidencias/revisao-CF-017/README.md).
 
+Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

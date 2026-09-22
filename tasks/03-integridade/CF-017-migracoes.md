@@ -53,6 +53,13 @@ falha/recuperação e backup/restore sintético implementados e aprovados em Pos
 automática e clean permanecem desabilitados. [Evidência, inventário e rollout](../evidencias/CF-017/README.md).
 Implementação/testes: `ae494c0be844dc1d7fa3d39073ab2acef2005533`.
 
-Permanece `em_revisao`: revisão independente e schema/volume/backup/restore reais
-não existem nesta base. Logo compatibilidade Railway, baseline real, deploy e
-liberação de writers continuam não comprovados e bloqueados. CF-018 não foi iniciada.
+Permanece `em_revisao`: schema/volume/backup/restore reais não existem nesta base.
+Logo compatibilidade Railway, baseline real, deploy e liberação de writers
+continuam não comprovados e bloqueados. CF-018 não foi iniciada.
+
+Revisão independente de 22/09/2026: a cadeia local V1/V2 foi aprovada como base
+para iniciar CF-018 em PostgreSQL descartável. Adoção real permanece bloqueada e
+o preflight sintético aceita ao menos uma incompatibilidade de FK; o restore
+sintético também possui oracle parcial. Estado mantido `em_revisao` para não
+confundir fundação local apta com baseline/publicação autorizadas.
+[Parecer, achados e execuções](../evidencias/revisao-CF-017/README.md).
