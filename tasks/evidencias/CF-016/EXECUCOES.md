@@ -3,6 +3,13 @@
 21–22/09/2026, raiz do monorepo, Windows/PowerShell, Node v24.18.0.
 Revisão de produto lida: `45e156c3189fd9893a88e6adcc0df3903983f4b9`.
 O diff é exclusivamente documental e contém um verificador de artefatos isolado.
+
+## Identificação do commit
+
+Commit inicial da entrega: `447581f072f67a3a51afd8ffb77852299425f23d`, mensagem
+`docs(CF-016): especificar regras financeiras`. A evidência foi complementada
+depois em um commit documental específico para registrar essa identificação sem
+tentar gravar no próprio commit o hash que muda ao ser emendado.
 Comandos abaixo não sobem aplicação, não consultam banco nem usam rede.
 
 ## Inspeção e baseline

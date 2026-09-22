@@ -2,6 +2,9 @@
 
 - Estado da execução: **concluída no escopo documental**, iniciada em 21/09 e finalizada em 22/09/2026.
 - Base: `45e156c3189fd9893a88e6adcc0df3903983f4b9`; diff local documental, sem commit novo nesta execução.
+- Commit da entrega: `447581f072f67a3a51afd8ffb77852299425f23d` —
+  `docs(CF-016): especificar regras financeiras`. Esta evidência é versionada em
+  um commit posterior para registrar esse hash sem criar autorreferência circular.
 - Modelo: sessão GPT-6; variante/esforço efetivos não expostos pela ferramenta.
   Metadados solicitados pela tarefa: gpt-6-astra/xhigh; não presumir configuração
   apenas pela leitura do Markdown. Sem subagentes ou revisão independente nesta execução.
