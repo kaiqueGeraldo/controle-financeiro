@@ -1,6 +1,6 @@
 # CF-018 — Corrigir contas, abertura e fluxo de transações
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Saldo inicial positivo/zero/negativo concilia e não entra como receita do período.
-- [ ] Transferência conserva patrimônio; item pendente não muda realizado; baixa/estorno acontece uma vez.
-- [ ] Falha no segundo lado da transferência reverte tudo no PostgreSQL; teste detecta remoção de filtro isPaid/origem.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Saldo inicial positivo/zero/negativo concilia e não entra como receita do período.
+- [x] Transferência conserva patrimônio; item pendente não muda realizado; baixa/estorno acontece uma vez.
+- [x] Falha no segundo lado da transferência reverte tudo no PostgreSQL; teste detecta remoção de filtro isPaid/origem.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,12 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-018/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Execução iniciada em 22/09/2026 sobre `0cc24b7`, somente em PostgreSQL
+descartável e com o `README.md` preexistente preservado fora do staging. Usar
+`tasks/evidencias/CF-018/README.md` com o [template](../templates/EVIDENCIA.md).
+Registrar critério, comando, versão/diff testado, resultado anterior/posterior,
+dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência
+das correções anteriores não equivale à conclusão desta tarefa.
 
 Gate de início revisado em 22/09/2026: **pode iniciar localmente** sobre V1/V2 em
 PostgreSQL descartável. A parte necessária de CF-008 (contratos HTTP/temporais de
@@ -54,3 +59,11 @@ a CF-008 antes desta implementação. Adoção de banco real continua bloqueada 
 faz parte dessa autorização local. [Parecer dirigido CF-017](../evidencias/revisao-CF-017/README.md).
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+Implementação local encerrada em 28/09/2026 no commit de produto `4203f18`,
+com V3 aditiva, 24 regressões PostgreSQL da CF-018, 8 verificações de migração
+e a suíte backend completa em 136/136. A [evidência](../evidencias/CF-018/README.md)
+registra a reprodução anterior, comandos, atomicidade, concorrência, trade-offs
+e limites. O estado é `em_revisao`: não houve revisão independente nesta
+execução, nem baseline/migração em banco real. RV17-01/RV17-02, backup/restore e
+adoção temporal real permanecem abertos exatamente como na revisão CF-017.
