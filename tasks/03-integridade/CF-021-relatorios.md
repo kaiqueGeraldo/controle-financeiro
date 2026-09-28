@@ -1,6 +1,6 @@
 # CF-021 — Conciliar dashboard, resumo anual e exportação
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Trocar de página não muda total global indevidamente; filtros têm semântica explícita em cada agregado.
-- [ ] Ano anterior não recebe posição atual rotulada como histórica; falta de histórico não vira zero plausível.
-- [ ] Dados exportados reproduzem valores/datas calculados independentemente para o mesmo escopo e período.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Trocar de página não muda total global indevidamente; filtros têm semântica explícita em cada agregado.
+- [x] Ano anterior não recebe posição atual rotulada como histórica; falta de histórico não vira zero plausível.
+- [x] Dados exportados reproduzem valores/datas calculados independentemente para o mesmo escopo e período.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,6 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-021/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementação local encerrada em 28/09/2026 sobre `bfa0855`, com CF-018/019/020 integradas mas ainda em revisão. `README.md` preexistente ficou fora do staging. O contrato HTTP/XLSX e os consumidores do extrato, dashboard, contas e investimentos exigiram edições pontuais fora dos quatro caminhos principais: controller/service/DTOs, repositórios de cartão e operações de investimento, hooks/contextos/tipos, componentes e testes. A justificativa é impedir que API e UI continuem apresentando totais de página, avaliação sem cotação ou patrimônio histórico fabricado após a correção dos agregados. O teste PostgreSQL reproduziu falhas financeiras antes da correção; a [evidência](../evidencias/CF-021/README.md) registra oráculos, comandos, escopo e riscos. O estado é `em_revisao` até revisão independente; não houve deploy, migração em banco real nem E2E integrado nesta execução.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-
