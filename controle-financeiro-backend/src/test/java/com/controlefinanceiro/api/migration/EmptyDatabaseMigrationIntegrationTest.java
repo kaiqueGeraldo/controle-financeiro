@@ -33,10 +33,10 @@ class EmptyDatabaseMigrationIntegrationTest {
     @Test
     void emptyDatabaseRunsEveryMigrationOnceAndHibernateValidateStarts() {
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(2);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(3);
         assertThat(sql.queryForList(
                 "select version from flyway_schema_history where success order by installed_rank", String.class))
-                .containsExactly("1", "2");
+                .containsExactly("1", "2", "3");
         assertThat(sql.queryForObject(
                 "select count(*) from information_schema.tables where table_schema=? and table_name='shedlock'",
                 Integer.class, EmptyMigrationTestInitializer.SCHEMA)).isOne();
@@ -52,13 +52,14 @@ class EmptyDatabaseMigrationIntegrationTest {
         var rerun = Cf017PostgresSupport.flyway(EmptyMigrationTestInitializer.SCHEMA).migrate();
         assertThat(rerun.migrationsExecuted).isZero();
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(2);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(3);
     }
 
     @Test
     void changedAppliedMigrationIsRejectedByChecksum(@TempDir Path alteredMigrations) throws IOException {
         copyMigration("V1__baseline_pre_temporal.sql", alteredMigrations);
         Path v2 = copyMigration("V2__adopt_temporal_metadata.sql", alteredMigrations);
+        copyMigration("V3__account_opening_and_transaction_flow.sql", alteredMigrations);
         Files.writeString(v2, System.lineSeparator() + "SELECT 1;" + System.lineSeparator(),
                 StandardOpenOption.APPEND);
 
@@ -101,7 +102,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         }
 
         var recovered = Cf017PostgresSupport.flyway(schema).migrate();
-        assertThat(recovered.migrationsExecuted).isOne();
+        assertThat(recovered.migrationsExecuted).isEqualTo(2);
         Cf017PostgresSupport.flyway(schema).validate();
     }
 
@@ -123,6 +124,38 @@ class EmptyDatabaseMigrationIntegrationTest {
     }
 
     @Test
+    void cf018OpeningFlowConstraintsAndIndexesArePresent() {
+        String schema = EmptyMigrationTestInitializer.SCHEMA;
+        assertThat(sql.queryForObject(
+                "select count(*) from information_schema.columns where table_schema=? "
+                        + "and table_name='accounts' and column_name in "
+                        + "('opening_balance','opening_date','opening_origin','opening_recorded_at')",
+                Integer.class, schema)).isEqualTo(4);
+        assertThat(sql.queryForObject(
+                "select count(*) from information_schema.columns where table_schema=? "
+                        + "and table_name='transactions' and column_name in "
+                        + "('status','origin','due_date','settled_at','operation_id','transfer_direction',"
+                        + "'counterparty_account_id','reversal_of_id','settlement_of_id','correction_of_id')",
+                Integer.class, schema)).isEqualTo(10);
+        assertThat(sql.queryForObject(
+                "select count(*) from information_schema.table_constraints where constraint_schema=? "
+                        + "and constraint_name in ('ck_accounts_opening_origin','ck_accounts_opening_metadata',"
+                        + "'ck_transactions_status','ck_transactions_paid_status','ck_transactions_origin',"
+                        + "'ck_transactions_transfer_direction','ck_transactions_transfer_metadata',"
+                        + "'ck_transactions_settlement_metadata','ck_transactions_reversal_metadata',"
+                        + "'ck_transactions_correction_metadata',"
+                        + "'fk_transactions_counterparty_account',"
+                        + "'fk_transactions_reversal','fk_transactions_settlement','fk_transactions_correction')",
+                Integer.class, schema)).isEqualTo(14);
+        assertThat(sql.queryForObject(
+                "select count(*) from pg_indexes where schemaname=? and indexname in "
+                        + "('uk_transactions_operation_direction','uk_transactions_reversal_once',"
+                        + "'uk_transactions_correction_once','idx_transactions_operation',"
+                        + "'idx_transactions_settlement','idx_transactions_user_realized')",
+                Integer.class, schema)).isEqualTo(6);
+    }
+
+    @Test
     void syntheticOrderingPlanUsesCanonicalIndexWithoutClaimingProductionLatency() throws Exception {
         String schema = Cf017PostgresSupport.createSchema("cf017_explain");
         Cf017PostgresSupport.flyway(schema).migrate();
@@ -139,10 +172,10 @@ class EmptyDatabaseMigrationIntegrationTest {
                     """);
             statement.execute("""
                     INSERT INTO transactions
-                      (id,description,amount,date,is_paid,type,account_id,user_id,created_at,
+                      (id,description,amount,date,is_paid,status,type,account_id,user_id,created_at,
                        operation_time,time_origin,recorded_at)
                     SELECT md5(i::text)::uuid, 'synthetic-' || i, 1.00,
-                           date '2026-01-01' + (i % 365), false, 'EXPENSE',
+                           date '2026-01-01' + (i % 365), false, 'PENDING', 'EXPENSE',
                            '72000000-0000-0000-0000-000000000001',
                            '71000000-0000-0000-0000-000000000001',
                            timestamp '2026-01-01 00:00:00',

@@ -2,15 +2,10 @@ package com.controlefinanceiro.api.service;
 
 import com.controlefinanceiro.api.domain.account.Account;
 import com.controlefinanceiro.api.domain.account.AccountRepository;
+import com.controlefinanceiro.api.domain.account.OpeningBalanceOrigin;
 import com.controlefinanceiro.api.domain.account.dto.AccountResponseDTO;
 import com.controlefinanceiro.api.domain.account.dto.CreateAccountDTO;
 import com.controlefinanceiro.api.domain.account.dto.UpdateAccountDTO;
-import com.controlefinanceiro.api.domain.category.Category;
-import com.controlefinanceiro.api.domain.category.CategoryRepository;
-import com.controlefinanceiro.api.domain.category.DefaultCategory;
-import com.controlefinanceiro.api.domain.transaction.Transaction;
-import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
-import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
@@ -21,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Clock;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -32,11 +28,6 @@ public class AccountService {
     @Autowired
     private AccountRepository repository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
     @Autowired
     private Clock clock;
 
@@ -51,33 +42,32 @@ public class AccountService {
         newAccount.setUser(user);
 
         BigDecimal initialBalance = data.initialBalance() != null ? data.initialBalance() : BigDecimal.ZERO;
+        validateOpeningBalance(initialBalance);
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        LocalDate openingDate = data.openingDate() != null ? data.openingDate() : now.toLocalDate();
+        if (openingDate.isAfter(now.toLocalDate())) {
+            throw new BusinessRuleException("A data-base da abertura não pode estar no futuro.");
+        }
         newAccount.setBalance(initialBalance);
+        newAccount.setOpeningBalance(initialBalance);
+        newAccount.setOpeningDate(openingDate);
+        newAccount.setOpeningOrigin(OpeningBalanceOrigin.USER_PROVIDED);
+        newAccount.setOpeningRecordedAt(now.toInstant());
 
         Account savedAccount = repository.save(newAccount);
 
-        if (initialBalance.compareTo(BigDecimal.ZERO) > 0) {
-            log.info("Gerando transação de ajuste para saldo inicial da conta {}", savedAccount.getId());
-            ZonedDateTime now = ZonedDateTime.now(clock);
-
-            Transaction initialTx = new Transaction();
-            initialTx.setDescription("Saldo Inicial - " + savedAccount.getName());
-            initialTx.setAmount(initialBalance);
-            initialTx.setType(TransactionType.INCOME);
-            initialTx.setDate(now.toLocalDate());
-            initialTx.setCreatedAt(now.toLocalDateTime());
-            initialTx.captureTemporal(null, now.toInstant(), initialTx.getCreatedAt());
-            initialTx.setPaid(true);
-            initialTx.setAccount(savedAccount);
-            initialTx.setUser(user);
-            initialTx.setSystemManaged(true);
-
-            Category catAjuste = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.AJUSTE_SALDO.getName()).orElse(null);
-            initialTx.setCategory(catAjuste);
-
-            transactionRepository.save(initialTx);
-        }
-
         return new AccountResponseDTO(savedAccount);
+    }
+
+    private void validateOpeningBalance(BigDecimal value) {
+        try {
+            value.setScale(2, java.math.RoundingMode.UNNECESSARY);
+        } catch (ArithmeticException exception) {
+            throw new BusinessRuleException("O saldo inicial deve ter no máximo duas casas decimais.");
+        }
+        if (value.abs().compareTo(new BigDecimal("999999999999.99")) > 0) {
+            throw new BusinessRuleException("O saldo inicial excede o limite monetário.");
+        }
     }
 
     public List<AccountResponseDTO> listAll(User user) {

@@ -29,6 +29,22 @@ public abstract class OperationTemporal {
         preserveLegacyValue(legacyValue);
     }
 
+    /** A correction is a new audited write but keeps the source's effective-time knowledge. */
+    public void captureCorrectionTemporal(
+            OperationTemporal source,
+            Instant instant,
+            LocalDateTime sourceLegacyValue
+    ) {
+        if (recordedAt != null) throw new IllegalStateException("Registro temporal já capturado");
+        OperationTemporal original = Objects.requireNonNull(source);
+        recordedAt = Objects.requireNonNull(instant).truncatedTo(ChronoUnit.MICROS);
+        time = original.time;
+        timeOrigin = original.timeOrigin;
+        legacyCreatedAtRaw = original.legacyCreatedAtRaw != null
+                ? original.legacyCreatedAtRaw
+                : sourceLegacyValue;
+    }
+
     public void changeInformedTime(LocalTime value) {
         time = value;
         timeOrigin = value == null ? TimeOrigin.NOT_PROVIDED : TimeOrigin.USER_INPUT;

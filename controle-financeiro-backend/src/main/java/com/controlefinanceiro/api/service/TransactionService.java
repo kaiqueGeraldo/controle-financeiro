@@ -6,11 +6,16 @@ import com.controlefinanceiro.api.domain.category.Category;
 import com.controlefinanceiro.api.domain.category.CategoryRepository;
 import com.controlefinanceiro.api.domain.event.UserFinancialDataChangedEvent;
 import com.controlefinanceiro.api.domain.transaction.Transaction;
+import com.controlefinanceiro.api.domain.transaction.TransactionOrigin;
 import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
+import com.controlefinanceiro.api.domain.transaction.TransactionStatus;
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
+import com.controlefinanceiro.api.domain.transaction.TransferDirection;
 import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
+import com.controlefinanceiro.api.domain.transaction.dto.SettleTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.TransactionResponseDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.UpdateTransactionDTO;
+import com.controlefinanceiro.api.domain.temporal.TimeOrigin;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
@@ -36,7 +41,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -60,51 +68,32 @@ public class TransactionService {
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
         log.info("Criando transação: Tipo={}, Valor={}, ContaID={}", data.type(), data.amount(), data.accountId());
 
-        Account account = accountRepository.findById(data.accountId())
+        validatePositiveMoney(data.amount(), "valor");
+        if (data.type() == TransactionType.TRANSFER) {
+            return createTransfer(data, user);
+        }
+        if (data.destinationAccountId() != null || positiveOrZero(data.fee()).signum() != 0) {
+            throw new BusinessRuleException("Conta destino e taxa são exclusivas de transferências.");
+        }
+
+        Account account = accountRepository.findByIdAndUserId(data.accountId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada"));
-
-        if (!account.getUser().getId().equals(user.getId())) {
-            log.error("Violação de segurança: Usuário {} tentou usar conta {} de outro usuário", user.getId(), account.getId());
-            throw new BusinessRuleException("A conta informada não pertence ao usuário.");
-        }
-
-        if (account.isArchived()) {
-            throw new BusinessRuleException("Não é possível lançar ou editar transações numa conta arquivada.");
-        }
-
-        Category category = null;
-        if (data.categoryId() != null) {
-            category = categoryRepository.findById(data.categoryId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
-        }
-
-        Transaction transaction = new Transaction();
-        transaction.setDescription(data.description());
-        transaction.setAmount(data.amount());
-        transaction.setDate(data.date());
-
+        requireActive(account);
+        Category category = findOwnedCategory(data.categoryId(), user, data.type());
         ZonedDateTime now = ZonedDateTime.now(clock);
-        LocalTime time = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
-        transaction.setCreatedAt(data.date().atTime(time));
-        transaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), transaction.getCreatedAt());
-
-        transaction.setType(data.type());
-        transaction.setPaid(data.isPaid() != null ? data.isPaid() : true);
-        transaction.setAccount(account);
-        transaction.setCategory(category);
-        transaction.setUser(user);
+        Transaction transaction = newTransaction(
+                data.description(), data.amount(), data.date(), data.time(), data.type(),
+                data.isPaid() == null || data.isPaid(), account, category, user, now
+        );
+        transaction.setOrigin(TransactionOrigin.USER);
 
         if (transaction.isPaid()) {
             applyTransactionBalance(transaction, account);
             log.info("Saldo atualizado na conta {}. Novo saldo: {}", account.getId(), account.getBalance());
         }
 
-        Transaction saved = repository.save(transaction);
-
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(
-                user.getId(),
-                saved.getDate().getYear()
-        ));
+        Transaction saved = repository.saveAndFlush(transaction);
+        publishChanged(user.getId(), saved.getDate().getYear());
 
         log.info("Transação salva com sucesso: ID {}", saved.getId());
         return new TransactionResponseDTO(saved);
@@ -114,67 +103,153 @@ public class TransactionService {
     public TransactionResponseDTO update(UUID id, UpdateTransactionDTO data, User user) {
         log.info("Atualizando transação ID {}", id);
 
-        Transaction transaction = repository.findById(id)
+        Transaction transaction = repository.findOwnedForUpdate(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
-
-        if (!transaction.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
 
         if (transaction.isSystemManaged()) {
             throw new BusinessRuleException("Esta transação é gerenciada automaticamente pelo sistema (Metas/Investimentos/Faturas) e não pode ser editada ou excluída manualmente pelo extrato.");
+        }
+
+        if (transaction.getOrigin() == TransactionOrigin.ACCOUNT_OPENING) {
+            throw new BusinessRuleException("Abertura de conta é posição e não pode ser editada como transação.");
+        }
+
+        if (transaction.getStatus() == TransactionStatus.REVERSED
+                || transaction.getStatus() == TransactionStatus.PARTIALLY_SETTLED
+                || transaction.getStatus() == TransactionStatus.FULFILLED
+                || transaction.getStatus() == TransactionStatus.CANCELLED
+                || transaction.getOrigin() == TransactionOrigin.REVERSAL
+                || transaction.getSettlementOfId() != null
+                || transaction.getOperationId() != null) {
+            throw new BusinessRuleException("Transações estornadas, parcialmente baixadas ou vinculadas devem ser corrigidas pelo fluxo da operação original.");
         }
 
         if (transaction.getAccount().isArchived()) {
             throw new BusinessRuleException("Não é possível editar transações de uma conta arquivada. O histórico está congelado.");
         }
 
-        if (transaction.isPaid()) {
-            reverseTransactionBalance(transaction, transaction.getAccount());
+        if (data.amount() != null) {
+            validatePositiveMoney(data.amount(), "valor");
+        }
+        if (!hasRequestedChange(transaction, data)) {
+            return new TransactionResponseDTO(transaction);
+        }
+        if (transaction.getStatus() == TransactionStatus.SETTLED) {
+            return correctSettledTransaction(transaction, data, user);
         }
 
-        updateTransactionData(transaction, data);
+        int previousYear = transaction.getDate().getYear();
+        updateTransactionData(transaction, data, user);
 
-        if (transaction.isPaid()) {
+        if (transaction.isRealized()) {
             applyTransactionBalance(transaction, transaction.getAccount());
         }
 
-        Transaction updatedTransaction = repository.save(transaction);
-
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(
-                user.getId(),
-                updatedTransaction.getDate().getYear()
-        ));
+        Transaction updatedTransaction = repository.saveAndFlush(transaction);
+        publishChanged(user.getId(), previousYear, updatedTransaction.getDate().getYear());
 
         return new TransactionResponseDTO(updatedTransaction);
+    }
+
+    @Transactional
+    public TransactionResponseDTO settle(UUID id, SettleTransactionDTO data, User user) {
+        validatePositiveMoney(data.amount(), "valor da baixa");
+        Transaction forecast = repository.findOwnedForUpdate(id, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Previsão não encontrada"));
+
+        if (forecast.isSystemManaged()
+                || forecast.getOperationId() != null
+                || forecast.getSettlementOfId() != null
+                || forecast.getType() == TransactionType.TRANSFER
+                || (forecast.getOrigin() != null
+                    && forecast.getOrigin() != TransactionOrigin.USER
+                    && forecast.getOrigin() != TransactionOrigin.CORRECTION
+                    && forecast.getOrigin() != TransactionOrigin.UNKNOWN)) {
+            throw new BusinessRuleException("Esta transação não aceita baixa manual.");
+        }
+        if (forecast.getStatus() != TransactionStatus.PENDING
+                && forecast.getStatus() != TransactionStatus.PARTIALLY_SETTLED) {
+            throw new BusinessRuleException("Somente uma previsão pendente pode receber baixa.");
+        }
+        requireActive(forecast.getAccount());
+
+        BigDecimal alreadySettled = repository.sumActiveSettlements(forecast.getId());
+        BigDecimal remaining = forecast.getAmount().subtract(alreadySettled);
+        if (data.amount().compareTo(remaining) > 0) {
+            throw new BusinessRuleException("O valor da baixa excede o saldo pendente da previsão.");
+        }
+
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        Transaction settlement = newTransaction(
+                limitedDescription("Baixa - " + forecast.getDescription()),
+                data.amount(), data.date(), data.time(), forecast.getType(), true,
+                forecast.getAccount(), forecast.getCategory(), user, now
+        );
+        settlement.setOrigin(TransactionOrigin.SETTLEMENT);
+        settlement.setSettlementOfId(forecast.getId());
+        settlement.setDueDate(forecast.getDueDate() != null ? forecast.getDueDate() : forecast.getDate());
+
+        applyTransactionBalance(settlement, forecast.getAccount());
+        forecast.markForecastSettlement(alreadySettled.add(data.amount()));
+        forecast.setSettledAt(forecast.getStatus() == TransactionStatus.FULFILLED ? now.toInstant() : null);
+        repository.saveAll(List.of(forecast, settlement));
+        repository.flush();
+        publishChanged(user.getId(), forecast.getDate().getYear(), settlement.getDate().getYear());
+        return new TransactionResponseDTO(settlement);
     }
 
     @Transactional
     public void delete(UUID id, User user) {
         log.info("Solicitação de exclusão da transação ID {}", id);
 
-        Transaction transaction = repository.findById(id)
+        Transaction candidate = repository.findByIdAndUserId(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
-        if (!transaction.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+        // Transferências adquirem todas as linhas da operação em ordem estável;
+        // não bloqueie uma ponta isolada antes disso para evitar ordem inversa.
+        if (candidate.getOperationId() != null) {
+            reverseOrDeleteTransfer(candidate.getOperationId(), user);
+            return;
         }
+
+        Transaction transaction = repository.findOwnedForUpdate(id, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
         if (transaction.isSystemManaged()) {
             throw new BusinessRuleException("Esta transação é gerenciada automaticamente pelo sistema (Metas/Investimentos/Faturas) e não pode ser editada ou excluída manualmente pelo extrato.");
         }
 
-        if (transaction.isPaid()) {
-            log.info("Revertendo impacto financeiro da transação {} na conta {}", id, transaction.getAccount().getId());
-            reverseTransactionBalance(transaction, transaction.getAccount());
+        if (transaction.getOrigin() == TransactionOrigin.ACCOUNT_OPENING) {
+            throw new BusinessRuleException("Abertura de conta é posição e não pode ser excluída como transação.");
         }
 
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(
-                user.getId(),
-                transaction.getDate().getYear()
-        ));
+        if (transaction.getSettlementOfId() != null) {
+            reverseSettlement(transaction, user);
+            return;
+        }
 
-        repository.delete(transaction);
+        if (transaction.getStatus() == TransactionStatus.PENDING) {
+            if (repository.existsBySettlementOfId(transaction.getId())) {
+                transaction.cancelForecast();
+                repository.saveAndFlush(transaction);
+            } else {
+                repository.delete(transaction);
+                repository.flush();
+            }
+            publishChanged(user.getId(), transaction.getDate().getYear());
+            return;
+        }
+        if (transaction.getStatus() == TransactionStatus.PARTIALLY_SETTLED) {
+            transaction.cancelForecast();
+            repository.saveAndFlush(transaction);
+            publishChanged(user.getId(), transaction.getDate().getYear());
+            return;
+        }
+        if (transaction.getStatus() == TransactionStatus.FULFILLED
+                || transaction.getStatus() == TransactionStatus.CANCELLED) {
+            throw new BusinessRuleException("A previsão possui histórico de baixas e não pode ser excluída; estorne cada baixa quando necessário.");
+        }
+        reverseSettledTransaction(transaction, user);
     }
 
     public Page<TransactionResponseDTO> listAll(User user, Pageable pageable) {
@@ -212,6 +287,8 @@ public class TransactionService {
             account.credit(transaction.getAmount());
         } else if (transaction.getType() == TransactionType.EXPENSE) {
             account.debit(transaction.getAmount());
+        } else {
+            throw new BusinessRuleException("Transferências exigem origem e destino vinculados.");
         }
         accountRepository.save(account);
     }
@@ -221,13 +298,94 @@ public class TransactionService {
             account.debit(transaction.getAmount());
         } else if (transaction.getType() == TransactionType.EXPENSE) {
             account.credit(transaction.getAmount());
+        } else {
+            throw new BusinessRuleException("Transferências exigem reversão das duas pontas.");
         }
         accountRepository.save(account);
     }
 
-    private void updateTransactionData(Transaction t, UpdateTransactionDTO data) {
+    private boolean hasRequestedChange(Transaction transaction, UpdateTransactionDTO data) {
+        if (data.description() != null && !Objects.equals(data.description(), transaction.getDescription())) {
+            return true;
+        }
+        if (data.amount() != null && data.amount().compareTo(transaction.getAmount()) != 0) {
+            return true;
+        }
+        if (data.date() != null && !data.date().equals(transaction.getDate())) {
+            return true;
+        }
+        if (data.hasTime()) {
+            LocalTime requestedTime = DateUtil.optionalWallTime(data.time());
+            TimeOrigin requestedOrigin = requestedTime == null ? TimeOrigin.NOT_PROVIDED : TimeOrigin.USER_INPUT;
+            if (!Objects.equals(requestedTime, transaction.getTime())
+                    || requestedOrigin != transaction.getTimeOrigin()) {
+                return true;
+            }
+        }
+        if (data.type() != null && data.type() != transaction.getType()) {
+            return true;
+        }
+        if (data.accountId() != null && !data.accountId().equals(transaction.getAccount().getId())) {
+            return true;
+        }
+        if (data.categoryId() != null
+                && (transaction.getCategory() == null
+                    || !data.categoryId().equals(transaction.getCategory().getId()))) {
+            return true;
+        }
+        return data.isPaid() != null && data.isPaid() != transaction.isPaid();
+    }
+
+    private TransactionResponseDTO correctSettledTransaction(
+            Transaction original,
+            UpdateTransactionDTO data,
+            User user
+    ) {
+        if (repository.existsByReversalOfId(original.getId())) {
+            throw new BusinessRuleException("Esta transação já possui correção ou estorno.");
+        }
+
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        Transaction corrected = new Transaction();
+        corrected.setDescription(original.getDescription());
+        corrected.setAmount(original.getAmount());
+        corrected.setDate(original.getDate());
+        corrected.setCreatedAt(original.getCreatedAt());
+        corrected.captureCorrectionTemporal(original, now.toInstant(), original.getCreatedAt());
+        corrected.setType(original.getType());
+        corrected.setPaid(true);
+        corrected.setSettledAt(now.toInstant());
+        corrected.setAccount(original.getAccount());
+        corrected.setCategory(original.getCategory());
+        corrected.setUser(user);
+        corrected.setDueDate(original.getDueDate());
+        corrected.setOrigin(TransactionOrigin.CORRECTION);
+        corrected.setCorrectionOfId(original.getId());
+        updateTransactionData(corrected, data, user);
+
+        reverseTransactionBalance(original, original.getAccount());
+        original.markReversed();
+        Transaction reversal = reversalOf(original, original.getDate(), now);
+        if (corrected.isRealized()) {
+            applyTransactionBalance(corrected, corrected.getAccount());
+        }
+
+        repository.saveAll(List.of(original, reversal, corrected));
+        repository.flush();
+        publishChanged(
+                user.getId(), original.getDate().getYear(), reversal.getDate().getYear(), corrected.getDate().getYear()
+        );
+        return new TransactionResponseDTO(corrected);
+    }
+
+    private void updateTransactionData(Transaction t, UpdateTransactionDTO data, User user) {
+        TransactionStatus previousStatus = t.getStatus();
+        LocalDate previousDate = t.getDate();
         if (data.description() != null) t.setDescription(data.description());
-        if (data.amount() != null) t.setAmount(data.amount());
+        if (data.amount() != null) {
+            validatePositiveMoney(data.amount(), "valor");
+            t.setAmount(data.amount());
+        }
         if (data.date() != null || data.hasTime()) {
             t.preserveLegacyValue(t.getCreatedAt());
             if (data.hasTime()) t.changeInformedTime(DateUtil.optionalWallTime(data.time()));
@@ -242,25 +400,326 @@ public class TransactionService {
             t.setCreatedAt(newDate.atTime(newTime));
         }
         if (data.date() != null) t.setDate(data.date());
+        if (data.type() == TransactionType.TRANSFER) {
+            throw new BusinessRuleException("Uma edição comum não cria transferência entre contas.");
+        }
         if (data.type() != null) t.setType(data.type());
-        if (data.isPaid() != null) t.setPaid(data.isPaid());
+        if (data.isPaid() != null) {
+            t.setPaid(data.isPaid());
+            if (data.isPaid() && previousStatus == TransactionStatus.PENDING) {
+                t.setSettledAt(ZonedDateTime.now(clock).toInstant());
+            } else if (!data.isPaid()) {
+                t.setSettledAt(null);
+            }
+        }
+
+        if (t.getStatus() == TransactionStatus.PENDING) {
+            t.setDueDate(t.getDate());
+        } else if (previousStatus == TransactionStatus.PENDING && t.getDueDate() == null) {
+            t.setDueDate(previousDate);
+        }
 
         if (data.categoryId() != null) {
-            Category novaCategoria = categoryRepository.findById(data.categoryId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+            Category novaCategoria = findOwnedCategory(data.categoryId(), user, t.getType());
             t.setCategory(novaCategoria);
         }
 
         if (data.accountId() != null) {
-            Account novaConta = accountRepository.findById(data.accountId())
+            Account novaConta = accountRepository.findByIdAndUserId(data.accountId(), user.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Conta destino não encontrada"));
-
-            if (novaConta.isArchived()) {
-                throw new BusinessRuleException("Não é possível transferir a transação para uma conta arquivada.");
-            }
-
+            requireActive(novaConta);
             t.setAccount(novaConta);
         }
+
+        if (t.getCategory() != null && t.getCategory().getType() != t.getType()) {
+            throw new BusinessRuleException("A categoria não corresponde ao tipo da transação.");
+        }
+    }
+
+    private TransactionResponseDTO createTransfer(CreateTransactionDTO data, User user) {
+        UUID destinationId = data.destinationAccountId();
+        if (destinationId == null) {
+            throw new BusinessRuleException("A conta destino é obrigatória para uma transferência.");
+        }
+        if (data.accountId().equals(destinationId)) {
+            throw new BusinessRuleException("Origem e destino da transferência devem ser diferentes.");
+        }
+        if (data.categoryId() != null) {
+            throw new BusinessRuleException("Transferência não pode ser classificada como receita ou despesa.");
+        }
+
+        BigDecimal fee = positiveOrZero(data.fee());
+        validateNonNegativeMoney(fee, "taxa");
+
+        List<UUID> orderedIds = new ArrayList<>(List.of(data.accountId(), destinationId));
+        orderedIds.sort(Comparator.naturalOrder());
+        List<Account> lockedAccounts = accountRepository.findAllByIdForTransfer(orderedIds, user.getId());
+        if (lockedAccounts.size() != 2) {
+            throw new ResourceNotFoundException("Conta de origem ou destino não encontrada");
+        }
+
+        Account source = lockedAccounts.stream()
+                .filter(account -> account.getId().equals(data.accountId()))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Conta de origem não encontrada"));
+        Account destination = lockedAccounts.stream()
+                .filter(account -> account.getId().equals(destinationId))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Conta destino não encontrada"));
+
+        if (!source.getUser().getId().equals(user.getId())
+                || !destination.getUser().getId().equals(user.getId())) {
+            throw new ResourceNotFoundException("Conta de origem ou destino não encontrada");
+        }
+        requireActive(source);
+        requireActive(destination);
+
+        boolean settled = data.isPaid() == null || data.isPaid();
+        UUID operationId = UUID.randomUUID();
+        ZonedDateTime now = ZonedDateTime.now(clock);
+
+        Transaction outbound = newTransaction(
+                data.description(), data.amount(), data.date(), data.time(), TransactionType.TRANSFER,
+                settled, source, null, user, now
+        );
+        outbound.setOrigin(TransactionOrigin.TRANSFER);
+        outbound.setOperationId(operationId);
+        outbound.setTransferDirection(TransferDirection.OUTBOUND);
+        outbound.setCounterpartyAccountId(destination.getId());
+
+        Transaction inbound = newTransaction(
+                data.description(), data.amount(), data.date(), data.time(), TransactionType.TRANSFER,
+                settled, destination, null, user, now
+        );
+        inbound.setOrigin(TransactionOrigin.TRANSFER);
+        inbound.setOperationId(operationId);
+        inbound.setTransferDirection(TransferDirection.INBOUND);
+        inbound.setCounterpartyAccountId(source.getId());
+
+        List<Transaction> entries = new ArrayList<>(List.of(outbound, inbound));
+        if (fee.signum() > 0) {
+            Transaction feeEntry = newTransaction(
+                    limitedDescription("Taxa - " + data.description()), fee, data.date(), data.time(),
+                    TransactionType.EXPENSE, settled, source, null, user, now
+            );
+            feeEntry.setOrigin(TransactionOrigin.TRANSFER_FEE);
+            feeEntry.setOperationId(operationId);
+            entries.add(feeEntry);
+        }
+
+        if (settled) {
+            source.debit(data.amount());
+            if (fee.signum() > 0) {
+                source.debit(fee);
+            }
+            destination.credit(data.amount());
+            accountRepository.saveAll(List.of(source, destination));
+        }
+
+        repository.saveAll(entries);
+        repository.flush();
+        publishChanged(user.getId(), data.date().getYear());
+        return new TransactionResponseDTO(outbound);
+    }
+
+    private void reverseSettledTransaction(Transaction original, User user) {
+        if (original.getStatus() != TransactionStatus.SETTLED
+                || repository.existsByReversalOfId(original.getId())) {
+            throw new BusinessRuleException("Esta transação já foi estornada ou não está liquidada.");
+        }
+
+        log.info("Estornando impacto financeiro da transação {} na conta {}",
+                original.getId(), original.getAccount().getId());
+        reverseTransactionBalance(original, original.getAccount());
+        original.markReversed();
+
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        Transaction reversal = reversalOf(original, now);
+        repository.saveAll(List.of(original, reversal));
+        repository.flush();
+        publishChanged(user.getId(), original.getDate().getYear(), reversal.getDate().getYear());
+    }
+
+    private void reverseSettlement(Transaction settlement, User user) {
+        Transaction forecast = repository.findOwnedForUpdate(settlement.getSettlementOfId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Previsão da baixa não encontrada"));
+        reverseSettledTransaction(settlement, user);
+
+        if (forecast.getStatus() != TransactionStatus.CANCELLED) {
+            BigDecimal activeSettlements = repository.sumActiveSettlements(forecast.getId());
+            forecast.markForecastSettlement(activeSettlements);
+            forecast.setSettledAt(null);
+            repository.saveAndFlush(forecast);
+        }
+        publishChanged(user.getId(), forecast.getDate().getYear());
+    }
+
+    private void reverseOrDeleteTransfer(UUID operationId, User user) {
+        List<Transaction> operation = repository.findOperationForUpdate(operationId);
+        if (operation.isEmpty() || operation.stream().anyMatch(t -> !t.getUser().getId().equals(user.getId()))) {
+            throw new ResourceNotFoundException("Transferência não encontrada");
+        }
+        if (operation.stream().anyMatch(Transaction::isSystemManaged)) {
+            throw new BusinessRuleException("A operação é gerenciada por outro fluxo do sistema.");
+        }
+
+        boolean allPending = operation.stream().allMatch(t -> t.getStatus() == TransactionStatus.PENDING);
+        if (allPending) {
+            int[] years = operation.stream().mapToInt(t -> t.getDate().getYear()).toArray();
+            repository.deleteAll(operation);
+            repository.flush();
+            publishChanged(user.getId(), years);
+            return;
+        }
+        if (operation.stream().anyMatch(t -> t.getStatus() != TransactionStatus.SETTLED)) {
+            throw new BusinessRuleException("Esta transferência já foi estornada ou possui estado inconsistente.");
+        }
+
+        Transaction outbound = singleTransferLeg(operation, TransferDirection.OUTBOUND);
+        Transaction inbound = singleTransferLeg(operation, TransferDirection.INBOUND);
+        if (outbound.getAmount().compareTo(inbound.getAmount()) != 0) {
+            throw new BusinessRuleException("As pontas da transferência não conciliam.");
+        }
+
+        Account source = outbound.getAccount();
+        Account destination = inbound.getAccount();
+        source.credit(outbound.getAmount());
+        destination.debit(inbound.getAmount());
+        operation.stream()
+                .filter(t -> t.getOrigin() == TransactionOrigin.TRANSFER_FEE)
+                .forEach(t -> source.credit(t.getAmount()));
+        accountRepository.saveAll(List.of(source, destination));
+
+        ZonedDateTime now = ZonedDateTime.now(clock);
+        List<Transaction> reversals = new ArrayList<>();
+        for (Transaction entry : operation) {
+            if (repository.existsByReversalOfId(entry.getId())) {
+                throw new BusinessRuleException("Esta transferência já possui estorno.");
+            }
+            entry.markReversed();
+            reversals.add(reversalOf(entry, now));
+        }
+        repository.saveAll(operation);
+        repository.saveAll(reversals);
+        repository.flush();
+
+        int[] years = java.util.stream.Stream.concat(operation.stream(), reversals.stream())
+                .mapToInt(t -> t.getDate().getYear())
+                .toArray();
+        publishChanged(user.getId(), years);
+    }
+
+    private Transaction singleTransferLeg(List<Transaction> operation, TransferDirection direction) {
+        List<Transaction> matches = operation.stream()
+                .filter(t -> t.getOrigin() == TransactionOrigin.TRANSFER)
+                .filter(t -> t.getTransferDirection() == direction)
+                .toList();
+        if (matches.size() != 1) {
+            throw new BusinessRuleException("A transferência não possui exatamente duas pontas conciliáveis.");
+        }
+        return matches.getFirst();
+    }
+
+    private Transaction reversalOf(Transaction original, ZonedDateTime now) {
+        return reversalOf(original, now.toLocalDate(), now);
+    }
+
+    private Transaction reversalOf(Transaction original, LocalDate effectiveDate, ZonedDateTime now) {
+        Transaction reversal = newTransaction(
+                limitedDescription("Estorno - " + original.getDescription()), original.getAmount(),
+                effectiveDate, null, original.getType(), true,
+                original.getAccount(), original.getCategory(), original.getUser(), now
+        );
+        reversal.setOrigin(TransactionOrigin.REVERSAL);
+        reversal.setReversalOfId(original.getId());
+        reversal.setSystemManaged(true);
+        return reversal;
+    }
+
+    private Transaction newTransaction(
+            String description,
+            BigDecimal amount,
+            LocalDate date,
+            String informedTime,
+            TransactionType type,
+            boolean paid,
+            Account account,
+            Category category,
+            User user,
+            ZonedDateTime now
+    ) {
+        Transaction transaction = new Transaction();
+        transaction.setDescription(description);
+        transaction.setAmount(amount);
+        transaction.setDate(date);
+        LocalTime time = DateUtil.getTimeOrDefault(informedTime, now.toLocalTime());
+        transaction.setCreatedAt(date.atTime(time));
+        transaction.captureTemporal(DateUtil.optionalWallTime(informedTime), now.toInstant(), transaction.getCreatedAt());
+        transaction.setType(type);
+        transaction.setPaid(paid);
+        transaction.setDueDate(paid ? null : date);
+        transaction.setSettledAt(paid ? now.toInstant() : null);
+        transaction.setAccount(account);
+        transaction.setCategory(category);
+        transaction.setUser(user);
+        return transaction;
+    }
+
+    private Category findOwnedCategory(UUID categoryId, User user, TransactionType type) {
+        if (categoryId == null) {
+            return null;
+        }
+        Category category = categoryRepository.findByIdAndUserId(categoryId, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+        if (category.getType() != type) {
+            throw new BusinessRuleException("A categoria não corresponde ao tipo da transação.");
+        }
+        return category;
+    }
+
+    private void requireActive(Account account) {
+        if (account.isArchived()) {
+            throw new BusinessRuleException("Não é possível movimentar uma conta arquivada.");
+        }
+    }
+
+    private void validatePositiveMoney(BigDecimal value, String field) {
+        if (value == null || value.signum() <= 0) {
+            throw new BusinessRuleException("O " + field + " deve ser maior que zero.");
+        }
+        validateMoneyScaleAndLimit(value, field);
+    }
+
+    private void validateNonNegativeMoney(BigDecimal value, String field) {
+        if (value == null || value.signum() < 0) {
+            throw new BusinessRuleException("A " + field + " não pode ser negativa.");
+        }
+        validateMoneyScaleAndLimit(value, field);
+    }
+
+    private void validateMoneyScaleAndLimit(BigDecimal value, String field) {
+        try {
+            value.setScale(2, java.math.RoundingMode.UNNECESSARY);
+        } catch (ArithmeticException exception) {
+            throw new BusinessRuleException("O " + field + " deve ter no máximo duas casas decimais.");
+        }
+        if (value.abs().compareTo(new BigDecimal("999999999999.99")) > 0) {
+            throw new BusinessRuleException("O " + field + " excede o limite monetário.");
+        }
+    }
+
+    private BigDecimal positiveOrZero(BigDecimal value) {
+        return value == null ? BigDecimal.ZERO : value;
+    }
+
+    private String limitedDescription(String value) {
+        return value.length() <= 255 ? value : value.substring(0, 255);
+    }
+
+    private void publishChanged(UUID userId, int... years) {
+        java.util.Arrays.stream(years)
+                .distinct()
+                .forEach(year -> eventPublisher.publishEvent(new UserFinancialDataChangedEvent(userId, year)));
     }
 
     public byte[] exportToExcel(User user) {
@@ -310,7 +769,7 @@ public class TransactionService {
 
             for (Object[] row : totals) {
                 String type = row[0].toString();
-                BigDecimal sum = row[1] != null ? BigDecimal.valueOf(((Number) row[1]).doubleValue()) : BigDecimal.ZERO;
+                BigDecimal sum = exactDecimal(row[1]);
                 if ("INCOME".equals(type)) totalIncome = sum;
                 else if ("EXPENSE".equals(type)) totalExpense = sum;
             }
@@ -401,5 +860,15 @@ public class TransactionService {
             log.error("Erro ao gerar Excel", e);
             throw new BusinessRuleException("Falha ao gerar arquivo Excel");
         }
+    }
+
+    private BigDecimal exactDecimal(Object value) {
+        if (value == null) {
+            return BigDecimal.ZERO;
+        }
+        if (value instanceof BigDecimal decimal) {
+            return decimal;
+        }
+        return new BigDecimal(value.toString());
     }
 }

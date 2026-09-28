@@ -46,8 +46,8 @@ class TransactionServiceTemporalTest {
 
         User user = user();
         Account account = account(user);
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(accountRepository.findByIdAndUserId(account.getId(), user.getId())).thenReturn(Optional.of(account));
+        when(transactionRepository.saveAndFlush(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ReflectionTestUtils.setField(service, "repository", transactionRepository);
         ReflectionTestUtils.setField(service, "accountRepository", accountRepository);
@@ -68,7 +68,7 @@ class TransactionServiceTemporalTest {
         ), user);
 
         ArgumentCaptor<Transaction> captor = ArgumentCaptor.forClass(Transaction.class);
-        verify(transactionRepository).save(captor.capture());
+        verify(transactionRepository).saveAndFlush(captor.capture());
         assertThat(captor.getValue().getDate()).isEqualTo(LocalDate.of(2026, 9, 7));
         assertThat(captor.getValue().getCreatedAt()).isEqualTo(LocalDateTime.of(2026, 9, 7, 23, 30, 45));
     }

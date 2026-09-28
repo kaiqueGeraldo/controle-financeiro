@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +32,19 @@ public class Account {
 
     @Column(nullable = false)
     private BigDecimal balance = BigDecimal.ZERO;
+
+    @Column(name = "opening_balance")
+    private BigDecimal openingBalance;
+
+    @Column(name = "opening_date")
+    private LocalDate openingDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "opening_origin")
+    private OpeningBalanceOrigin openingOrigin;
+
+    @Column(name = "opening_recorded_at")
+    private Instant openingRecordedAt;
 
     private String color;
 

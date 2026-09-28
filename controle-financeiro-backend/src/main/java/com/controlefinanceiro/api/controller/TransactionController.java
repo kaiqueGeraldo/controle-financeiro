@@ -4,6 +4,7 @@ import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.TransactionResponseDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.UpdateTransactionDTO;
+import com.controlefinanceiro.api.domain.transaction.dto.SettleTransactionDTO;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.TransactionService;
 import jakarta.validation.Valid;
@@ -74,6 +75,16 @@ public class TransactionController {
         log.info("API: Requisição para ATUALIZAR transação {}. Usuário: {}", id, user.getEmail());
         var updatedTransaction = service.update(id, data, user);
         return ResponseEntity.ok(updatedTransaction);
+    }
+
+    @PostMapping("/{id}/settlements")
+    public ResponseEntity<TransactionResponseDTO> settle(
+            @PathVariable UUID id,
+            @RequestBody @Valid SettleTransactionDTO data,
+            @AuthenticationPrincipal User user
+    ) {
+        log.info("API: Requisição para BAIXAR transação {}. Usuário: {} | Valor: {}", id, user.getEmail(), data.amount());
+        return ResponseEntity.ok(service.settle(id, data, user));
     }
 
     @DeleteMapping("/{id}")

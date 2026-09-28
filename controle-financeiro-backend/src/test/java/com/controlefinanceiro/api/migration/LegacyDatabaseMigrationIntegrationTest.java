@@ -50,7 +50,8 @@ class LegacyDatabaseMigrationIntegrationTest {
                 "select type,version,success from flyway_schema_history order by installed_rank"))
                 .containsExactly(
                         Map.of("type", "BASELINE", "version", "1", "success", true),
-                        Map.of("type", "SQL", "version", "2", "success", true)
+                        Map.of("type", "SQL", "version", "2", "success", true),
+                        Map.of("type", "SQL", "version", "3", "success", true)
                 );
         assertThat(sql.queryForObject("select balance from accounts where id=?", BigDecimal.class, ACCOUNT_ID))
                 .isEqualByComparingTo("1000.25");
@@ -69,6 +70,14 @@ class LegacyDatabaseMigrationIntegrationTest {
         assertThat(sql.queryForObject(
                 "select count(*) from invest_transactions where operation_date is null and date_origin is null",
                 Integer.class)).isEqualTo(2);
+        assertThat(sql.queryForObject(
+                "select count(*) from accounts where opening_balance is null and opening_date is null "
+                        + "and opening_origin is null and opening_recorded_at is null", Integer.class)).isOne();
+        assertThat(sql.queryForObject(
+                "select count(*) from transactions where origin is null", Integer.class)).isEqualTo(2);
+        assertThat(sql.queryForObject(
+                "select count(*) from transactions where (is_paid and status='SETTLED') "
+                        + "or (not is_paid and status='PENDING')", Integer.class)).isEqualTo(2);
 
         String auth = "Bearer " + tokens.generateToken(users.findById(USER_ID).orElseThrow());
         mvc.perform(put("/transactions/{id}", LEGACY_TRANSACTION_ID)
@@ -78,8 +87,15 @@ class LegacyDatabaseMigrationIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.time").isEmpty())
                 .andExpect(jsonPath("$.timeOrigin").value("UNKNOWN"))
-                .andExpect(jsonPath("$.recordedAt").isEmpty())
-                .andExpect(jsonPath("$.legacyCreatedAtRaw").value("2026-09-07T00:00:00"));
+                .andExpect(jsonPath("$.recordedAt").isNotEmpty())
+                .andExpect(jsonPath("$.legacyCreatedAtRaw").value("2026-09-07T00:00:00"))
+                .andExpect(jsonPath("$.origin").value("CORRECTION"))
+                .andExpect(jsonPath("$.correctionOfId").value(LEGACY_TRANSACTION_ID.toString()));
+
+        assertThat(sql.queryForObject(
+                "select count(*) from transactions where id=? and date='2026-09-07' "
+                        + "and status='REVERSED' and recorded_at is null and legacy_created_at_raw is null",
+                Integer.class, LEGACY_TRANSACTION_ID)).isOne();
 
         mvc.perform(post("/transactions")
                         .header("Authorization", auth)
@@ -93,7 +109,9 @@ class LegacyDatabaseMigrationIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.time").value("00:00:00"))
                 .andExpect(jsonPath("$.timeOrigin").value("USER_INPUT"))
-                .andExpect(jsonPath("$.recordedAt").isNotEmpty());
+                .andExpect(jsonPath("$.recordedAt").isNotEmpty())
+                .andExpect(jsonPath("$.status").value("PENDING"))
+                .andExpect(jsonPath("$.origin").value("USER"));
     }
 
     @Test
