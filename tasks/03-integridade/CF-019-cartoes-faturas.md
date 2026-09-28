@@ -1,6 +1,6 @@
 # CF-019 — Validar faturas, parcelamento e pagamento
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Soma das parcelas é o valor exato da compra; competência e limite obedecem CF-016.
-- [ ] Pagamento reduz saldo e obrigação uma vez, não duplica despesa; segunda tentativa não repete baixa.
-- [ ] Retry de fechamento/cron não duplica fatura/parcela; erro de operação intermediária faz rollback.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Soma das parcelas é o valor exato da compra; competência e limite obedecem CF-016.
+- [x] Pagamento reduz saldo e obrigação uma vez, não duplica despesa; segunda tentativa não repete baixa.
+- [x] Retry de fechamento/cron não duplica fatura/parcela; erro de operação intermediária faz rollback.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,8 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-019/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementação local encerrada em 28/09/2026 sobre `a2a7761bc57e95c0757f304cb9c0e7f0a65008d6`, com a alteração preexistente de `README.md` preservada. A política gerencial DEC-03 foi escolhida explicitamente pelo usuário e registrada em SPEC-002/004. Testes com PostgreSQL descartável cobrem centavos, ciclo, dívida/limite, pagamento, estorno, abertura, concorrência, rollback e migração. A tarefa segue `em_revisao` até revisão independente; não há certificação de banco real ou emissor. CF-006, CF-017 e CF-018 têm implementação integrada localmente, porém permanecem `em_revisao`; adoção em banco real segue bloqueada. Evidências, comandos e limites em [CF-019](../evidencias/CF-019/README.md).
+
+CF-019 satisfaz sua parte das dependências de CF-021/024/027/028/030, ainda com outras pendências; nenhuma dessas tarefas está integralmente liberada por este fechamento. CF-020 não depende de CF-019 e já tinha base local integrada, sujeita aos estados de revisão das próprias dependências.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-
