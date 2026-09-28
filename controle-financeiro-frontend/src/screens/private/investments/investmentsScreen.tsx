@@ -19,6 +19,7 @@ export default function InvestimentosScreen() {
     totalInvestido,
     lucroTotal,
     rentabilidadeGeral,
+    valuationComplete,
     selectedInvestmentId,
     setSelectedInvestmentId,
     selectedInvestment,
@@ -85,6 +86,7 @@ export default function InvestimentosScreen() {
           totalInvestido={totalInvestido}
           lucroTotal={lucroTotal}
           rentabilidadeGeral={rentabilidadeGeral}
+          valuationComplete={valuationComplete}
         />
 
         <div className="mb-4 flex items-center justify-between">

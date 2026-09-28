@@ -3,8 +3,9 @@ import { apiRequest } from "./api";
 type MonthlyFlow = {
   income: number;
   expense: number;
-  balance: number;
+  balance: number | null;
   percentage: number;
+  investmentResult?: number | null;
 };
 
 type ChartPoint = { label: string; valor: number };

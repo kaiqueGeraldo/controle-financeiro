@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
@@ -44,7 +44,7 @@ vi.mock("@/services/planningService", () => ({
 }));
 
 vi.mock("@/services/transactionService", () => ({
-  transactionService: { getAll: vi.fn() },
+  transactionService: { getAll: vi.fn(), getSummary: vi.fn() },
 }));
 
 function expectFebruaryFirst(value: Date) {
@@ -65,6 +65,9 @@ describe("navegação por competência", () => {
         content: [],
         page: { size: 30, number: 0, totalElements: 0, totalPages: 1 },
       },
+    });
+    vi.mocked(transactionService.getSummary).mockResolvedValue({
+      status: 200, data: { entries: 0, exits: 0, balance: 0 },
     });
   });
 
@@ -104,6 +107,23 @@ describe("navegação por competência", () => {
     expect(vi.mocked(transactionService.getAll).mock.calls.map(([params]) => params?.page)).toEqual([0, 1, 1]);
   });
 
+  test("CF-021: resumo global do filtro não varia ao buscar a página seguinte", async () => {
+    vi.useRealTimers();
+    const response = (number: number) => ({ status: 200, data: {
+      content: [], page: { size: 30, number, totalElements: 60, totalPages: 2 },
+    } });
+    vi.mocked(transactionService.getAll).mockResolvedValueOnce(response(0)).mockResolvedValueOnce(response(1));
+    vi.mocked(transactionService.getSummary).mockResolvedValueOnce({
+      status: 200, data: { entries: 300, exits: 40, balance: 260 },
+    });
+    const { result } = renderHook(() => useExtract());
+    await waitFor(() => expect(result.current.summary?.balance).toBe(260));
+    await act(async () => { result.current.loadMore(); });
+    await waitFor(() => expect(vi.mocked(transactionService.getAll)).toHaveBeenCalledTimes(2));
+    expect(result.current.summary).toEqual({ entries: 300, exits: 40, balance: 260 });
+    expect(transactionService.getSummary).toHaveBeenCalledTimes(1);
+  });
+
   test("extrato ordena grupos de datas civis sem convertê-los em instantes", async () => {
     vi.mocked(transactionService.getAll).mockResolvedValueOnce({
       status: 200,
@@ -136,6 +156,7 @@ describe("navegação por competência", () => {
 
     const { result } = renderHook(() => useExtract());
     await act(async () => {
+      await Promise.resolve();
       await Promise.resolve();
     });
 

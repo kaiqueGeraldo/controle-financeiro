@@ -3,18 +3,13 @@ package com.controlefinanceiro.api.service;
 import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
 import com.controlefinanceiro.api.domain.card.CardRefundRepository;
 import com.controlefinanceiro.api.domain.category.DefaultCategory;
-import com.controlefinanceiro.api.domain.goal.Goal;
-import com.controlefinanceiro.api.domain.goal.GoalRepository;
 import com.controlefinanceiro.api.domain.investment.Investment;
 import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
 import com.controlefinanceiro.api.domain.note.YearlyNote;
 import com.controlefinanceiro.api.domain.note.YearlyNoteRepository;
 import com.controlefinanceiro.api.domain.summary.dto.*;
-import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
-import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.user.User;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,26 +25,28 @@ import java.util.UUID;
 @Service
 public class AnnualSummaryService {
 
-    @Autowired private TransactionRepository transactionRepository;
     @Autowired private CardTransactionRepository cardTransactionRepository;
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private InvestmentRepository investmentRepository;
-    @Autowired private GoalRepository goalRepository;
+    @Autowired private DashboardService dashboardService;
     @Autowired private YearlyNoteRepository noteRepository;
     @Autowired private Clock clock;
 
-    @Cacheable(value = "annualSummary", key = "#user.id + '-' + #year")
     public AnnualSummaryDTO getSummary(User user, Integer year) {
         UUID userId = user.getId();
+        LocalDate firstDay = LocalDate.of(year, 1, 1);
+        LocalDate lastDay = firstDay.withDayOfYear(firstDay.lengthOfYear());
+        DashboardService.PeriodTotals totals = dashboardService.getPeriodTotals(
+                user, firstDay, lastDay, null, null);
 
-        // BALANÇO GERAL
-        BigDecimal totalIncome = transactionRepository.sumByTypeAndYear(userId, TransactionType.INCOME, year);
-        BigDecimal totalExpense = transactionRepository.sumByTypeAndYear(userId, TransactionType.EXPENSE, year);
-        BigDecimal annualBalance = totalIncome.subtract(totalExpense);
+        // Resultado do período, não saldo da conta ou patrimônio.
+        BigDecimal totalIncome = totals.income();
+        BigDecimal totalExpense = totals.expense();
+        BigDecimal annualBalance = totals.investmentResult() == null ? null
+                : totalIncome.subtract(totalExpense).add(totals.investmentResult());
 
         // CARTÃO DE CRÉDITO
-        BigDecimal cardTotal = cardTransactionRepository.sumByYear(userId, year)
-                .subtract(cardRefundRepository.sumByYear(userId, year));
+        BigDecimal cardTotal = totals.cardConsumption();
 
         // Busca gastos específicos da categoria "Assinaturas"
         BigDecimal subscriptionsTotal = cardTransactionRepository.sumByCategoryAndYear(userId, year, DefaultCategory.ASSINATURAS.getName())
@@ -63,49 +60,43 @@ public class AnnualSummaryService {
         }
         BigDecimal cardAverage = cardTotal.divide(BigDecimal.valueOf(monthsToDivide), 2, RoundingMode.HALF_UP);
 
-        // Agrupa Metas Financeiras + Ativos Soltos
-        List<Investment> investments = investmentRepository.findAllByUserIdWithGoal(userId);
-        List<Goal> goals = goalRepository.findAllByUserIdOrderByDeadlineAsc(userId);
-
-        List<InvestmentBreakdownDTO> breakdown = new ArrayList<>();
-        BigDecimal totalInvested = BigDecimal.ZERO;
-
-        // Adiciona Metas
-        for (Goal goal : goals) {
-            if (goal.getType().name().equals("MONETARY") && goal.getCurrentValue().compareTo(BigDecimal.ZERO) > 0) {
-                breakdown.add(new InvestmentBreakdownDTO(goal.getTitle(), goal.getCurrentValue(), "GOAL", goal.getColor()));
-                totalInvested = totalInvested.add(goal.getCurrentValue());
-            }
-        }
-
-        // Adiciona Ativos sem Meta (Para não duplicar valor)
-        BigDecimal acoesFiisTotal = BigDecimal.ZERO;
-        for (Investment inv : investments) {
-            if (inv.getGoal() == null) {
-                BigDecimal val = inv.getQuantity().multiply(inv.getCurrentPrice());
-                if (val.compareTo(BigDecimal.ZERO) > 0) {
-                    acoesFiisTotal = acoesFiisTotal.add(val);
-                    totalInvested = totalInvested.add(val);
-                }
-            }
-        }
-        if (acoesFiisTotal.compareTo(BigDecimal.ZERO) > 0) {
-            breakdown.add(new InvestmentBreakdownDTO("Ações / Outros", acoesFiisTotal, "ASSET", "BLUE"));
-        }
+        // A posição de hoje não pode ser atribuída ao fechamento de outro ano.
+        InvestmentsSummaryDTO position = currentPosition(userId, year, today);
 
         // COMPARATIVO (Ano Atual vs Ano Anterior)
-        YearlyComparisonDTO comparison = calculateComparison(userId, year, totalIncome, totalExpense);
+        YearlyComparisonDTO comparison = calculateComparison(user, year, totalIncome, totalExpense);
 
         YearlyNote note = noteRepository.findByUserIdAndYear(userId, year).orElse(new YearlyNote());
 
         return new AnnualSummaryDTO(
                 year,
-                new BalanceSummaryDTO(totalIncome, totalExpense, annualBalance),
+                new BalanceSummaryDTO(totalIncome, totalExpense, annualBalance, totals.investmentResult()),
                 new CreditCardSummaryDTO(cardTotal, subscriptionsTotal, cardAverage),
-                new InvestmentsSummaryDTO(totalInvested, breakdown),
+                position,
                 comparison,
                 note.getContent() != null ? note.getContent() : ""
         );
+    }
+
+    private InvestmentsSummaryDTO currentPosition(UUID userId, int year, LocalDate today) {
+        if (year != today.getYear()) {
+            return new InvestmentsSummaryDTO(null, null, null, false, List.of());
+        }
+        List<InvestmentBreakdownDTO> breakdown = new ArrayList<>();
+        BigDecimal cost = BigDecimal.ZERO;
+        BigDecimal value = BigDecimal.ZERO;
+        boolean costComplete = true;
+        boolean valueComplete = true;
+        for (Investment investment : investmentRepository.findAllByUserId(userId)) {
+            if (investment.getTotalCost() == null) costComplete = false;
+            else cost = cost.add(investment.getTotalCost());
+            BigDecimal assetValue = investment.getTotalValue();
+            if (assetValue == null) valueComplete = false;
+            else value = value.add(assetValue);
+            breakdown.add(new InvestmentBreakdownDTO(investment.getName(), assetValue, "ASSET", "BLUE"));
+        }
+        return new InvestmentsSummaryDTO(costComplete ? cost : null,
+                valueComplete ? value : null, today, valueComplete, breakdown);
     }
 
     @Transactional
@@ -124,34 +115,40 @@ public class AnnualSummaryService {
     }
 
     // Lógica criativa para comparar desempenho
-    private YearlyComparisonDTO calculateComparison(UUID userId, Integer currentYear, BigDecimal currentIncome, BigDecimal currentExpense) {
+    private YearlyComparisonDTO calculateComparison(User user, Integer currentYear, BigDecimal currentIncome, BigDecimal currentExpense) {
+        if (currentYear <= 1) {
+            return new YearlyComparisonDTO(null, null, "Sem base anterior comparável; crescimento indisponível.");
+        }
         Integer prevYear = currentYear - 1;
-        BigDecimal prevIncome = transactionRepository.sumByTypeAndYear(userId, TransactionType.INCOME, prevYear);
-        BigDecimal prevExpense = transactionRepository.sumByTypeAndYear(userId, TransactionType.EXPENSE, prevYear);
+        LocalDate firstDay = LocalDate.of(prevYear, 1, 1);
+        DashboardService.PeriodTotals previous = dashboardService.getPeriodTotals(
+                user, firstDay, firstDay.withDayOfYear(firstDay.lengthOfYear()), null, null);
+        BigDecimal prevIncome = previous.income();
+        BigDecimal prevExpense = previous.expense();
 
         BigDecimal incomeGrowth = calculateGrowth(prevIncome, currentIncome);
         BigDecimal expenseGrowth = calculateGrowth(prevExpense, currentExpense);
 
         String message;
-        if (incomeGrowth.compareTo(BigDecimal.ZERO) > 0 && expenseGrowth.compareTo(BigDecimal.ZERO) < 0) {
+        if (incomeGrowth != null && incomeGrowth.signum() > 0 && expenseGrowth != null && expenseGrowth.signum() < 0) {
             message = "Ano excelente! Você ganhou mais e gastou menos.";
-        } else if (incomeGrowth.compareTo(BigDecimal.ZERO) > 0) {
+        } else if (incomeGrowth != null && incomeGrowth.signum() > 0) {
             message = "Sua renda cresceu em relação a " + prevYear + "!";
-        } else if (expenseGrowth.compareTo(BigDecimal.ZERO) < 0) {
+        } else if (expenseGrowth != null && expenseGrowth.signum() < 0) {
             message = "Parabéns! Seus gastos diminuíram comparado a " + prevYear + ".";
         } else {
             message = "Mantenha o foco no planejamento.";
         }
 
         if (prevIncome.compareTo(BigDecimal.ZERO) == 0 && prevExpense.compareTo(BigDecimal.ZERO) == 0) {
-            message = "Primeiro ano de registros completos!";
+            message = "Sem base anterior comparável; crescimento indisponível.";
         }
 
         return new YearlyComparisonDTO(incomeGrowth, expenseGrowth, message);
     }
 
     private BigDecimal calculateGrowth(BigDecimal prev, BigDecimal current) {
-        if (prev == null || prev.compareTo(BigDecimal.ZERO) == 0) return BigDecimal.ZERO;
+        if (prev == null || prev.compareTo(BigDecimal.ZERO) == 0) return null;
         // (Current - Prev) / Prev * 100
         return current.subtract(prev).divide(prev, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
     }

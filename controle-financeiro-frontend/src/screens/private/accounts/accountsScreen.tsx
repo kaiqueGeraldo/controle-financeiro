@@ -34,7 +34,7 @@ export default function AccountsScreen() {
   const { openManageAccount } = useAccountModals();
   const [accountToDelete, setAccountToDelete] = useState<string | null>(null);
   const [accountToEdit, setAccountToEdit] = useState<Account | null>(null);
-  const { totalInvestido } = useInvestments();
+  const { totalInvestido, valuationComplete } = useInvestments();
   const [isReorderOpen, setIsReorderOpen] = useState(false);
   const toast = useToast();
 
@@ -96,6 +96,7 @@ export default function AccountsScreen() {
           total={total}
           checking={totalCorrente}
           invested={totalInvestido}
+          valuationComplete={valuationComplete}
         />
 
         <div className="mb-4 flex items-center justify-between">

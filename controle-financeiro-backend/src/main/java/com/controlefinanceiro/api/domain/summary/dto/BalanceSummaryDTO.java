@@ -4,5 +4,6 @@ import java.math.BigDecimal;
 public record BalanceSummaryDTO(
         BigDecimal totalIncome,
         BigDecimal totalExpense,
-        BigDecimal annualBalance // Saldo (Receita - Despesa)
+        BigDecimal annualBalance,
+        BigDecimal investmentResult
 ) {}

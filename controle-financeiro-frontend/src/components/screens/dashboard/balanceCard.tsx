@@ -6,9 +6,10 @@ interface BalanceCardProps {
   saldoTotal: number;
   saldoContas: number;
   saldoInvestimentos: number;
+  valuationComplete: boolean;
 }
 
-export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos }: BalanceCardProps) {
+export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos, valuationComplete }: BalanceCardProps) {
   return (
     <div className="bg-bg-surface border border-border-divider rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:transition-colors relative overflow-hidden group">
       <div className="absolute -top-4 -right-4 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -26,7 +27,7 @@ export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos }: Bal
       
       <div className="relative z-10">
         <span className="text-text-muted text-xs font-bold uppercase tracking-wider">
-          Patrimônio Total
+          Subtotal de ativos conhecidos
         </span>
         <PrivacyBlur className="text-3xl font-bold mt-1 text-text-main tracking-tight [overflow-wrap:anywhere]">
           {formatCurrency(saldoTotal)}
@@ -39,9 +40,12 @@ export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos }: Bal
           </span>
           <span className="w-1 h-1 bg-text-muted rounded-full"></span>
           <span className="flex items-center gap-1">
-            Ativos: <PrivacyBlur>{formatCurrency(saldoInvestimentos)}</PrivacyBlur>
+            Investimentos avaliados: <PrivacyBlur>{formatCurrency(saldoInvestimentos)}</PrivacyBlur>
           </span>
         </div>
+        <p className="mt-2 text-xs text-text-muted">
+          {valuationComplete ? "Dívida e crédito de cartões não incluídos." : "Há investimentos sem avaliação; total completo indisponível. Dívida e crédito de cartões não incluídos."}
+        </p>
       </div>
     </div>
   );

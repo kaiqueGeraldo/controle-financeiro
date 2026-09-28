@@ -141,11 +141,11 @@ export default function ExtractScreen() {
 
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6 space-y-8">
         {/* CARDS DE RESUMO */}
-        <ExtractSummary
+        {summary ? <ExtractSummary
           entries={summary.entries}
           exits={summary.exits}
           balance={summary.balance}
-        />
+        /> : <p role="status" className="text-sm text-text-muted">Carregando totais do período...</p>}
 
         {/* LISTA DE TRANSAÇÕES */}
         {isFiltering ? (

@@ -42,6 +42,66 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             """)
     BigDecimal sumByTypeAndYear(@Param("userId") UUID userId, @Param("type") TransactionType type, @Param("year") Integer year);
 
+    // Resultado gerencial: principal de investimento e transferências são movimentos
+    // patrimoniais; pagamentos de fatura e abertura não são novo consumo/renda.
+    @Query("""
+            SELECT t.type, COALESCE(SUM(CASE WHEN t.origin =
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                THEN -t.amount ELSE t.amount END), 0)
+            FROM Transaction t LEFT JOIN Transaction original
+              ON original.id = t.reversalOfId AND original.user.id = :userId
+            WHERE t.user.id = :userId AND t.date BETWEEN :startDate AND :endDate
+              AND t.status IN (
+                com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
+                com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
+              AND t.type IN (
+                com.controlefinanceiro.api.domain.transaction.TransactionType.INCOME,
+                com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
+              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                   OR original.id IS NOT NULL)
+              AND (CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                   THEN original.origin ELSE t.origin END IS NULL
+                   OR CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                   THEN original.origin ELSE t.origin END NOT IN (
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT,
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVESTMENT_BUY,
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVESTMENT_SELL))
+              AND (:type IS NULL OR t.type = :type)
+              AND (:accountId IS NULL OR t.account.id = :accountId)
+            GROUP BY t.type
+            """)
+    List<Object[]> sumReportByPeriod(@Param("userId") UUID userId,
+                                      @Param("startDate") LocalDate startDate,
+                                      @Param("endDate") LocalDate endDate,
+                                      @Param("type") TransactionType type,
+                                      @Param("accountId") UUID accountId);
+
+    // Extrato: soma global do filtro, independente de paginação. Por conta, cada
+    // perna da transferência é caixa; no consolidado as pernas se anulam.
+    @Query("""
+            SELECT t.type, COALESCE(t.transferDirection, original.transferDirection),
+                   SUM(CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                       THEN -t.amount ELSE t.amount END)
+            FROM Transaction t LEFT JOIN Transaction original
+              ON original.id = t.reversalOfId AND original.user.id = :userId
+            WHERE t.user.id = :userId AND t.date BETWEEN :startDate AND :endDate
+              AND t.status IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
+                  com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
+              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (CAST(:type AS text) IS NULL OR t.type = :type)
+              AND (CAST(:accountId AS uuid) IS NULL OR t.account.id = :accountId)
+              AND (CAST(:accountId AS uuid) IS NOT NULL OR t.type <>
+                  com.controlefinanceiro.api.domain.transaction.TransactionType.TRANSFER)
+            GROUP BY t.type, COALESCE(t.transferDirection, original.transferDirection), t.origin
+            """)
+    List<Object[]> sumCashByPeriod(@Param("userId") UUID userId,
+                                    @Param("startDate") LocalDate startDate,
+                                    @Param("endDate") LocalDate endDate,
+                                    @Param("type") TransactionType type,
+                                    @Param("accountId") UUID accountId);
+
     List<Transaction> findByUserIdAndDateBetween(UUID userId, LocalDate startDate, LocalDate endDate);
 
     @Query(
@@ -92,6 +152,37 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             GROUP BY EXTRACT(YEAR FROM t.date), EXTRACT(MONTH FROM t.date), t.type
             """)
     List<Object[]> sumAmountByMonthAndType(@Param("userId") UUID userId, @Param("startDate") LocalDate startDate);
+
+    @Query("""
+            SELECT t.date, t.type, SUM(CASE WHEN t.origin =
+                com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                THEN -t.amount ELSE t.amount END)
+            FROM Transaction t WHERE t.user.id = :userId AND t.date >= :startDate
+              AND t.type IN (com.controlefinanceiro.api.domain.transaction.TransactionType.INCOME,
+                             com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
+              AND t.status IN (com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
+                               com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
+              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+            GROUP BY t.date, t.type
+            """)
+    List<Object[]> sumCashByDateAndType(@Param("userId") UUID userId,
+                                         @Param("startDate") LocalDate startDate);
+
+    @Query("""
+            SELECT EXTRACT(YEAR FROM t.date), EXTRACT(MONTH FROM t.date), t.type,
+                   SUM(CASE WHEN t.origin =
+                       com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                       THEN -t.amount ELSE t.amount END)
+            FROM Transaction t WHERE t.user.id = :userId AND t.date >= :startDate
+              AND t.type IN (com.controlefinanceiro.api.domain.transaction.TransactionType.INCOME,
+                             com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
+              AND t.status IN (com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
+                               com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
+              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+            GROUP BY EXTRACT(YEAR FROM t.date), EXTRACT(MONTH FROM t.date), t.type
+            """)
+    List<Object[]> sumCashByMonthAndType(@Param("userId") UUID userId,
+                                          @Param("startDate") LocalDate startDate);
 
     @Query("""
             SELECT t.type, SUM(CASE

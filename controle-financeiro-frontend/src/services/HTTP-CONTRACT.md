@@ -66,10 +66,11 @@ Spring. Corpos e cabeçalhos `Content-Type`, `Content-Disposition` e
 | categories | `PUT /categories/{id}` | `CreateCategoryDTO` | 200 `Category` |
 | categories | `DELETE /categories/{id}` | — | 204 Ø |
 | transactions | `GET /transactions` | `page,size,accountId,type,month,year` | 200 página estável abaixo |
+| transactions | `GET /transactions/summary?month=&year=` | mês/ano obrigatórios; `type,accountId` opcionais | 200 `{entries,exits,balance}` de caixa realizado para todo o filtro, independente da página |
 | transactions | `POST /transactions` | `CreateTransactionDTO` | 200 `TransactionResponseDTO` |
 | transactions | `PUT /transactions/{id}` | `UpdateTransactionDTO` | 200 `TransactionResponseDTO` |
 | transactions | `DELETE /transactions/{id}` | — | 204 Ø |
-| transactions | `GET /transactions/export` | `Accept: XLSX` | 200 XLSX |
+| transactions | `GET /transactions/export` | `Accept: XLSX`; `month,year` juntos, `type,accountId` opcionais | 200 XLSX; resultado gerencial do filtro, ganho realizado em linha própria e abas de movimentos de conta/cartão |
 | cards | `GET /cards` | — | 200 `CardSummaryDTO[]` |
 | cards | `POST /cards` | `CreateCardDTO` | 200 `CreditCardResponseDTO` |
 | cards | `PUT /cards/{id}` | `UpdateCardDTO` | 200 `CreditCardResponseDTO` |
@@ -107,9 +108,9 @@ Spring. Corpos e cabeçalhos `Content-Type`, `Content-Disposition` e
 | habits | `POST /habits/{id}/toggle` | `{date:YYYY-MM-DD}` | 200 Ø |
 | habits | `PUT /habits/{id}` | `UpdateHabitDTO` | 200 `HabitResponseDTO` |
 | habits | delete/reorder | — ou `UUID[]` | 204 Ø |
-| dashboard | `GET /dashboard/flow?month=&year=` | inteiros obrigatórios | 200 `{income,expense,balance,percentage}` |
-| dashboard | `GET /dashboard/chart?period=` | `30D\|6M\|1Y` | 200 `{label,valor}[]` |
-| annual summary | `GET /annual-summary?year=` | inteiro opcional; ausente usa ano do produto | 200 `AnnualSummaryDTO` |
+| dashboard | `GET /dashboard/flow?month=&year=` | inteiros obrigatórios | 200 `{income,expense,balance,percentage,investmentResult}` de resultado gerencial; `balance` e `investmentResult` podem ser null se o custo de uma venda for desconhecido |
+| dashboard | `GET /dashboard/chart?period=` | `30D\|6M\|1Y` | 200 `{label,valor}[]` de fluxo de caixa acumulado desde o início do intervalo, não patrimônio histórico |
+| annual summary | `GET /annual-summary?year=` | inteiro opcional; ausente usa ano do produto | 200 `AnnualSummaryDTO`; `balance.investmentResult` separado das receitas e pode ser null; posição de investimento somente no ano corrente, custo e avaliação separados; anos passados retornam posição indisponível |
 | annual summary | `POST /annual-summary/note` | `{year,content}` | 200 Ø |
 | users | `PUT /users/me/profile` | `{nome,email}` | 200 usuário |
 | users | `PUT /users/me/password` | `{senhaAtual,novaSenha}` | 200 Ø |

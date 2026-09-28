@@ -1,9 +1,10 @@
 package com.controlefinanceiro.api.service;
 
-import com.controlefinanceiro.api.domain.account.AccountRepository;
+import com.controlefinanceiro.api.domain.card.CardRefundRepository;
+import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
 import com.controlefinanceiro.api.domain.dashboard.dto.ChartPointDTO;
 import com.controlefinanceiro.api.domain.dashboard.dto.DashboardFlowDTO;
-import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
+import com.controlefinanceiro.api.domain.investment.InvestTransactionRepository;
 import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.user.User;
@@ -24,10 +25,9 @@ public class DashboardService {
 
     @Autowired
     private TransactionRepository transactionRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private InvestmentRepository investmentRepository;
+    @Autowired private CardTransactionRepository cardTransactionRepository;
+    @Autowired private CardRefundRepository cardRefundRepository;
+    @Autowired private InvestTransactionRepository investTransactionRepository;
     @Autowired
     private Clock clock;
 
@@ -35,17 +35,9 @@ public class DashboardService {
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
 
-        List<Object[]> totals = transactionRepository.sumAmountByTypeAndDateBetween(user.getId(), startOfMonth, endOfMonth);
-
-        BigDecimal totalIncome = BigDecimal.ZERO;
-        BigDecimal totalExpense = BigDecimal.ZERO;
-
-        for (Object[] row : totals) {
-            String type = row[0].toString();
-            BigDecimal sum = row[1] != null ? BigDecimal.valueOf(((Number) row[1]).doubleValue()) : BigDecimal.ZERO;
-            if ("INCOME".equals(type)) totalIncome = sum;
-            else if ("EXPENSE".equals(type)) totalExpense = sum;
-        }
+        PeriodTotals totals = getPeriodTotals(user, startOfMonth, endOfMonth, null, null);
+        BigDecimal totalIncome = totals.income();
+        BigDecimal totalExpense = totals.expense();
 
         BigDecimal percentage = BigDecimal.ZERO;
         if (totalIncome.compareTo(BigDecimal.ZERO) > 0) {
@@ -54,81 +46,79 @@ public class DashboardService {
             percentage = BigDecimal.valueOf(100);
         }
 
-        return new DashboardFlowDTO(totalIncome, totalExpense, totalIncome.subtract(totalExpense), percentage);
+        BigDecimal balance = totals.investmentResult() == null ? null
+                : totalIncome.subtract(totalExpense).add(totals.investmentResult());
+        return new DashboardFlowDTO(totalIncome, totalExpense, balance, percentage, totals.investmentResult());
     }
 
-    public List<ChartPointDTO> getWealthChart(String period, User user) {
-        BigDecimal accBalance = accountRepository.sumTotalBalanceByUserId(user.getId());
-        BigDecimal invBalance = investmentRepository.sumTotalValueByUserId(user.getId());
-        BigDecimal currentBalance = accBalance.add(invBalance);
+    /** Resultado gerencial, independente da página do extrato. Cartão só entra no consolidado. */
+    public PeriodTotals getPeriodTotals(User user, LocalDate startDate, LocalDate endDate,
+                                        TransactionType type, UUID accountId) {
+        BigDecimal income = BigDecimal.ZERO;
+        BigDecimal expense = BigDecimal.ZERO;
+        for (Object[] row : transactionRepository.sumReportByPeriod(
+                user.getId(), startDate, endDate, type, accountId)) {
+            BigDecimal amount = new BigDecimal(row[1].toString());
+            if (row[0].toString().equals(TransactionType.INCOME.name())) income = amount;
+            if (row[0].toString().equals(TransactionType.EXPENSE.name())) expense = amount;
+        }
+        BigDecimal cardConsumption = BigDecimal.ZERO;
+        if (accountId == null && type != TransactionType.INCOME) {
+            cardConsumption = cardTransactionRepository.sumPurchasesByPeriod(user.getId(), startDate, endDate)
+                    .subtract(cardRefundRepository.sumByPeriod(user.getId(), startDate, endDate));
+            expense = expense.add(cardConsumption);
+        }
+        BigDecimal investmentResult = BigDecimal.ZERO;
+        if (accountId == null && type == null) {
+            investmentResult = investTransactionRepository.countUnknownResultsByPeriod(
+                    user.getId(), startDate, endDate) > 0 ? null
+                    : investTransactionRepository.sumRealizedResultByPeriod(user.getId(), startDate, endDate);
+        }
+        return new PeriodTotals(income, expense, cardConsumption, investmentResult);
+    }
 
+    public record PeriodTotals(BigDecimal income, BigDecimal expense,
+                               BigDecimal cardConsumption, BigDecimal investmentResult) {}
+
+    public List<ChartPointDTO> getWealthChart(String period, User user) {
         List<ChartPointDTO> points = new ArrayList<>();
         LocalDate today = LocalDate.now(clock);
+        BigDecimal runningCashFlow = BigDecimal.ZERO;
 
         if ("30D".equals(period)) {
-            LocalDate startDate = today.minusDays(30);
-            List<Object[]> flowData = transactionRepository.sumAmountByDateAndType(user.getId(), startDate);
-
-            BigDecimal runningBalance = currentBalance;
+            LocalDate startDate = today.minusDays(29);
+            List<Object[]> flowData = transactionRepository.sumCashByDateAndType(user.getId(), startDate);
+            Map<LocalDate, BigDecimal> deltas = new HashMap<>();
+            for (Object[] row : flowData) {
+                TransactionType type = TransactionType.valueOf(row[1].toString());
+                if (type != TransactionType.INCOME && type != TransactionType.EXPENSE) continue;
+                BigDecimal amount = row[2] == null ? BigDecimal.ZERO : new BigDecimal(row[2].toString());
+                deltas.merge((LocalDate) row[0], type == TransactionType.INCOME ? amount : amount.negate(), BigDecimal::add);
+            }
             for (int i = 0; i < 30; i++) {
-                LocalDate d = today.minusDays(i);
-                points.add(0, new ChartPointDTO(d.getDayOfMonth() + "/" + d.getMonthValue(), runningBalance));
-
-                BigDecimal dayIncome = getAmountForDate(flowData, d, TransactionType.INCOME);
-                BigDecimal dayExpense = getAmountForDate(flowData, d, TransactionType.EXPENSE);
-
-                // Como estamos a andar para trás no tempo, revertemos a matemática
-                runningBalance = runningBalance.subtract(dayIncome).add(dayExpense);
+                LocalDate date = startDate.plusDays(i);
+                runningCashFlow = runningCashFlow.add(deltas.getOrDefault(date, BigDecimal.ZERO));
+                points.add(new ChartPointDTO(date.getDayOfMonth() + "/" + date.getMonthValue(), runningCashFlow));
             }
         } else {
             int numMonths = "6M".equals(period) ? 6 : 12;
-            LocalDate startDate = today.minusMonths(numMonths).withDayOfMonth(1);
-            List<Object[]> flowData = transactionRepository.sumAmountByMonthAndType(user.getId(), startDate);
-
-            BigDecimal runningBalance = currentBalance;
+            LocalDate startDate = today.minusMonths(numMonths - 1L).withDayOfMonth(1);
+            List<Object[]> flowData = transactionRepository.sumCashByMonthAndType(user.getId(), startDate);
+            Map<YearMonth, BigDecimal> deltas = new HashMap<>();
+            for (Object[] row : flowData) {
+                YearMonth month = YearMonth.of(((Number) row[0]).intValue(), ((Number) row[1]).intValue());
+                TransactionType type = TransactionType.valueOf(row[2].toString());
+                if (type != TransactionType.INCOME && type != TransactionType.EXPENSE) continue;
+                BigDecimal amount = row[3] == null ? BigDecimal.ZERO : new BigDecimal(row[3].toString());
+                deltas.merge(month, type == TransactionType.INCOME ? amount : amount.negate(), BigDecimal::add);
+            }
             for (int i = 0; i < numMonths; i++) {
-                YearMonth ym = YearMonth.from(today.minusMonths(i));
-                // Formata "Jan", "Fev", etc
-                String label = getMonthShortName(ym.getMonthValue());
-                points.add(0, new ChartPointDTO(label, runningBalance));
-
-                BigDecimal monthIncome = getAmountForMonth(flowData, ym, TransactionType.INCOME);
-                BigDecimal monthExpense = getAmountForMonth(flowData, ym, TransactionType.EXPENSE);
-
-                runningBalance = runningBalance.subtract(monthIncome).add(monthExpense);
+                YearMonth month = YearMonth.from(startDate).plusMonths(i);
+                runningCashFlow = runningCashFlow.add(deltas.getOrDefault(month, BigDecimal.ZERO));
+                points.add(new ChartPointDTO(getMonthShortName(month.getMonthValue()), runningCashFlow));
             }
         }
         return points;
-    }
-
-    // --- Helpers de busca em memória ---
-    private BigDecimal getAmountForDate(List<Object[]> data, LocalDate date, TransactionType type) {
-        return data.stream()
-                .filter(row -> {
-                    LocalDate rowDate = (LocalDate) row[0];
-                    String rowType = row[1].toString();
-                    return rowDate.equals(date) && rowType.equals(type.name());
-                })
-                .map(row -> {
-                    Number amount = (Number) row[2];
-                    return amount != null ? BigDecimal.valueOf(amount.doubleValue()) : BigDecimal.ZERO;
-                })
-                .findFirst().orElse(BigDecimal.ZERO);
-    }
-
-    private BigDecimal getAmountForMonth(List<Object[]> data, YearMonth ym, TransactionType type) {
-        return data.stream()
-                .filter(row -> {
-                    int year = ((Number) row[0]).intValue();
-                    int month = ((Number) row[1]).intValue();
-                    String rowType = row[2].toString();
-                    return year == ym.getYear() && month == ym.getMonthValue() && rowType.equals(type.name());
-                })
-                .map(row -> {
-                    Number amount = (Number) row[3];
-                    return amount != null ? BigDecimal.valueOf(amount.doubleValue()) : BigDecimal.ZERO;
-                })
-                .findFirst().orElse(BigDecimal.ZERO);
     }
 
     private String getMonthShortName(int month) {

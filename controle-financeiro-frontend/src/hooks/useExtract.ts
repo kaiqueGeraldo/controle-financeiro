@@ -13,6 +13,7 @@ import {
 
 interface ExtractCacheData {
   transactions: Transaction[];
+  summary: { entries: number; exits: number; balance: number };
   page: number;
   totalPages: number;
   hasMore: boolean;
@@ -30,6 +31,7 @@ export function useExtract() {
   const requests = useRequestCoordinator(userId);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [summary, setSummary] = useState<ExtractCacheData["summary"] | null>(null);
   const [isLoadingList, setIsLoadingList] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -62,6 +64,7 @@ export function useExtract() {
       setIsLoadingList(true);
       setError(null);
       setRequestedPage(currentPage);
+      if (!append) setSummary(null);
 
       const month = dateRef.getMonth() + 1;
       const year = dateRef.getFullYear();
@@ -79,6 +82,7 @@ export function useExtract() {
       ) {
         const cached = extractCache.current[cacheKey];
         setTransactions(cached.transactions);
+        setSummary(cached.summary);
         setPage(cached.page);
         setHasMore(cached.hasMore);
 
@@ -90,7 +94,7 @@ export function useExtract() {
       const request = requests.begin("extract");
 
       try {
-        const res = await transactionService.getAll({
+        const listRequest = transactionService.getAll({
           page: currentPage,
           size: 30,
           month,
@@ -99,11 +103,21 @@ export function useExtract() {
           accountId: filterAccountId === "todas" ? undefined : filterAccountId,
           signal: request.signal,
         });
+        const summaryRequest = append ? null : transactionService.getSummary({
+          month, year,
+          type: filterType,
+          accountId: filterAccountId,
+          signal: request.signal,
+        });
+        const [res, summaryRes] = await Promise.all([listRequest, summaryRequest]);
 
         if (!request.isCurrent()) return;
 
         if (res?.data) {
           const newData = res.data;
+          const globalSummary = summaryRes?.data ?? extractCache.current[cacheKey]?.summary;
+          if (!globalSummary) throw new Error("Resumo global do extrato indisponível.");
+          if (summaryRes) setSummary(summaryRes.data);
 
           setTransactions((prev) => {
             const updatedTransactions = append
@@ -112,6 +126,7 @@ export function useExtract() {
 
             extractCache.current[cacheKey] = {
               transactions: updatedTransactions,
+              summary: globalSummary,
               page: currentPage,
               totalPages: newData.page.totalPages,
               hasMore: newData.page.number < newData.page.totalPages - 1,
@@ -154,6 +169,7 @@ export function useExtract() {
   useEffect(() => {
     extractCache.current = {};
     setTransactions([]);
+    setSummary(null);
     setPage(0);
     setHasMore(false);
     setSelectedTransactionId(null);
@@ -194,16 +210,6 @@ export function useExtract() {
             compareOperationTime(a, b),
         ),
       }));
-  }, [transactions]);
-
-  const summary = useMemo(() => {
-    const entries = transactions
-      .filter((t) => t.type === "INCOME")
-      .reduce((acc, t) => acc + Number(t.amount), 0);
-    const exits = transactions
-      .filter((t) => t.type === "EXPENSE")
-      .reduce((acc, t) => acc + Number(t.amount), 0);
-    return { entries, exits, balance: entries - exits };
   }, [transactions]);
 
   const currentViewValue = dateRef.getFullYear() * 12 + dateRef.getMonth();

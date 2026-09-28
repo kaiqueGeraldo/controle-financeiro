@@ -24,7 +24,7 @@ export function ExtractSummary({
           <ArrowUpCircle className="w-6 h-6" />
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
-          <p className="text-xs text-text-muted uppercase font-bold">Entradas</p>
+          <p className="text-xs text-text-muted uppercase font-bold">Entradas de caixa realizadas</p>
           <PrivacyBlur className="text-xl font-bold text-emerald-500">
             {formatCurrency(entries)}
           </PrivacyBlur>
@@ -36,7 +36,7 @@ export function ExtractSummary({
           <ArrowDownCircle className="w-6 h-6" />
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
-          <p className="text-xs text-text-muted uppercase font-bold">Saídas</p>
+          <p className="text-xs text-text-muted uppercase font-bold">Saídas de caixa realizadas</p>
           <PrivacyBlur className="text-xl font-bold text-rose-500">
             {formatCurrency(exits)}
           </PrivacyBlur>
@@ -48,7 +48,7 @@ export function ExtractSummary({
           <Download className="w-5 h-5" />
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
-          <p className="text-xs text-text-muted uppercase font-bold">Saldo do Período</p>
+          <p className="text-xs text-text-muted uppercase font-bold">Fluxo líquido do período</p>
           <PrivacyBlur className={`text-xl font-bold ${balance >= 0 ? "text-text-main" : "text-rose-500"}`}>
             {formatCurrency(balance)}
           </PrivacyBlur>

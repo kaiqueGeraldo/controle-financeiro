@@ -18,7 +18,7 @@ export function AnnualCreditCard({ totalSpent, subscriptionsTotal, monthlyAverag
         
         <div className="space-y-4 flex-1">
           <div className="flex justify-between items-center border-b border-border-divider pb-3">
-            <span className="text-text-main text-sm">Gasto Total no Ano</span>
+            <span className="text-text-main text-sm">Consumo líquido no ano (incluído no resultado)</span>
             <PrivacyBlur className="font-bold text-text-main">{formatCurrency(totalSpent)}</PrivacyBlur>
           </div>
           <div className="flex justify-between items-center border-b border-border-divider pb-3">

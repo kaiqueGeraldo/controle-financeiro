@@ -4,6 +4,8 @@ import com.controlefinanceiro.api.domain.account.Account;
 import com.controlefinanceiro.api.domain.account.AccountRepository;
 import com.controlefinanceiro.api.domain.category.Category;
 import com.controlefinanceiro.api.domain.category.CategoryRepository;
+import com.controlefinanceiro.api.domain.card.CardRefundRepository;
+import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
 import com.controlefinanceiro.api.domain.event.UserFinancialDataChangedEvent;
 import com.controlefinanceiro.api.domain.transaction.Transaction;
 import com.controlefinanceiro.api.domain.transaction.TransactionOrigin;
@@ -14,6 +16,7 @@ import com.controlefinanceiro.api.domain.transaction.TransferDirection;
 import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.SettleTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.TransactionResponseDTO;
+import com.controlefinanceiro.api.domain.transaction.dto.CashSummaryDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.UpdateTransactionDTO;
 import com.controlefinanceiro.api.domain.temporal.TimeOrigin;
 import com.controlefinanceiro.api.domain.user.User;
@@ -44,6 +47,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -63,6 +68,10 @@ public class TransactionService {
     private EntityManager entityManager;
     @Autowired
     private Clock clock;
+    @Autowired
+    private DashboardService dashboardService;
+    @Autowired private CardTransactionRepository cardTransactionRepository;
+    @Autowired private CardRefundRepository cardRefundRepository;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
@@ -723,7 +732,41 @@ public class TransactionService {
     }
 
     public byte[] exportToExcel(User user) {
+        return exportToExcel(user, null, null, null, null);
+    }
+
+    @Transactional(readOnly = true)
+    public CashSummaryDTO getCashSummary(User user, Integer month, Integer year,
+                                         TransactionType type, UUID accountId) {
+        if (month == null || year == null) {
+            throw new BusinessRuleException("Mês e ano são obrigatórios para o resumo do extrato.");
+        }
+        LocalDate firstDay = LocalDate.of(year, month, 1);
+        LocalDate lastDay = firstDay.withDayOfMonth(firstDay.lengthOfMonth());
+        BigDecimal entries = BigDecimal.ZERO;
+        BigDecimal exits = BigDecimal.ZERO;
+        for (Object[] row : repository.sumCashByPeriod(user.getId(), firstDay, lastDay, type, accountId)) {
+            BigDecimal amount = exactDecimal(row[2]);
+            boolean incoming = row[0].toString().equals(TransactionType.INCOME.name())
+                    || row[0].toString().equals(TransactionType.TRANSFER.name())
+                    && row[1] != null && row[1].toString().equals(TransferDirection.INBOUND.name());
+            BigDecimal cashDelta = incoming ? amount : amount.negate();
+            if (cashDelta.signum() >= 0) entries = entries.add(cashDelta);
+            else exits = exits.subtract(cashDelta);
+        }
+        return new CashSummaryDTO(entries, exits, entries.subtract(exits));
+    }
+
+    public byte[] exportToExcel(User user, Integer month, Integer year,
+                                TransactionType type, UUID accountId) {
         log.info("Gerando Excel em lotes para o usuário {}", user.getEmail());
+
+        if ((month == null) != (year == null)) {
+            throw new BusinessRuleException("Mês e ano devem ser informados juntos.");
+        }
+        LocalDate startDate = month == null ? LocalDate.of(1, 1, 1) : LocalDate.of(year, month, 1);
+        LocalDate endDate = month == null ? LocalDate.of(9999, 12, 31)
+                : startDate.withDayOfMonth(startDate.lengthOfMonth());
 
         try (SXSSFWorkbook workbook = new SXSSFWorkbook(100); // Mantém apenas 100 linhas em memória
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -763,46 +806,58 @@ public class TransactionService {
             expenseStyle.setFont(expenseFont);
 
             // --- 2. BUSCANDO TOTAIS DIRETAMENTE NO BANCO ---
-            List<Object[]> totals = repository.sumTotalAmountByType(user.getId());
-            BigDecimal totalIncome = BigDecimal.ZERO;
-            BigDecimal totalExpense = BigDecimal.ZERO;
-
-            for (Object[] row : totals) {
-                String type = row[0].toString();
-                BigDecimal sum = exactDecimal(row[1]);
-                if ("INCOME".equals(type)) totalIncome = sum;
-                else if ("EXPENSE".equals(type)) totalExpense = sum;
-            }
-            BigDecimal balance = totalIncome.subtract(totalExpense);
+            DashboardService.PeriodTotals totals = dashboardService.getPeriodTotals(
+                    user, startDate, endDate, type, accountId);
+            BigDecimal totalIncome = totals.income();
+            BigDecimal totalExpense = totals.expense();
+            BigDecimal balance = totals.investmentResult() == null ? null
+                    : totalIncome.subtract(totalExpense).add(totals.investmentResult());
 
             // --- 3. DESENHANDO O CABEÇALHO E RESUMO ---
             Row rowTitle = sheet.createRow(0);
             Cell cellTitle = rowTitle.createCell(0);
             cellTitle.setCellValue("Relatório Financeiro - Controle Financeiro");
             cellTitle.setCellStyle(titleStyle);
+            Row scope = sheet.createRow(1);
+            scope.createCell(0).setCellValue("Resultado gerencial: " + startDate + " a " + endDate
+                    + "; tipo=" + (type == null ? "todos" : type)
+                    + "; conta=" + (accountId == null ? "todas" : accountId)
+                    + ". Origens desconhecidas exigem reconciliação.");
 
             Row rInc = sheet.createRow(2);
-            rInc.createCell(0).setCellValue("Total de Entradas:");
+            rInc.createCell(0).setCellValue("Receitas realizadas:");
             Cell cInc = rInc.createCell(1);
             cInc.setCellValue(totalIncome.doubleValue());
             cInc.setCellStyle(currencyStyle);
 
             Row rExp = sheet.createRow(3);
-            rExp.createCell(0).setCellValue("Total de Saídas:");
+            rExp.createCell(0).setCellValue("Consumo e encargos (inclui cartão):");
             Cell cExp = rExp.createCell(1);
             cExp.setCellValue(totalExpense.doubleValue());
             cExp.setCellStyle(currencyStyle);
 
             Row rBal = sheet.createRow(4);
-            rBal.createCell(0).setCellValue("Saldo Geral:");
+            rBal.createCell(0).setCellValue("Resultado gerencial (não saldo bancário):");
             Cell cBal = rBal.createCell(1);
-            cBal.setCellValue(balance.doubleValue());
+            if (balance == null) cBal.setCellValue("Indisponível: custo de venda desconhecido");
+            else cBal.setCellValue(balance.doubleValue());
             cBal.setCellStyle(currencyStyle);
+            Row rCard = sheet.createRow(5);
+            rCard.createCell(0).setCellValue("Deste total, consumo líquido no cartão:");
+            Cell cCard = rCard.createCell(1);
+            cCard.setCellValue(totals.cardConsumption().doubleValue());
+            cCard.setCellStyle(currencyStyle);
+            Row rInvestment = sheet.createRow(6);
+            rInvestment.createCell(0).setCellValue("Resultado realizado de investimentos:");
+            Cell cInvestment = rInvestment.createCell(1);
+            if (totals.investmentResult() == null) cInvestment.setCellValue("Indisponível: custo de venda desconhecido");
+            else cInvestment.setCellValue(totals.investmentResult().doubleValue());
+            cInvestment.setCellStyle(currencyStyle);
 
             // --- 4. CABEÇALHO DA TABELA ---
             int rowIdx = 7;
             Row header = sheet.createRow(rowIdx++);
-            String[] columns = {"Data", "Hora", "Descrição", "Categoria", "Conta", "Tipo", "Valor", "Status"};
+            String[] columns = {"Data", "Hora", "Descrição", "Categoria", "Conta", "Tipo", "Valor movimento", "Status", "Origem", "Receita no resultado", "Despesa no resultado"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = header.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -818,10 +873,22 @@ public class TransactionService {
             DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
 
             do {
-                pageData = repository.findAllByUserIdWithDetails(
-                        user.getId(),
-                        org.springframework.data.domain.PageRequest.of(pageNumber, pageSize)
-                );
+                pageData = month == null && type == null && accountId == null
+                        ? repository.findAllByUserIdWithDetails(user.getId(),
+                                org.springframework.data.domain.PageRequest.of(pageNumber, pageSize))
+                        : repository.findFilteredByUserId(user.getId(), startDate, endDate,
+                                type, accountId, org.springframework.data.domain.PageRequest.of(pageNumber, pageSize));
+
+                // Consulta em lote: o estorno herda a classificação gerencial da origem.
+                Map<UUID, Transaction> originals = new HashMap<>();
+                List<UUID> reversalIds = pageData.getContent().stream()
+                        .filter(t -> t.getOrigin() == TransactionOrigin.REVERSAL && t.getReversalOfId() != null)
+                        .map(Transaction::getReversalOfId).distinct().toList();
+                if (!reversalIds.isEmpty()) {
+                    for (Transaction original : repository.findAllById(reversalIds)) {
+                        if (original.getUser().getId().equals(user.getId())) originals.put(original.getId(), original);
+                    }
+                }
 
                 for (Transaction t : pageData.getContent()) {
                     TransactionResponseDTO dto = new TransactionResponseDTO(t);
@@ -835,14 +902,33 @@ public class TransactionService {
 
                     Cell typeCell = row.createCell(5);
                     boolean isIncome = dto.type() == TransactionType.INCOME;
-                    typeCell.setCellValue(isIncome ? "Receita" : "Despesa");
-                    typeCell.setCellStyle(isIncome ? incomeStyle : expenseStyle);
+                    typeCell.setCellValue(t.getType() == TransactionType.TRANSFER ? "Transferência"
+                            : isIncome ? "Receita" : "Despesa");
+                    if (t.getType() != TransactionType.TRANSFER)
+                        typeCell.setCellStyle(isIncome ? incomeStyle : expenseStyle);
 
                     Cell valCell = row.createCell(6);
                     valCell.setCellValue(dto.amount().doubleValue());
                     valCell.setCellStyle(currencyStyle);
 
-                    row.createCell(7).setCellValue(dto.isPaid() ? "Pago" : "Pendente");
+                    row.createCell(7).setCellValue(t.getStatus().name());
+                    row.createCell(8).setCellValue(t.getOrigin() == null ? "UNKNOWN" : t.getOrigin().name());
+                    Transaction original = t.getOrigin() == TransactionOrigin.REVERSAL
+                            ? originals.get(t.getReversalOfId()) : null;
+                    TransactionOrigin effectiveOrigin = t.getOrigin() == TransactionOrigin.REVERSAL
+                            ? original == null ? null : original.getOrigin() : t.getOrigin();
+                    if (t.isRealized() && t.getType() != TransactionType.TRANSFER
+                            && (t.getOrigin() != TransactionOrigin.REVERSAL || original != null)
+                            && effectiveOrigin != TransactionOrigin.ACCOUNT_OPENING
+                            && effectiveOrigin != TransactionOrigin.INVOICE_PAYMENT
+                            && effectiveOrigin != TransactionOrigin.INVESTMENT_BUY
+                            && effectiveOrigin != TransactionOrigin.INVESTMENT_SELL) {
+                        BigDecimal reportAmount = t.getOrigin() == TransactionOrigin.REVERSAL
+                                ? t.getAmount().negate() : t.getAmount();
+                        Cell effect = row.createCell(t.getType() == TransactionType.INCOME ? 9 : 10);
+                        effect.setCellValue(reportAmount.doubleValue());
+                        effect.setCellStyle(currencyStyle);
+                    }
                 }
 
                 pageNumber++;
@@ -851,6 +937,51 @@ public class TransactionService {
 
             for (int i = 0; i < columns.length; i++) {
                 sheet.autoSizeColumn(i);
+            }
+
+            if (accountId == null && type != TransactionType.INCOME) {
+                SXSSFSheet cardSheet = workbook.createSheet("Consumo cartão");
+                Row cardHeader = cardSheet.createRow(0);
+                String[] cardColumns = {"Data da compra/estorno", "Natureza", "Descrição", "Valor no consumo"};
+                for (int i = 0; i < cardColumns.length; i++) {
+                    Cell cell = cardHeader.createCell(i);
+                    cell.setCellValue(cardColumns[i]);
+                    cell.setCellStyle(headerStyle);
+                }
+                int cardRow = 1;
+                int cardPage = 0;
+                org.springframework.data.domain.Page<com.controlefinanceiro.api.domain.card.CardTransaction> purchases;
+                do {
+                    purchases = cardTransactionRepository.findReportPurchases(user.getId(), startDate, endDate,
+                            org.springframework.data.domain.PageRequest.of(cardPage++, pageSize));
+                    for (var purchase : purchases) {
+                        Row row = cardSheet.createRow(cardRow++);
+                        row.createCell(0).setCellValue(purchase.getDate().format(dateFmt));
+                        row.createCell(1).setCellValue("Compra");
+                        row.createCell(2).setCellValue(purchase.getDescription());
+                        Cell amount = row.createCell(3);
+                        amount.setCellValue(purchase.getAmount().doubleValue());
+                        amount.setCellStyle(currencyStyle);
+                    }
+                    entityManager.clear();
+                } while (purchases.hasNext());
+                int refundPage = 0;
+                org.springframework.data.domain.Page<com.controlefinanceiro.api.domain.card.CardRefund> refunds;
+                do {
+                    refunds = cardRefundRepository.findReportRefunds(user.getId(), startDate, endDate,
+                            org.springframework.data.domain.PageRequest.of(refundPage++, pageSize));
+                    for (var refund : refunds) {
+                        Row row = cardSheet.createRow(cardRow++);
+                        row.createCell(0).setCellValue(refund.getRefundDate().format(dateFmt));
+                        row.createCell(1).setCellValue("Estorno");
+                        row.createCell(2).setCellValue("Estorno de compra " + refund.getPurchaseId());
+                        Cell amount = row.createCell(3);
+                        amount.setCellValue(refund.getAmount().negate().doubleValue());
+                        amount.setCellStyle(currencyStyle);
+                    }
+                    entityManager.clear();
+                } while (refunds.hasNext());
+                for (int i = 0; i < cardColumns.length; i++) cardSheet.setColumnWidth(i, i == 2 ? 12000 : 6000);
             }
 
             workbook.write(out);

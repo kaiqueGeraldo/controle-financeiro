@@ -4,12 +4,13 @@ import { formatCurrency } from "@/utils/format";
 import { TrendingUp } from "lucide-react";
 
 interface AnnualInvestmentsProps {
-  totalValue: number;
+  totalCost?: number | null;
+  totalValue: number | null;
   items: InvestmentBreakdown[];
   positionDateLabel: string;
 }
 
-export function AnnualInvestments({ totalValue, items, positionDateLabel }: AnnualInvestmentsProps) {
+export function AnnualInvestments({ totalCost, totalValue, items, positionDateLabel }: AnnualInvestmentsProps) {
   const getBadgeColor = (color: string) => {
     const map: Record<string, string> = {
         EMERALD: "text-emerald-400", BLUE: "text-blue-400", CYAN: "text-cyan-400",
@@ -23,7 +24,7 @@ export function AnnualInvestments({ totalValue, items, positionDateLabel }: Annu
         <div className="flex items-center gap-2 mb-6 text-text-muted">
           <TrendingUp className="w-5 h-5" />
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider">Posição atual de metas e investimentos</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider">Posição atual de investimentos</h3>
             <p className="mt-1 text-xs normal-case tracking-normal">{positionDateLabel}</p>
           </div>
         </div>
@@ -34,7 +35,7 @@ export function AnnualInvestments({ totalValue, items, positionDateLabel }: Annu
                   <div key={idx} className="flex justify-between items-center text-sm">
                       <span className="text-text-muted truncate max-w-35" title={inv.name}>{inv.name}</span>
                       <PrivacyBlur className={`font-mono font-bold ${getBadgeColor(inv.color)}`}>
-                          {formatCurrency(inv.value)}
+                          {inv.value === null ? "Avaliação indisponível" : formatCurrency(inv.value)}
                       </PrivacyBlur>
                   </div>
               ))
@@ -43,9 +44,13 @@ export function AnnualInvestments({ totalValue, items, positionDateLabel }: Annu
           )}
         </div>
 
+        {totalCost !== undefined && <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center text-sm">
+          <span className="text-text-muted">Custo investido</span>
+          <PrivacyBlur>{totalCost === null ? "Custo indisponível" : formatCurrency(totalCost)}</PrivacyBlur>
+        </div>}
         <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center font-bold text-base">
           <span className="text-text-main">Total na posição atual</span>
-          <PrivacyBlur className="text-emerald-500">{formatCurrency(totalValue)}</PrivacyBlur>
+          <PrivacyBlur className="text-emerald-500">{totalValue === null ? "Avaliação indisponível" : formatCurrency(totalValue)}</PrivacyBlur>
         </div>
     </div>
   );

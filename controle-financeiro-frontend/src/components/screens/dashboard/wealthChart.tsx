@@ -21,7 +21,7 @@ export function WealthChart() {
     <div className="lg:col-span-2 bg-bg-surface border border-border-divider rounded-2xl p-6 shadow-sm min-h-87.5 flex flex-col transition-colors">
       <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
         <h3 className="text-lg font-bold text-text-main flex items-center gap-2">
-          Evolução Patrimonial
+          Fluxo de caixa acumulado no período
         </h3>
         
         <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider transition-colors shrink-0">
@@ -38,6 +38,7 @@ export function WealthChart() {
           ))}
         </div>
       </div>
+      <p className="text-xs text-text-muted">Movimentos de contas desde o início do intervalo; abertura e posição patrimonial não incluídas.</p>
 
       <div className="w-full h-62.5 md:h-75 mt-2 relative">
         {chartError ? (
@@ -76,7 +77,7 @@ export function WealthChart() {
             <Tooltip
               contentStyle={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-divider)", borderRadius: "8px", color: "var(--text-main)", fontSize: '12px' }}
               itemStyle={{ color: "#10b981", fontWeight: 'bold' }}
-              formatter={(value: unknown) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Patrimônio"]}
+              formatter={(value: unknown) => [user?.privacyMode ? 'R$ ***' : formatCurrency(Number(value)), "Fluxo de caixa"]}
             />
             
             <Area type="monotone" dataKey="valor" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorValor)" />

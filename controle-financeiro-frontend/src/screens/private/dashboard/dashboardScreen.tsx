@@ -47,6 +47,7 @@ export default function DashboardScreen() {
   const { goals, isLoading: isLoadingGoals, error: goalsError, refreshGoals } = useGoals();
   const {
     totalInvestido,
+    valuationComplete,
     isLoading: isLoadingInvestments,
     error: investmentsError,
     refreshInvestments,
@@ -165,6 +166,7 @@ export default function DashboardScreen() {
               saldoTotal={patrimonioTotal}
               saldoContas={saldoTotal}
               saldoInvestimentos={totalInvestido}
+              valuationComplete={valuationComplete}
             />
           </div>
         );
@@ -175,6 +177,7 @@ export default function DashboardScreen() {
               despesas={flowData.expense}
               receitas={flowData.income}
               percentual={flowData.percentage}
+              investmentResult={flowData.investmentResult}
             />
           </div>
         );

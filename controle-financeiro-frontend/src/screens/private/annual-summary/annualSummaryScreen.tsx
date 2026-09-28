@@ -7,6 +7,7 @@ import { AnnualNotepad } from "@/components/screens/annual-summary/annualNotepad
 import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useAnnualSummary } from "@/hooks/useAnnualSummary";
 import { useSidebar } from "@/hooks/useSidebar";
+import { productDateString } from "@/utils/date";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Info, Loader2 } from "lucide-react";
 
@@ -24,7 +25,7 @@ export default function AnnualSummaryScreen() {
     isSavingNote,
     refresh,
   } = useAnnualSummary();
-  const currentYear = new Date().getFullYear();
+  const currentYear = Number(productDateString(new Date()).slice(0, 4));
   const MIN_YEAR = 2020;
   const MAX_YEAR = currentYear + 5;
 
@@ -114,6 +115,7 @@ export default function AnnualSummaryScreen() {
                 totalIncome={summary.balance.totalIncome}
                 totalExpense={summary.balance.totalExpense}
                 annualBalance={summary.balance.annualBalance}
+                investmentResult={summary.balance.investmentResult}
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,9 +127,10 @@ export default function AnnualSummaryScreen() {
 
                 {year === currentYear ? (
                   <AnnualInvestments
+                    totalCost={summary.investments.totalCost}
                     totalValue={summary.investments.totalValue}
                     items={summary.investments.items}
-                    positionDateLabel="Valores calculados na posição atual; não representam fechamento anual."
+                    positionDateLabel={`Valores consultados em ${summary.investments.valuationAsOf ?? "hoje"}; avaliações individuais podem ter datas anteriores e não representam fechamento anual.`}
                   />
                 ) : (
                   <section

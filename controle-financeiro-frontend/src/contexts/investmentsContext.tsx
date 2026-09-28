@@ -24,13 +24,24 @@ interface InvestmentsContextType {
   error: Error | null;
   refreshInvestments: () => Promise<void>;
   totalInvestido: number;
-  lucroTotal: number;
-  rentabilidadeGeral: number;
+  valuationComplete: boolean;
+  lucroTotal: number | null;
+  rentabilidadeGeral: number | null;
 }
 
 const InvestmentsContext = createContext<InvestmentsContextType | undefined>(
   undefined,
 );
+
+export function summarizeInvestmentPosition(investments: Investment[]) {
+  const totalInvestido = investments.reduce((sum, investment) => sum + (investment.valuationAmount ?? 0), 0);
+  const totalCost = investments.reduce((sum, investment) => sum + (investment.totalCost ?? 0), 0);
+  const valuationComplete = investments.every((investment) => investment.valuationAmount != null);
+  const costComplete = investments.every((investment) => investment.totalCost != null);
+  const lucroTotal = valuationComplete && costComplete ? totalInvestido - totalCost : null;
+  const rentabilidadeGeral = lucroTotal !== null && totalCost > 0 ? (lucroTotal / totalCost) * 100 : null;
+  return { totalInvestido, valuationComplete, lucroTotal, rentabilidadeGeral };
+}
 
 export function InvestmentsProvider({ children }: { children: ReactNode }) {
   const [investments, setInvestments] = useState<Investment[]>([]);
@@ -85,25 +96,8 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
     await refreshFinance();
   }, [refreshInvestments, refreshFinance]);
 
-  const { totalInvestido, lucroTotal, rentabilidadeGeral } =
-    useMemo(() => {
-      const totalInv = investments.reduce(
-        (acc, inv) => acc + inv.quantity * inv.currentPrice,
-        0,
-      );
-      const custoTot = investments.reduce(
-        (acc, inv) => acc + inv.quantity * inv.averagePrice,
-        0,
-      );
-      const lucroTot = totalInv - custoTot;
-      const rentabilidade = custoTot > 0 ? (lucroTot / custoTot) * 100 : 0;
-
-      return {
-        totalInvestido: totalInv,
-        lucroTotal: lucroTot,
-        rentabilidadeGeral: rentabilidade,
-      };
-    }, [investments]);
+  const { totalInvestido, valuationComplete, lucroTotal, rentabilidadeGeral } =
+    useMemo(() => summarizeInvestmentPosition(investments), [investments]);
 
   const contextValue = useMemo(
     () => ({
@@ -112,6 +106,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
       error,
       refreshInvestments: refreshAll,
       totalInvestido,
+      valuationComplete,
       lucroTotal,
       rentabilidadeGeral,
     }),
@@ -121,6 +116,7 @@ export function InvestmentsProvider({ children }: { children: ReactNode }) {
       error,
       refreshAll,
       totalInvestido,
+      valuationComplete,
       lucroTotal,
       rentabilidadeGeral,
     ],

@@ -75,6 +75,7 @@ vi.mock("@/services/categoryService", () => ({
 vi.mock("@/services/transactionService", () => ({
   transactionService: {
     getAll: vi.fn(),
+    getSummary: vi.fn().mockResolvedValue({ status: 200, data: { entries: 0, exits: 0, balance: 0 } }),
     delete: vi.fn(),
     update: vi.fn(),
   },

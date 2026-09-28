@@ -6,12 +6,14 @@ interface AccountsSummaryProps {
   total: number;
   checking: number;
   invested: number;
+  valuationComplete: boolean;
 }
 
 export function AccountsSummary({
   total,
   checking,
   invested,
+  valuationComplete,
 }: AccountsSummaryProps) {
   return (
     <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-4 mb-8">
@@ -22,11 +24,14 @@ export function AccountsSummary({
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">
-            Patrimônio Total
+            Subtotal de ativos conhecidos
           </p>
           <PrivacyBlur className="text-xl font-bold text-text-main">
             {formatCurrency(total)}
           </PrivacyBlur>
+          <p className="text-xs text-text-muted mt-1">
+            {valuationComplete ? "Dívida e crédito de cartões não incluídos." : "Há investimentos sem avaliação; total completo indisponível. Dívida e crédito de cartões não incluídos."}
+          </p>
         </div>
       </div>
 
@@ -52,7 +57,7 @@ export function AccountsSummary({
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">
-            Investido / Guardado
+            Investimentos avaliados
           </p>
           <PrivacyBlur className="text-xl font-bold text-purple-400">
             {formatCurrency(invested)}

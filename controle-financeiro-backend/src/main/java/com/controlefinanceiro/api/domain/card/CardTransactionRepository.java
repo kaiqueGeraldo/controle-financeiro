@@ -1,10 +1,13 @@
 package com.controlefinanceiro.api.domain.card;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -89,8 +92,26 @@ public interface CardTransactionRepository extends JpaRepository<CardTransaction
     @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c JOIN c.invoice i WHERE i.card.user.id = :userId AND c.origin <> com.controlefinanceiro.api.domain.card.CardTransactionOrigin.OPENING AND ((c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.LEGACY_UNKNOWN AND i.year = :year) OR (c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE AND EXTRACT(YEAR FROM c.date) = :year))")
     BigDecimal sumByYear(@Param("userId") UUID userId, @Param("year") Integer year);
 
+    @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c JOIN c.invoice i "
+            + "WHERE i.card.user.id = :userId AND c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE "
+            + "AND c.date BETWEEN :startDate AND :endDate")
+    BigDecimal sumPurchasesByPeriod(@Param("userId") UUID userId,
+                                     @Param("startDate") LocalDate startDate,
+                                     @Param("endDate") LocalDate endDate);
+
+    @Query(value = "SELECT c FROM CardTransaction c JOIN FETCH c.invoice i "
+            + "WHERE i.card.user.id = :userId AND c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE "
+            + "AND c.date BETWEEN :startDate AND :endDate ORDER BY c.date, c.id",
+            countQuery = "SELECT COUNT(c) FROM CardTransaction c JOIN c.invoice i "
+                    + "WHERE i.card.user.id = :userId AND c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE "
+                    + "AND c.date BETWEEN :startDate AND :endDate")
+    Page<CardTransaction> findReportPurchases(@Param("userId") UUID userId,
+                                               @Param("startDate") LocalDate startDate,
+                                               @Param("endDate") LocalDate endDate,
+                                               Pageable pageable);
+
     // Total gasto em uma categoria específica no ano (ex: Assinaturas)
-    @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c JOIN c.invoice i JOIN c.category cat WHERE i.card.user.id = :userId AND cat.name = :categoryName AND ((c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.LEGACY_UNKNOWN AND i.year = :year) OR (c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE AND EXTRACT(YEAR FROM c.date) = :year))")
+    @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c JOIN c.invoice i JOIN c.category cat WHERE i.card.user.id = :userId AND cat.name = :categoryName AND c.origin = com.controlefinanceiro.api.domain.card.CardTransactionOrigin.PURCHASE AND EXTRACT(YEAR FROM c.date) = :year")
     BigDecimal sumByCategoryAndYear(@Param("userId") UUID userId, @Param("year") Integer year, @Param("categoryName") String categoryName);
 
     @Query("SELECT COALESCE(SUM(c.amount), 0) FROM CardTransaction c WHERE c.invoice.id = :invoiceId")

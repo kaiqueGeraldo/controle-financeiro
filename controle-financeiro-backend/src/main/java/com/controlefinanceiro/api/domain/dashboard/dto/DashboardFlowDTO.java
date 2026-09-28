@@ -5,5 +5,6 @@ public record DashboardFlowDTO(
         BigDecimal income,
         BigDecimal expense,
         BigDecimal balance,
-        BigDecimal percentage
+        BigDecimal percentage,
+        BigDecimal investmentResult
 ) {}

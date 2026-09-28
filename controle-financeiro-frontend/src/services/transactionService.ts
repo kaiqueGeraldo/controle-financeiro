@@ -3,6 +3,14 @@ import { normalizeTransaction } from "./temporal";
 import { CreateTransactionDTO, PageResponse, Transaction, TransactionType } from "@/types";
 
 export const transactionService = {
+  getSummary: async (params: { month: number; year: number; type?: TransactionType | "todos"; accountId?: string; signal?: AbortSignal }) => {
+    const query = new URLSearchParams({ month: String(params.month), year: String(params.year) });
+    if (params.type && params.type !== "todos") query.set("type", params.type);
+    if (params.accountId && params.accountId !== "todas") query.set("accountId", params.accountId);
+    return apiRequest<{ entries: number; exits: number; balance: number }>(`/transactions/summary?${query}`, {
+      method: "GET", signal: params.signal,
+    });
+  },
   getAll: async (params?: { 
     page?: number; 
     size?: number; 

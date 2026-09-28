@@ -109,7 +109,7 @@ describe("CF-014: metas, investimentos, hábitos e resumo anual", () => {
   test("posição somente do ano corrente deixa explícito que não é fechamento anual", () => {
     render(<AnnualSummaryScreen />);
 
-    expect(screen.getByText("Posição atual de metas e investimentos")).toBeDefined();
+    expect(screen.getByText("Posição atual de investimentos")).toBeDefined();
     expect(screen.getByText(/não representam fechamento anual/)).toBeDefined();
     expect(screen.getAllByText("R$ 1.300,00")).toHaveLength(2);
   });

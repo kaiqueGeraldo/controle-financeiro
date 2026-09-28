@@ -205,7 +205,10 @@ export interface Investment {
   type: InvestType;
   quantity: number;
   averagePrice: number;
-  currentPrice: number;
+    currentPrice: number;
+    totalCost?: number | null;
+    valuationAmount?: number | null;
+    valuationDate?: string | null;
   goalId?: string;
   goal?: Goal;
 }
@@ -233,33 +236,37 @@ export interface UpdateBalanceDTO {
 }
 
 export interface YearlyComparison {
-  incomeGrowthPercentage: number;
-  expenseGrowthPercentage: number;
+  incomeGrowthPercentage: number | null;
+  expenseGrowthPercentage: number | null;
   message: string;
 }
 
 export interface InvestmentBreakdown {
-  name: string;
-  value: number;
+    name: string;
+    value: number | null;
   type: "GOAL" | "ASSET";
   color: string;
 }
 
 export interface AnnualSummaryResponse {
   year: number;
-  balance: {
-    totalIncome: number;
-    totalExpense: number;
-    annualBalance: number;
+    balance: {
+      totalIncome: number;
+      totalExpense: number;
+      annualBalance: number | null;
+      investmentResult?: number | null;
   };
   creditCard: {
     totalSpent: number;
     subscriptionsTotal: number;
     monthlyAverage: number;
   };
-  investments: {
-    totalValue: number;
-    items: InvestmentBreakdown[];
+    investments: {
+      totalCost?: number | null;
+      totalValue: number | null;
+      valuationAsOf?: string | null;
+      valuationComplete?: boolean;
+      items: InvestmentBreakdown[];
   };
   comparison: YearlyComparison;
   note: string;

@@ -23,8 +23,9 @@ import {
 interface FlowData {
   income: number;
   expense: number;
-  balance: number;
+  balance: number | null;
   percentage: number;
+  investmentResult?: number | null;
 }
 
 type ChartPoint = { label: string; valor: number };
@@ -58,7 +59,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   const userId = user?.id;
   const requests = useRequestCoordinator(userId);
 
-  const [flowData, setFlowData] = useState({
+  const [flowData, setFlowData] = useState<FlowData>({
     income: 0,
     expense: 0,
     balance: 0,

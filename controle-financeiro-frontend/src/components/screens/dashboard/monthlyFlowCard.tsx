@@ -6,9 +6,10 @@ interface MonthlyFlowCardProps {
   despesas: number;
   receitas: number;
   percentual: number;
+  investmentResult?: number | null;
 }
 
-export function MonthlyFlowCard({ despesas, receitas, percentual }: MonthlyFlowCardProps) {
+export function MonthlyFlowCard({ despesas, receitas, percentual, investmentResult }: MonthlyFlowCardProps) {
   return (
     <div className="bg-bg-surface border border-border-divider rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:border-border-divider transition-colors relative overflow-hidden group">
       <div className="absolute -top-4 -right-4 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -22,7 +23,7 @@ export function MonthlyFlowCard({ despesas, receitas, percentual }: MonthlyFlowC
       </div>
       <div className="relative z-10">
         <span className="text-text-muted text-xs font-bold uppercase tracking-wider">
-          Balanço do Mês
+          Resultado gerencial do mês
         </span>
 
         <div className="mt-4 mb-2 h-3 w-full bg-bg-surface-hover rounded-full overflow-hidden border border-border-divider">
@@ -36,12 +37,16 @@ export function MonthlyFlowCard({ despesas, receitas, percentual }: MonthlyFlowC
 
         <div className="flex flex-wrap gap-3 justify-between text-[10px] mt-2 font-bold uppercase tracking-wider [overflow-wrap:anywhere]">
           <span className="text-text-muted">
-            Saídas <b className="text-rose-400"><PrivacyBlur>{formatCurrency(despesas)}</PrivacyBlur></b>
+            Consumo e encargos <b className="text-rose-400"><PrivacyBlur>{formatCurrency(despesas)}</PrivacyBlur></b>
           </span>
           <span className="text-text-muted">
-            Entradas <b className="text-emerald-500"><PrivacyBlur>{formatCurrency(receitas)}</PrivacyBlur></b>
+            Receitas realizadas <b className="text-emerald-500"><PrivacyBlur>{formatCurrency(receitas)}</PrivacyBlur></b>
           </span>
         </div>
+        <p className="mt-3 text-xs text-text-muted">Inclui compras no cartão pela data da compra; lançamento legado desconhecido requer reconciliação.</p>
+        {investmentResult !== undefined && <p className="mt-1 text-xs text-text-muted">
+          Resultado realizado em investimentos: <PrivacyBlur>{investmentResult === null ? "indisponível" : formatCurrency(investmentResult)}</PrivacyBlur>
+        </p>}
       </div>
     </div>
   );

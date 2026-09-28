@@ -5,6 +5,7 @@ import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.TransactionResponseDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.UpdateTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.SettleTransactionDTO;
+import com.controlefinanceiro.api.domain.transaction.dto.CashSummaryDTO;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.TransactionService;
 import jakarta.validation.Valid;
@@ -66,6 +67,17 @@ public class TransactionController {
         return ResponseEntity.ok(new PagedModel<>(transactions));
     }
 
+    @GetMapping("/summary")
+    public ResponseEntity<CashSummaryDTO> summary(
+            @AuthenticationPrincipal User user,
+            @RequestParam @Min(1) @Max(12) int month,
+            @RequestParam @Min(1) @Max(9999) int year,
+            @RequestParam(required = false) TransactionType type,
+            @RequestParam(required = false) UUID accountId
+    ) {
+        return ResponseEntity.ok(service.getCashSummary(user, month, year, type, accountId));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponseDTO> update(
             @PathVariable UUID id,
@@ -95,9 +107,25 @@ public class TransactionController {
     }
 
     @GetMapping(value = "/export", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity<byte[]> exportToExcel(@AuthenticationPrincipal User user) {
+    public ResponseEntity<byte[]> exportToExcel(
+            @AuthenticationPrincipal User user,
+            @RequestParam(required = false) @Min(1) @Max(12) Integer month,
+            @RequestParam(required = false) @Min(1) @Max(9999) Integer year,
+            @RequestParam(required = false) TransactionType type,
+            @RequestParam(required = false) UUID accountId,
+            HttpServletRequest request
+    ) throws MissingServletRequestParameterException {
+        if (month == null && request.getParameter("month") != null) {
+            throw new MissingServletRequestParameterException("month", "Integer");
+        }
+        if (year == null && request.getParameter("year") != null) {
+            throw new MissingServletRequestParameterException("year", "Integer");
+        }
+        if ((month == null) != (year == null)) {
+            throw new MissingServletRequestParameterException(month == null ? "month" : "year", "Integer");
+        }
         log.info("API: Exportando extrato em Excel. Usuário: {}", user.getEmail());
-        byte[] excelData = service.exportToExcel(user);
+        byte[] excelData = service.exportToExcel(user, month, year, type, accountId);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"extrato.xlsx\"")

@@ -4,12 +4,13 @@ import { PieChart, TrendingDown, TrendingUp } from "lucide-react";
 
 interface InvestmentsSummaryProps {
   totalInvestido: number;
-  lucroTotal: number;
-  rentabilidadeGeral: number;
+  lucroTotal: number | null;
+  rentabilidadeGeral: number | null;
+  valuationComplete: boolean;
 }
 
-export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGeral }: InvestmentsSummaryProps) {
-  const isPositivo = lucroTotal >= 0;
+export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGeral, valuationComplete }: InvestmentsSummaryProps) {
+  const isPositivo = lucroTotal !== null && lucroTotal >= 0;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -23,12 +24,13 @@ export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGe
            <div className="p-2 bg-bg-surface rounded-lg border border-border-divider">
               <PieChart size={20} />
            </div>
-           <span className="text-xs font-bold uppercase tracking-wider">Patrimônio Total</span>
+           <span className="text-xs font-bold uppercase tracking-wider">Investimentos avaliados</span>
         </div>
         
         <PrivacyBlur className="text-3xl md:text-4xl font-bold text-text-main tracking-tight relative z-10 w-min">
           {formatCurrency(totalInvestido)}
         </PrivacyBlur>
+        {!valuationComplete && <p className="text-xs text-text-muted mt-2">Subtotal conhecido; há avaliações indisponíveis.</p>}
       </div>
 
       {/* Card 2: Rentabilidade */}
@@ -48,11 +50,11 @@ export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGe
 
         <div className="relative z-10">
             <PrivacyBlur className={`text-3xl font-bold flex items-center gap-3 w-min ${isPositivo ? 'text-emerald-400' : 'text-rose-400'}`}>
-                {isPositivo ? "+" : ""}{rentabilidadeGeral.toFixed(2)}%
+                {rentabilidadeGeral === null ? "Indisponível" : `${isPositivo ? "+" : ""}${rentabilidadeGeral.toFixed(2)}%`}
                 
                 {/* Badge de Valor Monetário */}
                 <PrivacyBlur className={`text-sm font-bold px-2 py-1 rounded-lg border ${isPositivo ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
-                    {isPositivo ? "+" : ""}{formatCurrency(lucroTotal)}
+                    {lucroTotal === null ? "Custo ou avaliação indisponível" : `${isPositivo ? "+" : ""}${formatCurrency(lucroTotal)}`}
                 </PrivacyBlur>
             </PrivacyBlur>
         </div>
