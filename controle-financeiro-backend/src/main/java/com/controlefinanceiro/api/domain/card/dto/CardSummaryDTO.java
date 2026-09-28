@@ -12,5 +12,8 @@ public record CardSummaryDTO(
         Integer dueDay,
         String color,
         String brand,
-        BigDecimal currentInvoiceValue
+        BigDecimal currentInvoiceValue,
+        BigDecimal committedLimit,
+        BigDecimal availableLimit,
+        BigDecimal creditBalance
 ) {}

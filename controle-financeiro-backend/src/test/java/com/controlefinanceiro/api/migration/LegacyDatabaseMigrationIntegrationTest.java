@@ -51,7 +51,8 @@ class LegacyDatabaseMigrationIntegrationTest {
                 .containsExactly(
                         Map.of("type", "BASELINE", "version", "1", "success", true),
                         Map.of("type", "SQL", "version", "2", "success", true),
-                        Map.of("type", "SQL", "version", "3", "success", true)
+                        Map.of("type", "SQL", "version", "3", "success", true),
+                        Map.of("type", "SQL", "version", "4", "success", true)
                 );
         assertThat(sql.queryForObject("select balance from accounts where id=?", BigDecimal.class, ACCOUNT_ID))
                 .isEqualByComparingTo("1000.25");
@@ -67,6 +68,15 @@ class LegacyDatabaseMigrationIntegrationTest {
         assertThat(sql.queryForObject(
                 "select count(*) from card_transactions where operation_time is null and time_origin is null "
                         + "and recorded_at is null and legacy_created_at_raw is null", Integer.class)).isEqualTo(2);
+        assertThat(sql.queryForObject(
+                "select count(*) from card_transactions where origin='LEGACY_UNKNOWN' "
+                        + "and paid_amount=0 and refunded_amount=0 and opening_batch_id is null",
+                Integer.class)).isEqualTo(2);
+        assertThat(sql.queryForObject(
+                "select count(*) from invoices where closing_date is null and due_date is null",
+                Integer.class)).isOne();
+        assertThat(sql.queryForObject("select count(*) from card_payments", Integer.class)).isZero();
+        assertThat(sql.queryForObject("select count(*) from card_opening_batches", Integer.class)).isZero();
         assertThat(sql.queryForObject(
                 "select count(*) from invest_transactions where operation_date is null and date_origin is null",
                 Integer.class)).isEqualTo(2);

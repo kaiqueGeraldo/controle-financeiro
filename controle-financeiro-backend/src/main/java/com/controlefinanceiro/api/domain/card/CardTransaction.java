@@ -28,6 +28,22 @@ public class CardTransaction extends com.controlefinanceiro.api.domain.temporal.
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "paid_amount", nullable = false)
+    private BigDecimal paidAmount = BigDecimal.ZERO;
+
+    @Column(name = "refunded_amount", nullable = false)
+    private BigDecimal refundedAmount = BigDecimal.ZERO;
+
+    @Column(name = "credit_applied", nullable = false)
+    private BigDecimal creditApplied = BigDecimal.ZERO;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CardTransactionOrigin origin = CardTransactionOrigin.LEGACY_UNKNOWN;
+
+    @Column(name = "opening_batch_id")
+    private UUID openingBatchId;
+
     @Column(nullable = false)
     private LocalDate date;
 

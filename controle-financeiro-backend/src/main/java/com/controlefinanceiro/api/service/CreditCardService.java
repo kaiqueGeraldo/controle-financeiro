@@ -1,7 +1,5 @@
 package com.controlefinanceiro.api.service;
 
-import com.controlefinanceiro.api.domain.account.Account;
-import com.controlefinanceiro.api.domain.account.AccountRepository;
 import com.controlefinanceiro.api.domain.card.*;
 import com.controlefinanceiro.api.domain.card.dto.*;
 import com.controlefinanceiro.api.domain.category.Category;
@@ -11,8 +9,6 @@ import com.controlefinanceiro.api.domain.event.InvoiceChangedEvent;
 import com.controlefinanceiro.api.domain.event.InvoicePaymentRequestedEvent;
 import com.controlefinanceiro.api.domain.event.UserFinancialDataChangedEvent;
 import com.controlefinanceiro.api.domain.planning.*;
-import com.controlefinanceiro.api.domain.transaction.Transaction;
-import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
@@ -30,6 +26,9 @@ import java.math.RoundingMode;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
+import java.time.YearMonth;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,6 +36,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class CreditCardService {
+    private static final BigDecimal MONEY_CEILING = new BigDecimal("1000000000000");
 
     @Autowired
     private CreditCardRepository cardRepository;
@@ -45,15 +45,17 @@ public class CreditCardService {
     @Autowired
     private CardTransactionRepository cardTransactionRepository;
     @Autowired
+    private CardPaymentRepository cardPaymentRepository;
+    @Autowired
+    private CardPaymentAllocationRepository cardPaymentAllocationRepository;
+    @Autowired
+    private CardRefundRepository cardRefundRepository;
+    @Autowired
+    private CardOpeningBatchRepository cardOpeningBatchRepository;
+    @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private MonthlyPlanRepository monthlyPlanRepository;
-    @Autowired
     private PlanItemRepository planItemRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
     @Autowired
@@ -62,6 +64,9 @@ public class CreditCardService {
     private Clock clock;
 
     public CreditCardResponseDTO createCard(CreateCardDTO data, User user) {
+        if (!validMoney(data.limit(), false)) {
+            throw new BusinessRuleException("Limite deve ser positivo, em centavos e ter até 12 dígitos inteiros.");
+        }
         log.info("Criando cartão '{}' (Final {})", data.name(), data.last4Digits());
         CreditCard card = new CreditCard();
         card.setName(data.name());
@@ -75,6 +80,76 @@ public class CreditCardService {
 
         CreditCard saved = cardRepository.save(card);
         return new CreditCardResponseDTO(saved);
+    }
+
+    @Transactional
+    public void recordOpeningPosition(CardOpeningPosition data, User user) {
+        CreditCard card = cardRepository.findOwnedForPayment(data.cardId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
+        if (cardOpeningBatchRepository.existsByCardId(card.getId())
+                || cardTransactionRepository.existsByInvoiceCardId(card.getId())) {
+            throw new BusinessRuleException("Posição inicial do cartão já registrada.");
+        }
+        if (data.baseDate() == null || data.currentCompetence() == null || data.futureInstallments() == null
+                || !validMoney(data.currentOutstanding(), true)) {
+            throw new BusinessRuleException("Posição inicial inválida.");
+        }
+        for (CardOpeningPosition.FutureInstallment future : data.futureInstallments()) {
+            if (future.competence() == null || !future.competence().isAfter(data.currentCompetence())
+                    || !validMoney(future.amount(), false)) {
+                throw new BusinessRuleException("Parcelas futuras devem ter competência posterior e valor positivo em centavos.");
+            }
+        }
+
+        Category category = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
+                .orElseGet(() -> {
+                    Category created = new Category();
+                    created.setUser(user);
+                    created.setName(DefaultCategory.PAGAMENTO_FATURA.getName());
+                    created.setType(TransactionType.EXPENSE);
+                    created.setSystemReserved(true);
+                    return categoryRepository.save(created);
+                });
+        CardOpeningBatch batch = new CardOpeningBatch();
+        batch.setCard(card);
+        batch.setBaseDate(data.baseDate());
+        batch.setCreatedAt(clock.instant());
+        cardOpeningBatchRepository.save(batch);
+
+        if (data.currentOutstanding().signum() > 0) {
+            recordOpeningInstallment(card, batch, category, data.currentCompetence(),
+                    data.currentOutstanding(), "Dívida inicial da fatura", data.baseDate());
+        }
+        for (CardOpeningPosition.FutureInstallment future : data.futureInstallments()) {
+            recordOpeningInstallment(card, batch, category, future.competence(), future.amount(),
+                    future.description() == null || future.description().isBlank()
+                            ? "Parcela futura declarada" : future.description(), data.baseDate());
+        }
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.baseDate().getYear()));
+    }
+
+    private boolean validMoney(BigDecimal amount, boolean allowZero) {
+        return amount != null && amount.scale() <= 2 && amount.abs().compareTo(MONEY_CEILING) < 0
+                && (allowZero ? amount.signum() >= 0 : amount.signum() > 0);
+    }
+
+    private void recordOpeningInstallment(CreditCard card, CardOpeningBatch batch, Category category,
+                                          YearMonth competence, BigDecimal amount, String description,
+                                          LocalDate baseDate) {
+        Invoice invoice = getOrCreateInvoice(card, competence.getMonthValue(), competence.getYear());
+        if (!invoice.getClosingDate().isAfter(baseDate)) invoice.setStatus(InvoiceStatus.CLOSED);
+        CardTransaction entry = new CardTransaction();
+        entry.setInvoice(invoice);
+        entry.setCategory(category);
+        entry.setDescription(description);
+        entry.setAmount(amount);
+        entry.setDate(baseDate);
+        entry.setCreatedAt(LocalDateTime.now(clock));
+        entry.captureTemporal(null, clock.instant(), entry.getCreatedAt());
+        entry.setOrigin(CardTransactionOrigin.OPENING);
+        entry.setOpeningBatchId(batch.getId());
+        cardTransactionRepository.save(entry);
+        eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
     }
 
     public List<CreditCard> listAll(User user) {
@@ -92,12 +167,14 @@ public class CreditCardService {
             throw new BusinessRuleException("Acesso negado");
         }
 
-        // 1. Excluir todas as transações de fatura vinculadas aos invoices deste cartão
-        entityManager.createQuery(
-                "DELETE FROM CardTransaction ct WHERE ct.invoice.id IN (SELECT i.id FROM Invoice i WHERE i.card.id = :cardId)"
-        ).setParameter("cardId", id).executeUpdate();
+        if (cardTransactionRepository.existsByInvoiceCardId(id)
+                || cardPaymentRepository.existsByInvoiceCardId(id)
+                || cardRefundRepository.existsByCardId(id)
+                || cardOpeningBatchRepository.existsByCardId(id)) {
+            throw new BusinessRuleException("Cartão com histórico financeiro não pode ser excluído; arquive ou estorne as compras.");
+        }
 
-        // 2. Excluir todas as faturas (Invoices) deste cartão
+        // Faturas vazias não carregam fatos financeiros.
         entityManager.createQuery(
                 "DELETE FROM Invoice i WHERE i.card.id = :cardId"
         ).setParameter("cardId", id).executeUpdate();
@@ -119,16 +196,26 @@ public class CreditCardService {
     // --- TRANSAÇÕES DE CARTÃO ---
 
     @Transactional
-    public UUID createTransaction(CreateCardTransactionDTO data) {
+    public UUID createTransaction(CreateCardTransactionDTO data, User user) {
         log.info("Nova compra no cartão ID {}: {} ({}x)", data.cardId(), data.amount(), data.totalInstallments());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
 
-        CreditCard card = cardRepository.findById(data.cardId()).orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
+        CreditCard card = cardRepository.findByIdForUpdate(data.cardId()).orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
+        if (!card.getUser().getId().equals(user.getId())) {
+            throw new ResourceNotFoundException("Cartão não encontrado");
+        }
 
         Category category = categoryRepository.findById(data.categoryId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+        if (!category.getUser().getId().equals(card.getUser().getId())) {
+            throw new ResourceNotFoundException("Categoria não encontrada");
+        }
 
-        int parcelas = (data.totalInstallments() != null && data.totalInstallments() > 1) ? data.totalInstallments() : 1;
+        int parcelas = data.totalInstallments() == null ? 1 : data.totalInstallments();
+        if (!validMoney(data.amount(), false)
+                || parcelas < 1 || BigDecimal.valueOf(parcelas).compareTo(data.amount().movePointRight(2)) > 0) {
+            throw new BusinessRuleException("Valor deve ser positivo, em centavos, ter até 12 dígitos inteiros e cobrir todas as parcelas.");
+        }
 
         BigDecimal valorParcelaBase = data.amount().divide(BigDecimal.valueOf(parcelas), 2, RoundingMode.DOWN);
         BigDecimal valorTotalBase = valorParcelaBase.multiply(BigDecimal.valueOf(parcelas));
@@ -136,28 +223,40 @@ public class CreditCardService {
 
         CardTransaction primeiraTransacao = null;
         UUID purchaseId = UUID.randomUUID();
+        CardCycle firstCycle;
+        try {
+            firstCycle = CardCycle.forPurchase(data.date(), card.getClosingDay(), card.getDueDay());
+            firstCycle.competence().plusMonths(parcelas - 1L);
+        } catch (DateTimeException ex) {
+            throw new BusinessRuleException("Parcelamento excede o calendário aceito.");
+        }
+        BigDecimal creditRemaining = card.getCreditBalance();
 
         for (int i = 0; i < parcelas; i++) {
-            LocalDate dataParcela = data.date().plusMonths(i);
-            Invoice invoice = getInvoiceForDate(card, dataParcela);
-
-            while (invoice.getStatus() != InvoiceStatus.OPEN) {
-                dataParcela = dataParcela.plusMonths(1);
-                invoice = getInvoiceForDate(card, dataParcela);
+            YearMonth competence = firstCycle.competence().plusMonths(i);
+            Invoice invoice = getOrCreateInvoice(card, competence.getMonthValue(), competence.getYear());
+            if (invoice.getStatus() != InvoiceStatus.OPEN) {
+                throw new BusinessRuleException("Competência da compra já encerrada.");
             }
 
             CardTransaction transaction = new CardTransaction();
             transaction.setDescription(data.description() + (parcelas > 1 ? " (" + (i + 1) + "/" + parcelas + ")" : ""));
 
-            if (i == 0) {
+            if (i == parcelas - 1) {
                 transaction.setAmount(valorParcelaBase.add(diferencaCentavos));
             } else {
                 transaction.setAmount(valorParcelaBase);
             }
 
-            transaction.setDate(dataParcela);
+            transaction.setDate(data.date());
+            transaction.setOrigin(CardTransactionOrigin.PURCHASE);
 
-            transaction.setCreatedAt(dataParcela.atTime(operationTime));
+            BigDecimal creditApplied = creditRemaining.min(transaction.getAmount());
+            transaction.setPaidAmount(creditApplied);
+            transaction.setCreditApplied(creditApplied);
+            creditRemaining = creditRemaining.subtract(creditApplied);
+
+            transaction.setCreatedAt(data.date().atTime(operationTime));
             transaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), transaction.getCreatedAt());
 
             transaction.setCategory(category);
@@ -177,8 +276,10 @@ public class CreditCardService {
             eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
         }
 
+        card.setCreditBalance(creditRemaining);
+
         int anoInicial = data.date().getYear();
-        int anoFinal = data.date().plusMonths(parcelas - 1).getYear();
+        int anoFinal = firstCycle.competence().plusMonths(parcelas - 1).getYear();
 
         for (int ano = anoInicial; ano <= anoFinal; ano++) {
             eventPublisher.publishEvent(new UserFinancialDataChangedEvent(card.getUser().getId(), ano));
@@ -190,14 +291,16 @@ public class CreditCardService {
 
     @Transactional
     public CreditCardResponseDTO update(UUID id, UpdateCardDTO data, User user) {
-        CreditCard card = cardRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
-
-        if (!card.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
+        CreditCard card = cardRepository.findOwnedForPayment(id, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
         if (data.name() != null) card.setName(data.name());
-        if (data.limit() != null) card.setLimit(data.limit());
+        if (data.limit() != null) {
+            if (!validMoney(data.limit(), false)) {
+                throw new BusinessRuleException("Limite deve ser positivo, em centavos e ter até 12 dígitos inteiros.");
+            }
+            card.setLimit(data.limit());
+        }
         if (data.closingDay() != null) card.setClosingDay(data.closingDay());
         if (data.dueDay() != null) card.setDueDay(data.dueDay());
         if (data.color() != null) card.setColor(data.color());
@@ -221,6 +324,9 @@ public class CreditCardService {
         if (data.description() != null) tx.setDescription(data.description());
         if (data.categoryId() != null) {
             Category cat = categoryRepository.findById(data.categoryId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+            if (!cat.getUser().getId().equals(user.getId())) {
+                throw new ResourceNotFoundException("Categoria não encontrada");
+            }
             tx.setCategory(cat);
         }
 
@@ -234,64 +340,29 @@ public class CreditCardService {
         List<UUID> cardIds = cards.stream().map(CreditCard::getId).toList();
 
         LocalDate today = LocalDate.now(clock);
-        int currentMonth = today.getMonthValue();
-        int currentYear = today.getYear();
-
-        LocalDate nextMonthDate = today.plusMonths(1);
-        int nextMonth = nextMonthDate.getMonthValue();
-        int nextYear = nextMonthDate.getYear();
-
-        List<Invoice> existingInvoices = invoiceRepository.findRecentInvoicesForCards(
-                cardIds, currentMonth, currentYear, nextMonth, nextYear
-        );
-
-        Map<String, Invoice> invoiceMap = existingInvoices.stream()
-                .collect(Collectors.toMap(
-                        i -> i.getCard().getId().toString() + "-" + i.getMonth() + "-" + i.getYear(),
-                        i -> i,
-                        (existing, replacement) -> existing
-                ));
-
-        List<Invoice> currentInvoices = new ArrayList<>();
-        for (CreditCard card : cards) {
-            int targetMonth = currentMonth;
-            int targetYear = currentYear;
-
-            if (today.getDayOfMonth() >= card.getClosingDay()) {
-                targetMonth = nextMonth;
-                targetYear = nextYear;
-            }
-
-            String key = card.getId().toString() + "-" + targetMonth + "-" + targetYear;
-            Invoice invoice = invoiceMap.get(key);
-
-            if (invoice == null) {
-                invoice = new Invoice();
-                invoice.setCard(card);
-                invoice.setMonth(targetMonth);
-                invoice.setYear(targetYear);
-                invoice.setStatus(InvoiceStatus.OPEN);
-                invoice = invoiceRepository.save(invoice);
-            }
-            currentInvoices.add(invoice);
-        }
-
-        List<UUID> invoiceIds = currentInvoices.stream().map(Invoice::getId).toList();
-        List<Object[]> sums = cardTransactionRepository.sumAmountsByInvoiceIds(invoiceIds);
-
-        java.util.Map<UUID, BigDecimal> invoiceSums = sums.stream()
-                .collect(Collectors.toMap(
-                        row -> (UUID) row[0],
-                        row -> (BigDecimal) row[1]
-                ));
+        Map<UUID, List<Object[]>> balancesByCard = cardTransactionRepository
+                .outstandingByCardPeriod(cardIds).stream()
+                .collect(Collectors.groupingBy(row -> (UUID) row[0]));
+        Set<String> rolledPeriods = invoiceRepository.findByCardIdsAndStatus(cardIds, InvoiceStatus.ROLLED)
+                .stream().map(i -> i.getCard().getId() + ":" + i.getYear() + ":" + i.getMonth())
+                .collect(Collectors.toSet());
 
         return cards.stream().map(card -> {
-            Invoice currentInvoice = currentInvoices.stream()
-                    .filter(i -> i.getCard().getId().equals(card.getId()))
-                    .findFirst()
-                    .orElseThrow();
-
-            BigDecimal invoiceValue = invoiceSums.getOrDefault(currentInvoice.getId(), BigDecimal.ZERO);
+            YearMonth target = CardCycle.forPurchase(today, card.getClosingDay(), card.getDueDay()).competence();
+            YearMonth previous = target.equals(YearMonth.of(1, 1)) ? null : target.minusMonths(1);
+            boolean carry = previous != null && rolledPeriods.contains(
+                    card.getId() + ":" + previous.getYear() + ":" + previous.getMonthValue());
+            BigDecimal invoiceValue = BigDecimal.ZERO;
+            BigDecimal committed = BigDecimal.ZERO;
+            for (Object[] row : balancesByCard.getOrDefault(card.getId(), List.of())) {
+                BigDecimal amount = (BigDecimal) row[4];
+                committed = committed.add(amount);
+                YearMonth competence = YearMonth.of((Integer) row[2], (Integer) row[1]);
+                if (competence.equals(target)
+                        || (carry && competence.isBefore(target) && row[3] == InvoiceStatus.ROLLED)) {
+                    invoiceValue = invoiceValue.add(amount);
+                }
+            }
 
             return new CardSummaryDTO(
                     card.getId(),
@@ -302,18 +373,18 @@ public class CreditCardService {
                     card.getDueDay(),
                     card.getColor(),
                     card.getBrand(),
-                    invoiceValue
+                    invoiceValue,
+                    committed,
+                    card.getLimit().subtract(committed),
+                    card.getCreditBalance()
             );
         }).toList();
     }
 
+    @Transactional
     public InvoiceDetailsDTO getInvoiceDetails(UUID cardId, Integer month, Integer year, User user) {
-        CreditCard card = cardRepository.findById(cardId)
+        CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
-
-        if (!card.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
 
         Invoice invoice = getOrCreateInvoice(card, month, year);
 
@@ -323,66 +394,101 @@ public class CreditCardService {
                 .map(CardTransactionDTO::new).toList();
 
         BigDecimal total = cardTransactionRepository.sumAmountByInvoiceId(invoice.getId());
+        BigDecimal ownOutstanding = cardTransactionRepository.sumOutstandingByInvoiceId(invoice.getId());
+        BigDecimal payable = cardTransactionRepository.sumOutstandingUpTo(
+                cardId, month, year, includeRolled(invoice));
 
-        return new InvoiceDetailsDTO(invoice.getId(), month, year, invoice.getStatus().name(), total, transactions);
+        return new InvoiceDetailsDTO(invoice.getId(), month, year, invoice.getStatus().name(),
+                total, payable, payable.subtract(ownOutstanding), invoice.getDueDate(), transactions);
+    }
+
+    private boolean includeRolled(Invoice invoice) {
+        YearMonth competence = YearMonth.of(invoice.getYear(), invoice.getMonth());
+        if (competence.equals(YearMonth.of(1, 1))) return false;
+        YearMonth previous = competence.minusMonths(1);
+        return invoiceRepository.findByCardIdAndMonthAndYear(
+                        invoice.getCard().getId(), previous.getMonthValue(), previous.getYear())
+                .filter(prior -> prior.getStatus() == InvoiceStatus.ROLLED).isPresent();
     }
 
     @Transactional
     public void deleteTransaction(UUID transactionId, User user) {
-        CardTransaction tx = cardTransactionRepository.findById(transactionId).orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
+        refundPurchase(transactionId, null, LocalDate.now(clock), null, user);
+    }
 
-        if (!tx.getInvoice().getCard().getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+    @Transactional
+    public void refundPurchase(UUID transactionId, BigDecimal requestedAmount, LocalDate refundDate,
+                               UUID operationId, User user) {
+        UUID cardId = cardTransactionRepository.findCardIdByTransactionId(transactionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Compra não encontrada"));
+        CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Compra não encontrada"));
+        CardTransaction original = cardTransactionRepository.findById(transactionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Compra não encontrada"));
+        if (original.getPurchaseId() == null || original.getOrigin() != CardTransactionOrigin.PURCHASE) {
+            throw new BusinessRuleException("Compra legada sem origem comprovada exige conciliação antes do estorno.");
+        }
+        UUID purchaseId = original.getPurchaseId();
+        List<CardTransaction> installments = cardTransactionRepository.findPurchaseInstallments(purchaseId);
+        BigDecimal originalAmount = installments.stream().map(CardTransaction::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal alreadyRefunded = cardRefundRepository.sumByPurchase(cardId, purchaseId);
+        BigDecimal amount = requestedAmount == null ? originalAmount.subtract(alreadyRefunded) : requestedAmount;
+        if (refundDate == null || !validMoney(amount, false)
+                || amount.compareTo(originalAmount.subtract(alreadyRefunded)) > 0) {
+            throw new BusinessRuleException("Estorno deve ser positivo e não exceder a compra ainda não estornada.");
+        }
+        if (operationId != null && cardRefundRepository.existsByOperationId(operationId)) {
+            throw new BusinessRuleException("Estorno já registrado.");
+        }
+        if (operationId == null && cardRefundRepository
+                .existsByCardIdAndPurchaseIdAndAmountAndRefundDateAndOperationIdIsNull(
+                        cardId, purchaseId, amount, refundDate)) {
+            throw new BusinessRuleException("Estorno já registrado.");
         }
 
-        UUID purchaseId = tx.getPurchaseId();
-
-        if (purchaseId != null) {
-            List<CardTransaction> installments = cardTransactionRepository.findAllByPurchaseId(purchaseId);
-
-            Set<Invoice> affectedInvoices = installments.stream().map(CardTransaction::getInvoice).collect(Collectors.toSet());
-
-            boolean hasClosedInvoices = affectedInvoices.stream().anyMatch(inv -> inv.getStatus() != InvoiceStatus.OPEN);
-            if (hasClosedInvoices) {
-                throw new BusinessRuleException("Não é possível excluir esta compra parcelada pois uma ou mais parcelas pertencem a faturas que já foram fechadas ou pagas.");
+        BigDecimal remainder = amount;
+        Set<Invoice> affectedInvoices = new HashSet<>();
+        for (CardTransaction installment : installments) {
+            BigDecimal owed = installment.getAmount().subtract(installment.getPaidAmount())
+                    .subtract(installment.getRefundedAmount());
+            BigDecimal reduction = owed.min(remainder);
+            if (reduction.signum() > 0) {
+                installment.setRefundedAmount(installment.getRefundedAmount().add(reduction));
+                affectedInvoices.add(installment.getInvoice());
+                remainder = remainder.subtract(reduction);
             }
+            if (remainder.signum() == 0) break;
+        }
+        card.setCreditBalance(card.getCreditBalance().add(remainder));
+        CardRefund refund = new CardRefund();
+        refund.setCard(card);
+        refund.setPurchaseId(purchaseId);
+        refund.setCategory(original.getCategory());
+        refund.setOperationId(operationId);
+        refund.setAmount(amount);
+        refund.setCreditCreated(remainder);
+        refund.setRefundDate(refundDate);
+        refund.setCreatedAt(clock.instant());
+        cardRefundRepository.save(refund);
+        cardTransactionRepository.flush();
 
-            cardTransactionRepository.deleteAll(installments);
-            cardTransactionRepository.flush();
-
-            for (Invoice invoice : affectedInvoices) {
-                eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
+        for (Invoice invoice : affectedInvoices) {
+            if (invoice.getStatus() == InvoiceStatus.ROLLED || invoice.getStatus() == InvoiceStatus.CLOSED) {
+                if (cardTransactionRepository.sumOutstandingByInvoiceId(invoice.getId()).signum() == 0) {
+                    invoice.setStatus(InvoiceStatus.PAID);
+                }
             }
-        } else {
-            Invoice invoice = tx.getInvoice();
-
-            // CORREÇÃO: Verifica a fatura da transação avulsa
-            if (invoice.getStatus() != InvoiceStatus.OPEN) {
-                throw new BusinessRuleException("Não é possível excluir uma transação de uma fatura que já está fechada ou paga.");
-            }
-
-            cardTransactionRepository.delete(tx);
-            cardTransactionRepository.flush();
             eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
-            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), tx.getDate().getYear()));
+            publishNextInvoiceChange(invoice);
+        }
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), original.getDate().getYear()));
+        if (refundDate.getYear() != original.getDate().getYear()) {
+            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), refundDate.getYear()));
         }
     }
 
     // --- MÉTODOS AUXILIARES ---
-
-    private Invoice getInvoiceForDate(CreditCard card, LocalDate date) {
-        int month = date.getMonthValue();
-        int year = date.getYear();
-
-        // Se o dia da compra for >= dia do fechamento, joga para a fatura do mês seguinte
-        if (date.getDayOfMonth() >= card.getClosingDay()) {
-            LocalDate nextMonth = date.plusMonths(1);
-            month = nextMonth.getMonthValue();
-            year = nextMonth.getYear();
-        }
-
-        return getOrCreateInvoice(card, month, year);
-    }
 
     private Invoice getOrCreateInvoice(CreditCard card, int month, int year) {
         return invoiceRepository.findByCardIdAndMonthAndYear(card.getId(), month, year).orElseGet(() -> {
@@ -391,6 +497,14 @@ public class CreditCardService {
             newInvoice.setMonth(month);
             newInvoice.setYear(year);
             newInvoice.setStatus(InvoiceStatus.OPEN);
+            CardCycle cycle;
+            try {
+                cycle = CardCycle.forCompetence(YearMonth.of(year, month), card.getClosingDay(), card.getDueDay());
+            } catch (DateTimeException ex) {
+                throw new BusinessRuleException("Fatura excede o calendário aceito.");
+            }
+            newInvoice.setClosingDate(cycle.closingDate());
+            newInvoice.setDueDate(cycle.dueDate());
             return invoiceRepository.save(newInvoice);
         });
     }
@@ -401,6 +515,9 @@ public class CreditCardService {
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
 
+        if (!validMoney(data.amount(), false)) {
+            throw new BusinessRuleException("Pagamento deve ser positivo e expresso em centavos.");
+        }
         CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -409,85 +526,96 @@ public class CreditCardService {
             throw new BusinessRuleException("Esta fatura já está paga.");
         }
 
-        List<CardTransaction> transactions = cardTransactionRepository.findByInvoiceIdOrderByDateDescCreatedAtDesc(invoice.getId());
-        BigDecimal totalFatura = transactions.stream().map(CardTransaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        if (data.amount().compareTo(totalFatura) > 0) {
-            throw new BusinessRuleException("O valor do pagamento (" + data.amount() + ") excede o saldo da fatura (" + totalFatura + ").");
+        boolean prepayment = Boolean.TRUE.equals(data.isPrepayment());
+        if (data.operationId() != null && cardPaymentRepository.existsByOperationId(data.operationId())) {
+            throw new BusinessRuleException("Pagamento já registrado.");
+        }
+        if (data.operationId() == null && cardPaymentRepository
+                .existsByInvoiceIdAndAccountIdAndPaymentDateAndAmountAndPrepaymentAndOperationIdIsNull(
+                        invoice.getId(), data.accountId(), data.date(), data.amount(), prepayment)) {
+            throw new BusinessRuleException("Pagamento já registrado. Use um identificador de operação para outro pagamento igual.");
+        }
+        boolean includeRolled = includeRolled(invoice);
+        if (cardTransactionRepository.countLegacyAdjustmentsUpTo(
+                cardId, data.month(), data.year(), includeRolled) > 0) {
+            throw new BusinessRuleException("Fatura legada com ajustes sem conciliação; pagamento bloqueado.");
         }
 
+        List<CardTransaction> outstanding = cardTransactionRepository.findOutstandingUpTo(
+                cardId, data.month(), data.year(), includeRolled);
+        BigDecimal payable = outstanding.stream()
+                .map(tx -> tx.getAmount().subtract(tx.getPaidAmount()).subtract(tx.getRefundedAmount()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        if (data.amount().compareTo(payable) > 0) {
+            throw new BusinessRuleException("O pagamento excede o saldo devido de " + payable + ".");
+        }
+
+        CardPayment payment = new CardPayment();
+        payment.setInvoice(invoice);
+        payment.setAccountId(data.accountId());
+        payment.setOperationId(data.operationId());
+        payment.setPrepayment(prepayment);
+        payment.setAmount(data.amount());
+        payment.setPaymentDate(data.date());
+        payment.setCreatedAt(now.toInstant());
+        cardPaymentRepository.save(payment);
         eventPublisher.publishEvent(new InvoicePaymentRequestedEvent(
                 data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user,
-                DateUtil.optionalWallTime(data.time()), now.toInstant()
-        ));
+                DateUtil.optionalWallTime(data.time()), now.toInstant(), payment));
 
-        if (Boolean.TRUE.equals(data.isPrepayment())) {
-            processPrepayment(invoice, data, operationTime, now, user);
-        } else {
-            processInvoiceClosing(invoice, data, operationTime, now, totalFatura, user);
+        BigDecimal remaining = data.amount();
+        Set<Invoice> affected = new HashSet<>();
+        for (CardTransaction tx : outstanding) {
+            if (remaining.signum() == 0) break;
+            BigDecimal allocated = tx.getAmount().subtract(tx.getPaidAmount())
+                    .subtract(tx.getRefundedAmount()).min(remaining);
+            tx.setPaidAmount(tx.getPaidAmount().add(allocated));
+            CardPaymentAllocation allocation = new CardPaymentAllocation();
+            allocation.setPaymentId(payment.getId());
+            allocation.setCardTransactionId(tx.getId());
+            allocation.setAmount(allocated);
+            cardPaymentAllocationRepository.save(allocation);
+            affected.add(tx.getInvoice());
+            remaining = remaining.subtract(allocated);
+        }
+        cardTransactionRepository.flush();
+
+        for (Invoice source : affected) {
+            if (!source.getId().equals(invoice.getId())
+                    && cardTransactionRepository.sumOutstandingByInvoiceId(source.getId()).signum() == 0
+                    && source.getStatus() == InvoiceStatus.ROLLED) {
+                source.setStatus(InvoiceStatus.PAID);
+                planItemRepository.markAsPaidByCardAndMonth(cardId, source.getMonth(), source.getYear());
+                eventPublisher.publishEvent(new InvoiceChangedEvent(source));
+            }
         }
 
+        BigDecimal currentRemaining = cardTransactionRepository.sumOutstandingUpTo(
+                cardId, invoice.getMonth(), invoice.getYear(), includeRolled);
+        if (!prepayment) {
+            invoice.setStatus(currentRemaining.signum() == 0 ? InvoiceStatus.PAID : InvoiceStatus.ROLLED);
+            if (invoice.getStatus() == InvoiceStatus.PAID) {
+                planItemRepository.markAsPaidByCardAndMonth(cardId, invoice.getMonth(), invoice.getYear());
+            } else {
+                YearMonth next = YearMonth.of(invoice.getYear(), invoice.getMonth()).plusMonths(1);
+                getOrCreateInvoice(card, next.getMonthValue(), next.getYear());
+            }
+        } else if (invoice.getStatus() == InvoiceStatus.CLOSED && currentRemaining.signum() == 0) {
+            invoice.setStatus(InvoiceStatus.PAID);
+            planItemRepository.markAsPaidByCardAndMonth(cardId, invoice.getMonth(), invoice.getYear());
+        }
+        invoiceRepository.save(invoice);
         eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
+        publishNextInvoiceChange(invoice);
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
     }
 
-    private void processPrepayment(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, ZonedDateTime now, User user) {
-        log.info("Processado como adiantamento de fatura.");
-        CardTransaction creditTransaction = new CardTransaction();
-        creditTransaction.setDescription("Adiantamento: " + (data.description() != null ? data.description() : ""));
-        creditTransaction.setAmount(data.amount().negate());
-        creditTransaction.setDate(data.date());
-        creditTransaction.setCreatedAt(data.date().atTime(operationTime));
-        creditTransaction.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), creditTransaction.getCreatedAt());
-        creditTransaction.setInvoice(invoice);
-
-        Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
-                .orElseThrow(() -> new BusinessRuleException("Categoria de Faturas não encontrada."));
-        creditTransaction.setCategory(catFatura);
-
-        cardTransactionRepository.save(creditTransaction);
-    }
-
-    private void processInvoiceClosing(Invoice invoice, PayInvoiceDTO data, LocalTime operationTime, ZonedDateTime now, BigDecimal totalFatura, User user) {
-        BigDecimal diferenca = totalFatura.subtract(data.amount());
-
-        if (diferenca.compareTo(BigDecimal.ZERO) > 0) {
-            log.info("Pagamento parcial. Rolando saldo devedor de {} para a próxima fatura.", diferenca);
-            int nextMonth = invoice.getMonth() == 12 ? 1 : invoice.getMonth() + 1;
-            int nextYear = invoice.getMonth() == 12 ? invoice.getYear() + 1 : invoice.getYear();
-
-            Invoice nextInvoice = getOrCreateInvoice(invoice.getCard(), nextMonth, nextYear);
-
-            CardTransaction rolloverTx = new CardTransaction();
-            rolloverTx.setDescription("Saldo rotativo da fatura anterior");
-            rolloverTx.setAmount(diferenca);
-            rolloverTx.setDate(data.date());
-            rolloverTx.setCreatedAt(data.date().atTime(operationTime));
-            rolloverTx.captureTemporal(DateUtil.optionalWallTime(data.time()), now.toInstant(), rolloverTx.getCreatedAt());
-            rolloverTx.setInvoice(nextInvoice);
-
-            Category catFatura = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
-                    .orElseThrow(() -> new BusinessRuleException("Categoria de Faturas não encontrada."));
-            rolloverTx.setCategory(catFatura);
-
-            cardTransactionRepository.save(rolloverTx);
-            eventPublisher.publishEvent(new InvoiceChangedEvent(nextInvoice));
-        }
-
-        // Marca a fatura do mês como fechada/paga
-        invoice.setStatus(InvoiceStatus.PAID);
-        invoiceRepository.save(invoice);
-
-        if (diferenca.compareTo(BigDecimal.ZERO) == 0) {
-            log.info("Pagamento integral detectado. Dando baixa no Planejamento mensal.");
-            planItemRepository.markAsPaidByCardAndMonth(
-                    invoice.getCard().getId(),
-                    invoice.getMonth(),
-                    invoice.getYear()
-            );
-        } else {
-            log.warn("Pagamento parcial detectado. O item de planejamento permanecerá pendente/guardado.");
-        }
+    private void publishNextInvoiceChange(Invoice invoice) {
+        YearMonth competence = YearMonth.of(invoice.getYear(), invoice.getMonth());
+        if (competence.equals(YearMonth.of(9999, 12))) return;
+        YearMonth next = competence.plusMonths(1);
+        invoiceRepository.findByCardIdAndMonthAndYear(invoice.getCard().getId(), next.getMonthValue(), next.getYear())
+                .ifPresent(found -> eventPublisher.publishEvent(new InvoiceChangedEvent(found)));
     }
 
     @Transactional

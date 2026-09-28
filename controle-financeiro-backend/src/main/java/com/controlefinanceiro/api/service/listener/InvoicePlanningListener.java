@@ -1,7 +1,8 @@
 package com.controlefinanceiro.api.service.listener;
 
-import com.controlefinanceiro.api.domain.card.CardTransaction;
 import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
+import com.controlefinanceiro.api.domain.card.InvoiceStatus;
+import com.controlefinanceiro.api.domain.card.InvoiceRepository;
 import com.controlefinanceiro.api.domain.card.Invoice;
 import com.controlefinanceiro.api.domain.event.InvoiceChangedEvent;
 import com.controlefinanceiro.api.domain.planning.MonthlyPlan;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.YearMonth;
 
 @Component
 public class InvoicePlanningListener {
@@ -24,14 +25,20 @@ public class InvoicePlanningListener {
     @Autowired private MonthlyPlanRepository monthlyPlanRepository;
     @Autowired private PlanItemRepository planItemRepository;
     @Autowired private CardTransactionRepository cardTransactionRepository;
+    @Autowired private InvoiceRepository invoiceRepository;
 
     @EventListener
     public void onInvoiceChanged(InvoiceChangedEvent event) {
         Invoice invoice = event.invoice();
         User user = invoice.getCard().getUser();
 
-        List<CardTransaction> transactions = cardTransactionRepository.findByInvoiceIdOrderByDateDescCreatedAtDesc(invoice.getId());
-        BigDecimal totalFatura = transactions.stream().map(CardTransaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        YearMonth competence = YearMonth.of(invoice.getYear(), invoice.getMonth());
+        YearMonth previous = competence.equals(YearMonth.of(1, 1)) ? null : competence.minusMonths(1);
+        boolean includeRolled = previous != null && invoiceRepository.findByCardIdAndMonthAndYear(
+                        invoice.getCard().getId(), previous.getMonthValue(), previous.getYear())
+                .filter(prior -> prior.getStatus() == InvoiceStatus.ROLLED).isPresent();
+        BigDecimal totalDue = cardTransactionRepository.sumOutstandingUpTo(
+                invoice.getCard().getId(), invoice.getMonth(), invoice.getYear(), includeRolled);
 
         MonthlyPlan plan = monthlyPlanRepository.findByUserIdAndMonthAndYear(user.getId(), invoice.getMonth(), invoice.getYear())
                 .orElseGet(() -> {
@@ -48,15 +55,21 @@ public class InvoicePlanningListener {
         planItem.setPlan(plan);
         planItem.setCard(invoice.getCard());
         planItem.setDescription("Fatura " + invoice.getCard().getName());
-        planItem.setAmount(totalFatura);
+        planItem.setAmount(invoice.getStatus() == InvoiceStatus.ROLLED ? BigDecimal.ZERO : totalDue);
 
         int ano = invoice.getYear();
         int mes = invoice.getMonth();
         int diaVencimento = invoice.getCard().getDueDay();
         int ultimoDiaDoMes = LocalDate.of(ano, mes, 1).lengthOfMonth();
 
-        planItem.setDueDate(LocalDate.of(ano, mes, Math.min(diaVencimento, ultimoDiaDoMes)));
-        if (planItem.getStatus() == null) planItem.setStatus(PlanItemStatus.PENDING);
+        planItem.setDueDate(invoice.getDueDate() != null
+                ? invoice.getDueDate()
+                : LocalDate.of(ano, mes, Math.min(diaVencimento, ultimoDiaDoMes)));
+        planItem.setStatus(switch (invoice.getStatus()) {
+            case PAID -> PlanItemStatus.PAID;
+            case ROLLED -> PlanItemStatus.SAVED;
+            default -> PlanItemStatus.PENDING;
+        });
 
         planItemRepository.save(planItem);
     }

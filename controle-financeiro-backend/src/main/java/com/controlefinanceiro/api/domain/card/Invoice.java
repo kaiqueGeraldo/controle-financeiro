@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "invoices", uniqueConstraints = {
@@ -25,6 +26,12 @@ public class Invoice {
 
     @Column(nullable = false)
     private Integer year;
+
+    @Column(name = "closing_date")
+    private LocalDate closingDate;
+
+    @Column(name = "due_date")
+    private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

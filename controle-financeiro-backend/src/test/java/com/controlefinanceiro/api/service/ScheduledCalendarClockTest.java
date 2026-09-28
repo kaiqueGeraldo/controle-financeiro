@@ -2,6 +2,7 @@ package com.controlefinanceiro.api.service;
 
 import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
 import com.controlefinanceiro.api.domain.card.CreditCard;
+import com.controlefinanceiro.api.domain.card.CreditCardRepository;
 import com.controlefinanceiro.api.domain.card.Invoice;
 import com.controlefinanceiro.api.domain.card.InvoiceRepository;
 import com.controlefinanceiro.api.domain.card.InvoiceStatus;
@@ -26,6 +27,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -47,10 +49,12 @@ class ScheduledCalendarClockTest {
         TransactionTemplate transactionTemplate = executingTransactionTemplate();
         InvoiceCronService service = new InvoiceCronService();
         Invoice invoice = invoice(2026, 9, 8, 20);
+        invoice.setClosingDate(LocalDate.of(2026, 9, 8));
+        invoice.setDueDate(LocalDate.of(2026, 9, 20));
 
         when(invoiceRepository.findByStatusWithCardAndUser(InvoiceStatus.OPEN)).thenReturn(List.of(invoice));
         when(transactionRepository.findByInvoiceIdWithDetails(invoice.getId())).thenReturn(List.of());
-        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate);
+        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate, invoice);
 
         ReflectionTestUtils.setField(service, "clock", Clock.fixed(
                 Instant.parse("2026-09-08T02:59:59Z"), PRODUCT_ZONE));
@@ -72,11 +76,13 @@ class ScheduledCalendarClockTest {
         EmailService emailService = mock(EmailService.class);
         TransactionTemplate transactionTemplate = executingTransactionTemplate();
         InvoiceCronService service = new InvoiceCronService();
-        Invoice invoice = invoice(2024, 3, 31, 10);
+        Invoice invoice = invoice(2024, 2, 31, 10);
+        invoice.setClosingDate(LocalDate.of(2024, 2, 29));
+        invoice.setDueDate(LocalDate.of(2024, 3, 10));
 
         when(invoiceRepository.findByStatusWithCardAndUser(InvoiceStatus.OPEN)).thenReturn(List.of(invoice));
         when(transactionRepository.findByInvoiceIdWithDetails(invoice.getId())).thenReturn(List.of());
-        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate);
+        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate, invoice);
         ReflectionTestUtils.setField(service, "clock", Clock.fixed(
                 Instant.parse("2024-02-29T15:00:00Z"), PRODUCT_ZONE));
 
@@ -86,17 +92,19 @@ class ScheduledCalendarClockTest {
     }
 
     @Test
-    void invoiceClosingMovesFromJanuaryCompetenceToPreviousDecember() {
+    void decemberInvoiceClosesInDecemberAndIsDueInJanuary() {
         InvoiceRepository invoiceRepository = mock(InvoiceRepository.class);
         CardTransactionRepository transactionRepository = mock(CardTransactionRepository.class);
         EmailService emailService = mock(EmailService.class);
         TransactionTemplate transactionTemplate = executingTransactionTemplate();
         InvoiceCronService service = new InvoiceCronService();
-        Invoice invoice = invoice(2026, 1, 31, 10);
+        Invoice invoice = invoice(2025, 12, 31, 10);
+        invoice.setClosingDate(LocalDate.of(2025, 12, 31));
+        invoice.setDueDate(LocalDate.of(2026, 1, 10));
 
         when(invoiceRepository.findByStatusWithCardAndUser(InvoiceStatus.OPEN)).thenReturn(List.of(invoice));
         when(transactionRepository.findByInvoiceIdWithDetails(invoice.getId())).thenReturn(List.of());
-        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate);
+        injectInvoiceDependencies(service, invoiceRepository, transactionRepository, emailService, transactionTemplate, invoice);
         ReflectionTestUtils.setField(service, "clock", Clock.fixed(
                 Instant.parse("2025-12-31T15:00:00Z"), PRODUCT_ZONE));
 
@@ -170,8 +178,12 @@ class ScheduledCalendarClockTest {
             InvoiceRepository invoiceRepository,
             CardTransactionRepository transactionRepository,
             EmailService emailService,
-            TransactionTemplate transactionTemplate) {
+            TransactionTemplate transactionTemplate, Invoice invoice) {
         ReflectionTestUtils.setField(service, "invoiceRepository", invoiceRepository);
+        CreditCardRepository cardRepository = mock(CreditCardRepository.class);
+        ReflectionTestUtils.setField(service, "cardRepository", cardRepository);
+        when(cardRepository.findByIdForUpdate(invoice.getCard().getId())).thenReturn(Optional.of(invoice.getCard()));
+        when(invoiceRepository.findByIdForUpdate(invoice.getId())).thenReturn(Optional.of(invoice));
         ReflectionTestUtils.setField(service, "transactionRepository", transactionRepository);
         ReflectionTestUtils.setField(service, "emailService", emailService);
         ReflectionTestUtils.setField(service, "transactionTemplate", transactionTemplate);

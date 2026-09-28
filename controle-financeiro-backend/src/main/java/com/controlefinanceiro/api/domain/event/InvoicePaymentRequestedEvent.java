@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.domain.event;
 
 import com.controlefinanceiro.api.domain.card.CreditCard;
+import com.controlefinanceiro.api.domain.card.CardPayment;
 import com.controlefinanceiro.api.domain.user.User;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,5 +17,6 @@ public record InvoicePaymentRequestedEvent(
         CreditCard card,
         User user,
         LocalTime informedTime,
-        java.time.Instant recordedAt
+        java.time.Instant recordedAt,
+        CardPayment payment
 ) {}

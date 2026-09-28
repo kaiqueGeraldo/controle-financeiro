@@ -13,5 +13,8 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select c from CreditCard c where c.id = :id and c.user.id = :userId")
     Optional<CreditCard> findOwnedForPayment(@Param("id") UUID id, @Param("userId") UUID userId);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from CreditCard c where c.id = :id")
+    Optional<CreditCard> findByIdForUpdate(@Param("id") UUID id);
     List<CreditCard> findAllByUserIdOrderByOrderIndexAsc(UUID userId);
 }

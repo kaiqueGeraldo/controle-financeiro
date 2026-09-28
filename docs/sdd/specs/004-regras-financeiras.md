@@ -134,10 +134,19 @@ limite disponível 650.00. Pagar 200.00 deixa 150.00/850.00. Se dívida inclui 6
 de encargos mais 120.00 de principal, pagar 80.00 baixa encargos 6.00 e principal
 74.00: dívida/principal 46.00; libera limite 74.00.
 
-DEC-03 permanece com CF-019: compra antes/no/depois do fechamento, dias 29–31,
-vencimentos e regras reais do emissor. Os exemplos aqui fornecem competências
-explicitamente; não legitimam `>= closingDay`, rolagem automática ou dia útil por
-coincidirem com o código. Essa pendência não impede decidir os efeitos monetários.
+DEC-03 — política **gerencial** escolhida explicitamente para CF-019: fechamento
+nominal 29–31 cai no último dia válido do mês curto. Compra anterior ao dia efetivo
+de fechamento entra na competência daquele mês; compra no dia efetivo ou posterior
+entra na competência seguinte. O vencimento é o primeiro dia nominal válido,
+ajustado ao último dia do mês se necessário, estritamente posterior ao fechamento.
+Não há deslocamento por dia útil, feriado nem inferência da regra real do emissor.
+Exemplo com fechamento 31 e vencimento 30: compra em 2027-02-27 → competência
+2027-02, fechamento 2027-02-28 e vencimento 2027-03-30; compras em 2027-02-28
+e 2027-03-01 → competência 2027-03, fechamento 2027-03-31 e vencimento
+2027-04-30. Com vencimento nominal 31 após fechamento 20, fevereiro de 2027
+vence em 2027-02-28. Parcelas seguintes avançam por `YearMonth`, sem arrastar
+o dia reduzido de fevereiro para março. Esta escolha não altera os efeitos
+monetários e não representa promessa do emissor.
 
 ## FIN-04 — Investimento: custo, avaliação, compra, venda e taxas
 
@@ -361,7 +370,7 @@ eficazes sem medição. Relatórios com várias leituras precisam snapshot coere
 ou versão/data que permita detectar composição inconsistente (CF-021/024).
 
 Migração/proveniência são CF-017, preservação/homologação CF-035. Contratos de
-onboarding permanecem CF-028–032; DEC-03 e protocolo HTTP/recibos detalhados
-permanecem CF-019/024. Esses limites não deixam indefinidos os efeitos econômicos
-acima. [Divergências e donos](../../../tasks/evidencias/CF-016/DIVERGENCIAS.md)
+onboarding permanecem CF-028–032; a política gerencial DEC-03 é da CF-019 e
+protocolo HTTP/recibos detalhados permanece CF-024. Esses limites não deixam
+indefinidos os efeitos econômicos acima. [Divergências e donos](../../../tasks/evidencias/CF-016/DIVERGENCIAS.md)
 não são correções implementadas nem autorização de migração real.

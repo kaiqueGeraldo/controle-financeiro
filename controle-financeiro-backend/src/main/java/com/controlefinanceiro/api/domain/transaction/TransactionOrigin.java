@@ -8,5 +8,6 @@ public enum TransactionOrigin {
     SETTLEMENT,
     CORRECTION,
     REVERSAL,
+    INVOICE_PAYMENT,
     UNKNOWN
 }

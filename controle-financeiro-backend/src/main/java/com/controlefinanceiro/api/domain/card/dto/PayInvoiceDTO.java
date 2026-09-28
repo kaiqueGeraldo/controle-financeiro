@@ -34,8 +34,14 @@ public record PayInvoiceDTO(
 
         String description, // (ex: "Pagamento parcial")
 
-        // Se for TRUE, abate o valor na fatura atual como crédito.
-        // Se for FALSE, marca a fatura como PAGA (fechamento).
+        // TRUE abate dívida sem encerrar o ciclo; FALSE encerra como PAID ou ROLLED.
         @NotNull(message = "Defina se é um adiantamento ou pagamento final")
-        Boolean isPrepayment
-) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}
+        Boolean isPrepayment,
+
+        UUID operationId
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    public PayInvoiceDTO(UUID accountId, BigDecimal amount, LocalDate date, String time,
+                         Integer month, Integer year, String description, Boolean isPrepayment) {
+        this(accountId, amount, date, time, month, year, description, isPrepayment, null);
+    }
+}

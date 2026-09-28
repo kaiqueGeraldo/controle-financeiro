@@ -4,6 +4,8 @@ import com.controlefinanceiro.api.domain.account.Account;
 import com.controlefinanceiro.api.domain.account.AccountRepository;
 import com.controlefinanceiro.api.domain.account.AccountType;
 import com.controlefinanceiro.api.domain.card.CreditCard;
+import com.controlefinanceiro.api.domain.card.CardPayment;
+import com.controlefinanceiro.api.domain.card.CardPaymentRepository;
 import com.controlefinanceiro.api.domain.category.CategoryRepository;
 import com.controlefinanceiro.api.domain.event.InvoicePaymentRequestedEvent;
 import com.controlefinanceiro.api.domain.transaction.Transaction;
@@ -18,11 +20,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,6 +38,7 @@ class InvoiceBankOperationListenerTemporalTest {
         AccountRepository accountRepository = mock(AccountRepository.class);
         TransactionRepository transactionRepository = mock(TransactionRepository.class);
         CategoryRepository categoryRepository = mock(CategoryRepository.class);
+        CardPaymentRepository paymentRepository = mock(CardPaymentRepository.class);
         InvoiceBankOperationListener listener = new InvoiceBankOperationListener();
 
         User user = new User();
@@ -52,6 +57,7 @@ class InvoiceBankOperationListenerTemporalTest {
 
         LocalDate operationDate = LocalDate.of(2026, 9, 7);
         LocalTime operationTime = LocalTime.of(23, 30, 45, 123_456_000);
+        CardPayment payment = new CardPayment();
         InvoicePaymentRequestedEvent event = new InvoicePaymentRequestedEvent(
                 account.getId(),
                 new BigDecimal("10.00"),
@@ -59,21 +65,24 @@ class InvoiceBankOperationListenerTemporalTest {
                 operationTime,
                 null,
                 card,
-                user, null, java.time.Instant.parse("2026-09-08T03:10:00Z")
+                user, null, java.time.Instant.parse("2026-09-08T03:10:00Z"), payment
         );
 
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        when(accountRepository.findAllByIdForTransfer(eq(List.of(account.getId())), eq(user.getId())))
+                .thenReturn(List.of(account));
         when(categoryRepository.findByUserIdAndName(any(), any())).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
         ReflectionTestUtils.setField(listener, "accountRepository", accountRepository);
         ReflectionTestUtils.setField(listener, "transactionRepository", transactionRepository);
         ReflectionTestUtils.setField(listener, "categoryRepository", categoryRepository);
+        ReflectionTestUtils.setField(listener, "paymentRepository", paymentRepository);
 
         listener.onInvoicePaymentRequested(event);
 
         ArgumentCaptor<Transaction> captor = ArgumentCaptor.forClass(Transaction.class);
         verify(transactionRepository).save(captor.capture());
         assertThat(captor.getValue().getDate()).isEqualTo(operationDate);
+        assertThat(captor.getValue().getOrigin()).isEqualTo(com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT);
         assertThat(captor.getValue().getTime()).isNull();
         assertThat(captor.getValue().getTimeOrigin()).isEqualTo(com.controlefinanceiro.api.domain.temporal.TimeOrigin.NOT_PROVIDED);
         assertThat(captor.getValue().getRecordedAt()).isEqualTo(java.time.Instant.parse("2026-09-08T03:10:00Z"));

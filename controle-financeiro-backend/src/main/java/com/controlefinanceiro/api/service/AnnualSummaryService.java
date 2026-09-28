@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.service;
 
 import com.controlefinanceiro.api.domain.card.CardTransactionRepository;
+import com.controlefinanceiro.api.domain.card.CardRefundRepository;
 import com.controlefinanceiro.api.domain.category.DefaultCategory;
 import com.controlefinanceiro.api.domain.goal.Goal;
 import com.controlefinanceiro.api.domain.goal.GoalRepository;
@@ -31,6 +32,7 @@ public class AnnualSummaryService {
 
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private CardTransactionRepository cardTransactionRepository;
+    @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private InvestmentRepository investmentRepository;
     @Autowired private GoalRepository goalRepository;
     @Autowired private YearlyNoteRepository noteRepository;
@@ -46,10 +48,12 @@ public class AnnualSummaryService {
         BigDecimal annualBalance = totalIncome.subtract(totalExpense);
 
         // CARTÃO DE CRÉDITO
-        BigDecimal cardTotal = cardTransactionRepository.sumByYear(userId, year);
+        BigDecimal cardTotal = cardTransactionRepository.sumByYear(userId, year)
+                .subtract(cardRefundRepository.sumByYear(userId, year));
 
         // Busca gastos específicos da categoria "Assinaturas"
-        BigDecimal subscriptionsTotal = cardTransactionRepository.sumByCategoryAndYear(userId, year, DefaultCategory.ASSINATURAS.getName());
+        BigDecimal subscriptionsTotal = cardTransactionRepository.sumByCategoryAndYear(userId, year, DefaultCategory.ASSINATURAS.getName())
+                .subtract(cardRefundRepository.sumByCategoryAndYear(userId, year, DefaultCategory.ASSINATURAS.getName()));
 
         // Média Mensal: Se for o ano atual, divide pelos meses que passaram. Se for ano passado, divide por 12.
         int monthsToDivide = 12;

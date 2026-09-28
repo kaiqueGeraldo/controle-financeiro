@@ -4,7 +4,7 @@ Contrato definido pela CF-004 em 08/09/2026. Descreve o resultado exigido; **nã
 
 ## Fontes e fronteiras
 
-Mantêm-se os critérios originais: data civil sem conversão de fuso, defaults locais do navegador, prazo de hoje não atrasado, meta concluída nunca atrasada, navegação mensal pelo dia 1 sem mutação e rejeição de datas impossíveis. As decisões abaixo resolvem DEC-01/02/05 sem tomar o código atual como oracle. DEC-03 (ciclo bancário) e DEC-08 (recorrência semanal) continuam com CF-019 e CF-022.
+Mantêm-se os critérios originais: data civil sem conversão de fuso, defaults locais do navegador, prazo de hoje não atrasado, meta concluída nunca atrasada, navegação mensal pelo dia 1 sem mutação e rejeição de datas impossíveis. As decisões abaixo resolvem DEC-01/02/05 sem tomar o código atual como oracle. DEC-03 recebeu política gerencial explícita na CF-019; DEC-08 (recorrência semanal) continua com CF-022.
 
 O inventário descreve fatos do checkout; regras e exemplos são normativos. Exemplos HTTP são **projeções dos campos temporais**, com demais campos válidos e identidades sintéticas omitidos, não corpos completos para envio. Rotas são Spring; o BFF acrescenta `/api` e preserva valores sem acrescentar horários/fusos. Comandos sem JSON temporal exigem a releitura indicada. Status/envelope completos pertencem à CF-008.
 
@@ -106,7 +106,7 @@ Ordenação de extrato: data civil, hora informada conhecida, desempate estável
 | AC-TIME-001/002/006 | Dia 07 em três fusos; bissexto válido; inválido não normaliza; E01–E21. | CF-005 componente; CF-006 serializador/PostgreSQL; CF-007 browser São Paulo/UTC+14 e JVM UTC com reload; CF-008 erro de campo. |
 | AC-TIME-003/009 | Matriz DEC-01; cruzar meia-noite mantém default intocado e campo editado; novo formulário usa dia novo. | CF-005 relógio/foco/visibilidade; CF-007 E2E; CF-015 mutação UTC/atualização involuntária. |
 | AC-TIME-004 | Ontem atrasa; hoje/amanhã não; concluída nunca; inválido não afirma atraso. | CF-005/014, inclusive página aberta. |
-| AC-TIME-005/008 | 29/30/31 de janeiro +1 = fevereiro/01; março/31 −1 = fevereiro/01; dezembro→janeiro; original intacto. 31/02 impossível. | CF-005/006 calendário; CF-019 decide data bancária exata. Math.min observado não é oracle. |
+| AC-TIME-005/008 | 29/30/31 de janeiro +1 = fevereiro/01; março/31 −1 = fevereiro/01; dezembro→janeiro; original intacto. 31/02 impossível. Ciclo de cartão segue a política gerencial DEC-03 em SPEC-004. | CF-005/006 calendário; CF-019 ciclo gerencial. |
 | AC-TIME-007 | Offsets equivalentes; desconhecido não recebe Z; editar operação não altera auditoria. | CF-006 contrato/integração; CF-017 migração; CF-005/008 perfis de UI/adaptador. |
 | AC-TIME-010 | DiaProduto independe de JVM; dia clicado preservado; instante único no caso de uso. | CF-006 Clock; CF-022 define semana/reprocessamento/concorrência/vínculo de meta antes de expected exato. |
 | AC-UI-005/011 | Inválido não persiste; lista/detalhe/exportação/reload conservam semântica. | CF-008/007/012–014; validador documental não substitui essas camadas. |
@@ -121,4 +121,4 @@ Consultas mensais devem expressar [primeiroDia, primeiroDiaDoPróximoMês); para
 
 Um Clock capturado por operação evita dias divergentes dentro dela, mas não resolve concorrência, cron duplicado ou pagamento repetido. Unicidade/transação por janela/usuário e idempotência: CF-022/024. Zone no agendamento sem Clock nos cálculos é insuficiente.
 
-Pendências delimitadas: DEC-03/CF-019 (ciclo, fronteira de compra, mês curto/dia útil; CF-013 coordena vencimentos copiados); DEC-08/CF-022 (semana/streak/efeito em meta); admissibilidade de prazo passado/presente na criação CF-020; proveniência/schema CF-017; entidades expostas/PUT planejamento/envelopes CF-008; regime de relatório CF-016/021. Não são resolvidas por inferência do código. Revisão independente e conformidade do produto não executadas pela CF-004.
+Pendências delimitadas: regras contratuais de dia útil e emissor permanecem desconhecidas; DEC-03/CF-019 define apenas calendário gerencial (CF-013 coordena vencimentos copiados). DEC-08/CF-022 (semana/streak/efeito em meta); admissibilidade de prazo passado/presente na criação CF-020; proveniência/schema CF-017; entidades expostas/PUT planejamento/envelopes CF-008; regime de relatório CF-016/021. Não são resolvidas por inferência do código. Revisão independente e conformidade do produto não executadas pela CF-004.

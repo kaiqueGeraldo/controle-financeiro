@@ -35,7 +35,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED
               )
-              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.origin IS NULL OR t.origin NOT IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT))
               AND EXTRACT(YEAR FROM t.date) = :year
             """)
     BigDecimal sumByTypeAndYear(@Param("userId") UUID userId, @Param("type") TransactionType type, @Param("year") Integer year);
@@ -62,7 +64,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED
               )
-              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.origin IS NULL OR t.origin NOT IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT))
             GROUP BY t.date, t.type
             """)
     List<Object[]> sumAmountByDateAndType(@Param("userId") UUID userId, @Param("startDate") LocalDate startDate);
@@ -82,7 +86,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED
               )
-              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.origin IS NULL OR t.origin NOT IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT))
             GROUP BY EXTRACT(YEAR FROM t.date), EXTRACT(MONTH FROM t.date), t.type
             """)
     List<Object[]> sumAmountByMonthAndType(@Param("userId") UUID userId, @Param("startDate") LocalDate startDate);
@@ -99,7 +105,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED
               )
-              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.origin IS NULL OR t.origin NOT IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT))
             GROUP BY t.type
             """)
     List<Object[]> sumTotalAmountByType(@Param("userId") UUID userId);
@@ -117,7 +125,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED
               )
-              AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.origin IS NULL OR t.origin NOT IN (
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
+                  com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT))
             GROUP BY t.type
             """)
     List<Object[]> sumAmountByTypeAndDateBetween(@Param("userId") UUID userId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);

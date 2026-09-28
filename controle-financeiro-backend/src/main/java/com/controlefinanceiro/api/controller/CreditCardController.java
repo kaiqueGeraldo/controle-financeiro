@@ -43,9 +43,10 @@ public class CreditCardController {
     }
 
     @PostMapping("/transaction")
-    public ResponseEntity<Void> createTransaction(@RequestBody @Valid CreateCardTransactionDTO data) {
+    public ResponseEntity<Void> createTransaction(@RequestBody @Valid CreateCardTransactionDTO data,
+                                                  @AuthenticationPrincipal User user) {
         log.info("API: Nova Compra no Cartão {}. Valor: {}. Parcelas: {}", data.cardId(), data.amount(), data.totalInstallments());
-        service.createTransaction(data);
+        service.createTransaction(data, user);
         return ResponseEntity.ok().build();
     }
 

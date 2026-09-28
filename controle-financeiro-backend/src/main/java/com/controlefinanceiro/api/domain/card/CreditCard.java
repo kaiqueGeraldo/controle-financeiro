@@ -32,6 +32,9 @@ public class CreditCard {
     @Column(name = "card_limit", nullable = false)
     private BigDecimal limit;
 
+    @Column(name = "credit_balance", nullable = false)
+    private BigDecimal creditBalance = BigDecimal.ZERO;
+
     @Column(nullable = false)
     private Integer closingDay;
 

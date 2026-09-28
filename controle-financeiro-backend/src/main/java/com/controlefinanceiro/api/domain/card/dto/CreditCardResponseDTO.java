@@ -12,10 +12,11 @@ public record CreditCardResponseDTO(
         String brand,
         BigDecimal limit,
         Integer closingDay,
-        Integer dueDay
+        Integer dueDay,
+        BigDecimal creditBalance
 ) {
     public CreditCardResponseDTO(CreditCard c) {
         this(c.getId(), c.getName(), c.getLast4Digits(), c.getColor(), c.getBrand(),
-                c.getLimit(), c.getClosingDay(), c.getDueDay());
+                c.getLimit(), c.getClosingDay(), c.getDueDay(), c.getCreditBalance());
     }
 }

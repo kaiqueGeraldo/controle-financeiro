@@ -411,7 +411,7 @@ public class GoalService {
                     parcelas
             );
 
-            UUID transactionId = creditCardService.createTransaction(cardTx);
+            UUID transactionId = creditCardService.createTransaction(cardTx, user);
             item.setCardTransactionId(transactionId);
             item.setUsedGoalBalance(false);
             goal.setCurrentValue(goal.getCurrentValue().add(data.paidPrice()));
