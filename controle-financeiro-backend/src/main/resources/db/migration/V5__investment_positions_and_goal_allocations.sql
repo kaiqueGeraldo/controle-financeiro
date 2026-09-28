@@ -43,6 +43,8 @@ CREATE INDEX idx_goal_allocations_investment ON goal_allocations(investment_id);
 ALTER TABLE goal_history ADD COLUMN allocation_id uuid;
 ALTER TABLE goal_items ADD COLUMN allocation_id uuid;
 ALTER TABLE transactions ADD COLUMN goal_item_id uuid;
+CREATE UNIQUE INDEX uk_transactions_goal_item_purchase ON transactions(goal_item_id)
+    WHERE goal_item_id IS NOT NULL;
 -- Nomes de FK do schema legado podem ter sido gerados pelo Hibernate.
 DO $$
 DECLARE fk record;

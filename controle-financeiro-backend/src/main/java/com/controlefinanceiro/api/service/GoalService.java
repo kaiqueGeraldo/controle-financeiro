@@ -565,8 +565,15 @@ public class GoalService {
     @Transactional
     public void refundItem(UUID itemId, User user) {
         ZonedDateTime now = ZonedDateTime.now(clock);
-        GoalItem item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
+        GoalItem item = itemRepository.findById(itemId).orElse(null);
+        if (item == null) {
+            // A intenção pode ter sido excluída antes de o lojista reembolsar.
+            Transaction purchase = transactionRepository.findGoalPurchase(itemId, user.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Compra de item não encontrada"));
+            refundBankPurchase(purchase.getId(), "Reembolso: " + purchase.getDescription(), user, now);
+            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
+            return;
+        }
         if (!item.getGoal().getUser().getId().equals(user.getId())) {
             throw new ResourceNotFoundException("Item não encontrado");
         }
@@ -574,34 +581,7 @@ public class GoalService {
             throw new BusinessRuleException("Compra já estornada ou ainda não realizada.");
         }
         if (item.getBankTransactionId() != null) {
-            Transaction original = transactionRepository.findOwnedForUpdate(item.getBankTransactionId(), user.getId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Compra bancária não encontrada"));
-            if (original.getStatus() != TransactionStatus.SETTLED
-                    || transactionRepository.existsByReversalOfId(original.getId())) {
-                throw new BusinessRuleException("Compra já estornada.");
-            }
-            Account account = accountRepository.findOwnedForAllocation(original.getAccount().getId(), user.getId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Conta da compra não encontrada"));
-            account.credit(original.getAmount());
-            accountRepository.save(account);
-            original.markReversed();
-            transactionRepository.save(original);
-
-            Transaction reversal = new Transaction();
-            reversal.setDescription("Reembolso Compra Meta: " + item.getName());
-            reversal.setAmount(original.getAmount());
-            reversal.setDate(now.toLocalDate());
-            reversal.setCreatedAt(now.toLocalDateTime());
-            reversal.captureTemporal(null, now.toInstant(), reversal.getCreatedAt());
-            reversal.setType(TransactionType.EXPENSE);
-            reversal.setPaid(true);
-            reversal.setOrigin(TransactionOrigin.REVERSAL);
-            reversal.setReversalOfId(original.getId());
-            reversal.setAccount(account);
-            reversal.setCategory(original.getCategory());
-            reversal.setUser(user);
-            reversal.setSystemManaged(true);
-            transactionRepository.save(reversal);
+            refundBankPurchase(item.getBankTransactionId(), "Reembolso Compra Meta: " + item.getName(), user, now);
         } else if (item.getCardTransactionId() != null) {
             creditCardService.refundPurchase(item.getCardTransactionId(), item.getPaidPrice(), now.toLocalDate(), null, user);
         } else {
@@ -610,6 +590,37 @@ public class GoalService {
         item.setStatus(GoalItemStatus.REFUNDED);
         itemRepository.save(item);
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
+    }
+
+    private void refundBankPurchase(UUID transactionId, String description, User user, ZonedDateTime now) {
+        Transaction original = transactionRepository.findOwnedForUpdate(transactionId, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Compra bancária não encontrada"));
+        if (original.getStatus() != TransactionStatus.SETTLED
+                || transactionRepository.existsByReversalOfId(original.getId())) {
+            throw new BusinessRuleException("Compra já estornada.");
+        }
+        Account account = accountRepository.findOwnedForAllocation(original.getAccount().getId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Conta da compra não encontrada"));
+        account.credit(original.getAmount());
+        accountRepository.save(account);
+        original.markReversed();
+        transactionRepository.save(original);
+
+        Transaction reversal = new Transaction();
+        reversal.setDescription(description);
+        reversal.setAmount(original.getAmount());
+        reversal.setDate(now.toLocalDate());
+        reversal.setCreatedAt(now.toLocalDateTime());
+        reversal.captureTemporal(null, now.toInstant(), reversal.getCreatedAt());
+        reversal.setType(TransactionType.EXPENSE);
+        reversal.setPaid(true);
+        reversal.setOrigin(TransactionOrigin.REVERSAL);
+        reversal.setReversalOfId(original.getId());
+        reversal.setAccount(account);
+        reversal.setCategory(original.getCategory());
+        reversal.setUser(user);
+        reversal.setSystemManaged(true);
+        transactionRepository.save(reversal);
     }
 
     @Transactional

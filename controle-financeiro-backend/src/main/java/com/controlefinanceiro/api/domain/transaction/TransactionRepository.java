@@ -138,6 +138,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     boolean existsByReversalOfId(UUID reversalOfId);
 
+    @Query("SELECT t FROM Transaction t WHERE t.goalItemId = :goalItemId AND t.user.id = :userId "
+            + "AND t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.GOAL_PURCHASE")
+    java.util.Optional<Transaction> findGoalPurchase(@Param("goalItemId") UUID goalItemId,
+                                                      @Param("userId") UUID userId);
+
     boolean existsBySettlementOfId(UUID settlementOfId);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)

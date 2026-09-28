@@ -97,7 +97,7 @@ class Cf020InvestmentGoalIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
-    void purchaseConsumesRealCashAndItsReservationButDeletingChecklistDoesNotRefund() {
+    void deletedChecklistPreservesCashAndCanBeRefundedOnceFromItsRecordedOrigin() {
         User owner = owner();
         Account account = account(owner, "1000.00");
         UUID goalId = goal(owner, GoalType.MONETARY);
@@ -125,6 +125,14 @@ class Cf020InvestmentGoalIntegrationTest extends PostgresIntegrationTest {
                 .findFirst().orElseThrow();
         assertThat(purchase.getOrigin()).isEqualTo(TransactionOrigin.GOAL_PURCHASE);
         assertThat(purchase.getGoalItemId()).isEqualTo(itemId);
+
+        goals.refundItem(itemId, owner);
+        assertThatThrownBy(() -> goals.refundItem(itemId, owner))
+                .isInstanceOf(BusinessRuleException.class).hasMessageContaining("estornada");
+        em.flush();
+        assertThat(accounts.findById(account.getId()).orElseThrow().getBalance()).isEqualByComparingTo("1000.00");
+        assertThat(transactions.sumByTypeAndYear(owner.getId(), TransactionType.EXPENSE, DAY.getYear()))
+                .isEqualByComparingTo("0.00");
     }
 
     @Test
