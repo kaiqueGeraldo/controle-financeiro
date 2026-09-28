@@ -40,6 +40,9 @@ public class GoalItem {
     @Column(name = "bank_transaction_id")
     private UUID bankTransactionId;
 
+    @Column(name = "allocation_id")
+    private UUID allocationId;
+
     @Column(name = "card_transaction_id")
     private UUID cardTransactionId;
 

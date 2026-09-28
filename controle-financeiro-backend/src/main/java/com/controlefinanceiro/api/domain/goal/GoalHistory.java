@@ -32,6 +32,9 @@ public class GoalHistory {
 
     private String note;
 
+    @Column(name = "allocation_id")
+    private UUID allocationId;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goal_id", nullable = false)

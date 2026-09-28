@@ -35,16 +35,22 @@ public class InvestTransaction {
     @Column(name = "date_origin")
     private com.controlefinanceiro.api.domain.temporal.DateOrigin dateOrigin;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 20, scale = 8)
     private BigDecimal quantity;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 20, scale = 8)
     private BigDecimal price;
 
     @Column(name = "total_value", nullable = false)
     private BigDecimal totalValue;
 
     private BigDecimal fees = BigDecimal.ZERO;
+
+    @Column(name = "cost_delta", precision = 38, scale = 2)
+    private BigDecimal costDelta;
+
+    @Column(name = "realized_result", precision = 38, scale = 2)
+    private BigDecimal realizedResult;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "investment_id", nullable = false)

@@ -26,5 +26,11 @@ public record CreateGoalDTO(
         @NotNull(message = "O tipo é obrigatório")
         GoalType type,
 
-        Boolean useChecklist
-) {}
+        Boolean useChecklist,
+        BigDecimal initialProgress
+) {
+    public CreateGoalDTO(String title, BigDecimal targetValue, LocalDate deadline, String category,
+                         String icon, String color, GoalType type, Boolean useChecklist) {
+        this(title, targetValue, deadline, category, icon, color, type, useChecklist, null);
+    }
+}

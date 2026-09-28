@@ -136,13 +136,15 @@ class TemporalCompatibilityIntegrationTest extends PostgresIntegrationTest {
                 .content("{\"investmentId\":\""+automatic.getId()+"\",\"newBalance\":20}"))
                 .andExpect(status().isOk());
         mvc.perform(get("/investments/"+automatic.getId()+"/history").header("Authorization", auth))
-                .andExpect(status().isOk()).andExpect(jsonPath("$[0].date").value("2026-09-08"))
-                .andExpect(jsonPath("$[0].dateOrigin").value("PRODUCT_CALENDAR"))
-                .andExpect(jsonPath("$[0].legacyDateRaw").value("2026-09-08T00:10:00"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$").isEmpty());
         assertThat(sql.queryForObject("select operation_date from invest_transactions where investment_id=?", LocalDate.class, manual.getId()))
                 .isEqualTo(LocalDate.of(2026,9,7));
-        assertThat(sql.queryForObject("select operation_date from invest_transactions where investment_id=?", LocalDate.class, automatic.getId()))
+        assertThat(sql.queryForObject("select valuation_date from investments where id=?", LocalDate.class, automatic.getId()))
                 .isEqualTo(LocalDate.of(2026,9,8));
+        assertThat(sql.queryForObject("select valuation_amount from investments where id=?", java.math.BigDecimal.class, automatic.getId()))
+                .isEqualByComparingTo("20.00");
+        assertThat(sql.queryForObject("select count(*) from invest_transactions where investment_id=?", Integer.class, automatic.getId()))
+                .isZero();
         mvc.perform(get("/transactions?month=9&year=2026").header("Authorization", auth))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.content[0].time").isEmpty())
                 .andExpect(jsonPath("$.content[0].timeOrigin").value("NOT_PROVIDED"))

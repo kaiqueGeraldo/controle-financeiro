@@ -4,7 +4,6 @@ import com.controlefinanceiro.api.domain.account.Account;
 import com.controlefinanceiro.api.domain.account.AccountRepository;
 import com.controlefinanceiro.api.domain.account.AccountType;
 import com.controlefinanceiro.api.domain.category.CategoryRepository;
-import com.controlefinanceiro.api.domain.goal.GoalHistoryRepository;
 import com.controlefinanceiro.api.domain.goal.GoalRepository;
 import com.controlefinanceiro.api.domain.investment.InvestTransType;
 import com.controlefinanceiro.api.domain.investment.InvestTransactionRepository;
@@ -60,8 +59,9 @@ class InvestmentServiceTemporalTest {
         account.setBalance(new BigDecimal("100.00"));
         account.setUser(user);
 
-        when(investmentRepository.findById(investment.getId())).thenReturn(Optional.of(investment));
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+        investment.setTotalCost(BigDecimal.ZERO);
+        when(investmentRepository.findOwnedForAllocation(investment.getId(), user.getId())).thenReturn(Optional.of(investment));
+        when(accountRepository.findOwnedForAllocation(account.getId(), user.getId())).thenReturn(Optional.of(account));
         when(categoryRepository.findByUserIdAndName(any(), any())).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
         injectDependencies(service, investmentRepository, investTransactionRepository, accountRepository,
@@ -97,7 +97,9 @@ class InvestmentServiceTemporalTest {
         ReflectionTestUtils.setField(service, "accountRepository", accountRepository);
         ReflectionTestUtils.setField(service, "transactionRepository", transactionRepository);
         ReflectionTestUtils.setField(service, "goalRepository", mock(GoalRepository.class));
-        ReflectionTestUtils.setField(service, "goalHistoryRepository", mock(GoalHistoryRepository.class));
+        var allocations = mock(com.controlefinanceiro.api.domain.goal.GoalAllocationRepository.class);
+        when(allocations.sumByAccountId(any())).thenReturn(BigDecimal.ZERO);
+        ReflectionTestUtils.setField(service, "allocationRepository", allocations);
         ReflectionTestUtils.setField(service, "eventPublisher", mock(ApplicationEventPublisher.class));
         ReflectionTestUtils.setField(service, "categoryRepository", categoryRepository);
     }

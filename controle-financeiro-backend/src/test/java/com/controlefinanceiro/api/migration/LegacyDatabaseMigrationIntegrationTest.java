@@ -52,7 +52,8 @@ class LegacyDatabaseMigrationIntegrationTest {
                         Map.of("type", "BASELINE", "version", "1", "success", true),
                         Map.of("type", "SQL", "version", "2", "success", true),
                         Map.of("type", "SQL", "version", "3", "success", true),
-                        Map.of("type", "SQL", "version", "4", "success", true)
+                        Map.of("type", "SQL", "version", "4", "success", true),
+                        Map.of("type", "SQL", "version", "5", "success", true)
                 );
         assertThat(sql.queryForObject("select balance from accounts where id=?", BigDecimal.class, ACCOUNT_ID))
                 .isEqualByComparingTo("1000.25");
@@ -80,6 +81,11 @@ class LegacyDatabaseMigrationIntegrationTest {
         assertThat(sql.queryForObject(
                 "select count(*) from invest_transactions where operation_date is null and date_origin is null",
                 Integer.class)).isEqualTo(2);
+        assertThat(sql.queryForObject("select legacy_current_price from investments where ticker='LEG3'",
+                BigDecimal.class)).isEqualByComparingTo("55.00");
+        assertThat(sql.queryForObject("select count(*) from investments where ticker='LEG3' "
+                + "and current_price is null and valuation_amount is null and total_cost is null",
+                Integer.class)).isOne();
         assertThat(sql.queryForObject(
                 "select count(*) from accounts where opening_balance is null and opening_date is null "
                         + "and opening_origin is null and opening_recorded_at is null", Integer.class)).isOne();

@@ -18,5 +18,10 @@ public record GoalDepositDTO(
 
         String note,
 
-        EvolutionProtocol protocol
-) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}
+        EvolutionProtocol protocol,
+        UUID investmentId
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    public GoalDepositDTO(UUID accountId, BigDecimal amount, String time, String note, EvolutionProtocol protocol) {
+        this(accountId, amount, time, note, protocol, null);
+    }
+}

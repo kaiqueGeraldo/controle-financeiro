@@ -17,11 +17,12 @@ public record GoalResponseDTO(
         BigDecimal currentValue,
         LocalDate deadline,
         Boolean useChecklist,
-        Integer orderIndex
+        Integer orderIndex,
+        Boolean allocationReconciled
 ) {
     public GoalResponseDTO(Goal g) {
         this(g.getId(), g.getTitle(), g.getCategory(), g.getIcon(), g.getColor(),
                 g.getType(), g.getTargetValue(), g.getCurrentValue(), g.getDeadline(),
-                g.getUseChecklist(), g.getOrderIndex());
+                g.getUseChecklist(), g.getOrderIndex(), g.getAllocationReconciled());
     }
 }

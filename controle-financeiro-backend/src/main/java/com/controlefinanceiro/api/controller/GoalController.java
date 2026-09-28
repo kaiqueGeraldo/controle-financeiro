@@ -104,6 +104,32 @@ public class GoalController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}/allocations")
+    public ResponseEntity<List<GoalAllocationResponseDTO>> allocations(
+            @PathVariable UUID id, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.listAllocations(id, user));
+    }
+
+    @PutMapping("/{id}/allocations")
+    public ResponseEntity<Void> setAllocation(@PathVariable UUID id,
+            @RequestBody @Valid SetGoalAllocationDTO data, @AuthenticationPrincipal User user) {
+        service.setAllocation(id, data, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/allocations/move")
+    public ResponseEntity<Void> moveAllocation(@PathVariable UUID id,
+            @RequestBody @Valid MoveGoalAllocationDTO data, @AuthenticationPrincipal User user) {
+        service.moveAllocation(id, data, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/items/{itemId}/refund")
+    public ResponseEntity<Void> refundItem(@PathVariable UUID itemId, @AuthenticationPrincipal User user) {
+        service.refundItem(itemId, user);
+        return ResponseEntity.noContent().build();
+    }
+
     @PatchMapping("/{id}/items/reorder")
     public ResponseEntity<Void> reorderItems(
             @PathVariable UUID id,

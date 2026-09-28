@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface GoalHistoryRepository extends JpaRepository<GoalHistory, UUID> {
     List<GoalHistory> findByGoalIdOrderByDateDesc(UUID goalId);
 
+
     @Query("SELECT gh FROM GoalHistory gh WHERE gh.goal.id = :goalId AND gh.note = :note AND CAST(gh.date AS date) = :date")
     List<GoalHistory> findByGoalAndNoteAndDate(
             @Param("goalId") UUID goalId,

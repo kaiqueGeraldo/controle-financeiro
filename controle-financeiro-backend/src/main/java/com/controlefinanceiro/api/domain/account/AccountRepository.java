@@ -23,4 +23,8 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Account a WHERE a.id IN :ids AND a.user.id = :userId ORDER BY a.id")
     List<Account> findAllByIdForTransfer(@Param("ids") List<UUID> ids, @Param("userId") UUID userId);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT a FROM Account a WHERE a.id = :id AND a.user.id = :userId")
+    Optional<Account> findOwnedForAllocation(@Param("id") UUID id, @Param("userId") UUID userId);
 }

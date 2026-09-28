@@ -15,6 +15,8 @@ public record InvestTransactionResponseDTO(
         BigDecimal price,
         BigDecimal totalValue,
         BigDecimal fees,
+        BigDecimal costDelta,
+        BigDecimal realizedResult,
         String dateOrigin,
         java.time.LocalDateTime legacyDateRaw
 ) {
@@ -27,6 +29,8 @@ public record InvestTransactionResponseDTO(
                 transaction.getPrice(),
                 transaction.getTotalValue(),
                 transaction.getFees(),
+                transaction.getCostDelta(),
+                transaction.getRealizedResult(),
                 transaction.getDateOrigin() == null ? "UNKNOWN" : transaction.getDateOrigin().name(),
                 transaction.getDate()
         );

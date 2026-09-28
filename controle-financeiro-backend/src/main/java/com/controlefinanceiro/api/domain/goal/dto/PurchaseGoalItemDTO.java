@@ -10,5 +10,10 @@ public record PurchaseGoalItemDTO(
         @NotNull @Positive BigDecimal paidPrice,
         UUID accountId,
         UUID cardId,
-        Integer installments
-) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {}
+        Integer installments,
+        UUID allocationId
+) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    public PurchaseGoalItemDTO(BigDecimal paidPrice, UUID accountId, UUID cardId, Integer installments) {
+        this(paidPrice, accountId, cardId, installments, null);
+    }
+}

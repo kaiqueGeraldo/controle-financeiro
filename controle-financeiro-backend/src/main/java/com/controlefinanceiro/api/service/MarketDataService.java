@@ -1,7 +1,5 @@
 package com.controlefinanceiro.api.service;
 
-import com.controlefinanceiro.api.domain.goal.Goal;
-import com.controlefinanceiro.api.domain.goal.GoalRepository;
 import com.controlefinanceiro.api.domain.investment.InvestType;
 import com.controlefinanceiro.api.domain.investment.Investment;
 import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
@@ -17,9 +15,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -28,7 +26,7 @@ public class MarketDataService {
     @Autowired
     private InvestmentRepository investmentRepository;
     @Autowired
-    private GoalRepository goalRepository;
+    private Clock clock;
 
     @Value("${api.brapi.token}")
     private String brapiToken;
@@ -61,49 +59,29 @@ public class MarketDataService {
             String tickersParam = String.join(",", batch);
             String url = BRAPI_BASE_URL + tickersParam + "?token=" + brapiToken;
 
-            // Armazena apenas metas únicas afetadas neste lote
-            Set<Goal> affectedGoalsInBatch = new HashSet<>();
-
             try {
                 BrapiResponseDTO response = restTemplate.getForObject(url, BrapiResponseDTO.class);
                 if (response != null && response.results() != null) {
                     for (BrapiResponseDTO.StockDTO stockData : response.results()) {
-                        updateAssetPrice(stockData.symbol(), stockData.regularMarketPrice(), affectedGoalsInBatch);
+                        updateAssetPrice(stockData.symbol(), stockData.regularMarketPrice());
                     }
                 }
             } catch (Exception e) {
                 log.error("MARKET: Erro ao processar lote [{}].", tickersParam, e);
             }
 
-            // Atualiza o somatório das metas apenas uma vez por lote
-            for (Goal goal : affectedGoalsInBatch) {
-                updateLinkedGoal(goal);
-            }
         }
     }
 
-    private void updateAssetPrice(String ticker, BigDecimal newPrice, Set<Goal> affectedGoals) {
-        if (newPrice == null) return;
+    private void updateAssetPrice(String ticker, BigDecimal newPrice) {
+        if (newPrice == null || newPrice.signum() < 0 || newPrice.scale() > 8) return;
 
         List<Investment> investments = investmentRepository.findAllByTicker(ticker);
 
         for (Investment asset : investments) {
-            if (asset.getCurrentPrice().compareTo(newPrice) != 0) {
-                asset.setCurrentPrice(newPrice);
-                investmentRepository.save(asset);
-
-                // Apenas adiciona ao Set, delegando a atualização para o fim do lote
-                if (asset.getGoal() != null) {
-                    affectedGoals.add(asset.getGoal());
-                }
-            }
+            asset.evaluate(newPrice, LocalDate.now(clock), "BRAPI");
+            investmentRepository.save(asset);
         }
-    }
-
-    private void updateLinkedGoal(Goal goal) {
-        BigDecimal totalValue = investmentRepository.sumValueByGoalId(goal.getId());
-        goal.setCurrentValue(totalValue != null ? totalValue : BigDecimal.ZERO);
-        goalRepository.save(goal);
     }
 
     private boolean isVariableIncome(InvestType type) {

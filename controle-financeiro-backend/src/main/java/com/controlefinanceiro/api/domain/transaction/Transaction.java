@@ -69,6 +69,9 @@ public class Transaction extends com.controlefinanceiro.api.domain.temporal.Oper
     @Column(name = "correction_of_id")
     private UUID correctionOfId;
 
+    @Column(name = "goal_item_id")
+    private UUID goalItemId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionType type;

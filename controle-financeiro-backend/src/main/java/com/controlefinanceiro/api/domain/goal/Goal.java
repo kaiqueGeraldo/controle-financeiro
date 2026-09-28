@@ -41,6 +41,9 @@ public class Goal {
     @Column(nullable = false)
     private BigDecimal currentValue = BigDecimal.ZERO;
 
+    @Column(name = "allocation_reconciled", nullable = false)
+    private Boolean allocationReconciled = true;
+
     @Column(nullable = false)
     private LocalDate deadline;
 
