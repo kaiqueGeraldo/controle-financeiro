@@ -1,6 +1,6 @@
 # CF-020 — Corrigir posições de investimentos e alocações de metas
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Alocar 300 de conta 1.000 muda disponível, não patrimônio; duas metas não excedem fonte disponível.
-- [ ] Venda parcial/taxas preservam precisão e custo esperado; cotação indisponível não grava zero como valor confirmado.
-- [ ] Excluir item/meta e estornar preserva saldo/origem; nova tentativa não repete compensação.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Alocar 300 de conta 1.000 muda disponível, não patrimônio; duas metas não excedem fonte disponível.
+- [x] Venda parcial/taxas preservam precisão e custo esperado; cotação indisponível não grava zero como valor confirmado.
+- [x] Excluir item/meta e estornar compra bancária preserva saldo/origem; nova tentativa não repete compensação.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,8 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-020/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementação backend e migração V5 concluídas localmente em 28/09/2026 sobre `59d98fa`, commits `3746e8e` e `d11359e`. Gate final PostgreSQL: 162 testes, zero falhas/erros/ignorados. CF-016 está concluída; CF-017/018 e CF-019 estão integradas na base local, mas ainda `em_revisao`, sem adoção em banco real. O `README.md` preexistente permaneceu fora do escopo. [Evidências, decisões e pendências](../evidencias/CF-020/README.md).
+
+Estado `em_revisao` não certifica produto completo: adaptação dos consumidores frontend, motivo/data obrigatórios em ajuste manual, correção rastreável de operações de investimento, reembolso de cartão após exclusão e agregados de CF-021 ainda exigem trabalho ou revisão. A CF-021 pode iniciar localmente sobre esta base integrada, condicionada aos gates de revisão; CF-024/027/028/030 ainda têm outras dependências abertas. Não houve deploy, migração real nem revisão independente.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-
