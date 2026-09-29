@@ -52,6 +52,14 @@ public class InvestTransaction {
     @Column(name = "realized_result", precision = 38, scale = 2)
     private BigDecimal realizedResult;
 
+    private Long sequenceNumber;
+    private UUID accountId;
+    private UUID withholdingTransactionId;
+    private java.time.Instant recordedAt;
+    @Column(precision=38,scale=2) private BigDecimal beforeValue;
+    @Column(precision=20,scale=8) private BigDecimal beforeQuantity;
+    @Column(precision=38,scale=2) private BigDecimal monetaryAmount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "investment_id", nullable = false)
     private Investment investment;

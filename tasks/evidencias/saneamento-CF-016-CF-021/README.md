@@ -30,7 +30,7 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Implementado; ver checkpoint C1 e limites |
 | RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + E2E | Pendente |
 | RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + XLSX | Pendente |
-| RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Pendente |
+| RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Investimentos implementados/verificados no C2; estorno direto pendente |
 | RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | 360/768/1440 | Pendente |
 | NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
 | H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
@@ -132,3 +132,42 @@ UI apresenta desconhecido, data/origem individual, taxas e comando de resgate.
 Evidência: browser/c1 (log, SQL pós-commit, histórico e capturas). RVI-08 tem
 separação do caixa líquido no agregado, mas consumidor/XLSX ainda pendentes.
 RVI-21 compensação permanece pendente; este checkpoint não fecha toda a etapa C.
+
+### Checkpoint C2 — compensação de investimento e cadeia de custo
+
+FIN-07: POST de compensação preserva operação original, data/motivo/fonte,
+taxas explicitamente devolvidas, identificação e recibo. Mesma chave/conteúdo
+retorna o registro; outro conteúdo ou outra compensação do original é recusado.
+Cancelamento sem taxa devolvida registra perda realizada, sem segunda despesa.
+Substituição de aquisição recalcula vendas dependentes e deixa revisões imutáveis
+em investment_cost_revisions. Dashboard agrega o delta de resultado na data efetiva.
+UI oferece cancelamento ou operação substituta e histórico separado, com reload.
+
+V8 grava sequência de novas operações e adota a posição atual como referência
+inicial de replay. Não inventa sequência de operações históricas: compensação de
+operação anterior sem sequência/fonte comprovadas exige reconciliação explícita.
+Esse limite histórico permanece; não equivale a adoção real aprovada da CF-017.
+Replay e auditoria têm custo O(operações da posição), memória O(n), sob lock da
+conta seguido do investimento. Nenhum lock global por usuário foi introduzido.
+
+- Domínio/PG: 4 testes de compensação aprovados (E18 com/sem devolução de taxa,
+  owner distinto/repetição, substituição com venda dependente, provento e duas
+  transações concorrentes). Custo original da venda50,50 permanece; revisão40,50,
+  posição121,50, ganho agregado33,50 e conta912,00 após corrigir aquisição.
+- Primeira execução revelou ausência de entidade para revisão no schema de teste;
+  passou a usar repositório JPA. Hibernate validate depois revelou nulabilidade
+  divergente; modelo alinhado ao SQL sem relaxar constraints.
+- Vazio6/6, legado2/2 e upgrades V2–V7→V8 seis aprovados. Fixture adicional preserva
+  posição conhecida e desconhecida, timestamp bruto e sequência histórica nula.
+- Regressão posterior18/18: upgrades6, CF02011, H011; meta/reserva e ordem de locks
+  continuam aprovados. Logs completos ignorados em target/saneamento-c2*.log.
+- Browser/BFF/Spring/PG: SAN-C e SAN-C2 aprovados; compra original202 preservada,
+  compensação202 retorna conta1000 e posição0; histórico disponível após reload.
+  Repetição final inclui HTTP400 para taxa numérica no novo contrato decimal string.
+- TypeScript e lint passaram. Capturas de compensação360/768/1440 abertas e
+  inspecionadas; data/conta do resgate empilhadas em360 e captura final inspecionada.
+  Sem equivalência com zoom nativo200%.
+
+Evidências browser/c2 e browser/c2-final: logs, SQL após commit, recibos, históricos
+e capturas. RVI-21 de transações diretas segue pendente. Escopos D/E e revisão
+independente do marco continuam necessários antes de aceite/publicação.

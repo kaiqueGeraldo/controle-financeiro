@@ -24,6 +24,20 @@ public class InvestmentController {
 
     @Autowired
     private InvestmentService service;
+    @Autowired private com.controlefinanceiro.api.service.InvestmentCorrectionService corrections;
+
+    @PostMapping("/operation/{id}/corrections")
+    public ResponseEntity<com.controlefinanceiro.api.domain.investment.InvestmentCorrection> correct(
+            @PathVariable UUID id, @RequestBody @Valid com.controlefinanceiro.api.domain.investment.dto.CorrectInvestmentDTO data,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(corrections.correct(id,data,user));
+    }
+
+    @GetMapping("/{id}/corrections")
+    public ResponseEntity<List<com.controlefinanceiro.api.domain.investment.InvestmentCorrection>> corrections(
+            @PathVariable UUID id,@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(corrections.history(id,user));
+    }
 
     @GetMapping
     public ResponseEntity<List<InvestmentResponseDTO>> listAll(@AuthenticationPrincipal User user) {

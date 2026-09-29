@@ -72,6 +72,10 @@ public class Investment {
     @Version
     private Long version;
 
+    @Column(precision=20,scale=8) private BigDecimal replayQuantity;
+    @Column(precision=38,scale=2) private BigDecimal replayCost;
+    @Column(nullable=false) private long operationSequence;
+
     // Helper para calcular saldo total atual
     public BigDecimal getTotalValue() {
         return valuationAmount;

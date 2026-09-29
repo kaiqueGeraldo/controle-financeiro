@@ -1,0 +1,16 @@
+Namespace: san1821-2e955428
+Flyway versions: [1, 2, 3, 4, 5, 6, 7, 8]
+select a.name,a.balance,a.opening_balance,a.is_archived from accounts a join users u on u.id=a.user_id where u.email like ? order by a.name
+[{name=Carteira Física, balance=0.00, opening_balance=null, is_archived=false}, {name=Carteira Física, balance=0.00, opening_balance=null, is_archived=false}, {name=san1821-2e955428-cash, balance=2099.00, opening_balance=1000.00, is_archived=false}, {name=san1821-2e955428-source, balance=1000.00, opening_balance=1000.00, is_archived=false}]
+select t.description,t.amount,t.date,t.type,t.origin,t.status,t.settlement_of_id,t.reversal_of_id from transactions t join users u on u.id=t.user_id where u.email like ? order by t.description,t.origin
+[{description=Aporte: SANCORR, amount=202.00, date=2027-01-15, type=EXPENSE, origin=INVESTMENT_BUY, status=SETTLED, settlement_of_id=null, reversal_of_id=null}, {description=Compensação de investimento: Cancelamento E18 comprovado, amount=202.00, date=2027-01-15, type=EXPENSE, origin=REVERSAL, status=SETTLED, settlement_of_id=null, reversal_of_id=4e191002-b33c-4294-8b9d-656bd99ffac9}, {description=Resgate: SANFIX, amount=220.00, date=2027-01-15, type=INCOME, origin=INVESTMENT_SELL, status=SETTLED, settlement_of_id=null, reversal_of_id=null}, {description=Resgate: SANFIX, amount=879.00, date=2027-01-15, type=INCOME, origin=INVESTMENT_SELL, status=SETTLED, settlement_of_id=null, reversal_of_id=null}]
+select c.name,i.month,i.year,i.status,ct.amount,ct.paid_amount,ct.refunded_amount from card_transactions ct join invoices i on i.id=ct.invoice_id join credit_cards c on c.id=i.card_id join users u on u.id=c.user_id where u.email like ? order by c.name,i.year,i.month
+[]
+select g.title,g.current_value,a.amount from goals g left join goal_allocations a on a.goal_id=g.id join users u on u.id=g.user_id where u.email like ?
+[]
+select i.name,i.quantity,i.total_cost,i.valuation_amount from investments i join users u on u.id=i.user_id where u.email like ?
+[{name=Renda fixa saneamento, quantity=0E-8, total_cost=0.00, valuation_amount=0.00}, {name=Compensação saneamento, quantity=0E-8, total_cost=0.00, valuation_amount=0.00}]
+select c.original_id,c.cash_delta,c.realized_delta,c.returned_fees,c.reason,c.recorded_at from investment_corrections c join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[{original_id=538577bc-13aa-4664-ae1d-ef0c36d74efe, cash_delta=202.00, realized_delta=0.00, returned_fees=2.00, reason=Cancelamento E18 comprovado, recorded_at=2027-01-15 09:00:00.123456}]
+select r.transaction_id,r.cost_delta,r.realized_result from investment_cost_revisions r join investment_corrections c on c.id=r.correction_id join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[{transaction_id=538577bc-13aa-4664-ae1d-ef0c36d74efe, cost_delta=0.00, realized_result=0.00}]

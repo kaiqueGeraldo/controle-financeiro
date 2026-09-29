@@ -56,7 +56,7 @@ test("SAN-C avaliação auditada, resgate B08 e encerramento pela UI",async({pag
  await modal.getByRole("button",{name:"Confirmar Operação"}).click();expect((await response).ok()).toBe(true);
  await page.reload();modal=await open();await modal.getByRole("button",{name:"Resgatar",exact:true}).click();
  await modal.getByLabel("Valor informado").fill("220");await modal.getByLabel("Conta",{exact:true}).selectOption(a.id);
- for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.screenshot({path:path.join(dir,`san-c-resgate-${width}.png`),animations:"disabled"});}
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-c-resgate-modal-${width}.png`),animations:"disabled"});await page.screenshot({path:path.join(dir,`san-c-resgate-${width}.png`),animations:"disabled"});}
  response=page.waitForResponse(r=>r.url().endsWith("/investments/operation")&&r.request().method()==="POST");
  await modal.getByRole("button",{name:"Confirmar Operação"}).click();expect((await response).ok()).toBe(true);
  await page.reload();
@@ -70,4 +70,30 @@ test("SAN-C avaliação auditada, resgate B08 e encerramento pela UI",async({pag
  expect([asset.quantity,asset.totalCost,asset.valuationAmount]).toEqual([0,0,0]);
  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(2099);
  await writeFile(path.join(dir,"san-c-history.json"),JSON.stringify(await json(page,`/investments/${i.id}/history`),null,2));
+});
+
+test("SAN-C2 compensar aquisição pela UI, reload e auditoria preservada",async({page})=>{
+ await start(page,"correction");
+ const a=await post(page,"/accounts",{name:`${ns}-source`,type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const i=await post(page,"/investments",{ticker:"SANCORR",name:"Compensação saneamento",type:"STOCK",openingQuantity:0,openingCost:0});
+ await post(page,"/investments/operation",{investmentId:i.id,type:"BUY",quantity:20,price:10,fees:2,date:"2027-01-15",accountId:a.id});
+ const original=(await json(page,`/investments/${i.id}/history`))[0];
+ const invalid=await page.request.post(`/api/investments/operation/${original.id}/corrections`,{data:{operationId:crypto.randomUUID(),date:"2027-01-15",reason:"Fronteira decimal",returnedFees:2}});
+ expect(invalid.status()).toBe(400);
+ await page.goto("/investimentos");await page.getByText("SANCORR",{exact:true}).click();
+ await page.getByRole("button",{name:"Compensar operação",exact:true}).click();
+ const modal=page.getByRole("dialog",{name:"Compensar operação",exact:true});
+ await modal.getByLabel("Motivo",{exact:true}).fill("Cancelamento E18 comprovado");
+ await modal.getByLabel("Taxas devolvidas",{exact:true}).fill("2");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-c2-modal-${width}.png`),animations:"disabled"});}
+ const response=page.waitForResponse(r=>r.url().endsWith("/corrections")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar compensação",exact:true}).click();expect((await response).ok()).toBe(true);
+ await page.reload();await page.getByText("SANCORR",{exact:true}).click();
+ await expect(page.getByRole("region",{name:"Compensações registradas"}).getByText(/Cancelamento E18 comprovado/)).toBeVisible();
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000);
+ const asset=(await json(page,"/investments")).find((v:{id:string})=>v.id===i.id);
+ expect([asset.quantity,asset.totalCost,asset.valuationAmount]).toEqual([0,0,0]);
+ const history=await json(page,`/investments/${i.id}/history`);expect(history).toHaveLength(1);expect(history[0].costDelta).toBe(202);
+ const corrections=await json(page,`/investments/${i.id}/corrections`);expect(corrections).toHaveLength(1);
+ await writeFile(path.join(dir,"san-c2-audit.json"),JSON.stringify({history,corrections},null,2));
 });

@@ -28,6 +28,7 @@ public class DashboardService {
     @Autowired private CardTransactionRepository cardTransactionRepository;
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private InvestTransactionRepository investTransactionRepository;
+    @Autowired private com.controlefinanceiro.api.domain.investment.InvestmentCorrectionRepository investmentCorrections;
     @Autowired
     private Clock clock;
 
@@ -72,7 +73,8 @@ public class DashboardService {
         if (accountId == null && type == null) {
             investmentResult = investTransactionRepository.countUnknownResultsByPeriod(
                     user.getId(), startDate, endDate) > 0 ? null
-                    : investTransactionRepository.sumRealizedResultByPeriod(user.getId(), startDate, endDate);
+                    : investTransactionRepository.sumRealizedResultByPeriod(user.getId(), startDate, endDate)
+                        .add(investmentCorrections.sumResult(user.getId(), startDate, endDate));
         }
         return new PeriodTotals(income, expense, cardConsumption, investmentResult);
     }

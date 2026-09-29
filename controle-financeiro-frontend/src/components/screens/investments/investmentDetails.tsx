@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { History, Loader2, Plus, RefreshCw, Trash2, X } from "lucide-react";
 import React from "react";
 import { BadgeTipo, getAssetColor, getAssetIcon } from "./investmentItem";
+import {InvestmentCorrections} from "./investmentCorrections";
 
 interface InvestmentDetailsProps {
   isOpen: boolean;
@@ -266,7 +267,7 @@ export function InvestmentDetails({
                         <button
                           onClick={() => onDeleteHistory(transacao.id)}
                           className="text-text-muted hover:text-rose-500 p-1 rounded hover:bg-rose-500/10 transition cursor-pointer"
-                          title="Excluir Movimentação"
+                          title="Compensar operação"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -279,6 +280,7 @@ export function InvestmentDetails({
                   </p>
                 )}
               </div>
+              <InvestmentCorrections investmentId={asset.id}/>
             </motion.div>
           </motion.div>
         </div>

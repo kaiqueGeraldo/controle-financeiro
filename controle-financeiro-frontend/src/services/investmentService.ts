@@ -8,7 +8,35 @@ import {
   InvestTransaction,
 } from "@/types";
 
+export interface InvestmentCorrectionCommand {
+  operationId: string;
+  date: string;
+  reason: string;
+  returnedFees: string;
+  replacementQuantity: string | null;
+  replacementPrice: string | null;
+  replacementFees: string | null;
+}
+export interface InvestmentCorrection {
+  id: string;
+  originalId: string;
+  effectiveDate: string;
+  accountId: string;
+  cashDelta: number;
+  realizedDelta: number;
+  recordedAt: string;
+  reason: string;
+  returnedFees: number;
+  replacementQuantity: number | null;
+  replacementPrice: number | null;
+  replacementFees: number | null;
+}
+
 export const investmentService = {
+  correct: (id: string, data: InvestmentCorrectionCommand) => apiRequest<InvestmentCorrection>(`/investments/operation/${id}/corrections`, {
+    method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(data),
+  }),
+  corrections: (id: string, signal?: AbortSignal) => apiRequest<InvestmentCorrection[]>(`/investments/${id}/corrections`, {method:"GET",signal}),
   getAll: async (signal?: AbortSignal) => {
     return apiRequest<Investment[]>("/investments", { method: "GET", signal });
   },

@@ -158,19 +158,32 @@ public class InvestmentService {
             throw new BusinessRuleException("Taxa não pode exceder o bruto da operação.");
         }
 
-        switch (data.type()) {
+        if (investment.getReplayQuantity() == null) {
+            investment.setReplayQuantity(investment.getQuantity());
+            investment.setReplayCost(investment.getTotalCost());
+        }
+        BigDecimal beforeQuantity = investment.getQuantity();
+        BigDecimal beforeValue = investment.getValuationAmount();
+        InvestTransaction recorded = switch (data.type()) {
             case BUY -> processBuy(investment, data, account, user, now, gross, fees);
             case SELL -> processSell(investment, data, account, user, now, gross, fees);
             case DIVIDEND, INTEREST -> processDividend(investment, data, account, user, now, gross, fees);
-        }
+        };
 
+        recorded.setBeforeQuantity(beforeQuantity);
+        recorded.setBeforeValue(beforeValue);
+        recorded.setMonetaryAmount(data.amount());
+        recorded.setAccountId(account.getId());
+        recorded.setRecordedAt(now.toInstant());
+        investment.setOperationSequence(investment.getOperationSequence() + 1);
+        recorded.setSequenceNumber(investment.getOperationSequence());
         investmentRepository.save(investment);
 
         log.info("SERVICE: Operação finalizada com sucesso.");
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
     }
 
-    private void processBuy(Investment investment, InvestmentOperationDTO data, Account account,
+    private InvestTransaction processBuy(Investment investment, InvestmentOperationDTO data, Account account,
                             User user, ZonedDateTime now, BigDecimal gross, BigDecimal fees) {
         if (investment.getQuantity().signum() > 0 && investment.getTotalCost() == null) {
             throw new BusinessRuleException("Custo da posição legada requer reconciliação antes de nova compra.");
@@ -193,10 +206,10 @@ public class InvestmentService {
         requireMoney(newCost, false);
         investment.setQuantityAndCost(newQuantity, newCost);
         investment.resizeValuation();
-        createInvestTransaction(investment, InvestTransType.BUY, data, bankTx, gross, totalCost, null);
+        return createInvestTransaction(investment, InvestTransType.BUY, data, bankTx, gross, totalCost, null);
     }
 
-    private void processSell(Investment investment, InvestmentOperationDTO data, Account account,
+    private InvestTransaction processSell(Investment investment, InvestmentOperationDTO data, Account account,
                              User user, ZonedDateTime now, BigDecimal gross, BigDecimal fees) {
         log.info("SERVICE: Executando lógica de VENDA.");
 
@@ -233,10 +246,10 @@ public class InvestmentService {
                 costRemoved == null ? null : investment.getTotalCost().subtract(costRemoved));
         investment.resizeValuation();
         if (data.amount() != null) investment.evaluateTotal(remainingValue, investment.getValuationDate(), investment.getValuationSource());
-        createInvestTransaction(investment, InvestTransType.SELL, data, bankTx, gross, costRemoved, result);
+        return createInvestTransaction(investment, InvestTransType.SELL, data, bankTx, gross, costRemoved, result);
     }
 
-    private void processDividend(Investment investment, InvestmentOperationDTO data, Account account,
+    private InvestTransaction processDividend(Investment investment, InvestmentOperationDTO data, Account account,
                                  User user, ZonedDateTime now, BigDecimal gross, BigDecimal fees) {
         BigDecimal net = gross.subtract(fees);
         if (net.signum() > 0) {
@@ -248,14 +261,18 @@ public class InvestmentService {
                 TransactionOrigin.INVESTMENT_DIVIDEND);
         income.setCashAmount(net);
         transactionRepository.save(income);
+        UUID withholdingId = null;
         if (fees.signum() > 0) {
             Transaction withholding = createBankTransaction(account, fees, TransactionType.EXPENSE,
                     "Retenção de proventos: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
                     TransactionOrigin.INVESTMENT_FEE);
             withholding.setCashAmount(BigDecimal.ZERO);
             transactionRepository.save(withholding);
+            withholdingId = withholding.getId();
         }
-        createInvestTransaction(investment, data.type(), data, income, gross, null, null);
+        InvestTransaction recorded = createInvestTransaction(investment, data.type(), data, income, gross, null, null);
+        recorded.setWithholdingTransactionId(withholdingId);
+        return recorded;
     }
 
     @Transactional
@@ -302,7 +319,7 @@ public class InvestmentService {
         throw new BusinessRuleException("Operação realizada exige compensação rastreável; exclusão simples não é permitida.");
     }
 
-    private void createInvestTransaction(Investment investment, InvestTransType type, InvestmentOperationDTO data,
+    private InvestTransaction createInvestTransaction(Investment investment, InvestTransType type, InvestmentOperationDTO data,
                                          Transaction bankTx, BigDecimal gross, BigDecimal costDelta, BigDecimal realizedResult) {
         InvestTransaction t = new InvestTransaction();
         t.setInvestment(investment);
@@ -317,7 +334,7 @@ public class InvestmentService {
         t.setCostDelta(costDelta);
         t.setRealizedResult(realizedResult);
         t.setBankTransaction(bankTx);
-        investTransactionRepository.save(t);
+        return investTransactionRepository.save(t);
     }
 
     private static void requireMoney(BigDecimal amount, boolean positive) {

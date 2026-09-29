@@ -293,7 +293,7 @@ export function OperationModal({
 
           {/* CAMPOS COMUNS (Conta e Data) - Não exibe para Ajuste de Saldo */}
           {activeTab !== "UPDATE_BALANCE" && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs text-text-muted font-bold uppercase ml-1">
                   Data

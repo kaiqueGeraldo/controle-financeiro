@@ -10,6 +10,9 @@ import { useInvestments } from "@/hooks/useInvestments";
 import { useSidebar } from "@/hooks/useSidebar";
 import { AlertCircle, Loader2, Plus } from "lucide-react";
 import { useState } from "react";
+import {InvestmentCorrectionModal} from "@/components/forms/investmentCorrectionModal";
+import {type InvestTransaction} from "@/types";
+import {useFinanceData} from "@/hooks/useFinanceData";
 
 export default function InvestimentosScreen() {
   const { scrolled } = useSidebar();
@@ -26,14 +29,14 @@ export default function InvestimentosScreen() {
     history,
     isHistoryLoading,
     deleteInvestment,
-    deleteHistory,
     error,
     refreshInvestments,
   } = useInvestments();
 
   const { openNewAsset, openOperation } = useInvestmentModals();
   const [assetToDelete, setAssetToDelete] = useState<string | null>(null);
-  const [historyToDelete, setHistoryToDelete] = useState<string | null>(null);
+  const [correction, setCorrection] = useState<InvestTransaction | null>(null);
+  const {refresh} = useFinanceData();
 
   if (isLoading) {
     return (
@@ -130,15 +133,15 @@ export default function InvestimentosScreen() {
         history={history}
         isHistoryLoading={isHistoryLoading}
         onOperation={(asset) => { setSelectedInvestmentId(null); openOperation(asset); }}
-        onDeleteAsset={(id) => setAssetToDelete(id)}
-        onDeleteHistory={(id) => setHistoryToDelete(id)}
+        onDeleteAsset={(id) => {setSelectedInvestmentId(null);setAssetToDelete(id);}}
+        onDeleteHistory={(id) => {const row=history.find(t=>t.id===id);if(row){setCorrection(row);setSelectedInvestmentId(null);}}}
       />
 
       <ConfirmationModal
         isOpen={!!assetToDelete}
         onClose={() => setAssetToDelete(null)}
         title="Excluir Ativo"
-        message="Deseja excluir este ativo? Todo o histórico de operações dele será apagado permanentemente."
+        message="A exclusão é permitida somente para um ativo sem posição, destinações ou histórico de operações."
         confirmText="Excluir"
         confirmColor="bg-rose-600 hover:bg-rose-700 text-white"
         onConfirm={async () => {
@@ -149,20 +152,8 @@ export default function InvestimentosScreen() {
         }}
       />
 
-      <ConfirmationModal
-        isOpen={!!historyToDelete}
-        onClose={() => setHistoryToDelete(null)}
-        title="Excluir Movimentação"
-        message="Deseja excluir esta operação? A quantidade de cotas será recalculada. Lembre-se: Ajustes de estorno no saldo bancário deverão ser feitos manualmente no extrato."
-        confirmText="Excluir"
-        confirmColor="bg-rose-600 hover:bg-rose-700 text-white"
-        onConfirm={async () => {
-          if (historyToDelete) {
-            await deleteHistory(historyToDelete);
-            setHistoryToDelete(null);
-          }
-        }}
-      />
+      {correction && <InvestmentCorrectionModal key={correction.id} transaction={correction}
+        onClose={()=>setCorrection(null)} onSuccess={()=>Promise.all([refreshInvestments(),refresh(true)])}/>}
     </div>
   );
 }
