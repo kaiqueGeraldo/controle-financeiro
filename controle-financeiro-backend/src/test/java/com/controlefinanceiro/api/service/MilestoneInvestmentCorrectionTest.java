@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.*;
 import static org.assertj.core.api.Assertions.*;
 
+@org.springframework.boot.test.context.SpringBootTest(properties={"spring.flyway.enabled=true","spring.jpa.hibernate.ddl-auto=validate"})
+@org.springframework.test.context.ContextConfiguration(initializers=com.controlefinanceiro.api.migration.EmptyMigrationTestInitializer.class,inheritInitializers=false)
 class MilestoneInvestmentCorrectionTest extends PostgresIntegrationTest {
     @Autowired InvestmentService investments;
     @Autowired InvestmentCorrectionService corrections;
@@ -60,6 +62,8 @@ class MilestoneInvestmentCorrectionTest extends PostgresIntegrationTest {
         assertThat(scalar("select cost_delta from invest_transactions where id=?",sell)).isEqualByComparingTo("50.50");
         assertThat(scalar("select cost_delta from investment_cost_revisions where transaction_id=?",sell)).isEqualByComparingTo("40.50");
         assertThat(dashboard.getPeriodTotals(f.user(),DAY,DAY.plusDays(1),null,null).investmentResult()).isEqualByComparingTo("33.50");
+        assertThat(dashboard.getPeriodTotals(f.user(),DAY,DAY.plusDays(1),null,null).income()).isZero();
+        assertThat(dashboard.getPeriodTotals(f.user(),DAY,DAY.plusDays(1),null,null).expense()).isZero();
         assertThatThrownBy(()->corrections.correct(buy,new CorrectInvestmentDTO(command.operationId(),command.date(),"Outro motivo",command.returnedFees(),command.replacementQuantity(),command.replacementPrice(),command.replacementFees()),f.user())).hasMessageContaining("outro conteúdo");
         // A later cancellation replays the already-corrected chain.
         corrections.correct(sell,cancel("1.00"),f.user());

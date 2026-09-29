@@ -169,7 +169,10 @@ public class InvestmentCorrectionService {
         boolean dividend=origin==TransactionOrigin.INVESTMENT_DIVIDEND;
         Transaction replacement=bank(account,user,data,dividend?gross:cash,cash,
             original.getType()==InvestTransType.BUY?TransactionType.EXPENSE:TransactionType.INCOME,origin);
-        if(original.getBankTransaction()!=null) replacement.setCorrectionOfId(original.getBankTransaction().getId());
+        if(original.getBankTransaction()!=null) {
+            replacement.setOrigin(TransactionOrigin.CORRECTION);
+            replacement.setCorrectionOfId(original.getBankTransaction().getId());
+        }
         transactions.save(replacement);
         if(dividend && data.replacementFees().signum()>0)
             transactions.save(bank(account,user,data,data.replacementFees(),BigDecimal.ZERO,TransactionType.EXPENSE,TransactionOrigin.INVESTMENT_FEE));
@@ -179,7 +182,8 @@ public class InvestmentCorrectionService {
         Transaction tx=new Transaction();tx.setUser(user);tx.setAccount(account);tx.setAmount(amount);tx.setCashAmount(cash);
         tx.setDate(data.date());tx.setCreatedAt(data.date().atStartOfDay());tx.captureTemporal(null,clock.instant(),tx.getCreatedAt());
         tx.setPaid(true);tx.setSystemManaged(true);tx.setType(type);tx.setOrigin(origin);
-        tx.setDescription("Compensação de investimento: "+data.reason());return tx;
+        String description="Compensação de investimento: "+data.reason();
+        tx.setDescription(description.substring(0,Math.min(255,description.length())));return tx;
     }
     private void owned(UUID id,User user) {
         if(!investments.existsByIdAndUserId(id,user.getId())) throw new ResourceNotFoundException("Investimento não encontrado");

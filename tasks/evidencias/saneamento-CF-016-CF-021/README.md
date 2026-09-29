@@ -171,3 +171,16 @@ conta seguido do investimento. Nenhum lock global por usuário foi introduzido.
 Evidências browser/c2 e browser/c2-final: logs, SQL após commit, recibos, históricos
 e capturas. RVI-21 de transações diretas segue pendente. Escopos D/E e revisão
 independente do marco continuam necessários antes de aceite/publicação.
+
+### Complemento C2 — constraint da substituição
+
+Ao conferir o fluxo de substituição contra V3, o vínculo correction_of_id exigia
+origem CORRECTION; o teste inicial de domínio usava schema criado por Hibernate
+e não exercitava essa constraint. Corrigido o movimento substituto e a leitura
+gerencial da origem original, evitando contar principal como receita/despesa.
+A descrição curta do extrato respeita255 caracteres e o motivo completo permanece
+na auditoria. MilestoneInvestmentCorrectionTest agora usa Flyway + validate em
+schema descartável da infraestrutura CF-017: quatro casos passaram, inclusive
+as novas assertivas de receita/despesa zero na correção de principal. Log:
+controle-financeiro-backend/target/saneamento-c2-schema-final.log. O checkpoint
+C2 anterior não deve ser lido como prova de substituição no schema migrado.

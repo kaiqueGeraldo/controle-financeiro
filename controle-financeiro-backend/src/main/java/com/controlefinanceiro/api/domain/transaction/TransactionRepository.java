@@ -49,7 +49,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                 com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
                 THEN -t.amount ELSE t.amount END), 0)
             FROM Transaction t LEFT JOIN Transaction original
-              ON original.id = t.reversalOfId AND original.user.id = :userId
+              ON original.id = COALESCE(t.reversalOfId,t.correctionOfId) AND original.user.id = :userId
             WHERE t.user.id = :userId AND t.date BETWEEN :startDate AND :endDate
               AND t.status IN (
                 com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
@@ -59,9 +59,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
                 com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
               AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
                    OR original.id IS NOT NULL)
-              AND (CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+              AND (CASE WHEN t.origin IN (com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL,
+                    com.controlefinanceiro.api.domain.transaction.TransactionOrigin.CORRECTION)
                    THEN original.origin ELSE t.origin END IS NULL
-                   OR CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
+                   OR CASE WHEN t.origin IN (com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL,
+                    com.controlefinanceiro.api.domain.transaction.TransactionOrigin.CORRECTION)
                    THEN original.origin ELSE t.origin END NOT IN (
                 com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING,
                 com.controlefinanceiro.api.domain.transaction.TransactionOrigin.INVOICE_PAYMENT,
