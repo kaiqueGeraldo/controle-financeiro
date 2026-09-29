@@ -1,0 +1,478 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO]
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest
+19:52:28.061 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:52:28.294 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest
+19:52:28.556 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+19:52:28.556 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-28 19:52:28.982 - INFO 45820 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-28 19:52:29.476 - INFO 45820 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-28 19:52:34.916 - INFO 45820 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-28 19:52:34.916 - INFO 45820 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-28 19:52:34.940 - INFO 45820 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker:
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels:
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-28 19:52:35.847 - INFO 45820 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-28 19:52:35.847 - INFO 45820 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-28 19:52:35.847 - INFO 45820 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-28 19:52:37.547 - INFO 45820 --- [           main] c.c.a.s.Cf018RegressionIntegrationTest   : Starting Cf018RegressionIntegrationTest using Java 21.0.12.1 with PID 45820 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-28 19:52:37.548 - INFO 45820 --- [           main] c.c.a.s.Cf018RegressionIntegrationTest   : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-28 19:52:44.433 - WARN 45820 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-28 19:52:52.463 - INFO 45820 --- [           main] c.c.a.s.Cf018RegressionIntegrationTest   : Started Cf018RegressionIntegrationTest in 23.891 seconds (process running for 26.243)
+-2026-09-28 19:52:52.713 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=10.00, ContaID=93857e1b-2788-41f8-acb6-704509951e71
+-2026-09-28 19:52:52.734 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=10.00, ContaID=93857e1b-2788-41f8-acb6-704509951e71
+-2026-09-28 19:52:52.933 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=10.00, ContaID=93857e1b-2788-41f8-acb6-704509951e71
+-2026-09-28 19:52:53.027 - INFO 45820 --- [pool-3-thread-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=700.00, ContaID=8bd53a7b-436f-40bd-ba68-11b30b671c02
+-2026-09-28 19:52:53.029 - INFO 45820 --- [pool-3-thread-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=700.00, ContaID=8bd53a7b-436f-40bd-ba68-11b30b671c02
+-2026-09-28 19:52:53.188 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=88087079-99c2-4b19-9fef-ff4c5f7775a3
+-2026-09-28 19:52:53.258 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6965b1dc-aaf7-48ed-a1bb-d84d07d50e29
+-2026-09-28 19:52:53.291 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 1f3ac162-b7a1-4ac7-b8e6-d371d6516b7c
+-2026-09-28 19:52:53.311 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Estornando impacto financeiro da transa��o 1f3ac162-b7a1-4ac7-b8e6-d371d6516b7c na conta 88087079-99c2-4b19-9fef-ff4c5f7775a3
+-2026-09-28 19:52:53.357 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 6965b1dc-aaf7-48ed-a1bb-d84d07d50e29
+-2026-09-28 19:52:53.370 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 1f3ac162-b7a1-4ac7-b8e6-d371d6516b7c
+-2026-09-28 19:52:53.389 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 3b0e3ade-4c48-4df9-9925-bb669dfababa
+-2026-09-28 19:52:53.390 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=1.005, ContaID=e62dcbcb-109e-4372-bc96-35bed23cb8ec
+-2026-09-28 19:52:53.391 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=10.00, ContaID=e62dcbcb-109e-4372-bc96-35bed23cb8ec
+-2026-09-28 19:52:53.414 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=300.00, ContaID=943cc16d-3b84-4113-9296-83ec78526338
+-2026-09-28 19:52:53.425 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 81375d52-c6a6-420f-abb1-c7aa13b23ef5
+-2026-09-28 19:52:53.473 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=100.00, ContaID=07aacf37-2222-44ac-a709-fec09a012ec8
+-2026-09-28 19:52:53.482 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 07aacf37-2222-44ac-a709-fec09a012ec8. Novo saldo: 900.00
+-2026-09-28 19:52:53.486 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2f685c30-7bd7-4d5c-aa47-91e906373d76
+-2026-09-28 19:52:53.486 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=60.00, ContaID=07aacf37-2222-44ac-a709-fec09a012ec8
+-2026-09-28 19:52:53.492 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID dea3614d-87c6-4bc5-b48c-20e567c9397d
+-2026-09-28 19:52:53.492 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID dea3614d-87c6-4bc5-b48c-20e567c9397d
+-2026-09-28 19:52:53.508 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 2f685c30-7bd7-4d5c-aa47-91e906373d76
+-2026-09-28 19:52:53.515 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Estornando impacto financeiro da transa��o 2f685c30-7bd7-4d5c-aa47-91e906373d76 na conta 07aacf37-2222-44ac-a709-fec09a012ec8
+-2026-09-28 19:52:53.533 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 2f685c30-7bd7-4d5c-aa47-91e906373d76
+-2026-09-28 19:52:53.545 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=de1fb1ed-177e-46d1-b515-6888d8e1d15a
+-2026-09-28 19:52:53.568 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID c822ac50-f454-4dd0-bd06-7fa9c01d51c0
+-2026-09-28 19:52:53.625 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID c822ac50-f454-4dd0-bd06-7fa9c01d51c0
+-2026-09-28 19:52:53.643 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10.00, ContaID=2185e623-04b3-49d9-8cb8-36a41449d865
+-2026-09-28 19:52:53.675 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=51dd6e1c-85cf-4277-950b-17b9b9515127
+-2026-09-28 19:52:53.683 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 56f5abb3-5d05-4a9d-a605-cede19a07938
+-2026-09-28 19:52:53.694 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 56f5abb3-5d05-4a9d-a605-cede19a07938
+-2026-09-28 19:52:53.709 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=eaafc087-a0de-4fa6-8452-78d1466870e8
+-2026-09-28 19:52:53.722 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0d18b68c-1004-42d0-b215-3ba87a21ace7
+-2026-09-28 19:52:53.722 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 0d18b68c-1004-42d0-b215-3ba87a21ace7
+-2026-09-28 19:52:53.729 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 0d18b68c-1004-42d0-b215-3ba87a21ace7
+-2026-09-28 19:52:53.731 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 0d18b68c-1004-42d0-b215-3ba87a21ace7
+-2026-09-28 19:52:53.763 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=1b5e679c-e332-417b-a9de-9c4f5a6f1676
+-2026-09-28 19:52:53.772 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 77505ae4-896b-403c-bb55-f641d5c0cb74
+-2026-09-28 19:52:53.772 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 77505ae4-896b-403c-bb55-f641d5c0cb74
+-2026-09-28 19:52:53.789 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=ecd039d1-b481-4732-8965-b26515761569
+-2026-09-28 19:52:53.797 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 35d72f6e-cf25-40e4-b6ec-13e1572c50b0
+-2026-09-28 19:52:53.827 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=80.00, ContaID=5b19a306-581e-4541-9e0f-b5a2288792e4
+-2026-09-28 19:52:53.835 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 5b19a306-581e-4541-9e0f-b5a2288792e4. Novo saldo: -30.00
+-2026-09-28 19:52:53.839 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID dc5d241e-174a-403a-aea7-c4f437757187
+-2026-09-28 19:52:53.839 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=80.00, ContaID=667b3a7a-d69b-4166-a847-b05a7a1ba878
+-2026-09-28 19:52:53.851 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=100.00, ContaID=7a5b7e1d-b044-4229-bee6-f6dff22dd103
+-2026-09-28 19:52:53.856 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 7a5b7e1d-b044-4229-bee6-f6dff22dd103. Novo saldo: 1100.00
+-2026-09-28 19:52:53.860 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID efe13a4a-eb82-4880-b656-e9dbd96a404b
+-2026-09-28 19:52:53.860 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=7a5b7e1d-b044-4229-bee6-f6dff22dd103
+-2026-09-28 19:52:53.865 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a3c2990b-d930-45fe-86a5-0ac3686ac07f
+-2026-09-28 19:52:53.868 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40.00, ContaID=7a5b7e1d-b044-4229-bee6-f6dff22dd103
+-2026-09-28 19:52:53.870 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 7a5b7e1d-b044-4229-bee6-f6dff22dd103. Novo saldo: 1060.00
+-2026-09-28 19:52:53.874 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2df8e1fd-9560-46b5-8e07-9a7018f7dea9
+-2026-09-28 19:52:53.874 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 2df8e1fd-9560-46b5-8e07-9a7018f7dea9
+-2026-09-28 19:52:53.879 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Estornando impacto financeiro da transa��o 2df8e1fd-9560-46b5-8e07-9a7018f7dea9 na conta 7a5b7e1d-b044-4229-bee6-f6dff22dd103
+-2026-09-28 19:52:53.935 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=f86743fa-e292-4be3-9f59-981702775ca7
+-2026-09-28 19:52:53.951 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-09-28 19:52:53.951 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF018 forced second leg failure
+  Onde: PL/pgSQL function cf018_reject_inbound_leg() line 4 at RAISE
+-2026-09-28 19:52:53.978 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID e574e5d2-0bfb-4ee8-9969-fc77ab0e6acc
+-2026-09-28 19:52:53.979 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-28 19:52:53.999 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=475161c7-025d-4997-96bd-310d6f4555f4
+-2026-09-28 19:52:54.038 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 32dca067-f6b1-427d-a95d-9461008719fc
+-2026-09-28 19:52:54.039 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 32dca067-f6b1-427d-a95d-9461008719fc
+-2026-09-28 19:52:54.039 - INFO 45820 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 32dca067-f6b1-427d-a95d-9461008719fc
+-2026-09-28 19:52:54.062 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=784b7b62-5b1d-456a-9072-729f40924389
+-2026-09-28 19:52:54.077 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID fbe4bd8a-64be-4bb1-8a59-bd241d1533bf
+-2026-09-28 19:52:54.102 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 4bc43aed-d6b5-4fa7-822d-5091a2ec722a
+-2026-09-28 19:52:54.104 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID 4bc43aed-d6b5-4fa7-822d-5091a2ec722a
+-2026-09-28 19:52:54.108 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=100.00, ContaID=741ffe3a-3375-41bc-8477-6ae399f2e5a0
+-2026-09-28 19:52:54.117 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 741ffe3a-3375-41bc-8477-6ae399f2e5a0. Novo saldo: 1100.00
+-2026-09-28 19:52:54.121 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ead2e3a6-fdbe-428d-8a9f-920dba993427
+-2026-09-28 19:52:54.121 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID ead2e3a6-fdbe-428d-8a9f-920dba993427
+-2026-09-28 19:52:54.145 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10.00, ContaID=ff3cb59e-7b2b-454e-9d64-59ec370ff62d
+-2026-09-28 19:52:54.154 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta ff3cb59e-7b2b-454e-9d64-59ec370ff62d. Novo saldo: 90.00
+-2026-09-28 19:52:54.159 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 58665632-19ab-4e97-a828-5062c3532e05
+-2026-09-28 19:52:54.161 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 58665632-19ab-4e97-a828-5062c3532e05
+-2026-09-28 19:52:54.169 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 58665632-19ab-4e97-a828-5062c3532e05
+-2026-09-28 19:52:54.195 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID d6a6f908-c95f-4992-afbb-44d1d40fea75
+-2026-09-28 19:52:54.198 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID d6a6f908-c95f-4992-afbb-44d1d40fea75
+-2026-09-28 19:52:54.206 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=3ddb5bf1-7df3-41f4-93f3-9b67472b4138
+-2026-09-28 19:52:54.214 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aaf33a03-f751-41e9-a900-612b16d86cbe
+-[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.57 s -- in com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.Cf019CardIntegrationTest
+2026-09-28 19:52:54.250 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 037f794c-0598-4a7f-be3c-21e60ee85807: 1.00 (1x)
+-2026-09-28 19:52:54.329 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.334 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 037f794c-0598-4a7f-be3c-21e60ee85807: 2.00 (1x)
+-2026-09-28 19:52:54.357 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.362 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 037f794c-0598-4a7f-be3c-21e60ee85807: 3.00 (1x)
+-2026-09-28 19:52:54.384 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.425 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 4855b83d-4502-41bf-a971-ce30791b7b5a: 200.00 (1x)
+-2026-09-28 19:52:54.449 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.456 - INFO 45820 --- [pool-5-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.456 - INFO 45820 --- [pool-5-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.490 - INFO 45820 --- [pool-5-thread-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:54.583 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID c60e1e3a-ce20-4a87-9592-c816a3abf3ef: 200.00 (1x)
+-2026-09-28 19:52:54.606 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.610 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.628 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:54.668 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.685 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:54.765 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID a3c14cde-d6cb-4ce7-9745-85257042dcd7: 200.00 (1x)
+-2026-09-28 19:52:54.784 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.788 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID a3c14cde-d6cb-4ce7-9745-85257042dcd7: 50.00 (1x)
+-2026-09-28 19:52:54.805 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:54.809 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.825 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:54.905 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:54.921 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:55.011 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ab6ae7a1-7e9d-47f5-8cd0-65bc53a4a4cc: 120.00 (1x)
+-2026-09-28 19:52:55.030 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.034 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:55.048 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:55.166 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ab6ae7a1-7e9d-47f5-8cd0-65bc53a4a4cc: 60.00 (1x)
+-2026-09-28 19:52:55.182 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.205 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID b6cdfc86-bbf8-4f70-b268-8c6b3907edbc: 100.00 (1x)
+-2026-09-28 19:52:55.220 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.399 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-28 19:52:55.411 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 9/2026)
+-2026-09-28 19:52:55.418 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-09-28 19:52:55.418 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE
+-2026-09-28 19:52:55.420 -ERROR 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Erro ao tentar fechar a fatura ID 0a1f6fa2-ac48-4752-b355-9e35e6154363
+-
+org.springframework.orm.jpa.JpaSystemException: could not execute statement [ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE] [update invoices set card_id=?,closing_date=?,due_date=?,month=?,status=?,year=? where id=?]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:223) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:557) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:794) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:757) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:149) ~[spring-tx-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.InvoiceCronService.processInvoiceClosing(InvoiceCronService.java:50) ~[classes/:na]
+	at com.controlefinanceiro.api.service.Cf019CardIntegrationTest.closingCronRetriesAfterRollbackAndNeverClosesOrNotifiesTwice(Cf019CardIntegrationTest.java:402) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+Caused by: org.hibernate.exception.GenericJDBCException: could not execute statement [ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE] [update invoices set card_id=?,closing_date=?,due_date=?,month=?,status=?,year=? where id=?]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:39) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:184) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:66) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.doStaticUpdate(UpdateCoordinatorStandard.java:776) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.performUpdate(UpdateCoordinatorStandard.java:313) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.update(UpdateCoordinatorStandard.java:231) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.action.internal.EntityUpdateAction.execute(EntityUpdateAction.java:161) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:381) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1489) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:481) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2116) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2038) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:410) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:166) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:248) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:553) ~[spring-orm-7.0.3.jar:7.0.3]
+	... 86 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2846) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2531) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:429) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:526) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:436) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.9.jar:42.7.9]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:181) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	... 108 common frames omitted
+
+2026-09-28 19:52:55.426 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-28 19:52:55.442 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-28 19:52:55.446 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 9/2026)
+-2026-09-28 19:52:55.456 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-28 19:52:55.456 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-28 19:52:55.461 - INFO 45820 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-28 19:52:55.482 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 0844b026-dee3-4550-800b-79c69c0bf4a5: 100.00 (3x)
+-2026-09-28 19:52:55.523 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.554 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 040f59cf-4c92-4ce0-8106-e3fa1fc852e3: 25.00 (1x)
+-2026-09-28 19:52:55.569 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.572 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 040f59cf-4c92-4ce0-8106-e3fa1fc852e3: 10.00 (1x)
+-2026-09-28 19:52:55.587 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:55.599 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:55.604 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:55.623 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 14332111-bb3d-4021-8f02-6cfe7a051b2e: 90.00 (3x)
+-2026-09-28 19:52:55.661 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.818 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:55.827 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:55.882 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 1bd34d2b-d5aa-4bff-9211-f214697a043c: 70.00 (1x)
+-2026-09-28 19:52:55.895 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.951 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 4cc81b9e-9724-498d-9f70-d108109c5c9e: 200.00 (1x)
+-2026-09-28 19:52:55.965 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:55.969 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:55.979 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:56.022 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:56.028 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:56.036 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:56.091 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 26021ba3-e021-48c6-bbaa-5a0a7860a198: 100.00 (1x)
+-2026-09-28 19:52:56.104 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:56.109 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-28 19:52:56.118 - INFO 45820 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-09-28 19:52:56.128 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-09-28 19:52:56.128 - WARN 45820 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF019 synthetic allocation failure
+  Onde: PL/pgSQL function cf019_reject_allocation() line 5 at RAISE
+-2026-09-28 19:52:56.153 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6d1693be-dbc6-442b-b225-41a6b82d949a: 0.03 (3x)
+-2026-09-28 19:52:56.190 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-28 19:52:56.196 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6d1693be-dbc6-442b-b225-41a6b82d949a: 0.01 (2x)
+-2026-09-28 19:52:56.202 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6d1693be-dbc6-442b-b225-41a6b82d949a: 1.005 (1x)
+-2026-09-28 19:52:56.207 - INFO 45820 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6d1693be-dbc6-442b-b225-41a6b82d949a: 1000000000000.00 (1x)
+-[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.988 s -- in com.controlefinanceiro.api.service.Cf019CardIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest
+2026-09-28 19:52:56.231 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.233 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'DROP' (STOCK) para usu�rio acfa6de2-09e8-460c-aab0-d6f406afa5ac@example.test
+-2026-09-28 19:52:56.234 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 2131d2dc-c31f-4ba8-9d24-c6ab01cedb36
+-2026-09-28 19:52:56.235 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 88cf133d-130e-4984-8530-7a51e4823c9a. Valor: 200.00
+-2026-09-28 19:52:56.258 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 200.00
+-2026-09-28 19:52:56.272 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 88cf133d-130e-4984-8530-7a51e4823c9a. Valor: 0.01
+-2026-09-28 19:52:56.277 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 2131d2dc-c31f-4ba8-9d24-c6ab01cedb36
+-2026-09-28 19:52:56.284 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.292 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.292 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.301 - INFO 45820 --- [pool-6-thread-1] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: a578d034-c502-4660-95a9-2803ab322807. Valor: 600.00
+-2026-09-28 19:52:56.303 - INFO 45820 --- [pool-6-thread-2] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: a71c6015-75c1-462c-8cad-73c0a99a8ff8. Valor: 600.00
+-2026-09-28 19:52:56.314 - INFO 45820 --- [pool-6-thread-1] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 600.00
+-2026-09-28 19:52:56.334 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.334 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 3427a6f0-93c7-4cf9-b038-89f0f7dc7849. Valor: 1.00
+-2026-09-28 19:52:56.343 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.344 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'UNKNOWN' (STOCK) para usu�rio f70042ff-58b3-4ce8-a48f-795fabfa1f05@example.test
+-2026-09-28 19:52:56.344 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cc8cb637-a940-4dee-aa28-1fa15a6919f1
+-2026-09-28 19:52:56.345 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 9bc7b78f-9ce8-4110-bbad-fa77d5fa7a0c. Valor: 1.00
+-2026-09-28 19:52:56.358 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.358 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.358 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 92f682a8-9178-45f3-af4c-30d13a454d24. Valor: 300.00
+-2026-09-28 19:52:56.369 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-28 19:52:56.369 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: f71dfe38-7897-40a2-abbf-f21a2be13514. Valor: 700.00
+-2026-09-28 19:52:56.380 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 700.00
+-2026-09-28 19:52:56.381 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 92f682a8-9178-45f3-af4c-30d13a454d24. Valor: 0.01
+-2026-09-28 19:52:56.430 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Livros
+-2026-09-28 19:52:56.431 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.431 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX1' (FIXED_INCOME) para usu�rio e841ea88-51ff-4547-9935-e5a36df04291@example.test
+-2026-09-28 19:52:56.431 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 8085c7b7-a49a-4ab4-b896-e7016ff21687
+-2026-09-28 19:52:56.431 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 6fe24390-86bc-4492-ae8f-0f6f16ae9d1d. Valor: 200.00
+-2026-09-28 19:52:56.442 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 200.00
+-2026-09-28 19:52:56.475 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'ROUND' (STOCK) para usu�rio 54dd04f9-3fd6-4030-918e-ee5fa363c5ff@example.test
+-2026-09-28 19:52:56.476 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c21f2692-54c7-4f33-b366-2451cbf9b959
+-2026-09-28 19:52:56.476 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID c21f2692-54c7-4f33-b366-2451cbf9b959
+-2026-09-28 19:52:56.490 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.503 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'THIRDS' (STOCK) para usu�rio 54dd04f9-3fd6-4030-918e-ee5fa363c5ff@example.test
+-2026-09-28 19:52:56.503 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cfd59483-d29e-4126-9def-c4e0484ed807
+-2026-09-28 19:52:56.503 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID cfd59483-d29e-4126-9def-c4e0484ed807
+-2026-09-28 19:52:56.509 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.513 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.513 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID cfd59483-d29e-4126-9def-c4e0484ed807
+-2026-09-28 19:52:56.523 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.526 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.527 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID cfd59483-d29e-4126-9def-c4e0484ed807
+-2026-09-28 19:52:56.537 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.541 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.565 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.566 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 0d135253-d0ca-4992-8f3e-7692ef62133c. Valor: 300.00
+-2026-09-28 19:52:56.577 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-28 19:52:56.669 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'SINT3' (STOCK) para usu�rio e2bca81f-d3f5-478d-bbc8-814634a56aa7@example.test
+-2026-09-28 19:52:56.669 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: fc676f56-9251-4186-8d55-7e3e32b60f0a
+-2026-09-28 19:52:56.670 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID fc676f56-9251-4186-8d55-7e3e32b60f0a
+-2026-09-28 19:52:56.687 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.697 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID fc676f56-9251-4186-8d55-7e3e32b60f0a
+-2026-09-28 19:52:56.701 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.705 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.716 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID fc676f56-9251-4186-8d55-7e3e32b60f0a
+-2026-09-28 19:52:56.724 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.731 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.731 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'MOVE' (FIXED_INCOME) para usu�rio 24179c6c-285b-45b8-a2c4-155f2b597ba7@example.test
+-2026-09-28 19:52:56.731 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 18ee05ac-28ed-4507-b604-4e07dfbd7ac8
+-2026-09-28 19:52:56.731 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 2b155567-3fe0-4442-bf9a-2163cc262ee1. Valor: 300.00
+-2026-09-28 19:52:56.742 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-28 19:52:56.806 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CDB' (FIXED_INCOME) para usu�rio ab96df98-7b8e-4826-a7ca-dbc754b784b5@example.test
+-2026-09-28 19:52:56.810 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f012f4c7-8086-42b0-9d4b-acd8e7da675a
+-2026-09-28 19:52:56.810 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID f012f4c7-8086-42b0-9d4b-acd8e7da675a
+-2026-09-28 19:52:56.820 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-28 19:52:56.824 - INFO 45820 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-28 19:52:56.838 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-28 19:52:56.839 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 558241c0-6ae9-4924-aa7e-7e4fc5b18f4b. Valor: 300.00
+-2026-09-28 19:52:56.850 - INFO 45820 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.686 s -- in com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-28 19:52:57.006 - INFO 45820 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : Starting Cf021ReportingIntegrationTest using Java 21.0.12.1 with PID 45820 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-28 19:52:57.007 - INFO 45820 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : The following 1 profile is active: "test"
+-2026-09-28 19:52:58.040 - WARN 45820 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-28 19:52:59.501 - INFO 45820 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : Started Cf021ReportingIntegrationTest in 2.575 seconds (process running for 33.284)
+-2026-09-28 19:52:59.608 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 2aedf3cc-5d50-414f-81dc-0148a39d0c5f@example.invalid
+-2026-09-28 19:53:00.842 - INFO 45820 --- [           main] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: 92fcc971-ab39-4235-82b1-1662efac3aec@example.invalid
+-2026-09-28 19:53:00.842 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 92fcc971-ab39-4235-82b1-1662efac3aec@example.invalid
+-2026-09-28 19:53:00.956 - WARN 45820 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/export; campos: [year]]
+-2026-09-28 19:53:01.614 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 61c78382-0897-486b-ae95-2c3f99382df5@example.invalid
+-2026-09-28 19:53:02.828 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio e939adb9-2456-4fd9-8d96-c8c3933a817d@example.invalid
+-2026-09-28 19:53:03.229 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 4915d6d1-1966-4f7f-ac89-6853488c3cfd@example.invalid
+-2026-09-28 19:53:03.473 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio df9fb9f2-d874-4c03-aa68-7e6f7fda88fd@example.invalid
+-2026-09-28 19:53:03.618 - INFO 45820 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio df9fb9f2-d874-4c03-aa68-7e6f7fda88fd@example.invalid
+-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.828 s -- in com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 57, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  41.054 s
+[INFO] Finished at: 2026-09-28T19:53:04-03:00
+[INFO] ------------------------------------------------------------------------

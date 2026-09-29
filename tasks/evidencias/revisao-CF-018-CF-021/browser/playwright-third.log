@@ -1,0 +1,203 @@
+[WebServer] (node:48256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:47504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:16920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 1 worker
+
+(node:3292) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:83:5 › UI03 reserva, compra com saldo da meta e exclusão
+[WebServer] (node:48476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:40528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:41076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:45864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:50224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:83:5 › UI03 reserva, compra com saldo da meta e exclusão
+
+    Error: persisted checklist item must survive GET and reload
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      90 |   await capture(page,"ui03-checklist");
+      91 |   const visibleItem=page.getByText("Notebook sintético",{exact:true});
+    > 92 |   expect.soft(await visibleItem.count(),"persisted checklist item must survive GET and reload").toBe(1);
+         |                                                                                                 ^
+      93 |   if(await visibleItem.count()){
+      94 |   const item=page.getByText("Notebook sintético",{exact:true}).locator("..").locator("..");
+      95 |   await item.locator("button").first().click();
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:92:97
+
+    Error: delete control must be reachable without bypassing overlay
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      108 |   await page.locator("select").filter({has:page.locator('option[value="'+a.id+'"]')}).last().selectOption(a.id);
+      109 |   const clickable=await page.getByRole("button",{name:"Excluir",exact:true}).click({trial:true,timeout:5000}).then(()=>true,()=>false);
+    > 110 |   expect.soft(clickable,"delete control must be reachable without bypassing overlay").toBe(true);
+          |                                                                                       ^
+      111 |   let dr,layer;
+      112 |   if(clickable){
+      113 |     const deletion=page.waitForResponse(r=>r.url().includes(`/api/goals/${g.id}?`)&&r.request().method()==="DELETE");
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:110:87
+
+    Error: intent deletion must release reservation
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 204
+    Received: 400
+
+      118 |   }
+      119 |   await writeFile(path.join(dir,"ui03-delete.json"),JSON.stringify({layer,url:dr.url(),status:dr.status(),body:await dr.text()},null,2));
+    > 120 |   expect.soft(dr.status(),"intent deletion must release reservation").toBe(204);
+          |                                                                       ^
+      121 |   await capture(page,"ui03-delete-rejected");
+      122 |   await page.reload();expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1000);
+      123 | });
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:120:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-78193-om-saldo-da-meta-e-exclusão-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-78193-om-saldo-da-meta-e-exclusão-review-sao-paulo\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\milestone-review\milestone-review.integrate-78193-om-saldo-da-meta-e-exclusão-review-sao-paulo\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-78193-om-saldo-da-meta-e-exclusão-review-sao-paulo\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\artifacts\milestone-review\milestone-review.integrate-78193-om-saldo-da-meta-e-exclusão-review-sao-paulo\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:33832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:125:5 › UI06 renda fixa resgate parcial mantém custo e ganho da posição
+[WebServer] (node:49696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:49256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:49980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:47572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:40904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  2) [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:125:5 › UI06 renda fixa resgate parcial mantém custo e ganho da posição
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 800
+    Received: 780
+
+      138 |   const flow=await json(page,"/dashboard/flow?month=1&year=2027");
+      139 |   await writeFile(path.join(dir,"ui06-observed.json"),JSON.stringify({asset,flow},null,2));
+    > 140 |   expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect.soft(flow.investmentResult).toBe(20);
+          |                               ^
+      141 |   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1220);
+      142 | });
+      143 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:140:31
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 800
+    Received: 780
+
+      138 |   const flow=await json(page,"/dashboard/flow?month=1&year=2027");
+      139 |   await writeFile(path.join(dir,"ui06-observed.json"),JSON.stringify({asset,flow},null,2));
+    > 140 |   expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect.soft(flow.investmentResult).toBe(20);
+          |                                                                      ^
+      141 |   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1220);
+      142 | });
+      143 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:140:70
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 880
+    Received: undefined
+
+      138 |   const flow=await json(page,"/dashboard/flow?month=1&year=2027");
+      139 |   await writeFile(path.join(dir,"ui06-observed.json"),JSON.stringify({asset,flow},null,2));
+    > 140 |   expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect.soft(flow.investmentResult).toBe(20);
+          |                                                                                                              ^
+      141 |   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1220);
+      142 | });
+      143 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:140:110
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 20
+    Received: 0
+
+      138 |   const flow=await json(page,"/dashboard/flow?month=1&year=2027");
+      139 |   await writeFile(path.join(dir,"ui06-observed.json"),JSON.stringify({asset,flow},null,2));
+    > 140 |   expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect.soft(flow.investmentResult).toBe(20);
+          |                                                                                                                                                           ^
+      141 |   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1220);
+      142 | });
+      143 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-review.integrated.spec.ts:140:155
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-3303e-ém-custo-e-ganho-da-posição-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-3303e-ém-custo-e-ganho-da-posição-review-sao-paulo\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\milestone-review\milestone-review.integrate-3303e-ém-custo-e-ganho-da-posição-review-sao-paulo\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests\artifacts\milestone-review\milestone-review.integrate-3303e-ém-custo-e-ganho-da-posição-review-sao-paulo\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\artifacts\milestone-review\milestone-review.integrate-3303e-ém-custo-e-ganho-da-posição-review-sao-paulo\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:83:5 › UI03 reserva, compra com saldo da meta e exclusão
+    [review-sao-paulo] › tests\e2e\milestone-review.integrated.spec.ts:125:5 › UI06 renda fixa resgate parcial mantém custo e ganho da posição
