@@ -11,6 +11,7 @@ class IncrementalMilestoneReviewTest {
     @Test void canonicalV3ThenV4V5() throws Exception {upgrade(3);}
     @Test void canonicalV4ThenV5() throws Exception {upgrade(4);}
 
+    @Test void canonicalV5ThenV6() throws Exception {upgrade(5);}
     private void upgrade(int start) throws Exception {
         String schema=Cf017PostgresSupport.createSchema("rv1821_v"+start);
         Flyway limited=Flyway.configure().configuration(Cf017PostgresSupport.flyway(schema).getConfiguration()).target(String.valueOf(start)).load();
@@ -32,7 +33,7 @@ class IncrementalMilestoneReviewTest {
                 s.execute("insert into card_transactions(id,description,amount,date,created_at,invoice_id,category_id,origin,paid_amount,refunded_amount,purchase_id) values ('52000000-0000-0000-0000-000000000001','Canonical purchase',100,'2026-09-07','2026-09-07 09:00:00','51000000-0000-0000-0000-000000000001','30000000-0000-0000-0000-000000000001','PURCHASE',20,5,'53000000-0000-0000-0000-000000000001')");
             }
             String before=snapshot(s);
-            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(5-start);
+            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(6-start);
             assertThat(snapshot(s)).as("row-by-row temporal bytes, nulls, relations and amounts").isEqualTo(before);
             assertThat(scalar(s,"select status from transactions where id='40000000-0000-0000-0000-000000000002'")).isEqualTo("PENDING");
             assertThat(scalar(s,"select origin from transactions where id='40000000-0000-0000-0000-000000000002'")).isNull();

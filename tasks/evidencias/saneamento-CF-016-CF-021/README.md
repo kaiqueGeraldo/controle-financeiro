@@ -22,10 +22,10 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + UI | Pendente |
 | RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Pendente |
 | RVI-12 | Sugestão usa consumo original; FIN-03 | CF-019 | Exibir saldo pagável/crédito | UI02 | Pendente |
-| RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Pendente |
-| RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Pendente |
-| RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Pendente |
-| RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Pendente |
+| RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Implementado; ver checkpoint B e limites |
+| RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Implementado; ver checkpoint B e limites |
+| RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Implementado; ver checkpoint B e limites |
+| RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Implementado; ver checkpoint B e limites |
 | RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Pendente |
 | RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Pendente |
 | RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + E2E | Pendente |
@@ -88,3 +88,24 @@ Após correções: 50 casos aprovados (24 CF-018, 14 CF-019, 11 probes seleciona
 Acesso Docker exigiu autorização por bloqueio do pipe no sandbox. Evidências
 curadas não contêm tokens de autenticação; logs completos ficam em target ignorado.
 Etapa A é checkpoint de domínio/HTTP, não prova de UI nem fechamento do marco.
+
+### Checkpoint B — checklist e compras sobreviventes
+
+RVI-13/14/15/16 implementados. Listagem lê metas e itens em duas consultas,
+com ownership no banco e agrupamento O(metas+itens), sem consulta por meta.
+V6 cria fatos de compra independentes da intenção, com fonte bancária/cartão;
+a migração adota apenas vínculos explícitos sobreviventes e não inventa auditoria.
+Exclusão libera destinação; UI seleciona a conta da reserva e não manda destino
+fictício. Confirmação de exclusão usa Modal com portal e fecha o detalhe anterior.
+Hora interna de cartão é truncada a segundos apenas ao montar o comando interno.
+
+- Domínio/PG: 16/16 (`MilestoneGoalFlowTest,Cf020InvestmentGoalIntegrationTest,IntegratedMilestoneReviewTest#RV11*+RV16*+C04*`). Inclui owner distinto, compra bancária880/reserva180, refund1000, cartão com pagamentos20/120 e crédito20/120, repetição e clock fracionário.
+- Navegador: `MilestoneRemediationBrowserTest -Dreview.grep=SAN-B`, 1 jornada aprovada. Conta/meta/reserva são setup HTTP; criar item, reload, comprar pela reserva, excluir meta, localizar e reembolsar são ações reais da UI. Após reload, conta1000 e compra reembolsada. SQL após commit em `browser/persisted.txt`.
+- Flyway V1–V6 + Hibernate validate passaram no browser; suites de banco vazio6/6, legado2/2 e upgrades V2/V3/V4/V5→V6 4/4. Primeiro ensaio vazio falhou somente porque lista literal esperada ainda omitia V6; preservado em target/saneamento-v6.log, repetição direcionada verde.
+- TypeScript passou; lint dos oito arquivos TS/TSX alterados passou após remover any/catches sem uso existentes no detalhe.
+- Capturas do histórico em360/768/1440 abertas e inspecionadas: texto e reembolso legíveis. Não equivalem a zoom nativo200% nem a todos os estados dos modais.
+
+Limites restantes desta etapa: backfill de vínculos já apagados não pode ser
+inferido; fallback bancário anterior permanece. Browser de compra em cartão e
+inspeção visual dos modais ainda pendentes. Histórico de compras atualmente usa
+lista por usuário (O(compras)); paginação futura deve manter busca do fato excluído.

@@ -1,6 +1,7 @@
 "use client";
 
 import { GoalDetails } from "@/components/screens/goals/goalDetails";
+import { GoalPurchases } from "@/components/screens/goals/goalPurchases";
 import { GoalItem } from "@/components/screens/goals/goalItem";
 import { GoalsSummary } from "@/components/screens/goals/goalsSummary";
 import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
@@ -124,6 +125,7 @@ export default function GoalsScreen() {
             ))}
           </div>
         )}
+        <GoalPurchases goals={goals} />
       </main>
 
       <GoalDetails

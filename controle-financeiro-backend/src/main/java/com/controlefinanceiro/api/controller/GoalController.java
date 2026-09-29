@@ -104,6 +104,11 @@ public class GoalController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/purchases")
+    public ResponseEntity<List<GoalPurchaseResponseDTO>> purchases(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.listPurchases(user));
+    }
+
     @GetMapping("/{id}/allocations")
     public ResponseEntity<List<GoalAllocationResponseDTO>> allocations(
             @PathVariable UUID id, @AuthenticationPrincipal User user) {

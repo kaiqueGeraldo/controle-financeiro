@@ -18,11 +18,17 @@ public record GoalResponseDTO(
         LocalDate deadline,
         Boolean useChecklist,
         Integer orderIndex,
-        Boolean allocationReconciled
+        Boolean allocationReconciled,
+        java.util.List<GoalItemResponseDTO> items
 ) {
     public GoalResponseDTO(Goal g) {
         this(g.getId(), g.getTitle(), g.getCategory(), g.getIcon(), g.getColor(),
                 g.getType(), g.getTargetValue(), g.getCurrentValue(), g.getDeadline(),
-                g.getUseChecklist(), g.getOrderIndex(), g.getAllocationReconciled());
+                g.getUseChecklist(), g.getOrderIndex(), g.getAllocationReconciled(), java.util.List.of());
+    }
+    public GoalResponseDTO(Goal g, java.util.List<GoalItemResponseDTO> items) {
+        this(g.getId(), g.getTitle(), g.getCategory(), g.getIcon(), g.getColor(),
+                g.getType(), g.getTargetValue(), g.getCurrentValue(), g.getDeadline(),
+                g.getUseChecklist(), g.getOrderIndex(), g.getAllocationReconciled(), items);
     }
 }

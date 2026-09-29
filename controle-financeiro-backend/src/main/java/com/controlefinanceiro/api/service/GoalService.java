@@ -48,6 +48,7 @@ public class GoalService {
     private GoalHistoryRepository historyRepository;
     @Autowired
     private GoalItemRepository itemRepository;
+    @Autowired private GoalPurchaseRepository purchaseRepository;
     @Autowired
     private GoalAllocationRepository allocationRepository;
     @Autowired
@@ -96,11 +97,21 @@ public class GoalService {
         return new GoalResponseDTO(saved);
     }
 
+    @Transactional(readOnly = true)
     public List<GoalResponseDTO> listAll(User user) {
+        Map<UUID, List<GoalItemResponseDTO>> items = itemRepository.findAllOwned(user.getId()).stream()
+                .collect(java.util.stream.Collectors.groupingBy(i -> i.getGoal().getId(),
+                        java.util.stream.Collectors.mapping(GoalItemResponseDTO::new, java.util.stream.Collectors.toList())));
         return repository.findAllByUserIdOrderByDeadlineAsc(user.getId())
                 .stream()
-                .map(GoalResponseDTO::new)
+                .map(g -> new GoalResponseDTO(g, items.getOrDefault(g.getId(), List.of())))
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GoalPurchaseResponseDTO> listPurchases(User user) {
+        return purchaseRepository.findAllByUserIdOrderByRecordedAtDesc(user.getId()).stream()
+                .map(GoalPurchaseResponseDTO::new).toList();
     }
 
     public List<GoalHistory> listHistory(UUID goalId, User user) {
@@ -522,7 +533,7 @@ public class GoalService {
                     "Compra Meta: " + item.getName(),
                     data.paidPrice(),
                     today,
-                    now.toLocalTime().toString(),
+                    now.toLocalTime().withNano(0).toString(),
                     cat.getId(),
                     data.cardId(),
                     parcelas
@@ -538,6 +549,16 @@ public class GoalService {
 
         item.setPaidPrice(data.paidPrice());
         item.setStatus(GoalItemStatus.PURCHASED);
+
+        GoalPurchase purchase = new GoalPurchase();
+        purchase.setItemId(itemId);
+        purchase.setUserId(user.getId());
+        purchase.setName(item.getName());
+        purchase.setAmount(data.paidPrice());
+        purchase.setBankTransactionId(item.getBankTransactionId());
+        purchase.setCardTransactionId(item.getCardTransactionId());
+        purchase.setRecordedAt(now.toInstant());
+        purchaseRepository.save(purchase);
 
         repository.save(goal);
         GoalItem savedItem = itemRepository.save(item);
@@ -567,6 +588,20 @@ public class GoalService {
     @Transactional
     public void refundItem(UUID itemId, User user) {
         ZonedDateTime now = ZonedDateTime.now(clock);
+        GoalPurchase fact = purchaseRepository.findOwnedForRefund(itemId, user.getId()).orElse(null);
+        if (fact != null) {
+            if (fact.getRefundedAt() != null) throw new BusinessRuleException("Compra já estornada.");
+            if (fact.getBankTransactionId() != null) {
+                refundBankPurchase(fact.getBankTransactionId(), "Reembolso: " + fact.getName(), user, now);
+            } else {
+                creditCardService.refundPurchase(fact.getCardTransactionId(), fact.getAmount(), now.toLocalDate(), null, user);
+            }
+            fact.setRefundedAt(now.toInstant());
+            purchaseRepository.save(fact);
+            itemRepository.findById(itemId).ifPresent(i -> { i.setStatus(GoalItemStatus.REFUNDED); itemRepository.save(i); });
+            eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
+            return;
+        }
         GoalItem item = itemRepository.findById(itemId).orElse(null);
         if (item == null) {
             // A intenção pode ter sido excluída antes de o lojista reembolsar.

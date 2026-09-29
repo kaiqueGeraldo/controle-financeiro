@@ -171,6 +171,7 @@ export interface CreateGoalItemDTO {
 }
 
 export interface PurchaseGoalItemDTO {
+  allocationId?: string;
   paidPrice: number;
   accountId?: string;
   cardId?: string;

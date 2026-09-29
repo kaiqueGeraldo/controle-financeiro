@@ -6,7 +6,7 @@ import { useInvestmentsContext } from "@/contexts/investmentsContext";
 import { useGoalModals } from "@/contexts/modals/goalModalContext";
 import { useToast } from "@/contexts/toastContext";
 import { CreditCard } from "@/services/cardService";
-import { goalService } from "@/services/goalService";
+import { goalService, type GoalAllocation } from "@/services/goalService";
 import { Account, Goal, GoalHistory, GoalItem } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { AnimatePresence, motion, Reorder } from "framer-motion";
@@ -92,6 +92,19 @@ export function GoalDetails({
 
   const [orderedItems, setOrderedItems] = useState<GoalItem[]>([]);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+  const [allocations, setAllocations] = useState<GoalAllocation[]>([]);
+  const [allocationError, setAllocationError] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen || !goal) return;
+    const controller = new AbortController();
+    setAllocations([]);
+    setAllocationError(false);
+    goalService.getAllocations(goal.id, controller.signal).then(data => {
+      if (!controller.signal.aborted) setAllocations(data);
+    }).catch(() => { if (!controller.signal.aborted) setAllocationError(true); });
+    return () => controller.abort();
+  }, [isOpen, goal]);
 
   useEffect(() => {
     if (goal) {
@@ -117,7 +130,7 @@ export function GoalDetails({
         goal.id,
         newOrder.map((i) => i.id),
       );
-    } catch (error) {
+    } catch {
       toast.error("Erro ao reordenar itens.");
     }
   };
@@ -134,7 +147,7 @@ export function GoalDetails({
       });
       refreshGoals();
       setIsEditing(false);
-    } catch (error) {
+    } catch {
       toast.error("Erro ao atualizar a meta.");
     } finally {
       setIsSavingEdit(false);
@@ -153,7 +166,7 @@ export function GoalDetails({
       refreshGoals();
       setNewItemForm({ name: "", suggestedModel: "", estimatedPrice: "" });
       setIsAddingItem(false);
-    } catch (error) {
+    } catch {
       toast.error("Erro ao adicionar item.");
     }
   };
@@ -161,17 +174,20 @@ export function GoalDetails({
   const handlePurchaseItem = async (itemId: string) => {
     let accountId = undefined;
     let cardId = undefined;
+    const allocation = allocations.find(a => `RES_${a.id}` === selectedPaymentMethod);
 
     if (selectedPaymentMethod.startsWith("ACC_"))
       accountId = selectedPaymentMethod.replace("ACC_", "");
     if (selectedPaymentMethod.startsWith("CARD_"))
       cardId = selectedPaymentMethod.replace("CARD_", "");
+    if (allocation?.accountId) accountId = allocation.accountId;
 
     try {
       await goalService.purchaseItem(itemId, {
         paidPrice: Number(paidPrice),
         accountId,
         cardId,
+        allocationId: allocation?.id,
         installments: cardId ? installments : undefined,
       });
       refreshGoals();
@@ -179,8 +195,10 @@ export function GoalDetails({
       setPaidPrice("");
       setSelectedPaymentMethod("");
       setInstallments(1);
-    } catch (error: any) {
-      toast.error(error.message || "Erro ao confirmar compra.");
+      window.dispatchEvent(new Event("refreshFinance"));
+      window.dispatchEvent(new Event("refreshCards"));
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Erro ao confirmar compra.");
     }
   };
 
@@ -192,7 +210,7 @@ export function GoalDetails({
       setItemToDelete(null);
       window.dispatchEvent(new Event("refreshFinance"));
       window.dispatchEvent(new Event("refreshCards"));
-    } catch (error) {
+    } catch {
       toast.error("Erro ao excluir item.");
     }
   };
@@ -203,10 +221,7 @@ export function GoalDetails({
   const isLinkedToHabit = goal
     ? habits.some((h) => h.goalId === goal.id)
     : false;
-  const spentInGoal = orderedItems
-    .filter((i) => i.status === "PURCHASED" && i.usedGoalBalance)
-    .reduce((acc, curr) => acc + (curr.paidPrice || 0), 0);
-  const availableGoalBalance = goal ? goal.currentValue - spentInGoal : 0;
+  const availableGoalBalance = goal?.currentValue ?? 0;
 
   const pendingItems = orderedItems.filter((i) => i.status === "PENDING");
   const purchasedItems = orderedItems.filter((i) => i.status === "PURCHASED");
@@ -255,7 +270,7 @@ export function GoalDetails({
                   className={`w-16 h-16 rounded-2xl flex items-center justify-center ${getGoalColorClass(goal.color).split(" ")[0]} ${getGoalColorClass(goal.color).split(" ")[1]}`}
                 >
                   {React.cloneElement(
-                    getGoalIcon(goal.icon) as React.ReactElement<any>,
+                    getGoalIcon(goal.icon) as React.ReactElement<{size?: number}>,
                     { size: 32 },
                   )}
                 </motion.div>
@@ -364,7 +379,7 @@ export function GoalDetails({
                     <div className="flex items-center gap-2 text-text-muted">
                       <Landmark size={16} />
                       <span className="text-xs font-medium">
-                        Saldo Livre na Meta:
+                        Destinado nas fontes:
                       </span>
                     </div>
                     <PrivacyBlur className="text-emerald-400 font-bold">
@@ -374,6 +389,8 @@ export function GoalDetails({
                 )}
               </div>
 
+              {allocationError && <p role="alert">Não foi possível carregar as destinações. Feche e abra o detalhe para tentar novamente.</p>}
+              {allocations.some(a => a.sourceDeficit !== null && a.sourceDeficit > 0) && <p role="status">Há destinação sem cobertura suficiente na fonte.</p>}
               {/* TABS SÓ APARECEM SE A META USAR CHECKLIST */}
               {goal.useChecklist && (
                 <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider mt-6">
@@ -508,15 +525,13 @@ export function GoalDetails({
                                     <option value="">
                                       Selecione uma opção
                                     </option>
-                                    <option
-                                      value="GOAL_BALANCE"
-                                      className="font-bold text-emerald-400"
-                                    >
-                                      Usar Saldo da Meta (Livre: R${" "}
-                                      {availableGoalBalance.toFixed(2)})
-                                    </option>
+                                    {allocations.filter(a => a.accountId && a.amount > 0).map(a => (
+                                      <option key={a.id} value={`RES_${a.id}`}>
+                                        Reserva em {accounts.find(acc => acc.id === a.accountId)?.name ?? "conta"}: {formatCurrency(a.amount)}
+                                      </option>
+                                    ))}
                                     <optgroup label="Contas">
-                                      {accounts.map((acc, idx) => (
+                                      {accounts.filter(acc => !acc.isArchived).map((acc, idx) => (
                                         <option
                                           key={acc.id || `acc-${idx}`}
                                           value={`ACC_${acc.id}`}
@@ -616,6 +631,7 @@ export function GoalDetails({
                                 <GripVertical size={16} />
                               </div>
                               <button
+                                aria-label={`Comprar ${item.name}`}
                                 onClick={() => {
                                   setBuyingItemId(item.id);
                                   setPaidPrice(item.estimatedPrice.toString());
@@ -676,9 +692,7 @@ export function GoalDetails({
                               {item.name}
                             </p>
                             <p className="text-[10px] text-emerald-500/70 truncate">
-                              {item.usedGoalBalance
-                                ? "Usou Saldo da Meta"
-                                : "Pagamento Externo"}
+                              Compra registrada na fonte de pagamento
                             </p>
                           </div>
                           <div className="text-right shrink-0 flex items-center gap-3">
@@ -844,14 +858,14 @@ export function GoalDetails({
             {/* FOOTER AÇÕES EXTRAS */}
             <div className="p-6 border-t border-border-divider bg-bg-surface shrink-0 grid grid-cols-2 gap-3">
               <button
-                onClick={() => onDelete(goal)}
+                onClick={() => { onClose(); onDelete(goal); }}
                 className="flex items-center justify-center gap-2 bg-bg-surface-hover hover:bg-rose-500/10 hover:text-rose-500 text-text-main py-3 rounded-xl font-medium transition cursor-pointer text-sm"
               >
                 Deletar Meta
               </button>
 
               <button
-                onClick={() => onDeposit(goal)}
+                onClick={() => { onClose(); onDeposit(goal); }}
                 disabled={isLocked}
                 title={lockMessage}
                 className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition text-sm ${isLocked ? "bg-bg-surface-hover text-text-muted cursor-not-allowed shadow-none" : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 cursor-pointer"}`}
@@ -868,7 +882,7 @@ export function GoalDetails({
                 isOpen={!!itemToDelete}
                 onClose={() => setItemToDelete(null)}
                 title="Excluir Sub-item"
-                message="Tem certeza? Se este item foi pago externamente (Conta ou Cartão), a transação vinculada será estornada e apagada automaticamente do seu extrato/fatura."
+                message="Excluir remove apenas a intenção. A compra permanece no histórico de compras e pode ser reembolsada separadamente."
                 confirmText="Confirmar"
                 confirmColor="bg-rose-600 hover:bg-rose-700 text-white"
                 onConfirm={handleDeleteItem}

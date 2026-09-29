@@ -9,7 +9,21 @@ import {
   PurchaseGoalItemDTO,
 } from "@/types";
 
+export interface GoalAllocation {
+  id: string; accountId: string | null; investmentId: string | null;
+  amount: number; sourceValue: number | null; sourceTotalAllocated: number;
+  sourceFree: number | null; sourceDeficit: number | null;
+}
+export interface GoalPurchase {
+  itemId: string; name: string; amount: number;
+  bankTransactionId: string | null; cardTransactionId: string | null;
+  recordedAt: string | null; refundedAt: string | null;
+}
+
 export const goalService = {
+  getAllocations: (id: string, signal?: AbortSignal) => apiRequest<GoalAllocation[]>(`/goals/${id}/allocations`, { signal }).then(response => response.data),
+  getPurchases: (signal?: AbortSignal) => apiRequest<GoalPurchase[]>("/goals/purchases", { signal }).then(response => response.data),
+  refundItem: (id: string) => apiRequest(`/goals/items/${id}/refund`, { method: "POST" }),
   getAll: async (signal?: AbortSignal) => {
     return apiRequest<Goal[]>("/goals", { method: "GET", signal });
   },
