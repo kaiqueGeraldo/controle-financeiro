@@ -63,13 +63,19 @@ public class Account {
     // --- LÓGICA DE DOMÍNIO ---
 
     public void credit(BigDecimal amount) {
+        requireActive();
+        requireMoney(amount);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessRuleException("O valor do depósito deve ser maior que zero.");
         }
-        this.balance = this.balance.add(amount);
+        BigDecimal result = this.balance.add(amount);
+        requireMoney(result);
+        this.balance = result;
     }
 
     public void debit(BigDecimal amount) {
+        requireActive();
+        requireMoney(amount);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessRuleException("O valor do débito deve ser maior que zero.");
         }
@@ -79,6 +85,18 @@ public class Account {
             throw new BusinessRuleException("Saldo insuficiente na carteira para esta despesa.");
         }
 
-        this.balance = this.balance.subtract(amount);
+        BigDecimal result = this.balance.subtract(amount);
+        requireMoney(result);
+        this.balance = result;
+    }
+
+    public void requireActive() {
+        if (isArchived) throw new BusinessRuleException("Reative a conta antes de registrar nova movimentação.");
+    }
+
+    private static void requireMoney(BigDecimal value) {
+        if (value == null || value.scale() > 2 || value.precision() - value.scale() > 12) {
+            throw new BusinessRuleException("Valor ou saldo fora da faixa: até 12 dígitos inteiros e 2 casas decimais.");
+        }
     }
 }

@@ -1,0 +1,20 @@
+-2026-09-29 08:10:18.824 - WARN 26968 --- [pool-3-thread-2] org.hibernate.orm.jdbc.error             : ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+-[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 42.84 s <<< FAILURE! -- in com.controlefinanceiro.api.service.MilestoneSourceConcurrencyTest
+org.springframework.dao.CannotAcquireLockException: JDBC exception executing SQL [ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+Caused by: org.springframework.dao.CannotAcquireLockException: JDBC exception executing SQL [ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+Caused by: org.hibernate.exception.LockAcquisitionException: JDBC exception executing SQL [ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+Caused by: org.postgresql.util.PSQLException: ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+[ERROR]   MilestoneSourceConcurrencyTest.H01_allocationMoveAndInvestmentBuyUseCompatibleSourceLockOrder:75 � Execution org.springframework.dao.CannotAcquireLockException: JDBC exception executing SQL [ERROR: deadlock detected
+  Detalhe: Process 62 waits for ShareLock on transaction 792; blocked by process 61.
+Process 61 waits for ShareLock on transaction 793; blocked by process 62.
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0

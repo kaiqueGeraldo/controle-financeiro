@@ -1,0 +1,18 @@
+-[ERROR] Tests run: 21, Failures: 16, Errors: 0, Skipped: 0, Time elapsed: 30.45 s <<< FAILURE! -- in com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest
+[ERROR]   IntegratedMilestoneReviewTest.RV01_voluntaryTransferMustNotSpendReservedFunds:70 [rollback must preserve the reserved source]
+[ERROR]   IntegratedMilestoneReviewTest.RV02_legacyPaidToggleMustPreserveForecastAndUseSettlementDate:83 [FIN-02 preserves original forecast date]
+[ERROR]   IntegratedMilestoneReviewTest.RV03_archivedAccountMustRejectInvestmentBuy:91 [B16 requires reactivation before movement]
+[ERROR]   IntegratedMilestoneReviewTest.RV04_historyBeforeOpeningMustNotBePresentedAsExactZero:99 [FIN-08 unknown coverage must be unavailable]
+[ERROR]   IntegratedMilestoneReviewTest.RV05_openingOnlyUserStillNeedsDatedCurrentPositionInPastYearReport:105 [FIN-08 current section independent of selected year]
+[ERROR]   IntegratedMilestoneReviewTest.RV06_fullySoldUnquotedAssetHasKnownZeroPosition:113 [zero remaining units is known zero, not unavailable quote]
+[ERROR]   IntegratedMilestoneReviewTest.RV07_resizeMustNotInventMoneyFromRoundedDerivedPrice:123 [half of the explicitly valued position must remain .50]
+[ERROR]   IntegratedMilestoneReviewTest.RV08_netDividendCashMustMatchE27RatherThanInventGrossBankLegs:133 [E27 cashIn=9.00; income=10.00 is separate]
+[ERROR]   IntegratedMilestoneReviewTest.RV09_newSettlementContractRejectsJsonNumberAndExponent:143 Status expected:<400> but was:<200>
+[ERROR]   IntegratedMilestoneReviewTest.RV10_accountAggregateMustNotExceedContractWithoutRangeSignal:150 [FIN-06 resulting position exceeds 12 monetary integer digits]
+[ERROR]   IntegratedMilestoneReviewTest.RV11_cardRefundMustStillResolveAfterDeletingChecklistIntent:159 [FIN-07 intent deletion preserves refundable purchase link]
+[ERROR]   IntegratedMilestoneReviewTest.RV12_pendingTransferNeedsAtomicSettlementPath:167 [FIN-02 future transfer must be realizable atomically]
+[ERROR]   IntegratedMilestoneReviewTest.RV13_allocationVersusVoluntaryTransferMustNotCommitDeficit:257 [no serial order may spend reserved funds voluntarily]
+[ERROR]   IntegratedMilestoneReviewTest.RV14_transferFilteredExportMustNotIncludeCardConsumption:188 [TRANSFER filter excludes card consumption]
+[ERROR]   IntegratedMilestoneReviewTest.RV15_zeroQuantityMustNotAcceptPositiveManualValuation:194 [zero position cannot be assigned a positive value without acquiring units]
+[ERROR]   IntegratedMilestoneReviewTest.RV16_checklistCardPurchaseMustAcceptApplicationClockWithNanoseconds:203
+[ERROR] Tests run: 21, Failures: 16, Errors: 0, Skipped: 0

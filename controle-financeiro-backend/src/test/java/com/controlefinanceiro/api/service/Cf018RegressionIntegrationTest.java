@@ -324,14 +324,15 @@ class Cf018RegressionIntegrationTest extends PostgresIntegrationTest {
 
             UpdateTransactionDTO settle = new UpdateTransactionDTO();
             settle.setPaid(true);
-            transactionService.update(pending.id(), settle, owner);
+            TransactionResponseDTO settlement = transactionService.update(pending.id(), settle, owner);
             transactionService.update(pending.id(), settle, owner);
 
             UpdateTransactionDTO moveAndEdit = new UpdateTransactionDTO();
             moveAndEdit.setAccountId(second.getId());
             moveAndEdit.setAmount(new BigDecimal("200.00"));
             moveAndEdit.setDescription("Receita liquidada editada");
-            TransactionResponseDTO corrected = transactionService.update(pending.id(), moveAndEdit, owner);
+            // FIN-02: correct the realized fact; the forecast must survive unchanged.
+            TransactionResponseDTO corrected = transactionService.update(settlement.id(), moveAndEdit, owner);
             entityManager.flush();
             entityManager.clear();
 
@@ -342,13 +343,17 @@ class Cf018RegressionIntegrationTest extends PostgresIntegrationTest {
             assertThat(transactionRepository.sumByTypeAndYear(
                     owner.getId(), TransactionType.INCOME, OPENING_DATE.getYear()))
                     .isEqualByComparingTo("200.00");
-            assertThat(transactionRepository.findById(pending.id()).orElseThrow().getStatus())
+            assertThat(transactionRepository.findById(settlement.id()).orElseThrow().getStatus())
                     .isEqualTo(TransactionStatus.REVERSED);
-            assertThat(transactionRepository.existsByReversalOfId(pending.id())).isTrue();
+            assertThat(transactionRepository.existsByReversalOfId(settlement.id())).isTrue();
+            assertThat(transactionRepository.findById(pending.id()).orElseThrow().getStatus())
+                    .isEqualTo(TransactionStatus.PARTIALLY_SETTLED);
+            assertThat(transactionRepository.findById(pending.id()).orElseThrow().getAmount())
+                    .isEqualByComparingTo("250.00");
             assertThat(corrected.id()).isNotEqualTo(pending.id());
             assertThat(corrected.origin()).isEqualTo(TransactionOrigin.CORRECTION);
-            assertThat(corrected.correctionOfId()).isEqualTo(pending.id());
-            assertThat(transactionsFor(owner)).hasSize(3);
+            assertThat(corrected.correctionOfId()).isEqualTo(settlement.id());
+            assertThat(transactionsFor(owner)).hasSize(4);
             rollback.setRollbackOnly();
         });
     }

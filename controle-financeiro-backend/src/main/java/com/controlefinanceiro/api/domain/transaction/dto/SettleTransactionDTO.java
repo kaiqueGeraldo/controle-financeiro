@@ -12,6 +12,7 @@ public record SettleTransactionDTO(
         @NotNull
         @Positive(message = "O valor da baixa deve ser positivo")
         @Digits(integer = 12, fraction = 2, message = "O valor deve ter até 12 dígitos inteiros e 2 casas decimais")
+        @tools.jackson.databind.annotation.JsonDeserialize(using = com.controlefinanceiro.api.utils.DecimalStringDeserializer.class)
         BigDecimal amount,
         @NotNull LocalDate date,
         @WallTime String time

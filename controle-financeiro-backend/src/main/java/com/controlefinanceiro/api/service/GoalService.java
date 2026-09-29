@@ -142,6 +142,7 @@ public class GoalService {
             if (data.accountId() != null) {
                 Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())
                         .orElseThrow(() -> new ResourceNotFoundException("Conta de origem não encontrada"));
+                account.requireActive();
                 BigDecimal allocated = allocationRepository.sumByAccountId(account.getId());
                 if (account.getBalance().max(BigDecimal.ZERO).subtract(allocated).compareTo(data.amount()) < 0) {
                     throw new BusinessRuleException("Disponível da conta insuficiente para destinação.");
@@ -323,6 +324,7 @@ public class GoalService {
     }
 
     private void ensureCapacity(Account account, Investment investment, BigDecimal increase) {
+        if (account != null) account.requireActive();
         BigDecimal value = account != null ? account.getBalance() : investment.getTotalValue();
         if (value == null) throw new BusinessRuleException("Avaliação da fonte indisponível.");
         BigDecimal allocated = account != null ? allocationRepository.sumByAccountId(account.getId())

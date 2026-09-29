@@ -127,11 +127,12 @@ public class InvestmentService {
         log.info("SERVICE: Processando operação de {} no ativo ID {}", data.type(), data.investmentId());
         ZonedDateTime now = ZonedDateTime.now(clock);
 
-        Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
-
+        // Same global source order as allocation moves: account before investment.
         Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada"));
+        account.requireActive();
+        Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
         requireQuantity(data.quantity(), true);
         requirePrice(data.price());

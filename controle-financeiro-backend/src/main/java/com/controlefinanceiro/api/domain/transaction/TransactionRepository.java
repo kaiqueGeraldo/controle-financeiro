@@ -246,7 +246,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             SELECT COALESCE(SUM(t.amount), 0)
             FROM Transaction t
             WHERE t.settlementOfId = :forecastId
-              AND t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.SETTLEMENT
+              AND t.origin IN (com.controlefinanceiro.api.domain.transaction.TransactionOrigin.SETTLEMENT,
+                               com.controlefinanceiro.api.domain.transaction.TransactionOrigin.CORRECTION)
               AND t.status = com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED
             """)
     BigDecimal sumActiveSettlements(@Param("forecastId") UUID forecastId);

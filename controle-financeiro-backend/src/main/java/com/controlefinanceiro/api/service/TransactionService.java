@@ -72,6 +72,7 @@ public class TransactionService {
     private DashboardService dashboardService;
     @Autowired private CardTransactionRepository cardTransactionRepository;
     @Autowired private CardRefundRepository cardRefundRepository;
+    @Autowired private com.controlefinanceiro.api.domain.goal.GoalAllocationRepository allocationRepository;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
@@ -123,12 +124,16 @@ public class TransactionService {
             throw new BusinessRuleException("Abertura de conta é posição e não pode ser editada como transação.");
         }
 
+        if (transaction.getStatus() == TransactionStatus.FULFILLED
+                && Boolean.TRUE.equals(data.isPaid()) && !hasRequestedChange(transaction, data)) {
+            return new TransactionResponseDTO(transaction);
+        }
+
         if (transaction.getStatus() == TransactionStatus.REVERSED
                 || transaction.getStatus() == TransactionStatus.PARTIALLY_SETTLED
                 || transaction.getStatus() == TransactionStatus.FULFILLED
                 || transaction.getStatus() == TransactionStatus.CANCELLED
                 || transaction.getOrigin() == TransactionOrigin.REVERSAL
-                || transaction.getSettlementOfId() != null
                 || transaction.getOperationId() != null) {
             throw new BusinessRuleException("Transações estornadas, parcialmente baixadas ou vinculadas devem ser corrigidas pelo fluxo da operação original.");
         }
@@ -145,6 +150,20 @@ public class TransactionService {
         }
         if (transaction.getStatus() == TransactionStatus.SETTLED) {
             return correctSettledTransaction(transaction, data, user);
+        }
+
+        if (Boolean.TRUE.equals(data.isPaid())) {
+            // Compatibility adapter: a paid toggle is a settlement, never an edit
+            // of the forecast's due date or source. Mixed edits are ambiguous.
+            if ((data.amount() != null && data.amount().compareTo(transaction.getAmount()) != 0)
+                    || (data.accountId() != null && !data.accountId().equals(transaction.getAccount().getId()))
+                    || (data.type() != null && data.type() != transaction.getType())
+                    || (data.categoryId() != null && (transaction.getCategory() == null
+                        || !data.categoryId().equals(transaction.getCategory().getId())))) {
+                throw new BusinessRuleException("Edite a previsão antes de realizar a baixa.");
+            }
+            return settle(id, new SettleTransactionDTO(transaction.getAmount(),
+                    data.date() == null ? transaction.getDate() : data.date(), data.time()), user);
         }
 
         int previousYear = transaction.getDate().getYear();
@@ -370,6 +389,7 @@ public class TransactionService {
         corrected.setDueDate(original.getDueDate());
         corrected.setOrigin(TransactionOrigin.CORRECTION);
         corrected.setCorrectionOfId(original.getId());
+        corrected.setSettlementOfId(original.getSettlementOfId());
         updateTransactionData(corrected, data, user);
 
         reverseTransactionBalance(original, original.getAccount());
@@ -381,6 +401,15 @@ public class TransactionService {
 
         repository.saveAll(List.of(original, reversal, corrected));
         repository.flush();
+        if (original.getSettlementOfId() != null) {
+            Transaction forecast = repository.findOwnedForUpdate(original.getSettlementOfId(), user.getId()).orElseThrow();
+            BigDecimal active = repository.sumActiveSettlements(forecast.getId());
+            if (active.compareTo(forecast.getAmount()) > 0) {
+                throw new BusinessRuleException("Correção excede o valor previsto.");
+            }
+            if (forecast.getStatus() != TransactionStatus.CANCELLED) forecast.markForecastSettlement(active);
+            repository.saveAndFlush(forecast);
+        }
         publishChanged(
                 user.getId(), original.getDate().getYear(), reversal.getDate().getYear(), corrected.getDate().getYear()
         );
@@ -517,6 +546,10 @@ public class TransactionService {
         }
 
         if (settled) {
+            BigDecimal available = source.getBalance().subtract(allocationRepository.sumByAccountId(source.getId()));
+            if (available.compareTo(data.amount().add(fee)) < 0) {
+                throw new BusinessRuleException("Disponível livre insuficiente; libere ou realoque a destinação antes da transferência.");
+            }
             source.debit(data.amount());
             if (fee.signum() > 0) {
                 source.debit(fee);
