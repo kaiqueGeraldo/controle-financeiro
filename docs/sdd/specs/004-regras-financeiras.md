@@ -374,3 +374,22 @@ onboarding permanecem CF-028–032; a política gerencial DEC-03 é da CF-019 e
 protocolo HTTP/recibos detalhados permanece CF-024. Esses limites não deixam
 indefinidos os efeitos econômicos acima. [Divergências e donos](../../../tasks/evidencias/CF-016/DIVERGENCIAS.md)
 não são correções implementadas nem autorização de migração real.
+
+### NG-01 — decisão complementar de 29/09/2026
+
+Decisão expressa do usuário no saneamento CF-016–021: preservar avaliação total
+informada e sua proporção. Avaliação por TOTAL guarda montante e quantidade de
+referência; preço derivado com oito casas é apenas informativo e não recompõe o
+montante. A referência exata é mantida entre vendas, evitando acumular arredondamentos.
+Avaliação por PRICE continua multiplicando quantidade pelo preço informado.
+Encerramento integral tem saldo zero conhecido mesmo sem cotação anterior.
+Os limites de entrada de preço permanecem; preço médio/derivado pode exigir mais
+algarismos inteiros no armazenamento, sem restringir um total informado admissível.
+
+Oráculos literais: 200.000.000 unidades avaliadas em1,00 → vender100.000.000 deixa
+0,50; venda final deixa0,00. Quantidade3/total1,00 → vendas de uma unidade deixam
+0,67,0,33,0,00. Quantidade0,00000001/total999999999999,99 continua com esse total,
+mesmo que o preço derivado não caiba no limite de preço informado.
+Resgate monetário de renda fixa usa bruto informado, líquido=bruto−taxa e custo
+proporcional ao bruto/avaliação; B08 permanece200/20/800/880. Resgate final de880
+com taxa1 deixa custo/valor0, credita879 e realiza ganho79.

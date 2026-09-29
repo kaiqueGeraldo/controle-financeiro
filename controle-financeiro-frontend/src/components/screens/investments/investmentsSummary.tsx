@@ -49,11 +49,11 @@ export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGe
         </div>
 
         <div className="relative z-10">
-            <PrivacyBlur className={`text-3xl font-bold flex items-center gap-3 w-min ${isPositivo ? 'text-emerald-400' : 'text-rose-400'}`}>
+            <PrivacyBlur className={`text-3xl font-bold flex flex-wrap items-center gap-3 min-w-0 ${isPositivo ? 'text-emerald-400' : 'text-rose-400'}`}>
                 {rentabilidadeGeral === null ? "Indisponível" : `${isPositivo ? "+" : ""}${rentabilidadeGeral.toFixed(2)}%`}
                 
                 {/* Badge de Valor Monetário */}
-                <PrivacyBlur className={`text-sm font-bold px-2 py-1 rounded-lg border ${isPositivo ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
+                <PrivacyBlur className={`text-sm font-bold px-2 py-1 rounded-lg border whitespace-normal break-words max-w-full ${isPositivo ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
                     {lucroTotal === null ? "Custo ou avaliação indisponível" : `${isPositivo ? "+" : ""}${formatCurrency(lucroTotal)}`}
                 </PrivacyBlur>
             </PrivacyBlur>

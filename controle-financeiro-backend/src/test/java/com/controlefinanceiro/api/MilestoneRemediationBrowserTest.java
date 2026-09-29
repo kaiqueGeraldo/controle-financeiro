@@ -43,7 +43,8 @@ class MilestoneRemediationBrowserTest {
     @MockitoBean MarketDataService quotes;
     @Test void browserBffSpringPostgresAndReload() throws Exception {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
-        Path evidence=front.resolveSibling("tasks/evidencias/saneamento-CF-016-CF-021/browser");
+        Path evidence=front.resolveSibling("tasks/evidencias/saneamento-CF-016-CF-021/browser")
+                .resolve(System.getProperty("review.evidence", "."));
         Files.createDirectories(evidence);
         String namespace="san1821-"+UUID.randomUUID().toString().substring(0,8);
         List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.milestone-remediation.config.ts"));

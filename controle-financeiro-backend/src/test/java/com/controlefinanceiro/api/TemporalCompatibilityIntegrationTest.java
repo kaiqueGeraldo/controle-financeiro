@@ -132,8 +132,9 @@ class TemporalCompatibilityIntegrationTest extends PostgresIntegrationTest {
                 .andExpect(jsonPath("$[0].dateOrigin").value("USER_INPUT"))
                 .andExpect(jsonPath("$[0].legacyDateRaw").value("2026-09-07T00:00:00"));
         Investment automatic = asset();
+        automatic.setQuantity(BigDecimal.ONE); investments.saveAndFlush(automatic);
         mvc.perform(post("/investments/update-balance").header("Authorization", auth).contentType("application/json")
-                .content("{\"investmentId\":\""+automatic.getId()+"\",\"newBalance\":20}"))
+                .content("{\"investmentId\":\""+automatic.getId()+"\",\"newBalance\":20,\"date\":\"2026-09-08\",\"source\":\"USER_PROVIDED\",\"reason\":\"Avaliação informada\"}"))
                 .andExpect(status().isOk());
         mvc.perform(get("/investments/"+automatic.getId()+"/history").header("Authorization", auth))
                 .andExpect(status().isOk()).andExpect(jsonPath("$").isEmpty());

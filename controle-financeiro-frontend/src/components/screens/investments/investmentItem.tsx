@@ -49,12 +49,12 @@ interface InvestmentItemProps {
 
 export function InvestmentItem({ asset, totalPortfolioValue, onClick }: InvestmentItemProps) {
   const { user } = useUser();
-  const saldoAtual = asset.quantity * asset.currentPrice;
-  const custoTotal = asset.quantity * asset.averagePrice;
-  const variacao = custoTotal > 0 ? saldoAtual - custoTotal : 0;
-  const variacaoPerc = custoTotal > 0 ? (variacao / custoTotal) * 100 : 0;
-  const isPositivo = variacao >= 0;
-  const alocacao = totalPortfolioValue > 0 ? (saldoAtual / totalPortfolioValue) * 100 : 0;
+  const saldoAtual = asset.valuationAmount ?? null;
+  const custoTotal = asset.totalCost ?? null;
+  const variacao = custoTotal !== null && saldoAtual !== null ? saldoAtual - custoTotal : null;
+  const variacaoPerc = custoTotal !== null && custoTotal > 0 && variacao !== null ? (variacao / custoTotal) * 100 : null;
+  const isPositivo = variacao !== null && variacao >= 0;
+  const alocacao = saldoAtual !== null && totalPortfolioValue > 0 ? (saldoAtual / totalPortfolioValue) * 100 : null;
 
   return (
     <div className="relative group perspective-1000 h-full">
@@ -70,7 +70,7 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
                 layoutId={`icon-${asset.id}`} 
                 className={`w-10 h-10 rounded-xl flex items-center justify-center border ${getAssetColor(asset.type)}`}
             >
-              {React.cloneElement(getAssetIcon(asset.type) as React.ReactElement<any>, { size: 20 })}
+              {React.cloneElement(getAssetIcon(asset.type) as React.ReactElement<{size?: number}>, { size: 20 })}
             </motion.div>
             <div>
               <motion.h3 layoutId={`ticker-${asset.id}`} className="font-bold text-base text-text-main group-hover:text-emerald-400 transition-colors">
@@ -83,9 +83,9 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
 
         {/* Info Principal */}
         <div className="mb-4">
-           <PrivacyBlur className="text-xl font-bold text-text-main mb-1 tracking-tight w-min">{formatCurrency(saldoAtual)}</PrivacyBlur>
+           <PrivacyBlur className="text-xl font-bold text-text-main mb-1 tracking-tight break-words">{saldoAtual === null ? "Avaliação indisponível" : formatCurrency(saldoAtual)}</PrivacyBlur>
            
-           {asset.type !== 'FIXED_INCOME' && (
+           {variacao !== null && variacaoPerc !== null && asset.type !== 'FIXED_INCOME' && (
                <div className={`flex items-center gap-1 text-xs font-medium ${isPositivo ? 'text-emerald-500' : 'text-rose-500'}`}>
                 <PrivacyBlur>
                   {isPositivo ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
@@ -94,7 +94,7 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
                 </PrivacyBlur>
                </div>
            )}
-           {asset.type === 'FIXED_INCOME' && (
+           {variacao !== null && variacaoPerc !== null && asset.type === 'FIXED_INCOME' && (
                 <div className="flex items-center gap-1 text-xs font-medium text-emerald-500">
                   <PrivacyBlur>
                     {isPositivo ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
@@ -110,9 +110,9 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
            <span className="text-[10px] text-text-muted font-bold uppercase">Alocação</span>
            <div className="flex items-center gap-2">
               <div className="w-12 h-1 bg-bg-surface-hover rounded-full overflow-hidden">
-                <div className="h-full bg-zinc-500 rounded-full" style={{ width: `${alocacao}%` }}></div>
+                <div className="h-full bg-zinc-500 rounded-full" style={{ width: `${alocacao ?? 0}%` }}></div>
               </div>
-              <PrivacyBlur className="text-[10px] font-bold text-text-muted">{alocacao.toFixed(0)}%</PrivacyBlur>
+              <PrivacyBlur className="text-[10px] font-bold text-text-muted">{alocacao === null ? "Indisponível" : `${alocacao.toFixed(0)}%`}</PrivacyBlur>
            </div>
         </div>
       </motion.div>

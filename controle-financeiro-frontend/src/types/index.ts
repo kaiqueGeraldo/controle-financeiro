@@ -210,6 +210,8 @@ export interface Investment {
     totalCost?: number | null;
     valuationAmount?: number | null;
     valuationDate?: string | null;
+    valuationSource?: string | null;
+    valuationBasis?: "TOTAL" | "PRICE" | null;
   goalId?: string;
   goal?: Goal;
 }
@@ -222,6 +224,7 @@ export interface CreateInvestmentDTO {
 }
 
 export interface InvestmentOperationDTO {
+  amount?: string;
   investmentId: string;
   type: InvestTransType;
   quantity: number;
@@ -234,6 +237,9 @@ export interface InvestmentOperationDTO {
 export interface UpdateBalanceDTO {
   investmentId: string;
   newBalance: number;
+  date: string;
+  source: string;
+  reason: string;
 }
 
 export interface YearlyComparison {

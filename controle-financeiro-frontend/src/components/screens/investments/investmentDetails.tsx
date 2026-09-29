@@ -30,11 +30,11 @@ export function InvestmentDetails({
 }: InvestmentDetailsProps) {
   if (!asset) return null;
 
-  const saldoAtual = asset.quantity * asset.currentPrice;
-  const custoTotal = asset.quantity * asset.averagePrice;
-  const variacao = custoTotal > 0 ? saldoAtual - custoTotal : 0;
-  const variacaoPerc = custoTotal > 0 ? (variacao / custoTotal) * 100 : 0;
-  const isPositivo = variacao >= 0;
+  const saldoAtual = asset.valuationAmount ?? null;
+  const custoTotal = asset.totalCost ?? null;
+  const variacao = custoTotal !== null && saldoAtual !== null ? saldoAtual - custoTotal : null;
+  const variacaoPerc = custoTotal !== null && custoTotal > 0 && variacao !== null ? (variacao / custoTotal) * 100 : null;
+  const isPositivo = variacao !== null && variacao >= 0;
 
   return (
     <AnimatePresence>
@@ -82,7 +82,7 @@ export function InvestmentDetails({
                   className={`w-16 h-16 rounded-2xl flex items-center justify-center border ${getAssetColor(asset.type)}`}
                 >
                   {React.cloneElement(
-                    getAssetIcon(asset.type) as React.ReactElement<any>,
+                    getAssetIcon(asset.type) as React.ReactElement<{size?: number}>,
                     { size: 32 },
                   )}
                 </motion.div>
@@ -105,7 +105,7 @@ export function InvestmentDetails({
                     Saldo Atual
                   </p>
                   <p className="text-xl font-bold text-text-main">
-                    {formatCurrency(saldoAtual)}
+                    {saldoAtual === null ? "Indisponível" : formatCurrency(saldoAtual)}
                   </p>
                 </div>
 
@@ -115,7 +115,7 @@ export function InvestmentDetails({
                       Valor Aplicado
                     </p>
                     <p className="text-lg font-medium text-text-main">
-                      {formatCurrency(custoTotal)}
+                      {custoTotal === null ? "Indisponível" : formatCurrency(custoTotal)}
                     </p>
                   </div>
                 ) : (
@@ -129,7 +129,7 @@ export function InvestmentDetails({
                       className={`text-xl font-bold ${isPositivo ? "text-emerald-400" : "text-rose-400"}`}
                     >
                       {isPositivo ? "+" : ""}
-                      {variacaoPerc.toFixed(2)}%
+                      {variacaoPerc === null ? "Indisponível" : `${variacaoPerc.toFixed(2)}%`}
                     </p>
                   </div>
                 )}
@@ -149,13 +149,18 @@ export function InvestmentDetails({
                         Cotação Atual
                       </p>
                       <p className="text-text-main font-medium">
-                        {formatCurrency(asset.currentPrice)}
+                        {asset.currentPrice == null ? "Indisponível" : formatCurrency(asset.currentPrice)}
                       </p>
                     </div>
                   </>
                 )}
               </div>
 
+              <p className="text-xs text-text-muted mb-4 break-words">
+                Avaliação: {asset.valuationDate ? formatCalendarDate(asset.valuationDate) : "data indisponível"}
+                {" · "}{asset.valuationSource || "origem desconhecida"}
+                {asset.valuationBasis === "TOTAL" && " · Total informado; preço unitário aproximado"}
+              </p>
               {/* Actions */}
               <div className="flex gap-3">
                 {asset.type === "FIXED_INCOME" ? (

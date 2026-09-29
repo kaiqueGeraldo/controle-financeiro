@@ -38,7 +38,7 @@ public class InvestTransaction {
     @Column(nullable = false, precision = 20, scale = 8)
     private BigDecimal quantity;
 
-    @Column(nullable = false, precision = 20, scale = 8)
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal price;
 
     @Column(name = "total_value", nullable = false)

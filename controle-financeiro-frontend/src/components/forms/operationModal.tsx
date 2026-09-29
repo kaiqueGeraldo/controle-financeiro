@@ -46,6 +46,8 @@ export function OperationModal({
   const [totalValue, setTotalValue] = useState("");
   const [date, setDate] = useState("");
   const [accountId, setAccountId] = useState("");
+  const [reason, setReason] = useState("");
+  const [fees, setFees] = useState("");
   const initializedAsset = useRef<string | null>(null);
   const toast = useToast();
 
@@ -66,6 +68,7 @@ export function OperationModal({
       setQuantity("");
       setPrice("");
       setTotalValue("");
+      setReason(""); setFees("");
       setAccountId(accounts.length > 0 ? accounts[0].id : "");
       setDate(localDateString());
       setIsLoading(false);
@@ -83,6 +86,7 @@ export function OperationModal({
         await investmentService.updateBalance({
           investmentId: asset.id,
           newBalance: Number(totalValue),
+          date, source: "USER_PROVIDED", reason,
         });
       } else {
         let qtdFinal = 0;
@@ -102,6 +106,7 @@ export function OperationModal({
 
         await investmentService.operation({
           investmentId: asset.id,
+          amount: isFixedIncome && activeTab === "SELL" ? totalValue : undefined,
           type:
             activeTab === "DIVIDEND"
               ? "DIVIDEND"
@@ -110,7 +115,7 @@ export function OperationModal({
           price: priceFinal,
           date: date,
           accountId: accountId,
-          fees: 0,
+          fees: Number(fees || 0),
         });
       }
 
@@ -149,14 +154,16 @@ export function OperationModal({
               step="0.01"
               min="0"
               value={totalValue}
+              aria-label="Valor informado"
               onChange={(e) => setTotalValue(e.target.value)}
               className="w-full bg-bg-base border border-border-divider rounded-xl py-3 pl-10 pr-4 text-xl font-bold text-text-main focus:outline-none focus:border-blue-500"
               placeholder="0,00"
             />
           </div>
           <p className="text-[10px] text-text-muted mt-2 ml-1">
-            O sistema calculará a diferença e lançará como "Rendimento".
+            Avaliação da posição, sem entrada de dinheiro ou renda realizada. Informe a data e o motivo da avaliação.
           </p>
+          <label className="block mt-3">Motivo da avaliação<input required maxLength={500} value={reason} onChange={e=>setReason(e.target.value)} className="block w-full bg-bg-base rounded-lg border border-border-divider p-2" /></label>
         </div>
       );
     }
@@ -179,6 +186,7 @@ export function OperationModal({
               step="0.01"
               min="0"
               value={totalValue}
+              aria-label="Valor informado"
               onChange={(e) => setTotalValue(e.target.value)}
               className="w-full bg-bg-base border border-border-divider rounded-xl py-3 pl-10 pr-4 text-xl font-bold text-text-main focus:outline-none focus:border-emerald-500"
               placeholder="0,00"
@@ -280,6 +288,8 @@ export function OperationModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {renderFields()}
+          {activeTab === "UPDATE_BALANCE" && <label className="block">Data da avaliação<input type="date" required value={date} onChange={e=>setDate(e.target.value)} className="block w-full p-2 bg-bg-base border border-border-divider rounded-lg" /></label>}
+          {activeTab !== "UPDATE_BALANCE" && <label className="block">Taxas / retenções<input type="number" min="0" step="0.01" value={fees} onChange={e=>setFees(e.target.value)} className="block w-full p-2 bg-bg-base border border-border-divider rounded-lg" /></label>}
 
           {/* CAMPOS COMUNS (Conta e Data) - Não exibe para Ajuste de Saldo */}
           {activeTab !== "UPDATE_BALANCE" && (
@@ -308,6 +318,7 @@ export function OperationModal({
                   <select
                     required
                     value={accountId}
+                    aria-label="Conta"
                     onChange={(e) => setAccountId(e.target.value)}
                     className="w-full bg-bg-base border border-border-divider rounded-xl py-2.5 pl-10 pr-4 text-text-main text-sm focus:outline-none focus:border-emerald-500 appearance-none cursor-pointer"
                   >

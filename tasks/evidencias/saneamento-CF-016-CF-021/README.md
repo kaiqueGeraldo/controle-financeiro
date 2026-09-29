@@ -15,8 +15,8 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-03 | Arquivo não aplicado a todos writers; B16 | CF-018/020 | Regra comum de conta ativa | RV03 + writers cruzados | Pendente |
 | RVI-04 | UI soma lista selecionável; FIN-01 | CF-018/021 | Projeção de posição inclui arquivo | UI01 + reload | Pendente |
 | RVI-05 | Ausência de cobertura vira zero; FIN-08 | CF-021 | Cobertura em API/UI/XLSX | RV04 | Pendente |
-| RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Pendente |
-| RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Pendente |
+| RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Implementado; ver checkpoint C1 e limites |
+| RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Implementado; ver checkpoint C1 e limites |
 | RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + XLSX | Pendente |
 | RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Pendente |
 | RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + UI | Pendente |
@@ -26,14 +26,14 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Implementado; ver checkpoint B e limites |
 | RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Implementado; ver checkpoint B e limites |
 | RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Implementado; ver checkpoint B e limites |
-| RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Pendente |
-| RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Pendente |
+| RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Implementado; ver checkpoint C1 e limites |
+| RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Implementado; ver checkpoint C1 e limites |
 | RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + E2E | Pendente |
 | RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + XLSX | Pendente |
 | RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Pendente |
 | RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | 360/768/1440 | Pendente |
-| NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Decidido pelo usuário; implementação pendente |
-| H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Hipótese pendente |
+| NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
+| H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
 | H-02 | Leituras separadas na exportação | CF-021 | Investigar escrita entre páginas | Exportação concorrente controlada | Hipótese pendente |
 
 ## Decisão NG-01
@@ -109,3 +109,26 @@ Limites restantes desta etapa: backfill de vínculos já apagados não pode ser
 inferido; fallback bancário anterior permanece. Browser de compra em cartão e
 inspeção visual dos modais ainda pendentes. Histórico de compras atualmente usa
 lista por usuário (O(compras)); paginação futura deve manter busca do fato excluído.
+
+### Checkpoint C1 — total proporcional, avaliação auditada e resgate
+
+NG-01 aplicado conforme decisão do usuário: referência total/quantidade preservada,
+preço derivado apenas informativo; avaliações por preço têm base distinta. V7
+adota o total armazenado como referência atual sem inferir método histórico.
+Preços derivados têm faixa interna ampliada; limite de entrada monetária permanece.
+Resgate monetário de renda fixa remove custo por proporção, mantém taxas e ganho;
+resgate final zera quantidade/custo/avaliação. Parcial que arredondaria toda a
+quantidade é recusado com mensagem de precisão e rollback, sem descartar residual.
+Ajuste requer data/origem/motivo e grava investment_valuations sem fabricar renda.
+UI apresenta desconhecido, data/origem individual, taxas e comando de resgate.
+
+- Domínio/PG: 15/15 em Cf020InvestmentGoalIntegrationTest e probes RV06/RV07/RV08/RV15 (target/saneamento-c1.log).
+- Borda e compatibilidade: 13/13 em MilestoneValuationTest e TemporalCompatibilityIntegrationTest (target/saneamento-c1-val.log). B08, .67/.33/0, preço extremo e rollback por precisão.
+- Flyway/PG: vazio6, upgrades V2–V6 para V7 cinco, legado2, todos aprovados com preservação temporal e Hibernate validate. V1–V5 intocadas.
+- Browser/BFF/Spring/PG: SAN-C aprovado; avaliação1100, resgate220 deixa800/800/880, final880 com taxa1 deixa0/0/0 e conta2099 após reload. Setup de conta/posição via HTTP; avaliação e ambos resgates pela UI.
+- TypeScript e lint dos seis arquivos TS/TSX alterados nesta continuação passaram.
+- Imagens abertas: modal legível em768/1440; captura360 registrou carteira antes da animação do modal e NÃO comprova o modal nessa largura. Repetição visual necessária.
+
+Evidência: browser/c1 (log, SQL pós-commit, histórico e capturas). RVI-08 tem
+separação do caixa líquido no agregado, mas consumidor/XLSX ainda pendentes.
+RVI-21 compensação permanece pendente; este checkpoint não fecha toda a etapa C.

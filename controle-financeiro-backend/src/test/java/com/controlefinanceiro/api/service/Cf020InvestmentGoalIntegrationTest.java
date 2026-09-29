@@ -170,7 +170,7 @@ class Cf020InvestmentGoalIntegrationTest extends PostgresIntegrationTest {
         assertThat(account.getBalance()).isEqualByComparingTo("798.00");
         assertThat(investmentRepository.findById(assetId).orElseThrow().getTotalCost()).isEqualByComparingTo("202.00");
         assertThat(investmentRepository.findById(assetId).orElseThrow().getTotalValue()).isNull();
-        investments.updateBalance(new UpdateBalanceDTO(assetId, money("250.00")), owner);
+        investments.updateBalance(new UpdateBalanceDTO(assetId, money("250.00"), DAY, "USER_PROVIDED", "Avaliação informada"), owner);
         investments.performOperation(operation(assetId, account, InvestTransType.SELL, "4", "25.00", "1.00"), owner);
         em.flush();
         var asset = investmentRepository.findById(assetId).orElseThrow();
@@ -277,7 +277,7 @@ class Cf020InvestmentGoalIntegrationTest extends PostgresIntegrationTest {
                 null, money("10.00"), money("400.00"), money("500.00"), DAY, "USER_PROVIDED"), owner).id();
         goals.addValue(goalId, new GoalDepositDTO(null, money("200.00"), null, null, null, assetId), owner);
 
-        investments.updateBalance(new UpdateBalanceDTO(assetId, money("150.00")), owner);
+        investments.updateBalance(new UpdateBalanceDTO(assetId, money("150.00"), DAY, "USER_PROVIDED", "Avaliação informada"), owner);
         assertThat(allocations.sumByInvestmentId(assetId)).isEqualByComparingTo("200.00");
         assertThat(investmentRepository.findById(assetId).orElseThrow().getTotalValue()).isEqualByComparingTo("150.00");
         assertThatThrownBy(() -> goals.addValue(goalId,
@@ -309,7 +309,7 @@ class Cf020InvestmentGoalIntegrationTest extends PostgresIntegrationTest {
         assertThat(account.getBalance()).isEqualByComparingTo("1000.00");
         assertThat(investmentRepository.findById(assetId).orElseThrow().getTotalValue()).isEqualByComparingTo("500.00");
 
-        investments.updateBalance(new UpdateBalanceDTO(assetId, money("20.00")), owner);
+        investments.updateBalance(new UpdateBalanceDTO(assetId, money("20.00"), DAY, "USER_PROVIDED", "Avaliação informada"), owner);
         var assetAllocation = goals.listAllocations(goalId, owner).stream()
                 .filter(a -> assetId.equals(a.investmentId())).findFirst().orElseThrow();
         assertThat(assetAllocation.sourceDeficit()).isEqualByComparingTo("30.00");

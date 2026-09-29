@@ -31,6 +31,8 @@ public class Transaction extends com.controlefinanceiro.api.domain.temporal.Oper
 
     @Column(nullable = false)
     private BigDecimal amount;
+    @Column(precision = 38, scale = 2)
+    private BigDecimal cashAmount;
 
     @Column(nullable = false)
     private LocalDate date;

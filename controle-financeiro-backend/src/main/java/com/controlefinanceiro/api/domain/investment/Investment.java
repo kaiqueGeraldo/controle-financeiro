@@ -36,13 +36,13 @@ public class Investment {
     @Column(nullable = false, precision = 20, scale = 8)
     private BigDecimal quantity = BigDecimal.ZERO;
 
-    @Column(name = "average_price", nullable = false, precision = 20, scale = 8)
+    @Column(name = "average_price", nullable = false, precision = 38, scale = 8)
     private BigDecimal averagePrice = BigDecimal.ZERO;
 
     @Column(name = "total_cost", precision = 38, scale = 2)
     private BigDecimal totalCost;
 
-    @Column(name = "current_price", precision = 20, scale = 8)
+    @Column(name = "current_price", precision = 38, scale = 8)
     private BigDecimal currentPrice;
 
     @Column(name = "valuation_amount", precision = 38, scale = 2)
@@ -53,6 +53,13 @@ public class Investment {
 
     @Column(name = "valuation_source")
     private String valuationSource;
+
+    @Enumerated(EnumType.STRING)
+    private ValuationBasis valuationBasis;
+    @Column(precision = 38, scale = 2)
+    private BigDecimal valuationReferenceAmount;
+    @Column(precision = 20, scale = 8)
+    private BigDecimal valuationReferenceQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goal_id")
@@ -83,15 +90,40 @@ public class Investment {
     }
 
     public void evaluate(BigDecimal price, LocalDate date, String source) {
+        valuationBasis = ValuationBasis.PRICE;
         currentPrice = price;
-        valuationAmount = quantity.multiply(price).setScale(2, RoundingMode.HALF_UP);
+        valuationReferenceAmount = null;
+        valuationReferenceQuantity = null;
+        valuationAmount = valueForQuantity(quantity);
         valuationDate = date;
         valuationSource = source;
     }
 
     public void resizeValuation() {
-        if (currentPrice != null) {
-            valuationAmount = quantity.multiply(currentPrice).setScale(2, RoundingMode.HALF_UP);
+        valuationAmount = valueForQuantity(quantity);
+    }
+
+    public void evaluateTotal(BigDecimal total, LocalDate date, String source) {
+        valuationBasis = ValuationBasis.TOTAL;
+        valuationAmount = total;
+        valuationReferenceAmount = total;
+        valuationReferenceQuantity = quantity;
+        valuationDate = date;
+        valuationSource = source;
+        currentPrice = quantity.signum() == 0 ? null : total.divide(quantity, 8, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal valueForQuantity(BigDecimal units) {
+        if (units.signum() == 0) return BigDecimal.ZERO.setScale(2);
+        BigDecimal value;
+        if (valuationBasis == ValuationBasis.TOTAL && valuationReferenceQuantity != null
+                && valuationReferenceQuantity.signum() > 0) {
+            value = valuationReferenceAmount.multiply(units).divide(valuationReferenceQuantity, 2, RoundingMode.HALF_UP);
+        } else {
+            value = currentPrice == null ? null : units.multiply(currentPrice).setScale(2, RoundingMode.HALF_UP);
         }
+        if (value != null && value.precision() - value.scale() > 12)
+            throw new com.controlefinanceiro.api.service.exception.BusinessRuleException("Avaliação fora da faixa monetária.");
+        return value;
     }
 }

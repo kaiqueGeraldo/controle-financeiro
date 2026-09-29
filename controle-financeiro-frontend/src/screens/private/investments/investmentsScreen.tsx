@@ -129,7 +129,7 @@ export default function InvestimentosScreen() {
         asset={selectedInvestment}
         history={history}
         isHistoryLoading={isHistoryLoading}
-        onOperation={openOperation}
+        onOperation={(asset) => { setSelectedInvestmentId(null); openOperation(asset); }}
         onDeleteAsset={(id) => setAssetToDelete(id)}
         onDeleteHistory={(id) => setHistoryToDelete(id)}
       />

@@ -50,6 +50,7 @@ public class InvestmentService {
     @Autowired private ApplicationEventPublisher eventPublisher;
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private Clock clock;
+    @Autowired private InvestmentValuationRepository valuationRepository;
 
     public List<InvestmentResponseDTO> listAll(User user) {
         return investmentRepository.findAllByUserId(user.getId())
@@ -98,12 +99,7 @@ public class InvestmentService {
         investment.setTotalCost(data.openingCost() != null ? data.openingCost()
                 : quantity.signum() == 0 ? BigDecimal.ZERO : null);
         if (data.openingValue() != null) {
-            investment.setValuationAmount(data.openingValue());
-            investment.setValuationDate(data.valuationDate());
-            investment.setValuationSource(data.valuationSource());
-            if (quantity.signum() > 0) {
-                investment.setCurrentPrice(data.openingValue().divide(quantity, 8, RoundingMode.HALF_UP));
-            }
+            investment.evaluateTotal(data.openingValue(), data.valuationDate(), data.valuationSource());
         }
 
         if (data.goalId() != null) {
@@ -134,11 +130,29 @@ public class InvestmentService {
         Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
+        boolean monetaryRedemption = data.amount() != null;
+        if (monetaryRedemption) {
+            if (data.type() != InvestTransType.SELL || (investment.getType() != InvestType.FIXED_INCOME
+                    && investment.getType() != InvestType.TREASURY))
+                throw new BusinessRuleException("Resgate monetário exige posição de renda fixa.");
+            requireMoney(data.amount(), true);
+            BigDecimal value = investment.getValuationAmount();
+            if (value == null || value.signum() <= 0 || data.amount().compareTo(value) > 0)
+                throw new BusinessRuleException("Avaliação insuficiente ou desconhecida para resgate.");
+            BigDecimal units = data.amount().compareTo(value) == 0 ? investment.getQuantity()
+                    : investment.getQuantity().multiply(data.amount()).divide(value, 8, RoundingMode.HALF_UP);
+            requireQuantity(units, true);
+            if (data.amount().compareTo(value) < 0 && units.compareTo(investment.getQuantity()) >= 0)
+                throw new BusinessRuleException("Resgate parcial não representável na precisão de quantidade; informe um valor menor ou o resgate total.");
+            // The monetary command is authoritative; price is descriptive for the receipt.
+            data = new InvestmentOperationDTO(data.investmentId(),data.type(),units,
+                    data.amount().divide(units,8,RoundingMode.HALF_UP),data.fees(),data.date(),data.accountId(),data.amount());
+        }
         requireQuantity(data.quantity(), true);
-        requirePrice(data.price());
+        if (!monetaryRedemption) requirePrice(data.price());
         BigDecimal fees = data.fees() == null ? BigDecimal.ZERO : data.fees();
         requireMoney(fees, false);
-        BigDecimal gross = data.quantity().multiply(data.price()).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal gross = monetaryRedemption ? data.amount() : data.quantity().multiply(data.price()).setScale(2, RoundingMode.HALF_UP);
         requireMoney(gross, true);
         if (fees.compareTo(gross) > 0 && data.type() != InvestTransType.BUY) {
             throw new BusinessRuleException("Taxa não pode exceder o bruto da operação.");
@@ -196,12 +210,13 @@ public class InvestmentService {
         BigDecimal result = null;
         if (investment.getTotalCost() != null) {
             costRemoved = newQuantity.signum() == 0 ? investment.getTotalCost()
-                    : investment.getTotalCost().multiply(data.quantity())
-                            .divide(investment.getQuantity(), 2, RoundingMode.HALF_UP);
+                    : data.amount() != null ? investment.getTotalCost().multiply(data.amount())
+                            .divide(investment.getValuationAmount(), 2, RoundingMode.HALF_UP)
+                    : investment.getTotalCost().multiply(data.quantity()).divide(investment.getQuantity(), 2, RoundingMode.HALF_UP);
             result = netValue.subtract(costRemoved);
         }
-        BigDecimal remainingValue = investment.getCurrentPrice() == null ? null
-                : newQuantity.multiply(investment.getCurrentPrice()).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal remainingValue = data.amount() != null ? investment.getValuationAmount().subtract(data.amount())
+                : investment.valueForQuantity(newQuantity);
         BigDecimal reserved = allocationRepository.sumByInvestmentId(investment.getId());
         if (reserved.signum() > 0 && (remainingValue == null || remainingValue.compareTo(reserved) < 0)) {
             throw new BusinessRuleException("Venda exige liberação ou realocação da destinação do investimento.");
@@ -217,6 +232,7 @@ public class InvestmentService {
         investment.setQuantityAndCost(newQuantity,
                 costRemoved == null ? null : investment.getTotalCost().subtract(costRemoved));
         investment.resizeValuation();
+        if (data.amount() != null) investment.evaluateTotal(remainingValue, investment.getValuationDate(), investment.getValuationSource());
         createInvestTransaction(investment, InvestTransType.SELL, data, bankTx, gross, costRemoved, result);
     }
 
@@ -230,10 +246,14 @@ public class InvestmentService {
         Transaction income = createBankTransaction(account, gross, TransactionType.INCOME,
                 "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now,
                 TransactionOrigin.INVESTMENT_DIVIDEND);
+        income.setCashAmount(net);
+        transactionRepository.save(income);
         if (fees.signum() > 0) {
-            createBankTransaction(account, fees, TransactionType.EXPENSE,
+            Transaction withholding = createBankTransaction(account, fees, TransactionType.EXPENSE,
                     "Retenção de proventos: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
                     TransactionOrigin.INVESTMENT_FEE);
+            withholding.setCashAmount(BigDecimal.ZERO);
+            transactionRepository.save(withholding);
         }
         createInvestTransaction(investment, data.type(), data, income, gross, null, null);
     }
@@ -244,12 +264,16 @@ public class InvestmentService {
         Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
         requireMoney(data.newBalance(), false);
-        // O antigo campo newBalance passa a registrar avaliação, nunca quantidade ou saque.
-        investment.setValuationAmount(data.newBalance());
-        investment.setValuationDate(now.toLocalDate());
-        investment.setValuationSource("USER_ADJUSTMENT_UNSPECIFIED");
-        investment.setCurrentPrice(investment.getQuantity().signum() == 0 ? null
-                : data.newBalance().divide(investment.getQuantity(), 8, RoundingMode.HALF_UP));
+        if (investment.getQuantity().signum() == 0 && data.newBalance().signum() > 0)
+            throw new BusinessRuleException("Posição sem quantidade não pode ter avaliação positiva.");
+        if (data.date() == null || data.source() == null || data.source().isBlank()
+                || data.reason() == null || data.reason().isBlank() || data.reason().length() > 500 || data.source().length() > 255)
+            throw new BusinessRuleException("Avaliação exige data, origem e motivo.");
+        investment.evaluateTotal(data.newBalance(), data.date(), data.source());
+        InvestmentValuation audit = new InvestmentValuation();
+        audit.setInvestmentId(investment.getId()); audit.setAmount(data.newBalance());
+        audit.setValuationDate(data.date()); audit.setSource(data.source()); audit.setReason(data.reason());
+        audit.setRecordedAt(now.toInstant()); valuationRepository.save(audit);
         investmentRepository.save(investment);
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
     }

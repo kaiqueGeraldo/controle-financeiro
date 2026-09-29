@@ -41,3 +41,33 @@ test("SAN-B criar item, reload, consumir reserva, excluir intenção e reembolsa
  await mkdir(dir,{recursive:true});await writeFile(path.join(dir,"san-b-purchases.json"),JSON.stringify(await json(page,"/goals/purchases"),null,2));
  for(const width of [360,768,1440]) {await page.setViewportSize({width,height:900});await history.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-b-${width}.png`),animations:"disabled"});}
 });
+
+test("SAN-C avaliação auditada, resgate B08 e encerramento pela UI",async({page})=>{
+ await start(page,"valuation");
+ const a=await post(page,"/accounts",{name:`${ns}-cash`,type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const i=await post(page,"/investments",{ticker:"SANFIX",name:"Renda fixa saneamento",type:"FIXED_INCOME",openingQuantity:1000,openingCost:1000,openingValue:1000,valuationDate:"2027-01-15",valuationSource:"USER_PROVIDED"});
+ const open=async()=>{await page.getByText("SANFIX",{exact:true}).click();await page.getByRole("button",{name:"Atualizar Saldo",exact:true}).click();return page.getByRole("dialog",{name:"SANFIX - Operação"});};
+ await page.goto("/investimentos");
+ let modal=await open();
+ await modal.getByLabel("Valor informado").fill("1100");
+ await modal.getByLabel("Motivo da avaliação").fill("Extrato de renda fixa");
+ await modal.getByLabel("Data da avaliação").fill("2027-01-15");
+ let response=page.waitForResponse(r=>r.url().endsWith("/update-balance")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar Operação"}).click();expect((await response).ok()).toBe(true);
+ await page.reload();modal=await open();await modal.getByRole("button",{name:"Resgatar",exact:true}).click();
+ await modal.getByLabel("Valor informado").fill("220");await modal.getByLabel("Conta",{exact:true}).selectOption(a.id);
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.screenshot({path:path.join(dir,`san-c-resgate-${width}.png`),animations:"disabled"});}
+ response=page.waitForResponse(r=>r.url().endsWith("/investments/operation")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar Operação"}).click();expect((await response).ok()).toBe(true);
+ await page.reload();
+ let asset=(await json(page,"/investments")).find((v:{id:string})=>v.id===i.id);
+ expect([asset.quantity,asset.totalCost,asset.valuationAmount]).toEqual([800,800,880]);
+ modal=await open();await modal.getByRole("button",{name:"Resgatar",exact:true}).click();
+ await modal.getByLabel("Valor informado").fill("880");await modal.getByLabel("Taxas / retenções").fill("1");await modal.getByLabel("Conta",{exact:true}).selectOption(a.id);
+ response=page.waitForResponse(r=>r.url().endsWith("/investments/operation")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar Operação"}).click();expect((await response).ok()).toBe(true);
+ await page.reload();asset=(await json(page,"/investments")).find((v:{id:string})=>v.id===i.id);
+ expect([asset.quantity,asset.totalCost,asset.valuationAmount]).toEqual([0,0,0]);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(2099);
+ await writeFile(path.join(dir,"san-c-history.json"),JSON.stringify(await json(page,`/investments/${i.id}/history`),null,2));
+});

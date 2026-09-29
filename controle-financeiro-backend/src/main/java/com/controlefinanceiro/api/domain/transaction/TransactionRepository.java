@@ -82,7 +82,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     @Query("""
             SELECT t.type, COALESCE(t.transferDirection, original.transferDirection),
                    SUM(CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
-                       THEN -t.amount ELSE t.amount END)
+                       THEN -COALESCE(t.cashAmount, t.amount) ELSE COALESCE(t.cashAmount, t.amount) END)
             FROM Transaction t LEFT JOIN Transaction original
               ON original.id = t.reversalOfId AND original.user.id = :userId
             WHERE t.user.id = :userId AND t.date BETWEEN :startDate AND :endDate
@@ -156,7 +156,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     @Query("""
             SELECT t.date, t.type, SUM(CASE WHEN t.origin =
                 com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
-                THEN -t.amount ELSE t.amount END)
+                THEN -COALESCE(t.cashAmount, t.amount) ELSE COALESCE(t.cashAmount, t.amount) END)
             FROM Transaction t WHERE t.user.id = :userId AND t.date >= :startDate
               AND t.type IN (com.controlefinanceiro.api.domain.transaction.TransactionType.INCOME,
                              com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
@@ -172,7 +172,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             SELECT EXTRACT(YEAR FROM t.date), EXTRACT(MONTH FROM t.date), t.type,
                    SUM(CASE WHEN t.origin =
                        com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL
-                       THEN -t.amount ELSE t.amount END)
+                       THEN -COALESCE(t.cashAmount, t.amount) ELSE COALESCE(t.cashAmount, t.amount) END)
             FROM Transaction t WHERE t.user.id = :userId AND t.date >= :startDate
               AND t.type IN (com.controlefinanceiro.api.domain.transaction.TransactionType.INCOME,
                              com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE)
