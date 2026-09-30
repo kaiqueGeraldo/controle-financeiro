@@ -366,6 +366,8 @@ test("SAN-E3 cobertura parcial e zero conhecido são distintos após filtro, rel
  await page.reload();await expect(page.getByText("Total do período indisponível",{exact:true})).toBeVisible();
  await page.goto("/resumo-anual");await page.getByRole("button",{name:"Ano anterior",exact:true}).click();await expect(page.getByText("Sem períodos completos comparáveis; crescimento indisponível.")).toBeVisible();
  const year=await json(page,"/annual-summary?year=2026");expect(year.balance.totalIncome).toBeNull();expect(year.balance.coverage.state).toBe("UNAVAILABLE");expect(year.comparison.incomeGrowthPercentage).toBeNull();
+ // Framer Motion animates the parent grid; visible text alone can still be transparent in a capture.
+ await expect(page.locator("main > div.grid")).toHaveCSS("opacity","1");
  for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Resultado gerencial do ano",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,"san-e3-anual-"+width+".png"),fullPage:true,animations:"disabled"});}
  await writeFile(path.join(dir,"san-e3-coverage.json"),JSON.stringify({covered,absent,year},null,2));
 });

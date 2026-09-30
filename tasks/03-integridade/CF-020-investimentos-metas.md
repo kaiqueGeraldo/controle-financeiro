@@ -55,3 +55,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 RVI-06/07/13–18 e parte de RVI-21: checklist em lote com fonte real, compra/fato/reembolso sobrevivem à exclusão; hora interna canônica. B08 renda fixa monetária preserva principal/custo/avaliação/taxas/ganho; desconhecido e encerramento zero distintos. NG-01 total proporcional. Avaliação auditada e compensação pela UI conserva operação original e recalcula custos dependentes em revisão separada; caso 20×10+2→20×8+2 após venda 5×15-1 deixa banco 912/custo 121.50.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Aceite integral não aprovado: compensação de provento altera referência proporcional (RVA-01) e encerramento mantém custo residual null (RVA-02). Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

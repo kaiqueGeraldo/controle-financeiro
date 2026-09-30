@@ -64,3 +64,7 @@ Nenhuma regra de produto foi implementada/certificada. Sem PostgreSQL, HTTP, E2E
 NG-01 decidido pelo usuário: avaliação TOTAL autoritativa proporcional; oráculos independentes 1.00/200000000, metade 0.50/final 0.00 e terços 0.67/0.33/0.00. Validação atual e preservação histórica permanecem gates separados; pom.xml continua vermelho no gate estrito histórico.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Oráculos atuais aprovados; NG-01 permanece decidido. A divergência nova é da implementação, não exige reabrir a especificação. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

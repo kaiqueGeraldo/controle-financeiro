@@ -53,6 +53,9 @@ class MilestoneExportSnapshotTest extends PostgresIntegrationTest {
             assertThat(read.await(15,TimeUnit.SECONDS)).as("first page materialized before concurrent commit").isTrue();
             var write=pool.submit(()->service.create(new CreateTransactionDTO("Concurrent after snapshot",new BigDecimal("10.00"),day,"10:00",TransactionType.INCOME,a,null,true),u));
             assertThat(write.get(15,TimeUnit.SECONDS).amount()).isEqualByComparingTo("10.00");
+            // Independent revalidation: move the coverage boundary after page one as well as the rows.
+            pool.submit(() -> accounts.create(new CreateAccountDTO("Later coverage source", AccountType.CHECKING,
+                    BigDecimal.ZERO, "BLUE", day.plusDays(1)), u)).get(15, TimeUnit.SECONDS);
             assertThat(sql.queryForObject("select balance from accounts where id=?",BigDecimal.class,a)).isEqualByComparingTo("1511.00");
             release.countDown();bytes=export.get(20,TimeUnit.SECONDS);
         } finally {release.countDown();((Advised)ledger).removeAdvice(barrier);}
@@ -63,9 +66,13 @@ class MilestoneExportSnapshotTest extends PostgresIntegrationTest {
             System.out.println("H02 controlled export: "+observed);
             assertThat(new BigDecimal(sheet.getRow(2).getCell(2).getStringCellValue())).isEqualByComparingTo("501.00");
             assertThat(names).as(observed).hasSize(501).doesNotHaveDuplicates().doesNotContain("Concurrent after snapshot");
+            assertThat(workbook.getSheet("Cobertura").getRow(3).getCell(0).getStringCellValue())
+                    .startsWith("Base conhecida: 2026-09-07;");
         }
         try(var workbook=new XSSFWorkbook(new ByteArrayInputStream(service.exportToExcel(u,9,2026,null,null)))) {
             assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(2).getCell(2).getStringCellValue())).isEqualByComparingTo("511.00");
+            assertThat(workbook.getSheet("Cobertura").getRow(3).getCell(0).getStringCellValue())
+                    .startsWith("Base conhecida: 2026-09-08;");
         }
     }
 }

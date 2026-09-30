@@ -55,3 +55,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 RVI-11/12 e compras dependentes de metas: intenção identificada e fingerprint persistidos, GET recupera recibo após resposta perdida, refresh não repete POST e valor sugerido usa saldo pagável/crédito. Compra 120 após pagamento 20 ou 120 conserva histórico após excluir meta; reembolso deixa banco 980/880, dívida 0 e crédito 20/120, sem repetição. Dívida/crédito agregado validados antes do commit.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Protocolo localizado de intenção/recibo revalidado; aceite integrado mantém pendência de reconciliação observada após pagamento120 (RVA-03). Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

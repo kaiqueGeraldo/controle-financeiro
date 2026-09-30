@@ -73,3 +73,7 @@ adoção temporal real permanecem abertos exatamente como na revisão CF-017.
 RVI-01/02/03/09/19 e parte de RVI-21: política de fonte ativa/capacidade sob lock, déficit bancário real distinto de gasto voluntário, baixa legada preserva previsão, baixa/transferência prevista atômica e estorno parcial com data/motivo/chave/recibo. UI executa e relê os fatos após reload. H-01 reproduzido e corrigido por ordem conta→investimento; arquivamento espera writer independente.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Correções de reserva, arquivo, baixa, transferência e estorno aprovadas no recorte. O parecer não encerra auditorias transversais nem altera automaticamente o estado integral da tarefa. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

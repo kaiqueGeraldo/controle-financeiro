@@ -69,3 +69,7 @@ confundir fundação local apta com baseline/publicação autorizadas.
 Saneamento acrescentou V6–V11 sem editar V1–V5. Provas locais de banco vazio/legado/upgrades, checksum, falha/recuperação e Hibernate validate em PostgreSQL descartável. V11 não fabrica cobertura para legados. RV17-01/RV17-02, inventário/backup/restore e adoção reais permanecem pendentes; não há autorização para publicação.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Base local V1–V11 revalidada. Mantidas RV17-01/RV17-02 e adoção real; nenhuma autorização de publicação. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

@@ -53,3 +53,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 RVI-04/05/08/10/20/22 e H-02: posição inclui arquivo e permanece atual datada em qualquer ano; cobertura/origem/faixa separadas de subtotal observado exato em API/UI/XLSX. E27 caixa 9/0 distinto de gerencial 10/1. Filtros e download têm escopo consistente; export REPEATABLE_READ comprovado com writer independente entre páginas. Capturas 360/768/1440, PostgreSQL/reload e arquivos baixados verificados. Não certifica zoom nativo 200%.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revalidação independente — 30/09/2026
+
+Cobertura, filtros, caixa e snapshot revalidados no recorte; aceite integrado depende das pendências de CF-019/020. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
