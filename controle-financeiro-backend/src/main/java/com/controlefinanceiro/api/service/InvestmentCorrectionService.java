@@ -73,8 +73,6 @@ public class InvestmentCorrectionService {
         effective.put(id,correction);
         Replay after=replay(investment,chain,effective);
         BigDecimal remaining=investment.valueForQuantity(after.quantity());
-        if(after.quantity().signum()>0 && remaining==null && original.getBeforeValue()!=null && original.getBeforeQuantity().signum()>0)
-            remaining=original.getBeforeValue().multiply(after.quantity()).divide(original.getBeforeQuantity(),2,RoundingMode.HALF_UP);
         BigDecimal reserved=allocations.sumByInvestmentId(investment.getId());
         if(reserved.signum()>0 && (remaining==null || remaining.compareTo(reserved)<0))
             throw new BusinessRuleException("Correção exige liberação ou realocação da destinação.");
@@ -105,8 +103,9 @@ public class InvestmentCorrectionService {
         reverseBank(original,account,user,data,refunded);
         if(data.replacementQuantity()!=null) replacementBank(original,account,user,data,replacementGross,replacementCash);
         investment.setQuantityAndCost(after.quantity(),after.cost());
-        if(remaining!=null) investment.evaluateTotal(remaining,investment.getValuationDate(),investment.getValuationSource());
-        else investment.resizeValuation();
+        // Replay changes the position, not the independent valuation declaration.
+        // Keep TOTAL's original denominator and PRICE's modality/provenance.
+        investment.resizeValuation();
         events.publishEvent(new UserFinancialDataChangedEvent(user.getId(),data.date().getYear()));
         return correction;
     }

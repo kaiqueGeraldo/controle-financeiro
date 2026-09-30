@@ -1,0 +1,516 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 11 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 210 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 53 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest
+17:02:42.953 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:02:43.203 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest
+17:02:43.455 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+17:02:43.458 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 17:02:43.875 - INFO 6688 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-30 17:02:44.279 - INFO 6688 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-30 17:02:49.743 - INFO 6688 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-30 17:02:49.747 - INFO 6688 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-30 17:02:49.779 - INFO 6688 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-30 17:02:50.903 - INFO 6688 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-30 17:02:50.904 - INFO 6688 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-30 17:02:50.905 - INFO 6688 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-30 17:02:52.740 - INFO 6688 --- [           main] c.a.s.Cf020InvestmentGoalIntegrationTest : Starting Cf020InvestmentGoalIntegrationTest using Java 21.0.12.1 with PID 6688 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 17:02:52.741 - INFO 6688 --- [           main] c.a.s.Cf020InvestmentGoalIntegrationTest : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-09-30 17:03:00.740 - WARN 6688 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 17:03:13.097 - INFO 6688 --- [           main] c.a.s.Cf020InvestmentGoalIntegrationTest : Started Cf020InvestmentGoalIntegrationTest in 29.621 seconds (process running for 31.713)
+-2026-09-30 17:03:13.256 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.267 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'DROP' (STOCK) para usu�rio 71c37bd6-28b4-4cb5-bcd3-404d8d8cd94a@example.test
+-2026-09-30 17:03:13.273 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1d5df1ca-a631-4250-8abe-5da15fe878d7
+-2026-09-30 17:03:13.276 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 7bfbc199-f91e-4b3b-9f5d-0e0f0b0baa0a. Valor: 200.00
+-2026-09-30 17:03:13.580 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 200.00
+-2026-09-30 17:03:13.750 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 7bfbc199-f91e-4b3b-9f5d-0e0f0b0baa0a. Valor: 0.01
+-2026-09-30 17:03:13.759 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 1d5df1ca-a631-4250-8abe-5da15fe878d7
+-2026-09-30 17:03:13.767 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:13.799 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.800 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.813 - INFO 6688 --- [pool-3-thread-2] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: d351cd4c-ba5c-455b-8e7b-26cc4d3644ee. Valor: 600.00
+-2026-09-30 17:03:13.815 - INFO 6688 --- [pool-3-thread-1] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: e5c9849e-a282-4b39-a36d-8b0125456f51. Valor: 600.00
+-2026-09-30 17:03:13.852 - INFO 6688 --- [pool-3-thread-2] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 600.00
+-2026-09-30 17:03:13.940 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.942 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 71252458-b3ad-41eb-88d3-7a7574ba68ee. Valor: 1.00
+-2026-09-30 17:03:13.952 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.953 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'UNKNOWN' (STOCK) para usu�rio 424e08bc-8cb6-4ded-b670-7c1f86b080fc@example.test
+-2026-09-30 17:03:13.954 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 2bc1a21f-16bf-4639-b6e7-e3c087debddf
+-2026-09-30 17:03:13.954 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 2edc8770-59ab-4267-8253-fbdc24baf920. Valor: 1.00
+-2026-09-30 17:03:13.978 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.978 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:13.979 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 36d30bad-d37e-4f27-8d30-ce29bb7b3571. Valor: 300.00
+-2026-09-30 17:03:13.996 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-30 17:03:13.996 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: d3e251d0-40b6-467e-907c-95c5d9bed31c. Valor: 700.00
+-2026-09-30 17:03:14.014 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 700.00
+-2026-09-30 17:03:14.015 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 36d30bad-d37e-4f27-8d30-ce29bb7b3571. Valor: 0.01
+-2026-09-30 17:03:14.112 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Livros
+-2026-09-30 17:03:14.114 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:14.114 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX1' (FIXED_INCOME) para usu�rio 508131d5-8ab7-43df-97c5-1ffa61007585@example.test
+-2026-09-30 17:03:14.115 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 556aeaca-f126-4c87-9591-8e591fb4de79
+-2026-09-30 17:03:14.115 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: bf87e53f-acd1-4308-bcd6-84fa20b993d9. Valor: 200.00
+-2026-09-30 17:03:14.133 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 200.00
+-2026-09-30 17:03:14.188 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'ROUND' (STOCK) para usu�rio 38c906e4-3172-4103-be4e-37280db930d9@example.test
+-2026-09-30 17:03:14.189 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3c5c1226-896e-4d1c-ae03-5d5a967633bd
+-2026-09-30 17:03:14.189 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 3c5c1226-896e-4d1c-ae03-5d5a967633bd
+-2026-09-30 17:03:14.213 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.231 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'THIRDS' (STOCK) para usu�rio 38c906e4-3172-4103-be4e-37280db930d9@example.test
+-2026-09-30 17:03:14.232 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 36e04938-fde5-40ed-848c-7632a6b35dac
+-2026-09-30 17:03:14.232 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 36e04938-fde5-40ed-848c-7632a6b35dac
+-2026-09-30 17:03:14.239 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:14.247 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.247 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 36e04938-fde5-40ed-848c-7632a6b35dac
+-2026-09-30 17:03:14.265 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:14.271 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.272 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 36e04938-fde5-40ed-848c-7632a6b35dac
+-2026-09-30 17:03:14.289 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:14.297 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.331 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:14.332 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 27db8aec-e5e4-4c3e-a6a3-2717eca40b5a. Valor: 300.00
+-2026-09-30 17:03:14.349 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-30 17:03:14.485 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'SINT3' (STOCK) para usu�rio e75748f4-3ccf-4273-b30b-cf931663345a@example.test
+-2026-09-30 17:03:14.486 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 99874da2-93cf-4661-b85a-f81216f0a626
+-2026-09-30 17:03:14.486 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 99874da2-93cf-4661-b85a-f81216f0a626
+-2026-09-30 17:03:14.504 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.518 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 99874da2-93cf-4661-b85a-f81216f0a626
+-2026-09-30 17:03:14.526 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:14.532 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.547 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 99874da2-93cf-4661-b85a-f81216f0a626
+-2026-09-30 17:03:14.557 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.567 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:14.567 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'MOVE' (FIXED_INCOME) para usu�rio 66f93590-304f-473b-b2c9-99ab5ffe1a70@example.test
+-2026-09-30 17:03:14.567 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a1fdaa9b-94e7-4bcc-a5b4-7d3bbe27bf99
+-2026-09-30 17:03:14.567 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 83aae43e-cd72-42df-80b5-4473f1e6f84d. Valor: 300.00
+-2026-09-30 17:03:14.582 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-30 17:03:14.660 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CDB' (FIXED_INCOME) para usu�rio fdc082bf-53b4-44c4-a7ff-6b31c148a853@example.test
+-2026-09-30 17:03:14.661 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7759e1da-8834-473f-aff5-7093ab187263
+-2026-09-30 17:03:14.661 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 7759e1da-8834-473f-aff5-7093ab187263
+-2026-09-30 17:03:14.672 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 17:03:14.676 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 17:03:14.697 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sint�tica
+-2026-09-30 17:03:14.699 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: ab040404-7498-4dd2-b663-e18200223f70. Valor: 300.00
+-2026-09-30 17:03:14.713 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.19 s -- in com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 14:03:16.619 - INFO 6688 --- [           main] c.a.s.IndependentRemediationBoundaryTest : Starting IndependentRemediationBoundaryTest using Java 21.0.12.1 with PID 6688 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 14:03:16.619 - INFO 6688 --- [           main] c.a.s.IndependentRemediationBoundaryTest : The following 1 profile is active: "test"
+-2026-09-30 14:03:19.120 - WARN 6688 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 14:03:20.741 - INFO 6688 --- [           main] c.a.s.IndependentRemediationBoundaryTest : Started IndependentRemediationBoundaryTest in 4.18 seconds (process running for 39.357)
+-2026-09-30 14:03:20.756 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b6c0f6ed-7c25-41dc-8d95-ebdcecc9497e
+-2026-09-30 14:03:20.761 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'REVAL' (STOCK) para usu�rio 64d6916e-8876-4f21-abe9-ee7e63840945@example.invalid
+-2026-09-30 14:03:20.762 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c3af7325-5ee3-4f5a-8557-29d8d75f3c86
+-2026-09-30 14:03:20.767 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID c3af7325-5ee3-4f5a-8557-29d8d75f3c86
+-2026-09-30 14:03:20.780 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:20.794 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:20.845 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio f80b1a75-a1a5-4544-b0a3-56d9e7258d1e
+-2026-09-30 14:03:20.851 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'REVAL' (STOCK) para usu�rio fdc3efb6-5efe-4179-ab85-ad1114565974@example.invalid
+-2026-09-30 14:03:20.851 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 708de81d-607e-40f7-9389-f3e69e9e6dfe
+-2026-09-30 14:03:20.855 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 708de81d-607e-40f7-9389-f3e69e9e6dfe
+-2026-09-30 14:03:20.861 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:20.867 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:20.883 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 708de81d-607e-40f7-9389-f3e69e9e6dfe
+-2026-09-30 14:03:20.893 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:20.981 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 708de81d-607e-40f7-9389-f3e69e9e6dfe
+-2026-09-30 14:03:20.989 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:20.998 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.238 s -- in com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest
+[INFO] Running com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 14:03:21.119 - INFO 6688 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : Starting IntegratedMilestoneReviewTest using Java 21.0.12.1 with PID 6688 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 14:03:21.119 - INFO 6688 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : The following 1 profile is active: "test"
+-2026-09-30 14:03:22.018 - WARN 6688 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 14:03:23.658 - INFO 6688 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : Started IntegratedMilestoneReviewTest in 2.604 seconds (process running for 42.274)
+-2026-09-30 14:03:23.673 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:23.680 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 14:03:23.708 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 735641f1-869c-419c-a7e9-53d51a86547e: 120.00 (1x)
+-2026-09-30 14:03:23.764 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:03:23.881 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio faec387c-0e85-432c-ba4e-f04913bc366f
+-2026-09-30 14:03:23.884 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVb85d9bb6' (STOCK) para usu�rio 9bbc7317-da5f-446d-93a6-9ea560a4515a@example.invalid
+-2026-09-30 14:03:23.885 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a7f50aef-9a23-4ebb-8d42-ed63e7b2d078
+-2026-09-30 14:03:23.981 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 6f216048-6fa8-4c52-8418-d8a1232c076b
+-2026-09-30 14:03:23.985 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 6f216048-6fa8-4c52-8418-d8a1232c076b
+-2026-09-30 14:03:23.987 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:23.991 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: ae4841db-38a3-44e1-8bed-a5790396da96. Valor: 300.00
+-2026-09-30 14:03:24.013 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-30 14:03:24.022 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=800.00, ContaID=e7ab2bbe-1287-47e1-bb11-2d19a3c93930
+-2026-09-30 14:03:24.044 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 08d23843-ece7-4254-929f-313d2c774126
+-2026-09-30 14:03:24.047 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:24.321 - WARN 6688 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /goals/9e72a72f-da90-4293-bf73-a825bae6c8cd/allocations; campos: [amount]]
+-2026-09-30 14:03:24.587 - WARN 6688 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /investments; campos: [openingCost]]
+-2026-09-30 14:03:24.598 - WARN 6688 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /investments; campos: [openingCost]]
+-2026-09-30 14:03:24.615 - INFO 6688 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CANON' (STOCK) para usu�rio 0e8d8c96-cc25-4e9a-a1ec-da9ec99273b4@example.invalid
+-2026-09-30 14:03:24.616 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CANON' (STOCK) para usu�rio 0e8d8c96-cc25-4e9a-a1ec-da9ec99273b4@example.invalid
+-2026-09-30 14:03:24.617 - WARN 6688 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Valor monet�rio inv�lido: centavos e at� 12 d�gitos inteiros. [URI: /investments]
+-2026-09-30 14:03:24.632 - INFO 6688 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CANON' (STOCK) para usu�rio 0e8d8c96-cc25-4e9a-a1ec-da9ec99273b4@example.invalid
+-2026-09-30 14:03:24.632 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CANON' (STOCK) para usu�rio 0e8d8c96-cc25-4e9a-a1ec-da9ec99273b4@example.invalid
+-2026-09-30 14:03:24.633 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 40aefde5-3bc6-4178-9ee3-348a37aa8413
+-2026-09-30 14:03:24.793 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9bd41fb9-a526-4044-bd8a-f2e41ebb662c
+-2026-09-30 14:03:24.797 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=05e82156-0a3d-4ce5-a4e6-338787c16d69
+-2026-09-30 14:03:24.806 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 138caa81-fca8-471e-b9e2-00e24edb0622
+-2026-09-30 14:03:24.810 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 138caa81-fca8-471e-b9e2-00e24edb0622
+-2026-09-30 14:03:24.866 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c865af43-f469-43df-a2f1-8d509528a644
+-2026-09-30 14:03:24.870 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=300.00, ContaID=83fa4940-0d32-4741-8c56-6814915b88c3
+-2026-09-30 14:03:24.879 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID fef75f89-cb59-4579-9b7f-d9523036ee2c
+-REVIEW concurrent rejection: BusinessRuleException: O valor da baixa excede o saldo pendente da previs�o.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 14:03:24.940 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c246b9bb-f458-448c-98d3-575eb7ccd624
+-2026-09-30 14:03:24.943 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RV6128ef9a' (STOCK) para usu�rio 2fbb3314-f7fb-4ae3-9495-42c078fef699@example.invalid
+-2026-09-30 14:03:24.944 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 5802789f-c882-480a-b7ba-a1ce9f857a64
+-2026-09-30 14:03:24.948 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 5802789f-c882-480a-b7ba-a1ce9f857a64
+-2026-09-30 14:03:24.962 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:25.051 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 69ec652c-d896-4bae-9a99-f07196b321a0
+-2026-09-30 14:03:25.054 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 69ec652c-d896-4bae-9a99-f07196b321a0
+-2026-09-30 14:03:25.057 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=ee77e1db-8ff0-4b21-80e1-49f149b9133a
+-2026-09-30 14:03:25.191 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c98e4854-c9be-443a-af13-fe792a46c7ba
+-2026-09-30 14:03:25.194 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=ed939755-7d3b-40d2-8abe-28a25937d143
+-2026-09-30 14:03:25.197 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta ed939755-7d3b-40d2-8abe-28a25937d143. Novo saldo: 999999999999.99
+-2026-09-30 14:03:25.200 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9305b046-1f98-40ab-b109-9cd3fc2bcefc
+-2026-09-30 14:03:25.310 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 9d370d13-e2b3-4fe6-942d-06c947d3fe11@example.invalid
+-2026-09-30 14:03:26.509 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio f054e72b-d859-4c88-83a0-cdb2f273f696
+-2026-09-30 14:03:26.511 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:26.514 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-REVIEW concurrent rejection: BusinessRuleException: Dispon�vel da fonte insuficiente para destina��o.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 14:03:26.553 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 106a13fc-66c1-4607-8db2-b4c6492529a7
+-2026-09-30 14:03:26.558 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 106a13fc-66c1-4607-8db2-b4c6492529a7
+-2026-09-30 14:03:26.560 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:26.572 - INFO 6688 --- [pool-6-thread-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=800.00, ContaID=2795fd35-9257-4757-aefe-f5e024a73328
+-REVIEW concurrent rejection: BusinessRuleException: Dispon�vel livre insuficiente; libere ou realoque a destina��o antes da transfer�ncia.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 14:03:26.590 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio d7f14aa3-e24c-44bd-922d-6c65b22343f2
+-2026-09-30 14:03:26.594 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RV18f57f3e' (STOCK) para usu�rio 41d9eb9b-a272-4c8a-ab96-6c9f1680f69a@example.invalid
+-2026-09-30 14:03:26.595 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1341af40-4440-4be3-8e9e-0ca966a1f9ba
+-2026-09-30 14:03:26.598 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 1341af40-4440-4be3-8e9e-0ca966a1f9ba
+-2026-09-30 14:03:26.602 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:26.606 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:26.622 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 14:03:26.627 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 14:03:26.647 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6bd0872c-9018-4cbe-9799-27cd057176dc: 120.00 (1x)
+-2026-09-30 14:03:26.666 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:03:26.686 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b86971bb-4f48-4323-a64c-aef50dfc2311
+-2026-09-30 14:03:26.689 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=cb979817-d88c-4862-bd0e-09535cd4d911
+-2026-09-30 14:03:26.695 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 97ed3542-a6d5-46a2-82e5-679530880f57
+-2026-09-30 14:03:26.708 - WARN 6688 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/97ed3542-a6d5-46a2-82e5-679530880f57/settlements; campos: [amount]]
+-2026-09-30 14:03:26.721 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio efeb958b-d8da-4e99-b8f1-40ee065c8cf8
+-2026-09-30 14:03:26.726 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio efeb958b-d8da-4e99-b8f1-40ee065c8cf8
+-2026-09-30 14:03:26.735 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 14:03:26.745 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 6cec7b17-2c18-4a52-b865-5228388e0e0b: 100.00 (1x)
+-2026-09-30 14:03:26.770 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:03:26.776 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=2947d7d5-1edf-4cea-b296-32ebe42f6300
+-2026-09-30 14:03:26.811 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 244377e0-caa8-4d7b-8292-8b8074ea2ba6
+-2026-09-30 14:03:26.813 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVce408297' (STOCK) para usu�rio 17422288-5272-43a5-983f-3b34b1021b89@example.invalid
+-2026-09-30 14:03:26.813 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1775e4ba-cda1-4ce4-b22f-e3472c2b5e68
+-2026-09-30 14:03:26.816 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID dce019db-b06e-4d5e-9df2-f7e8152705d5
+-2026-09-30 14:03:26.818 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 14:03:26.821 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 1775e4ba-cda1-4ce4-b22f-e3472c2b5e68
+-2026-09-30 14:03:26.832 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 93229f08-347c-42fd-b328-1bdd38c7b94e
+-2026-09-30 14:03:26.836 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVf595d172' (STOCK) para usu�rio 74c3cfa9-4435-4ef7-a783-a96d6cddb726@example.invalid
+-2026-09-30 14:03:26.836 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 176c9efb-b026-4f35-a8e0-903b9c25f628
+-2026-09-30 14:03:26.839 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 176c9efb-b026-4f35-a8e0-903b9c25f628
+-2026-09-30 14:03:26.843 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:26.847 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:26.866 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 02f2f7a7-3d90-46d6-8533-9fd9dffdc9ba
+-2026-09-30 14:03:26.869 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 02f2f7a7-3d90-46d6-8533-9fd9dffdc9ba
+-2026-09-30 14:03:26.874 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 14:03:26.879 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 7898c75d-2dfb-451c-9b19-dc2b7cdbf8a0: 100.00 (1x)
+-2026-09-30 14:03:26.898 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:03:26.905 - INFO 6688 --- [pool-7-thread-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=d47d18d8-9f61-4aa3-8971-661fbcdcc355
+-2026-09-30 14:03:26.906 - INFO 6688 --- [pool-7-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:03:26.938 - INFO 6688 --- [pool-7-thread-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o review
+-REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, true]
+2026-09-30 14:03:27.044 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVb091fd94' (STOCK) para usu�rio 6fb12bda-23f5-43cd-8a30-53b2cff6ebbc@example.invalid
+-2026-09-30 14:03:27.044 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 2671cd20-a9d4-4003-a83a-c3bef1d22824
+-2026-09-30 14:03:27.058 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e6462d4a-d2ca-4d81-8e35-0611bfd61c46
+-2026-09-30 14:03:27.060 - INFO 6688 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-REVIEW concurrent rejection: BusinessRuleException: Compra j� estornada.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 14:03:27.142 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 33368de6-b1ba-446e-8b30-e677b1472f3d
+-2026-09-30 14:03:27.145 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=0.01, ContaID=916c4a04-21f1-4fa6-8113-be8b6023a498
+-2026-09-30 14:03:27.158 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 68f0ba4b-cf55-43a6-ba6d-a07f53d2b5ed
+-[INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.165 s -- in com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneCashPresentationTest
+2026-09-30 14:03:27.210 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 1f67ee43-79f5-441b-abd5-dbb308b08807
+-2026-09-30 14:03:27.213 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'E27' (STOCK) para usu�rio e12a28e1-6ac8-4999-b190-ca3f05b5291b@example.invalid
+-2026-09-30 14:03:27.214 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a4a7b2b3-d368-431b-ae4d-d3b0bd076cd6
+-2026-09-30 14:03:27.217 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID a4a7b2b3-d368-431b-ae4d-d3b0bd076cd6
+-2026-09-30 14:03:27.228 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:27.419 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio e12a28e1-6ac8-4999-b190-ca3f05b5291b@example.invalid
+-2026-09-30 14:03:27.630 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 948c39a1-13c4-4d1d-afdc-616cb3a3cf63
+-2026-09-30 14:03:27.633 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 948c39a1-13c4-4d1d-afdc-616cb3a3cf63
+-2026-09-30 14:03:27.636 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200, ContaID=2f7735da-2f3f-42c4-ac59-6cc3e737c21d
+-2026-09-30 14:03:27.657 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID dd2b5fa0-ac91-4f00-b106-294d451d7e9a
+-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.521 s -- in com.controlefinanceiro.api.service.MilestoneCashPresentationTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest
+2026-09-30 14:03:27.729 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 05415371-0543-47c4-969d-07113ef160be
+-2026-09-30 14:03:27.733 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CORR' (STOCK) para usu�rio b66ec227-bf6b-475c-8184-148acd963e9d@example.invalid
+-2026-09-30 14:03:27.733 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 6a22e628-f7d2-4093-8bad-8b6e00787d99
+-2026-09-30 14:03:27.737 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 6a22e628-f7d2-4093-8bad-8b6e00787d99
+-2026-09-30 14:03:27.746 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:27.818 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio df32b256-c0a8-47ec-aa36-f1311e48d61e
+-2026-09-30 14:03:27.821 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CORR' (STOCK) para usu�rio bc652763-878a-4b5e-b7ac-28c03e2fcbe7@example.invalid
+-2026-09-30 14:03:27.821 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0ff00c1d-6f19-4e4d-9f79-cfbea75e9dab
+-2026-09-30 14:03:27.823 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 0ff00c1d-6f19-4e4d-9f79-cfbea75e9dab
+-2026-09-30 14:03:27.833 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:27.928 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b74dbf0e-b75b-472a-bff3-e0e02077f0f8
+-2026-09-30 14:03:27.932 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CORR' (STOCK) para usu�rio 850483f4-b004-4b91-a1d6-5a16ec20bc3d@example.invalid
+-2026-09-30 14:03:27.932 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: e5565d87-ab39-4b2e-9b1e-17937f6df319
+-2026-09-30 14:03:27.936 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID e5565d87-ab39-4b2e-9b1e-17937f6df319
+-2026-09-30 14:03:27.945 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:28.054 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b3430f8a-bc58-42df-bb73-5ea8e94642f2
+-2026-09-30 14:03:28.059 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CORR' (STOCK) para usu�rio 95e991cc-f3f3-46ee-ad8a-7da3228adbe5@example.invalid
+-2026-09-30 14:03:28.059 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: e2306ba3-b8b8-4a48-86dc-c7c6439e8c2a
+-2026-09-30 14:03:28.062 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID e2306ba3-b8b8-4a48-86dc-c7c6439e8c2a
+-2026-09-30 14:03:28.072 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:28.160 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 6d03a4ad-8fa2-4b21-a098-e08530343eec
+-2026-09-30 14:03:28.163 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CORR' (STOCK) para usu�rio 08716daa-03d1-4b29-8fd4-5ad2527e2da8@example.invalid
+-2026-09-30 14:03:28.163 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c23d1f21-ee11-41d3-af99-99302169ad92
+-2026-09-30 14:03:28.166 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID c23d1f21-ee11-41d3-af99-99302169ad92
+-2026-09-30 14:03:28.174 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:28.185 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID c23d1f21-ee11-41d3-af99-99302169ad92
+-2026-09-30 14:03:28.189 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:28.194 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.632 s -- in com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneReportingCoverageTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 14:03:28.411 - INFO 6688 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : Starting MilestoneReportingCoverageTest using Java 21.0.12.1 with PID 6688 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 14:03:28.411 - INFO 6688 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : The following 1 profile is active: "test"
+-2026-09-30 14:03:29.291 - WARN 6688 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 14:03:30.678 - INFO 6688 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : Started MilestoneReportingCoverageTest in 2.319 seconds (process running for 49.293)
+-2026-09-30 14:03:30.692 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio de9e1c61-8fea-4c62-b79e-1c64bfec0921
+-2026-09-30 14:03:30.697 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio de9e1c61-8fea-4c62-b79e-1c64bfec0921
+-2026-09-30 14:03:30.701 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=12.34, ContaID=0ec54c41-849f-4aaa-8ee7-147ff88a1eaa
+-2026-09-30 14:03:30.706 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 0ec54c41-849f-4aaa-8ee7-147ff88a1eaa. Novo saldo: 12.34
+-2026-09-30 14:03:30.713 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c2288c6f-e35e-491e-b737-192d2415f2e9
+-2026-09-30 14:03:30.781 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID f8cc6754-b26e-4d9f-83bb-8df5f82599d1
+-2026-09-30 14:03:30.784 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 14:03:30.832 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b79f6e5e-fa37-490d-9ff3-6cee070185c6
+-2026-09-30 14:03:30.835 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b79f6e5e-fa37-490d-9ff3-6cee070185c6
+-2026-09-30 14:03:30.837 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=100.00, ContaID=89ec978f-be6f-4b92-aa40-256b791afb97
+-2026-09-30 14:03:30.840 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 89ec978f-be6f-4b92-aa40-256b791afb97. Novo saldo: 100.00
+-2026-09-30 14:03:30.845 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4da4a229-e13b-4906-a8b1-30bfcf5f0663
+-2026-09-30 14:03:30.846 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=10.00, ContaID=89ec978f-be6f-4b92-aa40-256b791afb97
+-2026-09-30 14:03:30.901 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e0151214-471d-49ad-87ba-631ec81b1454
+-2026-09-30 14:03:30.904 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e0151214-471d-49ad-87ba-631ec81b1454
+-2026-09-30 14:03:30.908 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=c119190e-1c09-4f0c-bf3c-4b700a5c4fff
+-2026-09-30 14:03:30.915 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta c119190e-1c09-4f0c-bf3c-4b700a5c4fff. Novo saldo: 999999999999.99
+-2026-09-30 14:03:30.920 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 310a616e-0786-4799-b3fa-c031b4dac731
+-2026-09-30 14:03:30.921 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=b73f924a-d207-4758-a204-18730195a77f
+-2026-09-30 14:03:30.924 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta b73f924a-d207-4758-a204-18730195a77f. Novo saldo: 999999999999.99
+-2026-09-30 14:03:30.929 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4b387413-05b4-413d-927e-6a189db2c3f1
+-2026-09-30 14:03:30.954 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio eb5c30bb-ce15-4074-82ad-3f4f479d61cd@example.invalid
+-2026-09-30 14:03:31.162 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'MAX1' (STOCK) para usu�rio a6d68c45-bb75-4f8e-8c63-b42421a10278@example.invalid
+-2026-09-30 14:03:31.164 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0f1cdcbc-10d5-4a8a-b131-99da04cc49c0
+-2026-09-30 14:03:31.168 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'MAX2' (STOCK) para usu�rio a6d68c45-bb75-4f8e-8c63-b42421a10278@example.invalid
+-2026-09-30 14:03:31.169 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 43b36eb6-a659-46eb-8f5b-5a7e9180a25f
+-2026-09-30 14:03:31.245 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 23deaf1c-30f9-498d-a9fc-905d4b1dba62
+-2026-09-30 14:03:31.365 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio b7881ca0-5fb6-44e6-9f62-dc708e3324b8@example.invalid
+-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.153 s -- in com.controlefinanceiro.api.service.MilestoneReportingCoverageTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneReportingPositionTest
+2026-09-30 14:03:31.522 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 130d1bc3-37d0-40d8-a3cb-542422d13180
+-2026-09-30 14:03:31.526 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 130d1bc3-37d0-40d8-a3cb-542422d13180
+-2026-09-30 14:03:31.556 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b18c84d3-ee8b-4b86-bc8d-29128591cc59
+-2026-09-30 14:03:31.559 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 3f8ba51e-0a4d-4e35-9209-403de5eb6b99
+-2026-09-30 14:03:31.562 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 14:03:31.577 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b18c84d3-ee8b-4b86-bc8d-29128591cc59
+-2026-09-30 14:03:31.601 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'META' (STOCK) para usu�rio 38339cbd-fede-448b-a91e-b3bb1ead6cb1@example.invalid
+-2026-09-30 14:03:31.602 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 55e9d416-9237-4f33-8f67-29d2f78b46b4
+-2026-09-30 14:03:31.728 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'UNKNOWN' (STOCK) para usu�rio 38339cbd-fede-448b-a91e-b3bb1ead6cb1@example.invalid
+-2026-09-30 14:03:31.729 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b0ff2383-6eb2-4a7f-a5d2-fa92b1ebe821
+-2026-09-30 14:03:31.824 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio a410586e-0990-4e7a-bb1f-7c8648a7300a
+-2026-09-30 14:03:31.827 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio a410586e-0990-4e7a-bb1f-7c8648a7300a
+-2026-09-30 14:03:31.836 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o' (Final 1234)
+-2026-09-30 14:03:31.840 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 678fb6d1-6d99-44ed-a73e-e584892f5e79: 100 (1x)
+-2026-09-30 14:03:31.884 - INFO 6688 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:03:31.889 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200, ContaID=3979e602-ae83-49c7-b53b-79f86896fb43
+-2026-09-30 14:03:31.911 - INFO 6688 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 59041016-722d-4050-8664-cc72e7f27a8d@example.invalid
+-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.608 s -- in com.controlefinanceiro.api.service.MilestoneReportingPositionTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneValuationTest
+2026-09-30 14:03:32.134 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX' (FIXED_INCOME) para usu�rio 78dc70c2-7a9e-4c1f-8d03-5fb38c1a21b6@example.invalid
+-2026-09-30 14:03:32.135 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 103497f5-81a3-429a-a6b5-863954c20679
+-2026-09-30 14:03:32.168 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio efb653c3-6c78-4654-817f-bae4c498087c
+-2026-09-30 14:03:32.173 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX' (FIXED_INCOME) para usu�rio da8ffe62-78cf-4337-9b5f-963e1b0cf582@example.invalid
+-2026-09-30 14:03:32.174 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a534b6d5-060a-45a8-93a7-a3a0bff08234
+-2026-09-30 14:03:32.178 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a534b6d5-060a-45a8-93a7-a3a0bff08234
+-2026-09-30 14:03:32.184 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.190 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.206 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a534b6d5-060a-45a8-93a7-a3a0bff08234
+-2026-09-30 14:03:32.210 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.215 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.229 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a534b6d5-060a-45a8-93a7-a3a0bff08234
+-2026-09-30 14:03:32.234 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.239 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.269 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c565c096-0b39-44d6-bf5d-cf4b63d2bea5
+-2026-09-30 14:03:32.273 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX' (FIXED_INCOME) para usu�rio 62265120-eeb8-427b-a9d6-29b9ee771b81@example.invalid
+-2026-09-30 14:03:32.274 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 97eb1376-af08-4503-82a4-3072c7b0356e
+-2026-09-30 14:03:32.278 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 97eb1376-af08-4503-82a4-3072c7b0356e
+-2026-09-30 14:03:32.282 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.286 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.302 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 97eb1376-af08-4503-82a4-3072c7b0356e
+-2026-09-30 14:03:32.307 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.312 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.342 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 70ff5d6d-622a-4d7a-b508-cdf8dc3dc556
+-2026-09-30 14:03:32.346 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'FIX' (FIXED_INCOME) para usu�rio 1ab04db2-b1f2-4871-80bb-fb885cf36145@example.invalid
+-2026-09-30 14:03:32.346 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7810afcf-cdda-45af-ab4b-2c39565e20b9
+-2026-09-30 14:03:32.350 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 7810afcf-cdda-45af-ab4b-2c39565e20b9
+-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.245 s -- in com.controlefinanceiro.api.service.MilestoneValuationTest
+[INFO] Running com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest
+2026-09-30 14:03:32.378 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio fd23a1e6-ec3d-4f0b-b09e-1da5b30d8134
+-2026-09-30 14:03:32.382 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (FIXED_INCOME) para usu�rio 6ad810d9-ddae-41ac-b2dc-7cd4b862da11@example.invalid
+-2026-09-30 14:03:32.383 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b91148c4-c1b3-4f72-ad7f-64c403831c4b
+-2026-09-30 14:03:32.386 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID b91148c4-c1b3-4f72-ad7f-64c403831c4b
+-2026-09-30 14:03:32.390 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.395 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.440 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio ea927c18-f7f9-4523-bdea-4e4dc1150b5b
+-2026-09-30 14:03:32.444 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (STOCK) para usu�rio 048aa126-4709-4b6b-99bb-6a377efa4a50@example.invalid
+-2026-09-30 14:03:32.445 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 4308bd51-32f7-4f36-8f2b-99103d61f323
+-2026-09-30 14:03:32.448 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 4308bd51-32f7-4f36-8f2b-99103d61f323
+-2026-09-30 14:03:32.453 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.457 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.504 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 4308bd51-32f7-4f36-8f2b-99103d61f323
+-2026-09-30 14:03:32.509 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.514 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.584 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 87db61d1-5a03-419b-9179-31cc8c581a0b
+-2026-09-30 14:03:32.587 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (STOCK) para usu�rio 9184aaec-d8dd-40b2-82a4-f3b2a4ffd3b4@example.invalid
+-2026-09-30 14:03:32.587 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3e4c83a5-bf98-4696-adae-1880277257ed
+-2026-09-30 14:03:32.591 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 3e4c83a5-bf98-4696-adae-1880277257ed
+-2026-09-30 14:03:32.594 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.598 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.609 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 3e4c83a5-bf98-4696-adae-1880277257ed
+-2026-09-30 14:03:32.617 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.673 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 3e4c83a5-bf98-4696-adae-1880277257ed
+-2026-09-30 14:03:32.677 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.681 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.690 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 3e4c83a5-bf98-4696-adae-1880277257ed
+-2026-09-30 14:03:32.693 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.696 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.807 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 71fffef8-c898-4ec2-b0a0-c102fd8bd149
+-2026-09-30 14:03:32.810 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (STOCK) para usu�rio 13ce6cfb-5207-4088-955e-417c164f174a@example.invalid
+-2026-09-30 14:03:32.811 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 772b2dbf-1de5-4226-81b4-d43dc70757fa
+-2026-09-30 14:03:32.814 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 772b2dbf-1de5-4226-81b4-d43dc70757fa
+-2026-09-30 14:03:32.819 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.824 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.836 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID 772b2dbf-1de5-4226-81b4-d43dc70757fa
+-2026-09-30 14:03:32.843 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.933 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 772b2dbf-1de5-4226-81b4-d43dc70757fa
+-2026-09-30 14:03:32.937 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.942 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.953 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 772b2dbf-1de5-4226-81b4-d43dc70757fa
+-2026-09-30 14:03:32.960 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:32.964 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:32.992 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 6ab7759e-2c0a-4955-9fa1-7da24057ab0a
+-2026-09-30 14:03:32.995 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (STOCK) para usu�rio bd700639-e1af-4548-aa35-dcd66adfe0e5@example.invalid
+-2026-09-30 14:03:32.995 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a3958d6d-af48-451c-8777-43354d89c12c
+-2026-09-30 14:03:32.998 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a3958d6d-af48-451c-8777-43354d89c12c
+-2026-09-30 14:03:33.001 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:33.006 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.019 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de INTEREST no ativo ID a3958d6d-af48-451c-8777-43354d89c12c
+-2026-09-30 14:03:33.029 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.103 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a3958d6d-af48-451c-8777-43354d89c12c
+-2026-09-30 14:03:33.108 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:33.111 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.123 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID a3958d6d-af48-451c-8777-43354d89c12c
+-2026-09-30 14:03:33.126 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:33.131 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.155 - INFO 6688 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 52d54741-9ab3-4e25-bf21-330cd6c02535
+-2026-09-30 14:03:33.158 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RESIDUAL' (STOCK) para usu�rio 09403e61-a5f7-4faa-851e-111344037d69@example.invalid
+-2026-09-30 14:03:33.160 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: df4cee65-4826-4d13-8256-0feeef2e1b50
+-2026-09-30 14:03:33.163 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID df4cee65-4826-4d13-8256-0feeef2e1b50
+-2026-09-30 14:03:33.173 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.186 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID df4cee65-4826-4d13-8256-0feeef2e1b50
+-2026-09-30 14:03:33.192 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:33.197 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 14:03:33.262 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID df4cee65-4826-4d13-8256-0feeef2e1b50
+-2026-09-30 14:03:33.267 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 14:03:33.271 - INFO 6688 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.924 s -- in com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 60, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:11 min
+[INFO] Finished at: 2026-09-30T17:03:34Z
+[INFO] ------------------------------------------------------------------------

@@ -83,6 +83,11 @@ public class Investment {
         return valuationAmount;
     }
 
+    // Legacy raw nulls remain stored; an empty current position has no exposure.
+    public BigDecimal getTotalCost() {
+        return totalCost == null && quantity.signum() == 0 ? BigDecimal.ZERO.setScale(2) : totalCost;
+    }
+
     // Helper para calcular custo total (lucro/prejuízo)
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
@@ -92,7 +97,9 @@ public class Investment {
 
     public void setQuantityAndCost(BigDecimal newQuantity, BigDecimal newCost) {
         quantity = newQuantity;
-        setTotalCost(newCost);
+        // No units means no remaining exposure. Historical disposal cost/result
+        // stays unknown on the operation when the acquisition basis is missing.
+        setTotalCost(newQuantity.signum() == 0 ? BigDecimal.ZERO.setScale(2) : newCost);
     }
 
     public void evaluate(BigDecimal price, LocalDate date, String source) {
