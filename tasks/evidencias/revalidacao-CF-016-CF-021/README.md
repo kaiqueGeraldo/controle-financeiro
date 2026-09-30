@@ -1,5 +1,7 @@
 # Revalidação independente CF-016–CF-021 — 30/09/2026
 
+> Registro histórico da base e927aea. A [revalidação dirigida posterior do candidato0099185](../revalidacao-CF-016-CF-021-residuais/README.md) encerrou RVA-01/RVA-02 no escopo das correções, mantendo RVA-03 inconclusivo e o aceite integrado irrestrito pendente. Os achados e provas abaixo permanecem preservados como evidência original.
+
 **O marco não está aprovado integralmente.** A implementação corrigiu a maioria dos achados originais, mas a interação entre compensação de provento e avaliação proporcional viola NG-01. Há também custo residual desconhecido em posição encerrada. Não foi alterado produto, migração ou decisão normativa.
 
 Candidato: `3d64e7af64e0c6e6cea576ecce34fc1d2711e708`; base: `4e685ce82f9f04491e68ca4d0b3b3d403e3d0743`; último código do saneamento: `a752c6eed8ca9c1577af9014c21c6ac51690760b`. Ancestralidade e fechamento apenas documental conferidos. README raiz alheio preservado, SHA256 `6235DA8E1D2247DAD2C585FE7B2E7B0D2FD41F47414A4A2701B20F7FBF7D12CA`.

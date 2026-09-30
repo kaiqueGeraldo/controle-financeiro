@@ -65,3 +65,7 @@ Aceite integral não aprovado: compensação de provento altera referência prop
 RVA-01/RVA-02 corrigidos/verificados localmente: replay conserva referência TOTAL/PRICE; encerramento zera somente custo residual, mantendo custo baixado/ganho histórico desconhecidos. Duas provas originais vermelhas passaram sem editar critérios; 62 testes backend afetados e consumidor SAN-RVA aprovados. RVA-03 e revisão independente mantêm o aceite integral pendente.
 
 [Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.
+
+## Revalidação dirigida dos resíduos — 30/09/2026
+
+RVA-01/RVA-02 aprovados independentemente no intervalo e927aea..0099185: referência/modalidade/metadados preservados, sequência0,67→0,33→0; custo remanescente zero só no encerramento, histórico desconhecido preservado. 62 testes dirigidos e consumidor SAN-RVA/API/reload/SQL aprovados. Encerramentos anteriores mantidos; RVA-03 permanece inconclusivo e impede aceite integrado irrestrito, sem novo defeito financeiro demonstrado. Estado `em_revisao`; aprovação do reparo não é encerramento integral nem início de tarefa posterior. [Parecer e evidências](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).

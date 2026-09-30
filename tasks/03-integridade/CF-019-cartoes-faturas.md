@@ -65,3 +65,7 @@ Protocolo localizado de intenção/recibo revalidado; aceite integrado mantém p
 RVA-03 continua pendente: duas reproduções instrumentadas não isolaram o travamento de pagamento120. R03 (quatro modos), SAN-D1, pagamento120 e contador POST único revalidados no candidato sem alteração funcional do pagamento. Verde posterior não encerra a intermitência nem CF-024.
 
 [Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.
+
+## Revalidação dirigida dos resíduos — 30/09/2026
+
+RVA-03 segue inconclusivo. Candidato sem instrumentação: quatro R03 e SAN-RVA aprovados. Único experimento17:10 verdes/7 falhas na cópia antes do envio, com portal interceptando clique; pagamento120 teve zeroPOST/recibos, banco1000 e dívida120. Isso não reproduz nem explica o spinner original após pagamento confirmado. CF-019 responde pelo próximo experimento passivo no runtime original; CF-024 participa da coordenação. Pendente certificação sem ressalvas do cenário/aceite integrado, sem evidência de bloqueio geral do pagamento ou de tarefas independentes. Estado `em_revisao`, sem tarefa posterior iniciada. [Parecer e limites](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).

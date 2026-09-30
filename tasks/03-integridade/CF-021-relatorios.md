@@ -63,3 +63,7 @@ Cobertura, filtros, caixa e snapshot revalidados no recorte; aceite integrado de
 Posição encerrada passa a apresentar custo residual conhecido zero, inclusive leitura de null bruto legado sem backfill. Ganho/cobertura históricos continuam desconhecidos. Relatórios/backend e SAN-RVA com reload revalidados; encerramentos anteriores preservados. Aceite integrado segue condicionado à revisão independente e RVA-03.
 
 [Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.
+
+## Revalidação dirigida dos resíduos — 30/09/2026
+
+RVA-02 aprovado independentemente: posição encerrada com custo residual0, legado rawNULL preservado na persistência, custo baixado/ganho/proveniência desconhecidos sem conversão geral de null. Testes dirigidos de posição/anual/dashboard e SAN-RVA/API/reload/SQL aprovados. H01/H02 e demais encerramentos anteriores mantidos. Estado `em_revisao`; aceite integrado irrestrito conserva ressalva RVA-03, sem bloquear automaticamente trabalhos independentes. [Parecer e evidências](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).
