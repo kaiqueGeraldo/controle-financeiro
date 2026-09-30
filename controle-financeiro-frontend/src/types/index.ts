@@ -31,6 +31,8 @@ export interface Transaction {
   id: string;
   description: string;
   amount: number;
+  cashAmount?: number;
+  cashDelta?: number | null;
   date: string;
   createdAt: string;
   time?: string | null;

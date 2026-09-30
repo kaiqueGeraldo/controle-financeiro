@@ -831,6 +831,9 @@ public class TransactionService {
         );
         reversal.setOrigin(TransactionOrigin.REVERSAL);
         reversal.setReversalOfId(original.getId());
+        reversal.setCashAmount(original.getCashAmount());
+        reversal.setTransferDirection(original.getTransferDirection());
+        reversal.setCounterpartyAccountId(original.getCounterpartyAccountId());
         reversal.setSystemManaged(true);
         return reversal;
     }
@@ -1049,7 +1052,7 @@ public class TransactionService {
             // --- 4. CABEÇALHO DA TABELA ---
             int rowIdx = 7;
             Row header = sheet.createRow(rowIdx++);
-            String[] columns = {"Data", "Hora", "Descrição", "Categoria", "Conta", "Tipo", "Valor movimento", "Status", "Origem", "Receita no resultado", "Despesa no resultado"};
+            String[] columns = {"Data", "Hora", "Descrição", "Categoria", "Conta", "Tipo", "Valor bruto do fato", "Status", "Origem", "Receita no resultado", "Despesa no resultado", "Caixa líquido do fato", "Efeito assinado no caixa"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = header.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -1074,8 +1077,9 @@ public class TransactionService {
                 // Consulta em lote: o estorno herda a classificação gerencial da origem.
                 Map<UUID, Transaction> originals = new HashMap<>();
                 List<UUID> reversalIds = pageData.getContent().stream()
-                        .filter(t -> t.getOrigin() == TransactionOrigin.REVERSAL && t.getReversalOfId() != null)
-                        .map(Transaction::getReversalOfId).distinct().toList();
+                        .map(t -> t.getOrigin() == TransactionOrigin.REVERSAL ? t.getReversalOfId()
+                                : t.getOrigin() == TransactionOrigin.CORRECTION ? t.getCorrectionOfId() : null)
+                        .filter(java.util.Objects::nonNull).distinct().toList();
                 if (!reversalIds.isEmpty()) {
                     for (Transaction original : repository.findAllById(reversalIds)) {
                         if (original.getUser().getId().equals(user.getId())) originals.put(original.getId(), original);
@@ -1105,12 +1109,19 @@ public class TransactionService {
 
                     row.createCell(7).setCellValue(t.getStatus().name());
                     row.createCell(8).setCellValue(t.getOrigin() == null ? "UNKNOWN" : t.getOrigin().name());
-                    Transaction original = t.getOrigin() == TransactionOrigin.REVERSAL
-                            ? originals.get(t.getReversalOfId()) : null;
-                    TransactionOrigin effectiveOrigin = t.getOrigin() == TransactionOrigin.REVERSAL
+                    row.createCell(11).setCellValue(dto.cashAmount().doubleValue());
+                    row.getCell(11).setCellStyle(currencyStyle);
+                    Cell cash = row.createCell(12);
+                    if (dto.cashDelta() == null) cash.setCellValue("Indisponível: direção histórica desconhecida");
+                    else cash.setCellValue(dto.cashDelta().doubleValue());
+                    cash.setCellStyle(currencyStyle);
+                    boolean compensation = t.getOrigin() == TransactionOrigin.REVERSAL || t.getOrigin() == TransactionOrigin.CORRECTION;
+                    Transaction original = t.getOrigin() == TransactionOrigin.REVERSAL ? originals.get(t.getReversalOfId())
+                            : t.getOrigin() == TransactionOrigin.CORRECTION ? originals.get(t.getCorrectionOfId()) : null;
+                    TransactionOrigin effectiveOrigin = compensation
                             ? original == null ? null : original.getOrigin() : t.getOrigin();
                     if (t.isRealized() && t.getType() != TransactionType.TRANSFER
-                            && (t.getOrigin() != TransactionOrigin.REVERSAL || original != null)
+                            && (!compensation || original != null)
                             && effectiveOrigin != TransactionOrigin.ACCOUNT_OPENING
                             && effectiveOrigin != TransactionOrigin.INVOICE_PAYMENT
                             && effectiveOrigin != TransactionOrigin.INVESTMENT_BUY

@@ -45,7 +45,9 @@ public record TransactionResponseDTO(
         String reason,
         BigDecimal settledAmount,
         BigDecimal reversedAmount,
-        BigDecimal remainingAmount
+        BigDecimal remainingAmount,
+        BigDecimal cashAmount,
+        BigDecimal cashDelta
 ) {
     public TransactionResponseDTO(Transaction t) {
         this(t, BigDecimal.ZERO, BigDecimal.ZERO);
@@ -67,7 +69,26 @@ public record TransactionResponseDTO(
                 t.getLegacyCreatedAtRaw() == null ? t.getCreatedAt() : t.getLegacyCreatedAtRaw(),
                 t.getRealizationOfId(),t.getReason(),settled,reversed,
                 t.getStatus() == TransactionStatus.FULFILLED || t.getStatus() == TransactionStatus.CANCELLED || t.getStatus() == TransactionStatus.REVERSED
-                    ? BigDecimal.ZERO : t.getAmount().subtract(t.isRealized()?reversed:settled)
+                    ? BigDecimal.ZERO : t.getAmount().subtract(t.isRealized()?reversed:settled),
+                cashAmount(t), cashDelta(t)
         );
+    }
+
+    // Gross amount remains the historical/managerial fact. Cash is a separate effect.
+    private static BigDecimal cashAmount(Transaction t) {
+        if (!t.isRealized() || t.getOrigin() == TransactionOrigin.ACCOUNT_OPENING) return BigDecimal.ZERO;
+        return t.getCashAmount() == null ? t.getAmount() : t.getCashAmount();
+    }
+
+    private static BigDecimal cashDelta(Transaction t) {
+        BigDecimal amount = cashAmount(t);
+        if (amount.signum() == 0) return amount;
+        boolean inbound;
+        if (t.getType() == TransactionType.TRANSFER) {
+            if (t.getTransferDirection() == null) return null;
+            inbound = t.getTransferDirection() == TransferDirection.INBOUND;
+        } else inbound = t.getType() == TransactionType.INCOME;
+        if (t.getOrigin() == TransactionOrigin.REVERSAL) inbound = !inbound;
+        return inbound ? amount : amount.negate();
     }
 }

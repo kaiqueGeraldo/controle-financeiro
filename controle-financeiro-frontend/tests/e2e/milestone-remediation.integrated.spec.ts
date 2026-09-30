@@ -8,6 +8,29 @@ async function start(page:Page,suffix:string){await page.clock.setFixedTime(new 
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
 
+test("SAN-E27 provento bruto e retenção pela UI conciliam caixa líquido e XLSX",async({page})=>{
+ await start(page,"net-cash");
+ const a=await post(page,"/accounts",{name:"SAN caixa proventos",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ await post(page,"/investments",{ticker:"SANCASH",name:"Provento líquido",type:"STOCK",openingQuantity:10,openingCost:200,openingValue:250,valuationDate:"2027-01-15",valuationSource:"USER_PROVIDED"});
+ await page.goto("/investimentos");await page.getByText("SANCASH",{exact:true}).click();await page.getByRole("button",{name:"Aportar",exact:true}).click();
+ const modal=page.getByRole("dialog",{name:"SANCASH - Operação",exact:true});
+ await modal.getByRole("button",{name:"Proventos",exact:true}).click();
+ await modal.getByLabel("Valor bruto do provento (antes de retenções)").fill("10");await modal.getByLabel("Taxas / retenções").fill("1");await modal.getByLabel("Conta",{exact:true}).selectOption(a.id);
+ await expect(modal.getByText(/A conta recebe apenas o líquido/)).toContainText("9,00");
+ const response=page.waitForResponse(r=>r.url().endsWith("/investments/operation")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar Operação",exact:true}).click();expect((await response).ok()).toBe(true);
+ await page.goto("/extrato");await page.reload();
+ const rows=(await json(page,"/transactions?month=1&year=2027&size=100")).content;
+ const dividend=rows.find((t:{origin:string})=>t.origin==="INVESTMENT_DIVIDEND");const fee=rows.find((t:{origin:string})=>t.origin==="INVESTMENT_FEE");
+ expect([dividend.amount,dividend.cashAmount,dividend.cashDelta]).toEqual([10,9,9]);expect([fee.amount,fee.cashAmount,fee.cashDelta]).toEqual([1,0,0]);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1009);
+ const cash=await json(page,"/transactions/summary?month=1&year=2027");expect([cash.entries,cash.exits,cash.balance]).toEqual([9,0,9]);
+ await expect(page.getByText("Bruto: R$ 10,00",{exact:true})).toBeVisible();await expect(page.getByText("Bruto: R$ 1,00",{exact:true})).toBeVisible();
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Proventos: SANCASH",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-e27-extrato-${width}.png`),animations:"disabled"});}
+ const download=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();await (await download).saveAs(path.join(dir,"san-e27-caixa.xlsx"));
+ await writeFile(path.join(dir,"san-e27-cash.json"),JSON.stringify({dividend,fee,cash},null,2));
+});
+
 test("SAN-E2 arquivar pela UI, posição datada em outro ano e exportar transferência",async({page})=>{
  await start(page,"report-position");
  const archived=await post(page,"/accounts",{name:"SAN conta arquivada",type:"CHECKING",initialBalance:1000,color:"#10b981"});

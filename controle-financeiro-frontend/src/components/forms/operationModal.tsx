@@ -98,7 +98,7 @@ export function OperationModal({
         } else {
           qtdFinal = Number(quantity);
           priceFinal = Number(price);
-          if (activeTab === "DIVIDEND" && !quantity && price) {
+          if (activeTab === "DIVIDEND") {
             qtdFinal = 1;
             priceFinal = Number(price);
           }
@@ -136,6 +136,12 @@ export function OperationModal({
   if (!asset) return null;
 
   const renderFields = () => {
+    if (activeTab === "DIVIDEND") return <div className="space-y-2">
+      <label className="block text-sm">Valor bruto do provento (antes de retenções)
+        <input required type="number" min="0.01" max="999999999999.99" step="0.01" value={price} onChange={e=>setPrice(e.target.value)} className="block w-full mt-1 bg-bg-base border border-border-divider rounded-xl p-3" />
+      </label>
+      <p className="text-xs text-text-muted">A retenção é parte do provento. A conta recebe apenas o líquido: {formatCurrency(Number(price||0)-Number(fees||0))}.</p>
+    </div>;
     // 1. AJUSTE DE SALDO
     if (activeTab === "UPDATE_BALANCE") {
       return (
@@ -169,7 +175,7 @@ export function OperationModal({
     }
 
     // 2. RENDA FIXA (Aporte/Resgate)
-    if (isFixedIncome && activeTab !== "DIVIDEND") {
+    if (isFixedIncome) {
       return (
         <div>
           <label className="text-xs text-text-muted font-bold uppercase ml-1">
@@ -216,9 +222,7 @@ export function OperationModal({
         </div>
         <div>
           <label className="text-xs text-text-muted font-bold uppercase ml-1">
-            {activeTab === "DIVIDEND"
-              ? "Valor Total Recebido"
-              : "Preço Unitário"}
+            Preço Unitário
           </label>
           <div className="relative mt-1">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-xs font-bold">

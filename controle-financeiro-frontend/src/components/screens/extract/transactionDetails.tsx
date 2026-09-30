@@ -211,6 +211,7 @@ export function TransactionDetails({
               className="p-6 space-y-4 overflow-y-auto custom-scroll flex-1 bg-bg-base/50"
             >
               <p className="text-sm">Situação: {transaction.status ?? (transaction.isPaid?"Realizado":"Previsto")}</p>
+              {transaction.cashDelta !== undefined && <p className="text-sm">Efeito no caixa: {transaction.cashDelta === null ? "Indisponível: direção desconhecida" : formatCurrency(transaction.cashDelta)}. Valor bruto do fato: {formatCurrency(transaction.amount)}.</p>}
               {transaction.dueDate&&<p className="text-sm">Vencimento previsto: {formatCalendarDate(transaction.dueDate)}</p>}
               <p className="text-sm">Restante {isForecast?"previsto":"reversível"}: {formatCurrency(transaction.remainingAmount??transaction.amount)}</p>
               {transaction.reason&&<p className="text-sm break-words">Motivo: {transaction.reason}</p>}

@@ -62,6 +62,9 @@ export function TransactionItem({
     "CHECKING";
   const time = informedTime(item);
   const horario = time ? compactWallTime(time) : null;
+  const cashKnown = item.cashDelta !== null;
+  const displayed = item.cashDelta === undefined ? (item.type === "EXPENSE" ? -item.amount : item.amount) : item.cashDelta;
+  const forecast = item.status === "PENDING" || item.status === "PARTIALLY_SETTLED" || item.status === "FULFILLED" || item.status === "CANCELLED";
 
   return (
     <motion.div
@@ -122,16 +125,16 @@ export function TransactionItem({
       </div>
 
       {/* Valor */}
-      <div className="flex items-center self-end sm:self-auto shrink-0 pl-2">
+      <div className="flex flex-col items-end self-end sm:self-auto shrink-0 pl-2 gap-1">
         <motion.span
           layoutId={`${layoutIdPrefix}-amount-${item.id}`}
           className={`font-bold whitespace-nowrap text-sm md:text-base ${item.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
         >
           <PrivacyBlur>
-            {item.type === "EXPENSE" ? "- " : "+ "}
-            {formatCurrency(item.amount)}
+            {forecast ? `Previsto: ${formatCurrency(item.amount)}` : !cashKnown || displayed === null ? "Caixa indisponível" : `${displayed < 0 ? "- " : displayed > 0 ? "+ " : ""}${formatCurrency(Math.abs(displayed))}`}
           </PrivacyBlur>
         </motion.span>
+        {!forecast && item.cashAmount !== undefined && item.cashAmount !== item.amount && <span className="text-xs text-text-muted">Bruto: {formatCurrency(item.amount)}</span>}
       </div>
     </motion.div>
   );

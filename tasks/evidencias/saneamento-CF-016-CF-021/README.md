@@ -17,7 +17,7 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-05 | Ausência de cobertura vira zero; FIN-08 | CF-021 | Cobertura em API/UI/XLSX | RV04 | Pendente |
 | RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Implementado; ver checkpoint C1 e limites |
 | RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Implementado; ver checkpoint C1 e limites |
-| RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + XLSX | Pendente |
+| RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + SAN-E27 + XLSX | Corrigido/verificado; checkpoint E27 |
 | RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Pendente |
 | RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + SAN-E2 | Corrigido/verificado; checkpoint E2 |
 | RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Implementado/verificado no D1; limites de sessão abaixo |
@@ -336,3 +336,33 @@ buscar botão mobile na largura1440 no último passo; e2-final usa Lançar. Runs
 intermediários preservados, sem declará-los verdes. Nenhuma migração nesta
 unidade; browser usa V1–V10 e Hibernate validate. Cobertura histórica e E27
 continuam pendentes; zeros de períodos não cobertos ainda não são aprovados.
+
+### Checkpoint E27 — caixa líquido e decomposição gerencial
+
+DTO do extrato acrescenta cashAmount e cashDelta assinado, preservando amount
+bruto. Provento10/retencão1 representa receita10/despesa1 e caixa9/0, sem inventar
+duas pernas bancárias brutas. UI lista efeito líquido e bruto separado; detalhes
+explicam os dois valores. Formulário de provento recebe total bruto e mostra
+líquido, eliminando quantidade fictícia multiplicada por “total recebido”.
+Transferência usa direção de cada ponta; estorno inverte efeito. Novas reversões
+copiam metadados de caixa/direção, sem inferir direção ausente de legado.
+
+XLSX mantém colunas financeiras anteriores e acrescenta caixa líquido/efeito
+assinado; linha legada sem direção comprovada informa indisponibilidade. Consulta
+em lote também carrega originais de CORRECTION, para não contar substituição de
+principal como consumo. Sem consulta por linha e sem nova migração.
+
+- Backend: CF01824, CF0218, compensações4 e RV08 passaram no primeiro conjunto;
+  o novo teste de direção falhou só por equals de BigDecimal200 versus200.00.
+  Escala literal corrigida, sem alterar valores esperados; os dois novos casos
+  passaram no schema Flyway/validate. Logs saneamento-e27-domain/browser.log.
+- Navegador SAN-E27 passou em browser/e27: provento e retenção pela UI,
+  reload, conta1009, DTO bruto10/1 e caixa9/0, resumo9/0/9, download do XLSX.
+  Setup de conta/posição foi HTTP. O arquivo efetivamente baixado foi aberto
+  como XML ZIP e as duas linhas conferidas: bruto, resultado, caixa e sinal;
+  prova em browser/e27/xlsx-verificado.txt.
+- TypeScript/lint direcionado passaram. Capturas360/768/1440 abertas e
+  inspecionadas: bruto e líquido legíveis. Não é zoom nativo200%.
+
+Cobertura dos períodos permanece na próxima unidade; este checkpoint não
+certifica zeros de história ausente nem encerra revisão independente.
