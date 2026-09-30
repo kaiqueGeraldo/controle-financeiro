@@ -20,8 +20,8 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + XLSX | Pendente |
 | RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Pendente |
 | RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + UI | Pendente |
-| RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Pendente |
-| RVI-12 | Sugestão usa consumo original; FIN-03 | CF-019 | Exibir saldo pagável/crédito | UI02 | Pendente |
+| RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Implementado/verificado no D1; limites de sessão abaixo |
+| RVI-12 | Sugestão usa consumo original; FIN-03 | CF-019 | Exibir saldo pagável/crédito | UI02 | Implementado/verificado no D1; limites de sessão abaixo |
 | RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Implementado; ver checkpoint B e limites |
 | RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Implementado; ver checkpoint B e limites |
 | RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Implementado; ver checkpoint B e limites |
@@ -184,3 +184,42 @@ schema descartável da infraestrutura CF-017: quatro casos passaram, inclusive
 as novas assertivas de receita/despesa zero na correção de principal. Log:
 controle-financeiro-backend/target/saneamento-c2-schema-final.log. O checkpoint
 C2 anterior não deve ser lido como prova de substituição no schema migrado.
+
+### Checkpoint D1 — intenção de pagamento e saldo pagável
+
+V9 acrescenta fingerprint do comando; não infere conteúdo de pagamentos antigos.
+Nova intenção na UI recebe UUID; a mesma intenção preserva chave e conteúdo no
+sessionStorage, inclusive ao reabrir/recarregar. Backend devolve recibo original
+na repetição e HTTP409 no conteúdo diferente. Lock transacional por chave precede
+o lock do cartão, incluindo disputa acidental da mesma chave entre cartões.
+Não serializa todas as operações do usuário. GET de recibo verifica propriedade.
+Atualizar dados consulta recibo e leituras, sem POST. Só após GET404 aparece ação
+explícita de repetir exatamente o comando salvo. Campos ficam bloqueados enquanto
+o resultado é desconhecido/confirmado. Consumo original, saldo pagável e crédito
+são apresentados separadamente; novo pagamento parcial sugere o restante.
+
+- Backend17/17: CF01915 + recuperação CF0152. Duas intenções100 em dívida300 deixam
+  conta800/dívida100; retry retorna mesmo recibo; valor/hora/motivo/modalidade
+  diferentes com a mesma chave conflitam; owner distinto não lê recibo.
+- Componente: R03/RV01 oito cenários preservados; dois novos testes de reabertura,
+  comando imutável, recuperação GET404 e recibo localizado sem segundo POST.
+- Navegador real: nove jornadas passaram em browser/d1: SAN-D1, SAN-B/C/C2,
+  R03 ok/read/lost/overlap e R04. SAN-D1 comprova sugestões300→200→100, chaves
+  distintas, replay e HTTP409, conta800 após reload. R03 mantém um único POST,
+  conta900, dívida0 e planejamentoPAID; perda de resposta agora é resolvida pelo
+  recibo real, em vez de permanecer indefinidamente desconhecida.
+- Alteração normativa do teste CF019: duas chamadas com a mesma chave agora
+  confirmam o mesmo efeito (FIN-07), mantendo assertivas de conta900/dívida100.
+  R03 lost mantém todos os saldos/planejamento/reload e passa a exigir GET200
+  com recibo100 antes de fechar. Evidência vermelha e commits anteriores preservados.
+- Migrações: vazio6, legado2, upgradesV2–V8→V9 sete passaram; Hibernate validate.
+- TypeScript/lint passaram. Capturas360/768/1440 do modal foram abertas e
+  inspecionadas; legenda secundária foi corrigida depois de "total" para "pagável"
+  e valores textuais passaram a usar formatação pt-BR. Não é zoom nativo200%.
+
+Limites: recuperação transportada na sessão da aba/usuário; isto não declara
+protocolo durável multissessão/CF-024 entregue. Intenção antiga sem comando/chave
+não é reconstruída automaticamente. Valores históricos de fingerprint ficam nulos.
+Primeiro comando Maven com filtro contendo pipe foi rejeitado pelo wrapper CMD
+antes de executar testes; conjunto integrado executado sem esse filtro e aprovado.
+Logs locais target/saneamento-d1*.log; evidência compartilhável em browser/d1.

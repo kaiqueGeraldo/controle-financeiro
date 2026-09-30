@@ -30,6 +30,12 @@ import java.util.Map;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+    @ExceptionHandler(com.controlefinanceiro.api.service.exception.OperationConflictException.class)
+    public ResponseEntity<StandardError> operationConflict(com.controlefinanceiro.api.service.exception.OperationConflictException e,HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new StandardError(Instant.now(),409,
+                "Conflito de operação",e.getMessage(),request.getRequestURI()));
+    }
+
     @ExceptionHandler(InvalidFieldException.class)
     public ResponseEntity<StandardError> invalidField(InvalidFieldException e, HttpServletRequest request) {
         return badRequest(e.getMessage(), request, Map.of(e.getField(), List.of(e.getMessage())));

@@ -70,14 +70,19 @@ public class CreditCardController {
     }
 
     @PostMapping("/{id}/pay")
-    public ResponseEntity<Void> payInvoice(
+    public ResponseEntity<com.controlefinanceiro.api.domain.card.dto.PaymentReceiptDTO> payInvoice(
             @PathVariable UUID id,
             @RequestBody @Valid PayInvoiceDTO data,
             @AuthenticationPrincipal User user) {
 
         log.info("API: PAGAMENTO FATURA Cartão {}. Valor: {}. É adiantamento? {}", id, data.amount(), data.isPrepayment());
-        service.payInvoice(id, data, user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(service.payInvoice(id, data, user));
+    }
+
+    @GetMapping("/{id}/payments/{operationId}")
+    public ResponseEntity<com.controlefinanceiro.api.domain.card.dto.PaymentReceiptDTO> paymentReceipt(
+            @PathVariable UUID id,@PathVariable UUID operationId,@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.paymentReceipt(id,operationId,user));
     }
 
     @PatchMapping("/transaction/{id}")

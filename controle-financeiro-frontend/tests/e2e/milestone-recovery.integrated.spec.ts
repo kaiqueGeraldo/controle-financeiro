@@ -65,12 +65,10 @@ for (const mode of ["ok", "read", "lost", "overlap"] as const) {
         await expect(detail.getByRole("button", { name: "Fatura indisponível" })).toBeDisabled();
         failRead = false;
       }
+      const recovered = mode === "lost" ? page.waitForResponse(r=>r.url().includes(`/cards/${card.id}/payments/`)&&r.request().method()==="GET") : null;
       await payment.getByRole("button", { name: "Atualizar dados sem repetir pagamento" }).click();
-      if (mode === "read" || mode === "overlap") await expect(payment).toHaveCount(0);
-      else {
-        await expect(payment.getByRole("alert")).toContainText("continua desconhecido");
-        await payment.getByRole("button", { name: "Fechar modal" }).click();
-      }
+      if(recovered){const receipt=await recovered;expect(receipt.ok()).toBe(true);expect((await receipt.json()).amount).toBe(100);}
+      await expect(payment).toHaveCount(0);
     }
     expect(posts).toBe(1);
     await expect(detail.getByRole("button", { name: "Fatura Paga" })).toBeDisabled();

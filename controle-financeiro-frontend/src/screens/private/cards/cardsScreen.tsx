@@ -192,7 +192,9 @@ export default function CartoesScreen() {
           cardId={selectedCard.id}
           cardName={selectedCard.name}
           accounts={accounts}
-          currentInvoiceValue={invoiceDetails?.totalAmount || 0}
+          currentInvoiceValue={invoiceDetails?.payableAmount ?? 0}
+          originalConsumption={invoiceDetails?.totalAmount ?? 0}
+          creditBalance={selectedCard.creditBalance ?? 0}
           month={viewDate.getMonth() + 1}
           year={viewDate.getFullYear()}
         />

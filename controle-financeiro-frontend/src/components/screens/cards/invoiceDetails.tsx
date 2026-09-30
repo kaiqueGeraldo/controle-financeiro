@@ -113,11 +113,12 @@ export function InvoiceDetails({
 
   const styles = getCardStyle(card.name, card.color || "#333");
   const totalAmount = invoiceData?.totalAmount || 0;
+  const payableAmount = invoiceData?.payableAmount ?? totalAmount;
   const transactions = invoiceData?.transactions ?? [];
 
   const isPaid = invoiceData?.status === "PAID";
   const isClosed = invoiceData?.status === "CLOSED";
-  const isEmpty = totalAmount <= 0;
+  const isEmpty = payableAmount <= 0;
 
   let isOverdue = false;
   if (invoiceData && card) {
@@ -226,6 +227,7 @@ export function InvoiceDetails({
                   <p className="text-4xl [overflow-wrap:anywhere] font-bold text-white tracking-tight drop-shadow-md">
                     {unavailable ? "—" : formatCurrency(totalAmount)}
                   </p>
+                  {!unavailable&&<p className="text-xs text-white/90 mt-2">Consumo original · Saldo pagável: {formatCurrency(payableAmount)} · Crédito: {formatCurrency(card.creditBalance??0)}</p>}
 
                   {/* DATAS DE FECHAMENTO E VENCIMENTO */}
                   <div className="flex gap-4 mt-3 text-[10px] uppercase font-bold tracking-wider text-white/90">

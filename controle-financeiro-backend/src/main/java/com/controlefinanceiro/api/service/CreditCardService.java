@@ -510,7 +510,7 @@ public class CreditCardService {
     }
 
     @Transactional
-    public void payInvoice(UUID cardId, PayInvoiceDTO data, User user) {
+    public PaymentReceiptDTO payInvoice(UUID cardId, PayInvoiceDTO data, User user) {
         log.info("SERVICE: Processando regras de cartão para pagamento da fatura.");
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
@@ -518,8 +518,23 @@ public class CreditCardService {
         if (!validMoney(data.amount(), false)) {
             throw new BusinessRuleException("Pagamento deve ser positivo e expresso em centavos.");
         }
+        // Serialize only the same intent, including accidental cross-card reuse of its key.
+        if(data.operationId()!=null) entityManager.createNativeQuery(
+                "select 1 from pg_advisory_xact_lock(hashtextextended(cast(?1 as text), 0))")
+                .setParameter(1,"invoice-payment:"+data.operationId()).getSingleResult();
         CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
+
+        String fingerprint=paymentFingerprint(cardId,data);
+        if(data.operationId()!=null) {
+            var previous=cardPaymentRepository.findByOperationId(data.operationId());
+            if(previous.isPresent()) {
+                CardPayment receipt=previous.get();
+                if(!fingerprint.equals(receipt.getRequestFingerprint()))
+                    throw new com.controlefinanceiro.api.service.exception.OperationConflictException("Identificação de pagamento já utilizada com outro conteúdo ou conteúdo histórico desconhecido.");
+                return new PaymentReceiptDTO(receipt);
+            }
+        }
 
         Invoice invoice = getOrCreateInvoice(card, data.month(), data.year());
         if (invoice.getStatus() == InvoiceStatus.PAID) {
@@ -527,9 +542,6 @@ public class CreditCardService {
         }
 
         boolean prepayment = Boolean.TRUE.equals(data.isPrepayment());
-        if (data.operationId() != null && cardPaymentRepository.existsByOperationId(data.operationId())) {
-            throw new BusinessRuleException("Pagamento já registrado.");
-        }
         if (data.operationId() == null && cardPaymentRepository
                 .existsByInvoiceIdAndAccountIdAndPaymentDateAndAmountAndPrepaymentAndOperationIdIsNull(
                         invoice.getId(), data.accountId(), data.date(), data.amount(), prepayment)) {
@@ -554,6 +566,7 @@ public class CreditCardService {
         payment.setInvoice(invoice);
         payment.setAccountId(data.accountId());
         payment.setOperationId(data.operationId());
+        payment.setRequestFingerprint(fingerprint);
         payment.setPrepayment(prepayment);
         payment.setAmount(data.amount());
         payment.setPaymentDate(data.date());
@@ -608,6 +621,26 @@ public class CreditCardService {
         eventPublisher.publishEvent(new InvoiceChangedEvent(invoice));
         publishNextInvoiceChange(invoice);
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
+        return new PaymentReceiptDTO(payment);
+    }
+
+    @Transactional(readOnly=true)
+    public PaymentReceiptDTO paymentReceipt(UUID cardId,UUID operationId,User user) {
+        return cardPaymentRepository.findByOperationIdAndInvoiceCardIdAndInvoiceCardUserId(operationId,cardId,user.getId())
+                .map(PaymentReceiptDTO::new).orElseThrow(()->new ResourceNotFoundException("Pagamento ainda não localizado."));
+    }
+
+    private static String paymentFingerprint(UUID cardId,PayInvoiceDTO data) {
+        // Length-prefixed fields distinguish nulls and delimiter characters in descriptions.
+        StringBuilder canonical=new StringBuilder();
+        for(Object field:Arrays.asList(cardId,data.accountId(),data.amount().stripTrailingZeros().toPlainString(),
+                data.date(),DateUtil.optionalWallTime(data.time()),data.month(),data.year(),data.isPrepayment(),data.description())) {
+            if(field==null)canonical.append("-:");
+            else {String value=field.toString();canonical.append(value.length()).append(':').append(value);}
+        }
+        try{return HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256")
+                .digest(canonical.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)));}
+        catch(java.security.NoSuchAlgorithmException impossible){throw new IllegalStateException(impossible);}
     }
 
     private void publishNextInvoiceChange(Invoice invoice) {

@@ -6,6 +6,9 @@ import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 export type PayInvoiceData = {
   card: CreditCard;
   invoiceTotal: number;
+  payableAmount: number;
+  ownerId: string;
+  reconcile: () => Promise<void>;
   month: number;
   year: number;
 } | null;

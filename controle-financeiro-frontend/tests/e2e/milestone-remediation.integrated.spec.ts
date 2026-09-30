@@ -8,6 +8,39 @@ async function start(page:Page,suffix:string){await page.clock.setFixedTime(new 
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
 
+test("SAN-D1 duas intenções iguais, saldo pagável, recibo e conflito",async({page})=>{
+ await start(page,"payment");
+ const a=await post(page,"/accounts",{name:`${ns}-cash`,type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const c=await post(page,"/cards",{name:`${ns}-card`,last4Digits:"4242",limit:1000,closingDay:20,dueDay:28,brand:"VISA",color:"#7c3aed"});
+ const categories=await json(page,"/categories?type=EXPENSE");
+ await post(page,"/cards/transaction",{cardId:c.id,categoryId:categories[0].id,description:"Compra300",amount:300,date:"2027-01-10",time:null,totalInstallments:1});
+ await page.goto("/cartoes");
+ const bodies:Array<Record<string,unknown>>=[];
+ for(const suggested of ["300.00","200.00"]){
+   await page.reload();await page.getByRole("button",{name:`Ver fatura de ${c.name}, final 4242`}).click();
+   await page.getByRole("dialog",{name:`${c.name} •••• 4242`}).getByRole("button",{name:/^(Pagar|Adiantar)/}).click();
+   const modal=page.getByRole("dialog",{name:`Pagar Fatura - ${c.name}`,exact:true});
+   await expect(modal.getByLabel("Valor do Pagamento")).toHaveValue(suggested);
+   await modal.getByRole("button",{name:"Adiantamento",exact:true}).click();
+   await modal.getByLabel("Valor do Pagamento").fill("100");await modal.getByLabel("Pagar com").selectOption(a.id);
+   const response=page.waitForResponse(r=>r.url().endsWith(`/cards/${c.id}/pay`)&&r.request().method()==="POST");
+   await modal.getByRole("button",{name:"Confirmar Pagamento"}).click();const paid=await response;expect(paid.ok()).toBe(true);
+   bodies.push(paid.request().postDataJSON());await expect(modal).toHaveCount(0);
+ }
+ expect(bodies[0].operationId).not.toBe(bodies[1].operationId);
+ const replay=await post(page,`/cards/${c.id}/pay`,bodies[0]);
+ expect(replay.operationId).toBe(bodies[0].operationId);
+ const conflict=await page.request.post(`/api/cards/${c.id}/pay`,{data:{...bodies[0],amount:99}});expect(conflict.status()).toBe(409);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(800);
+ const invoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);expect(invoice.payableAmount).toBe(100);expect(invoice.totalAmount).toBe(300);
+ await page.reload();await page.getByRole("button",{name:`Ver fatura de ${c.name}, final 4242`}).click();
+ await page.getByRole("dialog",{name:`${c.name} •••• 4242`}).getByRole("button",{name:/^(Pagar|Adiantar)/}).click();
+ const modal=page.getByRole("dialog",{name:`Pagar Fatura - ${c.name}`,exact:true});
+ await expect(modal.getByLabel("Valor do Pagamento")).toHaveValue("100.00");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-d1-payment-${width}.png`),animations:"disabled"});}
+ await writeFile(path.join(dir,"san-d1-receipt.json"),JSON.stringify({bodies,replay,invoice},null,2));
+});
+
 test("SAN-B criar item, reload, consumir reserva, excluir intenção e reembolsar pela UI",async({page})=>{
  await start(page,"goal");
  const a=await post(page,"/accounts",{name:`${ns}-source`,type:"CHECKING",initialBalance:1000,color:"#10b981"});

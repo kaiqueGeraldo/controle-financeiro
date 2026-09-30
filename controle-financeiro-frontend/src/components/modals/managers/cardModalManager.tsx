@@ -36,11 +36,14 @@ export function CardModalManager() {
       <PayInvoiceModal
         isOpen={!!modals.payInvoiceData}
         onClose={modals.closePayInvoice}
-        onSuccess={handleCardsRefresh}
+        onSuccess={async()=>{await modals.payInvoiceData?.reconcile();}}
+        ownerId={modals.payInvoiceData?.ownerId}
         cardId={modals.payInvoiceData?.card?.id || ""}
         cardName={modals.payInvoiceData?.card?.name || ""}
         accounts={finance.accounts}
-        currentInvoiceValue={modals.payInvoiceData?.invoiceTotal || 0}
+        currentInvoiceValue={modals.payInvoiceData?.payableAmount ?? 0}
+        originalConsumption={modals.payInvoiceData?.invoiceTotal ?? 0}
+        creditBalance={modals.payInvoiceData?.card.creditBalance ?? 0}
         month={modals.payInvoiceData?.month || 1}
         year={modals.payInvoiceData?.year || 2024}
       />

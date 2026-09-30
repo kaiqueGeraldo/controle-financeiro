@@ -10,6 +10,7 @@ export interface CreditCard {
   color: string;
   brand: "MASTERCARD" | "VISA";
   currentInvoiceValue: number;
+  creditBalance?: number;
 }
 
 export interface CreateCardDTO {
@@ -41,6 +42,7 @@ export interface CreateCardTransactionDTO {
 }
 
 export interface PayInvoiceDTO {
+  operationId?: string;
   accountId: string;
   amount: number;
   date: string;
@@ -68,12 +70,15 @@ export interface CardInvoiceDetails {
   id: string;
   month: number;
   year: number;
-  status: "OPEN" | "CLOSED" | "PAID";
+  status: "OPEN" | "CLOSED" | "PAID" | "ROLLED";
   totalAmount: number;
+  payableAmount?: number;
+  carriedAmount?: number;
   transactions: CardInvoiceTransaction[];
 }
 
 export const cardService = {
+  paymentReceipt: (cardId:string,operationId:string,signal?:AbortSignal) => apiRequest<{id:string;operationId:string;amount:number}>(`/cards/${cardId}/payments/${operationId}`,{method:"GET",signal}),
   getAll: async (signal?: AbortSignal) => {
     return apiRequest<CreditCard[]>("/cards", { method: "GET", signal });
   },

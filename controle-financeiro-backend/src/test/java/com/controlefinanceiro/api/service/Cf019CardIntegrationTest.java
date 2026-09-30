@@ -364,7 +364,7 @@ class Cf019CardIntegrationTest extends PostgresIntegrationTest {
             assertThat(ready.await(10, TimeUnit.SECONDS)).isTrue();
             start.countDown();
             assertThat(List.of(first.get(20, TimeUnit.SECONDS), second.get(20, TimeUnit.SECONDS)))
-                    .containsExactlyInAnyOrder("confirmed", "Pagamento já registrado.");
+                    .containsExactly("confirmed", "confirmed");
         }
         assertThat(accounts.findById(account.getId()).orElseThrow().getBalance())
                 .isEqualByComparingTo("900.00");
@@ -412,6 +412,32 @@ class Cf019CardIntegrationTest extends PostgresIntegrationTest {
         verify(emailService, times(1)).sendTemplatedEmail(any(), any(), any(), any());
         assertThat(sql.queryForObject("select count(*) from card_transactions where invoice_id=?",
                 Integer.class, invoice.getId())).isOne();
+    }
+
+    @Test
+    void differentIntentsAllowEqualPaymentsAndRetryValidatesTheWholeCommand() {
+        Fixture fixture=fixture(20,28);Account account=account(fixture.owner());
+        service.createTransaction(purchase(fixture,"300.00",LocalDate.of(2026,9,19),1),fixture.owner());
+        UUID firstKey=UUID.randomUUID();
+        PayInvoiceDTO first=new PayInvoiceDTO(account.getId(),new BigDecimal("100.00"),LocalDate.of(2026,9,28),"10:00",9,2026,"Pagamento",true,firstKey);
+        var receipt=service.payInvoice(fixture.card().getId(),first,fixture.owner());
+        var second=service.payInvoice(fixture.card().getId(),new PayInvoiceDTO(first.accountId(),first.amount(),first.date(),first.time(),first.month(),first.year(),first.description(),first.isPrepayment(),UUID.randomUUID()),fixture.owner());
+        assertThat(second.id()).isNotEqualTo(receipt.id());
+        assertThat(service.payInvoice(fixture.card().getId(),first,fixture.owner()).id()).isEqualTo(receipt.id());
+        assertThat(service.paymentReceipt(fixture.card().getId(),firstKey,fixture.owner()).id()).isEqualTo(receipt.id());
+        for(PayInvoiceDTO changed:List.of(
+                new PayInvoiceDTO(first.accountId(),new BigDecimal("99.00"),first.date(),first.time(),9,2026,"Pagamento",true,firstKey),
+                new PayInvoiceDTO(first.accountId(),first.amount(),first.date(),"10:01",9,2026,"Pagamento",true,firstKey),
+                new PayInvoiceDTO(first.accountId(),first.amount(),first.date(),first.time(),9,2026,"Outro motivo",true,firstKey),
+                new PayInvoiceDTO(first.accountId(),first.amount(),first.date(),first.time(),9,2026,"Pagamento",false,firstKey))) {
+            assertThatThrownBy(()->service.payInvoice(fixture.card().getId(),changed,fixture.owner()))
+                    .isInstanceOf(com.controlefinanceiro.api.service.exception.OperationConflictException.class);
+        }
+        assertThat(accounts.findById(account.getId()).orElseThrow().getBalance()).isEqualByComparingTo("800.00");
+        assertThat(outstanding(fixture.card().getId())).isEqualByComparingTo("100.00");
+        assertThat(sql.queryForObject("select count(*) from card_payments where account_id=?",Integer.class,account.getId())).isEqualTo(2);
+        var other=fixture(20,28);
+        assertThatThrownBy(()->service.paymentReceipt(fixture.card().getId(),firstKey,other.owner())).isInstanceOf(com.controlefinanceiro.api.service.exception.ResourceNotFoundException.class);
     }
 
     private BigDecimal plannedAmount(Fixture fixture, int month) {

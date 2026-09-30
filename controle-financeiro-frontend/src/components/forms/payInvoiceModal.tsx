@@ -2,9 +2,10 @@
 
 import { Modal } from "@/components/ui/modal";
 import { ApiError } from "@/services/api";
-import { cardService } from "@/services/cardService";
+import { cardService, type PayInvoiceDTO } from "@/services/cardService";
 import { Account } from "@/types";
 import { localDateString } from "@/utils/date";
+import {formatCurrency} from "@/utils/format";
 import { ReconciliationCancelledError } from "@/utils/financialReconciliation";
 import {
   AlertCircle,
@@ -24,6 +25,8 @@ interface PayInvoiceModalProps {
   cardName: string;
   accounts: Account[];
   currentInvoiceValue: number;
+  originalConsumption?: number;
+  creditBalance?: number;
   month: number;
   year: number;
   ownerId?: string;
@@ -43,6 +46,8 @@ export function PayInvoiceModal({
   cardName,
   accounts,
   currentInvoiceValue,
+  originalConsumption,
+  creditBalance=0,
   month,
   year,
   ownerId,
@@ -61,11 +66,13 @@ export function PayInvoiceModal({
   const scope = `${ownerId}:${cardId}:${year}:${month}`;
   const requests = useRequestCoordinator(scope);
   const storageKey = ownerId ? `invoice-payment:${scope}` : null;
+  const intent=useRef<PayInvoiceDTO|null>(null);
+  const [retryAllowed,setRetryAllowed]=useState(false);
   const remember = (value: typeof outcome) => {
     outcomeRef.current = value;
     setOutcome(value);
     if (storageKey) {
-      if (value === "ready") sessionStorage.removeItem(storageKey);
+      if (value === "ready") {sessionStorage.removeItem(storageKey);sessionStorage.removeItem(`${storageKey}:intent`);intent.current=null;setRetryAllowed(false);}
       else sessionStorage.setItem(storageKey, value);
     }
   };
@@ -88,6 +95,15 @@ export function PayInvoiceModal({
       submitting.current = false;
       const stored = storageKey ? sessionStorage.getItem(storageKey) : null;
       const initialOutcome = stored === "confirmed" || stored === "unknown" ? stored : "ready";
+      intent.current=null;setRetryAllowed(false);
+      if(storageKey && initialOutcome!=="ready") {
+        try {
+          const saved=JSON.parse(sessionStorage.getItem(`${storageKey}:intent`)||"null");
+          if(saved?.version===1 && typeof saved.command?.operationId==="string" && typeof saved.command?.accountId==="string"
+              && typeof saved.command?.amount==="number" && typeof saved.command?.date==="string"
+              && saved.command?.month===month && saved.command?.year===year) intent.current=saved.command;
+        } catch { /* An unreadable intent is never reconstructed from the editable form. */ }
+      }
       outcomeRef.current = initialOutcome;
       setOutcome(initialOutcome);
       setErrorMessage(initialOutcome === "confirmed"
@@ -100,8 +116,13 @@ export function PayInvoiceModal({
           minute: "2-digit",
         }),
       );
+      if(intent.current){
+        const command=intent.current;
+        setAmount(String(command.amount));setAccountId(command.accountId);setDate(command.date);
+        setTime(command.time??"");setIsPrepayment(command.isPrepayment);
+      }
     }
-  }, [isOpen, currentInvoiceValue, accounts, scope, storageKey, requests]);
+  }, [isOpen, currentInvoiceValue, accounts, scope, storageKey, requests,month,year]);
 
   const reconcile = async () => {
     if (submitting.current) return;
@@ -109,13 +130,23 @@ export function PayInvoiceModal({
     setIsLoading(true);
     const request = requests.begin("payment");
     try {
+      if(outcomeRef.current==="unknown" && intent.current?.operationId) {
+        try {
+          await cardService.paymentReceipt(cardId,intent.current.operationId,request.signal);
+          if(!request.isCurrent())return;
+          remember("confirmed");
+        } catch(failure:unknown) {
+          if(failure instanceof ApiError && failure.status===404){if(request.isCurrent())setRetryAllowed(true);}
+          else throw failure;
+        }
+      }
       await onSuccess();
       if (!request.isCurrent()) return;
       if (outcomeRef.current === "confirmed") {
         remember("ready");
         onClose();
       } else {
-        setErrorMessage("Dados atualizados para conferência. O resultado deste pagamento continua desconhecido. Confira o extrato e a fatura; não repita a operação.");
+        setErrorMessage(intent.current?"Pagamento ainda não localizado. Você pode recuperar a mesma intenção, preservando a identificação e todo o conteúdo.":"Dados atualizados para conferência. O resultado deste pagamento continua desconhecido. Confira o extrato e a fatura; não repita a operação.");
       }
     } catch (error: unknown) {
       if (request.isCurrent()) setErrorMessage(outcomeRef.current === "confirmed"
@@ -127,9 +158,9 @@ export function PayInvoiceModal({
     }
   };
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent, retry=false) => {
     e.preventDefault();
-    if (submitting.current || outcomeRef.current !== "ready") return;
+    if (submitting.current || (outcomeRef.current !== "ready" && !(retry&&retryAllowed&&intent.current))) return;
     submitting.current = true;
     setIsLoading(true);
     setErrorMessage(null);
@@ -138,10 +169,8 @@ export function PayInvoiceModal({
 
     try {
       const valorNumerico = Number(amount);
-      // Persist before dispatch: reload after a lost response must not offer a resend.
-      remember("unknown");
-
-      await cardService.payInvoice(cardId, {
+      const command=retry?intent.current!:{
+        operationId:crypto.randomUUID(),
         accountId,
         amount: valorNumerico,
         date,
@@ -152,7 +181,12 @@ export function PayInvoiceModal({
         description: isPrepayment
           ? "Adiantamento de Fatura"
           : "Pagamento de Fatura",
-      });
+      };
+      intent.current=command;
+      if(storageKey)sessionStorage.setItem(`${storageKey}:intent`,JSON.stringify({version:1,command}));
+      // Persist the immutable command before dispatch; a reload never sends it automatically.
+      remember("unknown");setRetryAllowed(false);
+      await cardService.payInvoice(cardId,command);
       confirmed = true;
       if (storageKey) sessionStorage.setItem(storageKey, "confirmed");
       if (!request.isCurrent()) return;
@@ -165,7 +199,7 @@ export function PayInvoiceModal({
       if (!request.isCurrent()) return;
       if (confirmed) {
         setErrorMessage(confirmedReconciliationMessage(error));
-      } else if (error instanceof ApiError && !error.requiresReconciliation && error.status >= 400 && error.status < 500) {
+      } else if (error instanceof ApiError && !error.requiresReconciliation && error.status >= 400 && error.status < 500 && error.status!==409) {
         remember("ready");
         setErrorMessage(`Pagamento recusado: ${error.message}`);
       } else {
@@ -186,6 +220,11 @@ export function PayInvoiceModal({
       title={`Pagar Fatura - ${cardName}`}
     >
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+        <p className="text-sm text-text-muted">Saldo pagável: {formatCurrency(currentInvoiceValue)}
+          {originalConsumption!==undefined&&<> · Consumo original: {formatCurrency(originalConsumption)}</>}
+          {" · "}Crédito no cartão: {formatCurrency(creditBalance)}
+        </p>
+        <fieldset disabled={isLoading||outcome!=="ready"} className="space-y-4">
         {/* Toggle Tipo de Pagamento */}
         <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider">
           <button
@@ -248,7 +287,7 @@ export function PayInvoiceModal({
           </div>
           {!isPrepayment && currentInvoiceValue > 0 && (
             <p className="text-[10px] text-text-muted mt-1 ml-1">
-              Valor total da fatura: R${" "}
+              Saldo pagável: R${" "}
               {currentInvoiceValue.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
               })}
@@ -297,11 +336,13 @@ export function PayInvoiceModal({
           </div>
         </div>
 
+        </fieldset>
         {outcome !== "ready" && !isLoading && (
           <button type="button" onClick={() => void reconcile()} className="w-full rounded-xl border border-border-divider p-3 font-bold">
             Atualizar dados sem repetir pagamento
           </button>
         )}
+        {outcome==="unknown"&&retryAllowed&&<button type="button" disabled={isLoading} onClick={e=>void handleSubmit(e,true)} className="w-full rounded-xl border border-border-divider p-3 font-bold">Repetir a mesma intenção</button>}
         <button
           disabled={isLoading || outcome !== "ready"}
           type="submit"

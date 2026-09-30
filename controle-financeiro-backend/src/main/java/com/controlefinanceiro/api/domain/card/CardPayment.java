@@ -25,6 +25,7 @@ public class CardPayment {
 
     @Column(name = "operation_id")
     private UUID operationId;
+    @Column(length=64) private String requestFingerprint;
 
     @Column(name = "is_prepayment", nullable = false)
     private boolean prepayment;

@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface CardPaymentRepository extends JpaRepository<CardPayment, UUID> {
     boolean existsByOperationId(UUID operationId);
+    Optional<CardPayment> findByOperationId(UUID operationId);
+    Optional<CardPayment> findByOperationIdAndInvoiceCardIdAndInvoiceCardUserId(UUID operationId,UUID cardId,UUID userId);
     boolean existsByInvoiceCardId(UUID cardId);
     boolean existsByInvoiceIdAndAccountIdAndPaymentDateAndAmountAndPrepaymentAndOperationIdIsNull(
             UUID invoiceId, UUID accountId, LocalDate paymentDate, BigDecimal amount, boolean prepayment);
