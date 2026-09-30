@@ -75,6 +75,8 @@ pendentes os contratos próprios de onboarding de CF-028.
 [Relatório](../evidencias/CF-023/README.md), [matriz](../evidencias/CF-023/MATRIZ.md)
 e [comandos/resultados](../evidencias/CF-023/EXECUCOES.md) preservam as falhas
 causais, os resultados após correção e os limites de cada camada.
+Código, testes e contrato no commit local `1b93704`; evidências e checkpoint
+registrados no commit documental seguinte, sem alterar os fontes testados.
 
 Entregues: principal JWT vinculado ao UUID assinado, Bearer validado, DTO público
 de perfil/preferências, referências inacessíveis 404, reorders atômicos por
