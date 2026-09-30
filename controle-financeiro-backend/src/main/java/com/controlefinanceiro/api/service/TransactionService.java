@@ -921,6 +921,7 @@ public class TransactionService {
                 .forEach(year -> eventPublisher.publishEvent(new UserFinancialDataChangedEvent(userId, year)));
     }
 
+    @Transactional(readOnly=true, isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public byte[] exportToExcel(User user) {
         return exportToExcel(user, null, null, null, null);
     }
@@ -947,6 +948,7 @@ public class TransactionService {
         return new CashSummaryDTO(entries, exits, entries.subtract(exits));
     }
 
+    @Transactional(readOnly=true, isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public byte[] exportToExcel(User user, Integer month, Integer year,
                                 TransactionType type, UUID accountId) {
         log.info("Gerando Excel em lotes para o usuário {}", user.getEmail());

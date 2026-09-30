@@ -34,7 +34,7 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | 360/768/1440 | Pendente |
 | NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
 | H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
-| H-02 | Leituras separadas na exportação | CF-021 | Investigar escrita entre páginas | Exportação concorrente controlada | Hipótese pendente |
+| H-02 | Leituras separadas na exportação | CF-021 | Snapshot único REPEATABLE READ | Escrita independente entre páginas | Confirmada, corrigida e verificada; checkpoint E1 |
 
 ## Decisão NG-01
 
@@ -269,3 +269,26 @@ Logs: target/saneamento-d2-domain.log, saneamento-d2-integrated.log,
 saneamento-d2-final-domain.log e saneamento-d2-browser-complete.log.
 Limites: transporte na sessão da aba, sem declaração de CF024 multissessão;
 comandos legados sem chave continuam compatíveis. Não é zoom nativo200%.
+
+### Checkpoint E1 — snapshot da exportação, H02
+
+Reprodução causal com barreira após materializar a primeira página, transação
+independente confirmou entrada10 antes da página seguinte. READ COMMITTED:
+resumo501, 502 linhas USER, apenas501 distintas; uma linha duplicada por offset.
+Reprodução em h02-vermelho.txt; log integral local saneamento-h02-baseline-d2-retry.log.
+
+Ambas as entradas públicas da exportação agora abrem transação readOnly com
+REPEATABLE READ. Sumários, páginas, compras/estornos de cartão e consultas em
+lote pertencem ao mesmo snapshot. entityManager.clear libera entidades, sem
+encerrar o snapshot. Teste com mesma barreira passou: resumo501, 501 linhas
+USER distintas, sem evento concorrente; novo arquivo posterior tem resumo511.
+Teste: MilestoneExportSnapshotTest; log saneamento-d2-h02-verified.log (H02 passou;
+naquele mesmo run o navegador D2 ainda falhou, corrigido no checkpoint D2).
+
+Custos: transação fica aberta durante paginação e geração, mantém versão MVCC
+até finalizar e ocupa conexão. Escrita em outra conta/ledger não fica bloqueada
+pelo snapshot; a escrita controlada confirmou antes de liberar exportação.
+Lotes500 e janela SXSSF100 limitam entidades/linhas em memória; bytes finais do
+XLSX ainda usam ByteArrayOutputStream, O(tamanho do arquivo), e disco temporário
+SXSSF. Não é benchmark amplo nem entrega transversal da CF025. Snapshot é da
+requisição local; não permite reconstruir posição histórica sem cobertura.
