@@ -59,3 +59,9 @@ RVI-06/07/13–18 e parte de RVI-21: checklist em lote com fonte real, compra/fa
 ## Revalidação independente — 30/09/2026
 
 Aceite integral não aprovado: compensação de provento altera referência proporcional (RVA-01) e encerramento mantém custo residual null (RVA-02). Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+
+## Saneamento dirigido dos residuais — 30/09/2026
+
+RVA-01/RVA-02 corrigidos/verificados localmente: replay conserva referência TOTAL/PRICE; encerramento zera somente custo residual, mantendo custo baixado/ganho histórico desconhecidos. Duas provas originais vermelhas passaram sem editar critérios; 62 testes backend afetados e consumidor SAN-RVA aprovados. RVA-03 e revisão independente mantêm o aceite integral pendente.
+
+[Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.

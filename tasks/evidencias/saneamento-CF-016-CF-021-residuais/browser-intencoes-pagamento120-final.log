@@ -1,0 +1,158 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 11 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.MilestoneRemediationBrowserTest
+14:22:24.301 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.MilestoneRemediationBrowserTest
+14:22:24.608 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+14:22:24.612 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+14:22:24.622 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+14:22:24.943 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+14:22:25.628 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+14:22:25.630 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+14:22:25.657 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+14:22:25.763 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+14:22:26.088 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: ed48b07eccad2be8191bef71ea5f057250d85c1b088dac5da78086f66362f7ce
+14:22:26.472 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.7086389S
+14:22:26.481 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+14:22:26.482 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+14:22:26.483 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+14:22:26.484 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+14:22:26.582 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: c5e6897505dbe9886b607bf61074e4b19c8b29fc1a36b797b9902c7b02588e8b
+14:22:28.469 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.9853467S
+14:22:28.470 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:53279/cf_test_cf017_0cd2aca0100d4d6cb520e92705568241?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 14:22:29.348 - INFO 25672 --- [           main] c.c.api.MilestoneRemediationBrowserTest  : Starting MilestoneRemediationBrowserTest using Java 21.0.12.1 with PID 25672 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 14:22:29.350 - INFO 25672 --- [           main] c.c.api.MilestoneRemediationBrowserTest  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-09-30 14:22:42.856 - WARN 25672 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 14:22:51.219 - INFO 25672 --- [           main] c.c.api.MilestoneRemediationBrowserTest  : Started MilestoneRemediationBrowserTest in 22.519 seconds (process running for 28.983)
+-2026-09-30 14:22:58.323 - INFO 25672 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:58.341 - INFO 25672 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:58.687 - INFO 25672 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 79134e4a-d828-48dd-bb74-cf18bd4fe51b
+-2026-09-30 14:22:58.687 - INFO 25672 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 79134e4a-d828-48dd-bb74-cf18bd4fe51b
+-2026-09-30 14:22:58.831 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:59.009 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:59.291 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:59.494 - INFO 25672 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:22:59.931 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'SAN banco cart�o'. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:22:59.932 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 79134e4a-d828-48dd-bb74-cf18bd4fe51b
+-2026-09-30 14:23:00.084 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'SAN cart�o 120'. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:00.085 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Criando cart�o 'SAN cart�o 120' (Final 4242)
+-2026-09-30 14:23:00.225 - INFO 25672 --- [-auto-1-exec-10] c.c.api.controller.GoalController        : API: Criar Meta 'SAN meta cart�o 120' para usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:00.226 - INFO 25672 --- [-auto-1-exec-10] c.c.api.service.GoalService              : Criando nova meta: SAN meta cart�o 120
+-2026-09-30 14:23:01.521 - INFO 25672 --- [o-auto-1-exec-4] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:01.574 - INFO 25672 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:03.075 - WARN 25672 --- [o-auto-1-exec-7] c.c.api.controller.GoalController        : API: Criar Item na Meta 8823b278-096b-4eee-80ca-8a7dd8cefeee. para usu�rio: com.controlefinanceiro.api.domain.user.User@a7002ccf
+-2026-09-30 14:23:03.676 - INFO 25672 --- [o-auto-1-exec-2] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:03.716 - INFO 25672 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:05.067 - WARN 25672 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Atualizando Item Meta 8195c845-4a4d-4cf7-a0fd-9c4c6eae84fb. valor pago: PurchaseGoalItemDTO[paidPrice=120, accountId=null, cardId=dcf9da19-f450-419d-bcad-dddb9ee7995b, installments=1, allocationId=null]
+-2026-09-30 14:23:05.085 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID dcf9da19-f450-419d-bcad-dddb9ee7995b: 120 (1x)
+-2026-09-30 14:23:05.203 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:23:06.211 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:06.275 - INFO 25672 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:08.587 - INFO 25672 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o dcf9da19-f450-419d-bcad-dddb9ee7995b. Valor: 120. � adiantamento? true
+-2026-09-30 14:23:08.587 - INFO 25672 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:23:08.640 - INFO 25672 --- [o-auto-1-exec-8] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o SAN cart�o 120
+-2026-09-30 14:23:08.799 - INFO 25672 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:19.763 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:19.813 - INFO 25672 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:21.058 - WARN 25672 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Exclus�o de META 8823b278-096b-4eee-80ca-8a7dd8cefeee. Conta para Estorno/Devolu��o: null
+-2026-09-30 14:23:21.902 - INFO 25672 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:21.937 - INFO 25672 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:22.385 - INFO 25672 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:23.193 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-goal-card-120@example.invalid
+-2026-09-30 14:23:23.258 - INFO 25672 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:23.779 - WARN 25672 --- [o-auto-1-exec-4] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Compra j� estornada. [URI: /goals/items/8195c845-4a4d-4cf7-a0fd-9c4c6eae84fb/refund]
+-2026-09-30 14:23:26.178 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:26.181 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:26.300 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 004b4d1c-5296-4b2e-a3ee-9cc7b777684d
+-2026-09-30 14:23:26.301 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 004b4d1c-5296-4b2e-a3ee-9cc7b777684d
+-2026-09-30 14:23:26.379 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:26.488 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:26.729 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:26.730 - INFO 25672 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:27.099 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.controller.AccountController     : API: Criar Conta 'san1821-3631c209-cash'. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:27.099 - INFO 25672 --- [o-auto-1-exec-3] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 004b4d1c-5296-4b2e-a3ee-9cc7b777684d
+-2026-09-30 14:23:27.187 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'san1821-3631c209-card'. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:27.187 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'san1821-3631c209-card' (Final 4242)
+-2026-09-30 14:23:27.337 - INFO 25672 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o c779ab64-ebef-4f4b-9bd9-25656d233c27. Valor: 300. Parcelas: 1
+-2026-09-30 14:23:27.337 - INFO 25672 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID c779ab64-ebef-4f4b-9bd9-25656d233c27: 300 (1x)
+-2026-09-30 14:23:27.378 - INFO 25672 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 14:23:28.127 - INFO 25672 --- [-auto-1-exec-10] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:28.180 - INFO 25672 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:28.963 - INFO 25672 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:29.014 - INFO 25672 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:30.810 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o c779ab64-ebef-4f4b-9bd9-25656d233c27. Valor: 100. � adiantamento? true
+-2026-09-30 14:23:30.811 - INFO 25672 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:23:30.825 - INFO 25672 --- [o-auto-1-exec-6] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o san1821-3631c209-card
+-2026-09-30 14:23:30.965 - INFO 25672 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:35.825 - INFO 25672 --- [o-auto-1-exec-5] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:35.870 - INFO 25672 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:38.065 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o c779ab64-ebef-4f4b-9bd9-25656d233c27. Valor: 100. � adiantamento? true
+-2026-09-30 14:23:38.066 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:23:38.076 - INFO 25672 --- [o-auto-1-exec-9] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o san1821-3631c209-card
+-2026-09-30 14:23:38.174 - INFO 25672 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-2026-09-30 14:23:49.739 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o c779ab64-ebef-4f4b-9bd9-25656d233c27. Valor: 100. � adiantamento? true
+-2026-09-30 14:23:49.739 - INFO 25672 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:23:49.786 - INFO 25672 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o c779ab64-ebef-4f4b-9bd9-25656d233c27. Valor: 99. � adiantamento? true
+-2026-09-30 14:23:49.786 - INFO 25672 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 14:23:50.495 - INFO 25672 --- [o-auto-1-exec-7] c.c.api.service.HabitService             : SERVICE: Listando h�bitos para o usu�rio cf003-a-san1821-3631c209-payment@example.invalid
+-2026-09-30 14:23:50.557 - INFO 25672 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-san1821-3631c209-payment@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 90.33 s -- in com.controlefinanceiro.api.MilestoneRemediationBrowserTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:35 min
+[INFO] Finished at: 2026-09-30T14:23:54-03:00
+[INFO] ------------------------------------------------------------------------

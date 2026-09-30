@@ -4,6 +4,26 @@ import path from "node:path";
 import {registerSyntheticUser,syntheticUser} from "./support/synthetic-auth";
 const dir=process.env.CF_REVIEW_EVIDENCE!;
 const ns=process.env.CF_E2E_NAMESPACE!;
+// Opt-in investigation: metadata only, no auth headers or response bodies.
+test.beforeEach(async ({page}, info) => {
+ if(process.env.CF_RVA03_DIAGNOSTICS!=="1" || !info.title.includes("pagamento 120")) return;
+ const events:unknown[]=[];
+ const name="rva03-payment120-events.json";
+ page.on("console", message=>{if(message.text().includes("RVA03"))events.push({event:"console",text:message.text()});});
+ page.on("pageerror", error=>events.push({event:"pageerror",message:error.message}));
+ page.on("request", request=>{if(request.url().includes("/api/"))events.push({event:"request",method:request.method(),url:new URL(request.url()).pathname+new URL(request.url()).search});});
+ page.on("requestfinished", request=>{if(request.url().includes("/api/"))events.push({event:"finished",url:new URL(request.url()).pathname+new URL(request.url()).search});});
+ page.on("requestfailed", request=>events.push({event:"failed",url:new URL(request.url()).pathname,failure:request.failure()?.errorText}));
+ page.on("response", response=>{if(response.url().includes("/api/"))events.push({event:"response",url:new URL(response.url()).pathname+new URL(response.url()).search,status:response.status()});});
+ info.attachments.push({name:"RVA03 metadata",path:path.join(dir,name),contentType:"application/json"});
+ await page.exposeFunction("saveRva03",async()=>writeFile(path.join(dir,name),JSON.stringify(events,null,2)));
+});
+test.afterEach(async ({page},info)=>{
+ if(process.env.CF_RVA03_DIAGNOSTICS!=="1" || !info.title.includes("pagamento 120"))return;
+ await page.evaluate(async()=>{
+   await (window as unknown as {saveRva03:()=>Promise<void>}).saveRva03();
+ });
+});
 async function start(page:Page,suffix:string){await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));}
 async function post(page:Page,url:string,data:unknown){
  // Synthetic fixtures explicitly serialize the new opening contract; legacy commands retain their transport.
@@ -15,6 +35,35 @@ async function post(page:Page,url:string,data:unknown){
  const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;
 }
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
+
+test("SAN-RVA proporcional após compensação pela UI e remanescente encerrado após reload",async({page})=>{
+ await start(page,"residuals");
+ const a=await post(page,"/accounts",{name:"RVA banco",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const asset=await post(page,"/investments",{ticker:"RVATOTAL",name:"Referência preservada",type:"STOCK",openingQuantity:3,openingCost:3,openingValue:1,valuationDate:"2027-01-10",valuationSource:"USER_PROVIDED"});
+ const op=async(investmentId:string,type:string,quantity:number,price:number)=>post(page,"/investments/operation",{investmentId,type,quantity,price,fees:0,date:"2027-01-15",accountId:a.id});
+ await op(asset.id,"SELL",1,1);await op(asset.id,"DIVIDEND",1,1);
+ await page.goto("/investimentos");await page.getByText("RVATOTAL",{exact:true}).click();
+ await page.getByText("Dividendo",{exact:true}).locator("xpath=../../..").getByRole("button",{name:"Compensar operação",exact:true}).click();
+ const modal=page.getByRole("dialog",{name:"Compensar operação",exact:true});
+ await modal.getByLabel("Motivo",{exact:true}).fill("Cancelamento sem nova avaliação");await modal.getByLabel("Taxas devolvidas",{exact:true}).fill("0");
+ const corrected=page.waitForResponse(r=>r.url().endsWith("/corrections")&&r.request().method()==="POST");
+ await modal.getByRole("button",{name:"Confirmar compensação",exact:true}).click();expect((await corrected).ok()).toBe(true);
+ await op(asset.id,"SELL",1,1);await page.reload();
+ let position=(await json(page,"/investments")).find((i:{id:string})=>i.id===asset.id);
+ expect([position.quantity,position.totalCost,position.valuationAmount,position.valuationBasis,position.valuationDate,position.valuationSource]).toEqual([1,1,0.33,"TOTAL","2027-01-10","USER_PROVIDED"]);
+ await page.getByText("RVATOTAL",{exact:true}).click();await expect(page.getByRole("region",{name:"Compensações registradas"})).toContainText("Cancelamento sem nova avaliação");
+ await op(asset.id,"SELL",1,1);
+ const unknown=await post(page,"/investments",{ticker:"RVAUNKNOWN",name:"Custo histórico desconhecido",type:"STOCK",openingQuantity:10});
+ await op(unknown.id,"SELL",10,25);await page.reload();
+ position=(await json(page,"/investments")).find((i:{id:string})=>i.id===unknown.id);
+ expect([position.quantity,position.totalCost,position.valuationAmount]).toEqual([0,0,0]);expect(position.valuationSource).toBeNull();
+ const historical=await json(page,`/investments/${unknown.id}/history`);expect(historical[0].costDelta).toBeNull();expect(historical[0].realizedResult).toBeNull();
+ await page.goto("/resumo-anual");await page.reload();
+ const report=await json(page,"/annual-summary?year=2027");expect([report.investments.totalCost,report.investments.totalValue]).toEqual([0,0]);expect(report.investments.valuationComplete).toBe(true);expect(report.balance.investmentResult).toBeNull();
+ await expect(page.getByRole("heading",{name:"Posição atual de investimentos",exact:true})).toBeVisible();
+ expect((await json(page,"/accounts")).find((i:{id:string})=>i.id===a.id).balance).toBe(1253);
+ await writeFile(path.join(dir,"rva-financeiro.json"),JSON.stringify({position,historical,report},null,2));
+});
 
 test("SAN-E27 provento bruto e retenção pela UI conciliam caixa líquido e XLSX",async({page})=>{
  await start(page,"net-cash");
@@ -48,6 +97,8 @@ for(const payment of [20,120])test(`SAN-BC-card compra, exclusão e reembolso ap
  await start(page,`goal-card-${payment}`);
  const a=await post(page,"/accounts",{name:"SAN banco cartão",type:"CHECKING",initialBalance:1000,color:"#10b981"});
  const c=await post(page,"/cards",{name:`SAN cartão ${payment}`,last4Digits:"4242",limit:1000,closingDay:20,dueDay:28,brand:"VISA",color:"#7c3aed"});
+ let paymentPosts=0;
+ page.on("request",request=>{if(request.method()==="POST"&&request.url().endsWith(`/cards/${c.id}/pay`))paymentPosts++;});
  const g=await post(page,"/goals",{title:`SAN meta cartão ${payment}`,targetValue:1000,deadline:"2028-01-01",type:"MONETARY",useChecklist:true,color:"BLUE"});
  const name=`SAN compra cartão ${payment}`;
  await page.goto("/metas");await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:/Adicionar.*item/i}).click();
@@ -67,6 +118,7 @@ for(const payment of [20,120])test(`SAN-BC-card compra, exclusão e reembolso ap
  await page.reload();await expect(history.getByText("Reembolsada",{exact:true})).toBeVisible();
  const invoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);expect(invoice.payableAmount).toBe(0);
  expect((await json(page,"/cards")).find((v:{id:string})=>v.id===c.id).creditBalance).toBe(payment);
+ expect(paymentPosts).toBe(1);
  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000-payment);
  const fact=(await json(page,"/goals/purchases"))[0];const retry=await page.request.post(`/api/goals/items/${fact.itemId}/refund`);expect(retry.status()).toBe(400);
  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000-payment);

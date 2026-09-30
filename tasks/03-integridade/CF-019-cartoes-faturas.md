@@ -59,3 +59,9 @@ RVI-11/12 e compras dependentes de metas: intenção identificada e fingerprint 
 ## Revalidação independente — 30/09/2026
 
 Protocolo localizado de intenção/recibo revalidado; aceite integrado mantém pendência de reconciliação observada após pagamento120 (RVA-03). Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+
+## Saneamento dirigido dos residuais — 30/09/2026
+
+RVA-03 continua pendente: duas reproduções instrumentadas não isolaram o travamento de pagamento120. R03 (quatro modos), SAN-D1, pagamento120 e contador POST único revalidados no candidato sem alteração funcional do pagamento. Verde posterior não encerra a intermitência nem CF-024.
+
+[Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.

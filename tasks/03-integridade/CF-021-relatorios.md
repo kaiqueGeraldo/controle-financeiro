@@ -57,3 +57,9 @@ RVI-04/05/08/10/20/22 e H-02: posição inclui arquivo e permanece atual datada 
 ## Revalidação independente — 30/09/2026
 
 Cobertura, filtros, caixa e snapshot revalidados no recorte; aceite integrado depende das pendências de CF-019/020. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+
+## Saneamento dirigido dos residuais — 30/09/2026
+
+Posição encerrada passa a apresentar custo residual conhecido zero, inclusive leitura de null bruto legado sem backfill. Ganho/cobertura históricos continuam desconhecidos. Relatórios/backend e SAN-RVA com reload revalidados; encerramentos anteriores preservados. Aceite integrado segue condicionado à revisão independente e RVA-03.
+
+[Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.
