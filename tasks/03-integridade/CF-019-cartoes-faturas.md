@@ -49,3 +49,9 @@ Implementação local encerrada em 28/09/2026 sobre `a2a7761bc57e95c0757f304cb9c
 CF-019 satisfaz sua parte das dependências de CF-021/024/027/028/030, ainda com outras pendências; nenhuma dessas tarefas está integralmente liberada por este fechamento. CF-020 não depende de CF-019 e já tinha base local integrada, sujeita aos estados de revisão das próprias dependências.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Saneamento do marco em 30/09/2026
+
+RVI-11/12 e compras dependentes de metas: intenção identificada e fingerprint persistidos, GET recupera recibo após resposta perdida, refresh não repete POST e valor sugerido usa saldo pagável/crédito. Compra 120 após pagamento 20 ou 120 conserva histórico após excluir meta; reembolso deixa banco 980/880, dívida 0 e crédito 20/120, sem repetição. Dívida/crédito agregado validados antes do commit.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

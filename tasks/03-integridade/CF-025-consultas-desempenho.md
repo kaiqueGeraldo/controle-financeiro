@@ -47,3 +47,9 @@ Ainda não executada. Usar `tasks/evidencias/CF-025/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+
+## Saneamento do marco em 30/09/2026
+
+Checklist usa duas queries em lote; cobertura usa dois agregados por escopo; H-02 comprova export consistente com páginas 500/SXSSF 100. Custos MVCC/conexão durante geração, bytes finais em memória e replay O(operações) estão documentados. Benchmark/plano/índices/limites de volume desta tarefa não foram executados; estado preservado.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

@@ -48,3 +48,9 @@ Ainda não executada. Usar `tasks/evidencias/CF-023/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+
+## Saneamento do marco em 30/09/2026
+
+Os novos comandos e cobertura tiveram ownership/usuários sintéticos distintos no saneamento CF-016–021. Isso não executa a auditoria completa de autenticação, sessão, BFF e superfícies desta tarefa; estado preservado.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

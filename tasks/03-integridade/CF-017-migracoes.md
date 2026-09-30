@@ -63,3 +63,9 @@ o preflight sintético aceita ao menos uma incompatibilidade de FK; o restore
 sintético também possui oracle parcial. Estado mantido `em_revisao` para não
 confundir fundação local apta com baseline/publicação autorizadas.
 [Parecer, achados e execuções](../evidencias/revisao-CF-017/README.md).
+
+## Saneamento do marco em 30/09/2026
+
+Saneamento acrescentou V6–V11 sem editar V1–V5. Provas locais de banco vazio/legado/upgrades, checksum, falha/recuperação e Hibernate validate em PostgreSQL descartável. V11 não fabrica cobertura para legados. RV17-01/RV17-02, inventário/backup/restore e adoção reais permanecem pendentes; não há autorização para publicação.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

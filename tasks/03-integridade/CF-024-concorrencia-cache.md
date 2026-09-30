@@ -59,3 +59,9 @@ rollback e cache após commit no escopo desta tarefa, sem inferir cobertura a
 partir do lock localizado de CF-015.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Saneamento do marco em 30/09/2026
+
+O saneamento implementa intenção/fingerprint/recibo recuperável para pagamento e comandos diretos exigidos pelo marco, com PostgreSQL/reload e perda de resposta. Locks por fonte/contas ordenadas e H-01 têm provas independentes. Não há certificação transversal de todos os writers/caches, multitab/dispositivo ou preservação da identificação após perda do sessionStorage; estado preservado.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

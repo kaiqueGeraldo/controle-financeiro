@@ -67,3 +67,9 @@ registra a reprodução anterior, comandos, atomicidade, concorrência, trade-of
 e limites. O estado é `em_revisao`: não houve revisão independente nesta
 execução, nem baseline/migração em banco real. RV17-01/RV17-02, backup/restore e
 adoção temporal real permanecem abertos exatamente como na revisão CF-017.
+
+## Saneamento do marco em 30/09/2026
+
+RVI-01/02/03/09/19 e parte de RVI-21: política de fonte ativa/capacidade sob lock, déficit bancário real distinto de gasto voluntário, baixa legada preserva previsão, baixa/transferência prevista atômica e estorno parcial com data/motivo/chave/recibo. UI executa e relê os fatos após reload. H-01 reproduzido e corrigido por ordem conta→investimento; arquivamento espera writer independente.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

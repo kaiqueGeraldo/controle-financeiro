@@ -47,3 +47,9 @@ Ainda não executada. Usar `tasks/evidencias/CF-032/README.md` com o [template](
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
+
+## Saneamento do marco em 30/09/2026
+
+O saneamento CF-016–021 possui jornadas reais navegador→BFF→Spring→PostgreSQL→reload, além de downloads e inspeção 360/768/1440. Essa prova localizada não encerra a matriz futura de E2E/onboarding nem o zoom nativo 200%; estado preservado.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

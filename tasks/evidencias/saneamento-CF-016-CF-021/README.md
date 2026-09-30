@@ -468,3 +468,5 @@ protocolo transversal completo ou zoom nativo200%. Riscos/custos de locks,
 snapshot, replay, cobertura conservadora e persistência da intenção constam dos
 checkpoints e do inventário. Tarefas CF016–021 e notas transversais conservam os
 estados anteriores e delimitam a prova localizada, sem iniciar CF022+.
+
+[Entrega, comandos, intervalo de código e gates remanescentes](ENTREGA.md).

@@ -49,3 +49,9 @@ Implementação backend e migração V5 concluídas localmente em 28/09/2026 sob
 Estado `em_revisao` não certifica produto completo: adaptação dos consumidores frontend, motivo/data obrigatórios em ajuste manual, correção rastreável de operações de investimento, reembolso de cartão após exclusão e agregados de CF-021 ainda exigem trabalho ou revisão. A CF-021 pode iniciar localmente sobre esta base integrada, condicionada aos gates de revisão; CF-024/027/028/030 ainda têm outras dependências abertas. Não houve deploy, migração real nem revisão independente.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Saneamento do marco em 30/09/2026
+
+RVI-06/07/13–18 e parte de RVI-21: checklist em lote com fonte real, compra/fato/reembolso sobrevivem à exclusão; hora interna canônica. B08 renda fixa monetária preserva principal/custo/avaliação/taxas/ganho; desconhecido e encerramento zero distintos. NG-01 total proporcional. Avaliação auditada e compensação pela UI conserva operação original e recalcula custos dependentes em revisão separada; caso 20×10+2→20×8+2 após venda 5×15-1 deixa banco 912/custo 121.50.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

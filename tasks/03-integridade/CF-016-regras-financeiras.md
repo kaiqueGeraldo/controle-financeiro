@@ -58,3 +58,9 @@ Concluída em 22/09/2026 **no escopo de especificação**. A [SPEC-004](../../do
 Validação documental: 49 estados aprovados em três fusos; precisão/custo/parcelas e compatibilidade com sete casos CF-001; seis mutações em memória rejeitadas; verificador CF-001 aprovado. O verificador antigo CF-004 falha por `UpdatePlanItemDTO.dueDate` ausente do inventário, com inputs idênticos à base 45e156c; registrado como D16-T01, atualização documental com CF-008, sem alterar dependência nem enfraquecer assertion. [Execuções e limites](../evidencias/CF-016/EXECUCOES.md).
 
 Nenhuma regra de produto foi implementada/certificada. Sem PostgreSQL, HTTP, E2E, visual ou revisão independente nesta execução; essas provas continuam nas tarefas donas. DEC-03 permanece CF-019; detalhe de protocolo/recibo durável, CF-024; proveniência/migração, CF-017. CF-015 e zoom pendente preservados; CF-017 não iniciada, README e alterações alheias intactos. Sem stage/commit/push/deploy ou banco real. Os critérios assinalados atestam os entregáveis da especificação, não conformidade financeira do runtime.
+
+## Saneamento do marco em 30/09/2026
+
+NG-01 decidido pelo usuário: avaliação TOTAL autoritativa proporcional; oráculos independentes 1.00/200000000, metade 0.50/final 0.00 e terços 0.67/0.33/0.00. Validação atual e preservação histórica permanecem gates separados; pom.xml continua vermelho no gate estrito histórico.
+
+[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
