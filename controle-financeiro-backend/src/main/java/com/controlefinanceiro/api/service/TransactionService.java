@@ -1203,6 +1203,8 @@ public class TransactionService {
             workbook.write(out);
             return out.toByteArray();
 
+        } catch (ResourceNotFoundException e) {
+            throw e;
         } catch (Exception e) {
             log.error("Erro ao gerar Excel", e);
             throw new BusinessRuleException("Falha ao gerar arquivo Excel");

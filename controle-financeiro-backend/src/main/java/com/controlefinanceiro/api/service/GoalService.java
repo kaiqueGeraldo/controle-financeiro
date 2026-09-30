@@ -42,6 +42,8 @@ import java.util.UUID;
 @Service
 public class GoalService {
 
+    @Autowired private OwnedResourceOrder ownedOrder;
+
     @Autowired
     private GoalRepository repository;
     @Autowired
@@ -120,7 +122,7 @@ public class GoalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
         if (!goal.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Meta não encontrada");
         }
 
         return historyRepository.findByGoalIdOrderByDateDesc(goalId);
@@ -136,7 +138,7 @@ public class GoalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
         if (!goal.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado à meta");
+            throw new ResourceNotFoundException("Meta não encontrada");
         }
 
         if (data.amount() == null || data.amount().signum() <= 0) {
@@ -362,7 +364,7 @@ public class GoalService {
     public GoalResponseDTO update(UUID id, UpdateGoalDTO data, User user) {
         Goal goal = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
-        if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Meta não encontrada");
 
         if (data.title() != null && !data.title().isBlank()) goal.setTitle(data.title());
         if (data.deadline() != null) goal.setDeadline(data.deadline());
@@ -383,7 +385,7 @@ public class GoalService {
         Goal goal = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
         if (!goal.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Meta não encontrada");
         }
         if (targetAccountId != null) {
             throw new BusinessRuleException("Excluir meta libera destinação sem transferir dinheiro; não informe conta de estorno.");
@@ -404,7 +406,7 @@ public class GoalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado"));
         Goal goal = history.getGoal();
         if (!goal.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Registro não encontrado");
         }
         if (targetAccountId != null) {
             throw new BusinessRuleException("Desfazer destinação não credita conta; não informe destino.");
@@ -439,7 +441,7 @@ public class GoalService {
         Goal goal = repository.findById(goalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
-        if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Meta não encontrada");
         requireMoney(data.estimatedPrice());
         if (data.estimatedPrice().signum() == 0) throw new BusinessRuleException("Estimativa deve ser positiva.");
         requireMoney(goal.getTargetValue().add(data.estimatedPrice()));
@@ -468,7 +470,7 @@ public class GoalService {
         GoalItem item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
         Goal goal = item.getGoal();
 
-        if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Item não encontrado");
         if (item.getStatus() != GoalItemStatus.PENDING) throw new BusinessRuleException("Este item já foi comprado ou estornado.");
         requireMoney(data.paidPrice());
         if (data.paidPrice().signum() == 0 || (data.accountId() != null && data.cardId() != null)) {
@@ -579,10 +581,10 @@ public class GoalService {
     @Transactional
     public void deleteItem(UUID itemId, User user) {
         LocalDate today = LocalDate.now(clock);
-        GoalItem item = itemRepository.findById(itemId).orElseThrow();
+        GoalItem item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
         Goal goal = item.getGoal();
 
-        if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Item não encontrado");
 
         BigDecimal contribution = item.getPaidPrice() == null ? item.getEstimatedPrice() : item.getPaidPrice();
         goal.setTargetValue(goal.getTargetValue().subtract(contribution));
@@ -620,7 +622,7 @@ public class GoalService {
             return;
         }
         if (!item.getGoal().getUser().getId().equals(user.getId())) {
-            throw new ResourceNotFoundException("Item não encontrado");
+            throw new ResourceNotFoundException("Compra de item não encontrada");
         }
         if (item.getStatus() != GoalItemStatus.PURCHASED) {
             throw new BusinessRuleException("Compra já estornada ou ainda não realizada.");
@@ -677,15 +679,9 @@ public class GoalService {
         Goal goal = repository.findById(goalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
-        if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Meta não encontrada");
 
-        for (int i = 0; i < itemIds.size(); i++) {
-            UUID id = itemIds.get(i);
-            GoalItem item = itemRepository.findById(id).orElse(null);
-            if (item != null && item.getGoal().getId().equals(goalId)) {
-                item.setOrderIndex(i);
-                itemRepository.save(item);
-            }
-        }
+        ownedOrder.reorder(itemIds, GoalItem.class, "r.goal.user.id", user.getId(), "r.goal.id", goalId,
+                "Item não encontrado", GoalItem::getId, GoalItem::setOrderIndex);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.UUID;
 
 @Service
 public class TokenService {
@@ -42,6 +43,23 @@ public class TokenService {
     }
 
     public String validateToken(String token) {
+        var decoded = verifiedToken(token);
+        return decoded == null ? "" : decoded.getSubject();
+    }
+
+    public record Identity(UUID userId, String email) {}
+
+    public Identity validateIdentity(String token) {
+        var decoded = verifiedToken(token);
+        if (decoded == null) return null;
+        try {
+            return new Identity(UUID.fromString(decoded.getClaim("id").asString()), decoded.getSubject());
+        } catch (IllegalArgumentException | NullPointerException exception) {
+            return null;
+        }
+    }
+
+    private DecodedJWT verifiedToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             DecodedJWT decoded = JWT.decode(token);
@@ -52,12 +70,12 @@ public class TokenService {
                     || decoded.getSubject() == null
                     || expiresAt == null
                     || !expiresAt.isAfter(clock.instant())) {
-                return "";
+                return null;
             }
 
-            return decoded.getSubject();
+            return decoded;
         } catch (JWTVerificationException exception) {
-            return "";
+            return null;
         }
     }
 

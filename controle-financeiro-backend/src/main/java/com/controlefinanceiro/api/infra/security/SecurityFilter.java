@@ -28,17 +28,18 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
         if (token != null) {
-            var login = tokenService.validateToken(token);
+            var identity = tokenService.validateIdentity(token);
 
-            if (!login.isEmpty()) {
-                UserDetails user = userRepository.findByEmail(login);
+            if (identity != null) {
+                UserDetails user = userRepository.findById(identity.userId())
+                        .filter(found -> found.getEmail().equals(identity.email())).orElse(null);
 
                 if (user != null) {
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     // log.debug("Usuário autenticado no contexto: {}", login);
                 } else {
-                    log.warn("Token válido, mas usuário não encontrado no banco: {}", login);
+                    log.warn("Identidade do token não corresponde a um usuário ativo.");
                 }
             } else {
                 log.warn("Token inválido ou expirado recebido na requisição: {}", request.getRequestURI());
@@ -50,6 +51,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
         if (authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
+        String[] parts = authHeader.trim().split("\\s+");
+        if (parts.length != 2 || !parts[0].equalsIgnoreCase("Bearer")) return null;
+        return parts[1];
     }
 }

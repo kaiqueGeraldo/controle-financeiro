@@ -16,8 +16,8 @@ public class UserController {
     @Autowired private UserService service;
 
     @PutMapping("/profile")
-    public ResponseEntity<User> updateProfile(@AuthenticationPrincipal User user, @RequestBody @Valid UpdateProfileDTO data) {
-        return ResponseEntity.ok(service.updateProfile(user, data));
+    public ResponseEntity<UserResponseDTO> updateProfile(@AuthenticationPrincipal User user, @RequestBody @Valid UpdateProfileDTO data) {
+        return ResponseEntity.ok(publicProfile(service.updateProfile(user, data)));
     }
 
     @PutMapping("/password")
@@ -27,13 +27,18 @@ public class UserController {
     }
 
     @PatchMapping("/preferences")
-    public ResponseEntity<User> updatePreferences(@AuthenticationPrincipal User user, @RequestBody UpdatePreferencesDTO data) {
-        return ResponseEntity.ok(service.updatePreferences(user, data));
+    public ResponseEntity<UserResponseDTO> updatePreferences(@AuthenticationPrincipal User user, @RequestBody UpdatePreferencesDTO data) {
+        return ResponseEntity.ok(publicProfile(service.updatePreferences(user, data)));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal User user) {
         service.deleteAccount(user);
         return ResponseEntity.noContent().build();
+    }
+
+    private UserResponseDTO publicProfile(User user) {
+        return new UserResponseDTO(user.getId(), user.getNome(), user.getEmail(), user.isPrivacyMode(),
+                user.isDarkMode(), user.isNotifContas(), user.isNotifSemanal(), user.getDashboardConfig());
     }
 }

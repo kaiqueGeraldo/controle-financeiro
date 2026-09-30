@@ -29,6 +29,8 @@ import java.util.stream.Collectors;
 @Service
 public class PlanningService {
 
+    @Autowired private OwnedResourceOrder ownedOrder;
+
     @Autowired
     private MonthlyPlanRepository planRepository;
     @Autowired
@@ -196,7 +198,7 @@ public class PlanningService {
 
         // Segurança: verifica se o item pertence ao usuário logado
         if (!item.getPlan().getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Item não encontrado");
         }
 
         item.setStatus(status);
@@ -224,7 +226,7 @@ public class PlanningService {
                 .orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
 
         if (!item.getPlan().getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Item não encontrado");
         }
 
         if (item.getCard() != null) {
@@ -251,12 +253,7 @@ public class PlanningService {
 
     @Transactional
     public void reorderItems(List<UUID> orderedIds, User user) {
-        for (int i = 0; i < orderedIds.size(); i++) {
-            PlanItem item = itemRepository.findById(orderedIds.get(i)).orElse(null);
-            if (item != null && item.getPlan().getUser().getId().equals(user.getId())) {
-                item.setOrderIndex(i);
-                itemRepository.save(item);
-            }
-        }
+        ownedOrder.reorder(orderedIds, PlanItem.class, "r.plan.user.id", user.getId(), null, null,
+                "Item não encontrado", PlanItem::getId, PlanItem::setOrderIndex);
     }
 }

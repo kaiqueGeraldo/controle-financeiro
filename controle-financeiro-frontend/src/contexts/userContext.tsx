@@ -1,6 +1,7 @@
 import { Usuario } from "@/models/usuarioModel";
 import { getUserFromToken } from "@/services/authService";
 import { ApiError } from "@/services/api";
+import { subscribeToSessionChange } from "@/actions/sessionBoundary";
 import { useToast } from "./toastContext";
 import {
   isAbortError,
@@ -82,6 +83,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     refetchUser();
   }, [refetchUser]);
+
+  useEffect(() => subscribeToSessionChange((change) => {
+    clearUser();
+    if (change === "login") void refetchUser();
+  }), [clearUser, refetchUser]);
+
+  useEffect(() => {
+    window.addEventListener("sessionExpired", clearUser);
+    return () => window.removeEventListener("sessionExpired", clearUser);
+  }, [clearUser]);
 
   const contextValue = useMemo(
     () => ({

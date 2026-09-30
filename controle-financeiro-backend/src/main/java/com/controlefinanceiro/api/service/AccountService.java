@@ -25,6 +25,8 @@ import java.util.UUID;
 @Service
 public class AccountService {
 
+    @Autowired private OwnedResourceOrder ownedOrder;
+
     @Autowired
     private AccountRepository repository;
 
@@ -104,7 +106,7 @@ public class AccountService {
 
         if (!account.getUser().getId().equals(user.getId())) {
             log.error("Acesso negado: Usuário {} tentou alterar conta {}", user.getId(), id);
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Conta não encontrada");
         }
 
         account.setName(data.name());
@@ -123,7 +125,7 @@ public class AccountService {
 
         if (!account.getUser().getId().equals(user.getId())) {
             log.error("Acesso negado no arquivamento: Usuário {} -> Conta {}", user.getId(), id);
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Conta não encontrada");
         }
 
         if (account.isArchived()) {
@@ -138,12 +140,7 @@ public class AccountService {
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
-        for (int i = 0; i < orderedIds.size(); i++) {
-            Account account = repository.findById(orderedIds.get(i)).orElse(null);
-            if (account != null && account.getUser().getId().equals(user.getId())) {
-                account.setOrderIndex(i);
-                repository.save(account);
-            }
-        }
+        ownedOrder.reorder(orderedIds, Account.class, "r.user.id", user.getId(), null, null,
+                "Conta não encontrada", Account::getId, Account::setOrderIndex);
     }
 }

@@ -1,6 +1,6 @@
 # CF-023 — Verificar isolamento por usuário e sessão
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -29,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] UUID de B não pode ser lido/alterado/vinculado por A; não há efeito parcial após tentativa.
-- [ ] Logout/troca de conta não reaproveita cache financeiro; token inválido/expirado produz resposta consistente.
-- [ ] Erros/logs/respostas não expõem segredo ou dados financeiros do outro usuário; asserts verificam estado do banco.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] UUID de B não pode ser lido/alterado/vinculado por A; não há efeito parcial após tentativa.
+- [x] Logout/troca de conta não reaproveita cache financeiro; token inválido/expirado produz resposta consistente.
+- [x] Erros/logs/respostas não expõem segredo ou dados financeiros do outro usuário; asserts verificam estado do banco.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -44,7 +44,58 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-023/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Iniciada em 30/09/2026 sobre `0219a57`, com README raiz alheio preservado.
+A [revalidação dirigida dos resíduos](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md)
+libera explicitamente CF-023 localmente sobre CF-002/008/017 integradas, sem
+encerrar seus gates de adoção real. Executar somente em PostgreSQL descartável.
+DEC-09: adotar 404 para referência inexistente ou de outro proprietário, com
+mesma mensagem por recurso; 401 para credencial ausente/inválida/expirada e 403
+para proibição independente de ownership. Reorder com qualquer ID inacessível
+deve falhar integralmente antes de alterar a ordem. O contrato detalhado e os
+oracles ficam em [evidências CF-023](../evidencias/CF-023/CONTRATO.md).
+Exceção de caminho: infraestrutura/testes novos em `src/test/java/.../infra/security/`
+e `frontend/tests/component/`, para executar endpoints reais, PostgreSQL e
+actions/BFF sem incluir testes no artefato produtivo; consumidores de sessão
+fora de actions só serão alterados com reprodução e justificativa registrada.
+`frontend/src/hooks/useAuth.ts` e `src/contexts/userContext.tsx`: reprodução
+integrada mostrou outra aba conservando os dados de A depois do logout. Esses
+consumidores propagam somente invalidação de sessão entre abas, limpam perfil
+antes da troca e invalidam leituras pendentes; testes de consumidores e browser
+real foram reexecutados. Nenhuma alteração de modelo financeiro ou schema.
+`src/test/java/.../domain/habit/HabitIntegrityIntegrationTest.java`: somente a
+assertion de meta alheia passa de regra 400 para referência 404, conforme DEC-09,
+acrescentando mensagem exata. As assertions de data futura, tipo monetário e
+progresso inalterado permanecem. A primeira suíte completa vermelha é preservada.
+
+DEC-09 foi atualizada em `docs/sdd/specs/003-criterios-oracles.md`, mantendo
+pendentes os contratos próprios de onboarding de CF-028.
+
+## Entrega e validação em 30/09/2026
+
+[Relatório](../evidencias/CF-023/README.md), [matriz](../evidencias/CF-023/MATRIZ.md)
+e [comandos/resultados](../evidencias/CF-023/EXECUCOES.md) preservam as falhas
+causais, os resultados após correção e os limites de cada camada.
+
+Entregues: principal JWT vinculado ao UUID assinado, Bearer validado, DTO público
+de perfil/preferências, referências inacessíveis 404, reorders atômicos por
+owner/parent, exportação com erro uniforme, cookie de 24h e invalidação de sessão
+entre abas/respostas pendentes. Nenhuma comunicação real ou mudança de schema.
+
+Gates: backend verify **345/345** (inclui **71 CF-023** e **320 requests 401**),
+componentes **157/157**, unitários **18 execuções** em três fusos; typecheck,
+lint focado e build Next aprovados. Jornada real navegador→BFF→Spring→PostgreSQL
+com duas abas, logout/troca A→B→A, reload e saldos SQL **1000/2300** aprovada.
+Mutação isolada do predicado owner detectada por **4/4** testes; cópia restaurada
+e fonte compartilhado inalterado por SHA. A revisão independente não foi executada.
+
+Limites: JWT stateless não é revogado por logout/reset; BroadcastChannel foi
+validado somente no Chromium, sem fallback para browsers sem suporte. A matriz
+delimita ramos sem novo probe de todas as permutações de owner; não certifica
+pentest, carga, exclusão completa de usuário nem adoção de banco real.
+
+**Liberada somente a revisão independente de CF-023.** Nenhuma tarefa seguinte
+está integralmente liberada: CF-024/028/029/032 ainda exigem as demais
+dependências e o aceite independente desta entrega. Estados alheios preservados.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

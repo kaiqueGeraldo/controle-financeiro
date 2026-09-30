@@ -51,7 +51,7 @@ public class CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
         if (!category.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Categoria não encontrada");
         }
 
         category.setName(data.name());
@@ -81,7 +81,7 @@ public class CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
         if (!category.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Categoria não encontrada");
         }
 
         if (category.isSystemReserved()) {

@@ -143,7 +143,9 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
         other.setNome("Outro"); other.setEmail(UUID.randomUUID()+"@example.invalid"); other.setSenha("synthetic");
         users.save(other); foreign.setUser(other); goals.save(foreign);
         assertThatThrownBy(() -> service.create(new CreateHabitDTO("Alheio", null, "check", "BLUE",
-                HabitFrequency.DAILY, null, foreign.getId()), user)).isInstanceOf(BusinessRuleException.class);
+                HabitFrequency.DAILY, null, foreign.getId()), user))
+                .isInstanceOf(com.controlefinanceiro.api.service.exception.ResourceNotFoundException.class)
+                .hasMessage("Meta não encontrada");
         assertValue(monetary, "10"); assertValue(foreign, "10");
     }
 

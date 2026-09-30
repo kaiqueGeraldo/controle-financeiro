@@ -64,7 +64,7 @@ public class InvestmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
         if (!investment.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Investimento não encontrado");
         }
 
         return investTransactionRepository.findHistory(investmentId)
@@ -109,7 +109,7 @@ public class InvestmentService {
                     .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
             if (!goal.getUser().getId().equals(user.getId())) {
-                throw new BusinessRuleException("A meta informada não pertence ao usuário.");
+                throw new ResourceNotFoundException("Meta não encontrada");
             }
             investment.setGoal(goal);
         }
@@ -315,7 +315,7 @@ public class InvestmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
         Investment inv = tx.getInvestment();
         if (!inv.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Transação não encontrada");
         }
         throw new BusinessRuleException("Operação realizada exige compensação rastreável; exclusão simples não é permitida.");
     }

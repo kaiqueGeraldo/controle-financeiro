@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class CreditCardService {
+
+    @Autowired private OwnedResourceOrder ownedOrder;
     private static final BigDecimal MONEY_CEILING = new BigDecimal("1000000000000");
 
     @Autowired
@@ -168,7 +170,7 @@ public class CreditCardService {
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
         if (!card.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Cartão não encontrado");
         }
 
         if (cardTransactionRepository.existsByInvoiceCardId(id)
@@ -321,7 +323,7 @@ public class CreditCardService {
         CardTransaction tx = cardTransactionRepository.findById(transactionId).orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
         if (!tx.getInvoice().getCard().getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
+            throw new ResourceNotFoundException("Transação não encontrada");
         }
 
         if (tx.getInvoice().getStatus() != InvoiceStatus.OPEN) {
@@ -662,12 +664,7 @@ public class CreditCardService {
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
-        for (int i = 0; i < orderedIds.size(); i++) {
-            CreditCard card = cardRepository.findById(orderedIds.get(i)).orElse(null);
-            if (card != null && card.getUser().getId().equals(user.getId())) {
-                card.setOrderIndex(i);
-                cardRepository.save(card);
-            }
-        }
+        ownedOrder.reorder(orderedIds, CreditCard.class, "r.user.id", user.getId(), null, null,
+                "Cartão não encontrado", CreditCard::getId, CreditCard::setOrderIndex);
     }
 }

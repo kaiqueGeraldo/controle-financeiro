@@ -1,4 +1,5 @@
 import { removeAuthCookie, setAuthCookie } from "@/actions/authActions";
+import { publishSessionChange } from "@/actions/sessionBoundary";
 import { useAuthModals } from "@/contexts/modals/authModalContext";
 import { login, logout, register } from "@/services/authService";
 import {
@@ -77,12 +78,16 @@ export function useAuth() {
 
       if (isLogin) {
         const response = await login(formData.email, formData.senha);
+        clearUser();
         await setAuthCookie(response?.data.token);
       } else {
         await register(formData.nome, formData.email, formData.senha);
         const response = await login(formData.email, formData.senha);
+        clearUser();
         await setAuthCookie(response?.data.token);
       }
+
+      publishSessionChange("login");
 
       closeSessionExpired();
 
@@ -141,8 +146,9 @@ export function useAuth() {
     } catch (error: unknown) {
       console.log("Aviso: Não foi possível invalidar o token na API.", error);
     } finally {
-      await removeAuthCookie();
       clearUser();
+      await removeAuthCookie();
+      publishSessionChange("logout");
       if (onClose) onClose();
       router.push("/auth");
     }

@@ -17,11 +17,11 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.HashMap;
 import java.util.UUID;
 
 @Service
 public class HabitService {
+    @Autowired private OwnedResourceOrder ownedOrder;
     @Autowired private HabitRepository habitRepository;
     @Autowired private HabitLogRepository habitLogRepository;
     @Autowired private GoalHistoryRepository goalHistoryRepository;
@@ -112,7 +112,8 @@ public class HabitService {
     private Goal ownedNumericGoal(UUID id, User user) {
         Goal goal = entityManager.find(Goal.class, id, LockModeType.PESSIMISTIC_WRITE);
         if (goal == null) throw new ResourceNotFoundException("Meta não encontrada");
-        if (!goal.getUser().getId().equals(user.getId()) || goal.getType() != GoalType.NUMERIC) {
+        if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Meta não encontrada");
+        if (goal.getType() != GoalType.NUMERIC) {
             throw new BusinessRuleException("O hábito exige meta numérica do mesmo usuário");
         }
         return goal;
@@ -121,7 +122,7 @@ public class HabitService {
     private Habit ownedHabitForUpdate(UUID id, User user) {
         Habit habit = habitRepository.findForUpdate(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hábito não encontrado"));
-        if (!habit.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        if (!habit.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Hábito não encontrado");
         return habit;
     }
 
@@ -171,11 +172,7 @@ public class HabitService {
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
-        // Stable lock order also serializes reorder with check/update/cron.
-        var positions = new HashMap<UUID, Integer>();
-        for (int i = 0; i < orderedIds.size(); i++) positions.put(orderedIds.get(i), i);
-        positions.keySet().stream().sorted().forEach(id -> habitRepository.findForUpdate(id)
-                .filter(habit -> habit.getUser().getId().equals(user.getId()))
-                .ifPresent(habit -> habit.setOrderIndex(positions.get(id))));
+        ownedOrder.reorder(orderedIds, Habit.class, "r.user.id", user.getId(), null, null,
+                "Hábito não encontrado", Habit::getId, Habit::setOrderIndex);
     }
 }
