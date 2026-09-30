@@ -28,9 +28,9 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Implementado; ver checkpoint B e limites |
 | RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Implementado; ver checkpoint C1 e limites |
 | RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Implementado; ver checkpoint C1 e limites |
-| RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + E2E | Pendente |
+| RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + SAN-D2 | Implementado/verificado no D2 |
 | RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + XLSX | Pendente |
-| RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Investimentos implementados/verificados no C2; estorno direto pendente |
+| RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Implementado/verificado C2 e D2 |
 | RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | 360/768/1440 | Pendente |
 | NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
 | H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
@@ -223,3 +223,49 @@ não é reconstruída automaticamente. Valores históricos de fingerprint ficam 
 Primeiro comando Maven com filtro contendo pipe foi rejeitado pelo wrapper CMD
 antes de executar testes; conjunto integrado executado sem esse filtro e aprovado.
 Logs locais target/saneamento-d1*.log; evidência compartilhável em browser/d1.
+
+### Checkpoint D2 — previsões, transferências previstas e estornos
+
+V10 preserva as previsões e permite múltiplos estornos parciais: a unicidade
+passa à intenção, com recibo persistido, e o restante é validado sob lock.
+Advisory lock somente da chave, contas afetadas ordenadas, depois lançamentos.
+Criação, PUT/DELETE legados e baixa usam essa mesma ordem de fonte antes do fato.
+Projeção escalar anterior ao lock evita entidade/account obsoleta em cache.
+Baixas e correções são somadas pelo líquido, incluindo seus estornos parciais.
+Listagem transporta restante/liquidado/estornado com agregação em lote, sem N+1.
+
+A transferência prevista conserva vencimento e três registros originais (duas
+pontas e taxa); a realização cria outro grupo, data efetiva, motivo e vínculo
+por perna. Capacidade livre deve cobrir principal e taxa; rollback é integral.
+Estorno direto exige valor/data/motivo, mantém original e controla o restante.
+Retry usa exatamente chave/conteúdo; conteúdo diferente conflita. GET de recibo
+verifica ownership. A UI salva intenção na sessão antes do POST, consulta recibo,
+permite repetição explícita após 404 e mantém modal durante a reconciliação.
+Nova criação oferece previsão e destino/taxa da transferência. Modais não se
+sobrepõem aos detalhes. Gerenciadores têm identidade estável no layout; criação
+confirmada desmonta o formulário em vez de depender do término da animação.
+
+- PostgreSQL migrado/validate: cinco testes de comandos, ownership, rollback,
+  parcial/total, original preservado, concorrência de intenções distintas e
+  repetição simultânea da mesma intenção; H01 passou novamente.
+- CF018: 24 regressões passaram. Vazio6, legado2 e upgradesV2–V9 oito passaram.
+- RV12 foi adaptado ao comando específico de realização (FIN02 não prescreve
+  baixa genérica), conservando expectativas literais798/250 e a evidência red.
+  RV12 + cinco casos de comandos passaram após as últimas invariantes.
+- Componentes: dois testes passaram (reabertura com comando congelado e ausência
+  de reenvio após confirmação com falha de leitura). TypeScript/lint passaram.
+- Navegador real SAN-D2 em browser/d2-complete passou: cria previsão, baixa40,
+  estorna10+30 com datas/motivos, baixa100, cria despesa100, estorna30+70, faz
+  replay da última intenção e realiza transferência100+taxa2. Após reload:
+  conta de origem798, destino200, três previsõesFULFILLED e três fatosSETTLED.
+  Capturas dos três modais em360/768/1440 foram abertas e inspecionadas.
+
+Reproduções intermediárias d2/d2-retry/d2-final preservadas: criação confirmada
+permanecia no DOM de saída sob clock congelado; d2-verified identificou corrida
+real entre recarga financeira e desmontagem do modal antes de limpar o recibo.
+Guardas de loading/erro agora preservam a reconciliação, e d2-complete passou.
+Não declarar os runs anteriores verdes nem chamar a falha de domínio financeiro.
+Logs: target/saneamento-d2-domain.log, saneamento-d2-integrated.log,
+saneamento-d2-final-domain.log e saneamento-d2-browser-complete.log.
+Limites: transporte na sessão da aba, sem declaração de CF024 multissessão;
+comandos legados sem chave continuam compatíveis. Não é zoom nativo200%.

@@ -51,6 +51,10 @@ export const transactionService = {
       body: JSON.stringify(data),
     }).then((response) => ({ ...response, data: normalizeTransaction(response.data) }));
   },
+  settle: (id: string, data: FinancialTransactionCommand) => command(id,"settlements",data),
+  reverse: (id: string, data: FinancialTransactionCommand) => command(id,"reversals",data),
+  realizeTransfer: (id: string, data: FinancialTransactionCommand) => command(id,"realizations",data),
+  receipt: (key: string) => apiRequest<Transaction>(`/transactions/commands/${key}`,{method:"GET"}),
   delete: async (id: string) => {
     return apiRequest(`/transactions/${id}`, { method: "DELETE" });
   },
@@ -61,3 +65,8 @@ export const transactionService = {
     });
   },
 };
+
+export type FinancialTransactionCommand = { operationId:string; amount?:string; date:string; time:string|null; reason?:string };
+function command(id:string,path:string,data:FinancialTransactionCommand) {
+  return apiRequest<Transaction>(`/transactions/${id}/${path}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+}

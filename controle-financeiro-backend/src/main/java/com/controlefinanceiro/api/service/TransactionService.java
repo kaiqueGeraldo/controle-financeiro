@@ -13,6 +13,11 @@ import com.controlefinanceiro.api.domain.transaction.TransactionRepository;
 import com.controlefinanceiro.api.domain.transaction.TransactionStatus;
 import com.controlefinanceiro.api.domain.transaction.TransactionType;
 import com.controlefinanceiro.api.domain.transaction.TransferDirection;
+import com.controlefinanceiro.api.domain.transaction.FinancialCommand;
+import com.controlefinanceiro.api.domain.transaction.FinancialCommandRepository;
+import com.controlefinanceiro.api.domain.transaction.dto.ReverseTransactionDTO;
+import com.controlefinanceiro.api.domain.transaction.dto.RealizeTransferDTO;
+import com.controlefinanceiro.api.service.exception.OperationConflictException;
 import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.SettleTransactionDTO;
 import com.controlefinanceiro.api.domain.transaction.dto.TransactionResponseDTO;
@@ -73,6 +78,7 @@ public class TransactionService {
     @Autowired private CardTransactionRepository cardTransactionRepository;
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private com.controlefinanceiro.api.domain.goal.GoalAllocationRepository allocationRepository;
+    @Autowired private FinancialCommandRepository commands;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
@@ -86,7 +92,7 @@ public class TransactionService {
             throw new BusinessRuleException("Conta destino e taxa são exclusivas de transferências.");
         }
 
-        Account account = accountRepository.findByIdAndUserId(data.accountId(), user.getId())
+        Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada"));
         requireActive(account);
         Category category = findOwnedCategory(data.categoryId(), user, data.type());
@@ -113,8 +119,7 @@ public class TransactionService {
     public TransactionResponseDTO update(UUID id, UpdateTransactionDTO data, User user) {
         log.info("Atualizando transação ID {}", id);
 
-        Transaction transaction = repository.findOwnedForUpdate(id, user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
+        Transaction transaction = lockLedger(id, data.accountId(), user);
 
         if (transaction.isSystemManaged()) {
             throw new BusinessRuleException("Esta transação é gerenciada automaticamente pelo sistema (Metas/Investimentos/Faturas) e não pode ser editada ou excluída manualmente pelo extrato.");
@@ -182,8 +187,10 @@ public class TransactionService {
     @Transactional
     public TransactionResponseDTO settle(UUID id, SettleTransactionDTO data, User user) {
         validatePositiveMoney(data.amount(), "valor da baixa");
-        Transaction forecast = repository.findOwnedForUpdate(id, user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Previsão não encontrada"));
+        String fingerprint = commandFingerprint(id,"SETTLE",data.amount(),data.date(),data.time(),null);
+        TransactionResponseDTO repeated = beginIntent(data.operationId(),id,"SETTLE",fingerprint,user);
+        if (repeated != null) return repeated;
+        Transaction forecast = lockLedger(id,null,user);
 
         if (forecast.isSystemManaged()
                 || forecast.getOperationId() != null
@@ -222,6 +229,7 @@ public class TransactionService {
         forecast.setSettledAt(forecast.getStatus() == TransactionStatus.FULFILLED ? now.toInstant() : null);
         repository.saveAll(List.of(forecast, settlement));
         repository.flush();
+        finishIntent(data.operationId(),forecast.getId(),"SETTLE",fingerprint,settlement,user);
         publishChanged(user.getId(), forecast.getDate().getYear(), settlement.getDate().getYear());
         return new TransactionResponseDTO(settlement);
     }
@@ -230,18 +238,18 @@ public class TransactionService {
     public void delete(UUID id, User user) {
         log.info("Solicitação de exclusão da transação ID {}", id);
 
-        Transaction candidate = repository.findByIdAndUserId(id, user.getId())
+        var candidate = repository.findOwnedSource(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
         // Transferências adquirem todas as linhas da operação em ordem estável;
         // não bloqueie uma ponta isolada antes disso para evitar ordem inversa.
         if (candidate.getOperationId() != null) {
+            lockSourceAccounts(candidate, null, user);
             reverseOrDeleteTransfer(candidate.getOperationId(), user);
             return;
         }
 
-        Transaction transaction = repository.findOwnedForUpdate(id, user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
+        Transaction transaction = lockLedger(id,null,user);
 
         if (transaction.isSystemManaged()) {
             throw new BusinessRuleException("Esta transação é gerenciada automaticamente pelo sistema (Metas/Investimentos/Faturas) e não pode ser editada ou excluída manualmente pelo extrato.");
@@ -281,8 +289,7 @@ public class TransactionService {
     }
 
     public Page<TransactionResponseDTO> listAll(User user, Pageable pageable) {
-        return repository.findAllByUserIdWithDetails(user.getId(), unsortedPage(pageable))
-                .map(TransactionResponseDTO::new);
+        return withRemaining(repository.findAllByUserIdWithDetails(user.getId(), unsortedPage(pageable)));
     }
 
     public Page<TransactionResponseDTO> listAllFiltered(
@@ -300,8 +307,158 @@ public class TransactionService {
             endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
         }
 
-        return repository.findFilteredByUserId(user.getId(), startDate, endDate, type, accountId, unsortedPage(pageable))
-                .map(TransactionResponseDTO::new);
+        return withRemaining(repository.findFilteredByUserId(user.getId(), startDate, endDate, type, accountId, unsortedPage(pageable)));
+    }
+
+    private Page<TransactionResponseDTO> withRemaining(Page<Transaction> page) {
+        if (page.isEmpty()) return page.map(TransactionResponseDTO::new);
+        var ids=page.getContent().stream().map(Transaction::getId).toList();
+        Map<UUID,BigDecimal> settled=new HashMap<>(), reversed=new HashMap<>();
+        for(var row:repository.settledTotals(ids)) settled.put((UUID)row[0],exactDecimal(row[1]));
+        for(var row:repository.reversedTotals(ids)) reversed.put((UUID)row[0],exactDecimal(row[1]));
+        return page.map(t -> new TransactionResponseDTO(t,settled.getOrDefault(t.getId(),BigDecimal.ZERO),reversed.getOrDefault(t.getId(),BigDecimal.ZERO)));
+    }
+
+    // All ledger commands use account(s) -> ledger order. Only affected sources
+    // are locked; unrelated accounts continue independently.
+    private List<UUID> lockSourceAccounts(TransactionRepository.Source source, UUID extra, User user) {
+        var ids=new ArrayList<UUID>();
+        if(source.getOperationId()!=null) ids.addAll(repository.operationAccountIds(source.getOperationId(),user.getId()));
+        else ids.add(source.getAccountId());
+        if(extra!=null && !ids.contains(extra)) ids.add(extra);
+        ids.sort(Comparator.naturalOrder());
+        if(accountRepository.findAllByIdForTransfer(ids,user.getId()).size()!=ids.size()) throw new ResourceNotFoundException("Conta não encontrada");
+        return ids;
+    }
+
+    private Transaction lockLedger(UUID id, UUID extra, User user) {
+        var source=repository.findOwnedSource(id,user.getId()).orElseThrow(()->new ResourceNotFoundException("Transação não encontrada"));
+        var ids=lockSourceAccounts(source,extra,user);
+        var t=repository.findOwnedForUpdate(id,user.getId()).orElseThrow(()->new ResourceNotFoundException("Transação não encontrada"));
+        if(!ids.contains(t.getAccount().getId())) throw new OperationConflictException("A fonte da transação mudou. Recarregue e repita a operação.");
+        return t;
+    }
+
+    @Transactional
+    public TransactionResponseDTO reverse(UUID id, ReverseTransactionDTO data, User user) {
+        validatePositiveMoney(data.amount(),"valor do estorno");
+        requireCommandMetadata(data.operationId(),data.date(),data.reason());
+        String fingerprint=commandFingerprint(id,"REVERSE",data.amount(),data.date(),data.time(),data.reason().trim());
+        var repeated=beginIntent(data.operationId(),id,"REVERSE",fingerprint,user);
+        if(repeated!=null) return repeated;
+        var original=lockLedger(id,null,user);
+        if(original.isSystemManaged() || original.getOperationId()!=null || original.getOrigin()==TransactionOrigin.REVERSAL
+                || original.getOrigin()==TransactionOrigin.ACCOUNT_OPENING || !original.isRealized())
+            throw new BusinessRuleException("Esta operação exige compensação na tela de origem.");
+        requireActive(original.getAccount());
+        BigDecimal reversed=repository.sumReversals(id);
+        BigDecimal remaining=original.getAmount().subtract(reversed);
+        if(data.amount().compareTo(remaining)>0 || remaining.signum()<=0)
+            throw new OperationConflictException("O estorno excede o valor restante reversível.");
+        var now=ZonedDateTime.now(clock);
+        var reversal=newTransaction(limitedDescription("Estorno - "+original.getDescription()),data.amount(),data.date(),data.time(),
+                original.getType(),true,original.getAccount(),original.getCategory(),user,now);
+        reversal.setOrigin(TransactionOrigin.REVERSAL); reversal.setReversalOfId(id);
+        reversal.setSystemManaged(true); reversal.setReason(data.reason().trim());
+        reverseTransactionBalance(reversal,original.getAccount());
+        if(data.amount().compareTo(remaining)==0 && original.getStatus()==TransactionStatus.SETTLED) original.markReversed();
+        repository.saveAll(List.of(original,reversal)); repository.flush();
+        if(original.getSettlementOfId()!=null) {
+            var forecast=repository.findOwnedForUpdate(original.getSettlementOfId(),user.getId()).orElseThrow();
+            if(forecast.getStatus()!=TransactionStatus.CANCELLED) {
+                forecast.markForecastSettlement(repository.sumActiveSettlements(forecast.getId()));
+                forecast.setSettledAt(null); repository.saveAndFlush(forecast);
+            }
+            publishChanged(user.getId(),forecast.getDate().getYear());
+        }
+        finishIntent(data.operationId(),id,"REVERSE",fingerprint,reversal,user);
+        publishChanged(user.getId(),original.getDate().getYear(),reversal.getDate().getYear());
+        return new TransactionResponseDTO(reversal);
+    }
+
+    @Transactional
+    public TransactionResponseDTO realizeTransfer(UUID id, RealizeTransferDTO data, User user) {
+        requireCommandMetadata(data.operationId(),data.date(),data.reason());
+        String fingerprint=commandFingerprint(id,"REALIZE_TRANSFER",null,data.date(),data.time(),data.reason().trim());
+        var repeated=beginIntent(data.operationId(),id,"REALIZE_TRANSFER",fingerprint,user);
+        if(repeated!=null) return repeated;
+        var selected=lockLedger(id,null,user);
+        if(selected.getOrigin()!=TransactionOrigin.TRANSFER || selected.getOperationId()==null)
+            throw new BusinessRuleException("Selecione uma transferência prevista.");
+        var originals=repository.findOperationForUpdate(selected.getOperationId());
+        if(originals.stream().anyMatch(t->!t.getUser().getId().equals(user.getId()) || t.isSystemManaged() || t.getStatus()!=TransactionStatus.PENDING))
+            throw new OperationConflictException("A transferência já foi realizada ou não está pendente.");
+        var outbound=singleTransferLeg(originals,TransferDirection.OUTBOUND);
+        var inbound=singleTransferLeg(originals,TransferDirection.INBOUND);
+        if(originals.size()>3 || originals.stream().anyMatch(t->t.getOrigin()!=TransactionOrigin.TRANSFER && t.getOrigin()!=TransactionOrigin.TRANSFER_FEE)
+                || outbound.getAmount().compareTo(inbound.getAmount())!=0
+                || !outbound.getCounterpartyAccountId().equals(inbound.getAccount().getId())
+                || !inbound.getCounterpartyAccountId().equals(outbound.getAccount().getId()))
+            throw new BusinessRuleException("As pontas da previsão não conciliam.");
+        var source=outbound.getAccount(); var destination=inbound.getAccount();
+        requireActive(source); requireActive(destination);
+        BigDecimal fee=BigDecimal.ZERO;
+        for(var t:originals) if(t.getOrigin()==TransactionOrigin.TRANSFER_FEE) {
+            if(!t.getAccount().getId().equals(source.getId()) || t.getType()!=TransactionType.EXPENSE) throw new BusinessRuleException("Taxa de transferência inconsistente.");
+            fee=fee.add(t.getAmount());
+        }
+        validatePositiveMoney(outbound.getAmount(),"principal");
+        validateNonNegativeMoney(fee,"taxa");
+        BigDecimal total=outbound.getAmount().add(fee);
+        if(source.getBalance().subtract(allocationRepository.sumByAccountId(source.getId())).compareTo(total)<0)
+            throw new BusinessRuleException("Disponível livre insuficiente para principal e taxa.");
+        source.debit(total); destination.credit(outbound.getAmount());
+        UUID actualOperation=UUID.randomUUID(); var now=ZonedDateTime.now(clock);
+        List<Transaction> actuals=new ArrayList<>(); Transaction receipt=null;
+        for(var old:originals) {
+            var actual=newTransaction(old.getDescription(),old.getAmount(),data.date(),data.time(),old.getType(),true,old.getAccount(),null,user,now);
+            actual.setOrigin(old.getOrigin()); actual.setOperationId(actualOperation);
+            actual.setTransferDirection(old.getTransferDirection()); actual.setCounterpartyAccountId(old.getCounterpartyAccountId());
+            actual.setRealizationOfId(old.getId()); actual.setDueDate(old.getDueDate()); actual.setReason(data.reason().trim());
+            old.markForecastSettlement(old.getAmount()); old.setSettledAt(now.toInstant());
+            actuals.add(actual); if(old.getId().equals(outbound.getId())) receipt=actual;
+        }
+        repository.saveAll(originals); repository.saveAll(actuals); repository.flush();
+        finishIntent(data.operationId(),id,"REALIZE_TRANSFER",fingerprint,Objects.requireNonNull(receipt),user);
+        publishChanged(user.getId(),selected.getDate().getYear(),data.date().getYear());
+        return new TransactionResponseDTO(receipt);
+    }
+
+    @Transactional(readOnly=true)
+    public TransactionResponseDTO receipt(UUID operationId, User user) {
+        var command=commands.findById(operationId).filter(c->c.getUserId().equals(user.getId()))
+                .orElseThrow(()->new ResourceNotFoundException("Recibo não encontrado"));
+        return new TransactionResponseDTO(repository.findByIdAndUserId(command.getTransactionId(),user.getId()).orElseThrow());
+    }
+
+    private TransactionResponseDTO beginIntent(UUID key, UUID original, String kind, String fingerprint, User user) {
+        if(key==null) return null; // Legacy settlement contract remains supported.
+        entityManager.createNativeQuery("select 1 from pg_advisory_xact_lock(hashtextextended(cast(?1 as text),0))")
+                .setParameter(1,"financial-command:"+key).getSingleResult();
+        var existing=commands.findById(key);
+        if(existing.isEmpty()) return null;
+        var c=existing.get();
+        if(!c.getUserId().equals(user.getId()) || !c.getOriginalId().equals(original) || !c.getKind().equals(kind) || !c.getFingerprint().equals(fingerprint))
+            throw new OperationConflictException("Esta intenção já foi usada com outro conteúdo.");
+        return new TransactionResponseDTO(repository.findByIdAndUserId(c.getTransactionId(),user.getId()).orElseThrow());
+    }
+    private void finishIntent(UUID key, UUID original, String kind, String fingerprint, Transaction result, User user) {
+        if(key==null) return;
+        var command=new FinancialCommand(); command.setId(key); command.setUserId(user.getId()); command.setOriginalId(original);
+        command.setKind(kind); command.setFingerprint(fingerprint); command.setTransactionId(result.getId()); command.setRecordedAt(clock.instant());
+        commands.saveAndFlush(command);
+    }
+    private void requireCommandMetadata(UUID key,LocalDate date,String reason) {
+        if(key==null || date==null || reason==null || reason.isBlank() || reason.length()>500)
+            throw new BusinessRuleException("Identificação, data e motivo são obrigatórios.");
+    }
+    private String commandFingerprint(UUID id,String kind,BigDecimal amount,LocalDate date,String time,String reason) {
+        var content=new StringBuilder();
+        for(var field:new Object[]{id,kind,amount==null?null:amount.stripTrailingZeros().toPlainString(),date,DateUtil.optionalWallTime(time),reason}) {
+            String text=field==null?null:field.toString(); content.append(text==null?"-1:":text.length()+":"+text);
+        }
+        try { return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(content.toString().getBytes(StandardCharsets.UTF_8))); }
+        catch(java.security.NoSuchAlgorithmException e) { throw new IllegalStateException(e); }
     }
 
     private Pageable unsortedPage(Pageable pageable) {

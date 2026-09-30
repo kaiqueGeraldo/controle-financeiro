@@ -13,6 +13,15 @@ import { GoalModalManager } from "@/components/modals/managers/goalModalManager"
 import { InvestmentModalManager } from "@/components/modals/managers/investmentModalManager";
 import { HabitModalManager } from "@/components/modals/managers/habitModalManager";
 
+// Stable component identity keeps open intents alive when sidebar/scroll state changes.
+function DomainModalManagers() {
+  return <>
+    <AuthModalManager /><TransactionModalManager /><AccountModalManager />
+    <CardModalManager /><PlanningModalManager /><GoalModalManager />
+    <InvestmentModalManager /><HabitModalManager />
+  </>;
+}
+
 export default function PrivateLayout({
   children,
 }: {
@@ -20,19 +29,6 @@ export default function PrivateLayout({
 }) {
   const pathname = usePathname();
   const { scrollContainerRef } = useSidebar();
-
-  const DomainModalManagers = () => (
-    <>
-      <AuthModalManager />
-      <TransactionModalManager />
-      <AccountModalManager />
-      <CardModalManager />
-      <PlanningModalManager />
-      <GoalModalManager />
-      <InvestmentModalManager />
-      <HabitModalManager />
-    </>
-  );
 
   if (pathname === "/configuracoes") {
     return (

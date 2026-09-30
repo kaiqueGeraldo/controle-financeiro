@@ -15,6 +15,8 @@ public record SettleTransactionDTO(
         @tools.jackson.databind.annotation.JsonDeserialize(using = com.controlefinanceiro.api.utils.DecimalStringDeserializer.class)
         BigDecimal amount,
         @NotNull LocalDate date,
-        @WallTime String time
+        @WallTime String time,
+        java.util.UUID operationId
 ) {
+    public SettleTransactionDTO(BigDecimal amount, LocalDate date, String time) { this(amount,date,time,null); }
 }

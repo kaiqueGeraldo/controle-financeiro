@@ -106,6 +106,25 @@ public class TransactionController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}/reversals")
+    public ResponseEntity<TransactionResponseDTO> reverse(@PathVariable UUID id,
+            @RequestBody @Valid com.controlefinanceiro.api.domain.transaction.dto.ReverseTransactionDTO data,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.reverse(id,data,user));
+    }
+
+    @PostMapping("/{id}/realizations")
+    public ResponseEntity<TransactionResponseDTO> realizeTransfer(@PathVariable UUID id,
+            @RequestBody @Valid com.controlefinanceiro.api.domain.transaction.dto.RealizeTransferDTO data,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.realizeTransfer(id,data,user));
+    }
+
+    @GetMapping("/commands/{operationId}")
+    public ResponseEntity<TransactionResponseDTO> receipt(@PathVariable UUID operationId,@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.receipt(operationId,user));
+    }
+
     @GetMapping(value = "/export", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity<byte[]> exportToExcel(
             @AuthenticationPrincipal User user,

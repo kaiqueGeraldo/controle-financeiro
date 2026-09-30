@@ -8,6 +8,77 @@ async function start(page:Page,suffix:string){await page.clock.setFixedTime(new 
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
 
+test("SAN-D2 previsão, baixa, transferência atômica e estorno parcial/total pela UI",async({page})=>{
+ await start(page,"commands");
+ const a=await post(page,"/accounts",{name:`${ns}-origem`,type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const b=await post(page,"/accounts",{name:`${ns}-destino`,type:"CHECKING",initialBalance:100,color:"#3b82f6"});
+ const categories=await json(page,"/categories?type=EXPENSE");
+ const rows=async()=> (await json(page,"/transactions?month=1&year=2027&size=100")).content;
+ const accountBalance=async(id:string)=>(await json(page,"/accounts")).find((v:{id:string})=>v.id===id).balance;
+ await page.goto("/extrato");
+ async function create(description:string,forecast:boolean,transfer=false){
+   await page.getByRole("button",{name:"Lançar",exact:true}).click();
+   const modal=page.getByRole("dialog",{name:"Nova Transação",exact:true});
+   await modal.getByRole("button",{name:transfer?"Transferência":"Despesa",exact:true}).click();
+   await modal.getByLabel("Valor do lançamento").fill("100.00");await modal.getByLabel("Descrição do lançamento").fill(description);
+   await modal.getByLabel("Data do lançamento").fill("2027-01-15");await modal.getByLabel("Conta do lançamento").selectOption(a.id);
+   if(transfer){await modal.getByLabel("Conta destino").selectOption(b.id);await modal.getByLabel("Taxa da transferência").fill("2.00");}
+   else await modal.getByLabel("Categoria do lançamento").selectOption(categories[0].id);
+   await modal.getByLabel("Registrar previsão (sem movimentar saldo)").setChecked(forecast);
+   const response=page.waitForResponse(r=>r.url().endsWith("/api/transactions")&&r.request().method()==="POST");
+   await modal.getByRole("button",{name:"Salvar Transação"}).click();const saved=await response;expect(saved.ok(),await saved.text()).toBe(true);
+   await expect(modal).toHaveCount(0);await page.reload();return saved.json();
+ }
+ async function open(description:string,action:string,title:string){
+   await page.getByText(description,{exact:true}).first().click();await page.getByRole("button",{name:action,exact:true}).click();
+   return page.getByRole("dialog",{name:title,exact:true});
+ }
+ async function confirm(modal:ReturnType<Page["getByRole"]>,name:string,path:string){
+   const response=page.waitForResponse(r=>r.url().includes(path)&&r.request().method()==="POST");
+   await modal.getByRole("button",{name,exact:true}).click();const result=await response;expect(result.ok(),await result.text()).toBe(true);
+   await expect(modal).toHaveCount(0);await page.reload();return result.json();
+ }
+ const forecast=await create("SAN previsão preservada",true);
+ expect(await accountBalance(a.id)).toBe(1000);
+ let modal=await open("SAN previsão preservada","Baixar previsão","Baixar previsão");
+ await modal.getByLabel("Valor da baixa").fill("40.00");await modal.getByLabel("Data efetiva").fill("2027-01-16");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-d2-baixa-${width}.png`),animations:"disabled"});}
+ const settlement=await confirm(modal,"Confirmar baixa","/settlements");expect(await accountBalance(a.id)).toBe(960);
+ for(const amount of ["10.00","30.00"]){
+   modal=await open("Baixa - SAN previsão preservada","Estornar parcial ou total","Estornar lançamento");
+   await modal.getByLabel("Valor do estorno").fill(amount);await modal.getByLabel("Data efetiva").fill("2027-01-17");await modal.getByLabel("Motivo").fill(`Devolução ${amount}`);
+   await confirm(modal,"Confirmar estorno","/reversals");
+ }
+ expect(await accountBalance(a.id)).toBe(1000);
+ let current=(await rows()).find((t:{id:string})=>t.id===forecast.id);expect(current.amount).toBe(100);expect(current.date).toBe("2027-01-15");expect(current.remainingAmount).toBe(100);
+ expect((await rows()).find((t:{id:string})=>t.id===settlement.id).status).toBe("REVERSED");
+ modal=await open("SAN previsão preservada","Baixar previsão","Baixar previsão");
+ await modal.getByLabel("Data efetiva").fill("2027-01-18");await confirm(modal,"Confirmar baixa","/settlements");
+ expect(await accountBalance(a.id)).toBe(900);
+ const direct=await create("SAN despesa realizada",false);
+ let lastCommand:Record<string,unknown>|null=null;
+ for(const amount of ["30.00","70.00"]){
+   modal=await open("SAN despesa realizada","Estornar parcial ou total","Estornar lançamento");
+   await modal.getByLabel("Valor do estorno").fill(amount);await modal.getByLabel("Data efetiva").fill("2027-01-19");await modal.getByLabel("Motivo").fill(`Reembolso ${amount}`);
+   for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-d2-estorno-${width}.png`),animations:"disabled"});}
+   const response=page.waitForResponse(r=>r.url().endsWith(`/transactions/${direct.id}/reversals`)&&r.request().method()==="POST");
+   await modal.getByRole("button",{name:"Confirmar estorno"}).click();const result=await response;expect(result.ok()).toBe(true);lastCommand=result.request().postDataJSON();
+   await expect(modal).toHaveCount(0);await page.reload();
+ }
+ await post(page,`/transactions/${direct.id}/reversals`,lastCommand);expect(await accountBalance(a.id)).toBe(900);
+ const transfer=await create("SAN transferência prevista",true,true);
+ expect(await accountBalance(a.id)).toBe(900);expect(await accountBalance(b.id)).toBe(100);
+ modal=await open("SAN transferência prevista","Realizar transferência prevista","Realizar transferência prevista");
+ await modal.getByLabel("Data efetiva").fill("2027-01-20");await modal.getByLabel("Motivo").fill("Transferência confirmada no banco");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await modal.screenshot({path:path.join(dir,`san-d2-transferencia-${width}.png`),animations:"disabled"});}
+ const actual=await confirm(modal,"Confirmar realização","/realizations");
+ expect(await accountBalance(a.id)).toBe(798);expect(await accountBalance(b.id)).toBe(200);
+ const history=await rows();expect(history.filter((t:{operationId:string,status:string})=>t.operationId===transfer.operationId&&t.status==="FULFILLED")).toHaveLength(3);
+ expect(history.filter((t:{operationId:string,status:string})=>t.operationId===actual.operationId&&t.status==="SETTLED")).toHaveLength(3);
+ current=history.find((t:{id:string})=>t.id===forecast.id);expect(current.status).toBe("FULFILLED");
+ await writeFile(path.join(dir,"san-d2-history.json"),JSON.stringify({forecast,settlement,direct,transfer,actual,history},null,2));
+});
+
 test("SAN-D1 duas intenções iguais, saldo pagável, recibo e conflito",async({page})=>{
  await start(page,"payment");
  const a=await post(page,"/accounts",{name:`${ns}-cash`,type:"CHECKING",initialBalance:1000,color:"#10b981"});

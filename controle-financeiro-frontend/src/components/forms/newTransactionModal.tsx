@@ -39,6 +39,8 @@ export function NewTransactionModal({
     accountId: "",
     categoryId: "",
     isPaid: true,
+    destinationAccountId: "",
+    fee: "0.00",
   });
 
   useEffect(() => {
@@ -53,6 +55,7 @@ export function NewTransactionModal({
         }),
         description: "",
         amount: "",
+        isPaid: true,
       }));
       setIsLoading(false);
     }
@@ -67,19 +70,19 @@ export function NewTransactionModal({
     try {
       await transactionService.create({
         description: formData.description,
-        amount: Number(formData.amount),
+        amount: formData.amount,
         date: formData.date,
         time: formData.time || null,
         type,
         accountId: formData.accountId,
-        categoryId: formData.categoryId,
+        categoryId: type === "TRANSFER" ? "" : formData.categoryId,
         isPaid: formData.isPaid,
+        ...(type === "TRANSFER" ? {destinationAccountId: formData.destinationAccountId, fee: formData.fee} : {}),
       });
 
-      window.dispatchEvent(new Event("refreshExtract"));
-
-      onSuccess();
       onClose();
+      onSuccess();
+      window.dispatchEvent(new Event("refreshExtract"));
     } catch (error) {
       toast.error("Erro ao criar transação. Verifique se preencheu tudo.");
       console.error(error);
@@ -93,7 +96,7 @@ export function NewTransactionModal({
     <Modal isOpen={isOpen} onClose={onClose} title="Nova Transação">
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
         {/* TIPO (Receita / Despesa) */}
-        <div className="grid grid-cols-2 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider">
+        <div className="grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider">
           <button
             type="button"
             onClick={() => setType("EXPENSE")}
@@ -108,7 +111,11 @@ export function NewTransactionModal({
           >
             Receita
           </button>
+          <button type="button" onClick={()=>setType("TRANSFER")} className={`py-2 rounded-lg text-sm font-bold ${type==="TRANSFER"?"text-emerald-500 bg-emerald-500/10":"text-text-muted"}`}>Transferência</button>
         </div>
+
+        <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!formData.isPaid} onChange={e=>setFormData({...formData,isPaid:!e.target.checked})}/>Registrar previsão (sem movimentar saldo)</label>
+        {!formData.isPaid&&<p className="text-sm text-text-muted">A data é o vencimento previsto. Realize a baixa pelo extrato quando ocorrer o movimento bancário.</p>}
 
         {/* VALOR E DESCRIÇÃO OMITIDOS PARA BREVIDADE */}
         <div>
@@ -121,11 +128,13 @@ export function NewTransactionModal({
             </span>
             <input
               type="number"
+              aria-label="Valor do lançamento"
               step="0.01"
               required
               placeholder="0,00"
               value={formData.amount}
-              min="0"
+              min="0.01"
+              max="999999999999.99"
               onChange={(e) =>
                 setFormData({ ...formData, amount: e.target.value })
               }
@@ -140,6 +149,7 @@ export function NewTransactionModal({
           </label>
           <input
             type="text"
+            aria-label="Descrição do lançamento"
             required
             placeholder="Ex: Mercado, Salário..."
             value={formData.description}
@@ -157,6 +167,7 @@ export function NewTransactionModal({
             </label>
             <input
               type="date"
+              aria-label="Data do lançamento"
               required
               value={formData.date}
               onChange={(e) =>
@@ -186,9 +197,10 @@ export function NewTransactionModal({
             <label className="text-xs text-text-muted font-bold uppercase ml-1">
               Categoria
             </label>
-            <div className="relative mt-1">
+            <div className="relative mt-1" hidden={type==="TRANSFER"}>
               <select
-                required
+                required={type!=="TRANSFER"}
+                aria-label="Categoria do lançamento"
                 value={formData.categoryId}
                 onChange={(e) =>
                   setFormData({ ...formData, categoryId: e.target.value })
@@ -202,7 +214,7 @@ export function NewTransactionModal({
                 >
                   Selecione
                 </option>
-                {categories.map((cat) => (
+                {categories.filter(cat=>cat.type===type).map((cat) => (
                   <option key={cat.id} value={cat.id} className="bg-bg-surface">
                     {cat.name}
                   </option>
@@ -219,6 +231,7 @@ export function NewTransactionModal({
             <div className="relative mt-1">
               <select
                 required
+                aria-label="Conta do lançamento"
                 value={formData.accountId}
                 onChange={(e) =>
                   setFormData({ ...formData, accountId: e.target.value })
@@ -242,6 +255,13 @@ export function NewTransactionModal({
             </div>
           </div>
         </div>
+
+        {type==="TRANSFER"&&<div className="space-y-3">
+          <label className="block text-sm">Conta destino<select required value={formData.destinationAccountId} onChange={e=>setFormData({...formData,destinationAccountId:e.target.value})} className="w-full bg-bg-base border border-border-divider rounded-xl p-3">
+            <option value="">Selecione</option>{accounts.filter(a=>a.id!==formData.accountId).map(a=><option key={a.id} value={a.id}>{a.name}</option>)}
+          </select></label>
+          <label className="block text-sm">Taxa da transferência<input type="number" min="0" max="999999999999.99" step="0.01" required value={formData.fee} onChange={e=>setFormData({...formData,fee:e.target.value})} className="w-full bg-bg-base border border-border-divider rounded-xl p-3"/></label>
+        </div>}
 
         <button
           type="submit"

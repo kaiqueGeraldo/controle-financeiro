@@ -9,6 +9,11 @@ import { useTransactionModals } from "@/contexts/modals/transactionModalContext"
 import { useExtract } from "@/hooks/useExtract";
 import { useSidebar } from "@/hooks/useSidebar";
 import { formatCalendarDate } from "@/utils/date";
+import {useState} from "react";
+import {useUser} from "@/hooks/useUser";
+import {useFinanceData} from "@/hooks/useFinanceData";
+import {type Transaction} from "@/types";
+import {TransactionCommandModal,type TransactionCommandKind} from "@/components/forms/transactionCommandModal";
 import {
   AlertCircle,
   ChevronLeft,
@@ -20,6 +25,9 @@ import {
 export default function ExtractScreen() {
   const { scrolled } = useSidebar();
   const { openNewTransaction, openDeleteTransaction } = useTransactionModals();
+  const {user}=useUser();
+  const finance=useFinanceData();
+  const [command,setCommand]=useState<{transaction:Transaction;kind:TransactionCommandKind}|null>(null);
 
   // --- HOOK CONTROLLER ---
   const {
@@ -44,9 +52,10 @@ export default function ExtractScreen() {
     isLoadingMore,
     error,
     retry,
+    reconcile,
   } = useExtract();
 
-  if (isInitialLoading) {
+  if (isInitialLoading && !command) {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
@@ -54,7 +63,7 @@ export default function ExtractScreen() {
     );
   }
 
-  if (error) {
+  if (error && !command) {
     return (
       <div className="min-h-screen bg-bg-base font-sans text-text-main">
         <DataLoadError onRetry={retry} />
@@ -140,6 +149,7 @@ export default function ExtractScreen() {
       </header>
 
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6 space-y-8">
+        {error&&<p role="alert" className="text-sm text-amber-400">Leitura do extrato indisponível. Recupere os dados no modal para concluir a intenção confirmada.</p>}
         {/* CARDS DE RESUMO */}
         {summary ? <ExtractSummary
           entries={summary.entries}
@@ -215,8 +225,10 @@ export default function ExtractScreen() {
         categories={categories}
         accounts={accounts}
         onUpdate={updateTransaction}
-        onDelete={openDeleteTransaction}
+        onDelete={id=>{setSelectedTransactionId(null);openDeleteTransaction(id);}}
+        onCommand={kind=>{if(selectedTransaction){setCommand({transaction:selectedTransaction,kind});setSelectedTransactionId(null);}}}
       />
+      {command&&user&&<TransactionCommandModal key={`${user.id}:${command.transaction.id}:${command.kind}`} ownerId={user.id} transaction={command.transaction} kind={command.kind} onClose={()=>setCommand(null)} onSuccess={async()=>{await reconcile();await finance.refresh(true);}}/>}
     </div>
   );
 }

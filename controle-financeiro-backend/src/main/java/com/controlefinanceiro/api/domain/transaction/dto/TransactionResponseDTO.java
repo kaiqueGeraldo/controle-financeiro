@@ -40,9 +40,17 @@ public record TransactionResponseDTO(
         java.time.LocalTime time,
         String timeOrigin,
         java.time.Instant recordedAt,
-        LocalDateTime legacyCreatedAtRaw
+        LocalDateTime legacyCreatedAtRaw,
+        UUID realizationOfId,
+        String reason,
+        BigDecimal settledAmount,
+        BigDecimal reversedAmount,
+        BigDecimal remainingAmount
 ) {
     public TransactionResponseDTO(Transaction t) {
+        this(t, BigDecimal.ZERO, BigDecimal.ZERO);
+    }
+    public TransactionResponseDTO(Transaction t,BigDecimal settled,BigDecimal reversed) {
         this(
                 t.getId(), t.getDescription(), t.getAmount(), t.getDate(), t.getDueDate(), t.getSettledAt(),
                 t.isPaid(), t.getType(), t.getCreatedAt(),
@@ -56,7 +64,10 @@ public record TransactionResponseDTO(
                 t.getSettlementOfId(), t.getCorrectionOfId(),
                 t.getTime(),
                 t.getTimeOrigin() == null ? "UNKNOWN" : t.getTimeOrigin().name(), t.getRecordedAt(),
-                t.getLegacyCreatedAtRaw() == null ? t.getCreatedAt() : t.getLegacyCreatedAtRaw()
+                t.getLegacyCreatedAtRaw() == null ? t.getCreatedAt() : t.getLegacyCreatedAtRaw(),
+                t.getRealizationOfId(),t.getReason(),settled,reversed,
+                t.getStatus() == TransactionStatus.FULFILLED || t.getStatus() == TransactionStatus.CANCELLED || t.getStatus() == TransactionStatus.REVERSED
+                    ? BigDecimal.ZERO : t.getAmount().subtract(t.isRealized()?reversed:settled)
         );
     }
 }

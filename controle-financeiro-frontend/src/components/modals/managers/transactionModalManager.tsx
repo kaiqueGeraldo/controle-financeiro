@@ -12,19 +12,19 @@ export function TransactionModalManager() {
 
   return (
     <>
-      <NewTransactionModal
+      {modals.isNewTransactionOpen && <NewTransactionModal
         isOpen={modals.isNewTransactionOpen}
         onClose={modals.closeNewTransaction}
         onSuccess={finance.refresh}
         accounts={finance.accounts}
         categories={finance.categories}
-      />
+      />}
 
       <ConfirmationModal
         isOpen={!!modals.transactionToDeleteId}
         onClose={modals.closeDeleteTransaction}
         title="Excluir Transação"
-        message="Tem certeza? O valor será estornado do seu saldo atual."
+        message="Cancelar libera a intenção pendente. Baixas já realizadas permanecem no histórico e devem ser estornadas separadamente."
         onConfirm={async () => {
           if (modals.transactionToDeleteId) {
             await transactionService.delete(modals.transactionToDeleteId);

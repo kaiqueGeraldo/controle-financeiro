@@ -46,6 +46,18 @@ export interface Transaction {
   category?: Category;
   account?: Account;
   isSystemManaged?: boolean;
+  status?: "PENDING" | "PARTIALLY_SETTLED" | "FULFILLED" | "CANCELLED" | "SETTLED" | "REVERSED";
+  origin?: string;
+  operationId?: string | null;
+  transferDirection?: "OUTBOUND" | "INBOUND" | null;
+  dueDate?: string | null;
+  settlementOfId?: string | null;
+  realizationOfId?: string | null;
+  reversalOfId?: string | null;
+  reason?: string | null;
+  settledAmount?: number;
+  reversedAmount?: number;
+  remainingAmount?: number;
 }
 
 export interface CreateAccountDTO {
@@ -57,13 +69,15 @@ export interface CreateAccountDTO {
 
 export interface CreateTransactionDTO {
   description: string;
-  amount: number;
+  amount: number | string;
   date: string;
   time?: string | null;
   type: TransactionType;
   accountId: string;
   categoryId: string;
   isPaid: boolean;
+  destinationAccountId?: string;
+  fee?: string;
 }
 
 export interface CreateCategoryDTO {

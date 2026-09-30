@@ -24,6 +24,7 @@ interface TransactionDetailsProps {
   onClose: () => void;
   onUpdate: (id: string, data: Partial<CreateTransactionDTO>) => Promise<void>;
   onDelete: (id: string) => void;
+  onCommand?: (kind: import("@/components/forms/transactionCommandModal").TransactionCommandKind) => void;
 }
 
 function transactionForm(transaction: Transaction) {
@@ -47,6 +48,7 @@ export function TransactionDetails({
   onClose,
   onUpdate,
   onDelete,
+  onCommand,
 }: TransactionDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -90,6 +92,9 @@ export function TransactionDetails({
 
   const temporal = transaction ? normalizeTransaction(transaction) : null;
   const isSystemManaged = transaction?.isSystemManaged === true;
+  const isForecast = transaction?.status === "PENDING" || transaction?.status === "PARTIALLY_SETTLED";
+  const canEdit = !isSystemManaged && !transaction?.operationId && !transaction?.reversedAmount && (transaction?.status === "PENDING" || transaction?.status === "SETTLED" || !transaction?.status);
+  const canReverse = !isSystemManaged && !transaction?.operationId && transaction?.status === "SETTLED" && transaction?.origin !== "ACCOUNT_OPENING" && Number(transaction?.remainingAmount ?? transaction?.amount) > 0;
 
   return (
     <AnimatePresence>
@@ -205,6 +210,13 @@ export function TransactionDetails({
               transition={{ delay: 0.1 }}
               className="p-6 space-y-4 overflow-y-auto custom-scroll flex-1 bg-bg-base/50"
             >
+              <p className="text-sm">Situação: {transaction.status ?? (transaction.isPaid?"Realizado":"Previsto")}</p>
+              {transaction.dueDate&&<p className="text-sm">Vencimento previsto: {formatCalendarDate(transaction.dueDate)}</p>}
+              <p className="text-sm">Restante {isForecast?"previsto":"reversível"}: {formatCurrency(transaction.remainingAmount??transaction.amount)}</p>
+              {transaction.reason&&<p className="text-sm break-words">Motivo: {transaction.reason}</p>}
+              {transaction.settlementOfId&&<p className="text-xs break-all">Baixa vinculada à previsão {transaction.settlementOfId}</p>}
+              {transaction.realizationOfId&&<p className="text-xs break-all">Realização vinculada à previsão {transaction.realizationOfId}</p>}
+              {transaction.reversalOfId&&<p className="text-xs break-all">Estorno vinculado ao lançamento {transaction.reversalOfId}</p>}
               <div className="flex gap-4">
                 <div className="flex-1 flex items-center justify-between p-3 bg-bg-surface rounded-xl border border-border-divider transition-colors hover:border-border-divider">
                   <div className="flex items-center gap-3 text-text-muted">
@@ -346,13 +358,17 @@ export function TransactionDetails({
                 </>
               ) : (
                 <>
+                  {isForecast&&onCommand&&<button type="button" onClick={()=>onCommand(transaction.type==="TRANSFER"?"realizeTransfer":"settle")} className="col-span-2 py-3 rounded-xl bg-emerald-600 text-white font-bold">{transaction.type==="TRANSFER"?"Realizar transferência prevista":"Baixar previsão"}</button>}
+                  {canReverse&&onCommand&&<button type="button" onClick={()=>onCommand("reverse")} className="col-span-2 py-3 rounded-xl bg-rose-500/10 text-rose-500 font-bold">Estornar parcial ou total</button>}
+                  {isForecast&&
                   <button
                     type="button"
                     onClick={() => onDelete(transaction.id)}
                     className="py-3 rounded-xl font-bold text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <Trash2 size={18} /> Excluir
-                  </button>
+                    <Trash2 size={18} /> Cancelar previsão
+                  </button>}
+                  {canEdit&&
                   <button
                     type="button"
                     onClick={(event) => {
@@ -365,7 +381,8 @@ export function TransactionDetails({
                     className="py-3 rounded-xl font-bold bg-bg-surface-hover hover:bg-bg-button-hover text-text-main transition cursor-pointer"
                   >
                     Editar
-                  </button>
+                  </button>}
+                  {!isForecast&&!canReverse&&!canEdit&&<p className="col-span-2 text-xs text-text-muted">Registro preservado para auditoria.</p>}
                 </>
               )}
             </div>

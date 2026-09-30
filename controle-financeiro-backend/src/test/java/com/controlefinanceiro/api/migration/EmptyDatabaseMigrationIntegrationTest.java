@@ -33,10 +33,10 @@ class EmptyDatabaseMigrationIntegrationTest {
     @Test
     void emptyDatabaseRunsEveryMigrationOnceAndHibernateValidateStarts() {
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(9);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(10);
         assertThat(sql.queryForList(
                 "select version from flyway_schema_history where success order by installed_rank", String.class))
-                .containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9");
+                .containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         assertThat(sql.queryForObject(
                 "select count(*) from information_schema.tables where table_schema=? and table_name='shedlock'",
                 Integer.class, EmptyMigrationTestInitializer.SCHEMA)).isOne();
@@ -52,7 +52,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         var rerun = Cf017PostgresSupport.flyway(EmptyMigrationTestInitializer.SCHEMA).migrate();
         assertThat(rerun.migrationsExecuted).isZero();
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(9);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(10);
     }
 
     @Test
@@ -66,6 +66,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         copyMigration("V7__valuation_reference_and_audit.sql", alteredMigrations);
         copyMigration("V8__investment_corrections.sql", alteredMigrations);
         copyMigration("V9__payment_intent_receipt.sql", alteredMigrations);
+        copyMigration("V10__financial_commands_and_partial_reversals.sql", alteredMigrations);
         Files.writeString(v2, System.lineSeparator() + "SELECT 1;" + System.lineSeparator(),
                 StandardOpenOption.APPEND);
 
@@ -108,7 +109,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         }
 
         var recovered = Cf017PostgresSupport.flyway(schema).migrate();
-        assertThat(recovered.migrationsExecuted).isEqualTo(8);
+        assertThat(recovered.migrationsExecuted).isEqualTo(9);
         Cf017PostgresSupport.flyway(schema).validate();
     }
 
@@ -155,7 +156,7 @@ class EmptyDatabaseMigrationIntegrationTest {
                 Integer.class, schema)).isEqualTo(14);
         assertThat(sql.queryForObject(
                 "select count(*) from pg_indexes where schemaname=? and indexname in "
-                        + "('uk_transactions_operation_direction','uk_transactions_reversal_once',"
+                        + "('uk_transactions_operation_direction','idx_transactions_reversal',"
                         + "'uk_transactions_correction_once','idx_transactions_operation',"
                         + "'idx_transactions_settlement','idx_transactions_user_realized')",
                 Integer.class, schema)).isEqualTo(6);

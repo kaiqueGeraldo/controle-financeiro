@@ -163,7 +163,9 @@ class IntegratedMilestoneReviewTest extends PostgresIntegrationTest {
     @Test void RV12_pendingTransferNeedsAtomicSettlementPath() {
         User u=user(); UUID a=account(u,"1000.00"),b=account(u,"50.00");
         var f=transactions.create(new CreateTransactionDTO("Transferência futura",m("200.00"),DAY,null,TransactionType.TRANSFER,a,null,false,b,m("2.00")),u);
-        assertThatCode(()->transactions.settle(f.id(),new SettleTransactionDTO(m("200.00"),DAY.plusDays(1),null),u))
+        // RV12 identifies the missing use case, not a mandated generic endpoint.
+        // FIN-02 realization preserves the original paired forecast and fee.
+        assertThatCode(()->transactions.realizeTransfer(f.id(),new com.controlefinanceiro.api.domain.transaction.dto.RealizeTransferDTO(UUID.randomUUID(),DAY.plusDays(1),null,"Transferência confirmada"),u))
                 .as("FIN-02 future transfer must be realizable atomically").doesNotThrowAnyException();
         assertThat(balance(a)).isEqualByComparingTo("798.00");
         assertThat(balance(b)).isEqualByComparingTo("250.00");

@@ -1,0 +1,16 @@
+Namespace: san1821-648ba032
+Flyway versions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+select a.name,a.balance,a.opening_balance,a.is_archived from accounts a join users u on u.id=a.user_id where u.email like ? order by a.name
+[{name=Carteira Física, balance=0.00, opening_balance=null, is_archived=false}, {name=san1821-648ba032-destino, balance=100.00, opening_balance=100.00, is_archived=false}, {name=san1821-648ba032-origem, balance=800.00, opening_balance=1000.00, is_archived=false}]
+select t.description,t.amount,t.date,t.type,t.origin,t.status,t.settlement_of_id,t.reversal_of_id from transactions t join users u on u.id=t.user_id where u.email like ? order by t.description,t.origin
+[{description=Baixa - SAN previsão preservada, amount=40.00, date=2027-01-16, type=EXPENSE, origin=SETTLEMENT, status=REVERSED, settlement_of_id=65f3f648-c028-4deb-b543-6fab739d374b, reversal_of_id=null}, {description=Baixa - SAN previsão preservada, amount=100.00, date=2027-01-18, type=EXPENSE, origin=SETTLEMENT, status=SETTLED, settlement_of_id=65f3f648-c028-4deb-b543-6fab739d374b, reversal_of_id=null}, {description=Estorno - Baixa - SAN previsão preservada, amount=10.00, date=2027-01-17, type=EXPENSE, origin=REVERSAL, status=SETTLED, settlement_of_id=null, reversal_of_id=071506af-c55d-4e8e-8b88-0dc06486ec1d}, {description=Estorno - Baixa - SAN previsão preservada, amount=30.00, date=2027-01-17, type=EXPENSE, origin=REVERSAL, status=SETTLED, settlement_of_id=null, reversal_of_id=071506af-c55d-4e8e-8b88-0dc06486ec1d}, {description=SAN despesa realizada, amount=100.00, date=2027-01-15, type=EXPENSE, origin=USER, status=SETTLED, settlement_of_id=null, reversal_of_id=null}, {description=SAN previsão preservada, amount=100.00, date=2027-01-15, type=EXPENSE, origin=USER, status=FULFILLED, settlement_of_id=null, reversal_of_id=null}]
+select c.name,i.month,i.year,i.status,ct.amount,ct.paid_amount,ct.refunded_amount from card_transactions ct join invoices i on i.id=ct.invoice_id join credit_cards c on c.id=i.card_id join users u on u.id=c.user_id where u.email like ? order by c.name,i.year,i.month
+[]
+select g.title,g.current_value,a.amount from goals g left join goal_allocations a on a.goal_id=g.id join users u on u.id=g.user_id where u.email like ?
+[]
+select i.name,i.quantity,i.total_cost,i.valuation_amount from investments i join users u on u.id=i.user_id where u.email like ?
+[]
+select c.original_id,c.cash_delta,c.realized_delta,c.returned_fees,c.reason,c.recorded_at from investment_corrections c join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[]
+select r.transaction_id,r.cost_delta,r.realized_result from investment_cost_revisions r join investment_corrections c on c.id=r.correction_id join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[]

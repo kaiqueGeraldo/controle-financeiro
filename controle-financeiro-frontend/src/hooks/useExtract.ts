@@ -53,7 +53,7 @@ export function useExtract() {
   const extractCache = useRef<Record<string, ExtractCacheData>>({});
 
   const fetchExtract = useCallback(
-    async (currentPage: number, append = false, invalidateCache = false) => {
+    async (currentPage: number, append = false, invalidateCache = false, requireSuccess = false) => {
       if (isUserLoading || !userId) {
         setIsLoadingList(false);
         setIsFirstLoad(false);
@@ -111,7 +111,10 @@ export function useExtract() {
         });
         const [res, summaryRes] = await Promise.all([listRequest, summaryRequest]);
 
-        if (!request.isCurrent()) return;
+        if (!request.isCurrent()) {
+          if(requireSuccess)throw new Error("A consulta foi substituída. Atualize os dados novamente.");
+          return;
+        }
 
         if (res?.data) {
           const newData = res.data;
@@ -147,6 +150,7 @@ export function useExtract() {
           );
           console.error("Erro ao buscar extrato paginado", error);
         }
+        if(requireSuccess)throw error;
       } finally {
         if (request.isCurrent()) {
           setIsLoadingList(false);
@@ -322,6 +326,7 @@ export function useExtract() {
     isLoadingMore: isLoadingList && requestedPage > 0,
     error,
     retry: () => fetchExtract(0, false, true),
+    reconcile: () => fetchExtract(0, false, true, true),
     hasMore,
     loadMore,
     filters: {

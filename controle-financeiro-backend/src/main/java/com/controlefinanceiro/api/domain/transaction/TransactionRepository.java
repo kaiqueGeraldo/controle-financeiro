@@ -16,6 +16,30 @@ import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
 
+    interface Source { UUID getAccountId(); UUID getCounterpartyId(); UUID getOperationId(); }
+    // Scalar projection avoids caching a stale ledger/account entity before waiting for its lock.
+    @Query("SELECT t.account.id AS accountId, t.counterpartyAccountId AS counterpartyId, t.operationId AS operationId FROM Transaction t WHERE t.id=:id AND t.user.id=:userId")
+    java.util.Optional<Source> findOwnedSource(@Param("id") UUID id, @Param("userId") UUID userId);
+
+    @Query("SELECT DISTINCT t.account.id FROM Transaction t WHERE t.operationId=:operationId AND t.user.id=:userId ORDER BY t.account.id")
+    List<UUID> operationAccountIds(@Param("operationId") UUID operationId,@Param("userId") UUID userId);
+
+    @Query("SELECT COALESCE(SUM(t.amount),0) FROM Transaction t WHERE t.reversalOfId=:id")
+    BigDecimal sumReversals(@Param("id") UUID id);
+
+    @Query(value="SELECT reversal_of_id, SUM(amount) FROM transactions WHERE reversal_of_id IN (:ids) GROUP BY reversal_of_id",nativeQuery=true)
+    List<Object[]> reversedTotals(@Param("ids") List<UUID> ids);
+
+    @Query(value="""
+        SELECT COALESCE(t.settlement_of_id, o.settlement_of_id),
+               SUM(CASE WHEN t.origin='REVERSAL' THEN -t.amount ELSE t.amount END)
+        FROM transactions t LEFT JOIN transactions o ON o.id=t.reversal_of_id
+        WHERE (t.settlement_of_id IN (:ids) OR o.settlement_of_id IN (:ids))
+          AND t.status IN ('SETTLED','REVERSED')
+        GROUP BY COALESCE(t.settlement_of_id, o.settlement_of_id)
+        """,nativeQuery=true)
+    List<Object[]> settledTotals(@Param("ids") List<UUID> ids);
+
     List<Transaction> findAllByCategoryId(UUID categoryId);
 
     java.util.Optional<Transaction> findByIdAndUserId(UUID id, UUID userId);
@@ -245,12 +269,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             @Param("userId") UUID userId);
 
     @Query("""
-            SELECT COALESCE(SUM(t.amount), 0)
-            FROM Transaction t
-            WHERE t.settlementOfId = :forecastId
-              AND t.origin IN (com.controlefinanceiro.api.domain.transaction.TransactionOrigin.SETTLEMENT,
-                               com.controlefinanceiro.api.domain.transaction.TransactionOrigin.CORRECTION)
-              AND t.status = com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED
+            SELECT COALESCE(SUM(CASE WHEN t.origin = com.controlefinanceiro.api.domain.transaction.TransactionOrigin.REVERSAL THEN -t.amount ELSE t.amount END),0)
+            FROM Transaction t LEFT JOIN Transaction original ON original.id=t.reversalOfId
+            WHERE (t.settlementOfId=:forecastId OR original.settlementOfId=:forecastId)
+              AND t.status IN (com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
+                               com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
             """)
     BigDecimal sumActiveSettlements(@Param("forecastId") UUID forecastId);
 

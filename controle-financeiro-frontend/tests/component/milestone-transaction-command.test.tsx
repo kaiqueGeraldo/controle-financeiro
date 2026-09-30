@@ -1,0 +1,31 @@
+import {fireEvent,render,screen,waitFor} from "@testing-library/react";
+import {afterEach,expect,test,vi} from "vitest";
+import {TransactionCommandModal} from "@/components/forms/transactionCommandModal";
+import {transactionService} from "@/services/transactionService";
+import {ApiError} from "@/services/api";
+afterEach(()=>{sessionStorage.clear();vi.restoreAllMocks();});
+const props={transaction:{id:"forecast",description:"Previsão",amount:100,remainingAmount:60,date:"2026-09-07",createdAt:"2026-09-07T00:00:00",isPaid:false,type:"EXPENSE" as const,accountId:"account"},kind:"settle" as const,ownerId:"owner",onClose:vi.fn(),onSuccess:async()=>{}};
+test("lost settlement freezes its command across reopen and explicit retry preserves every field",async()=>{
+ const settle=vi.spyOn(transactionService,"settle").mockRejectedValueOnce(new ApiError("Resposta perdida",502,{requiresReconciliation:true})).mockResolvedValue({status:200,data:props.transaction});
+ const receipt=vi.spyOn(transactionService,"receipt").mockRejectedValue(new ApiError("Ausente",404));
+ const first=render(<TransactionCommandModal {...props}/>);
+ fireEvent.change(screen.getByLabelText("Valor da baixa"),{target:{value:"40.00"}});
+ fireEvent.click(screen.getByRole("button",{name:"Confirmar baixa"}));
+ await screen.findByRole("button",{name:/^Consultar recibo$/});const command=settle.mock.calls[0][1];
+ first.unmount();render(<TransactionCommandModal {...props} transaction={{...props.transaction,remainingAmount:20}}/>);
+ expect((screen.getByLabelText("Valor da baixa") as HTMLInputElement).value).toBe("40.00");
+ expect((screen.getByLabelText("Valor da baixa") as HTMLInputElement).closest("fieldset")?.disabled).toBe(true);
+ expect(settle).toHaveBeenCalledOnce();fireEvent.click(screen.getByRole("button",{name:/^Consultar recibo$/}));
+ await screen.findByRole("button",{name:"Repetir mesma intenção"});expect(receipt).toHaveBeenCalledOnce();expect(settle).toHaveBeenCalledOnce();
+ fireEvent.click(screen.getByRole("button",{name:"Repetir mesma intenção"}));await waitFor(()=>expect(settle).toHaveBeenCalledTimes(2));
+ expect(settle.mock.calls[1][1]).toEqual(command);await waitFor(()=>expect(sessionStorage.length).toBe(0));
+});
+test("confirmed reversal with failed reads only refreshes and never sends a second mutation",async()=>{
+ const reverse=vi.spyOn(transactionService,"reverse").mockResolvedValue({status:200,data:props.transaction});
+ const refresh=vi.fn().mockRejectedValueOnce(new Error("Falha de leitura")).mockResolvedValue(undefined);
+ render(<TransactionCommandModal {...props} kind="reverse" onSuccess={refresh}/>);
+ fireEvent.change(screen.getByLabelText("Motivo"),{target:{value:"Reembolso"}});
+ fireEvent.click(screen.getByRole("button",{name:"Confirmar estorno"}));await screen.findByRole("button",{name:"Atualizar dados"});
+ fireEvent.click(screen.getByRole("button",{name:"Atualizar dados"}));await waitFor(()=>expect(refresh).toHaveBeenCalledTimes(2));
+ expect(reverse).toHaveBeenCalledOnce();await waitFor(()=>expect(sessionStorage.length).toBe(0));
+});

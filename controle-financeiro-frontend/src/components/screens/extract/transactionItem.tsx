@@ -108,6 +108,7 @@ export function TransactionItem({
 
             {/* Categoria */}
             <span>{categoriaNome}</span>
+            {item.status&&<span>{({PENDING:"Previsto",PARTIALLY_SETTLED:"Baixa parcial",FULFILLED:"Previsão realizada",CANCELLED:"Previsão cancelada",SETTLED:"Realizado",REVERSED:"Estornado"})[item.status]}</span>}
 
             <span className="w-0.5 h-0.5 bg-zinc-600 rounded-full shrink-0"></span>
 
