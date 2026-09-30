@@ -1,6 +1,6 @@
 # CF-022 — Validar hábitos e execução dos crons
 
-- Estado: em_execucao
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -28,10 +28,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Mesmo dia não ganha registros/progresso duplicados; desfazer marcação desfaz efeito correspondente.
-- [ ] Trocar TZ da JVM não desloca dia do hábito definido no contrato; virada semanal preserva meta semanal.
-- [ ] Duas execuções/retry do job preservam invariantes de ofensiva e histórico.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Mesmo dia não ganha registros/progresso duplicados; desfazer marcação desfaz efeito correspondente.
+- [x] Trocar TZ da JVM não desloca dia do hábito definido no contrato; virada semanal preserva meta semanal.
+- [x] Duas execuções/retry do job preservam invariantes de ofensiva e histórico.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -60,5 +60,25 @@ todas as assertions históricas; adaptação restrita ao novo inventário aprova
 SPEC-002 e matriz DEC-08 atualizadas para refletir a decisão explícita do usuário;
 nenhuma outra tarefa foi iniciada. Harness de browser e isolamento de schema
 ficam em `src/test/java/.../domain/habit/`, sem alterar produto frontend.
+
+Entregue e validada localmente em 30/09/2026, código
+`bb14aa2e91f55db6f6d9c0651ccd65e439096210`: ofensivas recalculadas por calendário,
+semana segunda–domingo, perdão preservado, configuração semanal respeitada,
+travas hábito/meta, contribuição identificada e reversível, transação por hábito,
+paginação keyset e V12 aditiva sem inferir legado. `streak_as_of` impede que uma
+operação atrasada na meia-noite apague o calendário observado mais recentemente.
+
+Gate final:274 testes backend/JVM UTC com verify e JAR;36 testes dirigidos/JVM
+UTC+14;16 contratos temporais/JVM São Paulo. Zero falhas/erros/skips nesses gates.
+Quatro jornadas reais diário/semanal em navegadores São Paulo/UTC+14, com
+Next/BFF/Spring/PostgreSQL e persistência após reload; quatro mutações detectadas
+na cópia isolada, restaurada por hash. Vermelhos, ajustes legítimos de fixtures,
+comandos, capturas, custos e limites: [evidência CF-022](../evidencias/CF-022/README.md).
+
+Permanece `em_revisao`: autotestes não substituem execução independente. Legado
+sem identidade precisa de reconciliação para desfazer contribuição; adoção real
+continua no gate CF-017. Nenhuma tarefa seguinte integralmente liberada:
+CF-025/027/032 conservam suas outras dependências e o aceite desta revisão.
+Somente a revisão independente da CF-022 fica pronta; nenhuma próxima foi iniciada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

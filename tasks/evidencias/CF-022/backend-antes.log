@@ -1,0 +1,197 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 11 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 54 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+18:32:45.485 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:32:45.733 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+18:32:45.991 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+18:32:45.994 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 18:32:46.368 - INFO 33268 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-30 18:32:46.718 - INFO 33268 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-30 18:32:51.885 - INFO 33268 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-30 18:32:51.886 - INFO 33268 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-30 18:32:51.906 - INFO 33268 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-30 18:32:52.825 - INFO 33268 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-30 18:32:52.825 - INFO 33268 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-30 18:32:52.826 - INFO 33268 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-30 18:32:54.411 - INFO 33268 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 33268 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 18:32:54.412 - INFO 33268 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-30 18:33:04.247 - WARN 33268 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 18:33:14.560 - INFO 33268 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 28.552 seconds (process running for 30.126)
+-2026-09-30 18:33:15.008 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito a1000fa8-5c2a-40fc-a8a0-eed525bd7180 para a data 2027-01-04
+-2026-09-30 18:33:15.301 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.301 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-30 18:33:15.341 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito f7abbbbb-a0d9-4f15-aeaa-40ccc39d6604 para a data 2027-01-04
+-2026-09-30 18:33:15.353 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.353 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-30 18:33:15.485 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito a1000fa8-5c2a-40fc-a8a0-eed525bd7180 para a data 2027-01-04
+-2026-09-30 18:33:15.495 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Desmarcando h�bito. Revertendo estado.
+-2026-09-30 18:33:15.496 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva reduzida para 0
+-2026-09-30 18:33:15.575 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Criando novo h�bito 'Semanal' para usu�rio 689170bc-8dd4-46f4-b926-9e93041b9bcd@example.invalid
+-2026-09-30 18:33:15.609 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito 357d66b9-0e4e-4fa7-bedf-8874d1042037 para a data 2026-12-28
+-2026-09-30 18:33:15.619 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.624 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito 357d66b9-0e4e-4fa7-bedf-8874d1042037 para a data 2027-01-03
+-2026-09-30 18:33:15.633 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.696 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Iniciando processamento de H�bitos (Daily e Weekly Goals)...
+-2026-09-30 18:33:15.851 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Processamento finalizado de forma otimizada.
+-2026-09-30 18:33:15.869 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Iniciando processamento de H�bitos (Daily e Weekly Goals)...
+-2026-09-30 18:33:15.902 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Processamento finalizado de forma otimizada.
+-2026-09-30 18:33:15.937 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito aa14510e-7394-4cbb-9c16-ff9a0ef44bb5 para a data 2027-01-05
+-2026-09-30 18:33:15.948 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.949 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-30 18:33:15.980 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito d5551e7e-43f5-44ac-963b-5ef0818572ea para a data 2027-01-01
+-2026-09-30 18:33:15.990 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:15.991 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-30 18:33:15.997 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito d5551e7e-43f5-44ac-963b-5ef0818572ea para a data 2027-01-04
+-2026-09-30 18:33:16.009 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:16.009 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 2
+-2026-09-30 18:33:16.052 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito e3c26eab-c2b6-4353-92e6-13aa2b385eec para a data 2027-01-01
+-2026-09-30 18:33:16.062 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:16.063 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva incrementada para 1
+-2026-09-30 18:33:16.092 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito e3c26eab-c2b6-4353-92e6-13aa2b385eec para a data 2027-01-01
+-2026-09-30 18:33:16.102 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Desmarcando h�bito. Revertendo estado.
+-2026-09-30 18:33:16.102 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Ofensiva reduzida para 0
+-2026-09-30 18:33:16.131 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito f4005477-f6b5-4f60-9792-9c31ac8df3bc para a data 2026-12-28
+-2026-09-30 18:33:16.141 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:16.146 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Toggle no h�bito f4005477-f6b5-4f60-9792-9c31ac8df3bc para a data 2027-01-03
+-2026-09-30 18:33:16.155 - INFO 33268 --- [           main] c.c.api.service.HabitService             : SERVICE: Marcando h�bito como conclu�do.
+-2026-09-30 18:33:16.162 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Iniciando processamento de H�bitos (Daily e Weekly Goals)...
+-2026-09-30 18:33:16.223 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Processamento finalizado de forma otimizada.
+-2026-09-30 18:33:16.232 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Iniciando processamento de H�bitos (Daily e Weekly Goals)...
+-2026-09-30 18:33:16.289 - INFO 33268 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Processamento finalizado de forma otimizada.
+-[ERROR] Tests run: 7, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 31.06 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.equalNamesAndDaysAreIndependentContributions -- Time elapsed: 0.927 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 11
+ but was: 12.00
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.assertValue(HabitIntegrityIntegrationTest.java:162)
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.equalNamesAndDaysAreIndependentContributions(HabitIntegrityIntegrationTest.java:76)
+
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.creationKeepsWeeklyConfiguration -- Time elapsed: 0.028 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: WEEKLY_GOAL
+ but was: DAILY
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.creationKeepsWeeklyConfiguration(HabitIntegrityIntegrationTest.java:51)
+
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.weeklyCronAcrossNewYearIsIdempotentAfterLockExpires -- Time elapsed: 0.322 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 1
+ but was: 2
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.assertStreak(HabitIntegrityIntegrationTest.java:167)
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.weeklyCronAcrossNewYearIsIdempotentAfterLockExpires(HabitIntegrityIntegrationTest.java:99)
+
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.futureDateAndForeignOrMonetaryGoalsHaveNoEffects -- Time elapsed: 0.044 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.futureDateAndForeignOrMonetaryGoalsHaveNoEffects(HabitIntegrityIntegrationTest.java:119)
+
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.twoMissedDaysBreakDailyStreakEvenWhenMarkedRetroactively -- Time elapsed: 0.061 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 1
+ but was: 2
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.assertStreak(HabitIntegrityIntegrationTest.java:167)
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.twoMissedDaysBreakDailyStreakEvenWhenMarkedRetroactively(HabitIntegrityIntegrationTest.java:84)
+
+[ERROR] com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.retroactiveUncheckAfterRenameReversesItsExactContribution -- Time elapsed: 0.088 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 10
+ but was: 11.00
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.assertValue(HabitIntegrityIntegrationTest.java:162)
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.retroactiveUncheckAfterRenameReversesItsExactContribution(HabitIntegrityIntegrationTest.java:62)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   HabitIntegrityIntegrationTest.creationKeepsWeeklyConfiguration:51 
+expected: WEEKLY_GOAL
+ but was: DAILY
+[ERROR]   HabitIntegrityIntegrationTest.equalNamesAndDaysAreIndependentContributions:76->assertValue:162 
+expected: 11
+ but was: 12.00
+[ERROR]   HabitIntegrityIntegrationTest.futureDateAndForeignOrMonetaryGoalsHaveNoEffects:119 
+Expecting code to raise a throwable.
+[ERROR]   HabitIntegrityIntegrationTest.retroactiveUncheckAfterRenameReversesItsExactContribution:62->assertValue:162 
+expected: 10
+ but was: 11.00
+[ERROR]   HabitIntegrityIntegrationTest.twoMissedDaysBreakDailyStreakEvenWhenMarkedRetroactively:84->assertStreak:167 
+expected: 1
+ but was: 2
+[ERROR]   HabitIntegrityIntegrationTest.weeklyCronAcrossNewYearIsIdempotentAfterLockExpires:99->assertStreak:167 
+expected: 1
+ but was: 2
+[INFO] 
+[ERROR] Tests run: 7, Failures: 6, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  41.720 s
+[INFO] Finished at: 2026-09-30T18:33:17Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

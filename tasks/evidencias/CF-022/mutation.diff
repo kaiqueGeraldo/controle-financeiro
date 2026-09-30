@@ -1,0 +1,38 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\goal\\GoalHistory.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\goal\\GoalHistory.java"
+index 58a06d7..f4d86c8 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\goal\\GoalHistory.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\goal\\GoalHistory.java"
+@@ -24,6 +24,7 @@ public class GoalHistory {
+     private UUID id;
+ 
+     // Writers supply the product Clock explicitly; generation used to overwrite it.
++    @org.hibernate.annotations.CreationTimestamp
+     private LocalDateTime date;
+ 
+     @Column(nullable = false)
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitRepository.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitRepository.java"
+index 2e6f57f..c3e7bef 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitRepository.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitRepository.java"
+@@ -12,7 +12,7 @@ import java.util.UUID;
+ import java.util.Optional;
+ 
+ public interface HabitRepository extends JpaRepository<Habit, UUID> {
+-    @Lock(LockModeType.PESSIMISTIC_WRITE)
++
+     @Query("select h from Habit h where h.id = :id")
+     Optional<Habit> findForUpdate(UUID id);
+ 
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\HabitCronService.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\HabitCronService.java"
+index 872dfc9..a2b8f60 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\HabitCronService.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf022-mutation-0d100e2b93554e29ad477dab73bc9958\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\HabitCronService.java"
+@@ -67,7 +67,7 @@ public class HabitCronService {
+             }
+         }
+         List<HabitLog> logs = habitLogRepository.findAllByHabitIdAndDateLessThanEqualOrderByDateAsc(id, today);
+-        HabitStreakCalculator.apply(habit, logs, today);
++        if (habit.getFrequency() == HabitFrequency.WEEKLY_GOAL) habit.setCurrentStreak(habit.getCurrentStreak() + 1); else HabitStreakCalculator.apply(habit, logs, today);
+         habitRepository.save(habit);
+     }
+ }
