@@ -1,11 +1,9 @@
 // Verifica somente artefatos de especificacao. Nao importa nem executa produto.
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 
 const root = new URL('../../../', import.meta.url);
 const read = (path) => readFile(new URL(path, root), 'utf8');
-const sha = (bytes) => createHash('sha256').update(bytes).digest('hex').toUpperCase();
 const cents = (value) => {
   assert.match(value, /^-?(?:0|[1-9]\d*)\.\d{2}$/, `decimal nao canonico: ${value}`);
   return BigInt(value.replace('.', ''));
@@ -147,26 +145,25 @@ const findings = (await read('tasks/evidencias/CF-016/DIVERGENCIAS.md')).split(/
 assert.equal(findings.length, 15);
 findings.forEach((line) => assert.match(line.split('|').at(-2), /CF-\d{3}/, 'divergencia sem dona'));
 
-const snapshot = JSON.parse((await read('tasks/evidencias/CF-016/base-inicial.json')).replace(/^\uFEFF/, ''));
-assert.equal(snapshot.base, '45e156c3189fd9893a88e6adcc0df3903983f4b9');
-const allowedChanges = new Set(['tasks/03-integridade/CF-016-regras-financeiras.md',
-  'docs/sdd/README.md', 'docs/sdd/arquitetura.md', 'docs/sdd/specs/003-criterios-oracles.md']);
-let preserved = 0;
-const changed = [];
-for (const item of snapshot.files) {
-  const hash = sha(await readFile(new URL(item.path, root)));
-  if (hash === item.sha256) preserved++;
-  else {
-    assert.ok(allowedChanges.has(item.path), `arquivo preexistente alterado fora do escopo: ${item.path}`);
-    changed.push(item.path);
+// A execução histórica integral continua disponível e estrita por padrão.
+// --current executa oráculos atuais sem exigir bytes de produto de 2026-09-21.
+console.log(`CF-016 atual: ${rows.length} estados reconciliados; 18 bordas documentadas; 15 divergencias com donas; ${linkCount} links validos.`);
+console.log('Precisao racional/parcelas/custo aprovados; 7 casos CF-001 compativeis. Camada documental, sem runtime de produto.');
+const ng01=JSON.parse(await read('tasks/evidencias/saneamento-CF-016-CF-021/ng01-oracles.json'));
+assert.equal(ng01.decision,'TOTAL_PROPORTIONAL');
+for(const test of ng01.cases){
+  let units=BigInt(test.units);
+  const reference=cents(test.total);
+  assert.equal(test.sales.length,test.remaining.length);
+  for(const [i,sale] of test.sales.entries()){
+    units-=BigInt(sale);assert.ok(units>=0n);
+    assert.equal(roundedFraction(reference*units,BigInt(test.units)),cents(test.remaining[i]),test.id);
   }
+  assert.equal(units,0n);
 }
-
-console.log(`CF-016: ${rows.length} estados reconciliados; 18 bordas documentadas; 15 divergencias com donas; ${linkCount} links validos.`);
-console.log('Precisao racional/parcelas/custo aprovados; 7 casos CF-001 compativeis. Camada: documental, sem runtime de produto.');
-console.log(`Preservacao: ${preserved}/${snapshot.files.length} arquivos iniciais identicos; alteracoes autorizadas: ${changed.join(', ')}.`);
-console.log(`README raiz SHA256: ${sha(await readFile(new URL('README.md', root)))}`);
-
+console.log('NG-01: extremos e terços reconciliados pela referência total proporcional.');
+if(!process.argv.includes('--current'))await import('./verify-preservation.mjs');
+else console.log('Gate histórico não executado neste modo; use verify-preservation.mjs em snapshot histórico. Não declara execução integral anterior aprovada.');
 if (process.argv.includes('--adversarial')) {
   const mutations = [
     ['abertura-como-renda', 'abertura nao e fluxo', (table) => { table[0].income = '1000.00'; }],

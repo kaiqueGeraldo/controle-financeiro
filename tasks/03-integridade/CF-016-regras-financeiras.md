@@ -45,6 +45,12 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Saneamento de 30/09/2026: [verificador separado e NG-01](../evidencias/saneamento-CF-016-CF-021/CF016-VERIFICADOR.md).
+O modo `--current --adversarial` valida os oráculos atuais; a preservação
+histórica continua estrita e disponível separadamente. A falha integral
+original em pom.xml foi reproduzida e preservada, sem aprovação retrospectiva.
+O marco CF-016–CF-021 continua aguardando revisão independente.
+
 Iniciada em 21/09/2026 sobre `45e156c3189fd9893a88e6adcc0df3903983f4b9`, com CF-001 e CF-004 concluídas e integradas. CF-015 permanece em_revisao exclusivamente pelo aceite de zoom nativo 200%; R03/RV01 encerrado. O [snapshot inicial](../evidencias/CF-016/base-inicial.json) registra os arquivos preexistentes, inclusive README raiz modificado. Escopo documental complementar: nova SPEC-004, referência no índice SDD/ADR-002 e atualização apenas das decisões DEC-04/07 na SPEC-003 para evitar contratos contraditórios. Nenhuma mudança de produto, schema ou estado de tarefa dependente.
 
 Concluída em 22/09/2026 **no escopo de especificação**. A [SPEC-004](../../docs/sdd/specs/004-regras-financeiras.md) resolve DEC-04 e regras financeiras de DEC-07; define abertura, realizado/pendente, transferência, compra/pagamento, custo/avaliação, destinação, taxas, precisão e compensação. [Tabela e guia](../evidencias/CF-016/ORACLES.md): 49 estados reconciliados e 18 bordas contratuais, sem chamar cálculo de produção. [Confronto estático](../evidencias/CF-016/DIVERGENCIAS.md): 15 divergências/lacunas de produto com donos nas tarefas existentes, mais uma lacuna documental preexistente.
