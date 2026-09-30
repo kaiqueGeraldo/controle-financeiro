@@ -1,6 +1,6 @@
 # CF-024 — Corrigir concorrência financeira e cache após commit
 
-- Estado: proposta
+- Estado: bloqueada
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -43,7 +43,11 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-024/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Preparação conferida em 30/09/2026 sobre `a21ecdb`; implementação não iniciada
+por gate de dependência. Ver [evidências CF-024](../evidencias/CF-024/README.md)
+e [preflight verificável](../evidencias/CF-024/preflight.json). Os critérios de
+aceite permanecem pendentes; evidência das correções anteriores não equivale à
+conclusão desta tarefa.
 
 Dependência concreta encontrada no saneamento CF-015/R03: fechamento repetido
 de fatura PAID debitava novamente; chamadas concorrentes também não tinham uma
@@ -65,3 +69,21 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 O saneamento implementa intenção/fingerprint/recibo recuperável para pagamento e comandos diretos exigidos pelo marco, com PostgreSQL/reload e perda de resposta. Locks por fonte/contas ordenadas e H-01 têm provas independentes. Não há certificação transversal de todos os writers/caches, multitab/dispositivo ou preservação da identificação após perda do sessionStorage; estado preservado.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Gate de início — 30/09/2026
+
+CF-018/019/020/023 têm commits de produto ancestrais da base, porém conservam
+`em_revisao`. A entrega mais recente da
+[CF-023](CF-023-isolamento-autenticacao.md) libera **somente sua revisão
+independente** e exige seu aceite antes de liberar integralmente CF-024.
+Não há esse aceite registrado na base inspecionada. O pedido de executar apenas
+CF-024 respeitando dependências não autoriza executar ou aprovar CF-023 nesta
+sessão. Por isso CF-024 fica `bloqueada`, sem alteração de produto/testes e sem
+certificação transversal de concorrência/cache.
+
+Retomada: integrar o parecer independente de CF-023 e uma liberação explícita
+do recorte local de CF-024 considerando CF-018/019/020. Seus estados e gates
+não foram alterados. RVA-03 permanece uma pendência delimitada de interação de
+pagamento, sem prova de defeito financeiro transversal; não é a causa deste
+bloqueio. README raiz preservado byte a byte e fora do staging. Nenhuma tarefa
+sucessora (CF-025/027/030/032) foi liberada por esta preparação.
