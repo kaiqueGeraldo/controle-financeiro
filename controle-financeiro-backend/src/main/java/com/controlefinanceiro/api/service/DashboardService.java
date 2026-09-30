@@ -64,7 +64,7 @@ public class DashboardService {
             if (row[0].toString().equals(TransactionType.EXPENSE.name())) expense = amount;
         }
         BigDecimal cardConsumption = BigDecimal.ZERO;
-        if (accountId == null && type != TransactionType.INCOME) {
+        if (accountId == null && (type == null || type == TransactionType.EXPENSE)) {
             cardConsumption = cardTransactionRepository.sumPurchasesByPeriod(user.getId(), startDate, endDate)
                     .subtract(cardRefundRepository.sumByPeriod(user.getId(), startDate, endDate));
             expense = expense.add(cardConsumption);

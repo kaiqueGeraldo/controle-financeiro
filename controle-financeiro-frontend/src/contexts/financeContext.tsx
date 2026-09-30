@@ -9,7 +9,7 @@ import {
 } from "react";
 import { accountService } from "@/services/accountService";
 import { categoryService } from "@/services/categoryService";
-import { Account, Category, CreateCategoryDTO } from "@/types";
+import { Account, AccountPosition, Category, CreateCategoryDTO } from "@/types";
 import { useUser } from "@/hooks/useUser";
 import { useOptimisticMutation } from "@/hooks/useOptimisticMutation";
 import {
@@ -20,7 +20,8 @@ import {
 interface FinanceContextType {
   accounts: Account[];
   categories: Category[];
-  saldoTotal: number;
+  saldoTotal: number|null;
+  accountPosition:AccountPosition|null;
   isLoading: boolean;
   error: Error | null;
   refresh: (requireSuccess?: boolean) => Promise<void>;
@@ -36,6 +37,7 @@ const FinanceContext = createContext<FinanceContextType | undefined>(undefined);
 
 export function FinanceProvider({ children }: { children: ReactNode }) {
   const [accounts, setAccounts] = useState<Account[]>([]);
+  const [accountPosition,setAccountPosition]=useState<AccountPosition|null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -55,9 +57,10 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
       setError(null);
       try {
-        const [accountsResult, categoriesResult] = await Promise.all([
+        const [accountsResult, categoriesResult, positionResult] = await Promise.all([
           accountService.getAll(request.signal),
           categoryService.getAll(undefined, request.signal),
+          accountService.getPosition(request.signal),
         ]);
 
         if (!request.isCurrent()) {
@@ -65,6 +68,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
           return;
         }
         setAccounts(accountsResult.data ?? []);
+        setAccountPosition(positionResult.data);
         setCategories(categoriesResult.data ?? []);
       } catch (error: unknown) {
         if (request.isCurrent() && !isAbortError(error)) {
@@ -92,6 +96,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setAccounts([]);
+    setAccountPosition(null);
     setCategories([]);
     setError(null);
 
@@ -110,8 +115,8 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   }, [fetchData]);
 
   const saldoTotal = useMemo(() => {
-    return accounts.reduce((acc, curr) => acc + curr.balance, 0);
-  }, [accounts]);
+    return !accountPosition || accountPosition.outsideSupportedRange ? null : Number(accountPosition.totalBalance);
+  }, [accountPosition]);
 
   const { mutate: createCategory } = useOptimisticMutation({
     mutationFn: (data: CreateCategoryDTO) => categoryService.create(data),
@@ -197,6 +202,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       accounts,
       categories,
       saldoTotal,
+      accountPosition,
       isLoading,
       error,
       refresh: fetchData,
@@ -214,6 +220,7 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
       accounts,
       categories,
       saldoTotal,
+      accountPosition,
       isLoading,
       error,
       fetchData,

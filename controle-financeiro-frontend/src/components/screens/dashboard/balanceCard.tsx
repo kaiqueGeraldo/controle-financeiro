@@ -3,8 +3,8 @@ import { formatCurrency } from "@/utils/format";
 import { ArrowUpRight, Wallet } from "lucide-react";
 
 interface BalanceCardProps {
-  saldoTotal: number;
-  saldoContas: number;
+  saldoTotal: number|null;
+  saldoContas: number|null;
   saldoInvestimentos: number;
   valuationComplete: boolean;
 }
@@ -30,13 +30,13 @@ export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos, valua
           Subtotal de ativos conhecidos
         </span>
         <PrivacyBlur className="text-3xl font-bold mt-1 text-text-main tracking-tight [overflow-wrap:anywhere]">
-          {formatCurrency(saldoTotal)}
+            {saldoTotal===null?"Posição indisponível":formatCurrency(saldoTotal)}
         </PrivacyBlur>
 
         {/* SUBTÍTULO DETALHADO */}
         <div className="flex flex-wrap items-center gap-2 mt-2 text-[10px] uppercase font-bold text-text-muted tracking-wider">
           <span className="flex items-center gap-1">
-            Contas: <PrivacyBlur>{formatCurrency(saldoContas)}</PrivacyBlur>
+            Contas (inclui arquivadas): <PrivacyBlur>{saldoContas===null?"indisponível":formatCurrency(saldoContas)}</PrivacyBlur>
           </span>
           <span className="w-1 h-1 bg-text-muted rounded-full"></span>
           <span className="flex items-center gap-1">

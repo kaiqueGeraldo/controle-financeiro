@@ -80,6 +80,11 @@ export interface CreateTransactionDTO {
   fee?: string;
 }
 
+export interface AccountPosition {
+  asOfDate:string;totalBalance:string;checkingBalance:string;archivedBalance:string;
+  outsideSupportedRange:boolean;accounts:Account[];
+}
+
 export interface CreateCategoryDTO {
   name: string;
   icon: string;
@@ -267,6 +272,8 @@ export interface InvestmentBreakdown {
     value: number | null;
   type: "GOAL" | "ASSET";
   color: string;
+  valuationDate?:string|null;
+  valuationSource?:string|null;
 }
 
 export interface AnnualSummaryResponse {

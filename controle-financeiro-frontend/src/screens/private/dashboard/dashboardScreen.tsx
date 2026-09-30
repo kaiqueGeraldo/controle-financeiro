@@ -78,7 +78,7 @@ export default function DashboardScreen() {
     investmentsError ||
     flowError ||
     recentTransactionsError;
-  const patrimonioTotal = saldoTotal + totalInvestido;
+  const patrimonioTotal = saldoTotal===null?null:saldoTotal + totalInvestido;
 
   const resumoFaturas = useMemo(() => {
     const total = cards.reduce(

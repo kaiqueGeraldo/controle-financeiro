@@ -3,8 +3,8 @@ import { formatCurrency } from "@/utils/format";
 import { Building2, TrendingUp, Wallet } from "lucide-react";
 
 interface AccountsSummaryProps {
-  total: number;
-  checking: number;
+  total: number|null;
+  checking: number|null;
   invested: number;
   valuationComplete: boolean;
 }
@@ -27,7 +27,7 @@ export function AccountsSummary({
             Subtotal de ativos conhecidos
           </p>
           <PrivacyBlur className="text-xl font-bold text-text-main">
-            {formatCurrency(total)}
+            {total===null?"Posição indisponível":formatCurrency(total)}
           </PrivacyBlur>
           <p className="text-xs text-text-muted mt-1">
             {valuationComplete ? "Dívida e crédito de cartões não incluídos." : "Há investimentos sem avaliação; total completo indisponível. Dívida e crédito de cartões não incluídos."}
@@ -45,7 +45,7 @@ export function AccountsSummary({
             Conta Corrente
           </p>
           <PrivacyBlur className="text-xl font-bold text-blue-400">
-            {formatCurrency(checking)}
+            {checking===null?"Posição indisponível":formatCurrency(checking)}
           </PrivacyBlur>
         </div>
       </div>

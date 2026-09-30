@@ -8,6 +8,60 @@ async function start(page:Page,suffix:string){await page.clock.setFixedTime(new 
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
 
+test("SAN-E2 arquivar pela UI, posição datada em outro ano e exportar transferência",async({page})=>{
+ await start(page,"report-position");
+ const archived=await post(page,"/accounts",{name:"SAN conta arquivada",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const a=await post(page,"/accounts",{name:"SAN origem ativa",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const b=await post(page,"/accounts",{name:"SAN destino ativo",type:"CHECKING",initialBalance:0,color:"#3b82f6"});
+ await page.goto("/contas");await page.getByRole("button",{name:`Opções da conta ${archived.name}`}).click();
+ await page.getByRole("menuitem",{name:"Arquivar",exact:true}).click();
+ const response=page.waitForResponse(r=>r.url().endsWith(`/accounts/${archived.id}`)&&r.request().method()==="DELETE");
+ await page.getByRole("dialog",{name:"Arquivar Conta"}).getByRole("button",{name:"Arquivar Conta",exact:true}).click();
+ expect((await response).ok()).toBe(true);await page.reload();
+ await expect(page.getByRole("region",{name:"Posição de contas arquivadas"})).toContainText("SAN conta arquivada");
+ expect((await json(page,"/accounts")).some((v:{id:string})=>v.id===archived.id)).toBe(false);
+ const p=await json(page,"/accounts/position");expect(p.totalBalance).toBe("2000.00");expect(p.archivedBalance).toBe("1000.00");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.screenshot({path:path.join(dir,`san-e2-contas-${width}.png`),fullPage:true,animations:"disabled"});}
+ await post(page,"/investments",{ticker:"SANDATE",name:"Avaliação datada",type:"STOCK",openingQuantity:20,openingCost:200,openingValue:500,valuationDate:"2027-01-10",valuationSource:"USER_PROVIDED"});
+ await post(page,"/investments",{ticker:"SANUNKNOWN",name:"Posição sem avaliação conhecida",type:"STOCK",openingQuantity:1,openingCost:10});
+ await page.goto("/resumo-anual");await page.getByRole("button",{name:"Ano anterior",exact:true}).click();
+ await expect(page.getByText(/Não representa fechamento de 2026/)).toBeVisible();
+ await expect(page.getByText(/Avaliação: 10\/01\/2027 · Origem: USER_PROVIDED/)).toBeVisible();
+ await expect(page.getByText("Posição sem avaliação conhecida",{exact:true})).toBeVisible();
+ const annual=await json(page,"/annual-summary?year=2026");
+ expect(annual.investments.totalValue).toBeNull();expect(annual.investments.valuationAsOf).toBe("2027-01-15");
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Posição atual de investimentos",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-e2-anual-${width}.png`),fullPage:true,animations:"disabled"});}
+ const c=await post(page,"/cards",{name:"SAN consumo fora do filtro",last4Digits:"4242",limit:1000,closingDay:20,dueDay:28,brand:"VISA",color:"#7c3aed"});
+ const categories=await json(page,"/categories?type=EXPENSE");
+ await post(page,"/cards/transaction",{cardId:c.id,categoryId:categories[0].id,description:"SAN compra cartão",amount:100,date:"2027-01-10",totalInstallments:1});
+ await post(page,"/transactions",{description:"SAN transferência filtrada",amount:200,date:"2027-01-15",type:"TRANSFER",accountId:a.id,destinationAccountId:b.id,isPaid:true,fee:0});
+ await page.goto("/extrato");
+ const summaryResponse=page.waitForResponse(r=>r.url().includes("/transactions/summary?")&&r.url().includes("type=TRANSFER"));
+ await page.getByRole("button",{name:"Transferências",exact:true}).click();
+ const summary=await (await summaryResponse).json();expect([summary.entries,summary.exits,summary.balance]).toEqual([0,0,0]);
+ await expect(page.getByText("SAN transferência filtrada",{exact:true})).toHaveCount(2);
+ const exported=page.waitForResponse(r=>r.url().includes("/transactions/export?")&&r.url().includes("type=TRANSFER"));
+ const download=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();
+ expect((await exported).ok()).toBe(true);await (await download).saveAs(path.join(dir,"san-e2-transferencias.xlsx"));
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.screenshot({path:path.join(dir,`san-e2-filtro-${width}.png`),fullPage:true,animations:"disabled"});}
+ await page.reload();await page.getByRole("button",{name:"Lançar",exact:true}).click();
+ const modal=page.getByRole("dialog",{name:"Nova Transação",exact:true});
+ await expect(modal.getByLabel("Conta do lançamento").locator("option",{hasText:archived.name})).toHaveCount(0);
+ await writeFile(path.join(dir,"san-e2-position.json"),JSON.stringify({position:p,annual,summary},null,2));
+});
+
+test("SAN-E2-visual motivo de indisponibilidade legível em 360, 768 e 1440",async({page})=>{
+ await start(page,"unknown-visual");
+ await post(page,"/investments",{ticker:"SANVIS",name:"Avaliação desconhecida",type:"STOCK",openingQuantity:10,openingCost:200});
+ await page.goto("/investimentos");
+ const reason=page.getByText("Custo ou avaliação indisponível",{exact:true});await expect(reason).toBeVisible();
+ for(const width of [360,768,1440]){
+   await page.setViewportSize({width,height:900});await reason.scrollIntoViewIfNeeded();
+   const box=await reason.boundingBox();expect(box).not.toBeNull();expect(box!.x).toBeGreaterThanOrEqual(0);expect(box!.x+box!.width).toBeLessThanOrEqual(width);
+   await page.screenshot({path:path.join(dir,`san-e2-investimentos-${width}.png`),animations:"disabled"});
+ }
+});
+
 test("SAN-D2 previsão, baixa, transferência atômica e estorno parcial/total pela UI",async({page})=>{
  await start(page,"commands");
  const a=await post(page,"/accounts",{name:`${ns}-origem`,type:"CHECKING",initialBalance:1000,color:"#10b981"});

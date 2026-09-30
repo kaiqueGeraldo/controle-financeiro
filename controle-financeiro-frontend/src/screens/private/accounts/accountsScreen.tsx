@@ -14,6 +14,8 @@ import { useInvestments } from "@/hooks/useInvestments";
 import { useUser } from "@/hooks/useUser";
 import { accountService } from "@/services/accountService";
 import { Account } from "@/types";
+import {formatCurrency} from "@/utils/format";
+import {formatCalendarDate} from "@/utils/date";
 import {
   ArrowUpDown,
   Banknote,
@@ -30,7 +32,7 @@ export default function AccountsScreen() {
   const router = useRouter();
   const { user } = useUser();
   const { refreshDashboard } = useDashboard();
-  const { accounts, isLoading, saldoTotal, error, refresh } = useFinanceData();
+  const { accounts, accountPosition, isLoading, saldoTotal, error, refresh } = useFinanceData();
   const { openManageAccount } = useAccountModals();
   const [accountToDelete, setAccountToDelete] = useState<string | null>(null);
   const [accountToEdit, setAccountToEdit] = useState<Account | null>(null);
@@ -38,11 +40,9 @@ export default function AccountsScreen() {
   const [isReorderOpen, setIsReorderOpen] = useState(false);
   const toast = useToast();
 
-  const totalCorrente = accounts
-    .filter((a) => a.type === "CHECKING" || a.type === "CASH")
-    .reduce((acc, curr) => acc + curr.balance, 0);
+  const totalCorrente = !accountPosition || accountPosition.outsideSupportedRange ? null : Number(accountPosition.checkingBalance);
 
-  const total = saldoTotal + totalInvestido;
+  const total = saldoTotal===null ? null : saldoTotal + totalInvestido;
 
   if (!isLoading && error) {
     return (
@@ -91,6 +91,8 @@ export default function AccountsScreen() {
 
       {/* CONTEÚDO */}
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6">
+        {accountPosition&&<p className="mb-4 text-sm text-text-muted">Posição atual em {formatCalendarDate(accountPosition.asOfDate)}: inclui contas arquivadas. {accountPosition.outsideSupportedRange?"Agregado fora da faixa monetária suportada; posição indisponível nesta tela.":`Saldo em contas arquivadas: ${formatCurrency(Number(accountPosition.archivedBalance))}.`}</p>}
+        {accountPosition?.accounts.some(a=>a.isArchived)&&<section aria-label="Posição de contas arquivadas" className="mb-4 space-y-2 text-sm">{accountPosition.accounts.filter(a=>a.isArchived).map(a=><p key={a.id}>{a.name} · Arquivada · {formatCurrency(a.balance)}</p>)}</section>}
         {/* RESUMO */}
         <AccountsSummary
           total={total}
@@ -143,9 +145,9 @@ export default function AccountsScreen() {
       <ConfirmationModal
         isOpen={!!accountToDelete}
         onClose={() => setAccountToDelete(null)}
-        title="Excluir Conta"
-        message="Tem certeza que deseja excluir esta conta? Excluir uma conta vinculada a transações antigas pode gerar inconsistências no seu Balanço e Extrato."
-        confirmText="Excluir Conta"
+        title="Arquivar Conta"
+        message="O saldo e o histórico continuam na posição financeira. A conta deixa de estar disponível para novos lançamentos."
+        confirmText="Arquivar Conta"
         confirmColor="bg-rose-600 hover:bg-rose-700 text-white"
         onConfirm={async () => {
           if (accountToDelete) {

@@ -1,7 +1,8 @@
-import { Account, CreateAccountDTO } from "@/types";
+import { Account, AccountPosition, CreateAccountDTO } from "@/types";
 import { apiRequest } from "./api";
 
 export const accountService = {
+  getPosition: (signal?:AbortSignal)=>apiRequest<AccountPosition>("/accounts/position",{method:"GET",signal}),
   getAll: async (signal?: AbortSignal) => {
     return apiRequest<Account[]>("/accounts", { method: "GET", signal });
   },

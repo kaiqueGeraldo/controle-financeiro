@@ -14,6 +14,7 @@ import java.util.UUID;
 
 public interface AccountRepository extends JpaRepository<Account, UUID> {
     List<Account> findAllByUserIdAndIsArchivedFalseOrderByOrderIndexAsc(UUID userId);
+    List<Account> findAllByUserIdOrderByOrderIndexAsc(UUID userId);
 
     Optional<Account> findByIdAndUserId(UUID id, UUID userId);
 

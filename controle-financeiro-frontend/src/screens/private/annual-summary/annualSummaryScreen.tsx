@@ -7,7 +7,7 @@ import { AnnualNotepad } from "@/components/screens/annual-summary/annualNotepad
 import { DataLoadError } from "@/components/screens/dashboard/dataLoadError";
 import { useAnnualSummary } from "@/hooks/useAnnualSummary";
 import { useSidebar } from "@/hooks/useSidebar";
-import { productDateString } from "@/utils/date";
+import { productDateString, formatCalendarDate } from "@/utils/date";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Info, Loader2 } from "lucide-react";
 
@@ -64,6 +64,7 @@ export default function AnnualSummaryScreen() {
 
           <div className="flex items-center gap-1 md:gap-2 bg-bg-surface border border-border-divider rounded-xl p-1 shadow-sm shrink-0">
             <button
+              aria-label="Ano anterior"
               onClick={() => setYear(year - 1)}
               disabled={year <= MIN_YEAR}
               className={`p-2 rounded-lg transition ${year <= MIN_YEAR ? "text-zinc-700 cursor-not-allowed" : "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer"}`}
@@ -72,6 +73,7 @@ export default function AnnualSummaryScreen() {
             </button>
             <span className="font-bold text-base md:text-lg px-2 md:px-4 select-none">{year}</span>
             <button
+              aria-label="Ano seguinte"
               onClick={() => setYear(year + 1)}
               disabled={year >= MAX_YEAR}
               className={`p-2 rounded-lg transition ${year >= MAX_YEAR ? "text-zinc-700 cursor-not-allowed" : "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer"}`}
@@ -125,26 +127,12 @@ export default function AnnualSummaryScreen() {
                   monthlyAverage={summary.creditCard.monthlyAverage}
                 />
 
-                {year === currentYear ? (
                   <AnnualInvestments
                     totalCost={summary.investments.totalCost}
                     totalValue={summary.investments.totalValue}
                     items={summary.investments.items}
-                    positionDateLabel={`Valores consultados em ${summary.investments.valuationAsOf ?? "hoje"}; avaliações individuais podem ter datas anteriores e não representam fechamento anual.`}
+                    positionDateLabel={`Posição atual em ${summary.investments.valuationAsOf ? formatCalendarDate(summary.investments.valuationAsOf) : "data indisponível"}; avaliações individuais podem ter datas anteriores. Não representa fechamento de ${year}.`}
                   />
-                ) : (
-                  <section
-                    aria-labelledby="historical-position-unavailable"
-                    className="rounded-3xl border border-border-divider bg-bg-surface p-6"
-                  >
-                    <h3 id="historical-position-unavailable" className="text-sm font-bold text-text-main">
-                      Posição de metas e investimentos indisponível
-                    </h3>
-                    <p className="mt-2 text-sm text-text-muted">
-                      O fechamento de {year} ainda não é reconstruído pelo produto. A posição atual não é exibida como dado histórico.
-                    </p>
-                  </section>
-                )}
               </div>
             </div>
 

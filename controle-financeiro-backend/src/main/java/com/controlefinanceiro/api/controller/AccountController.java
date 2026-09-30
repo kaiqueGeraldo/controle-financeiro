@@ -45,6 +45,11 @@ public class AccountController {
         return ResponseEntity.ok(updatedAccount);
     }
 
+    @GetMapping("/position")
+    public ResponseEntity<com.controlefinanceiro.api.domain.account.dto.AccountPositionDTO> position(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.position(user));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id, @AuthenticationPrincipal User user) {
         log.warn("API: Excluir Conta {}. Usuário: {}", id, user.getEmail());

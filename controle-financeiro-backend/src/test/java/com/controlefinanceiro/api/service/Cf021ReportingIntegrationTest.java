@@ -44,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @AutoConfigureMockMvc
+@org.springframework.context.annotation.Import(Cf021ReportingIntegrationTest.FixedClock.class)
 class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
     private static final LocalDate DAY = LocalDate.of(2026, 9, 7);
 
@@ -402,7 +403,7 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
     }
 
     @Test
-    void historicYearNeverReceivesCurrentValuationAndCostIsNotAddedToValue() {
+    void selectedFlowYearKeepsSeparatelyDatedCurrentPositionAndCostIsNotAddedToValue() {
         User owner = new User();
         owner.setNome("CF021 posição");
         owner.setEmail(UUID.randomUUID() + "@example.invalid");
@@ -417,7 +418,12 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         asset.evaluate(new BigDecimal("50.00"), DAY, "USER_PROVIDED");
         investments.save(asset);
 
-        assertThat(annual.getSummary(owner, 2025).investments().totalValue()).isNull();
+        // DEC04/FIN08: current position is independently dated, not a 2025 closing snapshot.
+        var currentInPastReport=annual.getSummary(owner,2025).investments();
+        assertThat(currentInPastReport.totalValue()).isEqualByComparingTo("500.00");
+        assertThat(currentInPastReport.valuationAsOf()).isEqualTo(LocalDate.of(2026,9,28));
+        assertThat(currentInPastReport.items().getFirst().valuationDate()).isEqualTo(DAY);
+        assertThat(currentInPastReport.items().getFirst().valuationSource()).isEqualTo("USER_PROVIDED");
         assertThat(annual.getSummary(owner, 2026).investments().totalValue())
                 .isEqualByComparingTo("500.00");
         Investment withoutQuote = new Investment();

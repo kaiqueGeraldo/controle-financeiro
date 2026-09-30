@@ -111,7 +111,7 @@ export function AccountCard({
           {!isHidden && (
             <div onClick={(e) => e.stopPropagation()}>
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-text-muted hover:text-text-main p-1 rounded-lg hover:bg-bg-surface-hover transition outline-none">
+                <DropdownMenuTrigger aria-label={`Opções da conta ${account.name}`} className="text-text-muted hover:text-text-main p-1 rounded-lg hover:bg-bg-surface-hover transition outline-none">
                   <MoreHorizontal size={18} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -128,7 +128,7 @@ export function AccountCard({
                     onClick={() => onDelete(account.id)}
                     className="cursor-pointer text-rose-500 focus:bg-rose-500/10 focus:text-rose-500"
                   >
-                    <Trash2 className="w-4 h-4 mr-2" /> Excluir
+                    <Trash2 className="w-4 h-4 mr-2" /> Arquivar
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

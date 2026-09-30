@@ -77,6 +77,20 @@ public class AccountService {
                 .toList();
     }
 
+    @Transactional(readOnly=true)
+    public com.controlefinanceiro.api.domain.account.dto.AccountPositionDTO position(User user) {
+        var rows=repository.findAllByUserIdOrderByOrderIndexAsc(user.getId());
+        BigDecimal total=BigDecimal.ZERO,checking=BigDecimal.ZERO,archived=BigDecimal.ZERO;
+        for(var row:rows) {
+            total=total.add(row.getBalance());
+            if(row.getType()==com.controlefinanceiro.api.domain.account.AccountType.CHECKING || row.getType()==com.controlefinanceiro.api.domain.account.AccountType.CASH) checking=checking.add(row.getBalance());
+            if(row.isArchived())archived=archived.add(row.getBalance());
+        }
+        var maximum=new BigDecimal("999999999999.99");
+        boolean outside=total.abs().compareTo(maximum)>0 || checking.abs().compareTo(maximum)>0 || archived.abs().compareTo(maximum)>0;
+        return new com.controlefinanceiro.api.domain.account.dto.AccountPositionDTO(LocalDate.now(clock),total.toPlainString(),checking.toPlainString(),archived.toPlainString(),outside,rows.stream().map(AccountResponseDTO::new).toList());
+    }
+
     public Account findById(UUID id) {
         return repository.findById(id).orElseThrow(() -> {
             log.warn("Busca por conta inexistente: ID {}", id);

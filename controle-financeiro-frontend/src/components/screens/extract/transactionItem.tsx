@@ -68,12 +68,12 @@ export function TransactionItem({
       layoutId={`${layoutIdPrefix}-card-container-${item.id}`}
       onClick={() => !user?.privacyMode && onClick(item.id)}
       className={`
-        p-4 flex items-center justify-between transition-colors group relative
+        p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 transition-colors group relative
         ${!isLast ? "border-b border-border-divider/50" : ""}
         ${user?.privacyMode ? "cursor-default" : "cursor-pointer hover:bg-bg-surface-hover/50"}
       `}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 min-w-0 sm:flex-1">
         {/* Ícone de Tipo */}
         <motion.div
           layoutId={`${layoutIdPrefix}-icon-${item.id}`}
@@ -94,7 +94,7 @@ export function TransactionItem({
           <div className="flex justify-between items-center w-full">
             <motion.span
               layoutId={`${layoutIdPrefix}-title-${item.id}`}
-              className="font-semibold text-text-main truncate pr-2 text-sm md:text-base"
+              className="font-semibold text-text-main break-words pr-2 text-sm md:text-base"
             >
               {item.description}
             </motion.span>
@@ -122,7 +122,7 @@ export function TransactionItem({
       </div>
 
       {/* Valor */}
-      <div className="flex items-center pl-2">
+      <div className="flex items-center self-end sm:self-auto shrink-0 pl-2">
         <motion.span
           layoutId={`${layoutIdPrefix}-amount-${item.id}`}
           className={`font-bold whitespace-nowrap text-sm md:text-base ${item.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}

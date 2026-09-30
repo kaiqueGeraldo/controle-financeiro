@@ -5,5 +5,9 @@ public record InvestmentBreakdownDTO(
         String name,
         BigDecimal value,
         String type,
-        String color
-) {}
+        String color,
+        java.time.LocalDate valuationDate,
+        String valuationSource
+) {
+    public InvestmentBreakdownDTO(String name,BigDecimal value,String type,String color){this(name,value,type,color,null,null);}
+}

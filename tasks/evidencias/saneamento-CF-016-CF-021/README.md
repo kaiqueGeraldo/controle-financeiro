@@ -13,13 +13,13 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-01 | Writer ignora destinação; FIN-05 | CF-018/020 | Capacidade sob lock da fonte | RV01/RV13 | Pendente |
 | RVI-02 | PUT reescreve previsão; FIN-02 | CF-018 | Delegar baixa preservando original | RV02 + consumidor | Pendente |
 | RVI-03 | Arquivo não aplicado a todos writers; B16 | CF-018/020 | Regra comum de conta ativa | RV03 + writers cruzados | Pendente |
-| RVI-04 | UI soma lista selecionável; FIN-01 | CF-018/021 | Projeção de posição inclui arquivo | UI01 + reload | Pendente |
+| RVI-04 | UI soma lista selecionável; FIN-01 | CF-018/021 | Projeção de posição inclui arquivo | SAN-E2 + reload | Corrigido/verificado; checkpoint E2 |
 | RVI-05 | Ausência de cobertura vira zero; FIN-08 | CF-021 | Cobertura em API/UI/XLSX | RV04 | Pendente |
 | RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Implementado; ver checkpoint C1 e limites |
 | RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Implementado; ver checkpoint C1 e limites |
 | RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + XLSX | Pendente |
 | RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Pendente |
-| RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + UI | Pendente |
+| RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + SAN-E2 | Corrigido/verificado; checkpoint E2 |
 | RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Implementado/verificado no D1; limites de sessão abaixo |
 | RVI-12 | Sugestão usa consumo original; FIN-03 | CF-019 | Exibir saldo pagável/crédito | UI02 | Implementado/verificado no D1; limites de sessão abaixo |
 | RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Implementado; ver checkpoint B e limites |
@@ -29,9 +29,9 @@ RV/UI são nomes de probes, não identificadores de achados.
 | RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Implementado; ver checkpoint C1 e limites |
 | RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Implementado; ver checkpoint C1 e limites |
 | RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + SAN-D2 | Implementado/verificado no D2 |
-| RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + XLSX | Pendente |
+| RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + SAN-E2 + XLSX | Corrigido/verificado; checkpoint E2 |
 | RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Implementado/verificado C2 e D2 |
-| RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | 360/768/1440 | Pendente |
+| RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | SAN-E2-visual 360/768/1440 | Corrigido/verificado; checkpoint E2 |
 | NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
 | H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
 | H-02 | Leituras separadas na exportação | CF-021 | Snapshot único REPEATABLE READ | Escrita independente entre páginas | Confirmada, corrigida e verificada; checkpoint E1 |
@@ -292,3 +292,47 @@ Lotes500 e janela SXSSF100 limitam entidades/linhas em memória; bytes finais do
 XLSX ainda usam ByteArrayOutputStream, O(tamanho do arquivo), e disco temporário
 SXSSF. Não é benchmark amplo nem entrega transversal da CF025. Snapshot é da
 requisição local; não permite reconstruir posição histórica sem cobertura.
+
+### Checkpoint E2 — posição, arquivo, metadados e escopo
+
+GET /accounts permanece lista de fontes ativas; GET /accounts/position soma
+as contas do proprietário, inclusive arquivadas, em uma consulta e O(contas).
+Valores agregados são strings decimais exatas; excesso da faixa monetária é
+sinalizado e UI apresenta indisponibilidade, sem truncar/clamp. Dashboard e
+Contas usam a posição, com detalhe de arquivo e data, sem inferir patrimônio
+líquido nem incluir dívida/crédito do cartão.
+
+Resumo anual conserva posição atual datada qualquer que seja o ano dos fluxos.
+Cada ativo transporta data e origem da própria avaliação; desconhecido continua
+null. O probe anterior que exigia esconder posição em ano passado foi adaptado
+por DEC-04/FIN-08, preservando custo100/valor500 e acrescentando data/origem.
+A configuração de clock do teste CF021 não era importada; o primeiro run
+falhou com28/09 esperado versus30/09 observado. Import explícito torna essa
+prova determinística; oito regressões CF021 passaram depois.
+
+TRANSFER exclui cartão do resultado e do XLSX. A UI oferece esse filtro e
+exporta período/tipo/conta selecionados. Arquivar exige confirmação verdadeira
+sobre preservação de saldo/histórico. O motivo de avaliação desconhecida usa
+quebra/empilhamento (corrigido no C1), agora verificado no navegador. Inspeção
+identificou valor de transferência cortado em360; linha empilha o valor.
+
+- PG: quatro novos casos passaram: arquivo/propriedade, agregado máximo+1,
+  posição independente do ano/metadados/null, filtro e XLSX. RV05/RV14 passaram.
+- CF021: oito casos passaram após import do clock (saneamento-e2-browser.log).
+- Componentes: 14 testes de async-state/consumidores CF015 passaram com a nova
+  posição; troca de proprietário também invalida posição e respostas tardias.
+- Navegador/BFF/Spring/PG: SAN-E2 passou em e2-final e, após ajuste360, passou
+  junto com SAN-E2-visual em e2-visual. Arquiva pela UI, reload, posição2000
+  (arquivo1000), ano2026 mantém posição15/01/2027 e avaliação10/01, ativo
+  desconhecido, filtro com duas pernas/caixa0, download XLSX e fonte arquivada
+  ausente do formulário. Setup das posições/compras é HTTP, ações descritas UI.
+- TypeScript passou; lint direcionado sem erros, duas advertências de parâmetros
+  preexistentes sem uso nos testes de mutação. Capturas de Contas, filtro,
+  posição anual e motivo em360/768/1440 abertas e inspecionadas. Footer anual
+  recebeu gap/wrap após inspeção; será revisto na validação final. Não é zoom200%.
+
+Logs locais target/saneamento-e2*.log. Primeiro browser e2 falhou somente ao
+buscar botão mobile na largura1440 no último passo; e2-final usa Lançar. Runs
+intermediários preservados, sem declará-los verdes. Nenhuma migração nesta
+unidade; browser usa V1–V10 e Hibernate validate. Cobertura histórica e E27
+continuam pendentes; zeros de períodos não cobertos ainda não são aprovados.

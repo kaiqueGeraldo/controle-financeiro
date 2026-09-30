@@ -15,7 +15,7 @@ vi.mock("@/contexts/userContext", () => ({ useUserContext: () => ({ user: { id: 
 vi.mock("@/contexts/toastContext", () => ({ useToast: () => ({ error: vi.fn() }) }));
 vi.mock("@/services/categoryService", () => ({ categoryService: { getAll: vi.fn().mockResolvedValue({ data: [] }) } }));
 vi.mock("@/services/transactionService", () => ({ transactionService: { getAll: vi.fn().mockResolvedValue({ data: { content: [] } }) } }));
-vi.mock("@/services/accountService", () => ({ accountService: { getAll: vi.fn() } }));
+vi.mock("@/services/accountService", () => ({ accountService: { getAll: vi.fn(),getPosition:vi.fn() } }));
 vi.mock("@/services/planningService", () => ({ planningService: { getByMonth: vi.fn() } }));
 vi.mock("@/services/dashboardService", () => ({ dashboardService: { getMonthlyFlow: vi.fn(), getWealthChart: vi.fn() } }));
 vi.mock("@/services/cardService", () => ({ cardService: { getAll: vi.fn(), getInvoiceDetails: vi.fn() } }));
@@ -26,6 +26,7 @@ function Providers({ children }: { children: ReactNode }) {
 beforeEach(() => {
   vi.useFakeTimers(); vi.setSystemTime(new Date("2026-09-08T12:00:00Z"));
   vi.mocked(accountService.getAll).mockResolvedValue({ status: 200, data: [{ id: "a", name: "Synthetic", balance: 900, type: "CHECKING", color: "#111", isArchived: false }] });
+  vi.mocked(accountService.getPosition).mockResolvedValue({status:200,data:{asOfDate:"2026-09-08",totalBalance:"900.00",checkingBalance:"900.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
   vi.mocked(cardService.getAll).mockResolvedValue({ status: 200, data: [] });
   vi.mocked(planningService.getByMonth).mockResolvedValue({ status: 200, data: { items: [], incomeForecast: 0 } });
   vi.mocked(dashboardService.getMonthlyFlow).mockResolvedValue({ status: 200, data: { income: 0, expense: 100, balance: -100, percentage: 0 } });

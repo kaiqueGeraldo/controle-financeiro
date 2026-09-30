@@ -20,7 +20,7 @@ import {
 } from "@/services/cardService";
 import { categoryService } from "@/services/categoryService";
 import { transactionService } from "@/services/transactionService";
-import type { Account, Category } from "@/types";
+import type { Account, AccountPosition, Category } from "@/types";
 
 const toastError = vi.fn();
 const refreshFinance = vi.fn().mockResolvedValue(undefined);
@@ -51,7 +51,7 @@ vi.mock("@/hooks/useFinanceData", () => ({
 }));
 
 vi.mock("@/services/accountService", () => ({
-  accountService: { getAll: vi.fn() },
+  accountService: { getAll: vi.fn(),getPosition:vi.fn() },
 }));
 
 vi.mock("@/services/cardService", () => ({
@@ -103,6 +103,7 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 8, 8, 12));
     authenticatedUser = { user: { id: "user-a" }, isLoading: false };
+    vi.mocked(accountService.getPosition).mockResolvedValue({status:200,data:{asOfDate:"2026-09-08",totalBalance:"0.00",checkingBalance:"0.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
     vi.mocked(cardService.getAll).mockResolvedValue({ status: 200, data: [] });
   });
 
@@ -285,6 +286,8 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
   test("resposta tardia do usuário A não aparece depois do login do usuário B", async () => {
     const accountRequests: Deferred<{ status: number; data: Account[] }>[] = [];
     const categoryRequests: Deferred<{ status: number; data: Category[] }>[] = [];
+    const positionRequests: Deferred<{status:number;data:AccountPosition}>[]=[];
+    vi.mocked(accountService.getPosition).mockImplementation(()=>{const response=deferred<{status:number;data:AccountPosition}>();positionRequests.push(response);return response.promise;});
 
     vi.mocked(accountService.getAll).mockImplementation(() => {
       const response = deferred<{ status: number; data: Account[] }>();
@@ -298,10 +301,10 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
     });
 
     function Probe() {
-      const { accounts, categories } = useFinanceContext();
+      const { accounts, categories, accountPosition } = useFinanceContext();
       return (
         <div data-testid="finance-owner">
-          {accounts[0]?.name ?? "sem-conta"}|{categories[0]?.name ?? "sem-categoria"}
+          {accounts[0]?.name ?? "sem-conta"}|{categories[0]?.name ?? "sem-categoria"}|{accountPosition?.totalBalance??"sem-posicao"}
         </div>
       );
     }
@@ -320,7 +323,7 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
       </FinanceProvider>,
     );
     expect(screen.getByTestId("finance-owner").textContent).toBe(
-      "sem-conta|sem-categoria",
+      "sem-conta|sem-categoria|sem-posicao",
     );
 
     authenticatedUser = { user: { id: "user-b" }, isLoading: false };
@@ -340,10 +343,11 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
         status: 200,
         data: [category("category-b", "Categoria B")],
       });
+      positionRequests[1].resolve({status:200,data:{asOfDate:"2026-09-08",totalBalance:"42.17",checkingBalance:"42.17",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
       await Promise.all([accountRequests[1].promise, categoryRequests[1].promise]);
     });
     expect(screen.getByTestId("finance-owner").textContent).toBe(
-      "Conta B|Categoria B",
+      "Conta B|Categoria B|42.17",
     );
 
     await act(async () => {
@@ -355,14 +359,16 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
         status: 200,
         data: [category("category-a", "Categoria A")],
       });
+      positionRequests[0].resolve({status:200,data:{asOfDate:"2026-09-08",totalBalance:"999.00",checkingBalance:"999.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
       await Promise.all([accountRequests[0].promise, categoryRequests[0].promise]);
     });
     expect(screen.getByTestId("finance-owner").textContent).toBe(
-      "Conta B|Categoria B",
+      "Conta B|Categoria B|42.17",
     );
   });
 
   test("R09: evento de alteração financeira invalida o saldo das contas", async () => {
+    vi.mocked(accountService.getPosition).mockResolvedValueOnce({status:200,data:{asOfDate:"2026-09-08",totalBalance:"100.00",checkingBalance:"100.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}}).mockResolvedValueOnce({status:200,data:{asOfDate:"2026-09-08",totalBalance:"90.00",checkingBalance:"90.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
     vi.mocked(accountService.getAll).mockResolvedValueOnce({ status: 200, data: [account("a", "Conta sintética", 100)] })
       .mockResolvedValueOnce({ status: 200, data: [account("a", "Conta sintética", 90)] });
     vi.mocked(categoryService.getAll).mockResolvedValue({ status: 200, data: [] });
@@ -375,6 +381,7 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
   });
 
   test("CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro", async () => {
+    vi.mocked(accountService.getPosition).mockResolvedValue({status:200,data:{asOfDate:"2026-09-08",totalBalance:"42.00",checkingBalance:"42.00",archivedBalance:"0.00",outsideSupportedRange:false,accounts:[]}});
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
     vi.mocked(accountService.getAll)
       .mockRejectedValueOnce(new Error("503 sintético"))

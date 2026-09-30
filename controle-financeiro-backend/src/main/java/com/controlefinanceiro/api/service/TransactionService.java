@@ -1131,7 +1131,7 @@ public class TransactionService {
                 sheet.autoSizeColumn(i);
             }
 
-            if (accountId == null && type != TransactionType.INCOME) {
+            if (accountId == null && (type == null || type == TransactionType.EXPENSE)) {
                 SXSSFSheet cardSheet = workbook.createSheet("Consumo cartão");
                 Row cardHeader = cardSheet.createRow(0);
                 String[] cardColumns = {"Data da compra/estorno", "Natureza", "Descrição", "Valor no consumo"};

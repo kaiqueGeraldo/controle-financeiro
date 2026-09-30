@@ -58,8 +58,12 @@ export const transactionService = {
   delete: async (id: string) => {
     return apiRequest(`/transactions/${id}`, { method: "DELETE" });
   },
-  exportExcel: async () => {
-    return apiRequest<Blob>("/transactions/export", {
+  exportExcel: async (params?:{month:number;year:number;type?:TransactionType|"todos";accountId?:string}) => {
+    const query=new URLSearchParams();
+    if(params){query.set("month",String(params.month));query.set("year",String(params.year));
+      if(params.type&&params.type!=="todos")query.set("type",params.type);
+      if(params.accountId&&params.accountId!=="todas")query.set("accountId",params.accountId);}
+    return apiRequest<Blob>(`/transactions/export${query.size?`?${query}`:""}`, {
       method: "GET", isBlob: true,
       expectedContentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });

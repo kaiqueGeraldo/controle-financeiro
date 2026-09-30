@@ -13,6 +13,7 @@ import {useState} from "react";
 import {useUser} from "@/hooks/useUser";
 import {useFinanceData} from "@/hooks/useFinanceData";
 import {type Transaction} from "@/types";
+import {transactionService} from "@/services/transactionService";
 import {TransactionCommandModal,type TransactionCommandKind} from "@/components/forms/transactionCommandModal";
 import {
   AlertCircle,
@@ -28,6 +29,8 @@ export default function ExtractScreen() {
   const {user}=useUser();
   const finance=useFinanceData();
   const [command,setCommand]=useState<{transaction:Transaction;kind:TransactionCommandKind}|null>(null);
+  const [exporting,setExporting]=useState(false);
+  const [exportError,setExportError]=useState<string|null>(null);
 
   // --- HOOK CONTROLLER ---
   const {
@@ -54,6 +57,17 @@ export default function ExtractScreen() {
     retry,
     reconcile,
   } = useExtract();
+
+  async function exportPeriod() {
+    if(exporting)return;setExporting(true);setExportError(null);
+    try {
+      const result=await transactionService.exportExcel({month:filters.date.getMonth()+1,year:filters.date.getFullYear(),type:filters.type,accountId:filters.accountId});
+      const url=URL.createObjectURL(result.data);const link=document.createElement("a");link.href=url;
+      link.download=`extrato-${filters.date.getFullYear()}-${filters.date.getMonth()+1}-${filters.type}.xlsx`;
+      document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    } catch {setExportError("Não foi possível exportar este período. Tente novamente.");}
+    finally {setExporting(false);}
+  }
 
   if (isInitialLoading && !command) {
     return (
@@ -145,6 +159,8 @@ export default function ExtractScreen() {
             filterType={filters.type}
             setFilterType={setFilterType}
           />
+          <button type="button" onClick={exportPeriod} disabled={exporting||isFiltering} className="self-start px-3 py-2 rounded-lg border border-border-divider text-sm">{exporting?"Gerando arquivo…":"Exportar período"}</button>
+          {exportError&&<p role="alert" className="text-sm text-amber-400">{exportError}</p>}
         </div>
       </header>
 

@@ -60,7 +60,7 @@ public class AnnualSummaryService {
         }
         BigDecimal cardAverage = cardTotal.divide(BigDecimal.valueOf(monthsToDivide), 2, RoundingMode.HALF_UP);
 
-        // A posição de hoje não pode ser atribuída ao fechamento de outro ano.
+        // Current position has its own date, independently of the flow year.
         InvestmentsSummaryDTO position = currentPosition(userId, year, today);
 
         // COMPARATIVO (Ano Atual vs Ano Anterior)
@@ -79,9 +79,6 @@ public class AnnualSummaryService {
     }
 
     private InvestmentsSummaryDTO currentPosition(UUID userId, int year, LocalDate today) {
-        if (year != today.getYear()) {
-            return new InvestmentsSummaryDTO(null, null, null, false, List.of());
-        }
         List<InvestmentBreakdownDTO> breakdown = new ArrayList<>();
         BigDecimal cost = BigDecimal.ZERO;
         BigDecimal value = BigDecimal.ZERO;
@@ -93,7 +90,7 @@ public class AnnualSummaryService {
             BigDecimal assetValue = investment.getTotalValue();
             if (assetValue == null) valueComplete = false;
             else value = value.add(assetValue);
-            breakdown.add(new InvestmentBreakdownDTO(investment.getName(), assetValue, "ASSET", "BLUE"));
+            breakdown.add(new InvestmentBreakdownDTO(investment.getName(), assetValue, "ASSET", "BLUE",investment.getValuationDate(),investment.getValuationSource()));
         }
         return new InvestmentsSummaryDTO(costComplete ? cost : null,
                 valueComplete ? value : null, today, valueComplete, breakdown);

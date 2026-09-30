@@ -44,7 +44,7 @@ export function useExtract() {
     string | null
   >(null);
   const [dateRef, setDateRef] = useState(new Date());
-  const [filterType, setFilterType] = useState<"todos" | "INCOME" | "EXPENSE">(
+  const [filterType, setFilterType] = useState<"todos" | "INCOME" | "EXPENSE" | "TRANSFER">(
     "todos",
   );
   const [filterAccountId, setFilterAccountId] = useState<string>("todas");

@@ -2,6 +2,7 @@ import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { InvestmentBreakdown } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { TrendingUp } from "lucide-react";
+import {formatCalendarDate} from "@/utils/date";
 
 interface AnnualInvestmentsProps {
   totalCost?: number | null;
@@ -32,11 +33,12 @@ export function AnnualInvestments({ totalCost, totalValue, items, positionDateLa
         <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-2 max-h-40">
           {items.length > 0 ? (
               items.map((inv, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-sm">
-                      <span className="text-text-muted truncate max-w-35" title={inv.name}>{inv.name}</span>
+                  <div key={idx} className="space-y-1 text-sm min-w-0">
+                      <div className="flex flex-wrap justify-between items-center gap-2"><span className="text-text-muted break-words" title={inv.name}>{inv.name}</span>
                       <PrivacyBlur className={`font-mono font-bold ${getBadgeColor(inv.color)}`}>
                           {inv.value === null ? "Avaliação indisponível" : formatCurrency(inv.value)}
-                      </PrivacyBlur>
+                      </PrivacyBlur></div>
+                      <p className="text-xs text-text-muted break-words">Avaliação: {inv.valuationDate?formatCalendarDate(inv.valuationDate):"data indisponível"} · Origem: {inv.valuationSource??"desconhecida"}</p>
                   </div>
               ))
           ) : (
@@ -48,7 +50,7 @@ export function AnnualInvestments({ totalCost, totalValue, items, positionDateLa
           <span className="text-text-muted">Custo investido</span>
           <PrivacyBlur>{totalCost === null ? "Custo indisponível" : formatCurrency(totalCost)}</PrivacyBlur>
         </div>}
-        <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center font-bold text-base">
+        <div className="border-t border-border-divider pt-4 mt-4 flex flex-wrap gap-3 justify-between items-center font-bold text-base">
           <span className="text-text-main">Total na posição atual</span>
           <PrivacyBlur className="text-emerald-500">{totalValue === null ? "Avaliação indisponível" : formatCurrency(totalValue)}</PrivacyBlur>
         </div>

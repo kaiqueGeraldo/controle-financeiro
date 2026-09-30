@@ -11,8 +11,8 @@ interface ExtractFiltersProps {
   accounts: Account[];
   filterAccountId: string;
   setFilterAccountId: (id: string) => void;
-  filterType: "todos" | "INCOME" | "EXPENSE";
-  setFilterType: (type: "todos" | "INCOME" | "EXPENSE") => void;
+  filterType: "todos" | "INCOME" | "EXPENSE" | "TRANSFER";
+  setFilterType: (type: "todos" | "INCOME" | "EXPENSE" | "TRANSFER") => void;
 }
 
 export function ExtractFilters({
@@ -32,9 +32,10 @@ export function ExtractFilters({
       
       {/* Filtro de Tipo */}
       <div className="flex p-1 bg-bg-surface border border-border-divider rounded-xl w-full md:w-auto">
-        {(["todos", "INCOME", "EXPENSE"] as const).map((type) => (
+        {(["todos", "INCOME", "EXPENSE", "TRANSFER"] as const).map((type) => (
           <button
             key={type}
+            aria-label={type==="TRANSFER"?"Transferências":undefined}
             onClick={() => setFilterType(type)}
             className={`flex-1 md:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               filterType === type
@@ -46,7 +47,7 @@ export function ExtractFilters({
                 : "text-text-muted hover:text-text-main"
             }`}
           >
-            {type === "todos" ? "Tudo" : type === "INCOME" ? "Entradas" : "Saídas"}
+            {type === "todos" ? "Tudo" : type === "INCOME" ? "Entradas" : type==="TRANSFER"?"Transf.":"Saídas"}
           </button>
         ))}
       </div>
