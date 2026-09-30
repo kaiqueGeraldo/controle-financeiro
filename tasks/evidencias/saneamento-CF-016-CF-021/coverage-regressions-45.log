@@ -1,0 +1,320 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 11 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 210 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 51 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+02:03:09.553 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest]: EmptyDatabaseMigrationIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:03:09.795 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+02:03:10.099 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+02:03:10.103 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+02:03:10.113 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+02:03:10.433 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+02:03:11.087 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+02:03:11.089 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+02:03:11.131 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+02:03:11.325 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+02:03:11.753 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 38dfe3615331204e399e83963ccd350799ac32ea81a9353c72917f3fc1b02558
+02:03:12.189 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.864619S
+02:03:12.199 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+02:03:12.199 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+02:03:12.200 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+02:03:12.200 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+02:03:12.298 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: b57b3bcd829fc43e4544a52785fa766d2a56c32f946200a411c2f87b5c4efa6b
+02:03:13.890 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.689654S
+02:03:13.891 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:57113/cf_test_cf017_33cfa0a3ba3f4315805f4d97b60f0191?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 02:03:14.479 - INFO 36040 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : Starting EmptyDatabaseMigrationIntegrationTest using Java 21.0.12.1 with PID 36040 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 02:03:14.480 - INFO 36040 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-30 02:03:26.093 - WARN 36040 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 02:03:36.600 - INFO 36040 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : Started EmptyDatabaseMigrationIntegrationTest in 22.536 seconds (process running for 28.851)
+-CF017_SYNTHETIC_EXPLAIN Limit  (cost=0.29..5.43 rows=50 width=29) (actual time=0.048..0.098 rows=50 loops=1) |   Buffers: shared hit=52 |   ->  Index Only Scan using idx_transactions_user_temporal_order on transactions  (cost=0.29..2056.29 rows=20000 width=29) (actual time=0.047..0.092 rows=50 loops=1) |         Index Cond: (user_id = '71000000-0000-0000-0000-000000000001'::uuid) |         Heap Fetches: 50 |         Buffers: shared hit=52 | Planning: |   Buffers: shared hit=100 read=8 | Planning Time: 0.911 ms | Execution Time: 0.140 ms | 
+CF017_SYNTHETIC_MIGRATION_MS version=1 executionTime=137
+CF017_SYNTHETIC_MIGRATION_MS version=2 executionTime=18
+2026-09-30 02:03:40.697 -ERROR 36040 --- [           main] o.f.core.internal.command.DbMigrate      : Migration of schema "cf017_failure_555150a890ef4b88883ed494f9d703aa" to version "2 - adopt temporal metadata" failed! Changes successfully rolled back.
+-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.59 s -- in com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 02:03:44.542 - INFO 36040 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : Starting Cf021ReportingIntegrationTest using Java 21.0.12.1 with PID 36040 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 02:03:44.542 - INFO 36040 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : The following 1 profile is active: "test"
+-2026-09-30 02:03:45.621 - WARN 36040 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 02:03:47.727 - INFO 36040 --- [           main] c.c.a.s.Cf021ReportingIntegrationTest    : Started Cf021ReportingIntegrationTest in 5.938 seconds (process running for 39.979)
+-2026-09-30 02:03:48.218 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 677c505c-5434-4e13-b429-7723c1d0db56@example.invalid
+-2026-09-30 02:03:49.850 - INFO 36040 --- [           main] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: 11a53bd4-a513-425a-b332-39689d9e3216@example.invalid
+-2026-09-30 02:03:49.851 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 11a53bd4-a513-425a-b332-39689d9e3216@example.invalid
+-2026-09-30 02:03:50.022 - WARN 36040 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/export; campos: [year]]
+-2026-09-30 02:03:51.005 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cb0e5e4b-c857-4beb-9c54-d5011a705bd5@example.invalid
+-2026-09-30 02:03:53.035 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 82782fc7-998e-4872-af30-d8e9d2f91a1d@example.invalid
+-2026-09-30 02:03:53.994 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 440e9657-093b-4d31-839a-324e377d9630@example.invalid
+-2026-09-30 02:03:54.762 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 9de2ab90-69e8-4713-86fa-8bb9491c1046@example.invalid
+-2026-09-30 02:03:55.118 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 9de2ab90-69e8-4713-86fa-8bb9491c1046@example.invalid
+-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.99 s -- in com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 02:03:55.946 - INFO 36040 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : Starting IntegratedMilestoneReviewTest using Java 21.0.12.1 with PID 36040 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 02:03:55.948 - INFO 36040 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : The following 1 profile is active: "test"
+-2026-09-30 02:03:57.416 - WARN 36040 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 02:04:00.308 - INFO 36040 --- [           main] c.c.a.s.IntegratedMilestoneReviewTest    : Started IntegratedMilestoneReviewTest in 4.598 seconds (process running for 52.559)
+-2026-09-30 02:04:00.343 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 02:04:00.368 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 02:04:00.483 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID badd619a-895a-4428-a4f7-87a2a5a6bbcc: 120.00 (1x)
+-2026-09-30 02:04:00.686 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 02:04:00.890 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 36dd451f-0579-426e-9ba1-340efc446e7e
+-2026-09-30 02:04:00.900 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVa4838642' (STOCK) para usu�rio cf492278-e4f8-47ac-86a5-d75a7b5ef298@example.invalid
+-2026-09-30 02:04:00.902 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f1837ea8-9b38-444c-af8b-dc10cfe0eb3e
+-2026-09-30 02:04:01.031 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e6592abd-ac78-4b75-8841-2d466498c7f8
+-2026-09-30 02:04:01.038 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e6592abd-ac78-4b75-8841-2d466498c7f8
+-2026-09-30 02:04:01.045 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 02:04:01.053 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 72080a44-ee0d-477a-b1fb-dbfe0dbc9951. Valor: 300.00
+-2026-09-30 02:04:01.081 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 300.00
+-2026-09-30 02:04:01.098 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=800.00, ContaID=79b3c6b2-411d-4d6b-be0c-f0ffd1053dfb
+-2026-09-30 02:04:01.143 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b331eb92-148f-4611-850d-1dee70e268ae
+-2026-09-30 02:04:01.150 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=22207376-c82a-4d98-abeb-2dadfbaa5f2b
+-2026-09-30 02:04:01.165 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 873b62b8-8b0c-4174-898d-18c867fdc99c
+-2026-09-30 02:04:01.170 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 873b62b8-8b0c-4174-898d-18c867fdc99c
+-2026-09-30 02:04:01.256 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b9cd7007-8750-49e5-83ed-11a0baf9dab8
+-2026-09-30 02:04:01.262 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=300.00, ContaID=ad18f253-9438-4644-a66d-a920d7ce821f
+-2026-09-30 02:04:01.271 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 8f605ade-94aa-435e-958d-017fdbee426c
+-REVIEW concurrent rejection: BusinessRuleException: O valor da baixa excede o saldo pendente da previs�o.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[false, true]
+2026-09-30 02:04:01.353 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4ec8838d-257e-4857-bee0-1fdbf2f2fcf0
+-2026-09-30 02:04:01.359 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RV6765fcd6' (STOCK) para usu�rio 9ddfa02b-7023-4768-9c7c-69b30772df34@example.invalid
+-2026-09-30 02:04:01.360 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cd734a16-d178-4fe9-aeb2-ac6d485615d4
+-2026-09-30 02:04:01.367 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID cd734a16-d178-4fe9-aeb2-ac6d485615d4
+-2026-09-30 02:04:01.389 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 02:04:01.512 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9be4e6f7-63aa-4b9c-95f1-833cd87cab16
+-2026-09-30 02:04:01.519 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9be4e6f7-63aa-4b9c-95f1-833cd87cab16
+-2026-09-30 02:04:01.524 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=0fdee12f-75b1-4103-802f-00a301148d95
+-2026-09-30 02:04:01.697 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 3bff20ba-1a35-424c-9769-97320273094e
+-2026-09-30 02:04:01.704 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=aef211fd-6012-4562-ace3-837818bd4394
+-2026-09-30 02:04:01.708 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta aef211fd-6012-4562-ace3-837818bd4394. Novo saldo: 999999999999.99
+-2026-09-30 02:04:01.715 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d2d73524-6872-45b0-ac5e-b45600091e62
+-2026-09-30 02:04:01.824 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 91f670e5-aca6-421d-ada1-dbbe4f098a62@example.invalid
+-2026-09-30 02:04:02.027 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9e42f230-fb17-4050-9d14-4aa292334235
+-2026-09-30 02:04:02.035 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 02:04:02.043 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-REVIEW concurrent rejection: BusinessRuleException: Dispon�vel da fonte insuficiente para destina��o.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[false, true]
+2026-09-30 02:04:02.144 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 25f2688f-93e0-4906-83f3-a32dee93463d
+-2026-09-30 02:04:02.151 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 25f2688f-93e0-4906-83f3-a32dee93463d
+-2026-09-30 02:04:02.158 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 02:04:02.187 - INFO 36040 --- [pool-5-thread-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=800.00, ContaID=daa2d89c-a642-4895-86a6-59d202414bdc
+-REVIEW concurrent rejection: BusinessRuleException: Dispon�vel livre insuficiente; libere ou realoque a destina��o antes da transfer�ncia.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 02:04:02.229 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c89a75e9-a95f-4b6f-8c79-be5481b1ee63
+-2026-09-30 02:04:02.237 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVe2744300' (STOCK) para usu�rio 970a7ea6-330d-4b34-8f8b-e4e5bf8dc13b@example.invalid
+-2026-09-30 02:04:02.238 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 05400be7-7c36-4f5d-9c8c-bf5e8b455f0f
+-2026-09-30 02:04:02.246 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 05400be7-7c36-4f5d-9c8c-bf5e8b455f0f
+-2026-09-30 02:04:02.257 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 02:04:02.268 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 02:04:02.306 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-2026-09-30 02:04:02.320 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 02:04:02.372 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 7e543465-cb1e-4861-a48c-2066bfb07648: 120.00 (1x)
+-2026-09-30 02:04:02.408 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 02:04:02.438 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio b2797733-52fa-4a15-8e39-a364192e3191
+-2026-09-30 02:04:02.444 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.00, ContaID=751dda7a-3494-40ad-bb44-66426949cae0
+-2026-09-30 02:04:02.453 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4fe1d7cb-31c3-4e3c-8323-5b91e04c4402
+-2026-09-30 02:04:02.537 - WARN 36040 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/4fe1d7cb-31c3-4e3c-8323-5b91e04c4402/settlements; campos: [amount]]
+-2026-09-30 02:04:02.563 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 78d0245f-d0a6-4479-96d9-2f83bf6ce7e6
+-2026-09-30 02:04:02.568 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 78d0245f-d0a6-4479-96d9-2f83bf6ce7e6
+-2026-09-30 02:04:02.579 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 02:04:02.590 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 196bc162-73e4-4b90-ba0a-65799f62de4c: 100.00 (1x)
+-2026-09-30 02:04:02.625 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 02:04:02.630 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=4851ad31-c2fb-4733-8676-950d778784cb
+-2026-09-30 02:04:02.672 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio f008d396-72ed-449b-9745-6d2e851aecb4
+-2026-09-30 02:04:02.677 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVa8cb539f' (STOCK) para usu�rio a0890fe6-a18b-4831-8ac2-beab76ebac1a@example.invalid
+-2026-09-30 02:04:02.678 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cfd828ed-1d49-413a-b7f4-7afbe8b8aa9c
+-2026-09-30 02:04:02.683 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 8a31b2bd-9f7e-4532-8ade-11a6d78f9b19
+-2026-09-30 02:04:02.689 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 02:04:02.695 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID cfd828ed-1d49-413a-b7f4-7afbe8b8aa9c
+-2026-09-30 02:04:02.715 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 75f0edac-40ea-46e2-84c0-2dd339501c7d
+-2026-09-30 02:04:02.721 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVf4181a55' (STOCK) para usu�rio 4c9698d4-696d-4120-9410-4fdb53129568@example.invalid
+-2026-09-30 02:04:02.722 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 32d9208a-a8d8-46f6-9cab-b57f2d52b7ae
+-2026-09-30 02:04:02.728 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 32d9208a-a8d8-46f6-9cab-b57f2d52b7ae
+-2026-09-30 02:04:02.736 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-09-30 02:04:02.743 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 02:04:02.777 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4d1749f9-253c-4a43-9844-978b81b7f236
+-2026-09-30 02:04:02.783 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4d1749f9-253c-4a43-9844-978b81b7f236
+-2026-09-30 02:04:02.791 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o review' (Final 1234)
+-2026-09-30 02:04:02.801 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ee62fa12-c36c-4662-b1fa-5fe165c5fec9: 100.00 (1x)
+-2026-09-30 02:04:02.834 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 02:04:02.846 - INFO 36040 --- [pool-6-thread-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200.00, ContaID=db1d492f-37ca-4f2a-a5d3-34f8dfe4c9a1
+-2026-09-30 02:04:02.847 - INFO 36040 --- [pool-6-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-09-30 02:04:02.897 - INFO 36040 --- [pool-6-thread-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o review
+-REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, true]
+2026-09-30 02:04:03.007 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RVc5a8bc0b' (STOCK) para usu�rio 10cf6a89-f501-4bef-a447-41507c99ece6@example.invalid
+-2026-09-30 02:04:03.007 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 4e82edbc-dd98-4faa-a0fb-66850b038daa
+-2026-09-30 02:04:03.029 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 171f2982-b033-450c-ad36-60d00a3ae422
+-2026-09-30 02:04:03.035 - INFO 36040 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta review
+-REVIEW concurrent rejection: BusinessRuleException: Compra j� estornada.
+REVIEW independent PostgreSQL pids=[71, 72] outcomes=[true, false]
+2026-09-30 02:04:03.148 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e7acd441-6ab2-402f-bf63-ca7baa8c43b5
+-2026-09-30 02:04:03.154 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=0.01, ContaID=6d2b8ce2-071a-4995-bdc6-ce0a77f0f32a
+-2026-09-30 02:04:03.172 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 482bcc6e-0429-4aff-b5f3-42202f6205f9
+-[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.554 s -- in com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneCashPresentationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 02:04:03.313 - INFO 36040 --- [           main] c.c.a.s.MilestoneCashPresentationTest    : Starting MilestoneCashPresentationTest using Java 21.0.12.1 with PID 36040 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 02:04:03.313 - INFO 36040 --- [           main] c.c.a.s.MilestoneCashPresentationTest    : The following 1 profile is active: "test"
+-2026-09-30 02:04:04.516 - WARN 36040 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 02:04:05.975 - INFO 36040 --- [           main] c.c.a.s.MilestoneCashPresentationTest    : Started MilestoneCashPresentationTest in 2.722 seconds (process running for 58.226)
+-2026-09-30 02:04:05.992 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 444f42ea-5485-4c46-8f9b-f2cdf86c94f6
+-2026-09-30 02:04:06.000 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'E27' (STOCK) para usu�rio da9cea84-01db-47b1-bad6-e8074a5b52f2@example.invalid
+-2026-09-30 02:04:06.001 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f24f165c-57ff-4d41-9b20-82f0ab6b6c1a
+-2026-09-30 02:04:06.007 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de DIVIDEND no ativo ID f24f165c-57ff-4d41-9b20-82f0ab6b6c1a
+-2026-09-30 02:04:06.033 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-09-30 02:04:06.218 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio da9cea84-01db-47b1-bad6-e8074a5b52f2@example.invalid
+-2026-09-30 02:04:06.319 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 73727331-0db1-47a2-88bb-ea1911225aea
+-2026-09-30 02:04:06.323 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 73727331-0db1-47a2-88bb-ea1911225aea
+-2026-09-30 02:04:06.327 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200, ContaID=ec539e23-f52f-4bb5-bcfc-275d0e3aeb13
+-2026-09-30 02:04:06.347 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Solicita��o de exclus�o da transa��o ID a6870519-a85e-4170-a6b4-53cceaa1e24f
+-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.160 s -- in com.controlefinanceiro.api.service.MilestoneCashPresentationTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneExportSnapshotTest
+2026-09-30 02:04:06.416 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 0bba77bb-d2ac-4214-bf18-0ec27310575d
+-2026-09-30 02:04:06.472 - INFO 36040 --- [pool-8-thread-1] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 8102a75a-a2d1-4b57-95ba-fad084835b76@example.invalid
+-2026-09-30 02:04:06.595 - INFO 36040 --- [pool-8-thread-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=10.00, ContaID=ba96311c-597f-42e2-bd44-2f4bcc27ffbf
+-2026-09-30 02:04:06.601 - INFO 36040 --- [pool-8-thread-2] c.c.api.service.TransactionService       : Saldo atualizado na conta ba96311c-597f-42e2-bd44-2f4bcc27ffbf. Novo saldo: 1511.00
+-2026-09-30 02:04:06.613 - INFO 36040 --- [pool-8-thread-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 958c3c00-7c21-4000-969c-eb9c9ff6394b
+-H02 controlled export: income=501.0, userRows=501, unique=501, concurrentIncluded=false
+2026-09-30 02:04:07.545 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 8102a75a-a2d1-4b57-95ba-fad084835b76@example.invalid
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.142 s -- in com.controlefinanceiro.api.service.MilestoneExportSnapshotTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneReportingCoverageTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 02:04:08.653 - INFO 36040 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : Starting MilestoneReportingCoverageTest using Java 21.0.12.1 with PID 36040 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 02:04:08.653 - INFO 36040 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : The following 1 profile is active: "test"
+-2026-09-30 02:04:09.633 - WARN 36040 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 02:04:11.095 - INFO 36040 --- [           main] c.c.a.s.MilestoneReportingCoverageTest   : Started MilestoneReportingCoverageTest in 2.515 seconds (process running for 63.347)
+-2026-09-30 02:04:11.118 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 59e661cd-c2c3-4cbc-aca5-d341e8d96245
+-2026-09-30 02:04:11.128 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 59e661cd-c2c3-4cbc-aca5-d341e8d96245
+-2026-09-30 02:04:11.134 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=12.34, ContaID=a473de70-ba4f-4e06-9ebc-8d3878fda024
+-2026-09-30 02:04:11.144 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta a473de70-ba4f-4e06-9ebc-8d3878fda024. Novo saldo: 12.34
+-2026-09-30 02:04:11.156 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9e2c1705-f100-4be9-b1e5-3a85389ed3d7
+-2026-09-30 02:04:11.259 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 38f8e33f-6076-4d0b-bd2c-88b5dfc74989
+-2026-09-30 02:04:11.264 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 02:04:11.353 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 08a787b9-b606-45f7-9c26-12148eebd71c
+-2026-09-30 02:04:11.359 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 08a787b9-b606-45f7-9c26-12148eebd71c
+-2026-09-30 02:04:11.365 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=71a5249e-cd6a-410f-85fd-ca71305c151b
+-2026-09-30 02:04:11.369 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 71a5249e-cd6a-410f-85fd-ca71305c151b. Novo saldo: 999999999999.99
+-2026-09-30 02:04:11.375 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4cf7dff5-a48b-4ce6-b0cb-3693ab8c18aa
+-2026-09-30 02:04:11.380 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=999999999999.99, ContaID=e36f82dd-ec59-4996-8d2c-276902cbcbec
+-2026-09-30 02:04:11.386 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta e36f82dd-ec59-4996-8d2c-276902cbcbec. Novo saldo: 999999999999.99
+-2026-09-30 02:04:11.398 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d16283a8-a23f-431b-aa8d-f48d5617a5c8
+-2026-09-30 02:04:11.456 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 7ac4d99b-c7ff-4c87-acd3-f357ffbc7da1@example.invalid
+-2026-09-30 02:04:11.711 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 49a7e1fd-e6fa-4d7a-81d5-2446f007b1d3
+-2026-09-30 02:04:11.899 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio b5084b5a-883a-44e0-9767-dfabe2331ac0@example.invalid
+-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.458 s -- in com.controlefinanceiro.api.service.MilestoneReportingCoverageTest
+[INFO] Running com.controlefinanceiro.api.service.MilestoneReportingPositionTest
+2026-09-30 02:04:12.033 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 43331248-4bc1-4070-b61a-1054528b9ae9
+-2026-09-30 02:04:12.039 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 43331248-4bc1-4070-b61a-1054528b9ae9
+-2026-09-30 02:04:12.069 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 82d69347-58eb-4cde-9b8f-f0ac822471ac
+-2026-09-30 02:04:12.076 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 2bee1214-28f0-4371-8a3b-b0712ae40c3c
+-2026-09-30 02:04:12.080 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-09-30 02:04:12.100 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 82d69347-58eb-4cde-9b8f-f0ac822471ac
+-2026-09-30 02:04:12.133 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'META' (STOCK) para usu�rio 2690b42f-339c-426a-81ee-71e9319cd8f2@example.invalid
+-2026-09-30 02:04:12.133 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: e5f58c02-004f-4550-815c-af6513e0901e
+-2026-09-30 02:04:12.274 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'UNKNOWN' (STOCK) para usu�rio 2690b42f-339c-426a-81ee-71e9319cd8f2@example.invalid
+-2026-09-30 02:04:12.274 - INFO 36040 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 15d114de-d31a-4c55-a24b-b7f417eb3b4e
+-2026-09-30 02:04:12.377 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 0f345677-e5ee-4c7e-84bb-79687a6dd8f8
+-2026-09-30 02:04:12.382 - INFO 36040 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 0f345677-e5ee-4c7e-84bb-79687a6dd8f8
+-2026-09-30 02:04:12.390 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o' (Final 1234)
+-2026-09-30 02:04:12.395 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 13fd2ccf-8e2b-4b4b-b9ca-413bc8fedb8e: 100 (1x)
+-2026-09-30 02:04:12.433 - INFO 36040 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 02:04:12.437 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=200, ContaID=debdc8d4-cc8a-4d9c-9b0e-e97095e91f43
+-2026-09-30 02:04:12.464 - INFO 36040 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio aa66310d-b4a6-48ed-a18b-f3586c86e6f1@example.invalid
+-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.567 s -- in com.controlefinanceiro.api.service.MilestoneReportingPositionTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 45, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:32 min
+[INFO] Finished at: 2026-09-30T02:04:13-03:00
+[INFO] ------------------------------------------------------------------------

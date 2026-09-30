@@ -5,7 +5,7 @@ import { ArrowUpRight, Wallet } from "lucide-react";
 interface BalanceCardProps {
   saldoTotal: number|null;
   saldoContas: number|null;
-  saldoInvestimentos: number;
+  saldoInvestimentos: number | null;
   valuationComplete: boolean;
 }
 
@@ -40,7 +40,7 @@ export function BalanceCard({ saldoTotal, saldoContas, saldoInvestimentos, valua
           </span>
           <span className="w-1 h-1 bg-text-muted rounded-full"></span>
           <span className="flex items-center gap-1">
-            Investimentos avaliados: <PrivacyBlur>{formatCurrency(saldoInvestimentos)}</PrivacyBlur>
+            Investimentos avaliados: <PrivacyBlur>{saldoInvestimentos===null?"indisponível":formatCurrency(saldoInvestimentos)}</PrivacyBlur>
           </span>
         </div>
         <p className="mt-2 text-xs text-text-muted">

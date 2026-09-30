@@ -1,3 +1,4 @@
+import { ReportingCoverageNotice } from "@/components/ui/reportingCoverage";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { formatCurrency } from "@/utils/format";
 import {
@@ -6,19 +7,15 @@ import {
   Download,
 } from "lucide-react";
 
-interface ExtractSummaryProps {
-  entries: number;
-  exits: number;
-  balance: number;
-}
+type ExtractSummaryProps = import("@/types").CashSummaryResponse;
 
 export function ExtractSummary({
   entries,
   exits,
-  balance,
+  balance, coverage, observed,
 }: ExtractSummaryProps) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-4">
+    <><ReportingCoverageNotice coverage={coverage} observed={observed ? {Entradas:observed.entries,Saídas:observed.exits,"Fluxo líquido":observed.balance}:undefined}/><div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-4">
       <div className="bg-bg-surface/50 border border-border-divider p-4 rounded-2xl flex items-center gap-4 hover:border-border-divider transition-colors">
         <div className="shrink-0 w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
           <ArrowUpCircle className="w-6 h-6" />
@@ -26,7 +23,7 @@ export function ExtractSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Entradas de caixa realizadas</p>
           <PrivacyBlur className="text-xl font-bold text-emerald-500">
-            {formatCurrency(entries)}
+            {entries === null ? "Indisponível" : formatCurrency(entries)}
           </PrivacyBlur>
         </div>
       </div>
@@ -38,7 +35,7 @@ export function ExtractSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Saídas de caixa realizadas</p>
           <PrivacyBlur className="text-xl font-bold text-rose-500">
-            {formatCurrency(exits)}
+            {exits === null ? "Indisponível" : formatCurrency(exits)}
           </PrivacyBlur>
         </div>
       </div>
@@ -49,11 +46,11 @@ export function ExtractSummary({
         </div>
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Fluxo líquido do período</p>
-          <PrivacyBlur className={`text-xl font-bold ${balance >= 0 ? "text-text-main" : "text-rose-500"}`}>
-            {formatCurrency(balance)}
+          <PrivacyBlur className={`text-xl font-bold ${balance === null || balance >= 0 ? "text-text-main" : "text-rose-500"}`}>
+            {balance === null ? "Indisponível" : formatCurrency(balance)}
           </PrivacyBlur>
         </div>
       </div>
-    </div>
+    </div></>
   );
 }

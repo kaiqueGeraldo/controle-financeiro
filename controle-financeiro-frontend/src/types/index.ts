@@ -242,6 +242,11 @@ export interface CreateInvestmentDTO {
   name: string;
   type: InvestType;
   goalId?: string;
+  openingQuantity?:string;
+  openingCost?:string;
+  openingValue?:string;
+  valuationDate?:string;
+  valuationSource?:string;
 }
 
 export interface InvestmentOperationDTO {
@@ -281,21 +286,26 @@ export interface InvestmentBreakdown {
 export interface AnnualSummaryResponse {
   year: number;
     balance: {
-      totalIncome: number;
-      totalExpense: number;
+      totalIncome: number | null;
+      totalExpense: number | null;
       annualBalance: number | null;
       investmentResult?: number | null;
+      coverage?:ReportingCoverage; observed?:ObservedTotals;
   };
   creditCard: {
-    totalSpent: number;
-    subscriptionsTotal: number;
-    monthlyAverage: number;
+    totalSpent: number | null;
+    subscriptionsTotal: number | null;
+    monthlyAverage: number | null;
+    coverage?:ReportingCoverage; observed?:{totalSpent:string;subscriptionsTotal:string;monthlyAverage:string};
   };
     investments: {
       totalCost?: number | null;
       totalValue: number | null;
       valuationAsOf?: string | null;
       valuationComplete?: boolean;
+      outsideSupportedRange?: boolean;
+      observedCost?: string|null;
+      observedValue?: string|null;
       items: InvestmentBreakdown[];
   };
   comparison: YearlyComparison;
@@ -346,3 +356,13 @@ export interface EvolutionProtocol {
   personalConnection?: string;
   systemEngineering?: string;
 }
+
+export interface ReportingCoverage {
+ state: "COMPLETE"|"PARTIAL"|"UNAVAILABLE"|"UNKNOWN_ORIGIN"|"OUT_OF_RANGE";
+ requestedFrom: string; requestedThrough: string; knownFrom: string|null; knownThrough: string;
+ unknownSources: number; reason: string;
+}
+export interface ObservedTotals {income:string;expense:string;balance:string|null;investmentResult:string|null;cardConsumption:string}
+export interface MonthlyFlowResponse {income:number|null;expense:number|null;balance:number|null;percentage:number|null;investmentResult?:number|null;coverage?:ReportingCoverage;observed?:ObservedTotals}
+export interface ChartPoint {label:string;valor:number|null;observedValue?:string;coverage?:ReportingCoverage}
+export interface CashSummaryResponse {entries:number|null;exits:number|null;balance:number|null;coverage?:ReportingCoverage;observed?:{entries:string;exits:string;balance:string}}

@@ -31,11 +31,16 @@ public class AnnualSummaryService {
     @Autowired private DashboardService dashboardService;
     @Autowired private YearlyNoteRepository noteRepository;
     @Autowired private Clock clock;
+    @Autowired private ReportingCoverageService coverageService;
 
+    @Transactional(readOnly=true,isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public AnnualSummaryDTO getSummary(User user, Integer year) {
         UUID userId = user.getId();
         LocalDate firstDay = LocalDate.of(year, 1, 1);
         LocalDate lastDay = firstDay.withDayOfYear(firstDay.lengthOfYear());
+        var coverage=coverageService.assess(user,firstDay,lastDay,null,null,true);
+        var cardCoverage=coverageService.assess(user,firstDay,lastDay,
+                com.controlefinanceiro.api.domain.transaction.TransactionType.EXPENSE,null,true);
         DashboardService.PeriodTotals totals = dashboardService.getPeriodTotals(
                 user, firstDay, lastDay, null, null);
 
@@ -59,6 +64,8 @@ public class AnnualSummaryService {
             monthsToDivide = Math.max(1, today.getMonthValue());
         }
         BigDecimal cardAverage = cardTotal.divide(BigDecimal.valueOf(monthsToDivide), 2, RoundingMode.HALF_UP);
+        coverage=coverage.withTotals(totalIncome,totalExpense,annualBalance,totals.investmentResult());
+        cardCoverage=cardCoverage.withTotals(cardTotal,subscriptionsTotal,cardAverage);
 
         // Current position has its own date, independently of the flow year.
         InvestmentsSummaryDTO position = currentPosition(userId, year, today);
@@ -70,8 +77,11 @@ public class AnnualSummaryService {
 
         return new AnnualSummaryDTO(
                 year,
-                new BalanceSummaryDTO(totalIncome, totalExpense, annualBalance, totals.investmentResult()),
-                new CreditCardSummaryDTO(cardTotal, subscriptionsTotal, cardAverage),
+                new BalanceSummaryDTO(coverage.exact(totalIncome), coverage.exact(totalExpense), coverage.exact(annualBalance),
+                        coverage.exact(totals.investmentResult()),coverage,
+                        new ObservedTotalsDTO(totalIncome,totalExpense,annualBalance,totals.investmentResult(),cardTotal)),
+                new CreditCardSummaryDTO(cardCoverage.exact(cardTotal), cardCoverage.exact(subscriptionsTotal),
+                        cardCoverage.exact(cardAverage),cardCoverage,new CreditCardSummaryDTO.Observed(cardTotal,subscriptionsTotal,cardAverage)),
                 position,
                 comparison,
                 note.getContent() != null ? note.getContent() : ""
@@ -92,8 +102,12 @@ public class AnnualSummaryService {
             else value = value.add(assetValue);
             breakdown.add(new InvestmentBreakdownDTO(investment.getName(), assetValue, "ASSET", "BLUE",investment.getValuationDate(),investment.getValuationSource()));
         }
-        return new InvestmentsSummaryDTO(costComplete ? cost : null,
-                valueComplete ? value : null, today, valueComplete, breakdown);
+        BigDecimal maximum=new BigDecimal("999999999999.99");
+        boolean costInRange=cost.abs().compareTo(maximum)<=0;
+        boolean valueInRange=value.abs().compareTo(maximum)<=0;
+        return new InvestmentsSummaryDTO(costComplete&&costInRange ? cost : null,
+                valueComplete&&valueInRange ? value : null, today, valueComplete&&valueInRange, breakdown,
+                !costInRange||!valueInRange,costComplete?cost:null,valueComplete?value:null);
     }
 
     @Transactional
@@ -118,10 +132,18 @@ public class AnnualSummaryService {
         }
         Integer prevYear = currentYear - 1;
         LocalDate firstDay = LocalDate.of(prevYear, 1, 1);
+        var previousCoverage=coverageService.assess(user,firstDay,firstDay.withDayOfYear(firstDay.lengthOfYear()),null,null,true);
+        var currentStart=LocalDate.of(currentYear,1,1);
+        var currentCoverage=coverageService.assess(user,currentStart,currentStart.withDayOfYear(currentStart.lengthOfYear()),null,null,true);
+        if(!previousCoverage.complete()||!currentCoverage.complete())
+            return new YearlyComparisonDTO(null,null,"Sem períodos completos comparáveis; crescimento indisponível.");
         DashboardService.PeriodTotals previous = dashboardService.getPeriodTotals(
                 user, firstDay, firstDay.withDayOfYear(firstDay.lengthOfYear()), null, null);
         BigDecimal prevIncome = previous.income();
         BigDecimal prevExpense = previous.expense();
+        if(!previousCoverage.withTotals(prevIncome,prevExpense).complete()
+                ||!currentCoverage.withTotals(currentIncome,currentExpense).complete())
+            return new YearlyComparisonDTO(null,null,"Totais fora da faixa monetária; crescimento indisponível.");
 
         BigDecimal incomeGrowth = calculateGrowth(prevIncome, currentIncome);
         BigDecimal expenseGrowth = calculateGrowth(prevExpense, currentExpense);

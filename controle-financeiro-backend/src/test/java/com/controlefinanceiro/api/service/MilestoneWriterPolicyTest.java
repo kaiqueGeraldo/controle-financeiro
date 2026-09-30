@@ -99,6 +99,25 @@ class MilestoneWriterPolicyTest extends PostgresIntegrationTest {
         assertThat(balance(a)).isEqualByComparingTo("1010.00");assertThat(sql.queryForObject("select is_archived from accounts where id=?",Boolean.class,a)).isTrue();
     }
 
+    @Test void aggregatesRejectOverflowAndGoalMoneyNeverTruncates() {
+        var u=user();var g=goal(u);
+        assertThatThrownBy(()->goals.update(g,new UpdateGoalDTO(null,m("1.005"),null),u))
+                .isInstanceOf(com.controlefinanceiro.api.service.exception.BusinessRuleException.class);
+        var a=accounts.create(new CreateAccountDTO("Máximo",AccountType.CHECKING,m("999999999999.99"),"BLUE",DAY),u).id();
+        var b=accounts.create(new CreateAccountDTO("Um centavo",AccountType.CHECKING,m("0.01"),"BLUE",DAY),u).id();
+        goals.setAllocation(g,new SetGoalAllocationDTO(a,null,m("999999999999.99")),u);
+        assertThatThrownBy(()->goals.setAllocation(g,new SetGoalAllocationDTO(b,null,m("0.01")),u))
+                .isInstanceOf(com.controlefinanceiro.api.service.exception.BusinessRuleException.class);
+        assertThat(sql.queryForObject("select current_value from goals where id=?",BigDecimal.class,g)).isEqualByComparingTo("999999999999.99");
+        assertThat(sql.queryForObject("select count(*) from goal_allocations where goal_id=?",Integer.class,g)).isOne();
+        var cat=new Category();cat.setName("Compra");cat.setType(TransactionType.EXPENSE);cat.setUser(u);categories.save(cat);
+        var c=cards.createCard(new CreateCardDTO("Teto","1234",m("999999999999.99"),20,28,"VISA","BLUE"),u).id();
+        cards.createTransaction(new CreateCardTransactionDTO("Máximo",m("999999999999.99"),DAY,null,cat.getId(),c,1),u);
+        assertThatThrownBy(()->cards.createTransaction(new CreateCardTransactionDTO("Centavo excedente",m("0.01"),DAY,null,cat.getId(),c,1),u))
+                .isInstanceOf(com.controlefinanceiro.api.service.exception.BusinessRuleException.class);
+        assertThat(sql.queryForObject("select count(*) from card_transactions t join invoices i on i.id=t.invoice_id where i.card_id=?",Integer.class,c)).isOne();
+    }
+
     private User user(){var u=new User();u.setNome("Writers");u.setEmail(UUID.randomUUID()+"@example.invalid");u.setSenha("synthetic");return users.save(u);}
     private UUID account(User u){return accounts.create(new CreateAccountDTO("Conta",AccountType.CHECKING,m("1000.00"),"BLUE",DAY),u).id();}
     private UUID goal(User u){return goals.create(new CreateGoalDTO("Meta",m("1000.00"),LocalDate.of(2028,1,1),null,null,"BLUE",GoalType.MONETARY,true),u).id();}

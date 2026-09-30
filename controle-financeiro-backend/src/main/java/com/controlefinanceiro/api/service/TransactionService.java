@@ -75,6 +75,7 @@ public class TransactionService {
     private Clock clock;
     @Autowired
     private DashboardService dashboardService;
+    @Autowired private ReportingCoverageService coverageService;
     @Autowired private CardTransactionRepository cardTransactionRepository;
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private com.controlefinanceiro.api.domain.goal.GoalAllocationRepository allocationRepository;
@@ -929,7 +930,7 @@ public class TransactionService {
         return exportToExcel(user, null, null, null, null);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly=true, isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public CashSummaryDTO getCashSummary(User user, Integer month, Integer year,
                                          TransactionType type, UUID accountId) {
         if (month == null || year == null) {
@@ -948,7 +949,9 @@ public class TransactionService {
             if (cashDelta.signum() >= 0) entries = entries.add(cashDelta);
             else exits = exits.subtract(cashDelta);
         }
-        return new CashSummaryDTO(entries, exits, entries.subtract(exits));
+        var coverage=coverageService.assess(user,firstDay,lastDay,type,accountId,false).withTotals(entries,exits,entries.subtract(exits));
+        return new CashSummaryDTO(coverage.exact(entries),coverage.exact(exits),coverage.exact(entries.subtract(exits)),
+                coverage,new CashSummaryDTO.Observed(entries,exits,entries.subtract(exits)));
     }
 
     @Transactional(readOnly=true, isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
@@ -1007,6 +1010,8 @@ public class TransactionService {
             BigDecimal totalExpense = totals.expense();
             BigDecimal balance = totals.investmentResult() == null ? null
                     : totalIncome.subtract(totalExpense).add(totals.investmentResult());
+            var coverage=coverageService.assess(user,startDate,endDate,type,accountId,true)
+                    .withTotals(totalIncome,totalExpense,balance,totals.cardConsumption(),totals.investmentResult());
 
             // --- 3. DESENHANDO O CABEÇALHO E RESUMO ---
             Row rowTitle = sheet.createRow(0);
@@ -1022,32 +1027,40 @@ public class TransactionService {
             Row rInc = sheet.createRow(2);
             rInc.createCell(0).setCellValue("Receitas realizadas:");
             Cell cInc = rInc.createCell(1);
-            cInc.setCellValue(totalIncome.doubleValue());
+            writeCoveredTotal(cInc,rInc.createCell(2),totalIncome,coverage);
             cInc.setCellStyle(currencyStyle);
 
             Row rExp = sheet.createRow(3);
             rExp.createCell(0).setCellValue("Consumo e encargos (inclui cartão):");
             Cell cExp = rExp.createCell(1);
-            cExp.setCellValue(totalExpense.doubleValue());
+            writeCoveredTotal(cExp,rExp.createCell(2),totalExpense,coverage);
             cExp.setCellStyle(currencyStyle);
 
             Row rBal = sheet.createRow(4);
             rBal.createCell(0).setCellValue("Resultado gerencial (não saldo bancário):");
             Cell cBal = rBal.createCell(1);
-            if (balance == null) cBal.setCellValue("Indisponível: custo de venda desconhecido");
-            else cBal.setCellValue(balance.doubleValue());
+            writeCoveredTotal(cBal,rBal.createCell(2),balance,coverage);
             cBal.setCellStyle(currencyStyle);
             Row rCard = sheet.createRow(5);
             rCard.createCell(0).setCellValue("Deste total, consumo líquido no cartão:");
             Cell cCard = rCard.createCell(1);
-            cCard.setCellValue(totals.cardConsumption().doubleValue());
+            writeCoveredTotal(cCard,rCard.createCell(2),totals.cardConsumption(),coverage);
             cCard.setCellStyle(currencyStyle);
             Row rInvestment = sheet.createRow(6);
             rInvestment.createCell(0).setCellValue("Resultado realizado de investimentos:");
             Cell cInvestment = rInvestment.createCell(1);
-            if (totals.investmentResult() == null) cInvestment.setCellValue("Indisponível: custo de venda desconhecido");
-            else cInvestment.setCellValue(totals.investmentResult().doubleValue());
+            writeCoveredTotal(cInvestment,rInvestment.createCell(2),totals.investmentResult(),coverage);
             cInvestment.setCellStyle(currencyStyle);
+            scope.createCell(1).setCellValue("Total completo / indisponibilidade");
+            scope.createCell(2).setCellValue("Subtotal observado (decimal exato; não indica cobertura)");
+            var coverageSheet=workbook.createSheet("Cobertura");
+            coverageSheet.createRow(0).createCell(0).setCellValue("Cobertura: "+coverage.state());
+            coverageSheet.createRow(1).createCell(0).setCellValue(coverage.reason());
+            coverageSheet.createRow(2).createCell(0).setCellValue("Solicitado: "+startDate+" a "+endDate);
+            coverageSheet.createRow(3).createCell(0).setCellValue("Base conhecida: "+coverage.knownFrom()+"; referência: "+coverage.knownThrough());
+            coverageSheet.createRow(4).createCell(0).setCellValue("Fontes/fatos desconhecidos: "+coverage.unknownSources());
+            coverageSheet.createRow(5).createCell(0).setCellValue("Totais indisponíveis também quando ultrapassam 999999999999.99; coluna C preserva o observado.");
+            coverageSheet.setColumnWidth(0,24000);
 
             // --- 4. CABEÇALHO DA TABELA ---
             int rowIdx = 7;
@@ -1194,6 +1207,15 @@ public class TransactionService {
             log.error("Erro ao gerar Excel", e);
             throw new BusinessRuleException("Falha ao gerar arquivo Excel");
         }
+    }
+
+    private static void writeCoveredTotal(Cell exact, Cell observed, BigDecimal value,
+            com.controlefinanceiro.api.domain.summary.dto.ReportingCoverageDTO coverage) {
+        BigDecimal complete=coverage.exact(value);
+        if(complete==null)exact.setCellValue("Indisponível: "+(value==null?"custo desconhecido":coverage.reason())
+                +(value!=null&&value.abs().compareTo(new BigDecimal("999999999999.99"))>0?" Fora da faixa monetária.":""));
+        else exact.setCellValue(complete.doubleValue());
+        observed.setCellValue(value==null?"Indisponível: custo desconhecido":value.setScale(2).toPlainString());
     }
 
     private BigDecimal exactDecimal(Object value) {

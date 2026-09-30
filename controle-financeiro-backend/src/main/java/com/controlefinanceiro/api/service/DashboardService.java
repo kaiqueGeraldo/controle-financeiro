@@ -31,7 +31,9 @@ public class DashboardService {
     @Autowired private com.controlefinanceiro.api.domain.investment.InvestmentCorrectionRepository investmentCorrections;
     @Autowired
     private Clock clock;
+    @Autowired private ReportingCoverageService coverageService;
 
+    @org.springframework.transaction.annotation.Transactional(readOnly=true,isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public DashboardFlowDTO getMonthlyFlow(User user, int month, int year) {
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
@@ -49,7 +51,12 @@ public class DashboardService {
 
         BigDecimal balance = totals.investmentResult() == null ? null
                 : totalIncome.subtract(totalExpense).add(totals.investmentResult());
-        return new DashboardFlowDTO(totalIncome, totalExpense, balance, percentage, totals.investmentResult());
+        var coverage=coverageService.assess(user,startOfMonth,endOfMonth,null,null,true)
+                .withTotals(totalIncome,totalExpense,balance,totals.investmentResult());
+        return new DashboardFlowDTO(coverage.exact(totalIncome), coverage.exact(totalExpense), coverage.exact(balance),
+                coverage.complete()?percentage:null, coverage.exact(totals.investmentResult()), coverage,
+                new com.controlefinanceiro.api.domain.summary.dto.ObservedTotalsDTO(totalIncome,totalExpense,balance,
+                        totals.investmentResult(),totals.cardConsumption()));
     }
 
     /** Resultado gerencial, independente da página do extrato. Cartão só entra no consolidado. */
@@ -82,6 +89,7 @@ public class DashboardService {
     public record PeriodTotals(BigDecimal income, BigDecimal expense,
                                BigDecimal cardConsumption, BigDecimal investmentResult) {}
 
+    @org.springframework.transaction.annotation.Transactional(readOnly=true,isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public List<ChartPointDTO> getWealthChart(String period, User user) {
         List<ChartPointDTO> points = new ArrayList<>();
         LocalDate today = LocalDate.now(clock);
@@ -89,6 +97,7 @@ public class DashboardService {
 
         if ("30D".equals(period)) {
             LocalDate startDate = today.minusDays(29);
+            var coverage=coverageService.assess(user,startDate,today,null,null,false);
             List<Object[]> flowData = transactionRepository.sumCashByDateAndType(user.getId(), startDate);
             Map<LocalDate, BigDecimal> deltas = new HashMap<>();
             for (Object[] row : flowData) {
@@ -100,11 +109,14 @@ public class DashboardService {
             for (int i = 0; i < 30; i++) {
                 LocalDate date = startDate.plusDays(i);
                 runningCashFlow = runningCashFlow.add(deltas.getOrDefault(date, BigDecimal.ZERO));
-                points.add(new ChartPointDTO(date.getDayOfMonth() + "/" + date.getMonthValue(), runningCashFlow));
+                var pointCoverage=coverageService.interval(startDate,date,coverage.knownFrom(),today,coverage.unknownSources()).withTotals(runningCashFlow);
+                points.add(new ChartPointDTO(date.getDayOfMonth() + "/" + date.getMonthValue(),
+                        pointCoverage.exact(runningCashFlow),runningCashFlow,pointCoverage));
             }
         } else {
             int numMonths = "6M".equals(period) ? 6 : 12;
             LocalDate startDate = today.minusMonths(numMonths - 1L).withDayOfMonth(1);
+            var coverage=coverageService.assess(user,startDate,today,null,null,false);
             List<Object[]> flowData = transactionRepository.sumCashByMonthAndType(user.getId(), startDate);
             Map<YearMonth, BigDecimal> deltas = new HashMap<>();
             for (Object[] row : flowData) {
@@ -117,7 +129,10 @@ public class DashboardService {
             for (int i = 0; i < numMonths; i++) {
                 YearMonth month = YearMonth.from(startDate).plusMonths(i);
                 runningCashFlow = runningCashFlow.add(deltas.getOrDefault(month, BigDecimal.ZERO));
-                points.add(new ChartPointDTO(getMonthShortName(month.getMonthValue()), runningCashFlow));
+                LocalDate through=month.atEndOfMonth().isAfter(today)?today:month.atEndOfMonth();
+                var pointCoverage=coverageService.interval(startDate,through,coverage.knownFrom(),today,coverage.unknownSources()).withTotals(runningCashFlow);
+                points.add(new ChartPointDTO(getMonthShortName(month.getMonthValue()),
+                        pointCoverage.exact(runningCashFlow),runningCashFlow,pointCoverage));
             }
         }
         return points;

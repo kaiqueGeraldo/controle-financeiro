@@ -1,4 +1,5 @@
 "use client";
+import { monetaryAggregate } from "@/utils/monetaryAggregate";
 
 import {
   DashboardCardConfig,
@@ -78,14 +79,11 @@ export default function DashboardScreen() {
     investmentsError ||
     flowError ||
     recentTransactionsError;
-  const patrimonioTotal = saldoTotal===null?null:saldoTotal + totalInvestido;
+  const patrimonioTotal = saldoTotal===null||totalInvestido===null?null:monetaryAggregate([saldoTotal,totalInvestido]);
 
   const resumoFaturas = useMemo(() => {
-    const total = cards.reduce(
-      (acc, card) => acc + card.currentInvoiceValue,
-      0,
-    );
-    const lista = cards
+    const total = monetaryAggregate(cards.map(card => card.currentInvoiceValue));
+    const lista = [...cards]
       .sort((a, b) => b.currentInvoiceValue - a.currentInvoiceValue)
       .map((card) => ({
         id: card.id,
@@ -178,6 +176,7 @@ export default function DashboardScreen() {
               receitas={flowData.income}
               percentual={flowData.percentage}
               investmentResult={flowData.investmentResult}
+              coverage={flowData.coverage} observed={flowData.observed}
             />
           </div>
         );
@@ -247,7 +246,10 @@ export default function DashboardScreen() {
             </h3>
             <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-1 max-h-40">
               {recentTransactions.length > 0 ? (
-                recentTransactions.slice(0, 4).map((tx) => (
+                recentTransactions.slice(0, 4).map((tx) => {
+                  const cash = tx.cashDelta === undefined ? (tx.type === "EXPENSE" ? -tx.amount : tx.amount) : tx.cashDelta;
+                  const forecast = tx.status === "PENDING" || tx.status === "PARTIALLY_SETTLED" || tx.status === "FULFILLED" || tx.status === "CANCELLED";
+                  return (
                   <div
                     key={tx.id}
                     className="flex flex-wrap gap-2 justify-between items-center text-sm border-b border-border-divider/50 pb-2 last:border-0 last:pb-0"
@@ -260,14 +262,16 @@ export default function DashboardScreen() {
                         {formatCalendarDate(tx.date)}
                       </p>
                     </div>
+                    <div className="flex flex-col items-end max-w-full">
                     <PrivacyBlur
                       className={`max-w-full shrink-0 [overflow-wrap:anywhere] font-bold ${tx.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
                     >
-                      {tx.type === "EXPENSE" ? "-" : "+"}
-                      {formatCurrency(tx.amount)}
+                      {forecast ? `Previsto: ${formatCurrency(tx.amount)}` : cash === null ? "Caixa indisponível" : `${cash < 0 ? "- " : cash > 0 ? "+ " : ""}${formatCurrency(Math.abs(cash))}`}
                     </PrivacyBlur>
+                    {!forecast && tx.cashAmount !== undefined && tx.cashAmount !== tx.amount && <PrivacyBlur className="text-xs text-text-muted">Bruto: {formatCurrency(tx.amount)}</PrivacyBlur>}
+                    </div>
                   </div>
-                ))
+                );})
               ) : (
                 <span className="text-xs text-text-muted">
                   Nenhuma transação recente.

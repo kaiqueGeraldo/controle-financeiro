@@ -7,7 +7,7 @@ export const transactionService = {
     const query = new URLSearchParams({ month: String(params.month), year: String(params.year) });
     if (params.type && params.type !== "todos") query.set("type", params.type);
     if (params.accountId && params.accountId !== "todas") query.set("accountId", params.accountId);
-    return apiRequest<{ entries: number; exits: number; balance: number }>(`/transactions/summary?${query}`, {
+    return apiRequest<import("@/types").CashSummaryResponse>(`/transactions/summary?${query}`, {
       method: "GET", signal: params.signal,
     });
   },

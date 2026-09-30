@@ -75,11 +75,11 @@ class MilestoneReportingPositionTest extends PostgresIntegrationTest {
         var totals=dashboard.getPeriodTotals(u,DAY.withDayOfMonth(1),DAY.withDayOfMonth(30),TransactionType.TRANSFER,null);
         assertThat(totals.income()).isZero();assertThat(totals.expense()).isZero();assertThat(totals.cardConsumption()).isZero();
         try(var book=new XSSFWorkbook(new ByteArrayInputStream(ledger.exportToExcel(u,9,2026,TransactionType.TRANSFER,null)))) {
-            assertThat(book.getNumberOfSheets()).isEqualTo(1);
+            assertThat(book.getNumberOfSheets()).isEqualTo(2);
             var sheet=book.getSheetAt(0);assertThat(sheet.getLastRowNum()).isEqualTo(9);
             assertThat(sheet.getRow(8).getCell(5).getStringCellValue()).isEqualTo("Transferência");
             assertThat(sheet.getRow(9).getCell(5).getStringCellValue()).isEqualTo("Transferência");
-            assertThat(sheet.getRow(3).getCell(1).getNumericCellValue()).isZero();
+            assertThat(new BigDecimal(sheet.getRow(3).getCell(2).getStringCellValue())).isZero();
         }
         assertThat(dashboard.getPeriodTotals(u,DAY.withDayOfMonth(1),DAY.withDayOfMonth(30),null,null).cardConsumption()).isEqualByComparingTo("100");
     }

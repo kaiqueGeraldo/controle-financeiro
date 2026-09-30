@@ -298,16 +298,21 @@ async function createAndEditTransaction(
   });
 
   await page.reload();
-  await expect(page.getByText(description, { exact: true })).toBeVisible();
-  await page.getByText(description, { exact: true }).click();
-  const reopenedDetails = page
-    .getByText(description, { exact: true })
-    .locator("xpath=ancestor::form");
+  // FIN-02/07 keeps the original fact alongside its correction. Select the
+  // corrected civil time explicitly instead of assuming destructive editing.
+  await expect(page.getByText(description, { exact: true })).toHaveCount(2);
+  const correctedRow = page.locator("div.group").filter({
+    has: page.getByText(description, { exact: true }), hasText: "08:15",
+  });
+  await expect(correctedRow).toHaveCount(1);
+  await expect(correctedRow).toBeVisible();
+  await correctedRow.click();
+  const reopenedDetails = page.locator("form").filter({has: page.getByText(description, {exact: true})});
   await expect(reopenedDetails.getByText("29/01/2027", { exact: true })).toBeVisible();
   await expect(reopenedDetails.getByText("08:15", { exact: true })).toBeVisible();
 
   await page.goto("/");
-  const dashboardTransaction = page.getByText(description, { exact: true }).locator("..");
+  const dashboardTransaction = page.getByText(description, { exact: true }).locator("..").filter({hasText:"29/01/2027"});
   await expect(dashboardTransaction.getByText("29/01/2027", { exact: true })).toBeVisible();
 }
 

@@ -2,7 +2,7 @@ package com.controlefinanceiro.api;
 
 import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.MarketDataService;
-import com.controlefinanceiro.api.support.PostgresTestContainerInitializer;
+import com.controlefinanceiro.api.migration.EmptyMigrationTestInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties={"spring.flyway.enabled=true","spring.jpa.hibernate.ddl-auto=validate"})
-@ContextConfiguration(initializers=PostgresTestContainerInitializer.class)
+@ContextConfiguration(initializers=EmptyMigrationTestInitializer.class)
 @Import(MilestoneRemediationBrowserTest.FixedClock.class)
 class MilestoneRemediationBrowserTest {
     @TestConfiguration static class FixedClock {
@@ -42,6 +42,7 @@ class MilestoneRemediationBrowserTest {
     @MockitoBean EmailService email;
     @MockitoBean MarketDataService quotes;
     @Test void browserBffSpringPostgresAndReload() throws Exception {
+        assertThat(sql.queryForObject("select count(*) from flyway_schema_history where version='11' and success",Integer.class)).isOne();
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/saneamento-CF-016-CF-021/browser")
                 .resolve(System.getProperty("review.evidence", "."));

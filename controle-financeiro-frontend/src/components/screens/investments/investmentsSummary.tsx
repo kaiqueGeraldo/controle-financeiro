@@ -3,7 +3,7 @@ import { formatCurrency } from "@/utils/format";
 import { PieChart, TrendingDown, TrendingUp } from "lucide-react";
 
 interface InvestmentsSummaryProps {
-  totalInvestido: number;
+  totalInvestido: number | null;
   lucroTotal: number | null;
   rentabilidadeGeral: number | null;
   valuationComplete: boolean;
@@ -28,7 +28,7 @@ export function InvestmentsSummary({ totalInvestido, lucroTotal, rentabilidadeGe
         </div>
         
         <PrivacyBlur className="text-3xl md:text-4xl font-bold text-text-main tracking-tight relative z-10 w-min">
-          {formatCurrency(totalInvestido)}
+          {totalInvestido===null?"Indisponível: total fora da faixa":formatCurrency(totalInvestido)}
         </PrivacyBlur>
         {!valuationComplete && <p className="text-xs text-text-muted mt-2">Subtotal conhecido; há avaliações indisponíveis.</p>}
       </div>

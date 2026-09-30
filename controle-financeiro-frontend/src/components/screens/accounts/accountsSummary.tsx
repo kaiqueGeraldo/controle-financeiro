@@ -5,7 +5,7 @@ import { Building2, TrendingUp, Wallet } from "lucide-react";
 interface AccountsSummaryProps {
   total: number|null;
   checking: number|null;
-  invested: number;
+  invested: number | null;
   valuationComplete: boolean;
 }
 
@@ -60,7 +60,7 @@ export function AccountsSummary({
             Investimentos avaliados
           </p>
           <PrivacyBlur className="text-xl font-bold text-purple-400">
-            {formatCurrency(invested)}
+            {invested===null?"Indisponível: total fora da faixa":formatCurrency(invested)}
           </PrivacyBlur>
         </div>
       </div>

@@ -7,6 +7,7 @@ import {
 import { useFinanceData } from "./useFinanceData";
 import { shiftMonth } from "@/utils/date";
 import { useUser } from "./useUser";
+import { monetaryAggregate } from "@/utils/monetaryAggregate";
 import { completeReads, reconcileFinancialViews, ReconciliationCancelledError } from "@/utils/financialReconciliation";
 import {
   isAbortError,
@@ -266,15 +267,12 @@ export function useCards() {
 
   // --- CÁLCULOS ---
   const summary = useMemo(() => {
-    const totalLimit = cards.reduce((acc, c) => acc + c.limit, 0);
-    const totalInvoice = cards.reduce(
-      (acc, c) => acc + c.currentInvoiceValue,
-      0,
-    );
+    const totalLimit = monetaryAggregate(cards.map(c => c.limit));
+    const totalInvoice = monetaryAggregate(cards.map(c => c.currentInvoiceValue));
     return {
       totalLimit,
       totalInvoice,
-      available: totalLimit - totalInvoice,
+      available: totalLimit === null || totalInvoice === null ? null : monetaryAggregate([totalLimit,-totalInvoice]),
     };
   }, [cards]);
 

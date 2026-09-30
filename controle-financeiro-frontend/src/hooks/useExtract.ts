@@ -13,7 +13,7 @@ import {
 
 interface ExtractCacheData {
   transactions: Transaction[];
-  summary: { entries: number; exits: number; balance: number };
+  summary: import("@/types").CashSummaryResponse;
   page: number;
   totalPages: number;
   hasMore: boolean;

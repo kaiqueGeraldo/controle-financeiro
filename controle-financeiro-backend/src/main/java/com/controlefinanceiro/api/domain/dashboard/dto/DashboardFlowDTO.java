@@ -6,5 +6,7 @@ public record DashboardFlowDTO(
         BigDecimal expense,
         BigDecimal balance,
         BigDecimal percentage,
-        BigDecimal investmentResult
+        BigDecimal investmentResult,
+        com.controlefinanceiro.api.domain.summary.dto.ReportingCoverageDTO coverage,
+        com.controlefinanceiro.api.domain.summary.dto.ObservedTotalsDTO observed
 ) {}

@@ -64,6 +64,8 @@ class InvestmentServiceTemporalTest {
         when(accountRepository.findOwnedForAllocation(account.getId(), user.getId())).thenReturn(Optional.of(account));
         when(categoryRepository.findByUserIdAndName(any(), any())).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(investTransactionRepository.save(any(com.controlefinanceiro.api.domain.investment.InvestTransaction.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
         injectDependencies(service, investmentRepository, investTransactionRepository, accountRepository,
                 transactionRepository, categoryRepository);
         ReflectionTestUtils.setField(service, "clock", Clock.fixed(

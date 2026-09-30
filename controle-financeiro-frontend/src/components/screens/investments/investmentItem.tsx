@@ -43,7 +43,7 @@ export const BadgeTipo = ({ tipo }: { tipo: InvestType }) => (
 // --- COMPONENTE ---
 interface InvestmentItemProps {
   asset: Investment;
-  totalPortfolioValue: number;
+  totalPortfolioValue: number | null;
   onClick: (id: string) => void;
 }
 
@@ -54,7 +54,7 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
   const variacao = custoTotal !== null && saldoAtual !== null ? saldoAtual - custoTotal : null;
   const variacaoPerc = custoTotal !== null && custoTotal > 0 && variacao !== null ? (variacao / custoTotal) * 100 : null;
   const isPositivo = variacao !== null && variacao >= 0;
-  const alocacao = saldoAtual !== null && totalPortfolioValue > 0 ? (saldoAtual / totalPortfolioValue) * 100 : null;
+  const alocacao = saldoAtual !== null && totalPortfolioValue !== null && totalPortfolioValue > 0 ? (saldoAtual / totalPortfolioValue) * 100 : null;
 
   return (
     <div className="relative group perspective-1000 h-full">

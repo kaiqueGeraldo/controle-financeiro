@@ -90,15 +90,17 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         mvc.perform(get("/transactions/summary?month=9&year=2026&page=99")
                         .header("Authorization", auth))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.entries").value(12.34))
-                .andExpect(jsonPath("$.exits").value(0))
-                .andExpect(jsonPath("$.balance").value(12.34));
+                .andExpect(jsonPath("$.entries").isEmpty())
+                .andExpect(jsonPath("$.coverage.state").value("UNKNOWN_ORIGIN"))
+                .andExpect(jsonPath("$.observed.entries").value("12.34"))
+                .andExpect(jsonPath("$.observed.exits").value("0.00"))
+                .andExpect(jsonPath("$.observed.balance").value("12.34"));
         byte[] xlsx = mvc.perform(get("/transactions/export?month=9&year=2026")
                         .header("Authorization", auth))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsByteArray();
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(xlsx))) {
-            assertThat(workbook.getSheetAt(0).getRow(2).getCell(1).getNumericCellValue()).isEqualTo(12.34);
+            assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(2).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(12.34);
         }
         mvc.perform(get("/transactions/export?month=9").header("Authorization", auth))
                 .andExpect(status().isBadRequest());
@@ -127,22 +129,22 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         save(owner, account, "9.00", TransactionType.EXPENSE, TransactionOrigin.USER, true, DAY.minusYears(1));
 
         var month = dashboard.getMonthlyFlow(owner, 9, 2026);
-        assertThat(month.income()).isEqualByComparingTo("100.00");
-        assertThat(month.expense()).isEqualByComparingTo("40.00");
-        assertThat(month.balance()).isEqualByComparingTo("60.00");
+        assertThat(month.observed().income()).isEqualByComparingTo("100.00");
+        assertThat(month.observed().expense()).isEqualByComparingTo("40.00");
+        assertThat(month.observed().balance()).isEqualByComparingTo("60.00");
         // Fluxo de caixa inclui principal aplicado e fatura, mas não a abertura.
-        assertThat(dashboard.getWealthChart("30D", owner).getLast().valor())
+        assertThat(dashboard.getWealthChart("30D", owner).getLast().observedValue())
                 .isEqualByComparingTo("-160.00");
         var year = annual.getSummary(owner, 2026);
-        assertThat(year.balance().totalIncome()).isEqualByComparingTo("100.00");
-        assertThat(year.balance().totalExpense()).isEqualByComparingTo("40.00");
-        assertThat(year.balance().annualBalance()).isEqualByComparingTo("60.00");
-        assertThat(annual.getSummary(owner, 2025).balance().totalExpense()).isEqualByComparingTo("9.00");
+        assertThat(year.balance().observed().income()).isEqualByComparingTo("100.00");
+        assertThat(year.balance().observed().expense()).isEqualByComparingTo("40.00");
+        assertThat(year.balance().observed().balance()).isEqualByComparingTo("60.00");
+        assertThat(annual.getSummary(owner, 2025).balance().observed().expense()).isEqualByComparingTo("9.00");
         assertThat(annual.getSummary(owner, 2026).comparison().incomeGrowthPercentage()).isNull();
         var cash = transactionService.getCashSummary(owner, 9, 2026, null, null);
-        assertThat(cash.entries()).isEqualByComparingTo("100.00");
-        assertThat(cash.exits()).isEqualByComparingTo("260.00");
-        assertThat(cash.balance()).isEqualByComparingTo("-160.00");
+        assertThat(cash.observed().entries()).isEqualByComparingTo("100.00");
+        assertThat(cash.observed().exits()).isEqualByComparingTo("260.00");
+        assertThat(cash.observed().balance()).isEqualByComparingTo("-160.00");
 
         assertThat(transactions.findFilteredByUserId(owner.getId(), DAY, DAY, null, null, PageRequest.of(0, 2))
                 .getTotalElements()).isEqualTo(6);
@@ -151,8 +153,8 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
 
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(transactionService.exportToExcel(owner)))) {
             var sheet = workbook.getSheetAt(0);
-            assertThat(sheet.getRow(2).getCell(1).getNumericCellValue()).isEqualTo(100.0);
-            assertThat(sheet.getRow(3).getCell(1).getNumericCellValue()).isEqualTo(49.0);
+            assertThat(new BigDecimal(sheet.getRow(2).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(100.0);
+            assertThat(new BigDecimal(sheet.getRow(3).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(49.0);
         }
     }
 
@@ -184,14 +186,14 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         save(owner, source, "2.00", TransactionType.EXPENSE, TransactionOrigin.TRANSFER_FEE, true, DAY);
 
         var all = transactionService.getCashSummary(owner, 9, 2026, null, null);
-        assertThat(all.entries()).isEqualByComparingTo("0.00");
-        assertThat(all.exits()).isEqualByComparingTo("2.00");
+        assertThat(all.observed().entries()).isEqualByComparingTo("0.00");
+        assertThat(all.observed().exits()).isEqualByComparingTo("2.00");
         var from = transactionService.getCashSummary(owner, 9, 2026, null, source.getId());
-        assertThat(from.entries()).isEqualByComparingTo("0.00");
-        assertThat(from.exits()).isEqualByComparingTo("202.00");
+        assertThat(from.observed().entries()).isEqualByComparingTo("0.00");
+        assertThat(from.observed().exits()).isEqualByComparingTo("202.00");
         var to = transactionService.getCashSummary(owner, 9, 2026, null, target.getId());
-        assertThat(to.entries()).isEqualByComparingTo("200.00");
-        assertThat(to.exits()).isEqualByComparingTo("0.00");
+        assertThat(to.observed().entries()).isEqualByComparingTo("200.00");
+        assertThat(to.observed().exits()).isEqualByComparingTo("0.00");
 
         Transaction undoOut = save(owner, source, "200.00", TransactionType.TRANSFER,
                 TransactionOrigin.REVERSAL, true, DAY.plusMonths(1));
@@ -200,14 +202,14 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
                 TransactionOrigin.REVERSAL, true, DAY.plusMonths(1));
         undoIn.setReversalOfId(inbound.getId());
         var sourceReversal = transactionService.getCashSummary(owner, 10, 2026, null, source.getId());
-        assertThat(sourceReversal.entries()).isEqualByComparingTo("200.00");
-        assertThat(sourceReversal.exits()).isEqualByComparingTo("0.00");
-        assertThat(sourceReversal.balance()).isEqualByComparingTo("200.00");
+        assertThat(sourceReversal.observed().entries()).isEqualByComparingTo("200.00");
+        assertThat(sourceReversal.observed().exits()).isEqualByComparingTo("0.00");
+        assertThat(sourceReversal.observed().balance()).isEqualByComparingTo("200.00");
         var targetReversal = transactionService.getCashSummary(owner, 10, 2026, null, target.getId());
-        assertThat(targetReversal.entries()).isEqualByComparingTo("0.00");
-        assertThat(targetReversal.exits()).isEqualByComparingTo("200.00");
-        assertThat(targetReversal.balance()).isEqualByComparingTo("-200.00");
-        assertThat(transactionService.getCashSummary(owner, 10, 2026, null, null).balance())
+        assertThat(targetReversal.observed().entries()).isEqualByComparingTo("0.00");
+        assertThat(targetReversal.observed().exits()).isEqualByComparingTo("200.00");
+        assertThat(targetReversal.observed().balance()).isEqualByComparingTo("-200.00");
+        assertThat(transactionService.getCashSummary(owner, 10, 2026, null, null).observed().balance())
                 .isEqualByComparingTo("0.00");
     }
 
@@ -230,15 +232,15 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
                 TransactionOrigin.REVERSAL, true, DAY.plusDays(1));
         reversal.setReversalOfId(buy.getId());
 
-        assertThat(dashboard.getMonthlyFlow(owner, 9, 2026).expense()).isEqualByComparingTo("0.00");
+        assertThat(dashboard.getMonthlyFlow(owner, 9, 2026).observed().expense()).isEqualByComparingTo("0.00");
         var cash = transactionService.getCashSummary(owner, 9, 2026, null, null);
-        assertThat(cash.entries()).isEqualByComparingTo("200.00");
-        assertThat(cash.exits()).isEqualByComparingTo("200.00");
-        assertThat(cash.balance()).isEqualByComparingTo("0.00");
+        assertThat(cash.observed().entries()).isEqualByComparingTo("200.00");
+        assertThat(cash.observed().exits()).isEqualByComparingTo("200.00");
+        assertThat(cash.observed().balance()).isEqualByComparingTo("0.00");
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(
                 transactionService.exportToExcel(owner, 9, 2026, null, null)))) {
             var sheet = workbook.getSheetAt(0);
-            assertThat(sheet.getRow(3).getCell(1).getNumericCellValue()).isEqualTo(0.0);
+            assertThat(new BigDecimal(sheet.getRow(3).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(0.0);
             assertThat(sheet.getRow(8).getCell(10)).isNull();
             assertThat(sheet.getRow(9).getCell(10)).isNull();
         }
@@ -266,7 +268,7 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
                 PageRequest.of(1, 30)).getTotalElements()).isEqualTo(501);
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(transactionService.exportToExcel(owner)))) {
             var sheet = workbook.getSheetAt(0);
-            assertThat(sheet.getRow(2).getCell(1).getNumericCellValue()).isEqualTo(5.01);
+            assertThat(new BigDecimal(sheet.getRow(2).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(5.01);
             assertThat(sheet.getLastRowNum()).isEqualTo(508);
             assertThat(sheet.getRow(508).getCell(0).getStringCellValue()).isEqualTo("07/09/2026");
         }
@@ -308,21 +310,21 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         investmentOperations.save(sale);
 
         var month = dashboard.getMonthlyFlow(owner, 9, 2026);
-        assertThat(month.income()).isEqualByComparingTo("0.00");
-        assertThat(month.investmentResult()).isEqualByComparingTo("18.20");
-        assertThat(month.balance()).isEqualByComparingTo("18.20");
+        assertThat(month.observed().income()).isEqualByComparingTo("0.00");
+        assertThat(month.observed().investmentResult()).isEqualByComparingTo("18.20");
+        assertThat(month.observed().balance()).isEqualByComparingTo("18.20");
         var year = annual.getSummary(owner, 2026).balance();
-        assertThat(year.totalIncome()).isEqualByComparingTo("0.00");
-        assertThat(year.investmentResult()).isEqualByComparingTo("18.20");
-        assertThat(year.annualBalance()).isEqualByComparingTo("18.20");
+        assertThat(year.observed().income()).isEqualByComparingTo("0.00");
+        assertThat(year.observed().investmentResult()).isEqualByComparingTo("18.20");
+        assertThat(year.observed().balance()).isEqualByComparingTo("18.20");
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(
                 transactionService.exportToExcel(owner, 9, 2026, null, null)))) {
-            assertThat(workbook.getSheetAt(0).getRow(6).getCell(1).getNumericCellValue()).isEqualTo(18.20);
+            assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(6).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(18.20);
             assertThat(workbook.getSheetAt(0).getRow(8).getCell(9)).isNull();
         }
         sale.setRealizedResult(null);
         investmentOperations.saveAndFlush(sale);
-        assertThat(annual.getSummary(owner, 2026).balance().annualBalance()).isNull();
+        assertThat(annual.getSummary(owner, 2026).balance().observed().balance()).isNull();
     }
 
     @Test
@@ -379,16 +381,16 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         refund.setCreatedAt(DAY.atStartOfDay(java.time.ZoneOffset.UTC).toInstant());
         refunds.save(refund);
 
-        assertThat(dashboard.getMonthlyFlow(owner, 9, 2026).expense()).isEqualByComparingTo("140.00");
+        assertThat(dashboard.getMonthlyFlow(owner, 9, 2026).observed().expense()).isEqualByComparingTo("140.00");
         var summary = annual.getSummary(owner, 2026);
-        assertThat(summary.balance().totalExpense()).isEqualByComparingTo("140.00");
-        assertThat(summary.creditCard().totalSpent()).isEqualByComparingTo("100.00");
+        assertThat(summary.balance().observed().expense()).isEqualByComparingTo("140.00");
+        assertThat(summary.creditCard().observed().totalSpent()).isEqualByComparingTo("100.00");
         assertThat(dashboard.getPeriodTotals(owner, DAY.withDayOfMonth(1), DAY.withDayOfMonth(30),
                 null, account.getId()).expense()).isEqualByComparingTo("40.00");
 
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(
                 transactionService.exportToExcel(owner, 9, 2026, null, null)))) {
-            assertThat(workbook.getSheetAt(0).getRow(3).getCell(1).getNumericCellValue()).isEqualTo(140.0);
+            assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(3).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(140.0);
             var cardSheet = workbook.getSheet("Consumo cartão");
             assertThat(cardSheet.getRow(1).getCell(0).getStringCellValue()).isEqualTo("07/09/2026");
             assertThat(cardSheet.getRow(1).getCell(3).getNumericCellValue()).isEqualTo(120.0);
@@ -397,7 +399,7 @@ class Cf021ReportingIntegrationTest extends PostgresIntegrationTest {
         }
         try (var workbook = new XSSFWorkbook(new ByteArrayInputStream(
                 transactionService.exportToExcel(owner, 9, 2026, null, account.getId())))) {
-            assertThat(workbook.getSheetAt(0).getRow(3).getCell(1).getNumericCellValue()).isEqualTo(40.0);
+            assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(3).getCell(2).getStringCellValue()).doubleValue()).isEqualTo(40.0);
             assertThat(workbook.getSheet("Consumo cartão")).isNull();
         }
     }

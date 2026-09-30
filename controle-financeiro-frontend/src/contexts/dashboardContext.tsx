@@ -20,15 +20,8 @@ import {
   useRequestCoordinator,
 } from "@/hooks/useRequestCoordinator";
 
-interface FlowData {
-  income: number;
-  expense: number;
-  balance: number | null;
-  percentage: number;
-  investmentResult?: number | null;
-}
-
-type ChartPoint = { label: string; valor: number };
+type FlowData = import("@/types").MonthlyFlowResponse;
+type ChartPoint = import("@/types").ChartPoint;
 
 interface DashboardContextType {
   flowData: FlowData;

@@ -1,15 +1,17 @@
+import { ReportingCoverageNotice } from "@/components/ui/reportingCoverage";
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { formatCurrency } from "@/utils/format";
 import { TrendingUp } from "lucide-react";
 
 interface MonthlyFlowCardProps {
-  despesas: number;
-  receitas: number;
-  percentual: number;
+ coverage?:import("@/types").ReportingCoverage; observed?:import("@/types").ObservedTotals;
+  despesas: number | null;
+  receitas: number | null;
+  percentual: number | null;
   investmentResult?: number | null;
 }
 
-export function MonthlyFlowCard({ despesas, receitas, percentual, investmentResult }: MonthlyFlowCardProps) {
+export function MonthlyFlowCard({ despesas, receitas, percentual, investmentResult, coverage, observed }: MonthlyFlowCardProps) {
   return (
     <div className="bg-bg-surface border border-border-divider rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:border-border-divider transition-colors relative overflow-hidden group">
       <div className="absolute -top-4 -right-4 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -26,23 +28,24 @@ export function MonthlyFlowCard({ despesas, receitas, percentual, investmentResu
           Resultado gerencial do mês
         </span>
 
-        <div className="mt-4 mb-2 h-3 w-full bg-bg-surface-hover rounded-full overflow-hidden border border-border-divider">
+        {percentual !== null && <div className="mt-4 mb-2 h-3 w-full bg-bg-surface-hover rounded-full overflow-hidden border border-border-divider">
           <div
             className={`h-full rounded-full transition-all duration-1000 ${
               percentual > 100 ? "bg-rose-500" : "bg-linear-to-r from-emerald-600 to-emerald-400"
             }`}
             style={{ width: `${Math.min(percentual, 100)}%` }}
           />
-        </div>
+        </div>}
 
         <div className="flex flex-wrap gap-3 justify-between text-[10px] mt-2 font-bold uppercase tracking-wider [overflow-wrap:anywhere]">
           <span className="text-text-muted">
-            Consumo e encargos <b className="text-rose-400"><PrivacyBlur>{formatCurrency(despesas)}</PrivacyBlur></b>
+            Consumo e encargos <b className="text-rose-400"><PrivacyBlur>{despesas===null?"Indisponível":formatCurrency(despesas)}</PrivacyBlur></b>
           </span>
           <span className="text-text-muted">
-            Receitas realizadas <b className="text-emerald-500"><PrivacyBlur>{formatCurrency(receitas)}</PrivacyBlur></b>
+            Receitas realizadas <b className="text-emerald-500"><PrivacyBlur>{receitas===null?"Indisponível":formatCurrency(receitas)}</PrivacyBlur></b>
           </span>
         </div>
+        <ReportingCoverageNotice coverage={coverage} observed={observed?{Receitas:observed.income,Consumo:observed.expense,Resultado:observed.balance}:undefined}/>
         <p className="mt-3 text-xs text-text-muted">Inclui compras no cartão pela data da compra; lançamento legado desconhecido requer reconciliação.</p>
         {investmentResult !== undefined && <p className="mt-1 text-xs text-text-muted">
           Resultado realizado em investimentos: <PrivacyBlur>{investmentResult === null ? "indisponível" : formatCurrency(investmentResult)}</PrivacyBlur>

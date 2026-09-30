@@ -11,6 +11,7 @@ import {
 } from "react";
 import { investmentService } from "@/services/investmentService";
 import { Investment } from "@/types";
+import { monetaryAggregate } from "@/utils/monetaryAggregate";
 import { useUser } from "@/hooks/useUser";
 import { useFinanceData } from "@/hooks/useFinanceData";
 import {
@@ -23,7 +24,7 @@ interface InvestmentsContextType {
   isLoading: boolean;
   error: Error | null;
   refreshInvestments: () => Promise<void>;
-  totalInvestido: number;
+  totalInvestido: number | null;
   valuationComplete: boolean;
   lucroTotal: number | null;
   rentabilidadeGeral: number | null;
@@ -34,12 +35,12 @@ const InvestmentsContext = createContext<InvestmentsContextType | undefined>(
 );
 
 export function summarizeInvestmentPosition(investments: Investment[]) {
-  const totalInvestido = investments.reduce((sum, investment) => sum + (investment.valuationAmount ?? 0), 0);
-  const totalCost = investments.reduce((sum, investment) => sum + (investment.totalCost ?? 0), 0);
-  const valuationComplete = investments.every((investment) => investment.valuationAmount != null);
-  const costComplete = investments.every((investment) => investment.totalCost != null);
-  const lucroTotal = valuationComplete && costComplete ? totalInvestido - totalCost : null;
-  const rentabilidadeGeral = lucroTotal !== null && totalCost > 0 ? (lucroTotal / totalCost) * 100 : null;
+  const totalInvestido = monetaryAggregate(investments.map(investment=>investment.valuationAmount ?? 0));
+  const totalCost = monetaryAggregate(investments.map(investment=>investment.totalCost ?? 0));
+  const valuationComplete = totalInvestido!==null && investments.every((investment) => investment.valuationAmount != null);
+  const costComplete = totalCost!==null && investments.every((investment) => investment.totalCost != null);
+  const lucroTotal = valuationComplete && costComplete && totalInvestido!==null && totalCost!==null ? monetaryAggregate([totalInvestido,-totalCost]) : null;
+  const rentabilidadeGeral = lucroTotal !== null && totalCost !== null && totalCost > 0 ? (lucroTotal / totalCost) * 100 : null;
   return { totalInvestido, valuationComplete, lucroTotal, rentabilidadeGeral };
 }
 

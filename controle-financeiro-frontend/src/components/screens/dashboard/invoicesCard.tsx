@@ -11,7 +11,7 @@ interface InvoiceItem {
 }
 
 interface InvoicesCardProps {
-  total: number;
+  total: number | null;
   lista: InvoiceItem[];
 }
 
@@ -27,7 +27,7 @@ export function InvoicesCard({ total, lista }: InvoicesCardProps) {
           Faturas Abertas
         </span>
         <PrivacyBlur className="text-3xl font-bold text-text-main mb-6 tracking-tight w-min">
-          {formatCurrency(total)}
+          {total === null ? "Total fora da faixa" : formatCurrency(total)}
         </PrivacyBlur>
 
         <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-1 max-h-32">

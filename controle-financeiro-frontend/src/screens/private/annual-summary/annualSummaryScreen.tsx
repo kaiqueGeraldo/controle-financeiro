@@ -118,6 +118,7 @@ export default function AnnualSummaryScreen() {
                 totalExpense={summary.balance.totalExpense}
                 annualBalance={summary.balance.annualBalance}
                 investmentResult={summary.balance.investmentResult}
+                coverage={summary.balance.coverage} observed={summary.balance.observed}
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,12 +126,15 @@ export default function AnnualSummaryScreen() {
                   totalSpent={summary.creditCard.totalSpent}
                   subscriptionsTotal={summary.creditCard.subscriptionsTotal}
                   monthlyAverage={summary.creditCard.monthlyAverage}
+                  coverage={summary.creditCard.coverage} observed={summary.creditCard.observed}
                 />
 
                   <AnnualInvestments
                     totalCost={summary.investments.totalCost}
                     totalValue={summary.investments.totalValue}
                     items={summary.investments.items}
+                    outsideSupportedRange={summary.investments.outsideSupportedRange}
+                    observedCost={summary.investments.observedCost} observedValue={summary.investments.observedValue}
                     positionDateLabel={`Posição atual em ${summary.investments.valuationAsOf ? formatCalendarDate(summary.investments.valuationAsOf) : "data indisponível"}; avaliações individuais podem ter datas anteriores. Não representa fechamento de ${year}.`}
                   />
               </div>

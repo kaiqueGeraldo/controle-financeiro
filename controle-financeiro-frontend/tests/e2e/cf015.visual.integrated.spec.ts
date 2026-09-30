@@ -20,6 +20,13 @@ test("CF015: inspeção autenticada nas três larguras e nota após reload", asy
     return response.status() === 204 || !(await response.text()) ? undefined : response.json();
   };
   await post("/accounts", { name: "Conta sintética com nome longo para revisão visual", type: "CHECKING", initialBalance: 123456789.12, color: "#10b981" });
+  // FIN-01: abertura é posição, não receita. Exercitar a mesma magnitude no
+  // extrato com um fato explícito, mantendo a abertura original da fixture.
+  const ledgerAccount = await post("/accounts", { name: "Receita sintética para geometria", type: "CHECKING", initialBalance: 0, color: "#10b981" });
+  const incomeCategories = await (await page.request.get("/api/categories?type=INCOME")).json();
+  // Recent transactions without a period use the backend's controlled month.
+  const ledgerDate = process.env.CF_TEST_FIXED_NOW!.slice(0,10);
+  await post("/transactions", { description: "Receita sintética para geometria", type: "INCOME", amount: 123456789.12, date: ledgerDate, accountId: ledgerAccount.id, categoryId: incomeCategories[0].id, isPaid: true });
   const visualCard = await post("/cards", { name: "Cartão sintético com nome longo", last4Digits: "4242", limit: 123456789.12, closingDay: 31, dueDay: 5, brand: "VISA", color: "#7c3aed" });
   const categories = await (await page.request.get("/api/categories?type=EXPENSE")).json();
   for (let i = 1; i <= 12; i++) {
@@ -33,7 +40,7 @@ test("CF015: inspeção autenticada nas três larguras e nota após reload", asy
     if (route === "/cartoes") await expect(page.getByRole("button", { name: "Ver fatura de Cartão sintético com nome longo, final 4242", exact: true })).toBeVisible();
     if (route === "/") {
       const recent = page.getByRole("heading", { name: "Extrato Recente", exact: true }).locator("..");
-      const amount = recent.getByText(/\+R\$\s*123\.456\.789,12/);
+      const amount = recent.getByText(/\+\s*R\$\s*123\.456\.789,12/);
       await expect(amount).toBeVisible();
       const geometry = await amount.evaluate(element => ({ scroll: element.scrollWidth, client: element.clientWidth, right: element.getBoundingClientRect().right, containerRight: element.parentElement!.parentElement!.getBoundingClientRect().right }));
       expect(geometry.scroll).toBeLessThanOrEqual(geometry.client + 1);

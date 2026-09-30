@@ -12,9 +12,9 @@ public record CreateInvestmentDTO(
         @NotBlank String name,
         @NotNull InvestType type,
         UUID goalId,
-        BigDecimal openingQuantity,
-        BigDecimal openingCost,
-        BigDecimal openingValue,
+        @tools.jackson.databind.annotation.JsonDeserialize(using=com.controlefinanceiro.api.utils.DecimalStringDeserializer.class) BigDecimal openingQuantity,
+        @tools.jackson.databind.annotation.JsonDeserialize(using=com.controlefinanceiro.api.utils.DecimalStringDeserializer.class) BigDecimal openingCost,
+        @tools.jackson.databind.annotation.JsonDeserialize(using=com.controlefinanceiro.api.utils.DecimalStringDeserializer.class) BigDecimal openingValue,
         LocalDate valuationDate,
         String valuationSource
 ) {

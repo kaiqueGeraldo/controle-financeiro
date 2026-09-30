@@ -5,7 +5,15 @@ import {registerSyntheticUser,syntheticUser} from "./support/synthetic-auth";
 const dir=process.env.CF_REVIEW_EVIDENCE!;
 const ns=process.env.CF_E2E_NAMESPACE!;
 async function start(page:Page,suffix:string){await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));}
-async function post(page:Page,url:string,data:unknown){const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
+async function post(page:Page,url:string,data:unknown){
+ // Synthetic fixtures explicitly serialize the new opening contract; legacy commands retain their transport.
+ if(url==="/investments"&&data&&typeof data==="object"){
+   const payload={...data} as Record<string,unknown>;
+   for(const field of ["openingQuantity","openingCost","openingValue"])if(payload[field]!=null)payload[field]=String(payload[field]);
+   data=payload;
+ }
+ const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;
+}
 async function json(page:Page,url:string){const r=await page.request.get(`/api${url}`);expect(r.ok(),await r.text()).toBe(true);return r.json();}
 
 test("SAN-E27 provento bruto e retenção pela UI conciliam caixa líquido e XLSX",async({page})=>{
@@ -24,11 +32,16 @@ test("SAN-E27 provento bruto e retenção pela UI conciliam caixa líquido e XLS
  const dividend=rows.find((t:{origin:string})=>t.origin==="INVESTMENT_DIVIDEND");const fee=rows.find((t:{origin:string})=>t.origin==="INVESTMENT_FEE");
  expect([dividend.amount,dividend.cashAmount,dividend.cashDelta]).toEqual([10,9,9]);expect([fee.amount,fee.cashAmount,fee.cashDelta]).toEqual([1,0,0]);
  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1009);
- const cash=await json(page,"/transactions/summary?month=1&year=2027");expect([cash.entries,cash.exits,cash.balance]).toEqual([9,0,9]);
+ const cash=await json(page,"/transactions/summary?month=1&year=2027");expect([cash.entries,cash.exits,cash.balance]).toEqual([null,null,null]);expect([Number(cash.observed.entries),Number(cash.observed.exits),Number(cash.observed.balance)]).toEqual([9,0,9]);expect(cash.coverage.state).toBe("PARTIAL");
  await expect(page.getByText("Bruto: R$ 10,00",{exact:true})).toBeVisible();await expect(page.getByText("Bruto: R$ 1,00",{exact:true})).toBeVisible();
  for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Proventos: SANCASH",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-e27-extrato-${width}.png`),animations:"disabled"});}
  const download=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();await (await download).saveAs(path.join(dir,"san-e27-caixa.xlsx"));
  await writeFile(path.join(dir,"san-e27-cash.json"),JSON.stringify({dividend,fee,cash},null,2));
+ await page.goto("/");await page.reload();
+ const recent=page.getByRole("heading",{name:"Extrato Recente",exact:true}).locator("..");
+ await expect(recent.getByText(/\+\s*R\$\s*9,00/)).toBeVisible();
+ await expect(recent.getByText("Bruto: R$ 10,00",{exact:true})).toBeVisible();
+ await expect(recent.getByText(/\+\s*R\$\s*10,00/)).toHaveCount(0);
 });
 
 for(const payment of [20,120])test(`SAN-BC-card compra, exclusão e reembolso após pagamento ${payment} pela UI`,async({page})=>{
@@ -78,7 +91,13 @@ test("SAN-BC-replace substituição pela UI preserva venda original e recalcula 
  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(912);expect([receipt.cashDelta,receipt.realizedDelta]).toEqual([40,10]);
  const original=await json(page,`/investments/${i.id}/history`);expect(original).toHaveLength(2);expect(original.find((v:{type:string})=>v.type==="SELL").costDelta).toBe(50.5);
  await writeFile(path.join(dir,"san-c2-replacement.json"),JSON.stringify({position,receipt,original},null,2));
- for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByRole("region",{name:"Compensações registradas"}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-c2-replace-${width}.png`),animations:"disabled"});}
+ for(const width of [360,768,1440]){
+   await page.setViewportSize({width,height:900});
+   const history=page.getByRole("region",{name:"Compensações registradas"});
+   await expect(history.locator("..")).toHaveCSS("opacity","1");
+   await history.scrollIntoViewIfNeeded();await expect(history).toBeInViewport();
+   await page.screenshot({path:path.join(dir,`san-c2-replace-${width}.png`),animations:"disabled"});
+ }
 });
 
 test("SAN-E2 arquivar pela UI, posição datada em outro ano e exportar transferência",async({page})=>{
@@ -111,7 +130,7 @@ test("SAN-E2 arquivar pela UI, posição datada em outro ano e exportar transfer
  await page.goto("/extrato");
  const summaryResponse=page.waitForResponse(r=>r.url().includes("/transactions/summary?")&&r.url().includes("type=TRANSFER"));
  await page.getByRole("button",{name:"Transferências",exact:true}).click();
- const summary=await (await summaryResponse).json();expect([summary.entries,summary.exits,summary.balance]).toEqual([0,0,0]);
+ const summary=await (await summaryResponse).json();expect([summary.entries,summary.exits,summary.balance]).toEqual([null,null,null]);expect([Number(summary.observed.entries),Number(summary.observed.exits),Number(summary.observed.balance)]).toEqual([0,0,0]);
  await expect(page.getByText("SAN transferência filtrada",{exact:true})).toHaveCount(2);
  const exported=page.waitForResponse(r=>r.url().includes("/transactions/export?")&&r.url().includes("type=TRANSFER"));
  const download=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();
@@ -327,4 +346,26 @@ test("SAN-C2 compensar aquisição pela UI, reload e auditoria preservada",async
  const history=await json(page,`/investments/${i.id}/history`);expect(history).toHaveLength(1);expect(history[0].costDelta).toBe(202);
  const corrections=await json(page,`/investments/${i.id}/corrections`);expect(corrections).toHaveLength(1);
  await writeFile(path.join(dir,"san-c2-audit.json"),JSON.stringify({history,corrections},null,2));
+});
+
+test("SAN-E3 cobertura parcial e zero conhecido são distintos após filtro, reload e download",async({page})=>{
+ await start(page,"coverage");
+ const a=await post(page,"/accounts",{name:"SAN fonte com base dezembro",type:"CHECKING",initialBalance:0,color:"BLUE",openingDate:"2026-12-01"});
+ await page.goto("/extrato");await expect(page.getByText("Total do período indisponível",{exact:true})).toBeVisible();
+ await page.getByRole("button",{name:"Todas as Contas",exact:true}).click();await page.getByRole("menuitem",{name:a.name,exact:true}).click();
+ await page.getByRole("button",{name:"Mês anterior do extrato",exact:true}).click();
+ await expect(page.getByText("Cobertura completa",{exact:true})).toBeVisible();
+ const covered=await json(page,"/transactions/summary?month=12&year=2026&accountId="+a.id);expect([covered.entries,covered.exits,covered.balance]).toEqual([0,0,0]);expect(covered.coverage.state).toBe("COMPLETE");
+ const download=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();await (await download).saveAs(path.join(dir,"san-e3-zero-conhecido.xlsx"));
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Cobertura completa",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,"san-e3-zero-"+width+".png"),animations:"disabled"});}
+ await page.getByRole("button",{name:"Mês anterior do extrato",exact:true}).click();
+ await expect(page.getByText(/Período fora da cobertura conhecida/)).toBeVisible();
+ const absent=await json(page,"/transactions/summary?month=11&year=2026&accountId="+a.id);expect([absent.entries,absent.exits,absent.balance]).toEqual([null,null,null]);expect(absent.coverage.state).toBe("UNAVAILABLE");
+ const absentDownload=page.waitForEvent("download");await page.getByRole("button",{name:"Exportar período",exact:true}).click();await (await absentDownload).saveAs(path.join(dir,"san-e3-ausente.xlsx"));
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Total do período indisponível",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,"san-e3-ausente-"+width+".png"),animations:"disabled"});}
+ await page.reload();await expect(page.getByText("Total do período indisponível",{exact:true})).toBeVisible();
+ await page.goto("/resumo-anual");await page.getByRole("button",{name:"Ano anterior",exact:true}).click();await expect(page.getByText("Sem períodos completos comparáveis; crescimento indisponível.")).toBeVisible();
+ const year=await json(page,"/annual-summary?year=2026");expect(year.balance.totalIncome).toBeNull();expect(year.balance.coverage.state).toBe("UNAVAILABLE");expect(year.comparison.incomeGrowthPercentage).toBeNull();
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Resultado gerencial do ano",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,"san-e3-anual-"+width+".png"),fullPage:true,animations:"disabled"});}
+ await writeFile(path.join(dir,"san-e3-coverage.json"),JSON.stringify({covered,absent,year},null,2));
 });

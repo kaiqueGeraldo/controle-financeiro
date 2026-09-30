@@ -8,5 +8,8 @@ public record InvestmentsSummaryDTO(
         BigDecimal totalValue,
         LocalDate valuationAsOf,
         boolean valuationComplete,
-        List<InvestmentBreakdownDTO> items
+        List<InvestmentBreakdownDTO> items,
+        boolean outsideSupportedRange,
+        @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal observedCost,
+        @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal observedValue
 ) {}

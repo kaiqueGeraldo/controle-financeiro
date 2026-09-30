@@ -126,6 +126,7 @@ export default function ExtractScreen() {
               <button
                 disabled={!canGoBack}
                 onClick={() => changeMonth(-1)}
+                aria-label="Mês anterior do extrato"
                 className={`p-2 rounded-lg transition ${canGoBack ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -136,6 +137,7 @@ export default function ExtractScreen() {
               <button
                 disabled={!canGoForward}
                 onClick={() => changeMonth(1)}
+                aria-label="Mês seguinte do extrato"
                 className={`p-2 rounded-lg transition ${canGoForward ? "text-text-muted hover:text-text-main hover:bg-bg-surface-hover cursor-pointer" : "text-text-muted/30 cursor-not-allowed"}`}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -171,6 +173,7 @@ export default function ExtractScreen() {
           entries={summary.entries}
           exits={summary.exits}
           balance={summary.balance}
+          coverage={summary.coverage} observed={summary.observed}
         /> : <p role="status" className="text-sm text-text-muted">Carregando totais do período...</p>}
 
         {/* LISTA DE TRANSAÇÕES */}

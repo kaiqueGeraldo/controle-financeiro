@@ -112,10 +112,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             FROM Transaction t LEFT JOIN Transaction original
               ON original.id = t.reversalOfId AND original.user.id = :userId
             WHERE t.user.id = :userId AND t.date BETWEEN :startDate AND :endDate
-              AND t.status IN (
+              AND (t.status IN (
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.SETTLED,
                   com.controlefinanceiro.api.domain.transaction.TransactionStatus.REVERSED)
+                   OR (t.status IS NULL AND t.isPaid = true))
               AND (t.origin IS NULL OR t.origin <> com.controlefinanceiro.api.domain.transaction.TransactionOrigin.ACCOUNT_OPENING)
+              AND (t.type <> com.controlefinanceiro.api.domain.transaction.TransactionType.TRANSFER
+                   OR COALESCE(t.transferDirection, original.transferDirection) IS NOT NULL)
               AND (CAST(:type AS text) IS NULL OR t.type = :type)
               AND (CAST(:accountId AS uuid) IS NULL OR t.account.id = :accountId)
               AND (CAST(:accountId AS uuid) IS NOT NULL OR t.type <>

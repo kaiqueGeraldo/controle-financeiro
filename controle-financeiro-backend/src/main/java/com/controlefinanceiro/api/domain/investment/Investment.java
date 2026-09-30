@@ -19,6 +19,8 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 public class Investment {
 
+    private LocalDate reportingKnownFrom;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

@@ -101,16 +101,16 @@ describe("CF-014: metas, investimentos, hábitos e resumo anual", () => {
     fixture.annual = { ...fixture.annual, year: 2025, summary: summary(2025) };
     render(<AnnualSummaryScreen />);
 
-    expect(screen.getByRole("heading", { name: "Posição de metas e investimentos indisponível" })).toBeDefined();
-    expect(screen.getByText(/A posição atual não é exibida como dado histórico/)).toBeDefined();
-    expect(screen.queryByText("R$ 1.300,00")).toBeNull();
+    expect(screen.getByRole("heading", { name: "Posição atual de investimentos" })).toBeDefined();
+    expect(screen.getByText(/Não representa fechamento de 2025/)).toBeDefined();
+    expect(screen.getAllByText("R$ 1.300,00")).toHaveLength(2);
   });
 
   test("posição somente do ano corrente deixa explícito que não é fechamento anual", () => {
     render(<AnnualSummaryScreen />);
 
     expect(screen.getByText("Posição atual de investimentos")).toBeDefined();
-    expect(screen.getByText(/não representam fechamento anual/)).toBeDefined();
+    expect(screen.getByText(/Não representa fechamento de 2026/)).toBeDefined();
     expect(screen.getAllByText("R$ 1.300,00")).toHaveLength(2);
   });
 

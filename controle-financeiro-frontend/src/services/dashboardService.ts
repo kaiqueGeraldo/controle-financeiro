@@ -1,14 +1,6 @@
 import { apiRequest } from "./api";
 
-type MonthlyFlow = {
-  income: number;
-  expense: number;
-  balance: number | null;
-  percentage: number;
-  investmentResult?: number | null;
-};
-
-type ChartPoint = { label: string; valor: number };
+import type { MonthlyFlowResponse as MonthlyFlow, ChartPoint } from "@/types";
 
 export const dashboardService = {
   getMonthlyFlow: async (month: number, year: number, signal?: AbortSignal) => {

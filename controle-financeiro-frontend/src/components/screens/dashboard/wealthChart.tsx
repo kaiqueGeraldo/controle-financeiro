@@ -1,3 +1,4 @@
+import { ReportingCoverageNotice } from "@/components/ui/reportingCoverage";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useUser } from "@/hooks/useUser";
 import { formatCurrency } from "@/utils/format";
@@ -52,7 +53,7 @@ export function WealthChart() {
           </div>
         ) : null}
 
-        <ResponsiveContainer width="100%" height="100%">
+        {chartData.length>0 && chartData.every(p=>p.valor===null) ? <ReportingCoverageNotice coverage={chartData.at(-1)?.coverage} observed={{"Fluxo registrado":chartData.at(-1)?.observedValue}}/> : <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>
             <defs>
               <linearGradient id="colorValor" x1="0" y1="0" x2="0" y2="1">
@@ -82,7 +83,7 @@ export function WealthChart() {
             
             <Area type="monotone" dataKey="valor" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorValor)" />
           </AreaChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer>}
       </div>
     </div>
   );

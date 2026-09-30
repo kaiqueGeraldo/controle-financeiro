@@ -53,6 +53,7 @@ test("R03: duplo envio faz um POST; falha de releitura recupera só com GETs", a
 
 test("R03: resultado desconhecido continua protegido após remontagem e atualização", async () => {
   vi.spyOn(cardService, "payInvoice").mockRejectedValue(new ApiError("lost response", 504, { requiresReconciliation: true }));
+  vi.spyOn(cardService, "paymentReceipt").mockRejectedValue(new ApiError("Receipt not found",404));
   props.onSuccess.mockResolvedValue(undefined);
   const view = render(<PayInvoiceModal {...props} />);
   fireEvent.submit(screen.getByRole("button", { name: "Confirmar Pagamento" }).closest("form")!);
@@ -61,7 +62,8 @@ test("R03: resultado desconhecido continua protegido após remontagem e atualiza
   render(<PayInvoiceModal {...props} />);
   expect(screen.getByRole("button", { name: "Confirmar Pagamento" })).toHaveProperty("disabled", true);
   fireEvent.click(screen.getByRole("button", { name: /Atualizar dados sem repetir/ }));
-  await waitFor(() => expect(screen.getByRole("alert").textContent).toMatch(/continua desconhecido/));
+  await waitFor(() => expect(screen.getByRole("alert").textContent).toMatch(/ainda não localizado/));
+  expect(cardService.paymentReceipt).toHaveBeenCalledTimes(1);
   expect(cardService.payInvoice).toHaveBeenCalledTimes(1);
   expect(props.onClose).not.toHaveBeenCalled();
 });

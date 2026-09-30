@@ -8,31 +8,31 @@ RV/UI são nomes de probes, não identificadores de achados.
 
 ## Matriz de saneamento
 
-| ID original | Causa / critério | Dona | Correção planejada | Testes / evidência | Situação / limites |
+| ID original | Causa / critério | Dona | Correção realizada | Testes / evidência | Situação / limites |
 |---|---|---|---|---|---|
-| RVI-01 | Writer ignora destinação; FIN-05 | CF-018/020 | Capacidade sob lock da fonte | RV01/RV13 | Pendente |
-| RVI-02 | PUT reescreve previsão; FIN-02 | CF-018 | Delegar baixa preservando original | RV02 + consumidor | Pendente |
-| RVI-03 | Arquivo não aplicado a todos writers; B16 | CF-018/020 | Regra comum de conta ativa | RV03 + writers cruzados | Pendente |
+| RVI-01 | Writer ignora destinação; FIN-05 | CF-018/020 | Capacidade sob lock da fonte | RV01/RV13 | Corrigido/verificado; A + writers/precisão, FIN-05/B17 preservados |
+| RVI-02 | PUT reescreve previsão; FIN-02 | CF-018 | Delegar baixa preservando original | RV02 + consumidor | Corrigido/verificado; A + SAN-D2, previsão e cadeia preservadas |
+| RVI-03 | Arquivo não aplicado a todos writers; B16 | CF-018/020 | Regra comum de conta ativa | RV03 + writers cruzados | Corrigido/verificado; nove writers e arquivo concorrente em PostgreSQL |
 | RVI-04 | UI soma lista selecionável; FIN-01 | CF-018/021 | Projeção de posição inclui arquivo | SAN-E2 + reload | Corrigido/verificado; checkpoint E2 |
-| RVI-05 | Ausência de cobertura vira zero; FIN-08 | CF-021 | Cobertura em API/UI/XLSX | RV04 | Pendente |
-| RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Implementado; ver checkpoint C1 e limites |
-| RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Implementado; ver checkpoint C1 e limites |
+| RVI-05 | Ausência de cobertura vira zero; FIN-08 | CF-021 | Cobertura em API/UI/XLSX | RV04 | Corrigido/verificado; E3, API/UI/XLSX e limites de origem/faixa |
+| RVI-06 | null convertido em zero na UI; FIN-04 | CF-020 | Preservar indisponibilidade | UI04 | Corrigido/verificado; SAN-C e SAN-E2; desconhecido distinto de encerramento |
+| RVI-07 | Encerramento mantém avaliação desconhecida; FIN-04 | CF-020 | Zero conhecido na posição encerrada | RV06 | Corrigido/verificado; SAN-C e regressões FIN-04, zero encerrado conhecido |
 | RVI-08 | Provento mistura caixa e gerencial; E27 | CF-020/021 | Caixa líquido, receita/taxa brutas | RV08 + SAN-E27 + XLSX | Corrigido/verificado; checkpoint E27 |
-| RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Pendente |
+| RVI-09 | Fronteira decimal/limites; FIN-06 | CF-018/020 | Decimais canônicos e limites de agregação | RV09/RV10/C05 | Corrigido/verificado; RV09/RV10/C05/C06, agregados e inventário de fronteiras |
 | RVI-10 | Ano selecionado remove posição atual; DEC-04 | CF-021 | Posição datada independente do ano | RV05 + SAN-E2 | Corrigido/verificado; checkpoint E2 |
 | RVI-11 | Intenção sem identificação; FIN-07 | CF-019 | Nova chave/intenção, retry e recuperação | UI02/R03 | Implementado/verificado no D1; limites de sessão abaixo |
 | RVI-12 | Sugestão usa consumo original; FIN-03 | CF-019 | Exibir saldo pagável/crédito | UI02 | Implementado/verificado no D1; limites de sessão abaixo |
-| RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Implementado; ver checkpoint B e limites |
-| RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Implementado; ver checkpoint B e limites |
-| RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Implementado; ver checkpoint B e limites |
-| RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Implementado; ver checkpoint B e limites |
-| RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Implementado; ver checkpoint C1 e limites |
-| RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Implementado; ver checkpoint C1 e limites |
+| RVI-13 | DTO omite checklist; FIN-05 | CF-020 | Carregamento com ownership sem N+1 | UI03 | Corrigido/verificado; SAN-B e carregamento em duas queries, sem N+1 |
+| RVI-14 | UI trata meta como custódia; FIN-05/07 | CF-020 | Fonte explícita, liberação e modais acessíveis | UI03 + jornada completa | Corrigido/verificado; SAN-B/SAN-BC-card, fonte e histórico após exclusão |
+| RVI-15 | Cartão perde vínculo com intenção; FIN-07 | CF-020/019 | Vínculo de compra persistente | RV11 + parcial/total | Corrigido/verificado; SAN-BC-card com pagamento20/120, retry sem efeito |
+| RVI-16 | Clock com frações invalida hora; SPEC-002 | CF-020 | Hora interna canônica | RV16 | Corrigido/verificado; RV16 + browser com Clock fracionário |
+| RVI-17 | Resgate monetário vira unidades a 1; B08 | CF-020 | Comando monetário com custo proporcional | UI06 + domínio | Corrigido/verificado; SAN-C e B08 em PostgreSQL/reload |
+| RVI-18 | Ajuste sem invariantes/auditoria; FIN-04/07 | CF-020 | Data, origem, motivo e posição válida | RV15 + UI | Corrigido/verificado; RV15 + SAN-C, metadados e auditoria |
 | RVI-19 | Ausência de baixa de transferência/UI; FIN-02 | CF-018 | Previsões e realização atômica com consumidor | RV12 + SAN-D2 | Implementado/verificado no D2 |
 | RVI-20 | Filtro TRANSFER inclui cartão; FIN-08 | CF-021 | Escopo uniforme por tipo | RV14 + SAN-E2 + XLSX | Corrigido/verificado; checkpoint E2 |
 | RVI-21 | Compensação/estorno parcial ausentes; FIN-07 | CF-018/020 | Comandos rastreáveis e consumidores | Cadeias e repetição | Implementado/verificado C2 e D2 |
 | RVI-22 | Motivo cortado; legibilidade | CF-021 | Quebra/empilhamento | SAN-E2-visual 360/768/1440 | Corrigido/verificado; checkpoint E2 |
-| NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Implementado e testado; checkpoint C1 |
+| NG-01 | Total informado versus preço derivado; FIN-04/06 | CF-016/020 | Total autoritativo proporcional, preço apenas informativo | RV07 + oráculos literais | Decidido pelo usuário; corrigido/verificado, oráculos proporcionais literais |
 | H-01 | Ordem A→I versus I→A | CF-018/020 | Investigar barreira cruzada antes de alterar | Transações independentes | Confirmada e corrigida; checkpoint A |
 | H-02 | Leituras separadas na exportação | CF-021 | Snapshot único REPEATABLE READ | Escrita independente entre páginas | Confirmada, corrigida e verificada; checkpoint E1 |
 
@@ -389,3 +389,82 @@ sem novo efeito. Substituição da aquisição 20×10+2 por 20×8+2, venda depen
 erroneamente 409 em vez do contrato legado 400. Imagens inspecionadas: histórico
 de reembolso e compensação legíveis; captura 360 da compensação ainda precedeu
 carregamento do histórico e deve ser completada na rodada visual final.
+
+### Checkpoint E3 — cobertura e fronteiras finais
+
+V11 é aditiva: base conhecida em cartão/ativo novo e carteira automática zero
+SYSTEM_INITIALIZED; legado permanece sem base, sem backfill ou baseline automático.
+Cobertura distingue COMPLETE, PARTIAL, UNAVAILABLE, UNKNOWN_ORIGIN e OUT_OF_RANGE.
+Totais completos ausentes ficam null; subtotais observados usam strings decimais
+exatas, sem transformar registro parcial em história completa. Base coletiva
+conservadora é a mais recente das fontes do escopo, incluindo arquivadas.
+
+API, dashboard, anual, extrato e XLSX transportam motivo, intervalo e referência.
+Comparação percentual exige dois períodos completos. Posição atual conserva data
+própria em qualquer ano. Totais fora de 12 inteiros ficam indisponíveis, mantendo
+observado exato; frontend soma centavos com BigInt antes de aplicar a faixa.
+Resumo do extrato, anual e dashboard usam REPEATABLE_READ para cobertura e números
+no mesmo snapshot; export também mantém páginas no mesmo snapshot H-02.
+
+Provas: MilestoneReportingCoverageTest verifica zero coberto, passado/futuro sem
+cobertura, legado desconhecido, arquivo, ownership entre dois usuários e agregado
+1999999999999.98 preservado em string. MilestoneWriterPolicyTest acrescenta limite
+agregado de meta/dívida; C06 rejeita numeric/expoente e dinheiro1.005 nos novos
+contratos sem escrever, preservando 100.00/1.00 canônicos.
+
+Execução estabilizada: backend-browser-234-verificado.log contém 234 testes sem
+falhas/erros, inclusive 17 jornadas de browser. Banco descartável Flyway V1–V11 e
+Hibernate validate; migração vazia, legada, upgrades, checksum/falha/rollback.
+Browser final-verificado/SAN-E3: dezembro2026 coberto com zero; novembro2026
+indisponível e observed0.00; anual2026 indisponível, posição atual2027 datada.
+Capturas de E3 360/768/1440 inspecionadas e texto de cobertura legível.
+verify-downloaded-xlsx.ps1 abriu os arquivos efetivamente baixados e comprovou
+B3 numérico zero versus indisponibilidade, coluna C observada0.00 e aba Cobertura;
+E27 receita10/taxa1/resultado9, linhas bruto10/1 e caixa9/0; filtro TRANSFER sem cartão.
+
+Rodadas vermelhas novas preservadas: coverage-domain-primeiro, regressions-primeiro,
+frontend-component-cobertura, backend-completo-primeiro e schema-conflito.
+[Adaptações normativas](ADAPTACOES-DE-TESTES.md) preservam valores literais e
+explicam contratos alterados; [inventário](FRONTEIRAS-E-WRITERS.md) registra
+locks, consultas em lote, complexidade e custos de snapshot/replay.
+
+A execução final complementar registra abaixo a recuperação temporal, o build e
+a captura de compensação360 após a animação; o primeiro final-verificado contém
+uma captura antes de opacity1, preservada sem declarar inspeção completa desse frame.
+
+### Fechamento da verificação local
+
+- Domínio/HTTP/migrações: 234 testes passaram sem falhas/erros/skips em
+  backend-dominio-234-final.log, após corrigir a fixture UNKNOWN. O conjunto
+  inclui os 22 probes atuais RV/C (21 anteriores + C06), cinco casos de cobertura,
+  writers, concorrência, custo, pagamento, migrações e regras temporais.
+- Dois harnesses Java de browser passaram na execução combinada:
+  MilestoneRemediationBrowserTest (17 jornadas) e TemporalBrowserApiPostgresE2E
+  (18 jornadas em São Paulo/UTC+14 com JVM UTC, inclusive pós-condições SQL/XLSX).
+  O log combinado backend-entrega-fixture-vermelha.log continua vermelho no
+  caso novo de fixture inválida; não é declarado integralmente verde. Sua causa
+  foi corrigida e a suíte inteira de domínio/HTTP/migração foi repetida com verde.
+- browser/entrega-final contém 17 passes, V1–V11, persistência e arquivos baixados
+  conferidos pelo script. SAN-E27 também verifica dashboard líquido9/bruto10.
+  Compensação360/768/1440 aberta e inspecionada após opacity1: motivo, caixa40,
+  ajuste10 e taxa2 estão legíveis; resolve o frame incompleto do run anterior.
+- browser/temporal-final contém 18 passes, arquivos XLSX dos dois fusos e
+  capturas financeiras finais. Capturas antigas CF015 permanecem sem diff.
+  Teste de zoom nativo200% continua não executado.
+- Componentes: 33 arquivos/152 testes aprovados; último ajuste do agregador
+  (rejeitar terceira casa, sem arredondamento silencioso) tem oito casos
+  direcionados aprovados em frontend-precisao-final.log. Unitários Node:6 passes.
+- TypeScript e build de produção Next passaram. Lint de65 arquivos afetados:
+  zero erros/dois warnings anteriores; lint global23 erros/21 warnings fora do
+  saneamento, mapeados em LINT-BASELINE.md. Build não equivale a lint global verde.
+- Oráculos atuais/adversariais CF016 passaram; preservação histórica estrita
+  continua vermelha em pom.xml. V1–V5, revisão vermelha original, dados/hashes
+  históricos e README raiz preservados. SHA256 raiz permanece o registrado acima.
+
+Toda a funcionalidade exigida pelo marco possui consumidor e verificação local.
+Os estados desta matriz significam autoteste corrigido/verificado, aguardando
+revisão independente. Não certificam adoção real, publicação, benchmark amplo,
+protocolo transversal completo ou zoom nativo200%. Riscos/custos de locks,
+snapshot, replay, cobertura conservadora e persistência da intenção constam dos
+checkpoints e do inventário. Tarefas CF016–021 e notas transversais conservam os
+estados anteriores e delimitam a prova localizada, sem iniciar CF022+.

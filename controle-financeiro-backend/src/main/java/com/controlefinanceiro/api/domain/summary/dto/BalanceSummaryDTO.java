@@ -5,5 +5,7 @@ public record BalanceSummaryDTO(
         BigDecimal totalIncome,
         BigDecimal totalExpense,
         BigDecimal annualBalance,
-        BigDecimal investmentResult
+        BigDecimal investmentResult,
+        ReportingCoverageDTO coverage,
+        ObservedTotalsDTO observed
 ) {}

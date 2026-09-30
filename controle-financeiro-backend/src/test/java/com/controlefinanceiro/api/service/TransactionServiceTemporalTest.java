@@ -46,7 +46,7 @@ class TransactionServiceTemporalTest {
 
         User user = user();
         Account account = account(user);
-        when(accountRepository.findByIdAndUserId(account.getId(), user.getId())).thenReturn(Optional.of(account));
+        when(accountRepository.findOwnedForAllocation(account.getId(), user.getId())).thenReturn(Optional.of(account));
         when(transactionRepository.saveAndFlush(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ReflectionTestUtils.setField(service, "repository", transactionRepository);

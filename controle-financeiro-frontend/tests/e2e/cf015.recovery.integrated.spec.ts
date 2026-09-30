@@ -65,12 +65,10 @@ for (const mode of ["ok", "read", "lost", "overlap"] as const) {
         await expect(detail.getByRole("button", { name: "Fatura indisponível" })).toBeDisabled();
         failRead = false;
       }
+      const receipt = mode === "lost" ? page.waitForResponse(r=>r.url().includes(`/cards/${card.id}/payments/`)&&r.request().method()==="GET") : null;
       await payment.getByRole("button", { name: "Atualizar dados sem repetir pagamento" }).click();
-      if (mode === "read" || mode === "overlap") await expect(payment).toHaveCount(0);
-      else {
-        await expect(payment.getByRole("alert")).toContainText("continua desconhecido");
-        await payment.getByRole("button", { name: "Fechar modal" }).click();
-      }
+      if(receipt){const response=await receipt;expect(response.ok()).toBe(true);expect((await response.json()).amount).toBe(100);}
+      await expect(payment).toHaveCount(0);
     }
     expect(posts).toBe(1);
     await expect(detail.getByRole("button", { name: "Fatura Paga" })).toBeDisabled();
@@ -82,6 +80,7 @@ for (const mode of ["ok", "read", "lost", "overlap"] as const) {
     expect(cards.find((c: { id: string }) => c.id === card.id).currentInvoiceValue).toBe(0);
     const planning = await (await page.request.get("/api/planning?month=1&year=2027")).json();
     expect(planning.items.find((i: { cardId: string }) => i.cardId === card.id).status).toBe("PAID");
+    expect(planning.items.find((i: { cardId: string }) => i.cardId === card.id).amount).toBe(0);
     await page.reload();
     await page.getByRole("button", { name: `Ver fatura de ${tag}, final 4242` }).click();
     await expect(page.getByRole("button", { name: "Fatura Paga" })).toBeDisabled();
@@ -90,8 +89,8 @@ for (const mode of ["ok", "read", "lost", "overlap"] as const) {
     expect(invoice.totalAmount).toBe(100); // paid status clears debt, original purchases remain auditable.
     expect(posts).toBe(1);
     await page.goto("/");
-    await expect(page.getByText("Patrimônio Total", { exact: true })).toBeVisible();
-    await expect(page.getByText("Patrimônio Total", { exact: true }).locator("..")).toContainText("900,00");
+    await expect(page.getByText("Subtotal de ativos conhecidos", { exact: true })).toBeVisible();
+    await expect(page.getByText("Subtotal de ativos conhecidos", { exact: true }).locator("..")).toContainText("900,00");
     await page.goto("/contas");
     await expect(page.getByRole("heading", { name: "Minhas Contas" })).toBeVisible();
     await expect(page.getByRole("button", { name: `Ver extrato da conta ${tag}`, exact: true })).toContainText("900,00");

@@ -1,4 +1,5 @@
 "use client";
+import { monetaryAggregate } from "@/utils/monetaryAggregate";
 
 import { EditAccountModal } from "@/components/forms/editAccountModal";
 import { ReorderModal } from "@/components/forms/reorderModal";
@@ -42,7 +43,7 @@ export default function AccountsScreen() {
 
   const totalCorrente = !accountPosition || accountPosition.outsideSupportedRange ? null : Number(accountPosition.checkingBalance);
 
-  const total = saldoTotal===null ? null : saldoTotal + totalInvestido;
+  const total = saldoTotal===null||totalInvestido===null ? null : monetaryAggregate([saldoTotal,totalInvestido]);
 
   if (!isLoading && error) {
     return (

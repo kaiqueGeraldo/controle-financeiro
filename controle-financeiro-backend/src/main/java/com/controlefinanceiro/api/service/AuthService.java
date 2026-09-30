@@ -168,6 +168,10 @@ public class AuthService {
         carteira.setName("Carteira Física");
         carteira.setType(AccountType.CASH);
         carteira.setBalance(BigDecimal.ZERO);
+        carteira.setOpeningBalance(BigDecimal.ZERO);
+        carteira.setOpeningDate(java.time.LocalDate.now(clock));
+        carteira.setOpeningOrigin(com.controlefinanceiro.api.domain.account.OpeningBalanceOrigin.SYSTEM_INITIALIZED);
+        carteira.setOpeningRecordedAt(clock.instant());
         carteira.setColor("#10b981");
         carteira.setUser(user);
 

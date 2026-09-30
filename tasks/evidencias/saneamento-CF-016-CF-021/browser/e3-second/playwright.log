@@ -1,0 +1,80 @@
+[WebServer] (node:9500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:23132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+(node:27164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [review-sao-paulo] › tests\e2e\milestone-remediation.integrated.spec.ts:332:5 › SAN-E3 cobertura parcial e zero conhecido são distintos após filtro, reload e download
+[WebServer] (node:29056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:10688) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\milestone-remediation.integrated.spec.ts:332:5 › SAN-E3 cobertura parcial e zero conhecido são distintos após filtro, reload e download 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "PARTIAL"
+    Received: "UNAVAILABLE"
+
+      347 |  await page.reload();await expect(page.getByText("Total do período indisponível",{exact:true})).toBeVisible();
+      348 |  await page.goto("/resumo-anual");await page.getByRole("button",{name:"Ano anterior",exact:true}).click();await expect(page.getByText("Sem períodos completos comparáveis; crescimento indisponível.")).toBeVisible();
+    > 349 |  const year=await json(page,"/annual-summary?year=2026");expect(year.balance.totalIncome).toBeNull();expect(year.balance.coverage.state).toBe("PARTIAL");expect(year.comparison.incomeGrowthPercentage).toBeNull();
+          |                                                                                                                                          ^
+      350 |  for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByText("Resultado gerencial do ano",{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,"san-e3-anual-"+width+".png"),fullPage:true,animations:"disabled"});}
+      351 |  await writeFile(path.join(dir,"san-e3-coverage.json"),JSON.stringify({covered,absent,year},null,2));
+      352 | });
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\milestone-remediation.integrated.spec.ts:349:138
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\milestone-remediation\milestone-remediation.inte-9fc60-ós-filtro-reload-e-download-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    tests\artifacts\milestone-remediation\milestone-remediation.inte-9fc60-ós-filtro-reload-e-download-review-sao-paulo\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\milestone-remediation\milestone-remediation.inte-9fc60-ós-filtro-reload-e-download-review-sao-paulo\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests\artifacts\milestone-remediation\milestone-remediation.inte-9fc60-ós-filtro-reload-e-download-review-sao-paulo\trace.zip
+    Usage:
+
+        npx playwright show-trace tests\artifacts\milestone-remediation\milestone-remediation.inte-9fc60-ós-filtro-reload-e-download-review-sao-paulo\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [review-sao-paulo] › tests\e2e\milestone-remediation.integrated.spec.ts:332:5 › SAN-E3 cobertura parcial e zero conhecido são distintos após filtro, reload e download 

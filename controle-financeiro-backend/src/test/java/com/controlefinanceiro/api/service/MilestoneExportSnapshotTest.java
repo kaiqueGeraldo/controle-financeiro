@@ -59,13 +59,13 @@ class MilestoneExportSnapshotTest extends PostgresIntegrationTest {
         try(var workbook=new XSSFWorkbook(new ByteArrayInputStream(bytes))) {
             var sheet=workbook.getSheetAt(0);List<String> names=new ArrayList<>();
             for(int i=8;i<=sheet.getLastRowNum();i++){var row=sheet.getRow(i);if(row.getCell(8).getStringCellValue().equals("USER"))names.add(row.getCell(2).getStringCellValue());}
-            String observed="income="+sheet.getRow(2).getCell(1).getNumericCellValue()+", userRows="+names.size()+", unique="+new HashSet<>(names).size()+", concurrentIncluded="+names.contains("Concurrent after snapshot");
+            String observed="income="+new BigDecimal(sheet.getRow(2).getCell(2).getStringCellValue()).doubleValue()+", userRows="+names.size()+", unique="+new HashSet<>(names).size()+", concurrentIncluded="+names.contains("Concurrent after snapshot");
             System.out.println("H02 controlled export: "+observed);
-            assertThat(sheet.getRow(2).getCell(1).getNumericCellValue()).isEqualTo(501.0);
+            assertThat(new BigDecimal(sheet.getRow(2).getCell(2).getStringCellValue())).isEqualByComparingTo("501.00");
             assertThat(names).as(observed).hasSize(501).doesNotHaveDuplicates().doesNotContain("Concurrent after snapshot");
         }
         try(var workbook=new XSSFWorkbook(new ByteArrayInputStream(service.exportToExcel(u,9,2026,null,null)))) {
-            assertThat(workbook.getSheetAt(0).getRow(2).getCell(1).getNumericCellValue()).isEqualTo(511.0);
+            assertThat(new BigDecimal(workbook.getSheetAt(0).getRow(2).getCell(2).getStringCellValue())).isEqualByComparingTo("511.00");
         }
     }
 }

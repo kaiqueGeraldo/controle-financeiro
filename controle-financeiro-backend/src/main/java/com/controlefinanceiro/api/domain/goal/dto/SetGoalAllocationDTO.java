@@ -7,4 +7,4 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public record SetGoalAllocationDTO(UUID accountId, UUID investmentId,
-                                   @NotNull @PositiveOrZero BigDecimal amount) {}
+                                   @NotNull @PositiveOrZero @tools.jackson.databind.annotation.JsonDeserialize(using=com.controlefinanceiro.api.utils.DecimalStringDeserializer.class) BigDecimal amount) {}

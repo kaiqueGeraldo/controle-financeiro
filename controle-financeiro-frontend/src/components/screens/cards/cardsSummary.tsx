@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 
 interface CardsSummaryProps {
-  totalLimit: number;
-  totalInvoice: number;
-  available: number;
+  totalLimit: number | null;
+  totalInvoice: number | null;
+  available: number | null;
 }
 
 export function CardsSummary({
@@ -26,7 +26,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Limite Global</p>
           <PrivacyBlur className={`text-xl font-bold`}>
-            {formatCurrency(totalLimit)}
+            {totalLimit === null ? "Total fora da faixa" : formatCurrency(totalLimit)}
           </PrivacyBlur>
         </div>
       </div>
@@ -38,7 +38,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Faturas Abertas</p>
           <PrivacyBlur className="text-xl font-bold">
-            {formatCurrency(totalInvoice)}
+            {totalInvoice === null ? "Total fora da faixa" : formatCurrency(totalInvoice)}
           </PrivacyBlur>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Disponível</p>
           <PrivacyBlur className="text-xl font-bold">
-            {formatCurrency(available)}
+            {available === null ? "Indisponível" : formatCurrency(available)}
           </PrivacyBlur>
         </div>
       </div>

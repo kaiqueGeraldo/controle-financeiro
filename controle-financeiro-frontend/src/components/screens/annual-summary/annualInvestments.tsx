@@ -3,15 +3,19 @@ import { InvestmentBreakdown } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { TrendingUp } from "lucide-react";
 import {formatCalendarDate} from "@/utils/date";
+import {formatObservedMoney} from "@/components/ui/reportingCoverage";
 
 interface AnnualInvestmentsProps {
   totalCost?: number | null;
   totalValue: number | null;
   items: InvestmentBreakdown[];
   positionDateLabel: string;
+  outsideSupportedRange?:boolean;
+  observedCost?:string|null;
+  observedValue?:string|null;
 }
 
-export function AnnualInvestments({ totalCost, totalValue, items, positionDateLabel }: AnnualInvestmentsProps) {
+export function AnnualInvestments({ totalCost, totalValue, items, positionDateLabel, outsideSupportedRange, observedCost, observedValue }: AnnualInvestmentsProps) {
   const getBadgeColor = (color: string) => {
     const map: Record<string, string> = {
         EMERALD: "text-emerald-400", BLUE: "text-blue-400", CYAN: "text-cyan-400",
@@ -30,6 +34,7 @@ export function AnnualInvestments({ totalCost, totalValue, items, positionDateLa
           </div>
         </div>
         
+        {outsideSupportedRange&&<p role="status" className="text-xs text-text-muted break-words">Total fora da faixa monetária. Custo observado: <PrivacyBlur>{observedCost==null?"Indisponível":formatObservedMoney(observedCost)}</PrivacyBlur>. Avaliação observada: <PrivacyBlur>{observedValue==null?"Indisponível":formatObservedMoney(observedValue)}</PrivacyBlur>.</p>}
         <div className="space-y-3 flex-1 overflow-y-auto custom-scroll pr-2 max-h-40">
           {items.length > 0 ? (
               items.map((inv, idx) => (
@@ -46,7 +51,7 @@ export function AnnualInvestments({ totalCost, totalValue, items, positionDateLa
           )}
         </div>
 
-        {totalCost !== undefined && <div className="border-t border-border-divider pt-4 mt-4 flex justify-between items-center text-sm">
+        {totalCost !== undefined && <div className="border-t border-border-divider pt-4 mt-4 flex flex-wrap gap-3 justify-between items-center text-sm">
           <span className="text-text-muted">Custo investido</span>
           <PrivacyBlur>{totalCost === null ? "Custo indisponível" : formatCurrency(totalCost)}</PrivacyBlur>
         </div>}

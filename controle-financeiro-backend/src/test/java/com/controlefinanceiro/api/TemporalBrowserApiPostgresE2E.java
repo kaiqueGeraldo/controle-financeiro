@@ -102,6 +102,7 @@ class TemporalBrowserApiPostgresE2E {
         playwright.environment().put("CF_TEST_SEED", "cf007-v1");
         playwright.environment().put("CF_E2E_NAMESPACE", namespace);
         playwright.environment().put("CF_E2E_EXPORT_DIR", exportDirectory.toString());
+        playwright.environment().put("CF015_VISUAL_DIR", exportDirectory.resolve("visual").toString());
         playwright.environment().put("PLAYWRIGHT_BROWSERS_PATH", "0");
 
         Process process = playwright.start();
@@ -154,7 +155,9 @@ class TemporalBrowserApiPostgresE2E {
                 """, tag)).isEqualTo(1);
         assertThat(count("""
                 select count(*) from plan_items p join credit_cards c on c.id=p.card_id
-                 where c.name=? and p.status='PAID' and p.amount=100
+                  join invoices i on i.card_id=c.id and i.month=1 and i.year=2027
+                  join card_payments payment on payment.invoice_id=i.id
+                 where c.name=? and p.status='PAID' and p.amount=0 and payment.amount=100
                 """, tag)).isEqualTo(1);
     }
 
@@ -283,17 +286,24 @@ class TemporalBrowserApiPostgresE2E {
             assertThat(sheet).isNotNull();
 
             boolean found = false;
+            boolean originalPreserved = false;
             for (Row row : sheet) {
-                if (row.getCell(2) != null && (tag + "-transacao").equals(row.getCell(2).getStringCellValue())) {
+                if (row.getCell(2) != null && (tag + "-transacao").equals(row.getCell(2).getStringCellValue())
+                        && row.getCell(0) != null && "30/01/2027".equals(row.getCell(0).getStringCellValue())) {
+                    assertThat(row.getCell(1).getStringCellValue()).isEqualTo("23:30");
+                    originalPreserved = true;
+                }
+                if (row.getCell(2) != null && (tag + "-transacao").equals(row.getCell(2).getStringCellValue())
+                        && row.getCell(0) != null && "29/01/2027".equals(row.getCell(0).getStringCellValue())) {
                     assertThat(row.getCell(0).getStringCellValue()).isEqualTo("29/01/2027");
                     assertThat(row.getCell(1).getStringCellValue()).isEqualTo("08:15");
                     found = true;
-                    break;
                 }
             }
             assertThat(found)
-                    .as("exportação deve conter a transação editada de %s", tag)
-                    .isTrue();
+                .as("exportação deve conter a transação editada de %s", tag)
+                .isTrue();
+            assertThat(originalPreserved).as("FIN-07 mantém a data/hora do fato original no arquivo").isTrue();
         }
     }
 

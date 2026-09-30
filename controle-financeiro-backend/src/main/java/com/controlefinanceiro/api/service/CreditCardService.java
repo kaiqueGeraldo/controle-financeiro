@@ -69,6 +69,7 @@ public class CreditCardService {
         }
         log.info("Criando cartão '{}' (Final {})", data.name(), data.last4Digits());
         CreditCard card = new CreditCard();
+        card.setReportingKnownFrom(LocalDate.now(clock));
         card.setName(data.name());
         card.setLast4Digits(data.last4Digits());
         card.setLimit(data.limit());
@@ -94,12 +95,15 @@ public class CreditCardService {
                 || !validMoney(data.currentOutstanding(), true)) {
             throw new BusinessRuleException("Posição inicial inválida.");
         }
+        BigDecimal openingTotal=data.currentOutstanding();
         for (CardOpeningPosition.FutureInstallment future : data.futureInstallments()) {
             if (future.competence() == null || !future.competence().isAfter(data.currentCompetence())
                     || !validMoney(future.amount(), false)) {
                 throw new BusinessRuleException("Parcelas futuras devem ter competência posterior e valor positivo em centavos.");
             }
+            openingTotal=openingTotal.add(future.amount());
         }
+        if(!validMoney(openingTotal,true))throw new BusinessRuleException("Dívida inicial agregada fora da faixa monetária.");
 
         Category category = categoryRepository.findByUserIdAndName(user.getId(), DefaultCategory.PAGAMENTO_FATURA.getName())
                 .orElseGet(() -> {
@@ -218,6 +222,9 @@ public class CreditCardService {
         }
 
         BigDecimal valorParcelaBase = data.amount().divide(BigDecimal.valueOf(parcelas), 2, RoundingMode.DOWN);
+        BigDecimal newDebt=cardTransactionRepository.sumOutstandingByCardId(card.getId())
+                .add(data.amount().subtract(card.getCreditBalance()).max(BigDecimal.ZERO));
+        if(!validMoney(newDebt,true))throw new BusinessRuleException("Dívida agregada fora da faixa monetária.");
         BigDecimal valorTotalBase = valorParcelaBase.multiply(BigDecimal.valueOf(parcelas));
         BigDecimal diferencaCentavos = data.amount().subtract(valorTotalBase);
 
@@ -460,7 +467,9 @@ public class CreditCardService {
             }
             if (remainder.signum() == 0) break;
         }
-        card.setCreditBalance(card.getCreditBalance().add(remainder));
+        BigDecimal newCredit=card.getCreditBalance().add(remainder);
+        if(!validMoney(newCredit,true))throw new BusinessRuleException("Crédito agregado fora da faixa monetária.");
+        card.setCreditBalance(newCredit);
         CardRefund refund = new CardRefund();
         refund.setCard(card);
         refund.setPurchaseId(purchaseId);

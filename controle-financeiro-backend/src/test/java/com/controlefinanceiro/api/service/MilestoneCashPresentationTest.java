@@ -42,8 +42,8 @@ class MilestoneCashPresentationTest extends PostgresIntegrationTest {
         assertThat(fee.amount()).isEqualByComparingTo("1");assertThat(fee.cashAmount()).isZero();assertThat(fee.cashDelta()).isZero();
         assertThat(dashboard.getPeriodTotals(u,DAY,DAY,null,null).income()).isEqualByComparingTo("10");
         assertThat(dashboard.getPeriodTotals(u,DAY,DAY,null,null).expense()).isEqualByComparingTo("1");
-        assertThat(ledger.getCashSummary(u,9,2026,null,a).entries()).isEqualByComparingTo("9");
-        assertThat(ledger.getCashSummary(u,9,2026,null,a).exits()).isZero();
+        assertThat(ledger.getCashSummary(u,9,2026,null,a).observed().entries()).isEqualByComparingTo("9");
+        assertThat(ledger.getCashSummary(u,9,2026,null,a).observed().exits()).isZero();
         assertThat(ledger.listAllFiltered(user(),9,2026,null,null,PageRequest.of(0,20))).isEmpty();
         try(var book=new XSSFWorkbook(new ByteArrayInputStream(ledger.exportToExcel(u,9,2026,null,a)))){
             var sheet=book.getSheetAt(0);boolean sawIncome=false,sawFee=false;

@@ -108,9 +108,9 @@ Spring. Corpos e cabeçalhos `Content-Type`, `Content-Disposition` e
 | habits | `POST /habits/{id}/toggle` | `{date:YYYY-MM-DD}` | 200 Ø |
 | habits | `PUT /habits/{id}` | `UpdateHabitDTO` | 200 `HabitResponseDTO` |
 | habits | delete/reorder | — ou `UUID[]` | 204 Ø |
-| dashboard | `GET /dashboard/flow?month=&year=` | inteiros obrigatórios | 200 `{income,expense,balance,percentage,investmentResult}` de resultado gerencial; `balance` e `investmentResult` podem ser null se o custo de uma venda for desconhecido |
-| dashboard | `GET /dashboard/chart?period=` | `30D\|6M\|1Y` | 200 `{label,valor}[]` de fluxo de caixa acumulado desde o início do intervalo, não patrimônio histórico |
-| annual summary | `GET /annual-summary?year=` | inteiro opcional; ausente usa ano do produto | 200 `AnnualSummaryDTO`; `balance.investmentResult` separado das receitas e pode ser null; posição de investimento somente no ano corrente, custo e avaliação separados; anos passados retornam posição indisponível |
+| dashboard | `GET /dashboard/flow?month=&year=` | inteiros obrigatórios | 200 `{income,expense,balance,percentage,investmentResult,coverage,observed}`; totais completos nullable; subtotais observados são strings decimais exatas; incompleto não vira zero |
+| dashboard | `GET /dashboard/chart?period=` | `30D\|6M\|1Y` | 200 `{label,valor,observedValue,coverage}[]`; valor completo nullable, observado decimal exato; fluxo de caixa acumulado desde o início do intervalo, sem reconstruir patrimônio |
+| annual summary | `GET /annual-summary?year=` | inteiro opcional; ausente usa ano do produto | 200 `AnnualSummaryDTO`; `balance.investmentResult` separado das receitas e pode ser null; posição atual datada independente do ano selecionado, custo e avaliação separados e metadados por ativo; fluxos/card incluem coverage e observed; comparativo indisponível sem dois períodos completos |
 | annual summary | `POST /annual-summary/note` | `{year,content}` | 200 Ø |
 | users | `PUT /users/me/profile` | `{nome,email}` | 200 usuário |
 | users | `PUT /users/me/password` | `{senhaAtual,novaSenha}` | 200 Ø |
@@ -207,3 +207,5 @@ estão concluídos e CF-017 permanece proposta.
   HTTP a idioma e seria frágil.
 - Timeout após mutação não prova rollback nem commit. `requiresReconciliation`
   impede retry ingênuo, mas idempotência e concorrência pertencem às CF-009/024.
+
+Cobertura FIN-08: COMPLETE, PARTIAL, UNAVAILABLE, UNKNOWN_ORIGIN ou OUT_OF_RANGE. Base coletiva conservadora é a data mais recente das fontes declaradas no escopo; conta arquivada permanece. Base legada nula não é inferida por texto. Período futuro não é fechado. No XLSX, coluna B contém total completo ou motivo, coluna C contém subtotal observado exato; aba Cobertura acompanha o mesmo snapshot. Zero conhecido só é total em período coberto.

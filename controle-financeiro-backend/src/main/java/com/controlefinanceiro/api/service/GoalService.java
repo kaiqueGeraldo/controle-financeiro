@@ -70,6 +70,7 @@ public class GoalService {
     public GoalResponseDTO create(CreateGoalDTO data, User user) {
         log.info("Criando nova meta: {}", data.title());
         Goal goal = new Goal();
+        if(data.type()==GoalType.MONETARY)requireMoney(data.targetValue());
         goal.setTitle(data.title());
         goal.setTargetValue(data.targetValue());
         BigDecimal initial = data.initialProgress() == null ? BigDecimal.ZERO : data.initialProgress();
@@ -174,6 +175,7 @@ public class GoalService {
                 allocation = allocationRepository.findByGoalIdAndInvestmentId(goalId, investment.getId())
                         .orElseGet(() -> newAllocation(goal, null, investment));
             }
+            requireMoney(goal.getCurrentValue().add(data.amount()));
             allocation.setAmount(allocation.getAmount().add(data.amount()));
             allocationRepository.save(allocation);
         } else if (data.accountId() != null || data.investmentId() != null) {
@@ -257,6 +259,7 @@ public class GoalService {
         BigDecimal delta = data.amount().subtract(previous);
         if (delta.signum() == 0) return;
         if (delta.signum() > 0) ensureCapacity(account, investment, delta);
+        requireMoney(goal.getCurrentValue().add(delta));
         if (allocation == null) allocation = newAllocation(goal, account, investment);
         allocation.setAmount(data.amount());
         allocationRepository.save(allocation);
@@ -364,6 +367,7 @@ public class GoalService {
         if (data.title() != null && !data.title().isBlank()) goal.setTitle(data.title());
         if (data.deadline() != null) goal.setDeadline(data.deadline());
         if (data.targetValue() != null) {
+            if(goal.getType()==GoalType.MONETARY)requireMoney(data.targetValue());
             if (data.targetValue().compareTo(BigDecimal.ZERO) <= 0)
                 throw new BusinessRuleException("O valor alvo deve ser maior que zero.");
             goal.setTargetValue(data.targetValue());
@@ -438,6 +442,7 @@ public class GoalService {
         if (!goal.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
         requireMoney(data.estimatedPrice());
         if (data.estimatedPrice().signum() == 0) throw new BusinessRuleException("Estimativa deve ser positiva.");
+        requireMoney(goal.getTargetValue().add(data.estimatedPrice()));
 
         GoalItem item = new GoalItem();
         item.setName(data.name());
@@ -471,6 +476,7 @@ public class GoalService {
         }
 
         BigDecimal diferenca = data.paidPrice().subtract(item.getEstimatedPrice());
+        requireMoney(goal.getTargetValue().add(diferenca));
 
         if (data.accountId() != null) {
             Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())

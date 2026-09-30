@@ -127,11 +127,11 @@ class IntegratedMilestoneReviewTest extends PostgresIntegrationTest {
         User u=user(); UUID a=account(u,"1000.00"); UUID i=asset(u,"10","200.00","250.00");
         investments.performOperation(operation(i,a,InvestTransType.DIVIDEND,"1","10.00","1.00"),u);
         assertThat(balance(a)).isEqualByComparingTo("1009.00");
-        assertThat(dashboard.getMonthlyFlow(u,9,2026).income()).isEqualByComparingTo("10.00");
-        assertThat(dashboard.getMonthlyFlow(u,9,2026).expense()).isEqualByComparingTo("1.00");
+        assertThat(dashboard.getMonthlyFlow(u,9,2026).observed().income()).isEqualByComparingTo("10.00");
+        assertThat(dashboard.getMonthlyFlow(u,9,2026).observed().expense()).isEqualByComparingTo("1.00");
         var cash=transactions.getCashSummary(u,9,2026,null,a);
-        assertThat(cash.entries()).as("E27 cashIn=9.00; income=10.00 is separate").isEqualByComparingTo("9.00");
-        assertThat(cash.exits()).isZero();
+        assertThat(cash.observed().entries()).as("E27 cashIn=9.00; income=10.00 is separate").isEqualByComparingTo("9.00");
+        assertThat(cash.observed().exits()).isZero();
     }
 
     @Test void RV09_newSettlementContractRejectsJsonNumberAndExponent() throws Exception {
@@ -210,9 +210,9 @@ class IntegratedMilestoneReviewTest extends PostgresIntegrationTest {
         User u=user();UUID a=account(u,"0.00");
         transactions.create(new CreateTransactionDTO("Máximo",m("999999999999.99"),DAY,null,TransactionType.INCOME,a,null,true),u);
         mvc.perform(get("/transactions/summary?month=9&year=2026").header("Authorization","Bearer "+tokens.generateToken(u)))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.entries").value(999999999999.99));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.observed.entries").value("999999999999.99"));
         try(var book=new org.apache.poi.xssf.usermodel.XSSFWorkbook(new java.io.ByteArrayInputStream(transactions.exportToExcel(u,9,2026,null,null)))) {
-            BigDecimal cell=BigDecimal.valueOf(book.getSheetAt(0).getRow(2).getCell(1).getNumericCellValue());
+            BigDecimal cell=new BigDecimal(book.getSheetAt(0).getRow(2).getCell(2).getStringCellValue());
             assertThat(cell).isEqualByComparingTo("999999999999.99");
         }
     }
@@ -276,6 +276,25 @@ class IntegratedMilestoneReviewTest extends PostgresIntegrationTest {
             var results=List.of(futures.get(0).get(20,TimeUnit.SECONDS),futures.get(1).get(20,TimeUnit.SECONDS));
             System.out.println("REVIEW independent PostgreSQL pids="+pids+" outcomes="+results);return results;
         } finally {go.countDown();}
+    }
+
+    @Test void C06_newDecimalContractsRejectNumericExponentAndNeverTruncate() throws Exception {
+        User u=user();UUID a=account(u,"1000.00"),g=goal(u);String auth="Bearer "+tokens.generateToken(u);
+        mvc.perform(put("/goals/"+g+"/allocations").header("Authorization",auth).contentType("application/json")
+                .content("{\"accountId\":\""+a+"\",\"amount\":1e2}"))
+                .andExpect(status().isBadRequest());
+        mvc.perform(put("/goals/"+g+"/allocations").header("Authorization",auth).contentType("application/json")
+                .content("{\"accountId\":\""+a+"\",\"amount\":\"100.00\"}"))
+                .andExpect(status().isNoContent());
+        String base="{\"ticker\":\"CANON\",\"name\":\"Decimal\",\"type\":\"STOCK\",\"openingQuantity\":\"1.00000000\",\"openingCost\":";
+        for(String invalid:List.of("1e2","\"1e2\"","\"1.005\""))mvc.perform(post("/investments")
+                .header("Authorization",auth).contentType("application/json").content(base+invalid+"}"))
+                .andExpect(status().isBadRequest());
+        assertThat(sql.queryForObject("select count(*) from investments where user_id=?",Integer.class,u.getId())).isZero();
+        mvc.perform(post("/investments").header("Authorization",auth).contentType("application/json").content(base+"\"1.00\"}"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.totalCost").value(1.00));
+        assertThat(balance(a)).isEqualByComparingTo("1000.00");
+        assertThat(sql.queryForObject("select amount from goal_allocations where goal_id=?",BigDecimal.class,g)).isEqualByComparingTo("100.00");
     }
 
     private User user() { User u=new User(); u.setNome("Revisão sintética");u.setEmail(UUID.randomUUID()+"@example.invalid");u.setSenha("synthetic");return users.save(u); }

@@ -78,6 +78,7 @@ public class InvestmentService {
         log.info("SERVICE: Iniciando criação de ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getEmail());
 
         Investment investment = new Investment();
+        investment.setReportingKnownFrom(LocalDate.now(clock));
         investment.setTicker(data.ticker().toUpperCase());
         investment.setName(data.name());
         investment.setType(data.type());
