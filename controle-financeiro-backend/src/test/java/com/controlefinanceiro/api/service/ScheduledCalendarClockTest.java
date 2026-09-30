@@ -117,14 +117,13 @@ class ScheduledCalendarClockTest {
     void habitCronDerivesPreviousDaysFromProductCalendar() {
         HabitRepository habitRepository = mock(HabitRepository.class);
         HabitLogRepository habitLogRepository = mock(HabitLogRepository.class);
-        TransactionTemplate transactionTemplate = mock(TransactionTemplate.class);
+        TransactionTemplate transactionTemplate = executingTransactionTemplate();
         HabitCronService service = new HabitCronService();
         Habit habit = new Habit();
         habit.setId(UUID.fromString("40000000-0000-0000-0000-000000000001"));
 
-        when(habitRepository.findAll(PageRequest.of(0, 500)))
-                .thenReturn(new PageImpl<>(List.of(habit), PageRequest.of(0, 500), 1));
-        when(habitLogRepository.findLogsForHabitsInDates(any(), any(), any())).thenReturn(List.of());
+        when(habitRepository.findFirstIds(PageRequest.of(0, 500))).thenReturn(List.of(habit.getId()));
+        when(habitRepository.findForUpdate(habit.getId())).thenReturn(Optional.of(habit));
         ReflectionTestUtils.setField(service, "habitRepository", habitRepository);
         ReflectionTestUtils.setField(service, "habitLogRepository", habitLogRepository);
         ReflectionTestUtils.setField(service, "transactionTemplate", transactionTemplate);
@@ -133,11 +132,8 @@ class ScheduledCalendarClockTest {
 
         service.processDailyHabits();
 
-        verify(habitLogRepository).findLogsForHabitsInDates(
-                List.of(habit.getId()),
-                LocalDate.of(2026, 9, 6),
-                LocalDate.of(2026, 9, 5)
-        );
+        verify(habitLogRepository).findByHabitIdAndDate(habit.getId(), LocalDate.of(2026, 9, 6));
+        verify(habitLogRepository).findByHabitIdAndDate(habit.getId(), LocalDate.of(2026, 9, 5));
     }
 
     @Test
@@ -170,6 +166,11 @@ class ScheduledCalendarClockTest {
             TransactionCallback<Object> callback = invocation.getArgument(0);
             return callback.doInTransaction(mock(TransactionStatus.class));
         });
+        org.mockito.Mockito.doAnswer(invocation -> {
+            java.util.function.Consumer<TransactionStatus> callback = invocation.getArgument(0);
+            callback.accept(mock(TransactionStatus.class));
+            return null;
+        }).when(template).executeWithoutResult(any());
         return template;
     }
 

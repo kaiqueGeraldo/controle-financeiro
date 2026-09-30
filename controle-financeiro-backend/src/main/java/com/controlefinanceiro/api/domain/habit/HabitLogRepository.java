@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public interface HabitLogRepository extends JpaRepository<HabitLog, UUID> {
     Optional<HabitLog> findByHabitIdAndDate(UUID habitId, LocalDate date);
+    List<HabitLog> findAllByHabitIdAndDateLessThanEqualOrderByDateAsc(UUID habitId, LocalDate today);
     List<HabitLog> findAllByHabitIdAndDateBetween(UUID habitId, LocalDate startDate, LocalDate endDate);
 
     @Query("SELECT l FROM HabitLog l WHERE l.habit.id IN :habitIds AND l.date IN (:yesterday, :dayBefore)")

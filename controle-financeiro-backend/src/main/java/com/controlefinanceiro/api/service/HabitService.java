@@ -1,194 +1,181 @@
 package com.controlefinanceiro.api.service;
 
-import com.controlefinanceiro.api.domain.goal.Goal;
-import com.controlefinanceiro.api.domain.goal.GoalHistory;
-import com.controlefinanceiro.api.domain.goal.GoalHistoryRepository;
-import com.controlefinanceiro.api.domain.goal.GoalRepository;
+import com.controlefinanceiro.api.domain.goal.*;
 import com.controlefinanceiro.api.domain.habit.*;
-import com.controlefinanceiro.api.domain.habit.dto.CreateHabitDTO;
-import com.controlefinanceiro.api.domain.habit.dto.HabitResponseDTO;
-import com.controlefinanceiro.api.domain.habit.dto.ToggleHabitDTO;
-import com.controlefinanceiro.api.domain.habit.dto.UpdateHabitDTO;
+import com.controlefinanceiro.api.domain.habit.dto.*;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Clock;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.HashMap;
 import java.util.UUID;
 
-@Slf4j
 @Service
 public class HabitService {
+    @Autowired private HabitRepository habitRepository;
+    @Autowired private HabitLogRepository habitLogRepository;
+    @Autowired private GoalHistoryRepository goalHistoryRepository;
+    @Autowired private GoalRepository goalRepository;
+    @Autowired private EntityManager entityManager;
+    @Autowired private Clock clock;
 
-    @Autowired
-    private HabitRepository habitRepository;
-
-    @Autowired
-    private HabitLogRepository habitLogRepository;
-
-    @Autowired
-    private GoalHistoryRepository goalHistoryRepository;
-
-    @Autowired
-    private GoalRepository goalRepository;
-
-    @Autowired
-    private Clock clock;
-
+    @Transactional(readOnly = true)
     public List<HabitResponseDTO> listAll(User user) {
-        log.info("SERVICE: Listando hábitos para o usuário {}", user.getEmail());
         return habitRepository.findAllByUserIdOrderByOrderIndexAsc(user.getId())
-                .stream()
-                .map(HabitResponseDTO::new)
-                .toList();
+                .stream().map(HabitResponseDTO::new).toList();
     }
 
     @Transactional
     public HabitResponseDTO create(CreateHabitDTO data, User user) {
-        log.info("SERVICE: Criando novo hábito '{}' para usuário {}", data.name(), user.getEmail());
-
         Habit habit = new Habit();
         habit.setName(data.name());
         habit.setDescription(data.description());
         habit.setIcon(data.icon());
         habit.setColor(data.color());
         habit.setUser(user);
-
-        if (data.goalId() != null) {
-            log.info("SERVICE: Vinculando hábito à Meta ID {}", data.goalId());
-            Goal goal = goalRepository.findById(data.goalId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
-            habit.setGoal(goal);
-        }
-
-        Habit saved = habitRepository.save(habit);
-        return new HabitResponseDTO(saved);
+        configure(habit, data.frequency() == null ? HabitFrequency.DAILY : data.frequency(), data.weeklyGoal());
+        if (data.goalId() != null) habit.setGoal(ownedNumericGoal(data.goalId(), user));
+        return new HabitResponseDTO(habitRepository.save(habit));
     }
 
     @Transactional
     public void toggleHabit(UUID habitId, ToggleHabitDTO data, User user) {
-        log.info("SERVICE: Toggle no hábito {} para a data {}", habitId, data.date());
-
-        Habit habit = habitRepository.findById(habitId)
-                .orElseThrow(() -> new ResourceNotFoundException("Hábito não encontrado"));
-
-        if (!habit.getUser().getId().equals(user.getId())) {
-            log.error("SERVICE: Violação de segurança. Usuário {} tentou alterar hábito {}", user.getEmail(), habitId);
-            throw new BusinessRuleException("Acesso negado");
+        LocalDateTime now = LocalDateTime.now(clock);
+        LocalDate today = now.toLocalDate();
+        if (data.date() == null || data.date().isAfter(today)) {
+            throw new BusinessRuleException("Dia do hábito deve ser hoje ou passado");
         }
-
-        Optional<HabitLog> optLog = habitLogRepository.findByHabitIdAndDate(habitId, data.date());
-
-        HabitLog logEntity = optLog.orElseGet(() -> {
-            HabitLog newLog = new HabitLog();
-            newLog.setHabit(habit);
-            newLog.setDate(data.date());
-            newLog.setStatus(HabitStatus.PENDING);
-            return newLog;
+        Habit habit = ownedHabitForUpdate(habitId, user);
+        HabitLog entry = habitLogRepository.findByHabitIdAndDate(habitId, data.date()).orElseGet(() -> {
+            HabitLog created = new HabitLog();
+            created.setHabit(habit);
+            created.setDate(data.date());
+            created.setStatus(HabitStatus.PENDING);
+            return created;
         });
-
-        String noteMsg = "Check via Hábito: " + habit.getName();
-        List<GoalHistory> historicosDeHoje = goalHistoryRepository.findByGoalAndNoteAndDate(
-                habit.getGoal() != null ? habit.getGoal().getId() : null,
-                noteMsg,
-                data.date()
-        );
-
-        if (logEntity.getStatus() == HabitStatus.COMPLETED) {
-            log.info("SERVICE: Desmarcando hábito. Revertendo estado.");
-            logEntity.setStatus(HabitStatus.PENDING);
-
-            if (habit.getFrequency() == HabitFrequency.DAILY) {
-                habit.setCurrentStreak(Math.max(0, habit.getCurrentStreak() - 1));
-                log.info("SERVICE: Ofensiva reduzida para {}", habit.getCurrentStreak());
-            }
-
-            if (habit.getGoal() != null && !historicosDeHoje.isEmpty()) {
-                Goal goal = habit.getGoal();
-                goalHistoryRepository.deleteAll(historicosDeHoje);
-
-                BigDecimal totalAReduzir = BigDecimal.valueOf(historicosDeHoje.size());
-                goal.setCurrentValue(goal.getCurrentValue().subtract(totalAReduzir));
-                goalRepository.save(goal);
-            }
+        if (entry.getStatus() == HabitStatus.COMPLETED) {
+            undoContribution(habit, entry, user);
+            entry.setStatus(HabitStatus.PENDING);
         } else {
-            log.info("SERVICE: Marcando hábito como concluído.");
-            logEntity.setStatus(HabitStatus.COMPLETED);
+            addContribution(habit, entry, user, now);
+            entry.setStatus(HabitStatus.COMPLETED);
+        }
+        habitLogRepository.saveAndFlush(entry);
+        recalculate(habit, today);
+    }
 
-            if (habit.getFrequency() == HabitFrequency.DAILY) {
-                habit.setCurrentStreak(habit.getCurrentStreak() + 1);
+    private void addContribution(Habit habit, HabitLog entry, User user, LocalDateTime now) {
+        if (habit.getGoal() != null) {
+            Goal goal = ownedNumericGoal(habit.getGoal().getId(), user);
+            GoalHistory effect = new GoalHistory();
+            effect.setGoal(goal);
+            effect.setAmount(BigDecimal.ONE);
+            effect.setNote("Check via Hábito: " + habit.getName());
+            effect.setDate(now);
+            effect = goalHistoryRepository.save(effect);
+            entry.setGoalHistoryId(effect.getId());
+            goal.setCurrentValue(goal.getCurrentValue().add(BigDecimal.ONE));
+            goalRepository.save(goal);
+        }
+        entry.setGoalEffectManaged(true);
+    }
 
-                if (habit.getCurrentStreak() > habit.getHighestStreak()) {
-                    habit.setHighestStreak(habit.getCurrentStreak());
-                }
-                log.info("SERVICE: Ofensiva incrementada para {}", habit.getCurrentStreak());
-            }
+    private void undoContribution(Habit habit, HabitLog entry, User user) {
+        if (!entry.isGoalEffectManaged() && habit.getGoal() != null) {
+            throw new BusinessRuleException("Contribuição legada do hábito exige reconciliação explícita");
+        }
+        if (entry.getGoalHistoryId() == null) return; // No contribution, or already undone by the goal.
+        GoalHistory effect = goalHistoryRepository.findById(entry.getGoalHistoryId())
+                .orElseThrow(() -> new BusinessRuleException("Histórico vinculado indisponível"));
+        Goal goal = ownedNumericGoal(effect.getGoal().getId(), user);
+        if (goal.getCurrentValue().compareTo(effect.getAmount()) < 0) {
+            throw new BusinessRuleException("Progresso insuficiente para desfazer a contribuição");
+        }
+        // Clear the FK before deleting the history, including schemas generated by Hibernate.
+        entry.setGoalHistoryId(null);
+        habitLogRepository.saveAndFlush(entry);
+        goal.setCurrentValue(goal.getCurrentValue().subtract(effect.getAmount()));
+        goalRepository.save(goal);
+        goalHistoryRepository.delete(effect);
+    }
 
-            if (habit.getGoal() != null && historicosDeHoje.isEmpty()) {
-                Goal goal = habit.getGoal();
-                GoalHistory history = new GoalHistory();
-                history.setGoal(goal);
-                history.setAmount(BigDecimal.ONE);
-                history.setNote(noteMsg);
-                history.setDate(LocalDateTime.now(clock));
-                goalHistoryRepository.save(history);
+    private Goal ownedNumericGoal(UUID id, User user) {
+        Goal goal = entityManager.find(Goal.class, id, LockModeType.PESSIMISTIC_WRITE);
+        if (goal == null) throw new ResourceNotFoundException("Meta não encontrada");
+        if (!goal.getUser().getId().equals(user.getId()) || goal.getType() != GoalType.NUMERIC) {
+            throw new BusinessRuleException("O hábito exige meta numérica do mesmo usuário");
+        }
+        return goal;
+    }
 
-                goal.setCurrentValue(goal.getCurrentValue().add(BigDecimal.ONE));
-                goalRepository.save(goal);
+    private Habit ownedHabitForUpdate(UUID id, User user) {
+        Habit habit = habitRepository.findForUpdate(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hábito não encontrado"));
+        if (!habit.getUser().getId().equals(user.getId())) throw new BusinessRuleException("Acesso negado");
+        return habit;
+    }
+
+    private void recalculate(Habit habit, LocalDate today) {
+        today = HabitStreakCalculator.calendarDay(habit, today);
+        List<HabitLog> logs = habitLogRepository.findAllByHabitIdAndDateLessThanEqualOrderByDateAsc(habit.getId(), today);
+        // Repair derived absence statuses when neighboring days are corrected.
+        for (int i = 0; i < logs.size(); i++) {
+            HabitLog entry = logs.get(i);
+            if (entry.getStatus() == HabitStatus.SKIPPED || entry.getStatus() == HabitStatus.FAILED) {
+                boolean forgiven = i > 0 && logs.get(i - 1).getDate().equals(entry.getDate().minusDays(1))
+                        && logs.get(i - 1).getStatus() == HabitStatus.COMPLETED;
+                entry.setStatus(forgiven ? HabitStatus.SKIPPED : HabitStatus.FAILED);
             }
         }
-
-        habitLogRepository.save(logEntity);
+        HabitStreakCalculator.apply(habit, logs, today);
         habitRepository.save(habit);
+    }
+
+    private void configure(Habit habit, HabitFrequency frequency, Integer weeklyGoal) {
+        if (frequency == HabitFrequency.WEEKLY_GOAL && (weeklyGoal == null || weeklyGoal < 1 || weeklyGoal > 7)) {
+            throw new BusinessRuleException("Meta semanal deve estar entre 1 e 7");
+        }
+        habit.setFrequency(frequency);
+        habit.setWeeklyGoal(frequency == HabitFrequency.WEEKLY_GOAL ? weeklyGoal : null);
     }
 
     @Transactional
     public HabitResponseDTO update(UUID id, UpdateHabitDTO data, User user) {
-        Habit habit = habitRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hábito não encontrado"));
-
-        if (!habit.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
-
+        LocalDate today = LocalDate.now(clock);
+        Habit habit = ownedHabitForUpdate(id, user);
         if (data.name() != null) habit.setName(data.name());
         if (data.description() != null) habit.setDescription(data.description());
         if (data.icon() != null) habit.setIcon(data.icon());
         if (data.color() != null) habit.setColor(data.color());
-
-        Habit updatedHabit = habitRepository.save(habit);
-        return new HabitResponseDTO(updatedHabit);
+        configure(habit, data.frequency() == null ? habit.getFrequency() : data.frequency(),
+                data.weeklyGoal() == null ? habit.getWeeklyGoal() : data.weeklyGoal());
+        if (data.goalId() != null) habit.setGoal(ownedNumericGoal(data.goalId(), user));
+        recalculate(habit, today);
+        return new HabitResponseDTO(habit);
     }
 
     @Transactional
     public void delete(UUID id, User user) {
-        log.warn("SERVICE: Excluindo hábito {}", id);
-        Habit habit = habitRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hábito não encontrado"));
-
-        if (!habit.getUser().getId().equals(user.getId())) {
-            throw new BusinessRuleException("Acesso negado");
-        }
-
-        habitRepository.delete(habit);
+        habitRepository.delete(ownedHabitForUpdate(id, user));
     }
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
-        for (int i = 0; i < orderedIds.size(); i++) {
-            Habit habit = habitRepository.findById(orderedIds.get(i)).orElse(null);
-            if (habit != null && habit.getUser().getId().equals(user.getId())) {
-                habit.setOrderIndex(i);
-                habitRepository.save(habit);
-            }
-        }
+        // Stable lock order also serializes reorder with check/update/cron.
+        var positions = new HashMap<UUID, Integer>();
+        for (int i = 0; i < orderedIds.size(); i++) positions.put(orderedIds.get(i), i);
+        positions.keySet().stream().sorted().forEach(id -> habitRepository.findForUpdate(id)
+                .filter(habit -> habit.getUser().getId().equals(user.getId()))
+                .ifPresent(habit -> habit.setOrderIndex(positions.get(id))));
     }
 }

@@ -3,7 +3,6 @@ package com.controlefinanceiro.api.domain.goal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -24,7 +23,7 @@ public class GoalHistory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @CreationTimestamp
+    // Writers supply the product Clock explicitly; generation used to overwrite it.
     private LocalDateTime date;
 
     @Column(nullable = false)

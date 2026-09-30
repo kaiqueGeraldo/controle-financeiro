@@ -9,6 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +45,10 @@ public class Habit {
 
     @Column(name = "highest_streak", nullable = false)
     private Integer highestStreak = 0;
+
+    @JsonIgnore
+    @Column(name = "streak_as_of")
+    private LocalDate streakAsOf;
 
     @Column(name = "order_index")
     private Integer orderIndex = 0;

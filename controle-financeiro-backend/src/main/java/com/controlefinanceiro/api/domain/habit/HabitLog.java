@@ -33,4 +33,12 @@ public class HabitLog {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "habit_id", nullable = false)
     private Habit habit;
+
+    // Persistent identity of the numeric progress created by this check.
+    // A deleted goal/history clears the FK; legacy effects are never guessed.
+    @Column(name = "goal_history_id", unique = true)
+    private UUID goalHistoryId;
+
+    @Column(name = "goal_effect_managed", nullable = false)
+    private boolean goalEffectManaged;
 }

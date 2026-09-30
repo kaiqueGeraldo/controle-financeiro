@@ -1,6 +1,6 @@
 # CF-022 — Validar hábitos e execução dos crons
 
-- Estado: proposta
+- Estado: em_execucao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -43,7 +43,22 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-022/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Execução iniciada em 30/09/2026 sobre `6f0d474`. A revisão dirigida de resíduos
+[libera CF-022 localmente](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md),
+usando a fundação descartável CF-006/017 integrada; não libera produção.
+README raiz alheio preservado e excluído dos commits. DEC-08 aprovada pelo usuário
+nesta execução; [contrato e exemplos independentes](../evidencias/CF-022/CONTRATO.md).
+Exceções de caminho necessárias: migração aditiva em `src/main/resources/db/migration/`
+para vínculo persistido de contribuição; testes em `src/test/java/.../domain/habit/`
+e adaptação dos consumidores temporais existentes em `src/test/java/.../service/`.
+Esses caminhos permitem validar Flyway/Hibernate e preservar o contrato temporal.
+`domain/goal/GoalHistory.java`: retirar geração automática que sobrescreve o
+Clock explícito nos dois writers existentes (HabitService e GoalService);
+validação inclui consumidores de metas e contratos temporais. Os três testes
+existentes de migração passam a exigir a versão 12 e checksum de V12, mantendo
+todas as assertions históricas; adaptação restrita ao novo inventário aprovado.
+SPEC-002 e matriz DEC-08 atualizadas para refletir a decisão explícita do usuário;
+nenhuma outra tarefa foi iniciada. Harness de browser e isolamento de schema
+ficam em `src/test/java/.../domain/habit/`, sem alterar produto frontend.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-

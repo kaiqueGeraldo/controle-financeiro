@@ -4,7 +4,7 @@ Contrato definido pela CF-004 em 08/09/2026. Descreve o resultado exigido; **nã
 
 ## Fontes e fronteiras
 
-Mantêm-se os critérios originais: data civil sem conversão de fuso, defaults locais do navegador, prazo de hoje não atrasado, meta concluída nunca atrasada, navegação mensal pelo dia 1 sem mutação e rejeição de datas impossíveis. As decisões abaixo resolvem DEC-01/02/05 sem tomar o código atual como oracle. DEC-03 recebeu política gerencial explícita na CF-019; DEC-08 (recorrência semanal) continua com CF-022.
+Mantêm-se os critérios originais: data civil sem conversão de fuso, defaults locais do navegador, prazo de hoje não atrasado, meta concluída nunca atrasada, navegação mensal pelo dia 1 sem mutação e rejeição de datas impossíveis. As decisões abaixo resolvem DEC-01/02/05 sem tomar o código atual como oracle. DEC-03 recebeu política gerencial explícita na CF-019; DEC-08 foi aprovada pelo usuário na CF-022 em 30/09/2026, conforme seção ao final.
 
 O inventário descreve fatos do checkout; regras e exemplos são normativos. Exemplos HTTP são **projeções dos campos temporais**, com demais campos válidos e identidades sintéticas omitidos, não corpos completos para envio. Rotas são Spring; o BFF acrescenta `/api` e preserva valores sem acrescentar horários/fusos. Comandos sem JSON temporal exigem a releitura indicada. Status/envelope completos pertencem à CF-008.
 
@@ -121,4 +121,25 @@ Consultas mensais devem expressar [primeiroDia, primeiroDiaDoPróximoMês); para
 
 Um Clock capturado por operação evita dias divergentes dentro dela, mas não resolve concorrência, cron duplicado ou pagamento repetido. Unicidade/transação por janela/usuário e idempotência: CF-022/024. Zone no agendamento sem Clock nos cálculos é insuficiente.
 
-Pendências delimitadas: regras contratuais de dia útil e emissor permanecem desconhecidas; DEC-03/CF-019 define apenas calendário gerencial (CF-013 coordena vencimentos copiados). DEC-08/CF-022 (semana/streak/efeito em meta); admissibilidade de prazo passado/presente na criação CF-020; proveniência/schema CF-017; entidades expostas/PUT planejamento/envelopes CF-008; regime de relatório CF-016/021. Não são resolvidas por inferência do código. Revisão independente e conformidade do produto não executadas pela CF-004.
+Pendências delimitadas: regras contratuais de dia útil e emissor permanecem desconhecidas; DEC-03/CF-019 define apenas calendário gerencial (CF-013 coordena vencimentos copiados). DEC-08 recebeu decisão explícita em 30/09/2026, abaixo; admissibilidade de prazo passado/presente na criação CF-020; proveniência/schema CF-017; entidades expostas/PUT planejamento/envelopes CF-008; regime de relatório CF-016/021. Não são resolvidas por inferência do código. Revisão independente e conformidade do produto não executadas pela CF-004.
+
+## DEC-08 — hábitos, aprovada pelo usuário em 30/09/2026
+
+Semana segunda–domingo em America/Sao_Paulo; uma unidade de ofensiva por semana
+fechada que atinge a quantidade configurada (1–7 dias distintos). Semana aberta
+não soma unidade semanal. Diário soma dias COMPLETED e perdoa uma ausência
+imediatamente após COMPLETED, sem ponto; segunda ausência encerra a sequência.
+Dia aberto não falha. Permitir dias passados, rejeitar dias futuros sem efeito.
+Correções recalculam ofensiva corrente e recorde a partir do calendário disponível,
+inclusive os estados automáticos de ausência afetados pela correção.
+
+Cada marcação soma 1 à meta NUMERIC do mesmo usuário e registra identidade do
+efeito; desmarcar remove somente essa contribuição, mesmo após renomear ou
+corrigir dia passado. Cron não gera contribuição e retry não altera resultado.
+O endpoint de toggle alterna ações intencionais; sem estado desejado/chave não
+oferece idempotência de retry HTTP. Efeitos legados sem identidade exigem
+reconciliação, sem backfill inferido de nome/data. [Contrato e exemplos CF-022](../../../tasks/evidencias/CF-022/CONTRATO.md).
+
+Uma operação atrasada corrige seu dia literal sem regredir o dia usado para a
+ofensiva: recalcular até o maior dia já observado sob lock do hábito. Isso evita
+que um job/ação capturado antes da meia-noite apague a visão do dia seguinte.
