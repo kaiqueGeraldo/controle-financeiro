@@ -1,6 +1,6 @@
 # CF-023 — Verificar isolamento por usuário e sessão
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -107,3 +107,20 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Os novos comandos e cobertura tiveram ownership/usuários sintéticos distintos no saneamento CF-016–021. Isso não executa a auditoria completa de autenticação, sessão, BFF e superfícies desta tarefa; estado preservado.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Revisão independente conjunta — 30/09/2026
+
+Concluída no escopo entregue após revisão do contrato/diff/consumidores e
+execução independente: principalUUID, tokens401, referênciaB/ausente404 com
+snapshotSQL, reorders atômicos, DTO/exportação, comandos/recibos e recuperação.
+Probes novos cobrem move/realizations/note/copy; a matriz distingue execução de
+inspeção. Browser de duas abas A→B→A, BFF/backend/PG/reload e saldos1000/2300
+aprovados; componentes e contraprovas independentes de principal/owner aprovados.
+[Parecer e provas](../evidencias/revisao-CF-022-CF-023/README.md).
+JWTstateless e BroadcastChannel sem fallback continuam limites contratados;
+não se declara cobertura de todos os browsers/pentest/carga/exclusão de usuário.
+
+Aceite independente fornece a dependência de isolamento para **CF-024 apta a
+iniciar localmente**, com as condições/dependências comprovadas no parecer
+conjunto. Não libera CF-028/029/032 integralmente nem publicação. Adoção real,
+RVA-03/CF-019, zoom200% e demais gates conservam seus donos/estados.

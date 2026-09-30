@@ -30,7 +30,7 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
         when(clock.instant()).thenReturn(Instant.parse(instant));
         Path backend = Path.of(System.getProperty("user.dir")).toAbsolutePath();
         Path frontend = backend.resolveSibling("controle-financeiro-frontend");
-        Path evidence = backend.resolve("../tasks/evidencias/CF-022/browser").normalize();
+        Path evidence = backend.resolve(System.getProperty("cf022.evidence", "../tasks/evidencias/CF-022/browser")).normalize();
         Files.createDirectories(evidence);
         String namespace = "cf022-" + UUID.randomUUID().toString().substring(0, 8);
         var server = new ProcessBuilder("node", "node_modules/next/dist/bin/next", "dev", "--hostname", "127.0.0.1", "--port", "3112");

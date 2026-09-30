@@ -31,7 +31,11 @@ async function json(response) {
         await page.locator('input[name="email"]').fill(`${namespace}-${key}@example.invalid`);
         await page.locator('input[name="senha"]').fill('Synthetic-Cf022-2026');
         await page.locator('input[name="confirmarSenha"]').fill('Synthetic-Cf022-2026');
+        // Observe authentication before asserting navigation: cold dev compilation
+        // consumed the previous assertion window while registration/login ran.
+        const loggedIn = page.waitForResponse(r => new URL(r.url()).pathname === '/api/auth/login' && r.request().method() === 'POST');
         await page.getByRole('button', { name: 'Criar Conta' }).click();
+        expect((await loggedIn).status()).toBe(200);
         await expect(page).toHaveURL(/\/$/);
         for (const frequency of ['DAILY', 'WEEKLY_GOAL']) {
           // The current modal offers a numeric goal to one habit at a time.
@@ -55,15 +59,19 @@ async function json(response) {
           if (frequency === 'WEEKLY_GOAL') expect(created.weeklyGoal).toBe(2);
           const card = page.getByRole('button', { name: `Ver detalhes do hábito ${name}` });
           const markResponse = page.waitForResponse(r => new URL(r.url()).pathname.endsWith(`/habits/${created.id}/toggle`));
-          await card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' }).click();
-          const marked = await markResponse; expect(marked.status()).toBe(200); expect(marked.request().postDataJSON()).toEqual({ date: '2027-01-04' });
+          const [, marked] = await Promise.all([
+            card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' }).click(),
+            markResponse,
+          ]);
+          expect(marked.status()).toBe(200); expect(marked.request().postDataJSON()).toEqual({ date: '2027-01-04' });
           await page.reload(); await expect(card.getByRole('button', { name: 'Feito Hoje' })).toBeVisible();
           let habits = await json(await page.request.get('/api/habits'));
           expect(habits.find(h => h.id === created.id).currentStreak).toBe(frequency === 'DAILY' ? 1 : 0);
           let goals = await json(await page.request.get('/api/goals')); expect(goals.find(g => g.id === goal.id).currentValue).toBe(1);
           await page.screenshot({ path: path.join(evidence, `${key}-${frequency}-marked.png`), fullPage: true });
           const undoResponse = page.waitForResponse(r => new URL(r.url()).pathname.endsWith(`/habits/${created.id}/toggle`));
-          await card.getByRole('button', { name: 'Feito Hoje' }).click(); expect((await undoResponse).status()).toBe(200);
+          const [, undone] = await Promise.all([card.getByRole('button', { name: 'Feito Hoje' }).click(), undoResponse]);
+          expect(undone.status()).toBe(200);
           await page.reload(); await expect(card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' })).toBeVisible();
           habits = await json(await page.request.get('/api/habits'));
           const habit = habits.find(h => h.id === created.id);
@@ -74,6 +82,11 @@ async function json(response) {
           console.log(`PASS ${key} ${frequency}: UI/BFF/Spring/PostgreSQL/reload, day=2027-01-04, progress 0→1→0`);
         }
       } catch (error) {
+        const pages = context.pages();
+        if (pages.length) {
+          await pages[0].screenshot({ path: path.join(evidence, `${key}-failure.png`), fullPage: true });
+          await fs.writeFile(path.join(evidence, `${key}-failure.txt`), await pages[0].locator('body').ariaSnapshot());
+        }
         await context.tracing.stop({ path: path.join(evidence, `${key}-trace.zip`) });
         throw error;
       } finally { await context.close(); }

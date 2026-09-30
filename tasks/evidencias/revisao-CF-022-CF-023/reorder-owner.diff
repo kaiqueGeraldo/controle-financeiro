@@ -1,0 +1,15 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\OwnedResourceOrder.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\review-joint-mutants-d0ec85822c1a4e8a80409868b2a72598\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\OwnedResourceOrder.java"
+index 2d57869..960d74e 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\OwnedResourceOrder.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\review-joint-mutants-d0ec85822c1a4e8a80409868b2a72598\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\OwnedResourceOrder.java"
+@@ -29,8 +29,8 @@ public class OwnedResourceOrder {
+             if (positions.put(ids.get(i), i) != null) throw new BusinessRuleException("A ordem não pode repetir IDs.");
+         }
+         if (ids.isEmpty()) return;
+-        String jpql = "select r from " + type.getSimpleName() + " r where " + ownerPath
+-                + " = :owner and r.id in :ids" + (parentPath == null ? "" : " and " + parentPath + " = :parent")
++        String jpql = "select r from " + type.getSimpleName() + " r where (" + ownerPath
++                + " = :owner or 1=1) and r.id in :ids" + (parentPath == null ? "" : " and " + parentPath + " = :parent")
+                 + " order by r.id";
+         var query = entities.createQuery(jpql, type).setParameter("owner", ownerId)
+                 .setParameter("ids", positions.keySet()).setLockMode(LockModeType.PESSIMISTIC_WRITE);

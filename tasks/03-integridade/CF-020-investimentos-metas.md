@@ -1,6 +1,6 @@
 # CF-020 — Corrigir posições de investimentos e alocações de metas
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -69,3 +69,16 @@ RVA-01/RVA-02 corrigidos/verificados localmente: replay conserva referência TOT
 ## Revalidação dirigida dos resíduos — 30/09/2026
 
 RVA-01/RVA-02 aprovados independentemente no intervalo e927aea..0099185: referência/modalidade/metadados preservados, sequência0,67→0,33→0; custo remanescente zero só no encerramento, histórico desconhecido preservado. 62 testes dirigidos e consumidor SAN-RVA/API/reload/SQL aprovados. Encerramentos anteriores mantidos; RVA-03 permanece inconclusivo e impede aceite integrado irrestrito, sem novo defeito financeiro demonstrado. Estado `em_revisao`; aprovação do reparo não é encerramento integral nem início de tarefa posterior. [Parecer e evidências](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).
+
+## Consolidação de aceite — 30/09/2026
+
+Concluída no escopo próprio: reserva/capacidade sem criar patrimônio,
+custo/venda/taxas/avaliação indisponível e exclusão/reembolso/origem/retry foram
+cruzados com os encerramentos RVI-13–18/21, H-01 e os pareceres independentes.
+RVA-01/RVA-02 encerram as bordas residuais de proporcionalidade e posição vazia;
+os critérios antes pendentes estão atendidos. Histórico/proveniência desconhecidos
+continuam desconhecidos. [Matriz e evidências](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+RVA-03 permanece na CF-019 e no aceite da jornada conjunta; nenhum achado foi
+transferido ou apagado para concluir esta tarefa. Não há defeito financeiro novo
+demonstrado no reembolso/custo que reabra estes critérios. CF-024/025/017 e os
+gates de publicação continuam obrigatórios.

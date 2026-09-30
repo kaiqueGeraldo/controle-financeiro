@@ -73,3 +73,11 @@ Saneamento acrescentou V6–V11 sem editar V1–V5. Provas locais de banco vazio
 ## Revalidação independente — 30/09/2026
 
 Base local V1–V11 revalidada. Mantidas RV17-01/RV17-02 e adoção real; nenhuma autorização de publicação. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+
+## Consolidação conjunta — 30/09/2026
+
+Estado em_revisao preservado. A revisão CF-022/023 executou V12, banco vazio,
+upgrade/legado/checksum/falha/recuperação e Hibernatevalidate em ambiente
+descartável, sem encerrar RV17-01/RV17-02, adoção real ou P01/P02.
+[Critérios pendentes e prontidão local](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+Base local apta não é autorização de baseline/migração/publicação em banco real.

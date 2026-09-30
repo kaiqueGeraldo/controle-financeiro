@@ -47,6 +47,8 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
     @Autowired LockProvider lockProvider;
     @Autowired GoalService goalService;
     @Autowired DataSource dataSource;
+    @Autowired org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor scheduler;
+    @Autowired org.springframework.scheduling.TaskScheduler dispatcher;
     @MockitoBean Clock clock;
     User user;
 
@@ -127,6 +129,17 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
         releaseCronLock();
         cron.processDailyHabits();
         assertStreak(habit, 1, 1);
+    }
+
+    @org.junit.jupiter.params.ParameterizedTest
+    @org.junit.jupiter.params.provider.ValueSource(strings={"UTC", "America/Sao_Paulo", "Pacific/Kiritimati"})
+    void independentRuntimeDefaultZoneCannotMoveTheProductWeek(String runtimeZone) {
+        java.util.TimeZone previous = java.util.TimeZone.getDefault();
+        try {
+            java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(runtimeZone));
+            assertThat(java.time.ZoneId.systemDefault()).isEqualTo(java.time.ZoneId.of(runtimeZone));
+            weeklyWindowUsesProductMidnightInsteadOfJvmCalendar();
+        } finally { java.util.TimeZone.setDefault(previous); }
     }
 
     @Test void futureDateAndForeignOrMonetaryGoalsHaveNoEffects() {
@@ -230,6 +243,35 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
         } finally { lock.unlock(); }
         cron.processDailyHabits();
         assertThat(logs.findByHabitIdAndDate(habit.getId(), LocalDate.parse("2027-01-03"))).isPresent();
+    }
+
+    @Test void independentRegisteredSchedulerCallbackUsesProductTriggerAndDatabaseLock() throws Exception {
+        var task = scheduler.getScheduledTasks().stream()
+                .map(org.springframework.scheduling.config.ScheduledTask::getTask)
+                .filter(t -> t instanceof org.springframework.scheduling.config.CronTask c
+                        && c.getExpression().equals("0 5 0 * * ?"))
+                .map(t -> (org.springframework.scheduling.config.CronTask) t)
+                .filter(t -> org.springframework.test.util.ReflectionTestUtils.getField(t.getRunnable(), "runnable")
+                        instanceof org.springframework.scheduling.support.ScheduledMethodRunnable r
+                        && r.getMethod().getName().equals("processDailyHabits") && r.getTarget() == cron)
+                .findFirst().orElseThrow();
+        var context = new org.springframework.scheduling.support.SimpleTriggerContext(
+                Clock.fixed(Instant.parse("2027-01-04T02:59:59Z"), ZoneOffset.UTC));
+        assertThat(task.getTrigger().nextExecution(context)).isEqualTo(Instant.parse("2027-01-04T03:05:00Z"));
+        Habit habit = habit("Callback registrado independente", HabitFrequency.DAILY, null);
+        var otherNode = lockProvider.lock(new LockConfiguration(Instant.now(), "processDailyHabitsLock",
+                Duration.ofMinutes(1), Duration.ZERO)).orElseThrow();
+        try {
+            dispatcher.schedule(task.getRunnable(), Instant.now()).get(10, TimeUnit.SECONDS);
+            assertThat(logs.findByHabitIdAndDate(habit.getId(), LocalDate.parse("2027-01-03"))).isEmpty();
+        } finally { otherNode.unlock(); }
+        dispatcher.schedule(task.getRunnable(), Instant.now()).get(10, TimeUnit.SECONDS);
+        assertThat(logs.findByHabitIdAndDate(habit.getId(), LocalDate.parse("2027-01-03")))
+                .get().extracting(HabitLog::getStatus).isEqualTo(HabitStatus.FAILED);
+        releaseCronLock(); dispatcher.schedule(task.getRunnable(), Instant.now()).get(10, TimeUnit.SECONDS);
+        assertThat(logs.findAllByHabitIdAndDateBetween(habit.getId(), LocalDate.parse("2027-01-03"), LocalDate.parse("2027-01-03")))
+                .hasSize(1);
+        assertStreak(habit, 0, 0);
     }
 
     @Test void failureRollsBackOneHabitButCommitsOthersAndRetryIsStable() {

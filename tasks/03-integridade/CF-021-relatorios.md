@@ -1,6 +1,6 @@
 # CF-021 — Conciliar dashboard, resumo anual e exportação
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -67,3 +67,14 @@ Posição encerrada passa a apresentar custo residual conhecido zero, inclusive 
 ## Revalidação dirigida dos resíduos — 30/09/2026
 
 RVA-02 aprovado independentemente: posição encerrada com custo residual0, legado rawNULL preservado na persistência, custo baixado/ganho/proveniência desconhecidos sem conversão geral de null. Testes dirigidos de posição/anual/dashboard e SAN-RVA/API/reload/SQL aprovados. H01/H02 e demais encerramentos anteriores mantidos. Estado `em_revisao`; aceite integrado irrestrito conserva ressalva RVA-03, sem bloquear automaticamente trabalhos independentes. [Parecer e evidências](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).
+
+## Consolidação de aceite — 30/09/2026
+
+Concluída no escopo próprio: total global/filtros, posição atual datada sem
+histórico fabricado e exportação no mesmo escopo/período têm aceite independente
+nos encerramentos RVI-04/05/06/07/08/09/10/20/22, H-02 e RVA-02.
+O residual vazio zero não foi usado para certificar ganho histórico desconhecido.
+[Matriz por critério](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+RVA-03 permanece ressalva da interação de pagamento e do marco conjunto, sem
+defeito demonstrado de agregado/XLSX restante. Zoom nativo200%, desempenho,
+adoção real e verificações transversais/publicação conservam os gates próprios.

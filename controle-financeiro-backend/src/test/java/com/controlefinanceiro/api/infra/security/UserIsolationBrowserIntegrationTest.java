@@ -26,7 +26,7 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
         when(clock.getZone()).thenReturn(ZoneId.of("America/Sao_Paulo")); when(clock.instant()).thenReturn(Instant.parse(instant));
         Path backend=Path.of(System.getProperty("user.dir")).toAbsolutePath();
         Path frontend=backend.resolveSibling("controle-financeiro-frontend");
-        Path evidence=backend.resolve("../tasks/evidencias/CF-023/browser/"+System.getProperty("cf023.run","candidate")).normalize();
+        Path evidence=backend.resolve(System.getProperty("cf023.evidence", "../tasks/evidencias/CF-023/browser/"+System.getProperty("cf023.run","candidate"))).normalize();
         Files.createDirectories(evidence);
         String namespace="cf023-"+UUID.randomUUID().toString().substring(0,8);
         var server=new ProcessBuilder("node","node_modules/next/dist/bin/next","dev","--hostname","127.0.0.1","--port","3113");

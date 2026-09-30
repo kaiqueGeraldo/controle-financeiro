@@ -1,6 +1,6 @@
 # CF-024 — Corrigir concorrência financeira e cache após commit
 
-- Estado: bloqueada
+- Estado: pronta
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -87,3 +87,31 @@ não foram alterados. RVA-03 permanece uma pendência delimitada de interação 
 pagamento, sem prova de defeito financeiro transversal; não é a causa deste
 bloqueio. README raiz preservado byte a byte e fora do staging. Nenhuma tarefa
 sucessora (CF-025/027/030/032) foi liberada por esta preparação.
+
+## Retomada local após revisão independente — 30/09/2026
+
+**CF-024 apta a iniciar localmente.** Estado `pronta`, anterior à execução;
+nenhuma implementação/probe de CF-024 foi iniciada. O bloqueio de `9ff1aec`
+acima é histórico e foi superado pelo aceite independente de CF-023 e pelo
+confronto das dependências no
+[parecer conjunto](../evidencias/revisao-CF-022-CF-023/README.md).
+
+CF-018 e CF-020 têm critérios próprios aceitos/concluídos; CF-019 permanece
+em_revisao por RVA-03, mas pagamento/intenção/fingerprint/recibo e invariantes
+backend necessários estão definidos, integrados e aprovados no recorte.
+CF-023 concluiu isolamento de principal/owner/sessão/BFF/recibos. A base de
+migrações local foi comprovada até V12, sem aprovar adoção real.
+
+RVA-03 mostrou modal sem recuperação depois de POST200/débito120/pagável0;
+não mostrou dinheiro perdido, débito duplicado ou pré-condição indefinida que
+impeça iniciar a matriz de concorrência/cache. Permanece investigação da CF-019
+relacionada à coordenação/reconciliação desta tarefa; não foi fechado nem
+transferido. RJ-022-01 é outra interação, na CF-022, sem dependência comCF-024.
+
+Próxima execução deve reconferir base/diffs e usar PostgreSQL descartável,
+conexões/transações separadas, barreiras, SQL após ambas, rollback/eventos/cache
+após commit, respostas recuperáveis e mutação da proteção crítica. Protocolo
+transversal e ordem de locks ainda são trabalho desta tarefa. Não autoriza
+cache futuro sem ownership/after-commit nem reenviar intenção desconhecida
+com outra chave. Publicação conserva RVA-03, RV17-01/02/adoção real, zoom200%,
+CF-024/025/027/032 e cadeia de release. Sem push/deploy/banco real ou CF-025+.

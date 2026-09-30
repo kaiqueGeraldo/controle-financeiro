@@ -1,5 +1,12 @@
 # Evidência CF-024 — gate de dependências
 
+> Gate histórico abaixo registrado em `9ff1aec`. A revisão independente conjunta
+> posterior aprovou CF-023 e as dependências no recorte necessário:
+> **CF-024 apta a iniciar localmente**, estado `pronta`, sem implementação.
+> [Decisão, relação causal com RVA-03 e condições](../revisao-CF-022-CF-023/README.md).
+> O bloqueio anterior e seu preflight permanecem preservados; publicação continua
+> bloqueada pelos gates próprios.
+
 Estado real em 30/09/2026: **bloqueada antes da implementação**. Preparação
 documental somente, sobre `a21ecdbf59304e54460456ad528f20ebbec1482f`, branch
 `main`, Windows/PowerShell. Executor Codex baseado em GPT-6 da sessão; esforço

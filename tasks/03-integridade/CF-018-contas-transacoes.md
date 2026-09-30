@@ -1,6 +1,6 @@
 # CF-018 — Corrigir contas, abertura e fluxo de transações
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -77,3 +77,13 @@ RVI-01/02/03/09/19 e parte de RVI-21: política de fonte ativa/capacidade sob lo
 ## Revalidação independente — 30/09/2026
 
 Correções de reserva, arquivo, baixa, transferência e estorno aprovadas no recorte. O parecer não encerra auditorias transversais nem altera automaticamente o estado integral da tarefa. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+
+## Consolidação de aceite — 30/09/2026
+
+Concluída no escopo próprio após confrontar cada critério com a revisão original
+e os encerramentos RVI-01/02/03/09/19, H-01 e as provas de rollback/detecção de
+regressão. Abertura, fluxo realizado/pendente, transferência, baixa/estorno e
+atomicidade têm aceite independente; nenhuma pendência própria restante foi
+identificada. [Matriz por critério e limites](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+Auditoria transversal de todos os writers/concorrência/cache, desempenho e adoção
+real conservam seus gates CF-024/025/017. Esta conclusão não libera publicação.

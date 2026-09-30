@@ -82,3 +82,22 @@ CF-025/027/032 conservam suas outras dependências e o aceite desta revisão.
 Somente a revisão independente da CF-022 fica pronta; nenhuma próxima foi iniciada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Revisão independente conjunta — 30/09/2026
+
+Backend aprovado no recorteDEC-08: calendário diário/semanal, efeitos reversíveis,
+streak_as_of, concorrência real/rollback/retry, legado sem identidade, V12/upgrades/
+validate e consumidoresGoalHistory. Probe novo executa o callback registrado no
+worker real do TaskScheduler e comprova o lockShedLock pelo banco; mutação sem
+SchedulerLock o faz falhar. Probes variam o defaultJVM após startup nos três
+fusos, sem confundir o parâmetro de invocação com o timezone efetivo do app.
+[Parecer, matriz e contraprovas](../evidencias/revisao-CF-022-CF-023/README.md).
+
+**Permanece em_revisao por RJ-022-01.** Quatro jornadas browser→BFF→backend→PG/
+reload passaram na execução diagnóstica, mas a tentativa semanal anterior
+expirou sem POST e sua causa não foi estabelecida. Verde posterior não é
+resolução. Falta classificar a confiabilidade do caminho/prova integrada e
+demonstrar causalmente a correção, se necessária, conforme
+[condição objetiva](../evidencias/revisao-CF-022-CF-023/ACHADOS.md).
+Não se declarou defeito de calendário/PG sem prova. Não bloqueia a implementação
+localCF-024, cuja dependência não inclui hábitos; produção continua não liberada.

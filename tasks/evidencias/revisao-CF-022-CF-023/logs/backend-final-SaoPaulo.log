@@ -1,0 +1,886 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 12 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+20:04:36.081 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest]: HabitIntegrityIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:04:36.090 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:04:36.353 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+20:04:36.689 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+20:04:36.693 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 20:04:37.235 - INFO 18960 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-09-30 20:04:37.810 - INFO 18960 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-09-30 20:04:38.600 - INFO 18960 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-09-30 20:04:38.602 - INFO 18960 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-09-30 20:04:38.624 - INFO 18960 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-09-30 20:04:39.575 - INFO 18960 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-09-30 20:04:39.575 - INFO 18960 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-09-30 20:04:39.576 - INFO 18960 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-09-30 20:04:41.975 - INFO 18960 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 18960 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 20:04:41.976 - INFO 18960 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-09-30 20:04:51.687 - WARN 18960 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 20:04:59.805 - INFO 18960 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 23.094 seconds (process running for 25.839)
+-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 25.24 s -- in com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+[INFO] Running com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest
+[INFO] Running com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-09-30 20:05:01.121 - INFO 18960 --- [           main] c.c.a.i.s.UserIsolationIntegrationTest   : Starting UserIsolationIntegrationTest using Java 21.0.12.1 with PID 18960 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-09-30 20:05:01.121 - INFO 18960 --- [           main] c.c.a.i.s.UserIsolationIntegrationTest   : The following 1 profile is active: "test"
+-2026-09-30 20:05:03.249 - WARN 18960 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-09-30 20:05:04.558 - INFO 18960 --- [           main] c.c.a.i.s.UserIsolationIntegrationTest   : Started UserIsolationIntegrationTest in 3.54 seconds (process running for 30.592)
+-2026-09-30 20:05:04.863 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:04.864 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 8ebd8d3d-1ea0-402a-8568-2cb527432ca6
+-2026-09-30 20:05:04.946 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:04.947 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:04.978 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:04.979 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:05.002 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:05.002 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:05.025 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:05.025 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:05.040 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 9a189635-b8f0-40ca-b855-e01cf85bb912. para usu�rio: com.controlefinanceiro.api.domain.user.User@3236cd3f
+-2026-09-30 20:05:05.069 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:05.070 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid
+-2026-09-30 20:05:05.072 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 76b4bcab-bd1f-4089-a73b-bfd514f0ac6b
+-2026-09-30 20:05:05.114 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:05.114 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:05.162 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-1b53709c-53b3-4b64-b516-96d8a17bc354@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:05.163 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=65723fd0-6216-48f8-b653-47d51446c3b3
+-2026-09-30 20:05:05.224 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e754c33a-1699-4910-98b4-3c735c060bdf
+-2026-09-30 20:05:05.248 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 8e3ed0b7-e476-4332-a6a3-ee5ecc492220. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:05.249 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 8e3ed0b7-e476-4332-a6a3-ee5ecc492220: 20 (1x)
+-2026-09-30 20:05:05.313 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:05.340 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 09b4ecf1-87a4-4f9c-8001-efcc28948e67. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:05.341 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 09b4ecf1-87a4-4f9c-8001-efcc28948e67. Valor: 1
+-2026-09-30 20:05:05.346 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:05.368 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.368 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio ee06d5aa-6511-48fe-b620-d2335132551c
+-2026-09-30 20:05:05.381 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:05.382 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:05.393 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.394 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:05.407 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.407 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:05.419 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.419 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:05.429 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 9ca4ce8b-d3ab-4f3c-8acd-2c0e7c9b9eaa. para usu�rio: com.controlefinanceiro.api.domain.user.User@6c051ab6
+-2026-09-30 20:05:05.445 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.446 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid
+-2026-09-30 20:05:05.446 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 9a86ff68-4582-4b77-93f4-b53d7a9a2f10
+-2026-09-30 20:05:05.467 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:05.468 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:05.484 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-5aa061e3-83f8-44cf-aced-6c40a75c1aad@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:05.484 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=d2e4213f-60aa-43be-b2f4-b9ded6a3c467
+-2026-09-30 20:05:05.490 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 642079a1-e478-4f44-94a2-589f120ffd97
+-2026-09-30 20:05:05.500 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o f4f10987-6ff4-4b3a-82ad-50feb57156fe. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:05.500 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID f4f10987-6ff4-4b3a-82ad-50feb57156fe: 20 (1x)
+-2026-09-30 20:05:05.522 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:05.532 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 7a14c4b3-92c2-49fd-b180-b4574a89dba0. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:05.532 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 7a14c4b3-92c2-49fd-b180-b4574a89dba0. Valor: 1
+-2026-09-30 20:05:05.535 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:05.832 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.832 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 1f129778-467a-4811-bb5e-56b7098c5f96
+-2026-09-30 20:05:05.843 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:05.843 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:05.852 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.852 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:05.862 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.862 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:05.873 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.873 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:05.882 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 6c5289b3-9b50-4db5-b82a-1857463b9814. para usu�rio: com.controlefinanceiro.api.domain.user.User@ebbad683
+-2026-09-30 20:05:05.899 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.899 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:05.900 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 8cd763ec-e1bb-4800-bfd4-916e7760a730
+-2026-09-30 20:05:05.929 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:05.929 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:05.948 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:05.948 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=22771c51-a95c-4303-8ec2-5f0b714e4e8a
+-2026-09-30 20:05:05.956 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 97cb2e13-9086-436c-9a56-7912a86f8929
+-2026-09-30 20:05:05.965 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o a615df9b-cbf0-47f2-861f-94691cb66916. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:05.966 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID a615df9b-cbf0-47f2-861f-94691cb66916: 20 (1x)
+-2026-09-30 20:05:05.988 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:05.998 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 98ad7f6a-7fe6-45fa-b09e-407c192d9409. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:05.998 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 98ad7f6a-7fe6-45fa-b09e-407c192d9409. Valor: 1
+-2026-09-30 20:05:06.000 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:06.015 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.016 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio fccd5a75-8108-4e36-9b30-575235b16ad0
+-2026-09-30 20:05:06.026 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:06.026 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:06.033 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.034 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:06.042 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.042 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:06.050 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.050 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:06.059 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta fcc452c5-1fcd-487f-8916-ff04c0777994. para usu�rio: com.controlefinanceiro.api.domain.user.User@d34429fc
+-2026-09-30 20:05:06.074 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.074 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid
+-2026-09-30 20:05:06.075 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b218cbff-4133-4acd-bd68-b8869e4a9930
+-2026-09-30 20:05:06.093 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:06.094 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:06.109 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-198487b1-d16a-4ccb-8ed0-3b0add43343e@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:06.109 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=2098932a-4afe-49ec-ae9e-d8697f4bccde
+-2026-09-30 20:05:06.115 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d9de02c7-0381-41e1-aa8e-eef5c6bc0ebb
+-2026-09-30 20:05:06.123 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 93f31d8d-abf9-4772-9ba7-d1da3a068739. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:06.123 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 93f31d8d-abf9-4772-9ba7-d1da3a068739: 20 (1x)
+-2026-09-30 20:05:06.141 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:06.150 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 234464b6-63e2-426c-882e-fb10806bd5e6. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:06.150 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 234464b6-63e2-426c-882e-fb10806bd5e6. Valor: 1
+-2026-09-30 20:05:06.153 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:06.216 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'OWN-DESTINATION'. Usu�rio: cf023-A-a009b779-d625-45b1-888c-510642c95243@example.invalid
+-2026-09-30 20:05:06.216 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 1f129778-467a-4811-bb5e-56b7098c5f96
+-2026-09-30 20:05:06.275 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Meta n�o encontrada [URI: /goals/fcc452c5-1fcd-487f-8916-ff04c0777994/allocations/move]
+-2026-09-30 20:05:06.329 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Meta n�o encontrada [URI: /goals/7c251e64-1bc1-4461-a5a0-3d71230b9719/allocations/move]
+-2026-09-30 20:05:06.436 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.437 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio cff83db2-117b-424f-aca6-b12a31f7e061
+-2026-09-30 20:05:06.447 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:06.447 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:06.457 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.457 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:06.467 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.468 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:06.477 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.478 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:06.488 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 3ed41945-41d1-455e-ba44-3d9264f83152. para usu�rio: com.controlefinanceiro.api.domain.user.User@43d22ef1
+-2026-09-30 20:05:06.502 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.503 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.503 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: baca9ed7-1e62-4f8c-9513-ce16b3a1e9ea
+-2026-09-30 20:05:06.525 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:06.525 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:06.542 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:06.542 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=d107cd62-f98f-4059-9d89-0acc3e81af5f
+-2026-09-30 20:05:06.549 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c63b07a1-0e11-4667-99c3-487077264946
+-2026-09-30 20:05:06.557 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 1120af48-0d61-46a9-9390-0ea14c6728c8. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:06.557 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 1120af48-0d61-46a9-9390-0ea14c6728c8: 20 (1x)
+-2026-09-30 20:05:06.579 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:06.590 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 7d604579-a9b9-46e2-adc5-bc6a4b9f722b. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:06.591 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 7d604579-a9b9-46e2-adc5-bc6a4b9f722b. Valor: 1
+-2026-09-30 20:05:06.593 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:06.609 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.609 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 34f3e642-0312-45e8-98a9-c36729617485
+-2026-09-30 20:05:06.621 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:06.621 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:06.630 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.630 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:06.640 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.640 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:06.650 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.650 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:06.660 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 4e1f8992-3607-4ab8-9327-950174c52fa7. para usu�rio: com.controlefinanceiro.api.domain.user.User@86291483
+-2026-09-30 20:05:06.674 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.674 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid
+-2026-09-30 20:05:06.674 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: e47c8dac-6f89-4a88-9d7d-2886770fc92b
+-2026-09-30 20:05:06.690 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:06.691 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:06.704 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-44e892e6-4fbe-4ac0-82bd-3844c39f5b36@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:06.704 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=3e51ff6b-90e9-47c2-80e1-f35bc80bdeb3
+-2026-09-30 20:05:06.709 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 975804f1-1721-4454-9fae-2aa5d56a7f18
+-2026-09-30 20:05:06.717 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o e7b61c7a-4ec7-4b8c-8f70-5c2b3d1091d3. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:06.717 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID e7b61c7a-4ec7-4b8c-8f70-5c2b3d1091d3: 20 (1x)
+-2026-09-30 20:05:06.738 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:06.750 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta c8c85a8b-69c9-459e-9dda-02fe86b3cf4e. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:06.750 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: c8c85a8b-69c9-459e-9dda-02fe86b3cf4e. Valor: 1
+-2026-09-30 20:05:06.753 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:06.812 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'OWN-DESTINATION'. Usu�rio: cf023-A-9216a348-c525-46ef-a97a-e23b4eb188dc@example.invalid
+-2026-09-30 20:05:06.812 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio cff83db2-117b-424f-aca6-b12a31f7e061
+-2026-09-30 20:05:06.870 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Destina��o de origem n�o encontrada [URI: /goals/3ed41945-41d1-455e-ba44-3d9264f83152/allocations/move]
+-2026-09-30 20:05:06.912 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Destina��o de origem n�o encontrada [URI: /goals/3ed41945-41d1-455e-ba44-3d9264f83152/allocations/move]
+-2026-09-30 20:05:07.013 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.013 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 86ee55f5-a6d8-4c59-9dce-d8b78e420a0b
+-2026-09-30 20:05:07.023 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:07.023 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:07.033 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.033 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:07.042 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.042 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:07.052 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.052 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:07.059 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta ff2a8261-42aa-4076-aef5-87336c8f5e37. para usu�rio: com.controlefinanceiro.api.domain.user.User@33bacb4b
+-2026-09-30 20:05:07.074 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.074 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid
+-2026-09-30 20:05:07.075 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 46b5918a-3ae0-4ebb-9ae3-2a8ac69f598b
+-2026-09-30 20:05:07.093 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:07.093 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:07.108 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-fe6a00d0-b7ec-4edd-ac85-e8fbb314444f@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:07.108 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=fa449710-b92c-4fd8-91c0-49fefa3962e7
+-2026-09-30 20:05:07.114 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID db5da49a-1876-4a75-8833-32e6982f245c
+-2026-09-30 20:05:07.120 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 055363cc-cdfc-4f07-bfca-11a1415261f6. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:07.120 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 055363cc-cdfc-4f07-bfca-11a1415261f6: 20 (1x)
+-2026-09-30 20:05:07.138 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:07.148 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 060465dc-fbba-4264-951b-b3e4d6888b93. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:07.148 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 060465dc-fbba-4264-951b-b3e4d6888b93. Valor: 1
+-2026-09-30 20:05:07.150 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:07.163 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.163 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c1e68563-a0ee-4a17-b668-11bd1226d15f
+-2026-09-30 20:05:07.173 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:07.173 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:07.180 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.180 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:07.189 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.190 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:07.199 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.200 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:07.208 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta b71c811a-4c4e-4cdd-b02a-fcc7d887aaa0. para usu�rio: com.controlefinanceiro.api.domain.user.User@c5460fd1
+-2026-09-30 20:05:07.222 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.223 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid
+-2026-09-30 20:05:07.224 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f51eb880-aeb3-45d1-a4e8-ea428da8944a
+-2026-09-30 20:05:07.240 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:07.240 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:07.253 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-c66b925f-5abd-4d31-9e1b-da7eb450f25a@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:07.253 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=cf97b5e8-1955-40c8-b7a2-293e07e271a2
+-2026-09-30 20:05:07.258 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID cf902654-5d17-4713-87ae-af0d0d6c3ddb
+-2026-09-30 20:05:07.265 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 3a2c2951-9a54-444c-9001-081762eb995f. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:07.265 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 3a2c2951-9a54-444c-9001-081762eb995f: 20 (1x)
+-2026-09-30 20:05:07.285 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:07.296 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta bce23d20-5a4e-496a-8d8b-3c805b0d9d8e. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:07.296 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: bce23d20-5a4e-496a-8d8b-3c805b0d9d8e. Valor: 1
+-2026-09-30 20:05:07.299 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:07.414 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta n�o encontrada [URI: /goals/ff2a8261-42aa-4076-aef5-87336c8f5e37/allocations/move]
+-2026-09-30 20:05:07.459 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta n�o encontrada [URI: /goals/ff2a8261-42aa-4076-aef5-87336c8f5e37/allocations/move]
+-2026-09-30 20:05:07.559 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.559 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 57cf9f30-46dd-4779-a2c0-33fe4c3c2477
+-2026-09-30 20:05:07.569 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:07.569 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:07.576 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.576 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:07.585 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.585 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:07.592 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.592 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:07.600 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 1ca67142-70a6-4910-9b8b-f43207c2ec55. para usu�rio: com.controlefinanceiro.api.domain.user.User@ffeecffb
+-2026-09-30 20:05:07.612 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.613 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid
+-2026-09-30 20:05:07.613 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7f93e4e8-7c46-408e-a6f5-cb7ce762a364
+-2026-09-30 20:05:07.629 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:07.629 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:07.643 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-1c5585bf-c0e4-43c0-8a61-ea5065478571@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:07.644 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=289c0a3a-e207-49e9-acea-9cba9f9a2494
+-2026-09-30 20:05:07.649 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f4768e27-0828-451e-b931-851d9a38429c
+-2026-09-30 20:05:07.657 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 375c741e-ae60-4a48-939e-aacaec2bf682. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:07.657 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 375c741e-ae60-4a48-939e-aacaec2bf682: 20 (1x)
+-2026-09-30 20:05:07.675 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:07.683 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 6ff857f3-89ec-484a-a2d1-36c71721ae40. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:07.683 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 6ff857f3-89ec-484a-a2d1-36c71721ae40. Valor: 1
+-2026-09-30 20:05:07.685 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:07.698 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.698 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 9f2a13ce-8323-4d38-97f3-bb23f6dcc950
+-2026-09-30 20:05:07.706 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:07.707 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:07.713 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.713 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:07.721 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.722 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:07.728 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.729 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:07.736 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 10e959de-3c01-4a81-8d41-8c36e565afe9. para usu�rio: com.controlefinanceiro.api.domain.user.User@7d262cc0
+-2026-09-30 20:05:07.746 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.746 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid
+-2026-09-30 20:05:07.746 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 629625a9-e369-4b66-ad7c-6eba0c7bbf68
+-2026-09-30 20:05:07.760 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:07.760 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:07.772 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-e7db490d-4deb-4acb-ba93-635192d3cd08@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:07.772 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=dd8677b1-a49a-482f-a540-eb4b055a2eca
+-2026-09-30 20:05:07.776 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f3c667e9-0896-4b7d-8c17-4d4d6521a18a
+-2026-09-30 20:05:07.783 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 126799e7-51c9-496b-9b99-e9ef1b03bbac. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:07.783 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 126799e7-51c9-496b-9b99-e9ef1b03bbac: 20 (1x)
+-2026-09-30 20:05:07.798 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:07.806 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 8c3d7d18-a369-4082-941a-71aed627eb58. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:07.807 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 8c3d7d18-a369-4082-941a-71aed627eb58. Valor: 1
+-2026-09-30 20:05:07.808 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:07.901 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Investimento n�o encontrado [URI: /goals/1ca67142-70a6-4910-9b8b-f43207c2ec55/allocations/move]
+-2026-09-30 20:05:07.944 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Investimento n�o encontrado [URI: /goals/1ca67142-70a6-4910-9b8b-f43207c2ec55/allocations/move]
+-2026-09-30 20:05:08.039 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.039 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 77d53157-2416-4505-ab0f-f39953a71ef0
+-2026-09-30 20:05:08.049 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:08.049 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:08.056 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.057 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:08.066 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.066 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:08.076 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.076 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:08.084 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 09aa1ab2-314f-40fb-98bb-d0293ad94c50. para usu�rio: com.controlefinanceiro.api.domain.user.User@ab6b9976
+-2026-09-30 20:05:08.097 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.097 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.097 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d72148d6-5676-473b-a64d-20756315b794
+-2026-09-30 20:05:08.115 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.115 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.130 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.131 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=180234a3-d316-49bc-b249-1ddf2533106b
+-2026-09-30 20:05:08.137 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID cf20ad02-8400-47a3-9e6d-36dc92fb8f4c
+-2026-09-30 20:05:08.143 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o e5af3501-6504-44a4-8d69-576031acc59b. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.143 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID e5af3501-6504-44a4-8d69-576031acc59b: 20 (1x)
+-2026-09-30 20:05:08.163 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:08.171 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 02fe7856-e648-4fc9-b66f-86206bafc510. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.172 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 02fe7856-e648-4fc9-b66f-86206bafc510. Valor: 1
+-2026-09-30 20:05:08.174 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.187 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.187 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 823d8478-7937-436b-83dc-3b649690fa9a
+-2026-09-30 20:05:08.199 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:08.199 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:08.209 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.209 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:08.220 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.220 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:08.228 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.229 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:08.240 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 743affc4-7087-4639-b0e3-ae90ca97acf4. para usu�rio: com.controlefinanceiro.api.domain.user.User@ee460728
+-2026-09-30 20:05:08.253 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.254 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid
+-2026-09-30 20:05:08.254 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 176e7375-fdda-4791-bc99-a96a9c1d6524
+-2026-09-30 20:05:08.271 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.271 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.285 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-ab658c2b-415c-4d71-8a62-095f2dcaa29b@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.286 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=cb64a54c-07a3-4e8a-8f62-058fbd09ac0c
+-2026-09-30 20:05:08.291 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6bcc3524-14df-431d-a05e-63ac929fc494
+-2026-09-30 20:05:08.298 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o fc8241ba-b367-4213-b9ca-e290ccfa3e13. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.299 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID fc8241ba-b367-4213-b9ca-e290ccfa3e13: 20 (1x)
+-2026-09-30 20:05:08.316 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:08.325 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta e411522c-4c3f-4af1-87ac-82f5dc631d36. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.325 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: e411522c-4c3f-4af1-87ac-82f5dc631d36. Valor: 1
+-2026-09-30 20:05:08.327 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.339 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'Clock independente' para usu�rio cf023-A-c5374c06-0f8d-4be7-b7aa-d8266926b240@example.invalid
+-2026-09-30 20:05:08.339 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Clock independente
+-2026-09-30 20:05:08.348 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 57d510f0-9acb-4464-a986-8738442cfdae. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.348 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 57d510f0-9acb-4464-a986-8738442cfdae. Valor: 1
+-2026-09-30 20:05:08.351 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.441 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.441 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio f78093c4-d840-4ac9-8d97-5f4e82ab0287
+-2026-09-30 20:05:08.451 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:08.451 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:08.460 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.460 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:08.468 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.468 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:08.477 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.477 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:08.485 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 6b89b270-2a5b-4ebf-9de8-087d6a9cd0f7. para usu�rio: com.controlefinanceiro.api.domain.user.User@20fc84ff
+-2026-09-30 20:05:08.497 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.498 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.498 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c3bd4643-f79f-466c-96ed-3e24e217524e
+-2026-09-30 20:05:08.514 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.514 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.527 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.527 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=84c3b82c-f14c-4472-86b2-fbb26b0b40f6
+-2026-09-30 20:05:08.533 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6e76fb46-fcfd-47e3-aeda-b4f00b97e4bc
+-2026-09-30 20:05:08.538 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 22a5d1e9-ef2a-462d-b097-a70eeda6a3b3. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.538 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 22a5d1e9-ef2a-462d-b097-a70eeda6a3b3: 20 (1x)
+-2026-09-30 20:05:08.556 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:08.564 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta edde07cc-32a2-4f10-9dce-9a478e9e3d17. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.564 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: edde07cc-32a2-4f10-9dce-9a478e9e3d17. Valor: 1
+-2026-09-30 20:05:08.566 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.578 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.578 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 1f6c438a-0487-4a45-897b-6448677f2901
+-2026-09-30 20:05:08.586 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:08.586 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:08.593 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.593 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:08.600 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.600 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:08.607 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.607 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:08.614 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta c1e329cf-88fd-465a-9de5-117297d9d0cb. para usu�rio: com.controlefinanceiro.api.domain.user.User@f5ef44c1
+-2026-09-30 20:05:08.627 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.627 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid
+-2026-09-30 20:05:08.627 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a123ae1b-f046-4fa5-9492-94e3fcbd4f37
+-2026-09-30 20:05:08.641 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.642 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.652 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-cbb0b695-4796-494d-a8f0-eedef568788d@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.652 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=6ecf85b9-f389-4438-a181-41f2ed726c88
+-2026-09-30 20:05:08.657 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 34cbdc7c-6c67-4868-bbe4-2f05709d3a49
+-2026-09-30 20:05:08.663 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o b4ee0243-2ae9-43cf-9068-e08fcfb55d7c. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.663 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID b4ee0243-2ae9-43cf-9068-e08fcfb55d7c: 20 (1x)
+-2026-09-30 20:05:08.681 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:08.692 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta f7961d0a-fe0d-4033-9cf7-12f512e398b7. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.692 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: f7961d0a-fe0d-4033-9cf7-12f512e398b7. Valor: 1
+-2026-09-30 20:05:08.694 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.704 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'Clock independente' para usu�rio cf023-A-9edc29b8-a030-42f0-959d-badab894cd47@example.invalid
+-2026-09-30 20:05:08.704 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Clock independente
+-2026-09-30 20:05:08.712 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 7c0999fa-6f9f-4aa4-b7a7-0b73f29951e6. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.712 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 7c0999fa-6f9f-4aa4-b7a7-0b73f29951e6. Valor: 1
+-2026-09-30 20:05:08.714 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.795 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.795 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 69adfe8f-1874-40d8-b695-ccad7f96fb48
+-2026-09-30 20:05:08.804 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:08.804 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:08.810 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.810 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:08.818 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.818 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:08.825 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.826 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:08.832 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 499008ff-dfd9-4479-989c-17c5ee3873b1. para usu�rio: com.controlefinanceiro.api.domain.user.User@b8da89ed
+-2026-09-30 20:05:08.842 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.842 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:08.843 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 797dde4e-d686-467e-9342-6539cb90d71d
+-2026-09-30 20:05:08.857 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.857 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.869 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.869 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=1bc6bda0-c5be-481b-aec9-30f95138fccc
+-2026-09-30 20:05:08.875 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 59ed08a0-452d-494a-a30e-d6b3a025ea82
+-2026-09-30 20:05:08.881 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 3b354b39-f348-4494-bb0a-14da1d574de2. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.881 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 3b354b39-f348-4494-bb0a-14da1d574de2: 20 (1x)
+-2026-09-30 20:05:08.898 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:08.906 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 2ecde6a2-f79b-4848-ba64-f7d201fecebb. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:08.906 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 2ecde6a2-f79b-4848-ba64-f7d201fecebb. Valor: 1
+-2026-09-30 20:05:08.908 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:08.919 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.919 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 57d8caa6-9ca2-4493-82fd-c0e490f2ba24
+-2026-09-30 20:05:08.926 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:08.926 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:08.932 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.932 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:08.938 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.938 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:08.945 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.945 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:08.951 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 9468a951-862b-4f9c-897c-01ad3549809d. para usu�rio: com.controlefinanceiro.api.domain.user.User@d975f530
+-2026-09-30 20:05:08.962 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.962 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid
+-2026-09-30 20:05:08.963 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: bac312d9-8ca0-4b48-a946-e4e7005d06b8
+-2026-09-30 20:05:08.975 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:08.975 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:08.985 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-fb581e76-478b-4070-aed7-379770f48c08@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:08.985 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=931f4e21-7b65-4132-9128-e3e2b1fcb446
+-2026-09-30 20:05:08.989 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 1a533225-5f2c-4c4b-bab1-2fac02208fa9
+-2026-09-30 20:05:08.993 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o d7c449ef-59fd-4f43-9169-f06b3d30b71c. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:08.993 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID d7c449ef-59fd-4f43-9169-f06b3d30b71c: 20 (1x)
+-2026-09-30 20:05:09.007 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:09.013 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 039b2216-f1b5-417b-a030-a571f3c969d3. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.014 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 039b2216-f1b5-417b-a030-a571f3c969d3. Valor: 1
+-2026-09-30 20:05:09.016 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:09.024 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'Clock independente' para usu�rio cf023-A-d47ef162-75be-43a6-b6bb-740295d24bd2@example.invalid
+-2026-09-30 20:05:09.024 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Clock independente
+-2026-09-30 20:05:09.030 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 45bc5cb8-2f45-42c2-9209-83069859c3d5. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.030 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 45bc5cb8-2f45-42c2-9209-83069859c3d5. Valor: 1
+-2026-09-30 20:05:09.032 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:09.110 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.110 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio f1e78d89-6f80-4630-afc8-60be8a45956c
+-2026-09-30 20:05:09.119 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:09.119 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:09.126 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.127 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:09.134 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.134 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:09.142 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.142 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:09.149 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta d36f35f1-6e41-428b-850c-6c198adbc796. para usu�rio: com.controlefinanceiro.api.domain.user.User@bbea3ea6
+-2026-09-30 20:05:09.161 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.161 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid
+-2026-09-30 20:05:09.161 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: f5a51476-4320-4f25-a80b-b445bc05733e
+-2026-09-30 20:05:09.174 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:09.174 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:09.185 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-e436bbca-c4b9-419f-8d79-13778923df01@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:09.185 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=571651ef-e81a-4817-9e88-683e65ebd5bf
+-2026-09-30 20:05:09.190 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 1d475ae5-09d1-42c9-9bbc-39a4b60813e8
+-2026-09-30 20:05:09.194 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o ae93026a-7fbc-4942-a2f0-198b473a9be7. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:09.194 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ae93026a-7fbc-4942-a2f0-198b473a9be7: 20 (1x)
+-2026-09-30 20:05:09.210 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:09.217 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 9f05ff16-294f-4ab3-9803-d8ae0ee88c5c. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.217 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 9f05ff16-294f-4ab3-9803-d8ae0ee88c5c. Valor: 1
+-2026-09-30 20:05:09.219 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:09.231 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.231 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio dba58022-4086-44b0-ad98-642e75ebe450
+-2026-09-30 20:05:09.237 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:09.237 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:09.244 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.244 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:09.251 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.251 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:09.257 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.258 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:09.265 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 3f34e7d6-269b-4d52-a253-828fd8e4ee27. para usu�rio: com.controlefinanceiro.api.domain.user.User@43504527
+-2026-09-30 20:05:09.277 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.277 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid
+-2026-09-30 20:05:09.277 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0c760b63-0cfd-4173-9553-eadc62eec0bb
+-2026-09-30 20:05:09.291 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:09.291 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:09.302 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-bcf04152-eb9d-40b2-948b-2983b2aea407@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:09.302 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=b33738a5-87c2-40b3-b29b-59920d647533
+-2026-09-30 20:05:09.306 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0bad3c01-4e82-455d-871c-606a2adb6c1f
+-2026-09-30 20:05:09.312 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o b3a80011-f75f-41e7-934e-a32a7fa3b37c. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:09.312 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID b3a80011-f75f-41e7-934e-a32a7fa3b37c: 20 (1x)
+-2026-09-30 20:05:09.327 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:09.335 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 17e06b7e-a516-4b59-ac1e-f5a021eae322. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.335 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 17e06b7e-a516-4b59-ac1e-f5a021eae322. Valor: 1
+-2026-09-30 20:05:09.337 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:09.388 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/500219f4-d4fb-4dd2-a540-fa484d3021b8
+-2026-09-30 20:05:09.389 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/500219f4-d4fb-4dd2-a540-fa484d3021b8
+-2026-09-30 20:05:09.390 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/500219f4-d4fb-4dd2-a540-fa484d3021b8
+-2026-09-30 20:05:09.391 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.392 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.394 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.395 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/10ff432c-8852-4797-aa2d-38315deb7b3c/payments/10ff432c-8852-4797-aa2d-38315deb7b3c
+-2026-09-30 20:05:09.396 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/10ff432c-8852-4797-aa2d-38315deb7b3c/payments/10ff432c-8852-4797-aa2d-38315deb7b3c
+-2026-09-30 20:05:09.396 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/10ff432c-8852-4797-aa2d-38315deb7b3c/payments/10ff432c-8852-4797-aa2d-38315deb7b3c
+-2026-09-30 20:05:09.398 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/30e9ff55-4fb2-45d2-a264-3f61683f1c4e
+-2026-09-30 20:05:09.399 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/30e9ff55-4fb2-45d2-a264-3f61683f1c4e
+-2026-09-30 20:05:09.399 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/30e9ff55-4fb2-45d2-a264-3f61683f1c4e
+-2026-09-30 20:05:09.401 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/reorder
+-2026-09-30 20:05:09.401 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/reorder
+-2026-09-30 20:05:09.402 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/reorder
+-2026-09-30 20:05:09.405 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.405 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.406 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.407 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.408 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.409 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.410 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me
+-2026-09-30 20:05:09.411 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me
+-2026-09-30 20:05:09.411 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me
+-2026-09-30 20:05:09.413 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/history/c1b308d3-d89c-470f-8e79-c8fc9915b3df
+-2026-09-30 20:05:09.413 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/history/c1b308d3-d89c-470f-8e79-c8fc9915b3df
+-2026-09-30 20:05:09.414 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/history/c1b308d3-d89c-470f-8e79-c8fc9915b3df
+-2026-09-30 20:05:09.415 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/commands/e70c2d64-f0ae-4c06-8559-4b081ee4f570
+-2026-09-30 20:05:09.416 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/commands/e70c2d64-f0ae-4c06-8559-4b081ee4f570
+-2026-09-30 20:05:09.417 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/commands/e70c2d64-f0ae-4c06-8559-4b081ee4f570
+-2026-09-30 20:05:09.418 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary/note
+-2026-09-30 20:05:09.418 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary/note
+-2026-09-30 20:05:09.419 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary/note
+-2026-09-30 20:05:09.420 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/reorder
+-2026-09-30 20:05:09.421 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/reorder
+-2026-09-30 20:05:09.422 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/reorder
+-2026-09-30 20:05:09.423 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/9186b91e-22c3-4be6-8f0b-369c7d8b8822/settlements
+-2026-09-30 20:05:09.423 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/9186b91e-22c3-4be6-8f0b-369c7d8b8822/settlements
+-2026-09-30 20:05:09.424 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/9186b91e-22c3-4be6-8f0b-369c7d8b8822/settlements
+-2026-09-30 20:05:09.425 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.426 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.426 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.427 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/05e27a66-1173-408c-9854-158cac42f27d
+-2026-09-30 20:05:09.428 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/05e27a66-1173-408c-9854-158cac42f27d
+-2026-09-30 20:05:09.429 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/05e27a66-1173-408c-9854-158cac42f27d
+-2026-09-30 20:05:09.430 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation
+-2026-09-30 20:05:09.431 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation
+-2026-09-30 20:05:09.431 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation
+-2026-09-30 20:05:09.433 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/b4e288e5-e262-45e7-a307-19f81e123e1d/items/reorder
+-2026-09-30 20:05:09.433 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/b4e288e5-e262-45e7-a307-19f81e123e1d/items/reorder
+-2026-09-30 20:05:09.434 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/b4e288e5-e262-45e7-a307-19f81e123e1d/items/reorder
+-2026-09-30 20:05:09.435 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/5837e6ba-739f-4b56-bafa-06797f050105/history
+-2026-09-30 20:05:09.436 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/5837e6ba-739f-4b56-bafa-06797f050105/history
+-2026-09-30 20:05:09.436 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/5837e6ba-739f-4b56-bafa-06797f050105/history
+-2026-09-30 20:05:09.438 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.438 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.439 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.440 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/bb92d942-15cf-495f-8e9a-14aaf2627f27
+-2026-09-30 20:05:09.440 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/bb92d942-15cf-495f-8e9a-14aaf2627f27
+-2026-09-30 20:05:09.441 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/bb92d942-15cf-495f-8e9a-14aaf2627f27
+-2026-09-30 20:05:09.442 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/4697436f-e835-4600-be3d-e45a82c5eec9
+-2026-09-30 20:05:09.443 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/4697436f-e835-4600-be3d-e45a82c5eec9
+-2026-09-30 20:05:09.443 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/4697436f-e835-4600-be3d-e45a82c5eec9
+-2026-09-30 20:05:09.444 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/ba2af661-9168-4257-bacc-163601060c16/history
+-2026-09-30 20:05:09.445 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/ba2af661-9168-4257-bacc-163601060c16/history
+-2026-09-30 20:05:09.446 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/ba2af661-9168-4257-bacc-163601060c16/history
+-2026-09-30 20:05:09.447 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.459 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.460 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.461 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/70a391b9-eb62-4ec6-9512-9e55935664f8/realizations
+-2026-09-30 20:05:09.462 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/70a391b9-eb62-4ec6-9512-9e55935664f8/realizations
+-2026-09-30 20:05:09.463 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/70a391b9-eb62-4ec6-9512-9e55935664f8/realizations
+-2026-09-30 20:05:09.464 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/update-balance
+-2026-09-30 20:05:09.465 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/update-balance
+-2026-09-30 20:05:09.465 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/update-balance
+-2026-09-30 20:05:09.466 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/d49b8ca3-816e-49be-8a90-6fb8c0294cb3
+-2026-09-30 20:05:09.467 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/d49b8ca3-816e-49be-8a90-6fb8c0294cb3
+-2026-09-30 20:05:09.468 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/d49b8ca3-816e-49be-8a90-6fb8c0294cb3
+-2026-09-30 20:05:09.469 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/export
+-2026-09-30 20:05:09.469 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/export
+-2026-09-30 20:05:09.470 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/export
+-2026-09-30 20:05:09.471 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/income
+-2026-09-30 20:05:09.472 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/income
+-2026-09-30 20:05:09.472 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/income
+-2026-09-30 20:05:09.474 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/reorder
+-2026-09-30 20:05:09.474 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/reorder
+-2026-09-30 20:05:09.475 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/reorder
+-2026-09-30 20:05:09.476 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/4781b054-696a-4ccf-838d-2af54e5d39db/status
+-2026-09-30 20:05:09.477 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/4781b054-696a-4ccf-838d-2af54e5d39db/status
+-2026-09-30 20:05:09.477 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/4781b054-696a-4ccf-838d-2af54e5d39db/status
+-2026-09-30 20:05:09.480 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/user
+-2026-09-30 20:05:09.481 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/user
+-2026-09-30 20:05:09.482 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/user
+-2026-09-30 20:05:09.483 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.484 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.484 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits
+-2026-09-30 20:05:09.486 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/56be0b91-e6f8-4893-8783-f62c05a85820/allocations
+-2026-09-30 20:05:09.486 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/56be0b91-e6f8-4893-8783-f62c05a85820/allocations
+-2026-09-30 20:05:09.487 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/56be0b91-e6f8-4893-8783-f62c05a85820/allocations
+-2026-09-30 20:05:09.489 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/ef1935d3-486e-4364-a9ab-8ffa221e9c3e
+-2026-09-30 20:05:09.490 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/ef1935d3-486e-4364-a9ab-8ffa221e9c3e
+-2026-09-30 20:05:09.491 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/ef1935d3-486e-4364-a9ab-8ffa221e9c3e
+-2026-09-30 20:05:09.492 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/1404d029-4f1d-4752-b7a2-0052f51d9cc1/corrections
+-2026-09-30 20:05:09.492 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/1404d029-4f1d-4752-b7a2-0052f51d9cc1/corrections
+-2026-09-30 20:05:09.493 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/1404d029-4f1d-4752-b7a2-0052f51d9cc1/corrections
+-2026-09-30 20:05:09.494 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary
+-2026-09-30 20:05:09.495 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary
+-2026-09-30 20:05:09.495 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /annual-summary
+-2026-09-30 20:05:09.496 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/3bf9cad1-a5b6-4e01-8b24-4824ed0c26a2/items
+-2026-09-30 20:05:09.497 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/3bf9cad1-a5b6-4e01-8b24-4824ed0c26a2/items
+-2026-09-30 20:05:09.498 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/3bf9cad1-a5b6-4e01-8b24-4824ed0c26a2/items
+-2026-09-30 20:05:09.499 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/555d949e-3ed8-49c3-a9c1-ad22382ef015
+-2026-09-30 20:05:09.499 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/555d949e-3ed8-49c3-a9c1-ad22382ef015
+-2026-09-30 20:05:09.500 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories/555d949e-3ed8-49c3-a9c1-ad22382ef015
+-2026-09-30 20:05:09.501 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.501 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.502 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals
+-2026-09-30 20:05:09.503 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/7939b6bb-b4c1-4382-990f-e6b53bee2c92/allocations
+-2026-09-30 20:05:09.504 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/7939b6bb-b4c1-4382-990f-e6b53bee2c92/allocations
+-2026-09-30 20:05:09.504 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/7939b6bb-b4c1-4382-990f-e6b53bee2c92/allocations
+-2026-09-30 20:05:09.505 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.506 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.506 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions
+-2026-09-30 20:05:09.508 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.509 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.509 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.511 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/chart
+-2026-09-30 20:05:09.511 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/chart
+-2026-09-30 20:05:09.512 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/chart
+-2026-09-30 20:05:09.513 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/flow
+-2026-09-30 20:05:09.514 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/flow
+-2026-09-30 20:05:09.514 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /dashboard/flow
+-2026-09-30 20:05:09.515 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/summary
+-2026-09-30 20:05:09.516 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/summary
+-2026-09-30 20:05:09.516 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/summary
+-2026-09-30 20:05:09.517 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.518 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.518 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts
+-2026-09-30 20:05:09.519 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/8059dad0-42bb-48c0-b138-9c444bfc66d8
+-2026-09-30 20:05:09.520 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/8059dad0-42bb-48c0-b138-9c444bfc66d8
+-2026-09-30 20:05:09.520 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/8059dad0-42bb-48c0-b138-9c444bfc66d8
+-2026-09-30 20:05:09.521 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.522 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.523 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards
+-2026-09-30 20:05:09.525 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/36426296-287e-498d-b708-7f866c4d31b3/refund
+-2026-09-30 20:05:09.525 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/36426296-287e-498d-b708-7f866c4d31b3/refund
+-2026-09-30 20:05:09.526 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/36426296-287e-498d-b708-7f866c4d31b3/refund
+-2026-09-30 20:05:09.527 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9467e538-1d35-4d17-8430-9c1988a2402e/invoice
+-2026-09-30 20:05:09.528 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9467e538-1d35-4d17-8430-9c1988a2402e/invoice
+-2026-09-30 20:05:09.528 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9467e538-1d35-4d17-8430-9c1988a2402e/invoice
+-2026-09-30 20:05:09.530 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.531 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.531 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.533 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/password
+-2026-09-30 20:05:09.533 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/password
+-2026-09-30 20:05:09.534 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/password
+-2026-09-30 20:05:09.535 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/af8825c3-378a-4be5-887b-bc60a635376f/allocations/move
+-2026-09-30 20:05:09.535 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/af8825c3-378a-4be5-887b-bc60a635376f/allocations/move
+-2026-09-30 20:05:09.536 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/af8825c3-378a-4be5-887b-bc60a635376f/allocations/move
+-2026-09-30 20:05:09.537 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/bf2209a6-d079-468f-97fd-7950587bda68
+-2026-09-30 20:05:09.537 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/bf2209a6-d079-468f-97fd-7950587bda68
+-2026-09-30 20:05:09.538 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/bf2209a6-d079-468f-97fd-7950587bda68
+-2026-09-30 20:05:09.539 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/reorder
+-2026-09-30 20:05:09.539 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/reorder
+-2026-09-30 20:05:09.540 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/reorder
+-2026-09-30 20:05:09.540 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/973c8883-1039-4625-bd91-f0414b6633c7/reversals
+-2026-09-30 20:05:09.541 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/973c8883-1039-4625-bd91-f0414b6633c7/reversals
+-2026-09-30 20:05:09.542 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /transactions/973c8883-1039-4625-bd91-f0414b6633c7/reversals
+-2026-09-30 20:05:09.543 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/548c9e4e-ee01-4b40-ae83-7167e3fbcdf0
+-2026-09-30 20:05:09.544 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/548c9e4e-ee01-4b40-ae83-7167e3fbcdf0
+-2026-09-30 20:05:09.544 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/548c9e4e-ee01-4b40-ae83-7167e3fbcdf0
+-2026-09-30 20:05:09.545 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/89609ff3-fef9-491c-a162-9bd8e7ac3713/toggle
+-2026-09-30 20:05:09.546 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/89609ff3-fef9-491c-a162-9bd8e7ac3713/toggle
+-2026-09-30 20:05:09.547 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/89609ff3-fef9-491c-a162-9bd8e7ac3713/toggle
+-2026-09-30 20:05:09.548 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/copy-previous
+-2026-09-30 20:05:09.548 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/copy-previous
+-2026-09-30 20:05:09.549 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/copy-previous
+-2026-09-30 20:05:09.550 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/1d10ca95-14ef-4c07-9d01-57de93255f93
+-2026-09-30 20:05:09.551 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/1d10ca95-14ef-4c07-9d01-57de93255f93
+-2026-09-30 20:05:09.551 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/1d10ca95-14ef-4c07-9d01-57de93255f93
+-2026-09-30 20:05:09.553 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/7ef0c846-51f4-4a68-b88a-45d0af7d5c8d
+-2026-09-30 20:05:09.553 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/7ef0c846-51f4-4a68-b88a-45d0af7d5c8d
+-2026-09-30 20:05:09.554 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/7ef0c846-51f4-4a68-b88a-45d0af7d5c8d
+-2026-09-30 20:05:09.555 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/d337b6d0-8bf2-4370-a870-916fdddba016
+-2026-09-30 20:05:09.556 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/d337b6d0-8bf2-4370-a870-916fdddba016
+-2026-09-30 20:05:09.557 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/d337b6d0-8bf2-4370-a870-916fdddba016
+-2026-09-30 20:05:09.559 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/purchases
+-2026-09-30 20:05:09.560 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/purchases
+-2026-09-30 20:05:09.561 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/purchases
+-2026-09-30 20:05:09.562 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.563 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.563 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning
+-2026-09-30 20:05:09.565 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/preferences
+-2026-09-30 20:05:09.566 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/preferences
+-2026-09-30 20:05:09.567 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/preferences
+-2026-09-30 20:05:09.568 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/2475f588-c723-4669-aab6-977315474578
+-2026-09-30 20:05:09.569 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/2475f588-c723-4669-aab6-977315474578
+-2026-09-30 20:05:09.570 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/operation/2475f588-c723-4669-aab6-977315474578
+-2026-09-30 20:05:09.570 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/profile
+-2026-09-30 20:05:09.571 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/profile
+-2026-09-30 20:05:09.572 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /users/me/profile
+-2026-09-30 20:05:09.573 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction
+-2026-09-30 20:05:09.574 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction
+-2026-09-30 20:05:09.575 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction
+-2026-09-30 20:05:09.576 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/logout
+-2026-09-30 20:05:09.576 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/logout
+-2026-09-30 20:05:09.577 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /auth/logout
+-2026-09-30 20:05:09.578 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9a6fdbe6-0ec7-4c84-b895-fe2414105bf5/pay
+-2026-09-30 20:05:09.579 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9a6fdbe6-0ec7-4c84-b895-fe2414105bf5/pay
+-2026-09-30 20:05:09.579 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/9a6fdbe6-0ec7-4c84-b895-fe2414105bf5/pay
+-2026-09-30 20:05:09.580 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/b5aa647a-f468-40ef-b3c6-63f48cc97624
+-2026-09-30 20:05:09.581 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/b5aa647a-f468-40ef-b3c6-63f48cc97624
+-2026-09-30 20:05:09.582 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/b5aa647a-f468-40ef-b3c6-63f48cc97624
+-2026-09-30 20:05:09.583 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.583 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.584 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments
+-2026-09-30 20:05:09.585 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/position
+-2026-09-30 20:05:09.586 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/position
+-2026-09-30 20:05:09.587 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /accounts/position
+-2026-09-30 20:05:09.588 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/419c0cd4-9a5a-4da5-81c3-ee990e0e0470/purchase
+-2026-09-30 20:05:09.588 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/419c0cd4-9a5a-4da5-81c3-ee990e0e0470/purchase
+-2026-09-30 20:05:09.589 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/items/419c0cd4-9a5a-4da5-81c3-ee990e0e0470/purchase
+-2026-09-30 20:05:09.590 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/e0187904-5c88-40e3-933a-0bd972f74d32
+-2026-09-30 20:05:09.591 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/e0187904-5c88-40e3-933a-0bd972f74d32
+-2026-09-30 20:05:09.591 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /cards/transaction/e0187904-5c88-40e3-933a-0bd972f74d32
+-2026-09-30 20:05:09.592 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/236c690d-1fa8-44b2-969c-aea3ffdbc3ba/corrections
+-2026-09-30 20:05:09.592 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/236c690d-1fa8-44b2-969c-aea3ffdbc3ba/corrections
+-2026-09-30 20:05:09.593 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /investments/236c690d-1fa8-44b2-969c-aea3ffdbc3ba/corrections
+-2026-09-30 20:05:09.594 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.594 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.595 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /categories
+-2026-09-30 20:05:09.596 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/18ee5c66-aa96-4975-b177-b418838420fa
+-2026-09-30 20:05:09.597 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/18ee5c66-aa96-4975-b177-b418838420fa
+-2026-09-30 20:05:09.598 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /habits/18ee5c66-aa96-4975-b177-b418838420fa
+-2026-09-30 20:05:09.598 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/70f47b34-a273-44bf-8236-b16a5beb1c8e
+-2026-09-30 20:05:09.600 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/70f47b34-a273-44bf-8236-b16a5beb1c8e
+-2026-09-30 20:05:09.600 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /planning/70f47b34-a273-44bf-8236-b16a5beb1c8e
+-2026-09-30 20:05:09.602 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/4e1cc254-2d8a-4123-833e-dbe01c7432c6/deposit
+-2026-09-30 20:05:09.602 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/4e1cc254-2d8a-4123-833e-dbe01c7432c6/deposit
+-2026-09-30 20:05:09.603 - WARN 18960 --- [           main] c.c.api.infra.security.SecurityFilter    : Token inv�lido ou expirado recebido na requisi��o: /goals/4e1cc254-2d8a-4123-833e-dbe01c7432c6/deposit
+-CF023 private route/method matrix: 320 requests, all JSON401, no database changes
+2026-09-30 20:05:09.695 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-A'. Usu�rio: cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.695 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 5c337c34-da53-4673-b3e3-cd5ff7ca4efe
+-2026-09-30 20:05:09.703 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-A'
+-2026-09-30 20:05:09.703 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-A
+-2026-09-30 20:05:09.710 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-A'. Usu�rio: cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.710 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-A' (Final 1234)
+-2026-09-30 20:05:09.717 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-A' para usu�rio cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.717 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-A
+-2026-09-30 20:05:09.727 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-A' para usu�rio cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.728 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-A
+-2026-09-30 20:05:09.735 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta 900db765-f2d7-45b6-9530-fa88926b8b5b. para usu�rio: com.controlefinanceiro.api.domain.user.User@c249ba21
+-2026-09-30 20:05:09.747 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.747 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid
+-2026-09-30 20:05:09.748 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7fa050f6-889f-4223-93dd-0b25d29a8b57
+-2026-09-30 20:05:09.762 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:09.762 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:09.774 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-A-68a8d0e2-f12d-4533-9b7c-22fb1275a0cb@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:09.774 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=b0f23b99-787b-4fd2-a8bd-e3a0df7f69d8
+-2026-09-30 20:05:09.780 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c03ee438-efbc-4c99-a850-fc54535ee511
+-2026-09-30 20:05:09.786 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 0b412627-76cf-48c5-b46d-ced6b5c680e9. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:09.786 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 0b412627-76cf-48c5-b46d-ced6b5c680e9: 20 (1x)
+-2026-09-30 20:05:09.804 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:09.812 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 9765deed-daf0-4edd-a6d9-62a508d1b3a3. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.812 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 9765deed-daf0-4edd-a6d9-62a508d1b3a3. Valor: 1
+-2026-09-30 20:05:09.813 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:09.826 - INFO 18960 --- [           main] c.c.api.controller.AccountController     : API: Criar Conta 'PRIVATE-ACCOUNT-B'. Usu�rio: cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.827 - INFO 18960 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 5240f47e-76bb-4df9-9629-561618acf03c
+-2026-09-30 20:05:09.834 - INFO 18960 --- [           main] c.c.api.controller.CategoryController    : API: Criar Categoria 'PRIVATE-CATEGORY-B'
+-2026-09-30 20:05:09.835 - INFO 18960 --- [           main] c.c.api.service.CategoryService          : Criando categoria: PRIVATE-CATEGORY-B
+-2026-09-30 20:05:09.841 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'PRIVATE-CARD-B'. Usu�rio: cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.841 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Criando cart�o 'PRIVATE-CARD-B' (Final 1234)
+-2026-09-30 20:05:09.848 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-GOAL-B' para usu�rio cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.848 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-GOAL-B
+-2026-09-30 20:05:09.855 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'PRIVATE-NUMERIC-B' para usu�rio cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.855 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Criando nova meta: PRIVATE-NUMERIC-B
+-2026-09-30 20:05:09.861 - WARN 18960 --- [           main] c.c.api.controller.GoalController        : API: Criar Item na Meta b16807f0-fa56-48f3-b264-435862536667. para usu�rio: com.controlefinanceiro.api.domain.user.User@aa7e1fe8
+-2026-09-30 20:05:09.871 - INFO 18960 --- [           main] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF023' (STOCK) para usu�rio cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.872 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF023' (STOCK) para usu�rio cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid
+-2026-09-30 20:05:09.872 - INFO 18960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 92b69a79-ff26-46e9-9299-4630c4d68306
+-2026-09-30 20:05:09.885 - INFO 18960 --- [           main] c.c.api.controller.PlanningController    : API: Novo item no planejamento: PRIVATE-PLAN - Valor: 30
+-2026-09-30 20:05:09.885 - INFO 18960 --- [           main] c.c.api.service.PlanningService          : Adicionando item ao planejamento: PRIVATE-PLAN (Valor: 30)
+-2026-09-30 20:05:09.897 - INFO 18960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf023-B-fe4dfa7c-5ab2-4ae8-a21a-5fa2a9a2c8f2@example.invalid | Valor: 40 | Tipo: EXPENSE
+-2026-09-30 20:05:09.897 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40, ContaID=9773d1e8-62b3-41d3-84eb-962fc2cd0ff2
+-2026-09-30 20:05:09.900 - INFO 18960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b11008aa-7000-4bf1-886b-0612d9cc690a
+-2026-09-30 20:05:09.906 - INFO 18960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o e018bd05-5d7d-4c80-bfdd-d78fe4c5b874. Valor: 20. Parcelas: 1
+-2026-09-30 20:05:09.906 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID e018bd05-5d7d-4c80-bfdd-d78fe4c5b874: 20 (1x)
+-2026-09-30 20:05:09.920 - INFO 18960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-09-30 20:05:09.928 - INFO 18960 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta 6c4b1153-8b5e-4ff8-8aec-657e51657ab9. Valor: 1. Conta Origem: null
+-2026-09-30 20:05:09.928 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 6c4b1153-8b5e-4ff8-8aec-657e51657ab9. Valor: 1
+-2026-09-30 20:05:09.930 - INFO 18960 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-2026-09-30 20:05:10.030 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Transa��o n�o encontrada [URI: /transactions/b11008aa-7000-4bf1-886b-0612d9cc690a/realizations]
+-2026-09-30 20:05:10.071 - WARN 18960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Transa��o n�o encontrada [URI: /transactions/bea9394a-6a54-449b-925c-ecde567eb530/realizations]
+-[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.195 s -- in com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest
+[INFO] Running com.controlefinanceiro.api.service.HabitServiceTemporalTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.556 s -- in com.controlefinanceiro.api.service.HabitServiceTemporalTest
+[INFO] Running com.controlefinanceiro.api.service.ScheduledCalendarClockTest
+2026-09-30 20:05:11.017 - INFO 18960 --- [           main] c.c.api.service.NotificationCronService  : CRON: Iniciando verifica��o de contas a vencer para amanh�...
+-2026-09-30 20:05:11.017 - INFO 18960 --- [           main] c.c.api.service.NotificationCronService  : CRON: Verifica��o de contas a vencer finalizada.
+-2026-09-30 20:05:11.591 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-30 20:05:11.592 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-30 20:05:11.592 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-30 20:05:11.594 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 9/2026)
+-2026-09-30 20:05:11.599 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-30 20:05:11.603 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-30 20:05:11.604 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 12/2025)
+-2026-09-30 20:05:11.604 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-09-30 20:05:11.607 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-09-30 20:05:11.608 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 2/2024)
+-2026-09-30 20:05:11.608 - INFO 18960 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.899 s -- in com.controlefinanceiro.api.service.ScheduledCalendarClockTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  42.065 s
+[INFO] Finished at: 2026-09-30T20:05:12-03:00
+[INFO] ------------------------------------------------------------------------

@@ -69,3 +69,13 @@ RVA-03 continua pendente: duas reproduções instrumentadas não isolaram o trav
 ## Revalidação dirigida dos resíduos — 30/09/2026
 
 RVA-03 segue inconclusivo. Candidato sem instrumentação: quatro R03 e SAN-RVA aprovados. Único experimento17:10 verdes/7 falhas na cópia antes do envio, com portal interceptando clique; pagamento120 teve zeroPOST/recibos, banco1000 e dívida120. Isso não reproduz nem explica o spinner original após pagamento confirmado. CF-019 responde pelo próximo experimento passivo no runtime original; CF-024 participa da coordenação. Pendente certificação sem ressalvas do cenário/aceite integrado, sem evidência de bloqueio geral do pagamento ou de tarefas independentes. Estado `em_revisao`, sem tarefa posterior iniciada. [Parecer e limites](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).
+
+## Consolidação conjunta — 30/09/2026
+
+Estado em_revisao e RVA-03 preservados: falta classificação causal e prova de
+confiabilidade/recuperação da interação após pagamento120 confirmado. Repetição
+verde não fecha o cenário. Os contratos backend de pagamento/intenção/fingerprint/
+recibo e invariantes aprovados fornecem a parte necessária para iniciarCF-024
+localmente; não exigem apagar esta pendência nem certificar publicação.
+[Matriz e decisão causal](../evidencias/revisao-CF-022-CF-023/README.md).
+CF-019 continua dona da investigação, com coordenação pertinente àCF-024.

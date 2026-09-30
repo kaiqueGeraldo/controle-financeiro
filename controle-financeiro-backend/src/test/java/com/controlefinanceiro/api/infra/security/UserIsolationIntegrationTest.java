@@ -218,12 +218,14 @@ class UserIsolationIntegrationTest extends PostgresIntegrationTest {
                 .withExpiresAt(Instant.parse("2026-10-02T15:00:00Z"))
                 .sign(com.auth0.jwt.algorithms.Algorithm.HMAC256("wrong-synthetic-secret"));
         int requests=0;
+        List<String> inventory = new ArrayList<>();
         for(var mapping:mappings.getHandlerMethods().entrySet()) {
             if (!mapping.getValue().getBeanType().getPackageName().equals("com.controlefinanceiro.api.controller")) continue;
             for(String pattern:mapping.getKey().getPatternValues()) {
                 if (List.of("/auth/login","/auth/register","/auth/recover-password","/auth/reset-password").contains(pattern)) continue;
                 String path=pattern.replaceAll("\\{[^}]+}",UUID.randomUUID().toString());
                 for(var method:mapping.getKey().getMethodsCondition().getMethods()) {
+                    inventory.add(method.name()+"\t"+pattern+"\t401: absent, malformed, wrong signature, exact expiration; SQL unchanged");
                     for(String credential:List.of("", "Bearer malformed", "Bearer "+invalid, "Bearer "+tokenA)) {
                         var request=request(HttpMethod.valueOf(method.name()),path).contentType("application/json").content("{}");
                         if (!credential.isEmpty()) request.header("Authorization",credential);
@@ -237,6 +239,11 @@ class UserIsolationIntegrationTest extends PostgresIntegrationTest {
         }
         assertThat(requests).isGreaterThanOrEqualTo(240);
         assertThat(snapshot()).isEqualTo(before);
+        String inventoryPath = System.getProperty("cf023.inventory");
+        if (inventoryPath != null) {
+            inventory.sort(String::compareTo);
+            java.nio.file.Files.write(java.nio.file.Path.of(inventoryPath), inventory);
+        }
         System.out.println("CF023 private route/method matrix: " + requests + " requests, all JSON401, no database changes");
     }
 
@@ -383,6 +390,82 @@ class UserIsolationIntegrationTest extends PostgresIntegrationTest {
         }
         assertThat(users.findById(a.getId()).orElseThrow().getRecoveryToken()).isNull();
         org.mockito.Mockito.verify(emailService,org.mockito.Mockito.times(1)).sendTemplatedEmail(org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString());
+    }
+
+    @ParameterizedTest @ValueSource(strings={"UTC", "America/Sao_Paulo", "Pacific/Kiritimati"})
+    void independentGoalWritersPersistProductClockAfterReload(String runtimeZone) throws Exception {
+        TimeZone previous = TimeZone.getDefault();
+        try {
+            // Application startup normalizes the JVM default to Sao Paulo. Change it
+            // after startup so this probe really exercises the three default zones.
+            TimeZone.setDefault(TimeZone.getTimeZone(runtimeZone));
+            String numeric = create("/goals", "{\"title\":\"Clock independente\",\"targetValue\":10,\"deadline\":\"2027-01-01\",\"type\":\"NUMERIC\"}", tokenA);
+            mvc.perform(post("/goals/"+numeric+"/deposit").header("Authorization", "Bearer "+tokenA)
+                    .contentType("application/json").content("{\"amount\":1}"))
+                    .andExpect(status().isOk());
+            assertThat(sql.queryForObject("select date from goal_history where goal_id=?::uuid", java.time.LocalDateTime.class,
+                    numeric)).isEqualTo(java.time.LocalDateTime.parse("2026-09-30T12:00:00"));
+            mvc.perform(put(resolve("/goals/{goalA}/allocations")).header("Authorization", "Bearer "+tokenA)
+                    .contentType("application/json").content(resolve("{\"accountId\":\"{accountA}\",\"amount\":\"10\"}")))
+                    .andExpect(status().isNoContent());
+            assertThat(sql.queryForObject("select date from goal_history where goal_id=?::uuid", java.time.LocalDateTime.class,
+                    ids.get("goalA"))).isEqualTo(java.time.LocalDateTime.parse("2026-09-30T12:00:00"));
+            assertThat(sql.queryForObject("select current_value from goals where id=?::uuid", java.math.BigDecimal.class,
+                    ids.get("goalA"))).isEqualByComparingTo("10");
+        } finally { TimeZone.setDefault(previous); }
+    }
+
+    @Test void independentRealizationForeignAndMissingAreUniformAndDoNotWrite() throws Exception {
+        foreignUuidIs404AndCannotChangeEitherUser(new Case("POST", "/transactions/{transactionB}/realizations",
+                "{\"operationId\":\"{command}\",\"date\":\"2026-09-30\",\"reason\":\"Revisão independente\"}"));
+    }
+
+    @ParameterizedTest @ValueSource(strings={"goal", "allocation", "account", "investment"})
+    void independentAllocationMoveRejectsEveryForeignReferenceBeforeWriting(String reference) throws Exception {
+        for (String owner : List.of("A", "B")) {
+            mvc.perform(put(resolve("/goals/{goal"+owner+"}/allocations"))
+                    .header("Authorization", "Bearer "+(owner.equals("A") ? tokenA : tokenB))
+                    .contentType("application/json")
+                    .content(resolve("{\"accountId\":\"{account"+owner+"}\",\"amount\":\"10\"}")))
+                    .andExpect(status().isNoContent());
+            ids.put("allocation"+owner, sql.queryForObject("select id::text from goal_allocations where goal_id=?::uuid",
+                    String.class, ids.get("goal"+owner)));
+        }
+        String goal = reference.equals("goal") ? "{goalB}" : "{goalA}";
+        String source = reference.equals("allocation") ? "{allocationB}" : "{allocationA}";
+        String destinationAccount = "{accountB}";
+        if (reference.equals("goal") || reference.equals("allocation")) {
+            destinationAccount = create("/accounts", "{\"name\":\"OWN-DESTINATION\",\"type\":\"CHECKING\",\"initialBalance\":500,\"openingDate\":\"2026-09-01\"}", tokenA);
+        }
+        String destination = reference.equals("investment") ? "\"investmentId\":\"{investmentB}\"" :
+                "\"accountId\":\""+destinationAccount+"\"";
+        foreignUuidIs404AndCannotChangeEitherUser(new Case("POST", "/goals/"+goal+"/allocations/move",
+                "{\"sourceAllocationId\":\""+source+"\","+destination+",\"amount\":\"5\"}"));
+    }
+
+    @Test void independentNoteAndCopyPreviousUsePrincipalInsteadOfInjectedOwner() throws Exception {
+        mvc.perform(post("/annual-summary/note").header("Authorization", "Bearer "+tokenB)
+                .contentType("application/json").content("{\"year\":2026,\"month\":9,\"content\":\"PRIVATE-NOTE-B\"}"))
+                .andExpect(status().isOk());
+        mvc.perform(post("/annual-summary/note").header("Authorization", "Bearer "+tokenA)
+                .contentType("application/json").content(resolve("{\"year\":2026,\"month\":9,\"content\":\"PRIVATE-NOTE-A\",\"userId\":\"{userB}\"}")))
+                .andExpect(status().isOk());
+        for (String owner : List.of("A", "B")) {
+            var response = mvc.perform(get("/annual-summary?year=2026")
+                    .header("Authorization", "Bearer "+(owner.equals("A") ? tokenA : tokenB)))
+                    .andExpect(status().isOk()).andReturn().getResponse();
+            assertThat(response.getContentAsString()).contains("PRIVATE-NOTE-"+owner)
+                    .doesNotContain("PRIVATE-NOTE-"+(owner.equals("A") ? "B" : "A"));
+        }
+        mvc.perform(post("/planning/copy-previous").header("Authorization", "Bearer "+tokenA)
+                .contentType("application/json").content(resolve("{\"month\":10,\"year\":2026,\"userId\":\"{userB}\"}")))
+                .andExpect(status().isOk());
+        assertThat(sql.queryForObject("select count(*) from monthly_plans where user_id=?::uuid and month=10 and year=2026",
+                Integer.class, ids.get("userA"))).isEqualTo(1);
+        assertThat(sql.queryForObject("select count(*) from monthly_plans where user_id=?::uuid and month=10 and year=2026",
+                Integer.class, ids.get("userB"))).isZero();
+        assertThat(sql.queryForObject("select balance from accounts where id=?::uuid", java.math.BigDecimal.class,
+                ids.get("accountB"))).isEqualByComparingTo("2300");
     }
 
     String resolve(String text) { for(var entry:ids.entrySet()) text=text.replace("{"+entry.getKey()+"}",entry.getValue()); return text; }
