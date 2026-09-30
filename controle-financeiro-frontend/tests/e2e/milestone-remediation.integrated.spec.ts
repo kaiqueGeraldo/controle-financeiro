@@ -31,6 +31,56 @@ test("SAN-E27 provento bruto e retenção pela UI conciliam caixa líquido e XLS
  await writeFile(path.join(dir,"san-e27-cash.json"),JSON.stringify({dividend,fee,cash},null,2));
 });
 
+for(const payment of [20,120])test(`SAN-BC-card compra, exclusão e reembolso após pagamento ${payment} pela UI`,async({page})=>{
+ await start(page,`goal-card-${payment}`);
+ const a=await post(page,"/accounts",{name:"SAN banco cartão",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const c=await post(page,"/cards",{name:`SAN cartão ${payment}`,last4Digits:"4242",limit:1000,closingDay:20,dueDay:28,brand:"VISA",color:"#7c3aed"});
+ const g=await post(page,"/goals",{title:`SAN meta cartão ${payment}`,targetValue:1000,deadline:"2028-01-01",type:"MONETARY",useChecklist:true,color:"BLUE"});
+ const name=`SAN compra cartão ${payment}`;
+ await page.goto("/metas");await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:/Adicionar.*item/i}).click();
+ await page.getByPlaceholder("Nome do item (ex: Processador)").fill(name);await page.getByPlaceholder(/Valor|Estimado|Preço/i).fill("120");
+ const added=page.waitForResponse(r=>r.url().endsWith(`/goals/${g.id}/items`)&&r.request().method()==="POST");await page.getByRole("button",{name:"Adicionar",exact:true}).click();expect((await added).ok()).toBe(true);
+ await page.reload();await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:`Comprar ${name}`,exact:true}).click();
+ await page.locator("select").filter({has:page.locator(`option[value="CARD_${c.id}"]`)}).selectOption(`CARD_${c.id}`);
+ const bought=page.waitForResponse(r=>r.url().endsWith("/purchase")&&r.request().method()==="PATCH");await page.getByRole("button",{name:"Confirmar",exact:true}).click();expect((await bought).ok()).toBe(true);
+ await page.goto("/cartoes");await page.getByRole("button",{name:`Ver fatura de ${c.name}, final 4242`}).click();
+ await page.getByRole("dialog",{name:`${c.name} •••• 4242`}).getByRole("button",{name:/^(Pagar|Adiantar)/}).click();
+ const pay=page.getByRole("dialog",{name:`Pagar Fatura - ${c.name}`,exact:true});await pay.getByRole("button",{name:"Adiantamento",exact:true}).click();await pay.getByLabel("Valor do Pagamento").fill(String(payment));await pay.getByLabel("Pagar com").selectOption(a.id);
+ const paid=page.waitForResponse(r=>r.url().endsWith(`/cards/${c.id}/pay`)&&r.request().method()==="POST");await pay.getByRole("button",{name:"Confirmar Pagamento",exact:true}).click();expect((await paid).ok()).toBe(true);await expect(pay).toHaveCount(0);
+ await page.goto("/metas");await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:"Deletar Meta",exact:true}).click();
+ const deleted=page.waitForResponse(r=>r.url().endsWith(`/goals/${g.id}`)&&r.request().method()==="DELETE");await page.getByRole("dialog",{name:"Excluir Meta",exact:true}).getByRole("button",{name:"Excluir",exact:true}).click();expect((await deleted).status()).toBe(204);
+ await page.reload();const history=page.getByRole("region",{name:"Histórico de compras"});await expect(history.getByText(name,{exact:true})).toBeVisible();
+ const refunded=page.waitForResponse(r=>r.url().endsWith("/refund")&&r.request().method()==="POST");await history.getByRole("button",{name:"Reembolsar compra",exact:true}).click();expect((await refunded).ok()).toBe(true);
+ await page.reload();await expect(history.getByText("Reembolsada",{exact:true})).toBeVisible();
+ const invoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);expect(invoice.payableAmount).toBe(0);
+ expect((await json(page,"/cards")).find((v:{id:string})=>v.id===c.id).creditBalance).toBe(payment);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000-payment);
+ const fact=(await json(page,"/goals/purchases"))[0];const retry=await page.request.post(`/api/goals/items/${fact.itemId}/refund`);expect(retry.status()).toBe(400);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000-payment);
+ expect((await json(page,"/cards")).find((v:{id:string})=>v.id===c.id).creditBalance).toBe(payment);
+ await writeFile(path.join(dir,`san-b-card-${payment}.json`),JSON.stringify({invoice,fact},null,2));
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await history.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-b-card-${payment}-${width}.png`),animations:"disabled"});}
+});
+
+test("SAN-BC-replace substituição pela UI preserva venda original e recalcula custo dependente",async({page})=>{
+ await start(page,"replacement");
+ const a=await post(page,"/accounts",{name:"SAN banco substituição",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const i=await post(page,"/investments",{ticker:"SANREPLACE",name:"Cadeia corrigida",type:"STOCK",openingQuantity:0,openingCost:0});
+ await post(page,"/investments/operation",{investmentId:i.id,type:"BUY",quantity:20,price:10,fees:2,date:"2027-01-15",accountId:a.id});
+ await post(page,"/investments/operation",{investmentId:i.id,type:"SELL",quantity:5,price:15,fees:1,date:"2027-01-15",accountId:a.id});
+ await page.goto("/investimentos");await page.getByText("SANREPLACE",{exact:true}).click();
+ await page.getByText("Compra",{exact:true}).locator("xpath=../../..").getByRole("button",{name:"Compensar operação",exact:true}).click();
+ const modal=page.getByRole("dialog",{name:"Compensar operação",exact:true});await modal.getByLabel("Motivo",{exact:true}).fill("Aquisição corrigida com venda dependente");
+ await modal.getByLabel("Taxas devolvidas",{exact:true}).fill("2");await modal.getByLabel("Registrar operação substituta").check();await modal.getByLabel("Quantidade corrigida").fill("20");await modal.getByLabel("Preço corrigido").fill("8");await modal.getByLabel("Taxas da substituição").fill("2");
+ const response=page.waitForResponse(r=>r.url().endsWith("/corrections")&&r.request().method()==="POST");await modal.getByRole("button",{name:"Confirmar compensação",exact:true}).click();const result=await response;expect(result.ok(),await result.text()).toBe(true);const receipt=await result.json();
+ await page.reload();await page.getByText("SANREPLACE",{exact:true}).click();await expect(page.getByRole("region",{name:"Compensações registradas"})).toContainText("Aquisição corrigida com venda dependente");
+ const position=(await json(page,"/investments")).find((v:{id:string})=>v.id===i.id);expect(position.quantity).toBe(15);expect(position.totalCost).toBe(121.5);
+ expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(912);expect([receipt.cashDelta,receipt.realizedDelta]).toEqual([40,10]);
+ const original=await json(page,`/investments/${i.id}/history`);expect(original).toHaveLength(2);expect(original.find((v:{type:string})=>v.type==="SELL").costDelta).toBe(50.5);
+ await writeFile(path.join(dir,"san-c2-replacement.json"),JSON.stringify({position,receipt,original},null,2));
+ for(const width of [360,768,1440]){await page.setViewportSize({width,height:900});await page.getByRole("region",{name:"Compensações registradas"}).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(dir,`san-c2-replace-${width}.png`),animations:"disabled"});}
+});
+
 test("SAN-E2 arquivar pela UI, posição datada em outro ano e exportar transferência",async({page})=>{
  await start(page,"report-position");
  const archived=await post(page,"/accounts",{name:"SAN conta arquivada",type:"CHECKING",initialBalance:1000,color:"#10b981"});

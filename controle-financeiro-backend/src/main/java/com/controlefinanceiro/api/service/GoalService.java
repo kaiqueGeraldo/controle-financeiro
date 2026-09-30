@@ -471,7 +471,6 @@ public class GoalService {
         }
 
         BigDecimal diferenca = data.paidPrice().subtract(item.getEstimatedPrice());
-        goal.setTargetValue(goal.getTargetValue().add(diferenca));
 
         if (data.accountId() != null) {
             Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())
@@ -547,6 +546,9 @@ public class GoalService {
             throw new BusinessRuleException("Compra exige conta ou cartão real; destinação não é custódia.");
         }
 
+        // Mutate the goal only after locking the financial source. Otherwise
+        // an AUTO flush can acquire goal -> account while allocations use account -> goal.
+        goal.setTargetValue(goal.getTargetValue().add(diferenca));
         item.setPaidPrice(data.paidPrice());
         item.setStatus(GoalItemStatus.PURCHASED);
 
@@ -630,14 +632,18 @@ public class GoalService {
     }
 
     private void refundBankPurchase(UUID transactionId, String description, User user, ZonedDateTime now) {
+        var source = transactionRepository.findOwnedSource(transactionId, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Compra bancária não encontrada"));
+        Account account = accountRepository.findOwnedForAllocation(source.getAccountId(), user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Conta da compra não encontrada"));
         Transaction original = transactionRepository.findOwnedForUpdate(transactionId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Compra bancária não encontrada"));
+        if (!original.getAccount().getId().equals(account.getId()))
+            throw new BusinessRuleException("A fonte da compra foi alterada; atualize antes de reembolsar.");
         if (original.getStatus() != TransactionStatus.SETTLED
                 || transactionRepository.existsByReversalOfId(original.getId())) {
             throw new BusinessRuleException("Compra já estornada.");
         }
-        Account account = accountRepository.findOwnedForAllocation(original.getAccount().getId(), user.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Conta da compra não encontrada"));
         account.credit(original.getAmount());
         accountRepository.save(account);
         original.markReversed();

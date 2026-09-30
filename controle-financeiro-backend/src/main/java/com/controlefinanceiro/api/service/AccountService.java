@@ -118,7 +118,8 @@ public class AccountService {
     @Transactional
     public void delete(UUID id, User user) {
         log.info("Solicitação de exclusão (arquivamento) da conta ID {}", id);
-        Account account = findById(id);
+        Account account = repository.findOwnedForAllocation(id, user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada"));
 
         if (!account.getUser().getId().equals(user.getId())) {
             log.error("Acesso negado no arquivamento: Usuário {} -> Conta {}", user.getId(), id);

@@ -366,3 +366,26 @@ principal como consumo. Sem consulta por linha e sem nova migração.
 
 Cobertura dos períodos permanece na próxima unidade; este checkpoint não
 certifica zeros de história ausente nem encerra revisão independente.
+
+## Complemento A/B/C — writers e consumidores com fatos dependentes
+
+Arquivamento usa o mesmo lock pessimista da fonte. Reembolso bancário passa por
+fonte → conta → ledger, e compra de checklist só altera o alvo após obter a fonte,
+evita flush da meta antes da conta. `MilestoneWriterPolicyTest`: 3 casos aprovados
+em PostgreSQL migrado/Hibernate validate. Verifica capacidade livre 300 após
+reserva 700, rejeição de transferência/aporte/compra/reserva 301, débito bancário
+confirmado 1100 com saldo -100, nove writers em conta arquivada (inclusive
+provento líquido zero), rollback e espera real de arquivo por `pg_blocking_pids`.
+A primeira rodada preservada falhou somente na consulta do teste (`card_id` não
+existe em card_payments); a conferência corrigida usa join por invoice_id.
+
+Browser `bc-final`: 3 jornadas aprovadas pelo Next/BFF/backend/PostgreSQL/reload.
+Compra 120, pagamento 20 ou 120, exclusão da meta, reembolso mantido no histórico:
+saldo bancário 980 ou 880, dívida zero e crédito no cartão 20 ou 120. Retry 400
+sem novo efeito. Substituição da aquisição 20×10+2 por 20×8+2, venda dependente
+5×15-1: saldo 912, quantidade 15, custo 121,50; venda original preserva custo
+50,50, revisão separada 40,50 e recibo ajusta resultado em 10. JSON e telas
+360/768/1440 em `browser/bc-final`; `bc-complete` preserva a rodada que esperava
+erroneamente 409 em vez do contrato legado 400. Imagens inspecionadas: histórico
+de reembolso e compensação legíveis; captura 360 da compensação ainda precedeu
+carregamento do histórico e deve ser completada na rodada visual final.
