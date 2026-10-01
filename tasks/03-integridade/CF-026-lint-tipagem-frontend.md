@@ -1,6 +1,6 @@
 # CF-026 — Eliminar dívida de lint e tipagem sem esconder defeitos
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P2
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -17,6 +17,7 @@ Baseline de 70 erros e 37 avisos precisa ser reavaliado após correções. Tipag
 - `docs/sdd/lint-baseline.md`
 - `controle-financeiro-frontend/src/`
 - `controle-financeiro-frontend/eslint.config.mjs`
+- Exceção de escopo justificada nesta execução: `controle-financeiro-frontend/tests/component/async-state.test.tsx` (dois bindings ociosos da baseline, sem alteração de assertions) e `controle-financeiro-frontend/tests/component/cf026-contracts.test.tsx` (regressões das fronteiras desconhecidas e cleanup dos consumidores alterados, no harness integrado). Nenhuma configuração/exclusão de teste será modificada.
 
 Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos novos devem ser criados dentro desses alvos. Ler o [SDD](../../docs/sdd/README.md), a [execução](../EXECUCAO.md) e a [política de testes](../POLITICA-DE-TESTES.md). A origem acima mantém o vínculo com o diagnóstico e os épicos anteriores.
 
@@ -28,10 +29,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Lint final sem erros e avisos não justificados; nenhum disable global/ts-ignore/any artificial para passar.
-- [ ] Remover variável não remove efeito colateral necessário; alteração de hook tem regressão de atualização/cleanup.
-- [ ] Typecheck/build e fluxos tocados continuam aprovados; baseline não é reduzido apenas excluindo arquivos.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Lint final sem erros e avisos não justificados; nenhum disable global/ts-ignore/any artificial para passar.
+- [x] Remover variável não remove efeito colateral necessário; alteração de hook tem regressão de atualização/cleanup.
+- [x] Typecheck/build e fluxos tocados continuam aprovados; baseline não é reduzido apenas excluindo arquivos.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -43,7 +44,41 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-### Decisão atual — consolidação documental de 01/10/2026
+### Retomada local — 01/10/2026
+
+Execução iniciada sobre `5f26a1d`, usando a liberação independente residual em
+`0099185`, reconferida pela consolidação de `5f26a1d`. Limite: lint, contratos
+de apresentação e cleanup; os achados funcionais/adoção/zoom listados abaixo
+continuam com seus donos. README raiz preservado. Evidências novas em
+`tasks/evidencias/CF-026/execucao/`, separadas da preparação histórica.
+
+Entrega do executor pronta para revisão independente: lint **0 erros/0 avisos**
+em 236 arquivos (234 anteriores preservados, dois novos), typecheck/build
+aprovados, 180 testes de componente e 6 unitários em cada um dos três fusos.
+Tipos explícitos para erro, aporte/protocolo, reorder, callbacks, datas de hábitos
+e ícones; configuração do painel validada como `unknown`; cleanup captura a
+instância do mapa de locks. Bindings removidos preservam chamadas e tratamentos.
+
+Resultados esperados: campos válidos preservados; JSON não-array/membros inválidos
+usam defaults; IDs duplicados conservam a primeira entrada; larguras respeitam
+as opções existentes por cartão. Erro desconhecido apresenta fallback textual,
+sem fechar formulário por sucesso. Rejeição 409 mantém a solicitação de releitura
+do consumidor existente; isso não certifica a regra financeira de conflito.
+Essas decisões de fronteira estão registradas nos oráculos da evidência.
+
+Contraprovas na base original isolada falham por parser/erro inválido; restauradas
+passam. Remover geração em cópia do hook falha nos cenários de sessão/unmount;
+restauração e preservação comprovadas por SHA-256. Não houve relaxamento de
+assertions, skips no código de teste, configuração, exclusões ou regras.
+
+[Entrega, critério→cenário→red/green, comandos e limites](../evidencias/CF-026/execucao/README.md).
+`em_revisao` conserva a distinção entre validação do executor e aceite independente.
+Os checkboxes registram as provas do executor, sem aprovar o marco CF-009/015,
+RV24-01/02, RVA-03, RJ-022-01/H24-01, zoom, migrações ou publicação. Nenhuma tarefa
+seguinte ficou integralmente liberada: CF-032/034 ainda exigem aceite aplicável da
+CF-026 e suas demais dependências. A revisão deste candidato é o próximo passo.
+
+### Liberação pré-execução — consolidação documental de 01/10/2026
 
 **CF-026 apta a retomar localmente no escopo de lint e tipagem.** Estado
 pré-execução `pronta`; nenhuma correção executada e nenhum aceite marcado.

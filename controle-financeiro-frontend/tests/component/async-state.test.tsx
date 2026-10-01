@@ -444,8 +444,8 @@ describe("AC-UI-009: mutações otimistas concorrentes", () => {
     const attempt = deferred<string>();
     const onSuccess = vi.fn();
     const onError = vi.fn();
-    const { result, rerender } = renderHook(({ scope }) => useOptimisticMutation({
-      mutationFn: (_id: string) => attempt.promise,
+    const { result, rerender } = renderHook(({ scope }) => useOptimisticMutation<object, string, string>({
+      mutationFn: () => attempt.promise,
       onMutate: () => ({}), onSuccess, onError, scopeKey: scope,
     }), { initialProps: { scope: "user-a" as string | null } });
     let pending!: Promise<string>;
@@ -467,8 +467,8 @@ describe("AC-UI-009: mutações otimistas concorrentes", () => {
   test("R03: desmontagem invalida callbacks da mutação pendente", async () => {
     const attempt = deferred<string>();
     const onSuccess = vi.fn();
-    const { result, unmount } = renderHook(() => useOptimisticMutation({
-      mutationFn: (_id: string) => attempt.promise,
+    const { result, unmount } = renderHook(() => useOptimisticMutation<object, string, string>({
+      mutationFn: () => attempt.promise,
       onMutate: () => ({}), onSuccess, onError: vi.fn(), scopeKey: "user-a",
     }));
     let pending!: Promise<string>;

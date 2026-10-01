@@ -34,7 +34,7 @@ export function EditAccountModal({ isOpen, onClose, onSuccess, account }: EditAc
       await accountService.update(account.id, { name, color: account.color });
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao editar conta.");
     } finally {
       setIsLoading(false);

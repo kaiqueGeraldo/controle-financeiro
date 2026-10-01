@@ -38,7 +38,7 @@ export function DeleteHistoryModal({ isOpen, onClose, onSuccess, historyItem, pa
       window.dispatchEvent(new Event("refreshFinance"));
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao excluir registro de aporte.");
     } finally {
       setIsLoading(false);

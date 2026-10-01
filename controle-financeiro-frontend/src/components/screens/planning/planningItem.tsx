@@ -23,7 +23,7 @@ const StatusBadge = ({
   onClick,
 }: {
   status: PlanStatus;
-  onClick: (e: any) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
   const styles = {
     PENDING: "text-rose-500 bg-rose-500/10 border-rose-500/20",

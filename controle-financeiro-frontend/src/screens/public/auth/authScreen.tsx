@@ -14,6 +14,7 @@ import {
   User
 } from "lucide-react";
 import React, { useState } from "react";
+import { getErrorMessage } from "@/utils/errors";
 
 export default function AuthScreen() {
   const { 
@@ -56,8 +57,8 @@ export default function AuthScreen() {
     try {
       await solicitarToken(formData.email);
       setEmailSent(true);
-    } catch (error: any) {
-      setRecoverError(error.message || "Erro ao solicitar recuperação.");
+    } catch (error: unknown) {
+      setRecoverError(getErrorMessage(error, "Erro ao solicitar recuperação."));
     } finally {
       setIsRecovering(false);
     }
@@ -86,8 +87,8 @@ export default function AuthScreen() {
       
       // Remove a mensagem de sucesso depois de 5 segundos
       setTimeout(() => setSuccessMessage(null), 5000);
-    } catch (error: any) {
-      setRecoverError(error.message || "Código inválido ou expirado.");
+    } catch (error: unknown) {
+      setRecoverError(getErrorMessage(error, "Código inválido ou expirado."));
     } finally {
       setIsRecovering(false);
     }

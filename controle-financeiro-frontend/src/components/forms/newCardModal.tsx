@@ -79,7 +79,7 @@ export function NewCardModal({
 
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar cartão");
     } finally {
       setLoading(false);

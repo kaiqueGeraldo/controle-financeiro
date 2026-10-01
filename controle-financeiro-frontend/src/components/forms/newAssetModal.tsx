@@ -78,7 +78,7 @@ export function NewAssetModal({
 
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar ativo.");
     } finally {
       setIsLoading(false);

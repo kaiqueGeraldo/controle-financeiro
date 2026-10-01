@@ -6,6 +6,7 @@ import { usePlanningModals } from "@/contexts/modals/planningModalContext";
 import { usePlanningContext } from "@/contexts/planningContext";
 import { useToast } from "@/contexts/toastContext";
 import { planningService } from "@/services/planningService";
+import { getErrorMessage } from "@/utils/errors";
 
 export function PlanningModalManager() {
   const modals = usePlanningModals();
@@ -49,8 +50,8 @@ export function PlanningModalManager() {
               );
               refreshPlanning();
               modals.closeCopyPlanning();
-            } catch (error: any) {
-              toast.error(error.message || "Erro ao copiar planejamento.");
+            } catch (error: unknown) {
+              toast.error(getErrorMessage(error, "Erro ao copiar planejamento."));
             }
           }
         }}

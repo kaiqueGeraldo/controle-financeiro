@@ -1,0 +1,79 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/habits-rollback-review.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf023-session-invalidation.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/habits-rollback-review.test.tsx > R14: rollback de uma data preserva outra confirmação do mesmo hábito (log prévio=false) 51ms
+ ✓ tests/component/habits-rollback-review.test.tsx > R14: rollback de uma data preserva outra confirmação do mesmo hábito (log prévio=true) 8ms
+stdout | tests/component/async-state.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf023-session-invalidation.test.tsx > CF023: expiração limpa perfil e invalida resposta pendente sem ressuscitar A 111ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh antigo de A/setembro não substitui B/outubro mesmo se o cliente ignorar abort 53ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh de fatura pode ser repetido depois de erro real 11ms
+ ✓ tests/component/cf023-session-invalidation.test.tsx > CF023: outra aba invalida A, depois relê B com a credencial atual 225ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > resposta tardia do usuário A não aparece depois do login do usuário B 36ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > R09: evento de alteração financeira invalida o saldo das contas 9ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro 8ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: extrato com erro não vira página vazia e retry requisita a primeira página 9ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado success de sessão anterior A não atua após A/logout/A 7ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado failure de sessão anterior A não atua após A/logout/A 3ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: desmontagem invalida callbacks da mutação pendente 2ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > duas chamadas da mesma chave no mesmo tick compartilham uma requisição e a falha propaga 111ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > rollback tardio de M1 restaura só seu item e preserva M2 válida 9ms
+stdout | tests/component/cf015-revalidation-overlap.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-reconciliation-lifecycle.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf026-contracts.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stderr | tests/component/cf015-revalidation-overlap.test.tsx > R03 revalidação: refresh concorrente não transforma releitura recusada em reconciliação concluída
+Erro ao atualizar fatura Error: 503 substituta
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-revalidation-overlap.test.tsx:44:40
+    at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\@testing-library\react\dist\act-compat.js:47:24
+    at process.env.NODE_ENV.exports.act (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\react\cjs\react.development.js:814:22)
+    at Proxy.<anonymous> (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\node_modules\@testing-library\react\dist\act-compat.js:46:25)
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-revalidation-overlap.test.tsx:44:9
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cf015-revalidation-overlap.test.tsx > R03 revalidação: refresh concorrente não transforma releitura recusada em reconciliação concluída 435ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession failure-first preserves pending payment and read-only recovery 464ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração null usa defaults sem quebrar abertura ou salvamento 426ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession success-first preserves pending payment and read-only recovery 179ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração {} usa defaults sem quebrar abertura ou salvamento 196ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession late-success preserves pending payment and read-only recovery 186ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração 42 usa defaults sem quebrar abertura ou salvamento 160ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: supersession late-error preserves pending payment and read-only recovery 183ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: session cancels even a batch whose reads all succeed 11ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: unmount cancels even a batch whose reads all succeed 5ms
+ ✓ tests/component/cf015-reconciliation-lifecycle.test.tsx > R03/RV01: current batch preserves the actual read failure 10ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração "texto" usa defaults sem quebrar abertura ou salvamento 170ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração [null,42,"BALANCE"] usa defaults sem quebrar abertura ou salvamento 159ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração {json inválido usa defaults sem quebrar abertura ou salvamento 137ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=false 115ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=true 128ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > campos malformados e IDs desconhecidos não escapam para o payload 213ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > rejeição de salvar não fecha modal nem refaz leitura como sucesso 182ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição null 113ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição {"message":42} 71ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição {} 72ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Erro ao realizar operação.' 80ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Reserva indisponível' 48ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Erro legado' 60ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: reorder genérico preserva IDs e o efeito de falha/retry 69ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: cleanup impede success antigo de liberar lock da mesma chave na nova geração 6ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: cleanup impede failure antigo de liberar lock da mesma chave na nova geração 3ms
+
+ Test Files  6 passed (6)
+      Tests  42 passed (42)
+   Start at  09:00:03
+   Duration  6.35s (transform 1.79s, setup 2.73s, import 5.76s, tests 4.58s, environment 8.25s)
+
+exit_code=0

@@ -4,6 +4,7 @@ import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/contexts/toastContext";
 import { useUser } from "@/hooks/useUser";
 import { userService } from "@/services/userService";
+import { isRecord } from "@/utils/errors";
 import { Reorder } from "framer-motion";
 import { Columns, Eye, EyeOff, GripVertical, History, Landmark, LineChart, Loader2, Receipt, Target, TrendingUp, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -40,40 +41,47 @@ export const DEFAULT_CONFIG: DashboardCardConfig[] = [
   { id: "ACCOUNTS", visible: true, span: 1 },
 ];
 
+function safeParseConfig(rawConfig: string | undefined): DashboardCardConfig[] {
+  let parsed: unknown = [];
+  if (rawConfig) {
+    try {
+      let clean: unknown = rawConfig;
+      if (rawConfig.startsWith('"') && rawConfig.endsWith('"')) clean = JSON.parse(rawConfig);
+      if (typeof clean === "string") {
+        parsed = JSON.parse(clean.replace(/\\"/g, '"').replace(/\\\\/g, '\\'));
+      }
+    } catch {
+      parsed = [];
+    }
+  }
+
+  const result: DashboardCardConfig[] = [];
+  if (Array.isArray(parsed)) {
+    for (const candidate of parsed) {
+      if (!isRecord(candidate)) continue;
+      const defaults = DEFAULT_CONFIG.find(item => item.id === candidate.id);
+      if (!defaults || result.some(item => item.id === defaults.id)) continue;
+      const allowed = CARD_DEF[defaults.id].allowedSpans;
+      result.push({
+        id: defaults.id,
+        visible: typeof candidate.visible === "boolean" ? candidate.visible : defaults.visible,
+        span: typeof candidate.span === "number" && allowed.includes(candidate.span)
+          ? candidate.span : defaults.span,
+      });
+    }
+  }
+  for (const defaults of DEFAULT_CONFIG) {
+    if (!result.some(item => item.id === defaults.id)) result.push({ ...defaults });
+  }
+  return result;
+}
+
 export function ConfigDashboardModal({ isOpen, onClose }: ConfigDashboardModalProps) {
   const { user, refetchUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<DashboardCardConfig[]>([]);
   const toast = useToast();
   
-  const safeParseConfig = (rawConfig: string | undefined): DashboardCardConfig[] => {
-    let parsed: any[] = [];
-    if (rawConfig) {
-      try {
-        let clean = rawConfig;
-        if (clean.startsWith('"') && clean.endsWith('"')) clean = JSON.parse(clean);
-        clean = clean.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-        parsed = JSON.parse(clean);
-      } catch (e) {
-        parsed = [];
-      }
-    }
-    
-    const validIds = Object.keys(CARD_DEF);
-    const result: DashboardCardConfig[] = [];
-    
-    parsed.filter(p => validIds.includes(p.id)).forEach(p => {
-      const def = DEFAULT_CONFIG.find(d => d.id === p.id);
-      result.push({ ...def, ...p, span: p.span || def?.span || 1 });
-    });
-
-    DEFAULT_CONFIG.forEach(def => {
-      if (!result.find(r => r.id === def.id)) result.push(def);
-    });
-
-    return result;
-  };
-
   useEffect(() => {
     if (isOpen) setItems(safeParseConfig(user?.dashboardConfig));
   }, [isOpen, user]);
@@ -85,7 +93,7 @@ export function ConfigDashboardModal({ isOpen, onClose }: ConfigDashboardModalPr
   const cycleSpan = (id: string) => {
     setItems(items.map(item => {
       if (item.id === id) {
-        const allowed = CARD_DEF[item.id as keyof typeof CARD_DEF].allowedSpans;
+        const allowed = CARD_DEF[item.id].allowedSpans;
         const currentIndex = allowed.indexOf(item.span);
         const nextIndex = (currentIndex + 1) % allowed.length;
         return { ...item, span: allowed[nextIndex] };
@@ -100,7 +108,7 @@ export function ConfigDashboardModal({ isOpen, onClose }: ConfigDashboardModalPr
       await userService.updatePreferences({ dashboardConfig: JSON.stringify(items) });
       await refetchUser();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao salvar preferências.");
     } finally {
       setIsLoading(false);
@@ -117,7 +125,7 @@ export function ConfigDashboardModal({ isOpen, onClose }: ConfigDashboardModalPr
         </p>
         <div className="bg-bg-base p-3 rounded-2xl border border-border-divider grid grid-cols-3 gap-2 grid-flow-dense items-start">
           {items.filter(i => i.visible).map(item => {
-            const def = CARD_DEF[item.id as keyof typeof CARD_DEF];
+            const def = CARD_DEF[item.id];
             const colSpanClass = item.span === 3 ? "col-span-3" : item.span === 2 ? "col-span-2" : "col-span-1";
             
             return (
@@ -140,7 +148,7 @@ export function ConfigDashboardModal({ isOpen, onClose }: ConfigDashboardModalPr
       <div className="max-h-[35vh] overflow-y-auto custom-scroll pr-1">
         <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-2">
           {items.map((item) => {
-            const def = CARD_DEF[item.id as keyof typeof CARD_DEF];
+            const def = CARD_DEF[item.id];
             return (
               <Reorder.Item key={item.id} value={item} className="relative cursor-grab active:cursor-grabbing">
                 <div className={`flex items-center justify-between p-3 rounded-xl border transition-all ${item.visible ? 'bg-bg-surface border-border-divider' : 'bg-bg-base border-border-divider/50 grayscale opacity-50'}`}>

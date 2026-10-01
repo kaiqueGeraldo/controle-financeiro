@@ -52,7 +52,7 @@ const handleCreate = async (e: React.SyntheticEvent) => {
 
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar item de planejamento.");
     } finally {
       setIsSaving(false);

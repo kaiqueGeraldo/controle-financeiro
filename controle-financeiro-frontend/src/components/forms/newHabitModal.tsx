@@ -46,10 +46,7 @@ const COLORS = [
 export function NewHabitModal({
   isOpen,
   onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+}: NewHabitModalProps) {
   const { goals } = useGoalsContext();
   const { habits, refreshHabits } = useHabitsContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -112,7 +109,7 @@ export function NewHabitModal({
 
       await refreshHabits();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar hábito.");
     } finally {
       setIsLoading(false);

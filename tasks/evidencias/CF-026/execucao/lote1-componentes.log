@@ -1,0 +1,97 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/cf015-financial-consumers.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/async-state.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de accounts impede reconciliação e recuperação atualiza providers reais
+Erro ao carregar dados financeiros Error: 503 accounts
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:40:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de dashboard impede reconciliação e recuperação atualiza providers reais
+Erro ao buscar fluxo mensal Error: 503 dashboard
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:40:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+stderr | tests/component/cf015-financial-consumers.test.tsx > R03: falha de planning impede reconciliação e recuperação atualiza providers reais
+Erro ao buscar planejamento Error: 503 planning
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx:40:19
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de accounts impede reconciliação e recuperação atualiza providers reais 72ms
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de dashboard impede reconciliação e recuperação atualiza providers reais 12ms
+stdout | tests/component/temporal-forms.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf015-financial-consumers.test.tsx > R03: falha de planning impede reconciliação e recuperação atualiza providers reais 17ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh antigo de A/setembro não substitui B/outubro mesmo se o cliente ignorar abort 56ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh de fatura pode ser repetido depois de erro real 10ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > resposta tardia do usuário A não aparece depois do login do usuário B 50ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > R09: evento de alteração financeira invalida o saldo das contas 10ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro 8ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: extrato com erro não vira página vazia e retry requisita a primeira página 11ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado success de sessão anterior A não atua após A/logout/A 8ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado failure de sessão anterior A não atua após A/logout/A 5ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: desmontagem invalida callbacks da mutação pendente 4ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > duas chamadas da mesma chave no mesmo tick compartilham uma requisição e a falha propaga 146ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > rollback tardio de M1 restaura só seu item e preserva M2 válida 10ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > abre os quatro formulários às 23h59 com o dia do navegador, não o UTC 243ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R11: refresh de contas/ativo não apaga data editada no formulário aberto 90ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > preserva o campo aberto na virada e submete exatamente a data digitada 71ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > AC-UI-006: 503 mantém dados do formulário e não sinaliza sucesso 70ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R12: conflito de investimento não dispara callback de sucesso 33ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de transaction no mesmo tick enviam uma operação 24ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de card no mesmo tick enviam uma operação 35ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de payment no mesmo tick enviam uma operação 27ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de investment no mesmo tick enviam uma operação 27ms
+stdout | tests/component/habit-product-day.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cards-planning-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/auth-settings-accessibility.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/habit-product-day.test.tsx > P05: lista, detalhe e payload usam dia 07 antes da meia-noite de Brasília 239ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > o cartão inteiro é uma ação de detalhe alcançável por teclado 217ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura OPEN com status e ação coerentes 71ms
+ ✓ tests/component/habit-product-day.test.tsx > página aberta muda destaque, janela e payload juntos sem remapear logs 116ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em focus e limpa o timer 70ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em visibilitychange e limpa o timer 73ms
+ ✓ tests/component/habit-product-day.test.tsx > limite IANA respeita o dia de 23 horas de São Paulo em 2018 1ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > login vazio identifica a senha e não envia credenciais incompletas 673ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura CLOSED com status e ação coerentes 45ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura PAID com status e ação coerentes 45ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável 774ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > pagamento parcial aguarda a releitura antes de fechar o formulário 63ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > falha de resultado desconhecido conserva o pagamento e orienta a reconciliação 51ms
+stdout | tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha
+Aviso: Não foi possível invalidar o token na API. Error: Provedor sintético indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/auth-settings-accessibility.test.tsx:109:45
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > recuperação usa provedor falso e mantém erro remoto distinguível da entrada inválida 1193ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha 6ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > switches têm nome acessível, funcionam por teclado e falha não inventa preferência salva 79ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > preferência confirmada reaparece depois de recarregar os dados do usuário 104ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > ações de configuração podem ser acionadas por teclado e exportação falha sem criar download 218ms
+
+ Test Files  6 passed (6)
+      Tests  41 passed (41)
+   Start at  08:52:26
+   Duration  6.38s (transform 2.26s, setup 3.02s, import 6.51s, tests 5.12s, environment 8.98s)
+
+exit_code=0

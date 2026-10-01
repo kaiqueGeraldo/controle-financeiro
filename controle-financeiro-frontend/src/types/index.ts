@@ -170,6 +170,7 @@ export interface GoalDepositDTO {
   accountId?: string;
   amount: number;
   note?: string;
+  protocol?: EvolutionProtocol;
 }
 
 export type GoalItemStatus = "PENDING" | "PURCHASED";

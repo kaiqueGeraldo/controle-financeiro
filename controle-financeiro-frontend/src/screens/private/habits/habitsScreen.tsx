@@ -78,7 +78,7 @@ export default function HabitsScreen() {
               O Perdão Automático está ativo
             </h3>
             <p className="text-xs text-text-muted mt-1 leading-relaxed max-w-2xl">
-              Baseado no livro "Hábitos Atômicos": se você esquecer de registrar
+              Baseado no livro &quot;Hábitos Atômicos&quot;: se você esquecer de registrar
               um dia por um imprevisto (mas tiver cumprido no dia anterior), o
               sistema protegerá sua ofensiva. Nunca falhe duas vezes.
             </p>

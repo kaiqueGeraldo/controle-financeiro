@@ -1,5 +1,10 @@
 # Evidência CF-026
 
+> Entrega posterior de 01/10/2026 sobre `5f26a1d`: implementação local executada,
+> lint 0/0, typecheck/build e consumidores aprovados. Estado atual `em_revisao`;
+> [execução, oráculos e limitações](execucao/README.md). A preparação e a nota de
+> consolidação abaixo permanecem históricas.
+
 > Nota posterior de 01/10/2026: o bloqueio documental registrado em `c7f7ffc`
 > foi superado pela [consolidação CF-001–026](../consolidacao-CF-001-CF-026/README.md),
 > que confrontou a liberação independente já existente com os pareceres posteriores.

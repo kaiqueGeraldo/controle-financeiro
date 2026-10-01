@@ -14,8 +14,8 @@ interface HabitItemProps {
   layoutIdPrefix?: string;
 }
 
-const normalizeDate = (d: any) =>
-  Array.isArray(d)
+const normalizeDate = (d: string | readonly [number, number, number]) =>
+  typeof d !== "string"
     ? `${d[0]}-${String(d[1]).padStart(2, "0")}-${String(d[2]).padStart(2, "0")}`
     : d;
 

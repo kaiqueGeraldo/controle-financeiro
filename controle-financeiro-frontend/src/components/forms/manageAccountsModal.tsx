@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/contexts/toastContext";
+import { getErrorMessage } from "@/utils/errors";
 
 interface ManageAccountsModalProps {
   isOpen: boolean;
@@ -122,7 +123,7 @@ export function ManageAccountsModal({
       setCardLast4("");
       setCardClosingDay("");
       setCardDueDay("");
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (accountCreated) {
         setAccName("");
         setAccBalance("");
@@ -132,7 +133,7 @@ export function ManageAccountsModal({
         );
       } else {
         toast.error(
-          error?.message || "Erro ao criar conta. Verifique os dados.",
+          getErrorMessage(error, "Erro ao criar conta. Verifique os dados."),
         );
       }
     } finally {
@@ -150,7 +151,7 @@ export function ManageAccountsModal({
       await accountService.delete(id);
       fetchAccounts();
       onUpdate();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao excluir conta.");
     }
   };

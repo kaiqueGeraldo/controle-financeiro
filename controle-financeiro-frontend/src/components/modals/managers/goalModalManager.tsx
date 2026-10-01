@@ -10,6 +10,7 @@ import { DeleteGoalModal } from "@/components/forms/deleteGoalModal";
 import { DeleteHistoryModal } from "@/components/forms/deleteHistoryModal";
 import { ConfirmationModal } from "@/components/modals/confirmModal";
 import { useToast } from "@/contexts/toastContext";
+import { getErrorMessage } from "@/utils/errors";
 
 export function GoalModalManager() {
   const modals = useGoalModals();
@@ -55,8 +56,8 @@ export function GoalModalManager() {
               await goalService.deleteHistory(modals.goalHistoryToDeleteId);
               refreshGoals();
               modals.closeDeleteGoalHistory();
-            } catch (error: any) {
-              toast.error(error.message || "Erro ao excluir registro da meta.");
+            } catch (error: unknown) {
+              toast.error(getErrorMessage(error, "Erro ao excluir registro da meta."));
             }
           }
         }}

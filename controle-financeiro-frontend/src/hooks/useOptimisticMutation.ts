@@ -40,13 +40,14 @@ export function useOptimisticMutation<
   optionsRef.current = options;
 
   useLayoutEffect(() => {
+    const activeKeys = activeKeysRef.current;
     scopeRef.current = options.scopeKey ?? null;
     generationRef.current += 1;
-    activeKeysRef.current.clear();
+    activeKeys.clear();
     setPendingCount(0);
     return () => {
       generationRef.current += 1;
-      activeKeysRef.current.clear();
+      activeKeys.clear();
     };
   }, [options.scopeKey]);
 

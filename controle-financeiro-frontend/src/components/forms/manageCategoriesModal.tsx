@@ -126,7 +126,7 @@ export function ManageCategoriesModal({
         await createCategory(formData);
       }
       setView("LIST");
-    } catch (error: any) {
+    } catch {
       setErrorMessage("Erro ao salvar categoria.");
     } finally {
       setIsSaving(false);
@@ -139,7 +139,7 @@ export function ManageCategoriesModal({
     try {
       await deleteCategory(categoryToDelete);
       setCategoryToDelete(null);
-    } catch (error: any) {
+    } catch {
       setErrorMessage("Erro ao excluir categoria.");
     }
   };

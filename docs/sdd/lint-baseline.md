@@ -2,6 +2,21 @@
 
 07/09/2026: 70 erros e 37 avisos em 54 arquivos. Comando: npm run lint -- --format json. Coletado após o lote de datas. Não representa 107 bugs de execução; são violações de regras a triar. Nenhuma regra foi desabilitada.
 
+## Entrega local CF-026 — 01/10/2026
+
+Retomada na base `5f26a1d`: baseline reconfirmada com 23 erros e 21 avisos.
+Após os lotes de bindings/JSX, contratos/narrowing e cleanup: **0 erros e
+0 avisos em 236 arquivos**. Os 234 arquivos anteriores continuam inspecionados;
+os novos são o helper de erros e o teste de fronteiras/cleanup. Configuração,
+regras, exclusões e dependências permaneceram intactas.
+
+Typecheck/build aprovados, 180 testes de componente e 6 unitários em cada
+fuso (São Paulo, UTC, UTC+14). Contraprovas isoladas detectam o parser/erros
+originais e perda de geração do hook. [Comandos, comparação de alvos, oráculos,
+falhas intermediárias e limitações](../../tasks/evidencias/CF-026/execucao/README.md).
+CF-026 está `em_revisao`: estes são resultados do executor, sem fechamento dos
+aceites pendentes de outras tarefas. Medições abaixo são históricas.
+
 ## Reavaliação de prontidão CF-026 — 01/10/2026
 
 Base `04cad8d072f789fbe3f4050d8912d5526ec600f5`: 23 erros e 21 avisos,

@@ -91,7 +91,7 @@ export function NewCardTransactionModal({
 
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar transação no cartão. Verifique os dados.");
     } finally {
       submitting.current = false;

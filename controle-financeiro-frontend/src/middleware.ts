@@ -16,7 +16,7 @@ function isTokenExpired(token: string) {
       return true; 
     }
     return false; 
-  } catch (e) {
+  } catch {
     return true; 
   }
 }

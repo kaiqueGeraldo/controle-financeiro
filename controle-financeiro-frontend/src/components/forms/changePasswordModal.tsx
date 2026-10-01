@@ -3,6 +3,7 @@
 import { Modal } from "@/components/ui/modal";
 import { userService } from "@/services/userService";
 import { validarSenha } from "@/validators/inputValidator";
+import { getErrorMessage } from "@/utils/errors";
 import { AlertCircle, CheckCircle2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 
@@ -51,9 +52,9 @@ export function ChangePasswordModal({
         setSuccess(false);
         onClose();
       }, 2000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(
-        error.message || "Erro ao alterar senha. Verifique sua senha atual.",
+        getErrorMessage(error, "Erro ao alterar senha. Verifique sua senha atual."),
       );
     } finally {
       setIsLoading(false);

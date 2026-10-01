@@ -4,16 +4,16 @@ import { Reorder } from "framer-motion";
 import { GripVertical, Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-interface ReorderModalProps {
+interface ReorderModalProps<T extends { id: string }> {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  items: any[];
+  items: T[];
   onSave: (orderedIds: string[]) => Promise<void>;
-  renderItem: (item: any) => React.ReactNode;
+  renderItem: (item: T) => React.ReactNode;
 }
 
-export function ReorderModal({ isOpen, onClose, title, items, onSave, renderItem }: ReorderModalProps) {
+export function ReorderModal<T extends { id: string }>({ isOpen, onClose, title, items, onSave, renderItem }: ReorderModalProps<T>) {
   const [orderedItems, setOrderedItems] = useState(items);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
@@ -27,7 +27,7 @@ export function ReorderModal({ isOpen, onClose, title, items, onSave, renderItem
     try {
       await onSave(orderedItems.map(i => i.id));
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao reordenar itens.");
     } finally {
       setIsLoading(false);

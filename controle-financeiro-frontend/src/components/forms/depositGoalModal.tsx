@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/components/ui/modal";
-import { Account, Goal } from "@/types";
+import { Account, Goal, GoalDepositDTO } from "@/types";
+import { getErrorMessage, isRecord } from "@/utils/errors";
 import {
   Loader2,
   PiggyBank,
@@ -68,7 +69,7 @@ export function DepositGoalModal({
       }
 
       // Prepara o payload
-      const payload: any = {
+      const payload: GoalDepositDTO = {
         amount: amountNumber,
         note: note || (isMonetary ? "Aporte Manual" : "Registro de Progresso"),
       };
@@ -89,14 +90,13 @@ export function DepositGoalModal({
 
       onSuccess();
       handleClose();
-    } catch (error: any) {
-      const msg =
-        error.response?.data?.message ||
-        error.message ||
-        "Erro ao realizar operação.";
+    } catch (error: unknown) {
+      const legacyData = isRecord(error) && isRecord(error.response) && isRecord(error.response.data)
+        ? error.response.data : undefined;
+      const msg = getErrorMessage(legacyData, getErrorMessage(error, "Erro ao realizar operação."));
       setErrorMessage(msg);
 
-      if (error.status === 409) {
+      if (isRecord(error) && error.status === 409) {
         onSuccess();
       }
     } finally {
@@ -254,7 +254,7 @@ export function DepositGoalModal({
                 >
                   <div>
                     <label className="text-[10px] uppercase font-bold text-text-muted">
-                      1. A Essência (O "Download")
+                      1. A Essência (O &quot;Download&quot;)
                     </label>
                     <textarea
                       rows={3}

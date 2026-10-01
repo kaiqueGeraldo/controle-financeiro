@@ -100,7 +100,7 @@ export function NewGoalModal({
 
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar meta. Verifique os campos.");
     } finally {
       setIsLoading(false);

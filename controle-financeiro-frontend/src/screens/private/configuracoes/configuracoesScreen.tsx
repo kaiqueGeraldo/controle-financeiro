@@ -69,7 +69,7 @@ export default function ConfiguracoesScreen() {
     try {
       await userService.deleteAccount();
       handleLogout(() => {});
-    } catch (error) {
+    } catch {
       showFeedback(
         "Erro crítico ao excluir conta. Contate o suporte.",
         "error",
@@ -102,9 +102,6 @@ export default function ConfiguracoesScreen() {
       setIsExporting(false);
     }
   };
-
-  const handleComingSoon = () =>
-    showFeedback("Em breve nas próximas atualizações! 🚀", "info");
 
   return (
     <div className="min-h-screen bg-bg-base font-sans text-text-main pb-20">

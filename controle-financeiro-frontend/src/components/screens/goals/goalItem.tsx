@@ -5,6 +5,8 @@ import { Goal, GoalType } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { formatCalendarDate, isCalendarDatePast } from "@/utils/date";
 import { motion } from "framer-motion";
+import type { ReactElement } from "react";
+import type { LucideProps } from "lucide-react";
 import {
   BookOpen,
   Calendar,
@@ -20,7 +22,7 @@ import {
 
 // --- HELPERS VISUAIS ---
 
-export const getGoalIcon = (iconName?: string) => {
+export const getGoalIcon = (iconName?: string): ReactElement<LucideProps> => {
   switch (iconName) {
     case "ShieldAlert":
       return <ShieldAlert size={20} />;

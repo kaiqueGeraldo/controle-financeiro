@@ -7,6 +7,7 @@ import { useUser } from "@/hooks/useUser";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2, AlertTriangle, AlertCircle } from "lucide-react";
 import { validarEmail, validarNome } from "@/validators/inputValidator";
+import { getErrorMessage } from "@/utils/errors";
 
 export function EditProfileModal({
   isOpen,
@@ -58,8 +59,8 @@ export function EditProfileModal({
         await refetchUser();
         onClose();
       }
-    } catch (error: any) {
-      setError(error.message || "Erro ao atualizar perfil.");
+    } catch (error: unknown) {
+      setError(getErrorMessage(error, "Erro ao atualizar perfil."));
     } finally {
       setIsLoading(false);
     }

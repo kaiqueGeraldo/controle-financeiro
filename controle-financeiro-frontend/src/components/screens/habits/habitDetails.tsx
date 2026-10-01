@@ -1,6 +1,6 @@
 "use client";
 
-import { Habit } from "@/types";
+import { CreateHabitDTO, Habit } from "@/types";
 import { useProductToday } from "@/contexts/browserTodayContext";
 import { addCalendarDays, formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,12 +12,12 @@ interface HabitDetailsProps {
   isOpen: boolean;
   habit: Habit | undefined;
   onClose: () => void;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: Pick<CreateHabitDTO, "name" | "description">) => Promise<void>;
   onDelete: (id: string) => void;
 }
 
-const normalizeDate = (d: any) =>
-  Array.isArray(d)
+const normalizeDate = (d: string | readonly [number, number, number]) =>
+  typeof d !== "string"
     ? `${d[0]}-${String(d[1]).padStart(2, "0")}-${String(d[2]).padStart(2, "0")}`
     : d;
 
@@ -98,7 +98,7 @@ export function HabitDetails({
                   className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 ${textColor} ${bgColor}`}
                 >
                   {React.cloneElement(
-                    getGoalIcon(habit.icon) as React.ReactElement<any>,
+                    getGoalIcon(habit.icon),
                     { size: 32 },
                   )}
                 </motion.div>

@@ -1,0 +1,116 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/cf015-profile-draft.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/habit-product-day.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf026-contracts.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf015-profile-draft.test.tsx > CF015-R07: releitura do mesmo usuário preserva nome que está sendo editado 61ms
+stdout | tests/component/auth-settings-accessibility.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cards-planning-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-recovery-expanded.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/habit-product-day.test.tsx > P05: lista, detalhe e payload usam dia 07 antes da meia-noite de Brasília 128ms
+ ✓ tests/component/habit-product-day.test.tsx > página aberta muda destaque, janela e payload juntos sem remapear logs 66ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em focus e limpa o timer 48ms
+ ✓ tests/component/habit-product-day.test.tsx > revalida após suspensão em visibilitychange e limpa o timer 48ms
+ ✓ tests/component/habit-product-day.test.tsx > limite IANA respeita o dia de 23 horas de São Paulo em 2018 1ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração null usa defaults sem quebrar abertura ou salvamento 199ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração {} usa defaults sem quebrar abertura ou salvamento 101ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração 42 usa defaults sem quebrar abertura ou salvamento 62ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: duplo envio faz um POST; falha de releitura recupera só com GETs 187ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: resultado desconhecido continua protegido após remontagem e atualização 81ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado
+Erro ao buscar cartões Error: 503 cards
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:82:57
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração "texto" usa defaults sem quebrar abertura ou salvamento 52ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração [null,42,"BALANCE"] usa defaults sem quebrar abertura ou salvamento 57ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: recusa HTTP permite corrigir a entrada sem confirmação falsa 50ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado 39ms
+stderr | tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera
+Erro ao buscar fatura Error: 503 invoice
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx:95:28
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > configuração {json inválido usa defaults sem quebrar abertura ou salvamento 46ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=false 50ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > o cartão inteiro é uma ação de detalhe alcançável por teclado 126ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura OPEN com status e ação coerentes 31ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura CLOSED com status e ação coerentes 25ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura PAID com status e ação coerentes 31ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > login vazio identifica a senha e não envia credenciais incompletas 490ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera 177ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura 8ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados 3ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão 3ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R07: troca de identidade e cancelar/reabrir inicializam o formulário correto 23ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade 3ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior 2ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=true 53ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > campos malformados e IDs desconhecidos não escapam para o payload 61ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável 382ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > pagamento parcial aguarda a releitura antes de fechar o formulário 52ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > falha de resultado desconhecido conserva o pagamento e orienta a reconciliação 40ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: preferências desconhecidas respeitam o contrato de apresentação > rejeição de salvar não fecha modal nem refaz leitura como sucesso 57ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição null 39ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição {"message":42} 31ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > troca de senha com rejeição {} 32ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Erro ao realizar operação.' 31ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Reserva indisponível' 30ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: erro desconhecido não quebra o tratamento de falhas > aporte preserva mensagem e reconferência de conflito: 'Erro legado' 12ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: reorder genérico preserva IDs e o efeito de falha/retry 15ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: cleanup impede success antigo de liberar lock da mesma chave na nova geração 2ms
+ ✓ tests/component/cf026-contracts.test.tsx > CF-026: cleanup impede failure antigo de liberar lock da mesma chave na nova geração 1ms
+stdout | tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha
+Aviso: Não foi possível invalidar o token na API. Error: Provedor sintético indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/auth-settings-accessibility.test.tsx:109:45
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > recuperação usa provedor falso e mantém erro remoto distinguível da entrada inválida 1256ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha 6ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > switches têm nome acessível, funcionam por teclado e falha não inventa preferência salva 57ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > preferência confirmada reaparece depois de recarregar os dados do usuário 88ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > ações de configuração podem ser acionadas por teclado e exportação falha sem criar download 173ms
+
+ Test Files  6 passed (6)
+      Tests  49 passed (49)
+   Start at  08:59:56
+   Duration  3.81s (transform 964ms, setup 1.23s, import 3.97s, tests 4.64s, environment 3.75s)
+
+exit_code=0
