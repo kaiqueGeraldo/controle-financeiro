@@ -1,0 +1,13 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf024-mutations-e5aae81266ee4d539e924bca3edd250c\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
+index 7e5f14e..258c2ad 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf024-mutations-e5aae81266ee4d539e924bca3edd250c\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
+@@ -36,7 +36,7 @@ public class FinancialIntentService {
+         if (previous.isEmpty()) return null;
+         var receipt=previous.get();
+         if (!receipt.getUserId().equals(user.getId()) || !receipt.getKind().equals(kind)
+-                || !receipt.getFingerprint().equals(fingerprint))
++                )
+             throw new OperationConflictException("Esta intenção já foi usada com outro conteúdo.");
+         return json.readValue(receipt.getResultJson(),resultType);
+     }

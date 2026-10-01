@@ -1,6 +1,6 @@
 # CF-024 — Corrigir concorrência financeira e cache após commit
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -163,3 +163,30 @@ Snapshots exigem compatibilidade futura de DTO/schema; recibos crescem com as
 operações. Prazo de espera de locks de produção não foi definido. A revisão
 independente de CF-024 está liberada; nenhuma sucessora foi integralmente
 liberada. RVA-03/RJ-022-01/RV17-01/02 e adoção real mantidos; sem push/deploy.
+
+## Revisão independente — 01/10/2026
+
+**Concluída no recorte backend de DEC-10 e invalidação após commit**, conforme
+[parecer independente A–F e matriz](../evidencias/revisao-CF-024/README.md).
+O histórico acima permanece. O checklist de cache refere-se ao caminho normal
+de invalidação/chaves/rollback por proxy real, com entradas sintéticas; falha
+de callback não possui recuperação durável e não certifica frescor universal
+de leitura em produção. Nenhum Cacheable foi habilitado.
+
+Classe final30 reexecutada no checkout; gate pertinente99/99 com verify/JAR;
+consolidação em cópia22/22 (17 probes,1 upgrade V12→V13,4 correções herdadas);
+18 componentes pertinentes; cinco mutações causais reproduzidas e restauração30/30.
+Contagens se sobrepõem. Execução ampliada119 teve um timeout de scheduler,
+mantido como H24-01; isolado posterior passou sem encerrar causa.
+
+Consumidores sem chave não recebem garantia nova: RV24-01 confirma reenvio
+inseguro após resultado desconhecido; RV24-02 confirma exclusão de usuário com
+pagamento vinculada a FK. São defeitos herdados fora do contrato entregue,
+com [responsáveis e encerramento próprios](../evidencias/revisao-CF-024/ACHADOS.md),
+sem aprovação integral desses fluxos. Recibos de comandos antigos não foram
+declarados snapshots imutáveis. R03/RV01 preservados; RVA-03 não encerrado.
+
+**CF-025 apta a iniciar localmente**, considerando concretamente CF-021 e o
+backend aprovado de CF-022. Nenhuma implementação de CF-025 iniciada. Permanecem
+RJ-022-01/H24-01, RV17-01/02, adoção real, zoom200% e gates de release. Produto,
+migrações, frontend e README alheio preservados; sem banco real/push/deploy.

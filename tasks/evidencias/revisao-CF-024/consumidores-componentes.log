@@ -1,0 +1,47 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/bff-contract.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > 204 permanece sem corpo e sem content-type inventado 19ms
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > R04: request já cancelado não dispara escrita no backend 5ms
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > arquivo binário preserva bytes, tipo e nome 13ms
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > conexão recusada é 503 recuperável 9ms
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > status e problema JSON do backend atravessam o proxy sem reclassificação 8ms
+ ✓ tests/component/bff-contract.test.tsx > contrato do BFF [AC-UI-006/007] > timeout upstream é 504 e cancelamento do cliente não vira 500 17ms
+stdout | tests/component/cf015-payment-reconciliation.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/milestone-payment-intent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/milestone-transaction-command.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stderr | tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado
+Erro ao atualizar fatura Error: 503 sintético: releitura indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-payment-reconciliation.test.tsx:33:62
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+stdout | tests/component/goals-investments-habits-annual-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado 1147ms
+ ✓ tests/component/milestone-transaction-command.test.tsx > lost settlement freezes its command across reopen and explicit retry preserves every field 1387ms
+ ✓ tests/component/milestone-transaction-command.test.tsx > confirmed reversal with failed reads only refreshes and never sends a second mutation 387ms
+ ✓ tests/component/milestone-payment-intent.test.tsx > unknown outcome survives reopen and retries the exact stored command only after explicit recovery 1653ms
+ ✓ tests/component/milestone-payment-intent.test.tsx > a located receipt reconciles the screen without a second payment request 314ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > V-ERROR: metas e investimentos não apresentam coleções vazias como sucesso 763ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > V-ERROR: resumo anual conserva erro recuperável, sem alegar ano vazio 89ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > AC-UI-012: posição atual não é rotulada como fechamento de ano passado 250ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > posição somente do ano corrente deixa explícito que não é fechamento anual 102ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > falha ao salvar nota conserva o editor e o texto para nova tentativa 87ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > AC-TIME-001: histórico de investimento mostra data civil sem deslocar o dia 116ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > hábitos diário e semanal usam o dia do produto e contam apenas logs da semana 52ms
+
+ Test Files  5 passed (5)
+      Tests  18 passed (18)
+   Start at  21:21:56
+   Duration  11.25s (transform 2.71s, setup 4.92s, import 13.85s, tests 6.49s, environment 16.24s)
+

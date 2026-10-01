@@ -101,3 +101,13 @@ demonstrar causalmente a correção, se necessária, conforme
 [condição objetiva](../evidencias/revisao-CF-022-CF-023/ACHADOS.md).
 Não se declarou defeito de calendário/PG sem prova. Não bloqueia a implementação
 localCF-024, cuja dependência não inclui hábitos; produção continua não liberada.
+
+## Evidência adicional durante revisão CF-024 — 01/10/2026
+
+Estado permanece `em_revisao`; RJ-022-01 não foi encerrado. A execução ampliada
+da revisão CF-024 observou timeout no segundo callback registrado de scheduler
+(teste:268); o mesmo caso passou isolado com limite10s/assertions intactos.
+[H24-01](../evidencias/revisao-CF-024/ACHADOS.md) registra logs/thread dump,
+incerteza causal e condição de encerramento. É distinto do problema de browser
+RJ-022-01. Não há prova de corrupção financeira; o backend já aprovado permite
+início local de CF-025 com fixtures isoladas, conforme o parecer dessa revisão.

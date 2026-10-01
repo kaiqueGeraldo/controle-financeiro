@@ -1,0 +1,13 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf024-mutations-e5aae81266ee4d539e924bca3edd250c\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
+index 7e5f14e..2def020 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\cf024-mutations-e5aae81266ee4d539e924bca3edd250c\\src\\main\\java\\com\\controlefinanceiro\\api\\service\\FinancialIntentService.java"
+@@ -50,7 +50,7 @@ public class FinancialIntentService {
+ 
+     @Transactional(readOnly = true)
+     public FinancialIntentReceiptDTO recover(UUID key, User user) {
+-        var receipt=receipts.findByIdAndUserId(key,user.getId())
++        var receipt=receipts.findById(key)
+                 .orElseThrow(()->new ResourceNotFoundException("Intenção ainda não localizada."));
+         return new FinancialIntentReceiptDTO(key,receipt.getKind(),receipt.getRecordedAt(),json.readTree(receipt.getResultJson()));
+     }

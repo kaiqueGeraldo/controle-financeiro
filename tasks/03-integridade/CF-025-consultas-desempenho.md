@@ -1,6 +1,6 @@
 # CF-025 — Medir e corrigir N+1 e consultas ineficientes
 
-- Estado: proposta
+- Estado: pronta
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -53,3 +53,22 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Checklist usa duas queries em lote; cobertura usa dois agregados por escopo; H-02 comprova export consistente com páginas 500/SXSSF 100. Custos MVCC/conexão durante geração, bytes finais em memória e replay O(operações) estão documentados. Benchmark/plano/índices/limites de volume desta tarefa não foram executados; estado preservado.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Prontidão local após revisão independente — 01/10/2026
+
+**CF-025 apta a iniciar localmente.** Estado `pronta`, sem implementação,
+benchmark ou otimização iniciados. Ver [parecer F](../evidencias/revisao-CF-024/README.md).
+
+CF-021 tem agregados/export/posição aceitos no próprio escopo; CF-024 concluiu
+as invariantes backend, protocolo opcional e cache após commit delimitados na
+revisão. CF-022 conserva `em_revisao` por RJ-022-01, mas seu backend DEC-08,
+calendário/locks/migrações necessários já está aprovado no parecer conjunto.
+Novo timeout H24-01 no gate ampliado permanece inconclusivo; caso isolado passou,
+sem demonstração de corrupção ou pré-condição financeira indefinida que impeça
+medir queries localmente. Não se declarou toda a suíte ampliada aprovada.
+
+Preservar ownership, paginação, saldos/recibos, ordem dos locks e AFTER_COMMIT
+ao otimizar; medir SQL/dataset/p95/EXPLAIN antes de alterar. RV24-01/02 pertencem
+a consumidores/exclusão, não são transferidos para esta tarefa. Permanecem
+RVA-03, RJ-022-01, H24-01, RV17-01/02, adoção real, zoom200% e cadeia de release.
+Essa prontidão não equivale a liberação de produção nem conclusão de CF-022.

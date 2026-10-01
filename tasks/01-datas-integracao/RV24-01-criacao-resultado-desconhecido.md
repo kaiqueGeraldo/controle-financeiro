@@ -1,0 +1,48 @@
+# RV24-01 — Reconciliar criação com resultado desconhecido antes de reenviar
+
+- Estado: proposta
+- Prioridade: P1
+- Marco: datas/frontend/integridade
+- Modelo executor: gpt-5.6-sol
+- Esforço: high
+- Revisor sugerido: gpt-6-astra / high
+- Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
+- Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
+
+## Problema e resultado esperado
+
+NewTransactionModal libera nova submissão depois de ApiError502 com
+requiresReconciliation=true e envia corpo sem operationId. Se a primeira
+operação tiver sido confirmada, o reenvio pode repetir dinheiro. O formulário
+deve preservar resultado desconhecido e reconciliar antes de criar nova intenção,
+ou repetir exatamente a identidade/corpo de um protocolo durável adotado.
+
+## Escopo e referências
+
+`controle-financeiro-frontend/src/components/forms/newTransactionModal.tsx`,
+`operationModal.tsx`, serviços/DTOs e componentes de reconciliação pertinentes.
+Investimento tem risco estático relacionado a verificar dinamicamente. Ler
+[achado, duas provas e limites](../evidencias/revisao-CF-024/ACHADOS.md).
+Não reabrir pagamento R03/RV01 nem prometer identidade após perda de armazenamento.
+Não transformar optional operationId em obrigatório no servidor sem contrato.
+
+## Trabalho
+
+1. Preservar a contraprova de UI e ligar o cenário ao banco descartável.
+2. Escolher e documentar tratamento seguro de desconhecido, distinguindo nova
+   intenção legítima de retry; considerar reload e persistência da identidade.
+3. Validar transação e investimento sem interferir em mutação posterior válida.
+
+## Aceite e testes adversariais
+
+- [ ] Probe vermelho original detecta a versão defeituosa e passa com a correção causal.
+- [ ] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
+- [ ] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
+- [ ] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
+- [ ] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
+
+## Evidência e revisão
+
+Usar `tasks/evidencias/RV24-01/` e política de testes. Evidência inicial preservada
+na revisão CF-024. Tarefa apenas registrada, não implementada nesta revisão;
+CF-032 conserva seu gate integrado e CF-025 pode iniciar localmente.
