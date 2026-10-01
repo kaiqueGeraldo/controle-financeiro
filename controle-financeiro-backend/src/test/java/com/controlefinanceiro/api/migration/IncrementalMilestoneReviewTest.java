@@ -17,6 +17,7 @@ class IncrementalMilestoneReviewTest {
     @Test void canonicalV8ThenV9() throws Exception {upgrade(8);}
     @Test void canonicalV9ThenV10() throws Exception {upgrade(9);}
     @Test void canonicalV10ThenV11() throws Exception {upgrade(10);}
+    @Test void canonicalV12ThenV13() throws Exception {upgrade(12);}
     private void upgrade(int start) throws Exception {
         String schema=Cf017PostgresSupport.createSchema("rv1821_v"+start);
         Flyway limited=Flyway.configure().configuration(Cf017PostgresSupport.flyway(schema).getConfiguration()).target(String.valueOf(start)).load();
@@ -44,7 +45,7 @@ class IncrementalMilestoneReviewTest {
                 s.execute("insert into invest_transactions(id,type,date,quantity,price,total_value,fees,investment_id) values ('61000000-0000-0000-0000-000000000001','BUY','2026-09-07 23:30:45.123456',3,0.33,1,0,'60000000-0000-0000-0000-000000000001')");
             }
             if(start>=8)s.execute("update investments set replay_quantity=quantity,replay_cost=total_cost");
-            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(12-start);
+            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(13-start);
             if(start>=5){
                 assertThat(scalar(s,"select reporting_known_from::text from investments where ticker='KNOWN'")).isNull();
                 assertThat(scalar(s,"select concat(replay_quantity,':',replay_cost,':',valuation_amount) from investments where ticker='KNOWN'")).isEqualTo("3.00000000:1.00:1.00");

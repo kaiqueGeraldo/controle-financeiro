@@ -9,7 +9,8 @@ import com.controlefinanceiro.api.domain.note.YearlyNote;
 import com.controlefinanceiro.api.domain.note.YearlyNoteRepository;
 import com.controlefinanceiro.api.domain.summary.dto.*;
 import com.controlefinanceiro.api.domain.user.User;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationEventPublisher;
+import com.controlefinanceiro.api.domain.event.UserFinancialDataChangedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class AnnualSummaryService {
     @Autowired private YearlyNoteRepository noteRepository;
     @Autowired private Clock clock;
     @Autowired private ReportingCoverageService coverageService;
+    @Autowired private ApplicationEventPublisher events;
 
     @Transactional(readOnly=true,isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public AnnualSummaryDTO getSummary(User user, Integer year) {
@@ -111,7 +113,6 @@ public class AnnualSummaryService {
     }
 
     @Transactional
-    @CacheEvict(value = "annualSummary", key = "#user.id + '-' + #data.year()")
     public void updateNote(User user, UpdateNoteDTO data) {
         YearlyNote note = noteRepository.findByUserIdAndYear(user.getId(), data.year())
                 .orElse(new YearlyNote());
@@ -123,6 +124,7 @@ public class AnnualSummaryService {
 
         note.setContent(data.content());
         noteRepository.save(note);
+        events.publishEvent(new UserFinancialDataChangedEvent(user.getId(),data.year()));
     }
 
     // Lógica criativa para comparar desempenho

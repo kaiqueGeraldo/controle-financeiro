@@ -51,6 +51,7 @@ public class InvestmentService {
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private Clock clock;
     @Autowired private InvestmentValuationRepository valuationRepository;
+    @Autowired private FinancialIntentService intents;
 
     public List<InvestmentResponseDTO> listAll(User user) {
         return investmentRepository.findAllByUserId(user.getId())
@@ -120,7 +121,17 @@ public class InvestmentService {
     }
 
     @Transactional
-    public void performOperation(InvestmentOperationDTO data, User user) {
+    public InvestTransactionResponseDTO performOperation(InvestmentOperationDTO data, User user) {
+        String fingerprint=FinancialIntentService.fingerprint(data.investmentId(),data.type(),data.quantity(),
+                data.price(),data.fees()==null?BigDecimal.ZERO:data.fees(),data.date(),data.accountId(),data.amount());
+        var previous=intents.replay(data.operationId(),user,FinancialIntentService.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
+        if(previous!=null) return previous;
+        var result=performOperationOnce(data,user);
+        intents.complete(data.operationId(),user,FinancialIntentService.INVESTMENT_OPERATION,fingerprint,result);
+        return result;
+    }
+
+    private InvestTransactionResponseDTO performOperationOnce(InvestmentOperationDTO data, User user) {
         log.info("SERVICE: Processando operação de {} no ativo ID {}", data.type(), data.investmentId());
         ZonedDateTime now = ZonedDateTime.now(clock);
 
@@ -182,6 +193,7 @@ public class InvestmentService {
 
         log.info("SERVICE: Operação finalizada com sucesso.");
         eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), data.date().getYear()));
+        return new InvestTransactionResponseDTO(recorded);
     }
 
     private InvestTransaction processBuy(Investment investment, InvestmentOperationDTO data, Account account,

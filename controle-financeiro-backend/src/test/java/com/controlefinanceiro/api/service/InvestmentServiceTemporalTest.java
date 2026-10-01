@@ -104,5 +104,6 @@ class InvestmentServiceTemporalTest {
         ReflectionTestUtils.setField(service, "allocationRepository", allocations);
         ReflectionTestUtils.setField(service, "eventPublisher", mock(ApplicationEventPublisher.class));
         ReflectionTestUtils.setField(service, "categoryRepository", categoryRepository);
+        ReflectionTestUtils.setField(service, "intents", mock(FinancialIntentService.class));
     }
 }

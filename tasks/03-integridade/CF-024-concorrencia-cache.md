@@ -1,6 +1,6 @@
 # CF-024 — Corrigir concorrência financeira e cache após commit
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -28,10 +28,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Duas escritas não perdem saldo nem duplicam débito; conflito/retry produz resultado explícito e testado.
-- [ ] Cache não publica resultado que fez rollback e não permanece desatualizado após commit.
-- [ ] Teste observa banco após ambas as transações; remover proteção crítica faz assertion de integridade falhar.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Duas escritas não perdem saldo nem duplicam débito; conflito/retry produz resultado explícito e testado.
+- [x] Cache não publica resultado que fez rollback e não permanece desatualizado após commit.
+- [x] Teste observa banco após ambas as transações; remover proteção crítica faz assertion de integridade falhar.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -115,3 +115,48 @@ transversal e ordem de locks ainda são trabalho desta tarefa. Não autoriza
 cache futuro sem ownership/after-commit nem reenviar intenção desconhecida
 com outra chave. Publicação conserva RVA-03, RV17-01/02/adoção real, zoom200%,
 CF-024/025/027/032 e cadeia de release. Sem push/deploy/banco real ou CF-025+.
+
+## Execução local — 30/09/2026
+
+Retomada sobre `9fa4fae`, com README preexistente preservado. Histórico do
+bloqueio mantido. Expected definidos em [contrato CF-024](../evidencias/CF-024/CONTRATO.md).
+Exceções de caminhos necessárias: testes/initializer em `src/test/java/.../service/`
+(não empacotar testes no produto); migração aditiva e testes de migração para
+recibos duráveis de criação/transferência/operação de investimento; controllers
+de comandos/recuperação e handler HTTP para comprovar conflito recuperável real.
+Não haverá alteração de frontend, habilitação de Cacheable, banco real ou deploy.
+
+## Entrega local — 30/09/2026
+
+Critérios implementados/validados no recorte backend; `em_revisao` até execução
+independente. [Relatório atual e histórico](../evidencias/CF-024/README.md),
+[execuções](../evidencias/CF-024/EXECUCOES.md) e
+[mutações/restauração](../evidencias/CF-024/mutation-results.json).
+
+Entregues: recibos imutáveis de criação/transferência/investimento em V13,
+operationId opcional/fingerprint/replay/GET autenticado; pagamento/adiantamento
+revalidado; cache após commit (writers, nota e exclusão de usuário);409 para
+lock/versão/timeout/deadlock. Locks por fonte existentes preservados, sem lock
+global financeiro. Bare deletion mantém limpeza global de cache anterior, agora
+após commit; não certifica exclusão completa de usuário com todos os domínios.
+
+Backend verify/JAR:388/388, incluindo29 casos CF-024; depois o30º caso de
+deadlock real e toda a classe passaram30/30 na cópia restaurada, com src inteiro
+igual ao checkout por SHA. Cinco mutações causais detectadas (13 falhas, zero
+erros/skips). Frontend componentes157/157 e typecheck aprovados, sem fonte alterado.
+Esses subconjuntos se sobrepõem; não somar contagens. Primeiras falhas preservadas.
+
+Exceções adicionais de documentação/teste: DEC-10 em SPEC-003; teste de upgrade
+de hábitos fixa target12 para conservar sua prova V11→V12 (V13 validada nas
+suítes gerais/upgrade novo); testes temporais unitários recebem somente mock
+do novo colaborador de transporte, mantendo assertions de datas/horários.
+Expected de quantidade nas suítes de migração passa explicitamente a V1–V13.
+
+Limites: intenção opcional não oferece idempotência para clientes legados sem
+chave; frontend não passou a emitir as novas chaves/recuperação. Pagamento
+mantém seu protocolo. Perda do ID, múltiplos dispositivos, corte TCP, carga e
+cache distribuído/leitor antigo não certificados. Nenhum Cacheable foi ativado.
+Snapshots exigem compatibilidade futura de DTO/schema; recibos crescem com as
+operações. Prazo de espera de locks de produção não foi definido. A revisão
+independente de CF-024 está liberada; nenhuma sucessora foi integralmente
+liberada. RVA-03/RJ-022-01/RV17-01/02 e adoção real mantidos; sem push/deploy.

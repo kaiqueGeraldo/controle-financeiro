@@ -60,15 +60,15 @@ public class InvestmentController {
     }
 
     @PostMapping("/operation")
-    public ResponseEntity<Void> performOperation(
+    public ResponseEntity<InvestTransactionResponseDTO> performOperation(
             @RequestBody @Valid InvestmentOperationDTO data,
             @AuthenticationPrincipal User user) {
 
         log.info("API: Operação de {} no ativo ID {}. Qtd: {}, Preço: {}",
                 data.type(), data.investmentId(), data.quantity(), data.price());
 
-        service.performOperation(data, user);
-        return ResponseEntity.ok().build();
+        var receipt=service.performOperation(data, user);
+        return data.operationId()==null?ResponseEntity.ok().build():ResponseEntity.ok(receipt);
     }
 
     @PostMapping("/update-balance")

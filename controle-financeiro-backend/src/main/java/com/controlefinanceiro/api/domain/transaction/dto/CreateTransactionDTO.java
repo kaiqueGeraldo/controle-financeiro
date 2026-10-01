@@ -38,8 +38,15 @@ public record CreateTransactionDTO(
 
         @DecimalMin(value = "0.00", message = "A taxa não pode ser negativa")
         @Digits(integer = 12, fraction = 2, message = "A taxa deve ter até 12 dígitos inteiros e 2 casas decimais")
-        BigDecimal fee
+        BigDecimal fee,
+        UUID operationId
 ) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    public CreateTransactionDTO(
+            String description, BigDecimal amount, LocalDate date, String time, TransactionType type,
+            UUID accountId, UUID categoryId, Boolean isPaid, UUID destinationAccountId, BigDecimal fee
+    ) {
+        this(description,amount,date,time,type,accountId,categoryId,isPaid,destinationAccountId,fee,null);
+    }
     public CreateTransactionDTO(
             String description,
             BigDecimal amount,

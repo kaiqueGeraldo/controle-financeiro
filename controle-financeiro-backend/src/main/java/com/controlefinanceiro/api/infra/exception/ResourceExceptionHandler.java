@@ -175,10 +175,12 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
-    public ResponseEntity<StandardError> concurrencyFailure(ObjectOptimisticLockingFailureException e, HttpServletRequest request) {
+    @ExceptionHandler({org.springframework.dao.OptimisticLockingFailureException.class,
+            org.springframework.dao.PessimisticLockingFailureException.class,
+            jakarta.persistence.LockTimeoutException.class, jakarta.persistence.PessimisticLockException.class})
+    public ResponseEntity<StandardError> concurrencyFailure(Exception e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.CONFLICT; // 409
-        log.warn("API ERROR 409: Conflito de concorrência (Optimistic Lock) [URI: {}]", request.getRequestURI());
+        log.warn("API ERROR 409: Conflito de concorrência [URI: {}]", request.getRequestURI());
 
         StandardError err = new StandardError(
                 Instant.now(),

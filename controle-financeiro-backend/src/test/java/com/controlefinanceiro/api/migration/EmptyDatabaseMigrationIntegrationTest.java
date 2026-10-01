@@ -33,10 +33,10 @@ class EmptyDatabaseMigrationIntegrationTest {
     @Test
     void emptyDatabaseRunsEveryMigrationOnceAndHibernateValidateStarts() {
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(12);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(13);
         assertThat(sql.queryForList(
                 "select version from flyway_schema_history where success order by installed_rank", String.class))
-                .containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+                .containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13");
         assertThat(sql.queryForObject(
                 "select count(*) from information_schema.tables where table_schema=? and table_name='shedlock'",
                 Integer.class, EmptyMigrationTestInitializer.SCHEMA)).isOne();
@@ -52,7 +52,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         var rerun = Cf017PostgresSupport.flyway(EmptyMigrationTestInitializer.SCHEMA).migrate();
         assertThat(rerun.migrationsExecuted).isZero();
         assertThat(sql.queryForObject(
-                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(12);
+                "select count(*) from flyway_schema_history where success", Integer.class)).isEqualTo(13);
     }
 
     @Test
@@ -69,6 +69,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         copyMigration("V10__financial_commands_and_partial_reversals.sql", alteredMigrations);
         copyMigration("V11__reporting_coverage_baselines.sql", alteredMigrations);
         copyMigration("V12__habit_goal_effect_identity.sql", alteredMigrations);
+        copyMigration("V13__financial_creation_intent_receipts.sql", alteredMigrations);
         Files.writeString(v2, System.lineSeparator() + "SELECT 1;" + System.lineSeparator(),
                 StandardOpenOption.APPEND);
 
@@ -111,7 +112,7 @@ class EmptyDatabaseMigrationIntegrationTest {
         }
 
         var recovered = Cf017PostgresSupport.flyway(schema).migrate();
-        assertThat(recovered.migrationsExecuted).isEqualTo(11);
+        assertThat(recovered.migrationsExecuted).isEqualTo(12);
         Cf017PostgresSupport.flyway(schema).validate();
     }
 

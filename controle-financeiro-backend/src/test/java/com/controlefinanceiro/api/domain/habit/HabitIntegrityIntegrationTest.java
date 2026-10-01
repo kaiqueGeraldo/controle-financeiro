@@ -369,7 +369,7 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
         UUID habit = UUID.randomUUID(); UUID entry = UUID.randomUUID();
         sql.update("insert into " + schema + ".habits(id,name,icon,color,current_streak,highest_streak,frequency,user_id) values (?,'Legado','check','BLUE',3,7,'DAILY',?)", habit, user.getId());
         sql.update("insert into " + schema + ".habit_logs(id,habit_id,log_date,status) values (?,?,'2026-12-31','COMPLETED')", entry, habit);
-        var after = Flyway.configure().dataSource(dataSource).schemas(schema).defaultSchema(schema).load();
+        var after = Flyway.configure().dataSource(dataSource).schemas(schema).defaultSchema(schema).target("12").load();
         assertThat(after.migrate().migrationsExecuted).isOne();
         assertThat(after.migrate().migrationsExecuted).isZero(); after.validate();
         assertThat(sql.queryForObject("select status from " + schema + ".habit_logs where id=?", String.class, entry)).isEqualTo("COMPLETED");

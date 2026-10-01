@@ -9,7 +9,8 @@ import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationEventPublisher;
+import com.controlefinanceiro.api.domain.event.UserFinancialDataDeletedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ public class UserService {
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private EntityManager entityManager;
     @Autowired private EmailService emailService;
+    @Autowired private ApplicationEventPublisher events;
 
     @Transactional
     public User updateProfile(User user, UpdateProfileDTO data) {
@@ -57,7 +59,6 @@ public class UserService {
     }
 
     @Transactional
-    @CacheEvict(value = "annualSummary", allEntries = true)
     public void deleteAccount(User user) {
         UUID userId = user.getId();
         String emailToNotify = user.getEmail();
@@ -108,6 +109,7 @@ public class UserService {
                 .setParameter("userId", userId).executeUpdate();
 
         repository.delete(user);
+        events.publishEvent(new UserFinancialDataDeletedEvent(userId));
 
         String farewellBody = "<p>Olá, <strong>" + nameToNotify + "</strong>.</p>" +
                 "<p>Confirmamos que sua conta e todos os seus dados financeiros, transações e histórico foram <strong>excluídos permanentemente</strong> de nossos servidores, conforme sua solicitação.</p>" +

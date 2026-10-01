@@ -80,9 +80,21 @@ public class TransactionService {
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private com.controlefinanceiro.api.domain.goal.GoalAllocationRepository allocationRepository;
     @Autowired private FinancialCommandRepository commands;
+    @Autowired private FinancialIntentService intents;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
+        String fingerprint=FinancialIntentService.fingerprint(data.description(),data.amount(),data.date(),
+                DateUtil.optionalWallTime(data.time()),data.type(),data.accountId(),data.categoryId(),
+                data.isPaid()==null||data.isPaid(),data.destinationAccountId(),positiveOrZero(data.fee()));
+        var previous=intents.replay(data.operationId(),user,FinancialIntentService.TRANSACTION_CREATE,fingerprint,TransactionResponseDTO.class);
+        if(previous!=null) return previous;
+        var result=createOnce(data,user);
+        intents.complete(data.operationId(),user,FinancialIntentService.TRANSACTION_CREATE,fingerprint,result);
+        return result;
+    }
+
+    private TransactionResponseDTO createOnce(CreateTransactionDTO data, User user) {
         log.info("Criando transação: Tipo={}, Valor={}, ContaID={}", data.type(), data.amount(), data.accountId());
 
         validatePositiveMoney(data.amount(), "valor");

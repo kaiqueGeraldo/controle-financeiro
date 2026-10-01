@@ -6,5 +6,6 @@ import java.util.UUID;
 
 public record PaymentReceiptDTO(UUID id,UUID operationId,UUID accountId,UUID bankTransactionId,
                                 BigDecimal amount,LocalDate date,Instant recordedAt) {
+    public PaymentReceiptDTO {amount=amount.setScale(2,java.math.RoundingMode.UNNECESSARY);}
     public PaymentReceiptDTO(CardPayment p){this(p.getId(),p.getOperationId(),p.getAccountId(),p.getBankTransactionId(),p.getAmount(),p.getPaymentDate(),p.getCreatedAt());}
 }

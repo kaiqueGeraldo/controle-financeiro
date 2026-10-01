@@ -16,8 +16,13 @@ public record InvestmentOperationDTO(
         @NotNull LocalDate date,
         @NotNull UUID accountId,
         @tools.jackson.databind.annotation.JsonDeserialize(using = com.controlefinanceiro.api.utils.DecimalStringDeserializer.class)
-        BigDecimal amount
+        BigDecimal amount,
+        UUID operationId
 ) implements com.controlefinanceiro.api.domain.temporal.TemporalWriteRequest {
+    public InvestmentOperationDTO(UUID investmentId, InvestTransType type, BigDecimal quantity,
+            BigDecimal price, BigDecimal fees, LocalDate date, UUID accountId, BigDecimal amount) {
+        this(investmentId,type,quantity,price,fees,date,accountId,amount,null);
+    }
     public InvestmentOperationDTO(UUID investmentId, InvestTransType type, BigDecimal quantity,
             BigDecimal price, BigDecimal fees, LocalDate date, UUID accountId) {
         this(investmentId,type,quantity,price,fees,date,accountId,null);
