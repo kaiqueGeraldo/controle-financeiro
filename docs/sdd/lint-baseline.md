@@ -2,6 +2,28 @@
 
 07/09/2026: 70 erros e 37 avisos em 54 arquivos. Comando: npm run lint -- --format json. Coletado após o lote de datas. Não representa 107 bugs de execução; são violações de regras a triar. Nenhuma regra foi desabilitada.
 
+## Reavaliação de prontidão CF-026 — 01/10/2026
+
+Base `04cad8d072f789fbe3f4050d8912d5526ec600f5`: 23 erros e 21 avisos,
+26 arquivos com ocorrências entre 234 inspecionados. Foram usados os mesmos
+alvos e a configuração existente, sem novas exclusões nem alteração de regras.
+CLI local: `node node_modules/eslint/bin/eslint.js --format json` no frontend;
+o atalho global de npm aponta para um módulo ausente neste ambiente.
+
+| Regra | Erros | Avisos |
+|---|---:|---:|
+| `@typescript-eslint/no-explicit-any` | 19 | 0 |
+| `@typescript-eslint/no-unused-vars` | 0 | 20 |
+| `react-hooks/exhaustive-deps` | 0 | 1 |
+| `react/no-unescaped-entities` | 4 | 0 |
+
+Typecheck aprovado com `node node_modules/typescript/bin/tsc --noEmit --incremental false`.
+Esta é uma medição anterior à implementação: CF-026 está bloqueada pelas
+dependências CF-009/CF-015 em revisão; nenhuma correção foi aplicada nesta rodada.
+[Resultados brutos, comandos e limites](../../tasks/evidencias/CF-026/README.md).
+
+## Medição histórica — 07/09/2026
+
 | Arquivo | Erros | Avisos | Regras |
 |---|---:|---:|---|
 | controle-financeiro-frontend/src/app/api/[...path]/route.ts | 1 | 0 | @typescript-eslint/no-explicit-any |

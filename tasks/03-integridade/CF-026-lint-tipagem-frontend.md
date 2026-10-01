@@ -1,6 +1,6 @@
 # CF-026 — Eliminar dívida de lint e tipagem sem esconder defeitos
 
-- Estado: proposta
+- Estado: bloqueada
 - Prioridade: P2
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -43,7 +43,22 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-026/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Preparação executada em 01/10/2026 na base `04cad8d072f789fbe3f4050d8912d5526ec600f5`.
+Implementação bloqueada: CF-009 e CF-015 permanecem `em_revisao` nos
+arquivos canônicos integrados. CF-015 registra zoom nativo 200% sem evidência
+nem aprovação; o encerramento dirigido de RV01 não concluiu o marco.
+A instrução desta execução exige respeitar as dependências, sem antecipar
+correções nem executar outra tarefa para encerrá-las.
+
+Diagnóstico sem alterações de código: lint com 23 erros e 21 avisos em 234
+arquivos; typecheck aprovado. A baseline histórica de 70/37 foi preservada
+e a medição atual adicionada ao documento de referência. Nenhuma regra,
+exclusão, contrato ou teste foi alterado. Build, testes dos consumidores,
+regressões e revisão das correções não executados, pois não houve implementação.
+
+[Evidências, comandos, preservação e limitações](../evidencias/CF-026/README.md).
+Retomar após conclusão e integração de CF-009 e CF-015, com nova medição da
+base então usada. Nenhum critério de aceite foi marcado como cumprido e
+nenhuma tarefa ficou liberada; CF-032 e CF-034 mantêm CF-026 pendente.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-
