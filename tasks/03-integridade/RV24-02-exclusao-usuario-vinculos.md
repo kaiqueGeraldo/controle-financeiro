@@ -1,6 +1,6 @@
 # RV24-02 — Corrigir exclusão de usuário com vínculos financeiros
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P2
 - Marco: integridade
 - Modelo executor: gpt-5.6-sol
@@ -35,14 +35,25 @@ deletion/cache da CF-024. Nenhuma limpeza de dados reais está autorizada aqui.
 
 ## Aceite e testes adversariais
 
-- [ ] Contrato vermelho original passa por correção causal, com pagamento/alocação presentes.
-- [ ] Usuário com vínculos representativos é removido sem órfãos; outro owner permanece intacto.
-- [ ] Falha intermediária faz rollback completo e preserva cache anterior.
-- [ ] Commit invalida cache no escopo declarado; nenhum efeito externo real durante testes.
-- [ ] Recibos novos/herdados e vínculos entre domínios têm política e evidência de remoção.
+- [x] Contrato vermelho original passa por correção causal, com pagamento/alocação presentes.
+- [x] Usuário com vínculos representativos é removido sem órfãos; outro owner permanece intacto.
+- [x] Falha intermediária faz rollback completo e preserva cache anterior.
+- [x] Commit invalida cache no escopo declarado; nenhum efeito externo real durante testes.
+- [x] Recibos novos/herdados e vínculos entre domínios têm política e evidência de remoção.
 
 ## Evidência e revisão
 
 Usar `tasks/evidencias/RV24-02/`, PostgreSQL descartável e política de testes.
-Tarefa apenas registrada; não corrigida nesta revisão e não transferida para
-CF-025. Exclusão completa continua sem aceite até satisfazer estes critérios.
+Na revisão original CF-024, tarefa apenas registrada; não corrigida naquela revisão
+e não transferida para CF-025. Exclusão completa exige o aceite destes critérios.
+
+## Entrega de saneamento — 01/10/2026
+
+UserService corrige a ordem do grafo completo e agenda email após commit;
+constraints/migrações e alcance de cache CF-024 preservados. Vínculos inconsistentes
+de outro proprietário são rejeitados com rollback, inclusive SET NULL/UUID legado.
+Checkboxes registram evidência do executor, não revisão independente.
+[FKs, contraprovas, grafo29 tabelas, rollback/cache/efeitos externos e limites](../evidencias/RV24-02/README.md).
+Gate afetado135/135 e gate dirigido final6/6 têm subconjuntos sobrepostos.
+Nenhuma exclusão de usuário real, migração nova, push ou deploy. CF-027 não executada
+e sua prontidão continua sujeita a avaliação independente posterior.

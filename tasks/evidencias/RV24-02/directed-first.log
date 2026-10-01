@@ -1,0 +1,306 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 13 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 218 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 67 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest
+14:07:17.913 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest]: Cf024ConcurrencyCacheIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:07:17.917 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:07:18.142 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest
+14:07:18.343 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+14:07:18.345 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-01 14:07:18.692 - INFO 40356 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-01 14:07:19.002 - INFO 40356 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-01 14:07:23.171 - INFO 40356 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-01 14:07:23.174 - INFO 40356 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-01 14:07:23.199 - INFO 40356 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-01 14:07:24.105 - INFO 40356 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-01 14:07:24.106 - INFO 40356 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-01 14:07:24.107 - INFO 40356 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-01 14:07:25.835 - INFO 40356 --- [           main] c.c.a.s.Rv24DeletionIntegrationTest      : Starting Rv24DeletionIntegrationTest using Java 21.0.12.1 with PID 40356 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-01 14:07:25.836 - INFO 40356 --- [           main] c.c.a.s.Rv24DeletionIntegrationTest      : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-01 14:07:35.264 - WARN 40356 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-01 14:07:45.091 - INFO 40356 --- [           main] c.c.a.s.Rv24DeletionIntegrationTest      : Started Rv24DeletionIntegrationTest in 26.734 seconds (process running for 28.464)
+-2026-10-01 14:07:45.326 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 04128d1f-075d-4653-929c-496a372b1b03
+-2026-10-01 14:07:45.342 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 04128d1f-075d-4653-929c-496a372b1b03
+-2026-10-01 14:07:45.349 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 0ddc783a-bd17-401f-bf4b-2d3ba8ca11b6@example.invalid
+-2026-10-01 14:07:45.352 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7c3894ed-5b50-4f69-a26c-ea344932fb29
+-2026-10-01 14:07:45.772 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:45.854 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:46.245 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 71be7b9c-669e-4e33-aea9-9ab2f47823e2
+-2026-10-01 14:07:46.250 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 71be7b9c-669e-4e33-aea9-9ab2f47823e2
+-2026-10-01 14:07:46.254 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 91467575-b734-453d-8e73-a1d0af82329c@example.invalid
+-2026-10-01 14:07:46.255 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 45426c4a-a49a-407a-b8ed-358fd5860a74
+-2026-10-01 14:07:46.298 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:46.314 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:46.364 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=25, ContaID=08f1e172-dc4d-4202-ad75-bd1cde8d5bb3
+-2026-10-01 14:07:46.369 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 08f1e172-dc4d-4202-ad75-bd1cde8d5bb3. Novo saldo: 975.00
+-2026-10-01 14:07:46.381 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 135f52a3-31df-4a53-a563-0c648af06251
+-2026-10-01 14:07:46.509 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=08f1e172-dc4d-4202-ad75-bd1cde8d5bb3
+-2026-10-01 14:07:46.514 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 37ac1ff7-f335-44f3-8f89-3c4e522a2a83
+-2026-10-01 14:07:46.584 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 45426c4a-a49a-407a-b8ed-358fd5860a74
+-2026-10-01 14:07:46.601 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:46.622 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 45426c4a-a49a-407a-b8ed-358fd5860a74
+-2026-10-01 14:07:46.627 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-10-01 14:07:46.632 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:46.704 - INFO 40356 --- [           main] c.c.api.service.GoalService              : Criando nova meta: linked goal
+-2026-10-01 14:07:46.842 - WARN 40356 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-01 14:07:46.843 - WARN 40356 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: RV24 intermediate fault
+  Onde: PL/pgSQL function rv24_fail_delete() line 1 at RAISE
+-2026-10-01 14:07:46.904 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 2cc18180-5143-43f5-a99d-3e03b4e42f1a
+-2026-10-01 14:07:46.908 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 2cc18180-5143-43f5-a99d-3e03b4e42f1a
+-2026-10-01 14:07:46.911 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 743914bd-80c5-412d-8fd7-1cecf3802d12@example.invalid
+-2026-10-01 14:07:46.911 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 50b99b80-3cb4-4aaa-a2f9-6798d682581b
+-2026-10-01 14:07:46.950 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:46.972 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:47.068 -ERROR 40356 --- [           main] c.c.api.service.UserService              : N�o foi poss�vel agendar a notifica��o ap�s exclus�o confirmada
+-
+java.lang.IllegalStateException: synthetic async executor rejection
+	at com.controlefinanceiro.api.infra.mail.EmailService.sendTemplatedEmail(EmailService.java:23) ~[classes/:na]
+	at com.controlefinanceiro.api.service.UserService$1.afterCommit(UserService.java:124) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionSynchronizationUtils.invokeAfterCommit(TransactionSynchronizationUtils.java:165) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.TransactionSynchronizationUtils.triggerAfterCommit(TransactionSynchronizationUtils.java:153) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.triggerAfterCommit(AbstractPlatformTransactionManager.java:1005) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:835) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:757) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:687) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:408) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.UserService$$SpringCGLIB$$0.deleteAccount(<generated>) ~[classes/:na]
+	at com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest.lambda$postCommitNotificationFailureDoesNotRecreateUserOrPretendRollback$10(Rv24DeletionIntegrationTest.java:145) ~[test-classes/:na]
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:63) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:905) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.AssertionsForClassTypes.assertThatCode(AssertionsForClassTypes.java:876) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.Assertions.assertThatCode(Assertions.java:1393) ~[assertj-core-3.27.6.jar:na]
+	at com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest.postCommitNotificationFailureDoesNotRecreateUserOrPretendRollback(Rv24DeletionIntegrationTest.java:145) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+2026-10-01 14:07:47.089 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 86d3285d-af68-4cb1-a31b-582a5dfa69e5
+-2026-10-01 14:07:47.092 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 86d3285d-af68-4cb1-a31b-582a5dfa69e5
+-2026-10-01 14:07:47.095 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 81663ef1-eb55-4d96-a9d3-0c611c17dd69@example.invalid
+-2026-10-01 14:07:47.096 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7e027fff-4148-4f08-ba81-0a9418c3d577
+-2026-10-01 14:07:47.136 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:47.151 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:47.193 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=25, ContaID=1dfabe14-9c45-48ce-9bdb-7274cdfebe6e
+-2026-10-01 14:07:47.196 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 1dfabe14-9c45-48ce-9bdb-7274cdfebe6e. Novo saldo: 975.00
+-2026-10-01 14:07:47.201 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d8a5eb7f-fa89-42c3-a364-93d36f011d05
+-2026-10-01 14:07:47.206 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=1dfabe14-9c45-48ce-9bdb-7274cdfebe6e
+-2026-10-01 14:07:47.210 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3577aa21-502b-475a-9b8f-719e736db6cd
+-2026-10-01 14:07:47.237 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 7e027fff-4148-4f08-ba81-0a9418c3d577
+-2026-10-01 14:07:47.244 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:47.255 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 7e027fff-4148-4f08-ba81-0a9418c3d577
+-2026-10-01 14:07:47.258 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-10-01 14:07:47.261 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:47.314 - INFO 40356 --- [           main] c.c.api.service.GoalService              : Criando nova meta: linked goal
+-2026-10-01 14:07:47.373 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'OTHER' (STOCK) para usu�rio 01aec13c-adce-4613-bacc-ae45d7bcd7ff@example.invalid
+-2026-10-01 14:07:47.373 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cdcc85ec-d9c5-4c51-8b65-d81794477038
+-2026-10-01 14:07:47.429 - INFO 40356 --- [           main] c.c.api.service.GoalService              : Criando nova meta: foreign
+-2026-10-01 14:07:47.505 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 78640702-107f-42c0-9982-14362e719a33
+-2026-10-01 14:07:47.508 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 78640702-107f-42c0-9982-14362e719a33
+-2026-10-01 14:07:47.512 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 4aaaa440-cc68-4fb7-bc0a-447672afc6c9@example.invalid
+-2026-10-01 14:07:47.513 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3bf3613c-55b9-48f7-8634-b88406187d8f
+-2026-10-01 14:07:47.555 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c54eba9e-250e-4d5b-9119-4c37093f013a
+-2026-10-01 14:07:47.558 - INFO 40356 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c54eba9e-250e-4d5b-9119-4c37093f013a
+-2026-10-01 14:07:47.561 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF024' (STOCK) para usu�rio 16e5b3ed-419f-485a-9c80-b42ac582342c@example.invalid
+-2026-10-01 14:07:47.561 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 62f85df8-a731-4347-af46-0c72881b64f4
+-2026-10-01 14:07:47.596 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:47.613 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:47.658 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=25, ContaID=13aaefa8-c288-4e93-992c-2098a240504c
+-2026-10-01 14:07:47.661 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 13aaefa8-c288-4e93-992c-2098a240504c. Novo saldo: 975.00
+-2026-10-01 14:07:47.666 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID eeec59d9-a312-4559-86c7-78f55057fc1a
+-2026-10-01 14:07:47.671 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=13aaefa8-c288-4e93-992c-2098a240504c
+-2026-10-01 14:07:47.675 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9de2ec7b-87f4-4a2f-8a96-f8a5bd6172f5
+-2026-10-01 14:07:47.712 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 62f85df8-a731-4347-af46-0c72881b64f4
+-2026-10-01 14:07:47.722 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:47.738 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 62f85df8-a731-4347-af46-0c72881b64f4
+-2026-10-01 14:07:47.743 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-10-01 14:07:47.746 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:47.800 - INFO 40356 --- [           main] c.c.api.service.GoalService              : Criando nova meta: linked goal
+-2026-10-01 14:07:47.893 - INFO 40356 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-01 14:07:47.905 - INFO 40356 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o CF024
+-2026-10-01 14:07:47.940 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=25, ContaID=af502808-e2f8-4a3d-b513-0e3e74542c86
+-2026-10-01 14:07:47.942 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta af502808-e2f8-4a3d-b513-0e3e74542c86. Novo saldo: 975.00
+-2026-10-01 14:07:47.945 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 115b1b58-ded1-47d7-aad3-35ebd7134d0f
+-2026-10-01 14:07:47.951 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=af502808-e2f8-4a3d-b513-0e3e74542c86
+-2026-10-01 14:07:47.955 - INFO 40356 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f3bb6746-d7d6-4465-8452-e9f9cc05885b
+-2026-10-01 14:07:47.977 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 3bf3613c-55b9-48f7-8634-b88406187d8f
+-2026-10-01 14:07:47.984 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:47.997 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de SELL no ativo ID 3bf3613c-55b9-48f7-8634-b88406187d8f
+-2026-10-01 14:07:48.000 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando l�gica de VENDA.
+-2026-10-01 14:07:48.003 - INFO 40356 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-01 14:07:48.044 - INFO 40356 --- [           main] c.c.api.service.GoalService              : Criando nova meta: linked goal
+-[ERROR] Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 30.51 s <<< FAILURE! -- in com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest
+[ERROR] com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest.completeGraphDeletionPreservesEveryOtherRowAndNotifiesOnlyAfterCommit -- Time elapsed: 0.631 s <<< FAILURE!
+java.lang.AssertionError: 
+[representative invoices] 
+Expecting actual:
+  0
+to be greater than:
+  0
+
+	at com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest.completeGraphDeletionPreservesEveryOtherRowAndNotifiesOnlyAfterCommit(Rv24DeletionIntegrationTest.java:87)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   Rv24DeletionIntegrationTest.completeGraphDeletionPreservesEveryOtherRowAndNotifiesOnlyAfterCommit:87 [representative invoices] 
+Expecting actual:
+  0
+to be greater than:
+  0
+
+[INFO] 
+[ERROR] Tests run: 5, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  48.182 s
+[INFO] Finished at: 2026-10-01T14:07:48-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
