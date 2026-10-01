@@ -1,0 +1,2010 @@
+
+## accounts size=3
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.is_archived=false order by a1_0.order_index
+Sort  (cost=1.06..1.07 rows=3 width=620) (actual time=0.041..0.042 rows=3 loops=1)
+  Sort Key: order_index
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1
+  ->  Seq Scan on accounts a1_0  (cost=0.00..1.04 rows=3 width=620) (actual time=0.011..0.012 rows=3 loops=1)
+        Filter: ((NOT is_archived) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+        Buffers: shared hit=1
+Planning Time: 0.076 ms
+Execution Time: 0.083 ms
+
+## goals size=3
+select gi1_0.id,gi1_0.allocation_id,gi1_0.bank_transaction_id,gi1_0.card_transaction_id,gi1_0.estimated_price,gi1_0.goal_id,g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version,gi1_0.name,gi1_0.order_index,gi1_0.paid_price,gi1_0.status,gi1_0.suggested_model,gi1_0.used_goal_balance from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goal_items gi1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 on g1_0.id=gi1_0.goal_id where g1_0.user_id=? order by gi1_0.order_index,gi1_0.id
+Sort  (cost=2.25..2.27 rows=6 width=2800) (actual time=0.055..0.057 rows=6 loops=1)
+  Sort Key: gi1_0.order_index, gi1_0.id
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2
+  ->  Hash Join  (cost=1.08..2.17 rows=6 width=2800) (actual time=0.032..0.036 rows=6 loops=1)
+        Hash Cond: (gi1_0.goal_id = g1_0.id)
+        Buffers: shared hit=2
+        ->  Seq Scan on goal_items gi1_0  (cost=0.00..1.06 rows=6 width=657) (actual time=0.006..0.006 rows=6 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.04..1.04 rows=3 width=2143) (actual time=0.015..0.016 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on goals g1_0  (cost=0.00..1.04 rows=3 width=2143) (actual time=0.005..0.006 rows=3 loops=1)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=4
+Planning Time: 0.339 ms
+Execution Time: 0.134 ms
+select g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 where g1_0.user_id=? order by g1_0.deadline
+Sort  (cost=1.06..1.07 rows=3 width=2143) (actual time=0.022..0.022 rows=3 loops=1)
+  Sort Key: deadline
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=1
+  ->  Seq Scan on goals g1_0  (cost=0.00..1.04 rows=3 width=2143) (actual time=0.008..0.009 rows=3 loops=1)
+        Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        Buffers: shared hit=1
+Planning Time: 0.053 ms
+Execution Time: 0.045 ms
+
+## habits size=3
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,l1_0.habit_id,l1_0.id,l1_0.log_date,l1_0.goal_effect_managed,l1_0.goal_history_id,l1_0.status,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_logs l1_0 on h1_0.id=l1_0.habit_id where h1_0.user_id=? order by h1_0.order_index
+Sort  (cost=2.88..2.93 rows=21 width=686) (actual time=0.065..0.068 rows=21 loops=1)
+  Sort Key: h1_0.order_index
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=2
+  ->  Hash Right Join  (cost=1.08..2.42 rows=21 width=686) (actual time=0.039..0.049 rows=21 loops=1)
+        Hash Cond: (l1_0.habit_id = h1_0.id)
+        Buffers: shared hit=2
+        ->  Seq Scan on habit_logs l1_0  (cost=0.00..1.21 rows=21 width=63) (actual time=0.003..0.005 rows=21 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.04..1.04 rows=3 width=623) (actual time=0.023..0.023 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on habits h1_0  (cost=0.00..1.04 rows=3 width=623) (actual time=0.013..0.014 rows=3 loops=1)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=4
+Planning Time: 0.297 ms
+Execution Time: 0.123 ms
+
+## statement size=3
+select t1_0.id,t1_0.account_id,a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version,t1_0.amount,t1_0.cash_amount,c1_0.id,c1_0.color,c1_0.icon,c1_0.is_system_reserved,c1_0.name,c1_0.type,c1_0.user_id,t1_0.correction_of_id,t1_0.counterparty_account_id,t1_0.created_at,t1_0.date,t1_0.description,t1_0.due_date,t1_0.goal_item_id,t1_0.is_paid,t1_0.is_system_managed,t1_0.legacy_created_at_raw,t1_0.operation_id,t1_0.origin,t1_0.realization_of_id,t1_0.reason,t1_0.recorded_at,t1_0.reversal_of_id,t1_0.settled_at,t1_0.settlement_of_id,t1_0.status,t1_0.operation_time,t1_0.time_origin,t1_0.transfer_direction,t1_0.type,t1_0.user_id from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=t1_0.category_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?) order by t1_0.date desc,case when t1_0.operation_time is null then 1 else 0 end,t1_0.operation_time desc,t1_0.id desc fetch first ? rows only
+Limit  (cost=3.22..3.23 rows=2 width=2159) (actual time=0.100..0.102 rows=2 loops=1)
+  Buffers: shared hit=3
+  ->  Sort  (cost=3.22..3.23 rows=3 width=2159) (actual time=0.099..0.100 rows=2 loops=1)
+        Sort Key: t1_0.date DESC, (CASE WHEN (t1_0.operation_time IS NULL) THEN 1 ELSE 0 END), t1_0.operation_time DESC, t1_0.id DESC
+        Sort Method: quicksort  Memory: 26kB
+        Buffers: shared hit=3
+        ->  Nested Loop Left Join  (cost=1.07..3.20 rows=3 width=2159) (actual time=0.081..0.087 rows=3 loops=1)
+              Join Filter: (c1_0.id = t1_0.category_id)
+              Buffers: shared hit=3
+              ->  Hash Join  (cost=1.07..2.14 rows=3 width=1595) (actual time=0.032..0.037 rows=3 loops=1)
+                    Hash Cond: (t1_0.account_id = a1_0.id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on transactions t1_0  (cost=0.00..1.05 rows=3 width=975) (actual time=0.008..0.009 rows=3 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=1.03..1.03 rows=3 width=620) (actual time=0.013..0.013 rows=3 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on accounts a1_0  (cost=0.00..1.03 rows=3 width=620) (actual time=0.003..0.004 rows=3 loops=1)
+                                Buffers: shared hit=1
+              ->  Materialize  (cost=0.00..1.01 rows=1 width=576) (actual time=0.015..0.015 rows=1 loops=3)
+                    Buffers: shared hit=1
+                    ->  Seq Scan on categories c1_0  (cost=0.00..1.01 rows=1 width=576) (actual time=0.003..0.003 rows=1 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.510 ms
+Execution Time: 0.339 ms
+select count(t1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?)
+Aggregate  (cost=2.15..2.16 rows=1 width=8) (actual time=0.027..0.028 rows=1 loops=1)
+  Buffers: shared hit=2
+  ->  Hash Join  (cost=1.07..2.14 rows=3 width=16) (actual time=0.023..0.025 rows=3 loops=1)
+        Hash Cond: (t1_0.account_id = a1_0.id)
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.05 rows=3 width=32) (actual time=0.007..0.008 rows=3 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.03..1.03 rows=3 width=16) (actual time=0.011..0.012 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on accounts a1_0  (cost=0.00..1.03 rows=3 width=16) (actual time=0.001..0.002 rows=3 loops=1)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.221 ms
+Execution Time: 0.104 ms
+SELECT COALESCE(t.settlement_of_id, o.settlement_of_id),
+       SUM(CASE WHEN t.origin='REVERSAL' THEN -t.amount ELSE t.amount END)
+FROM transactions t LEFT JOIN transactions o ON o.id=t.reversal_of_id
+WHERE (t.settlement_of_id IN (?,?) OR o.settlement_of_id IN (?,?))
+  AND t.status IN ('SETTLED','REVERSED')
+GROUP BY COALESCE(t.settlement_of_id, o.settlement_of_id)
+
+GroupAggregate  (cost=2.12..2.15 rows=1 width=48) (actual time=0.031..0.032 rows=0 loops=1)
+  Group Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+  Buffers: shared hit=2
+  ->  Sort  (cost=2.12..2.13 rows=1 width=26) (actual time=0.031..0.032 rows=0 loops=1)
+        Sort Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2
+        ->  Hash Left Join  (cost=1.07..2.11 rows=1 width=26) (actual time=0.026..0.027 rows=0 loops=1)
+              Hash Cond: (t.reversal_of_id = o.id)
+              Filter: ((t.settlement_of_id = ANY ('{8ba3e471-0fae-475a-baa9-9a01d8dc46e5,2de1bf94-741c-44cb-9f54-ed71eee85603}'::uuid[])) OR (o.settlement_of_id = ANY ('{8ba3e471-0fae-475a-baa9-9a01d8dc46e5,2de1bf94-741c-44cb-9f54-ed71eee85603}'::uuid[])))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=2
+              ->  Seq Scan on transactions t  (cost=0.00..1.04 rows=3 width=42) (actual time=0.006..0.007 rows=3 loops=1)
+                    Filter: ((status)::text = ANY ('{SETTLED,REVERSED}'::text[]))
+                    Buffers: shared hit=1
+              ->  Hash  (cost=1.03..1.03 rows=3 width=32) (actual time=0.009..0.009 rows=3 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions o  (cost=0.00..1.03 rows=3 width=32) (actual time=0.001..0.002 rows=3 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.253 ms
+Execution Time: 0.127 ms
+SELECT reversal_of_id, SUM(amount) FROM transactions WHERE reversal_of_id IN (?,?) GROUP BY reversal_of_id
+HashAggregate  (cost=1.04..1.05 rows=1 width=48) (actual time=0.005..0.005 rows=0 loops=1)
+  Group Key: reversal_of_id
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=1
+  ->  Seq Scan on transactions  (cost=0.00..1.04 rows=1 width=21) (actual time=0.004..0.004 rows=0 loops=1)
+        Filter: (reversal_of_id = ANY ('{8ba3e471-0fae-475a-baa9-9a01d8dc46e5,2de1bf94-741c-44cb-9f54-ed71eee85603}'::uuid[]))
+        Rows Removed by Filter: 3
+        Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=7
+Planning Time: 0.074 ms
+Execution Time: 0.020 ms
+
+## cash size=3
+select t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),sum(case when t1_0.origin='REVERSAL' then -coalesce(t1_0.cash_amount,t1_0.amount) else coalesce(t1_0.cash_amount,t1_0.amount) end) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=t1_0.reversal_of_id and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and (t1_0.status in ('SETTLED','REVERSED') or (t1_0.status is null and t1_0.is_paid=true)) and (t1_0.origin is null or t1_0.origin<>'ACCOUNT_OPENING') and (t1_0.type<>'TRANSFER' or coalesce(t1_0.transfer_direction,t2_0.transfer_direction) is not null) and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or t1_0.account_id=?) and (cast(? as uuid) is not null or t1_0.type<>'TRANSFER') group by t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),t1_0.origin
+HashAggregate  (cost=2.20..2.24 rows=3 width=126) (actual time=0.040..0.042 rows=1 loops=1)
+  Group Key: t1_0.type, COALESCE(t1_0.transfer_direction, t2_0.transfer_direction), t1_0.origin
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.08..2.16 rows=3 width=129) (actual time=0.027..0.031 rows=3 loops=1)
+        Hash Cond: (t1_0.reversal_of_id = t2_0.id)
+        Filter: (((t1_0.type)::text <> 'TRANSFER'::text) OR (COALESCE(t1_0.transfer_direction, t2_0.transfer_direction) IS NOT NULL))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.07 rows=3 width=145) (actual time=0.008..0.009 rows=3 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND ((origin IS NULL) OR ((origin)::text <> 'ACCOUNT_OPENING'::text)) AND ((type)::text <> 'TRANSFER'::text) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.04..1.04 rows=3 width=98) (actual time=0.010..0.010 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.04 rows=3 width=98) (actual time=0.002..0.003 rows=3 loops=1)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=27
+Planning Time: 0.478 ms
+Execution Time: 0.171 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.07..1.08 rows=1 width=20) (actual time=0.013..0.014 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Seq Scan on accounts  (cost=0.00..1.05 rows=3 width=4) (actual time=0.008..0.009 rows=3 loops=1)
+        Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.267 ms
+Execution Time: 0.044 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=2.17..2.18 rows=1 width=8) (actual time=0.013..0.014 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Subquery Scan on "*SELECT* 1"  (cost=1.08..2.17 rows=1 width=0) (actual time=0.011..0.012 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Hash Left Join  (cost=1.08..2.16 rows=1 width=16) (actual time=0.011..0.011 rows=0 loops=1)
+              Hash Cond: (COALESCE(t.reversal_of_id, t.correction_of_id) = original.id)
+              Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t  (cost=0.00..1.08 rows=1 width=126) (actual time=0.010..0.010 rows=0 loops=1)
+                    Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+              ->  Hash  (cost=1.04..1.04 rows=3 width=103) (never executed)
+                    ->  Seq Scan on transactions original  (cost=0.00..1.04 rows=3 width=103) (never executed)
+                          Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.791 ms
+Execution Time: 0.085 ms
+
+## dashboard size=3
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=2.20..2.22 rows=1 width=39) (actual time=0.093..0.095 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.08..2.17 rows=3 width=17) (actual time=0.079..0.084 rows=3 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.07 rows=3 width=49) (actual time=0.012..0.013 rows=3 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.04..1.04 rows=3 width=21) (actual time=0.014..0.015 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.04 rows=3 width=21) (actual time=0.003..0.004 rows=3 loops=1)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.661 ms
+Execution Time: 0.202 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.005..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.002..0.003 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+                    Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.183 ms
+Execution Time: 0.024 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-09-01'::date) AND (refund_date <= '2026-09-30'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.192 ms
+Execution Time: 0.022 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.005..0.006 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.144 ms
+Execution Time: 0.025 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.005..0.006 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.135 ms
+Execution Time: 0.025 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-09-01'::date) AND (effective_date <= '2026-09-30'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.119 ms
+Execution Time: 0.022 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.12..1.13 rows=1 width=20) (actual time=0.018..0.019 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=0.00..1.08 rows=5 width=4) (actual time=0.011..0.015 rows=3 loops=1)
+        Buffers: shared hit=1
+        ->  Seq Scan on accounts  (cost=0.00..1.05 rows=3 width=4) (actual time=0.010..0.012 rows=3 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+              Buffers: shared hit=1
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.000..0.001 rows=0 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.210 ms
+Execution Time: 0.100 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=2.22..2.23 rows=1 width=8) (actual time=0.017..0.019 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=1.08..2.22 rows=2 width=0) (actual time=0.015..0.017 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 1"  (cost=1.08..2.17 rows=1 width=0) (actual time=0.013..0.014 rows=0 loops=1)
+              Buffers: shared hit=1
+              ->  Hash Left Join  (cost=1.08..2.16 rows=1 width=16) (actual time=0.012..0.013 rows=0 loops=1)
+                    Hash Cond: (COALESCE(t.reversal_of_id, t.correction_of_id) = original.id)
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions t  (cost=0.00..1.08 rows=1 width=126) (actual time=0.012..0.012 rows=0 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                          Rows Removed by Filter: 3
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=1.04..1.04 rows=3 width=103) (never executed)
+                          ->  Seq Scan on transactions original  (cost=0.00..1.04 rows=3 width=103) (never executed)
+                                Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.002..0.002 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.002 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                                Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.818 ms
+Execution Time: 0.111 ms
+
+## annual size=3
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.12..1.13 rows=1 width=20) (actual time=0.020..0.021 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=0.00..1.08 rows=5 width=4) (actual time=0.011..0.016 rows=3 loops=1)
+        Buffers: shared hit=1
+        ->  Seq Scan on accounts  (cost=0.00..1.05 rows=3 width=4) (actual time=0.011..0.012 rows=3 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+              Buffers: shared hit=1
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.308 ms
+Execution Time: 0.103 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=2.22..2.23 rows=1 width=8) (actual time=0.017..0.019 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=1.08..2.22 rows=2 width=0) (actual time=0.016..0.017 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 1"  (cost=1.08..2.17 rows=1 width=0) (actual time=0.013..0.014 rows=0 loops=1)
+              Buffers: shared hit=1
+              ->  Hash Left Join  (cost=1.08..2.16 rows=1 width=16) (actual time=0.013..0.013 rows=0 loops=1)
+                    Hash Cond: (COALESCE(t.reversal_of_id, t.correction_of_id) = original.id)
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions t  (cost=0.00..1.08 rows=1 width=126) (actual time=0.012..0.012 rows=0 loops=1)
+                          Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                          Rows Removed by Filter: 3
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=1.04..1.04 rows=3 width=103) (never executed)
+                          ->  Seq Scan on transactions original  (cost=0.00..1.04 rows=3 width=103) (never executed)
+                                Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.002..0.002 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.002 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                                Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.881 ms
+Execution Time: 0.172 ms
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=2.20..2.22 rows=1 width=39) (actual time=0.060..0.062 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.08..2.17 rows=3 width=17) (actual time=0.046..0.051 rows=3 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.07 rows=3 width=49) (actual time=0.008..0.010 rows=3 loops=1)
+              Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid))
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.04..1.04 rows=3 width=21) (actual time=0.012..0.013 rows=3 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 9kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.04 rows=3 width=21) (actual time=0.002..0.004 rows=3 loops=1)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.377 ms
+Execution Time: 0.158 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.006..0.007 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.003..0.004 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.003..0.004 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.003..0.003 rows=0 loops=1)
+                    Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.264 ms
+Execution Time: 0.031 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.005..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-01-01'::date) AND (refund_date <= '2026-12-31'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.137 ms
+Execution Time: 0.024 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.138 ms
+Execution Time: 0.024 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.128 ms
+Execution Time: 0.023 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-01-01'::date) AND (effective_date <= '2026-12-31'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.126 ms
+Execution Time: 0.023 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c2_0 on c2_0.id=i1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=ct1_0.category_id where c2_0.user_id=? and c1_0.name=? and ct1_0.origin='PURCHASE' and extract(year from ct1_0.date)=?
+Aggregate  (cost=1.05..1.06 rows=1 width=32) (actual time=0.006..0.007 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.05 rows=1 width=30) (actual time=0.003..0.004 rows=0 loops=1)
+        Join Filter: (c1_0.id = ct1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.03 rows=1 width=46) (actual time=0.003..0.004 rows=0 loops=1)
+              Join Filter: (i1_0.card_id = c2_0.id)
+              ->  Nested Loop  (cost=0.00..0.01 rows=1 width=62) (actual time=0.003..0.003 rows=0 loops=1)
+                    Join Filter: (i1_0.id = ct1_0.invoice_id)
+                    ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.003..0.003 rows=0 loops=1)
+                          Filter: (((origin)::text = 'PURCHASE'::text) AND (EXTRACT(year FROM date) = '2026'::numeric))
+                    ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+              ->  Seq Scan on credit_cards c2_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        ->  Seq Scan on categories c1_0  (cost=0.00..1.01 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.338 ms
+Execution Time: 0.053 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c2_0 on c2_0.id=cr1_0.category_id where c1_0.user_id=? and extract(year from cr1_0.refund_date)=? and c2_0.name=?
+Aggregate  (cost=1.04..1.05 rows=1 width=32) (actual time=0.005..0.006 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.04 rows=1 width=30) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (c2_0.id = cr1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Join Filter: (c1_0.id = cr1_0.card_id)
+              ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.002..0.002 rows=0 loops=1)
+                    Filter: (EXTRACT(year FROM refund_date) = '2026'::numeric)
+              ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+        ->  Seq Scan on categories c2_0  (cost=0.00..1.01 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.224 ms
+Execution Time: 0.026 ms
+select i1_0.id,i1_0.average_price,i1_0.current_price,i1_0.goal_id,i1_0.name,i1_0.operation_sequence,i1_0.quantity,i1_0.replay_cost,i1_0.replay_quantity,i1_0.reporting_known_from,i1_0.ticker,i1_0.total_cost,i1_0.type,i1_0.user_id,i1_0.valuation_amount,i1_0.valuation_basis,i1_0.valuation_date,i1_0.valuation_reference_amount,i1_0.valuation_reference_quantity,i1_0.valuation_source,i1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where i1_0.user_id=?
+Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=2426) (actual time=0.002..0.002 rows=0 loops=1)
+  Filter: (user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid)
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.048 ms
+Execution Time: 0.012 ms
+select yn1_0.id,yn1_0.content,yn1_0.updated_at,yn1_0.user_id,yn1_0.note_year from cf025_f0ae896ee3ee40da8355bdacfd6e36be.yearly_notes yn1_0 where yn1_0.user_id=? and yn1_0.note_year=?
+Seq Scan on yearly_notes yn1_0  (cost=0.00..0.00 rows=1 width=76) (actual time=0.001..0.002 rows=0 loops=1)
+  Filter: ((user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND (note_year = 2026))
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.052 ms
+Execution Time: 0.010 ms
+
+## reorder_accounts size=3
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.id in (?,?,?) order by a1_0.id for no key update of a1_0
+LockRows  (cost=1.07..1.11 rows=3 width=626) (actual time=0.028..0.031 rows=3 loops=1)
+  Buffers: shared hit=4
+  ->  Sort  (cost=1.07..1.08 rows=3 width=626) (actual time=0.021..0.022 rows=3 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1
+        ->  Seq Scan on accounts a1_0  (cost=0.00..1.05 rows=3 width=626) (actual time=0.012..0.013 rows=3 loops=1)
+              Filter: ((user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND (id = ANY ('{0f885779-c569-4c06-9033-49fd385afa29,749f5fcb-e1e3-49f3-bdd1-ecb51235c8c6,9a1accdc-0b98-463f-8d0e-b36d26e201a7}'::uuid[])))
+              Buffers: shared hit=1
+Planning Time: 0.084 ms
+Execution Time: 0.049 ms
+
+## reorder_habits size=3
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 where h1_0.user_id=? and h1_0.id in (?,?,?) order by h1_0.id for no key update of h1_0
+LockRows  (cost=1.07..1.11 rows=3 width=629) (actual time=0.032..0.036 rows=3 loops=1)
+  Buffers: shared hit=4
+  ->  Sort  (cost=1.07..1.08 rows=3 width=629) (actual time=0.024..0.025 rows=3 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=1
+        ->  Seq Scan on habits h1_0  (cost=0.00..1.05 rows=3 width=629) (actual time=0.013..0.015 rows=3 loops=1)
+              Filter: ((user_id = '4b5cbd4c-daad-4b58-b279-407a88555fdd'::uuid) AND (id = ANY ('{66cdd0a3-ed98-49c8-b9b6-495ed2a5d75b,51573583-d6b9-42d8-b68c-1c6eedc2365c,95622807-814a-4136-8dcb-eea65120c69a}'::uuid[])))
+              Buffers: shared hit=1
+Planning Time: 0.096 ms
+Execution Time: 0.057 ms
+select sd1_0.habit_id,sd1_0.day_of_week from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_days sd1_0 where sd1_0.habit_id=?
+Seq Scan on habit_days sd1_0  (cost=0.00..1.11 rows=3 width=24) (actual time=0.007..0.008 rows=3 loops=1)
+  Filter: (habit_id = '95622807-814a-4136-8dcb-eea65120c69a'::uuid)
+  Rows Removed by Filter: 6
+  Buffers: shared hit=1
+Planning Time: 0.049 ms
+Execution Time: 0.016 ms
+
+## accounts size=30
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.is_archived=false order by a1_0.order_index
+Sort  (cost=2.15..2.22 rows=30 width=620) (actual time=0.056..0.058 rows=30 loops=1)
+  Sort Key: order_index
+  Sort Method: quicksort  Memory: 29kB
+  Buffers: shared hit=1
+  ->  Seq Scan on accounts a1_0  (cost=0.00..1.41 rows=30 width=620) (actual time=0.037..0.042 rows=30 loops=1)
+        Filter: ((NOT is_archived) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+        Rows Removed by Filter: 3
+        Buffers: shared hit=1
+Planning Time: 0.069 ms
+Execution Time: 0.069 ms
+
+## goals size=30
+select gi1_0.id,gi1_0.allocation_id,gi1_0.bank_transaction_id,gi1_0.card_transaction_id,gi1_0.estimated_price,gi1_0.goal_id,g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version,gi1_0.name,gi1_0.order_index,gi1_0.paid_price,gi1_0.status,gi1_0.suggested_model,gi1_0.used_goal_balance from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goal_items gi1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 on g1_0.id=gi1_0.goal_id where g1_0.user_id=? order by gi1_0.order_index,gi1_0.id
+Sort  (cost=5.42..5.57 rows=60 width=2800) (actual time=0.139..0.143 rows=60 loops=1)
+  Sort Key: gi1_0.order_index, gi1_0.id
+  Sort Method: quicksort  Memory: 35kB
+  Buffers: shared hit=2
+  ->  Hash Join  (cost=1.79..3.64 rows=60 width=2800) (actual time=0.057..0.081 rows=60 loops=1)
+        Hash Cond: (gi1_0.goal_id = g1_0.id)
+        Buffers: shared hit=2
+        ->  Seq Scan on goal_items gi1_0  (cost=0.00..1.66 rows=66 width=657) (actual time=0.006..0.010 rows=66 loops=1)
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.41..1.41 rows=30 width=2143) (actual time=0.036..0.036 rows=30 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 12kB
+              Buffers: shared hit=1
+              ->  Seq Scan on goals g1_0  (cost=0.00..1.41 rows=30 width=2143) (actual time=0.006..0.011 rows=30 loops=1)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=4
+Planning Time: 0.229 ms
+Execution Time: 0.216 ms
+select g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 where g1_0.user_id=? order by g1_0.deadline
+Sort  (cost=2.15..2.22 rows=30 width=2143) (actual time=0.028..0.030 rows=30 loops=1)
+  Sort Key: deadline
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=1
+  ->  Seq Scan on goals g1_0  (cost=0.00..1.41 rows=30 width=2143) (actual time=0.008..0.014 rows=30 loops=1)
+        Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+        Rows Removed by Filter: 3
+        Buffers: shared hit=1
+Planning Time: 0.055 ms
+Execution Time: 0.043 ms
+
+## habits size=30
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,l1_0.habit_id,l1_0.id,l1_0.log_date,l1_0.goal_effect_managed,l1_0.goal_history_id,l1_0.status,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_logs l1_0 on h1_0.id=l1_0.habit_id where h1_0.user_id=? order by h1_0.order_index
+Sort  (cost=15.88..16.41 rows=210 width=686) (actual time=0.312..0.326 rows=210 loops=1)
+  Sort Key: h1_0.order_index
+  Sort Method: quicksort  Memory: 64kB
+  Buffers: shared hit=4
+  ->  Hash Right Join  (cost=1.79..7.78 rows=210 width=686) (actual time=0.073..0.165 rows=210 loops=1)
+        Hash Cond: (l1_0.habit_id = h1_0.id)
+        Buffers: shared hit=4
+        ->  Seq Scan on habit_logs l1_0  (cost=0.00..5.31 rows=231 width=63) (actual time=0.005..0.035 rows=231 loops=1)
+              Buffers: shared hit=3
+        ->  Hash  (cost=1.41..1.41 rows=30 width=623) (actual time=0.046..0.046 rows=30 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 13kB
+              Buffers: shared hit=1
+              ->  Seq Scan on habits h1_0  (cost=0.00..1.41 rows=30 width=623) (actual time=0.018..0.025 rows=30 loops=1)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=4
+Planning Time: 0.296 ms
+Execution Time: 0.426 ms
+
+## statement size=30
+select t1_0.id,t1_0.account_id,a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version,t1_0.amount,t1_0.cash_amount,c1_0.id,c1_0.color,c1_0.icon,c1_0.is_system_reserved,c1_0.name,c1_0.type,c1_0.user_id,t1_0.correction_of_id,t1_0.counterparty_account_id,t1_0.created_at,t1_0.date,t1_0.description,t1_0.due_date,t1_0.goal_item_id,t1_0.is_paid,t1_0.is_system_managed,t1_0.legacy_created_at_raw,t1_0.operation_id,t1_0.origin,t1_0.realization_of_id,t1_0.reason,t1_0.recorded_at,t1_0.reversal_of_id,t1_0.settled_at,t1_0.settlement_of_id,t1_0.status,t1_0.operation_time,t1_0.time_origin,t1_0.transfer_direction,t1_0.type,t1_0.user_id from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=t1_0.category_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?) order by t1_0.date desc,case when t1_0.operation_time is null then 1 else 0 end,t1_0.operation_time desc,t1_0.id desc fetch first ? rows only
+Limit  (cost=5.00..5.01 rows=2 width=2159) (actual time=0.251..0.254 rows=2 loops=1)
+  Buffers: shared hit=3
+  ->  Sort  (cost=5.00..5.08 rows=30 width=2159) (actual time=0.250..0.252 rows=2 loops=1)
+        Sort Key: t1_0.date DESC, (CASE WHEN (t1_0.operation_time IS NULL) THEN 1 ELSE 0 END), t1_0.operation_time DESC, t1_0.id DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=3
+        ->  Hash Left Join  (cost=2.79..4.70 rows=30 width=2159) (actual time=0.168..0.196 rows=30 loops=1)
+              Hash Cond: (t1_0.category_id = c1_0.id)
+              Buffers: shared hit=3
+              ->  Hash Join  (cost=1.74..3.41 rows=30 width=1595) (actual time=0.056..0.075 rows=30 loops=1)
+                    Hash Cond: (t1_0.account_id = a1_0.id)
+                    Buffers: shared hit=2
+                    ->  Seq Scan on transactions t1_0  (cost=0.00..1.58 rows=30 width=975) (actual time=0.010..0.015 rows=30 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+                          Rows Removed by Filter: 3
+                          Buffers: shared hit=1
+                    ->  Hash  (cost=1.33..1.33 rows=33 width=620) (actual time=0.034..0.035 rows=33 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 13kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on accounts a1_0  (cost=0.00..1.33 rows=33 width=620) (actual time=0.004..0.010 rows=33 loops=1)
+                                Buffers: shared hit=1
+              ->  Hash  (cost=1.02..1.02 rows=2 width=576) (actual time=0.094..0.095 rows=2 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on categories c1_0  (cost=0.00..1.02 rows=2 width=576) (actual time=0.002..0.003 rows=2 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=19
+Planning Time: 0.715 ms
+Execution Time: 0.489 ms
+select count(t1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?)
+Aggregate  (cost=3.48..3.49 rows=1 width=8) (actual time=0.057..0.059 rows=1 loops=1)
+  Buffers: shared hit=2
+  ->  Hash Join  (cost=1.74..3.41 rows=30 width=16) (actual time=0.042..0.053 rows=30 loops=1)
+        Hash Cond: (t1_0.account_id = a1_0.id)
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.58 rows=30 width=32) (actual time=0.009..0.014 rows=30 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.33..1.33 rows=33 width=16) (actual time=0.019..0.019 rows=33 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 10kB
+              Buffers: shared hit=1
+              ->  Seq Scan on accounts a1_0  (cost=0.00..1.33 rows=33 width=16) (actual time=0.002..0.005 rows=33 loops=1)
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=11
+Planning Time: 0.279 ms
+Execution Time: 0.108 ms
+SELECT COALESCE(t.settlement_of_id, o.settlement_of_id),
+       SUM(CASE WHEN t.origin='REVERSAL' THEN -t.amount ELSE t.amount END)
+FROM transactions t LEFT JOIN transactions o ON o.id=t.reversal_of_id
+WHERE (t.settlement_of_id IN (?,?) OR o.settlement_of_id IN (?,?))
+  AND t.status IN ('SETTLED','REVERSED')
+GROUP BY COALESCE(t.settlement_of_id, o.settlement_of_id)
+
+GroupAggregate  (cost=3.25..3.28 rows=1 width=48) (actual time=0.067..0.069 rows=0 loops=1)
+  Group Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+  Buffers: shared hit=2
+  ->  Sort  (cost=3.25..3.26 rows=1 width=26) (actual time=0.067..0.068 rows=0 loops=1)
+        Sort Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2
+        ->  Hash Left Join  (cost=1.74..3.24 rows=1 width=26) (actual time=0.061..0.062 rows=0 loops=1)
+              Hash Cond: (t.reversal_of_id = o.id)
+              Filter: ((t.settlement_of_id = ANY ('{fdd2a2a9-0b20-44a4-9dc8-46e43b6563f0,faa0eac7-b2c1-4d88-9da2-5d99f320d4a6}'::uuid[])) OR (o.settlement_of_id = ANY ('{fdd2a2a9-0b20-44a4-9dc8-46e43b6563f0,faa0eac7-b2c1-4d88-9da2-5d99f320d4a6}'::uuid[])))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=2
+              ->  Seq Scan on transactions t  (cost=0.00..1.41 rows=33 width=42) (actual time=0.007..0.014 rows=33 loops=1)
+                    Filter: ((status)::text = ANY ('{SETTLED,REVERSED}'::text[]))
+                    Buffers: shared hit=1
+              ->  Hash  (cost=1.33..1.33 rows=33 width=32) (actual time=0.028..0.028 rows=33 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 10kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions o  (cost=0.00..1.33 rows=33 width=32) (actual time=0.002..0.008 rows=33 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.373 ms
+Execution Time: 0.177 ms
+SELECT reversal_of_id, SUM(amount) FROM transactions WHERE reversal_of_id IN (?,?) GROUP BY reversal_of_id
+HashAggregate  (cost=1.42..1.43 rows=1 width=48) (actual time=0.014..0.015 rows=0 loops=1)
+  Group Key: reversal_of_id
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=1
+  ->  Seq Scan on transactions  (cost=0.00..1.41 rows=1 width=21) (actual time=0.013..0.013 rows=0 loops=1)
+        Filter: (reversal_of_id = ANY ('{fdd2a2a9-0b20-44a4-9dc8-46e43b6563f0,faa0eac7-b2c1-4d88-9da2-5d99f320d4a6}'::uuid[]))
+        Rows Removed by Filter: 33
+        Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=7
+Planning Time: 0.119 ms
+Execution Time: 0.034 ms
+
+## cash size=30
+select t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),sum(case when t1_0.origin='REVERSAL' then -coalesce(t1_0.cash_amount,t1_0.amount) else coalesce(t1_0.cash_amount,t1_0.amount) end) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=t1_0.reversal_of_id and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and (t1_0.status in ('SETTLED','REVERSED') or (t1_0.status is null and t1_0.is_paid=true)) and (t1_0.origin is null or t1_0.origin<>'ACCOUNT_OPENING') and (t1_0.type<>'TRANSFER' or coalesce(t1_0.transfer_direction,t2_0.transfer_direction) is not null) and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or t1_0.account_id=?) and (cast(? as uuid) is not null or t1_0.type<>'TRANSFER') group by t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),t1_0.origin
+HashAggregate  (cost=4.14..4.52 rows=30 width=126) (actual time=0.112..0.115 rows=1 loops=1)
+  Group Key: t1_0.type, COALESCE(t1_0.transfer_direction, t2_0.transfer_direction), t1_0.origin
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.79..3.69 rows=30 width=129) (actual time=0.056..0.084 rows=30 loops=1)
+        Hash Cond: (t1_0.reversal_of_id = t2_0.id)
+        Filter: (((t1_0.type)::text <> 'TRANSFER'::text) OR (COALESCE(t1_0.transfer_direction, t2_0.transfer_direction) IS NOT NULL))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.83 rows=30 width=145) (actual time=0.014..0.030 rows=30 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND ((origin IS NULL) OR ((origin)::text <> 'ACCOUNT_OPENING'::text)) AND ((type)::text <> 'TRANSFER'::text) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.41..1.41 rows=30 width=98) (actual time=0.028..0.029 rows=30 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 10kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.41 rows=30 width=98) (actual time=0.003..0.009 rows=30 loops=1)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=27
+Planning Time: 0.627 ms
+Execution Time: 0.234 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.71..1.72 rows=1 width=20) (actual time=0.025..0.026 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Seq Scan on accounts  (cost=0.00..1.49 rows=30 width=4) (actual time=0.010..0.019 rows=30 loops=1)
+        Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+        Rows Removed by Filter: 3
+        Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.314 ms
+Execution Time: 0.086 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=3.48..3.49 rows=1 width=8) (actual time=0.114..0.116 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Subquery Scan on "*SELECT* 1"  (cost=1.92..3.48 rows=1 width=0) (actual time=0.113..0.114 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Hash Right Join  (cost=1.92..3.47 rows=1 width=16) (actual time=0.112..0.113 rows=0 loops=1)
+              Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+              Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions original  (cost=0.00..1.41 rows=30 width=103) (never executed)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+              ->  Hash  (cost=1.91..1.91 rows=1 width=126) (actual time=0.025..0.026 rows=0 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions t  (cost=0.00..1.91 rows=1 width=126) (actual time=0.025..0.025 rows=0 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                          Rows Removed by Filter: 33
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.754 ms
+Execution Time: 0.207 ms
+
+## dashboard size=30
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=3.92..3.93 rows=1 width=39) (actual time=0.073..0.074 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.79..3.63 rows=29 width=17) (actual time=0.038..0.059 rows=30 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.74 rows=30 width=49) (actual time=0.009..0.017 rows=30 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.41..1.41 rows=30 width=21) (actual time=0.019..0.019 rows=30 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 10kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.41 rows=30 width=21) (actual time=0.004..0.008 rows=30 loops=1)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.375 ms
+Execution Time: 0.160 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.002..0.003 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+                    Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.191 ms
+Execution Time: 0.027 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-09-01'::date) AND (refund_date <= '2026-09-30'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.111 ms
+Execution Time: 0.019 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.122 ms
+Execution Time: 0.038 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.116 ms
+Execution Time: 0.038 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-09-01'::date) AND (effective_date <= '2026-09-30'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.102 ms
+Execution Time: 0.018 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.90..1.91 rows=1 width=20) (actual time=0.025..0.026 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=0.00..1.66 rows=32 width=4) (actual time=0.009..0.020 rows=30 loops=1)
+        Buffers: shared hit=1
+        ->  Seq Scan on accounts  (cost=0.00..1.49 rows=30 width=4) (actual time=0.008..0.015 rows=30 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.000..0.000 rows=0 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.219 ms
+Execution Time: 0.079 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=3.52..3.53 rows=1 width=8) (actual time=0.027..0.029 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=1.92..3.52 rows=2 width=0) (actual time=0.026..0.028 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 1"  (cost=1.92..3.48 rows=1 width=0) (actual time=0.024..0.025 rows=0 loops=1)
+              Buffers: shared hit=1
+              ->  Hash Right Join  (cost=1.92..3.47 rows=1 width=16) (actual time=0.024..0.025 rows=0 loops=1)
+                    Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions original  (cost=0.00..1.41 rows=30 width=103) (never executed)
+                          Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    ->  Hash  (cost=1.91..1.91 rows=1 width=126) (actual time=0.017..0.018 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on transactions t  (cost=0.00..1.91 rows=1 width=126) (actual time=0.017..0.017 rows=0 loops=1)
+                                Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                                Rows Removed by Filter: 33
+                                Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.001..0.002 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.000..0.001 rows=0 loops=1)
+                                Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.638 ms
+Execution Time: 0.102 ms
+
+## annual size=30
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=1.90..1.91 rows=1 width=20) (actual time=0.027..0.028 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=0.00..1.66 rows=32 width=4) (actual time=0.011..0.022 rows=30 loops=1)
+        Buffers: shared hit=1
+        ->  Seq Scan on accounts  (cost=0.00..1.49 rows=30 width=4) (actual time=0.011..0.017 rows=30 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.000..0.001 rows=0 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.255 ms
+Execution Time: 0.101 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=3.52..3.53 rows=1 width=8) (actual time=0.023..0.025 rows=1 loops=1)
+  Buffers: shared hit=1
+  ->  Append  (cost=1.92..3.52 rows=2 width=0) (actual time=0.022..0.023 rows=0 loops=1)
+        Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 1"  (cost=1.92..3.48 rows=1 width=0) (actual time=0.020..0.021 rows=0 loops=1)
+              Buffers: shared hit=1
+              ->  Hash Right Join  (cost=1.92..3.47 rows=1 width=16) (actual time=0.019..0.020 rows=0 loops=1)
+                    Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=1
+                    ->  Seq Scan on transactions original  (cost=0.00..1.41 rows=30 width=103) (never executed)
+                          Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    ->  Hash  (cost=1.91..1.91 rows=1 width=126) (actual time=0.017..0.017 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=1
+                          ->  Seq Scan on transactions t  (cost=0.00..1.91 rows=1 width=126) (actual time=0.017..0.017 rows=0 loops=1)
+                                Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                                Rows Removed by Filter: 33
+                                Buffers: shared hit=1
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.001..0.002 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.000..0.000 rows=0 loops=1)
+                                Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.528 ms
+Execution Time: 0.099 ms
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=3.92..3.93 rows=1 width=39) (actual time=0.071..0.073 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=2
+  ->  Hash Left Join  (cost=1.79..3.63 rows=29 width=17) (actual time=0.041..0.060 rows=30 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=2
+        ->  Seq Scan on transactions t1_0  (cost=0.00..1.74 rows=30 width=49) (actual time=0.009..0.016 rows=30 loops=1)
+              Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Hash  (cost=1.41..1.41 rows=30 width=21) (actual time=0.019..0.019 rows=30 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 10kB
+              Buffers: shared hit=1
+              ->  Seq Scan on transactions t2_0  (cost=0.00..1.41 rows=30 width=21) (actual time=0.003..0.008 rows=30 loops=1)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+                    Rows Removed by Filter: 3
+                    Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.328 ms
+Execution Time: 0.144 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.004..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+                    Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.198 ms
+Execution Time: 0.021 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-01-01'::date) AND (refund_date <= '2026-12-31'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.098 ms
+Execution Time: 0.016 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.101 ms
+Execution Time: 0.017 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.095 ms
+Execution Time: 0.017 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-01-01'::date) AND (effective_date <= '2026-12-31'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.084 ms
+Execution Time: 0.016 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c2_0 on c2_0.id=i1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=ct1_0.category_id where c2_0.user_id=? and c1_0.name=? and ct1_0.origin='PURCHASE' and extract(year from ct1_0.date)=?
+Aggregate  (cost=1.07..1.08 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.06 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = ct1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.03 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Join Filter: (i1_0.card_id = c2_0.id)
+              ->  Nested Loop  (cost=0.00..0.01 rows=1 width=62) (actual time=0.001..0.002 rows=0 loops=1)
+                    Join Filter: (i1_0.id = ct1_0.invoice_id)
+                    ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.001..0.001 rows=0 loops=1)
+                          Filter: (((origin)::text = 'PURCHASE'::text) AND (EXTRACT(year FROM date) = '2026'::numeric))
+                    ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+              ->  Seq Scan on credit_cards c2_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+        ->  Seq Scan on categories c1_0  (cost=0.00..1.02 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.173 ms
+Execution Time: 0.050 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c2_0 on c2_0.id=cr1_0.category_id where c1_0.user_id=? and extract(year from cr1_0.refund_date)=? and c2_0.name=?
+Aggregate  (cost=1.05..1.06 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.05 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (c2_0.id = cr1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Join Filter: (c1_0.id = cr1_0.card_id)
+              ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.001..0.001 rows=0 loops=1)
+                    Filter: (EXTRACT(year FROM refund_date) = '2026'::numeric)
+              ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+        ->  Seq Scan on categories c2_0  (cost=0.00..1.02 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.120 ms
+Execution Time: 0.018 ms
+select i1_0.id,i1_0.average_price,i1_0.current_price,i1_0.goal_id,i1_0.name,i1_0.operation_sequence,i1_0.quantity,i1_0.replay_cost,i1_0.replay_quantity,i1_0.reporting_known_from,i1_0.ticker,i1_0.total_cost,i1_0.type,i1_0.user_id,i1_0.valuation_amount,i1_0.valuation_basis,i1_0.valuation_date,i1_0.valuation_reference_amount,i1_0.valuation_reference_quantity,i1_0.valuation_source,i1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where i1_0.user_id=?
+Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=2426) (actual time=0.001..0.001 rows=0 loops=1)
+  Filter: (user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid)
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.037 ms
+Execution Time: 0.009 ms
+select yn1_0.id,yn1_0.content,yn1_0.updated_at,yn1_0.user_id,yn1_0.note_year from cf025_f0ae896ee3ee40da8355bdacfd6e36be.yearly_notes yn1_0 where yn1_0.user_id=? and yn1_0.note_year=?
+Seq Scan on yearly_notes yn1_0  (cost=0.00..0.00 rows=1 width=76) (actual time=0.001..0.001 rows=0 loops=1)
+  Filter: ((user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND (note_year = 2026))
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.038 ms
+Execution Time: 0.007 ms
+
+## reorder_accounts size=30
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by a1_0.id for no key update of a1_0
+LockRows  (cost=4.59..4.93 rows=27 width=626) (actual time=0.052..0.075 rows=30 loops=1)
+  Buffers: shared hit=33
+  ->  Sort  (cost=4.59..4.66 rows=27 width=626) (actual time=0.047..0.049 rows=30 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 29kB
+        Buffers: shared hit=3
+        ->  Seq Scan on accounts a1_0  (cost=0.07..3.95 rows=27 width=626) (actual time=0.021..0.032 rows=30 loops=1)
+              Filter: ((user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND (id = ANY ('{57575c3b-a562-4412-82bb-8875f15a4389,9e2f0455-d4b0-48d8-baf8-f6d46eedba10,e2cadb73-ff31-4c98-be0d-c418208d880c,18a33a24-193e-4d82-86a8-a51833563018,2de90d00-a8ce-4fdf-8ae4-9be249b3c54a,d8b15532-5e26-4863-8623-b810906a61d2,7e9fcefc-82d2-48f1-8deb-bd9124997f6c,bdec8d39-d9e2-41c4-bdf8-edf190726ed8,7065cd20-9cad-49db-bc20-e6998f004199,c4b8f46a-f202-48f6-bbbe-727055e0bbdd,81ef6c95-c8e9-44a1-94fa-da6983329646,fad74eca-ec9a-4a4f-9dc4-66d43470317d,3787f038-b4d5-429e-84a3-d8b27665f8d7,c1609e2a-c046-4bef-bd9f-d3ee4ca891a0,ee29c958-3d56-415f-a256-f6488513ed6b,895473e6-fd22-4da4-8944-6ec4fdaeb83a,63159460-7725-4ff6-b7b1-2ba6905390c2,76d0f8fb-ece2-4d12-9e31-61fe8e00cc77,d5cd7ba1-7175-43a9-acbd-e45e1b0182b6,2ad1bea9-e1aa-4cb0-8e5e-823d4e190f3c,d63dce0b-b95d-408e-bed7-0da51efbe68a,5662fe4c-6ff4-41a6-943b-8077f4cd1c95,adfe1c04-d26b-4c9c-8fce-26d061096af2,d50d0aef-2cc3-49e2-b059-cd9dbcf1579c,0460cfd4-2d2a-4ae4-ae86-2fd532cc564a,b8576a04-9f06-4d56-b889-e878600225c4,886a81b0-e0f0-4190-9a5c-5db51382e329,ab818499-c5a3-49e7-9174-74bc4a6e5383,3b7c4911-467a-4d9e-b6aa-c97d978c39af,5b4c0be4-44f5-4f3b-b594-028dfe548b14}'::uuid[])))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=3
+Planning Time: 0.089 ms
+Execution Time: 0.094 ms
+
+## reorder_habits size=30
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 where h1_0.user_id=? and h1_0.id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by h1_0.id for no key update of h1_0
+LockRows  (cost=7.03..7.36 rows=27 width=629) (actual time=0.045..0.061 rows=30 loops=1)
+  Buffers: shared hit=34
+  ->  Sort  (cost=7.03..7.09 rows=27 width=629) (actual time=0.040..0.042 rows=30 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 29kB
+        Buffers: shared hit=4
+        ->  Seq Scan on habits h1_0  (cost=0.07..6.38 rows=27 width=629) (actual time=0.019..0.026 rows=30 loops=1)
+              Filter: ((user_id = '1518778a-c7ed-44bb-9a8c-b4fc0df899f0'::uuid) AND (id = ANY ('{c2797201-e65f-4136-b0e0-e7e14ec55995,332359ae-e186-4bd2-aeaa-b585cdb867cc,d5ab17ed-f017-4ef4-9c0c-dba04824f6a8,510c3c20-fec2-40b2-9f73-792090c93b0c,48e31a28-14c4-4dab-a99a-5a2698547387,b9220f87-2226-4ccf-8ce3-bcb81e6b5077,4f8404f9-b27c-4972-be72-e2f976c6b373,d6456afc-4fdb-4bc6-ad3c-4c63b5b69c02,bd4c2f0a-7429-4814-af94-757ff73298b1,c1e20afe-b8cf-4b50-a594-702aa45f2236,d629c1c4-f1c2-4547-af9d-5cd7aea6e4dc,98be5bb9-c04c-4be5-b41e-343f32ec7e7a,edcf6705-7807-47c8-be8e-3f8e7015db8c,293964c3-b37b-4180-8a1c-b107b7d398d4,9de4c50c-e816-4f8d-8e42-738331db5e76,761c780a-a519-4c54-8580-e9143024834b,49ad5a93-d630-4000-99ac-898a346c2ea5,9c8d1075-9693-4e1e-b897-5b772bd51222,1cae41f9-5fa3-4411-bcb6-f99d60254309,bac277f1-4c2d-4765-b3cc-9d1d98d7a75b,36951d4f-bfb5-4842-86df-50a570755d4b,a5dec8b5-936a-432d-95f2-b933f54e0f49,8ebc2df5-3e39-4fc7-a36d-fdb722ae7669,46d90509-a109-4fc0-b766-8152da4f7008,1db694d8-ed49-470e-836a-87c3328414ef,351422fb-d9e0-4211-8d93-bd8cfbc2906d,d1e6f6e2-1732-471d-ab19-69f88dffae05,f4874ccc-7232-4e72-9172-e71b8b078d11,bdfbc705-4a81-4fe5-adce-47724f3f9bec,ac5752e2-ccb7-4c4e-9e22-7a27ff3da083}'::uuid[])))
+              Rows Removed by Filter: 3
+              Buffers: shared hit=4
+Planning Time: 0.087 ms
+Execution Time: 0.078 ms
+select sd1_0.habit_id,sd1_0.day_of_week from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_days sd1_0 where sd1_0.habit_id=?
+Seq Scan on habit_days sd1_0  (cost=0.00..2.24 rows=3 width=24) (actual time=0.008..0.010 rows=3 loops=1)
+  Filter: (habit_id = 'f4874ccc-7232-4e72-9172-e71b8b078d11'::uuid)
+  Rows Removed by Filter: 96
+  Buffers: shared hit=1
+Planning Time: 0.065 ms
+Execution Time: 0.017 ms
+
+## accounts size=120
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.is_archived=false order by a1_0.order_index
+Sort  (cost=11.06..11.36 rows=120 width=620) (actual time=0.084..0.090 rows=120 loops=1)
+  Sort Key: order_index
+  Sort Method: quicksort  Memory: 41kB
+  Buffers: shared hit=5
+  ->  Seq Scan on accounts a1_0  (cost=0.00..6.91 rows=120 width=620) (actual time=0.017..0.040 rows=120 loops=1)
+        Filter: ((NOT is_archived) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+        Rows Removed by Filter: 33
+        Buffers: shared hit=5
+Planning Time: 0.095 ms
+Execution Time: 0.110 ms
+
+## goals size=120
+select gi1_0.id,gi1_0.allocation_id,gi1_0.bank_transaction_id,gi1_0.card_transaction_id,gi1_0.estimated_price,gi1_0.goal_id,g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version,gi1_0.name,gi1_0.order_index,gi1_0.paid_price,gi1_0.status,gi1_0.suggested_model,gi1_0.used_goal_balance from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goal_items gi1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 on g1_0.id=gi1_0.goal_id where g1_0.user_id=? order by gi1_0.order_index,gi1_0.id
+Sort  (cost=24.79..25.39 rows=240 width=2800) (actual time=0.442..0.454 rows=240 loops=1)
+  Sort Key: gi1_0.order_index, gi1_0.id
+  Sort Method: quicksort  Memory: 68kB
+  Buffers: shared hit=8
+  ->  Hash Join  (cost=6.41..15.30 rows=240 width=2800) (actual time=0.119..0.220 rows=240 loops=1)
+        Hash Cond: (gi1_0.goal_id = g1_0.id)
+        Buffers: shared hit=8
+        ->  Seq Scan on goal_items gi1_0  (cost=0.00..8.06 rows=306 width=657) (actual time=0.005..0.030 rows=306 loops=1)
+              Buffers: shared hit=5
+        ->  Hash  (cost=4.91..4.91 rows=120 width=2143) (actual time=0.086..0.086 rows=120 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 23kB
+              Buffers: shared hit=3
+              ->  Seq Scan on goals g1_0  (cost=0.00..4.91 rows=120 width=2143) (actual time=0.009..0.033 rows=120 loops=1)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    Rows Removed by Filter: 33
+                    Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=4
+Planning Time: 0.238 ms
+Execution Time: 0.536 ms
+select g1_0.id,g1_0.allocation_reconciled,g1_0.category,g1_0.color,g1_0.current_value,g1_0.deadline,g1_0.icon,g1_0.order_index,g1_0.target_value,g1_0.title,g1_0.type,g1_0.unit,g1_0.use_checklist,g1_0.user_id,g1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.goals g1_0 where g1_0.user_id=? order by g1_0.deadline
+Sort  (cost=9.06..9.36 rows=120 width=2143) (actual time=0.077..0.083 rows=120 loops=1)
+  Sort Key: deadline
+  Sort Method: quicksort  Memory: 38kB
+  Buffers: shared hit=3
+  ->  Seq Scan on goals g1_0  (cost=0.00..4.91 rows=120 width=2143) (actual time=0.010..0.034 rows=120 loops=1)
+        Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+        Rows Removed by Filter: 33
+        Buffers: shared hit=3
+Planning Time: 0.051 ms
+Execution Time: 0.100 ms
+
+## habits size=120
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,l1_0.habit_id,l1_0.id,l1_0.log_date,l1_0.goal_effect_managed,l1_0.goal_history_id,l1_0.status,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_logs l1_0 on h1_0.id=l1_0.habit_id where h1_0.user_id=? order by h1_0.order_index
+Sort  (cost=74.81..76.91 rows=840 width=686) (actual time=1.607..1.676 rows=840 loops=1)
+  Sort Key: h1_0.order_index
+  Sort Method: quicksort  Memory: 182kB
+  Buffers: shared hit=17
+  ->  Hash Right Join  (cost=9.41..34.01 rows=840 width=686) (actual time=0.261..0.835 rows=840 loops=1)
+        Hash Cond: (l1_0.habit_id = h1_0.id)
+        Buffers: shared hit=17
+        ->  Seq Scan on habit_logs l1_0  (cost=0.00..21.71 rows=1071 width=63) (actual time=0.006..0.240 rows=1071 loops=1)
+              Buffers: shared hit=11
+        ->  Hash  (cost=7.91..7.91 rows=120 width=623) (actual time=0.168..0.170 rows=120 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 26kB
+              Buffers: shared hit=6
+              ->  Seq Scan on habits h1_0  (cost=0.00..7.91 rows=120 width=623) (actual time=0.035..0.078 rows=120 loops=1)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    Rows Removed by Filter: 33
+                    Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=12
+Planning Time: 0.552 ms
+Execution Time: 1.873 ms
+
+## statement size=120
+select t1_0.id,t1_0.account_id,a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version,t1_0.amount,t1_0.cash_amount,c1_0.id,c1_0.color,c1_0.icon,c1_0.is_system_reserved,c1_0.name,c1_0.type,c1_0.user_id,t1_0.correction_of_id,t1_0.counterparty_account_id,t1_0.created_at,t1_0.date,t1_0.description,t1_0.due_date,t1_0.goal_item_id,t1_0.is_paid,t1_0.is_system_managed,t1_0.legacy_created_at_raw,t1_0.operation_id,t1_0.origin,t1_0.realization_of_id,t1_0.reason,t1_0.recorded_at,t1_0.reversal_of_id,t1_0.settled_at,t1_0.settlement_of_id,t1_0.status,t1_0.operation_time,t1_0.time_origin,t1_0.transfer_direction,t1_0.type,t1_0.user_id from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=t1_0.category_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?) order by t1_0.date desc,case when t1_0.operation_time is null then 1 else 0 end,t1_0.operation_time desc,t1_0.id desc fetch first ? rows only
+Limit  (cost=18.47..18.48 rows=2 width=2159) (actual time=0.379..0.381 rows=2 loops=1)
+  Buffers: shared hit=10
+  ->  Sort  (cost=18.47..18.77 rows=120 width=2159) (actual time=0.378..0.380 rows=2 loops=1)
+        Sort Key: t1_0.date DESC, (CASE WHEN (t1_0.operation_time IS NULL) THEN 1 ELSE 0 END), t1_0.operation_time DESC, t1_0.id DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=10
+        ->  Hash Left Join  (cost=9.51..17.27 rows=120 width=2159) (actual time=0.139..0.232 rows=120 loops=1)
+              Hash Cond: (t1_0.category_id = c1_0.id)
+              Buffers: shared hit=10
+              ->  Hash Join  (cost=8.44..15.45 rows=120 width=1595) (actual time=0.118..0.180 rows=120 loops=1)
+                    Hash Cond: (t1_0.account_id = a1_0.id)
+                    Buffers: shared hit=9
+                    ->  Seq Scan on transactions t1_0  (cost=0.00..6.68 rows=120 width=975) (actual time=0.010..0.032 rows=120 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+                          Rows Removed by Filter: 33
+                          Buffers: shared hit=4
+                    ->  Hash  (cost=6.53..6.53 rows=153 width=620) (actual time=0.097..0.097 rows=153 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 31kB
+                          Buffers: shared hit=5
+                          ->  Seq Scan on accounts a1_0  (cost=0.00..6.53 rows=153 width=620) (actual time=0.003..0.030 rows=153 loops=1)
+                                Buffers: shared hit=5
+              ->  Hash  (cost=1.03..1.03 rows=3 width=576) (actual time=0.010..0.010 rows=3 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                    Buffers: shared hit=1
+                    ->  Seq Scan on categories c1_0  (cost=0.00..1.03 rows=3 width=576) (actual time=0.004..0.004 rows=3 loops=1)
+                          Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=17
+Planning Time: 0.491 ms
+Execution Time: 0.563 ms
+select count(t1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 on a1_0.id=t1_0.account_id where t1_0.user_id=? and t1_0.date>=? and t1_0.date<=? and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or a1_0.id=?)
+Aggregate  (cost=15.75..15.76 rows=1 width=8) (actual time=0.109..0.110 rows=1 loops=1)
+  Buffers: shared hit=9
+  ->  Hash Join  (cost=8.44..15.45 rows=120 width=16) (actual time=0.062..0.100 rows=120 loops=1)
+        Hash Cond: (t1_0.account_id = a1_0.id)
+        Buffers: shared hit=9
+        ->  Seq Scan on transactions t1_0  (cost=0.00..6.68 rows=120 width=32) (actual time=0.011..0.031 rows=120 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=4
+        ->  Hash  (cost=6.53..6.53 rows=153 width=16) (actual time=0.047..0.048 rows=153 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 16kB
+              Buffers: shared hit=5
+              ->  Seq Scan on accounts a1_0  (cost=0.00..6.53 rows=153 width=16) (actual time=0.002..0.017 rows=153 loops=1)
+                    Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=13
+Planning Time: 0.296 ms
+Execution Time: 0.153 ms
+SELECT COALESCE(t.settlement_of_id, o.settlement_of_id),
+       SUM(CASE WHEN t.origin='REVERSAL' THEN -t.amount ELSE t.amount END)
+FROM transactions t LEFT JOIN transactions o ON o.id=t.reversal_of_id
+WHERE (t.settlement_of_id IN (?,?) OR o.settlement_of_id IN (?,?))
+  AND t.status IN ('SETTLED','REVERSED')
+GROUP BY COALESCE(t.settlement_of_id, o.settlement_of_id)
+
+GroupAggregate  (cost=13.77..13.79 rows=1 width=48) (actual time=0.132..0.133 rows=0 loops=1)
+  Group Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+  Buffers: shared hit=8
+  ->  Sort  (cost=13.77..13.77 rows=1 width=26) (actual time=0.131..0.132 rows=0 loops=1)
+        Sort Key: (COALESCE(t.settlement_of_id, o.settlement_of_id))
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=8
+        ->  Hash Left Join  (cost=7.44..13.76 rows=1 width=26) (actual time=0.128..0.128 rows=0 loops=1)
+              Hash Cond: (t.reversal_of_id = o.id)
+              Filter: ((t.settlement_of_id = ANY ('{fa44972b-fbe3-43dd-8fa6-079ec079baea,f8ddfcb6-8cbd-490d-a831-00933f197f28}'::uuid[])) OR (o.settlement_of_id = ANY ('{fa44972b-fbe3-43dd-8fa6-079ec079baea,f8ddfcb6-8cbd-490d-a831-00933f197f28}'::uuid[])))
+              Rows Removed by Filter: 153
+              Buffers: shared hit=8
+              ->  Seq Scan on transactions t  (cost=0.00..5.91 rows=153 width=42) (actual time=0.006..0.036 rows=153 loops=1)
+                    Filter: ((status)::text = ANY ('{SETTLED,REVERSED}'::text[]))
+                    Buffers: shared hit=4
+              ->  Hash  (cost=5.53..5.53 rows=153 width=32) (actual time=0.057..0.057 rows=153 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 16kB
+                    Buffers: shared hit=4
+                    ->  Seq Scan on transactions o  (cost=0.00..5.53 rows=153 width=32) (actual time=0.002..0.029 rows=153 loops=1)
+                          Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.277 ms
+Execution Time: 0.210 ms
+SELECT reversal_of_id, SUM(amount) FROM transactions WHERE reversal_of_id IN (?,?) GROUP BY reversal_of_id
+GroupAggregate  (cost=5.92..5.95 rows=1 width=48) (actual time=0.031..0.032 rows=0 loops=1)
+  Group Key: reversal_of_id
+  Buffers: shared hit=4
+  ->  Sort  (cost=5.92..5.93 rows=1 width=21) (actual time=0.031..0.031 rows=0 loops=1)
+        Sort Key: reversal_of_id
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=4
+        ->  Seq Scan on transactions  (cost=0.00..5.91 rows=1 width=21) (actual time=0.028..0.028 rows=0 loops=1)
+              Filter: (reversal_of_id = ANY ('{fa44972b-fbe3-43dd-8fa6-079ec079baea,f8ddfcb6-8cbd-490d-a831-00933f197f28}'::uuid[]))
+              Rows Removed by Filter: 153
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=7
+Planning Time: 0.082 ms
+Execution Time: 0.046 ms
+
+## cash size=120
+select t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),sum(case when t1_0.origin='REVERSAL' then -coalesce(t1_0.cash_amount,t1_0.amount) else coalesce(t1_0.cash_amount,t1_0.amount) end) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=t1_0.reversal_of_id and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and (t1_0.status in ('SETTLED','REVERSED') or (t1_0.status is null and t1_0.is_paid=true)) and (t1_0.origin is null or t1_0.origin<>'ACCOUNT_OPENING') and (t1_0.type<>'TRANSFER' or coalesce(t1_0.transfer_direction,t2_0.transfer_direction) is not null) and (cast(? as varchar) is null or t1_0.type=?) and (cast(? as uuid) is null or t1_0.account_id=?) and (cast(? as uuid) is not null or t1_0.type<>'TRANSFER') group by t1_0.type,coalesce(t1_0.transfer_direction,t2_0.transfer_direction),t1_0.origin
+HashAggregate  (cost=17.35..18.85 rows=120 width=126) (actual time=0.168..0.170 rows=1 loops=1)
+  Group Key: t1_0.type, COALESCE(t1_0.transfer_direction, t2_0.transfer_direction), t1_0.origin
+  Batches: 1  Memory Usage: 40kB
+  Buffers: shared hit=8
+  ->  Hash Left Join  (cost=7.41..15.55 rows=120 width=129) (actual time=0.074..0.127 rows=120 loops=1)
+        Hash Cond: (t1_0.reversal_of_id = t2_0.id)
+        Filter: (((t1_0.type)::text <> 'TRANSFER'::text) OR (COALESCE(t1_0.transfer_direction, t2_0.transfer_direction) IS NOT NULL))
+        Buffers: shared hit=8
+        ->  Seq Scan on transactions t1_0  (cost=0.00..7.83 rows=120 width=145) (actual time=0.015..0.047 rows=120 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND ((origin IS NULL) OR ((origin)::text <> 'ACCOUNT_OPENING'::text)) AND ((type)::text <> 'TRANSFER'::text) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=4
+        ->  Hash  (cost=5.91..5.91 rows=120 width=98) (actual time=0.048..0.049 rows=120 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 14kB
+              Buffers: shared hit=4
+              ->  Seq Scan on transactions t2_0  (cost=0.00..5.91 rows=120 width=98) (actual time=0.005..0.027 rows=120 loops=1)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    Rows Removed by Filter: 33
+                    Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=27
+Planning Time: 0.378 ms
+Execution Time: 0.260 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=8.11..8.12 rows=1 width=20) (actual time=0.046..0.047 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Seq Scan on accounts  (cost=0.00..7.21 rows=120 width=4) (actual time=0.011..0.037 rows=120 loops=1)
+        Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+        Rows Removed by Filter: 33
+        Buffers: shared hit=5
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.174 ms
+Execution Time: 0.064 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=14.61..14.62 rows=1 width=8) (actual time=0.057..0.060 rows=1 loops=1)
+  Buffers: shared hit=4
+  ->  Subquery Scan on "*SELECT* 1"  (cost=8.22..14.61 rows=1 width=0) (actual time=0.056..0.059 rows=0 loops=1)
+        Buffers: shared hit=4
+        ->  Hash Right Join  (cost=8.22..14.60 rows=1 width=16) (actual time=0.056..0.058 rows=0 loops=1)
+              Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+              Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+              Buffers: shared hit=4
+              ->  Seq Scan on transactions original  (cost=0.00..5.91 rows=120 width=103) (never executed)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+              ->  Hash  (cost=8.21..8.21 rows=1 width=126) (actual time=0.046..0.048 rows=0 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                    Buffers: shared hit=4
+                    ->  Seq Scan on transactions t  (cost=0.00..8.21 rows=1 width=126) (actual time=0.046..0.046 rows=0 loops=1)
+                          Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                          Rows Removed by Filter: 153
+                          Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.467 ms
+Execution Time: 0.120 ms
+
+## dashboard size=120
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=16.37..16.39 rows=1 width=39) (actual time=0.177..0.178 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=8
+  ->  Hash Left Join  (cost=7.41..15.19 rows=118 width=17) (actual time=0.080..0.148 rows=120 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=8
+        ->  Seq Scan on transactions t1_0  (cost=0.00..7.44 rows=120 width=49) (actual time=0.020..0.047 rows=120 loops=1)
+              Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=4
+        ->  Hash  (cost=5.91..5.91 rows=120 width=21) (actual time=0.045..0.045 rows=120 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 15kB
+              Buffers: shared hit=4
+              ->  Seq Scan on transactions t2_0  (cost=0.00..5.91 rows=120 width=21) (actual time=0.004..0.024 rows=120 loops=1)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    Rows Removed by Filter: 33
+                    Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.502 ms
+Execution Time: 0.269 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.004..0.005 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.002..0.002 rows=0 loops=1)
+                    Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.210 ms
+Execution Time: 0.021 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-09-01'::date) AND (refund_date <= '2026-09-30'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.102 ms
+Execution Time: 0.016 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.099 ms
+Execution Time: 0.017 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.003 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-09-01'::date) AND (operation_date <= '2026-09-30'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.094 ms
+Execution Time: 0.016 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.003 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-09-01'::date) AND (effective_date <= '2026-09-30'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.087 ms
+Execution Time: 0.016 ms
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=8.75..8.76 rows=1 width=20) (actual time=0.057..0.058 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Append  (cost=0.00..7.83 rows=122 width=4) (actual time=0.014..0.048 rows=120 loops=1)
+        Buffers: shared hit=5
+        ->  Seq Scan on accounts  (cost=0.00..7.21 rows=120 width=4) (actual time=0.014..0.038 rows=120 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+              Rows Removed by Filter: 33
+              Buffers: shared hit=5
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.000..0.001 rows=0 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.000..0.000 rows=0 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.161 ms
+Execution Time: 0.116 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=14.66..14.67 rows=1 width=8) (actual time=0.055..0.056 rows=1 loops=1)
+  Buffers: shared hit=4
+  ->  Append  (cost=8.22..14.66 rows=2 width=0) (actual time=0.054..0.055 rows=0 loops=1)
+        Buffers: shared hit=4
+        ->  Subquery Scan on "*SELECT* 1"  (cost=8.22..14.61 rows=1 width=0) (actual time=0.052..0.053 rows=0 loops=1)
+              Buffers: shared hit=4
+              ->  Hash Right Join  (cost=8.22..14.60 rows=1 width=16) (actual time=0.052..0.052 rows=0 loops=1)
+                    Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=4
+                    ->  Seq Scan on transactions original  (cost=0.00..5.91 rows=120 width=103) (never executed)
+                          Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    ->  Hash  (cost=8.21..8.21 rows=1 width=126) (actual time=0.044..0.044 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=4
+                          ->  Seq Scan on transactions t  (cost=0.00..8.21 rows=1 width=126) (actual time=0.044..0.044 rows=0 loops=1)
+                                Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                                Rows Removed by Filter: 153
+                                Buffers: shared hit=4
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.001..0.001 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                                Filter: ((date >= '2026-09-01'::date) AND (date <= '2026-09-30'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.530 ms
+Execution Time: 0.121 ms
+
+## annual size=120
+WITH sources AS (
+  SELECT CASE WHEN opening_origin IN ('USER_PROVIDED','SYSTEM_INITIALIZED')
+        AND opening_balance IS NOT NULL AND opening_recorded_at IS NOT NULL THEN opening_date END AS base
+  FROM accounts WHERE user_id=? AND (CAST(? AS uuid) IS NULL OR id=CAST(? AS uuid))
+  UNION ALL
+  SELECT COALESCE((SELECT min(b.base_date) FROM card_opening_batches b WHERE b.card_id=c.id),reporting_known_from)
+  FROM credit_cards c WHERE user_id=? AND ?
+  UNION ALL
+  SELECT reporting_known_from FROM investments WHERE user_id=? AND ?
+) SELECT count(*) AS sources,count(*) FILTER(WHERE base IS NULL) AS unknown,max(base) AS base FROM sources
+
+Aggregate  (cost=8.75..8.76 rows=1 width=20) (actual time=0.060..0.061 rows=1 loops=1)
+  Buffers: shared hit=5
+  ->  Append  (cost=0.00..7.83 rows=122 width=4) (actual time=0.012..0.051 rows=120 loops=1)
+        Buffers: shared hit=5
+        ->  Seq Scan on accounts  (cost=0.00..7.21 rows=120 width=4) (actual time=0.012..0.038 rows=120 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+              Rows Removed by Filter: 33
+              Buffers: shared hit=5
+        ->  Seq Scan on credit_cards c  (cost=0.00..0.01 rows=1 width=4) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+              SubPlan 1
+                ->  Aggregate  (cost=0.00..0.01 rows=1 width=4) (never executed)
+                      ->  Seq Scan on card_opening_batches b  (cost=0.00..0.00 rows=1 width=4) (never executed)
+                            Filter: (card_id = c.id)
+        ->  Seq Scan on investments  (cost=0.00..0.00 rows=1 width=4) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.192 ms
+Execution Time: 0.121 ms
+SELECT count(*) FROM (
+SELECT t.id FROM transactions t LEFT JOIN transactions original
+  ON original.id=COALESCE(t.reversal_of_id,t.correction_of_id) AND original.user_id=?
+WHERE t.user_id=? AND t.date BETWEEN ? AND ?
+  AND (t.status IN ('SETTLED','REVERSED') OR (t.status IS NULL AND t.is_paid))
+  AND (CAST(? AS uuid) IS NULL OR t.account_id=CAST(? AS uuid))
+  AND (CAST(? AS varchar) IS NULL OR t.type=CAST(? AS varchar))
+  AND (t.origin IS NULL OR t.origin='UNKNOWN'
+       OR (t.origin IN ('REVERSAL','CORRECTION') AND (original.origin IS NULL OR original.origin='UNKNOWN'))
+       OR (t.type='TRANSFER' AND COALESCE(t.transfer_direction,original.transfer_direction) IS NULL))
+UNION ALL
+SELECT t.id FROM card_transactions t JOIN invoices i ON i.id=t.invoice_id
+  JOIN credit_cards c ON c.id=i.card_id
+WHERE c.user_id=? AND ? AND t.date BETWEEN ? AND ?
+  AND (t.origin IS NULL OR t.origin='LEGACY_UNKNOWN')
+) unknown_facts
+
+Aggregate  (cost=14.66..14.67 rows=1 width=8) (actual time=0.052..0.054 rows=1 loops=1)
+  Buffers: shared hit=4
+  ->  Append  (cost=8.22..14.66 rows=2 width=0) (actual time=0.051..0.053 rows=0 loops=1)
+        Buffers: shared hit=4
+        ->  Subquery Scan on "*SELECT* 1"  (cost=8.22..14.61 rows=1 width=0) (actual time=0.049..0.050 rows=0 loops=1)
+              Buffers: shared hit=4
+              ->  Hash Right Join  (cost=8.22..14.60 rows=1 width=16) (actual time=0.049..0.050 rows=0 loops=1)
+                    Hash Cond: (original.id = COALESCE(t.reversal_of_id, t.correction_of_id))
+                    Filter: ((t.origin IS NULL) OR ((t.origin)::text = 'UNKNOWN'::text) OR (((t.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) AND ((original.origin IS NULL) OR ((original.origin)::text = 'UNKNOWN'::text))) OR (((t.type)::text = 'TRANSFER'::text) AND (COALESCE(t.transfer_direction, original.transfer_direction) IS NULL)))
+                    Buffers: shared hit=4
+                    ->  Seq Scan on transactions original  (cost=0.00..5.91 rows=120 width=103) (never executed)
+                          Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    ->  Hash  (cost=8.21..8.21 rows=1 width=126) (actual time=0.047..0.047 rows=0 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 8kB
+                          Buffers: shared hit=4
+                          ->  Seq Scan on transactions t  (cost=0.00..8.21 rows=1 width=126) (actual time=0.047..0.047 rows=0 loops=1)
+                                Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND (((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) OR ((status IS NULL) AND is_paid)) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND ((origin IS NULL) OR ((origin)::text = 'UNKNOWN'::text) OR ((origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) OR ((type)::text = 'TRANSFER'::text)))
+                                Rows Removed by Filter: 153
+                                Buffers: shared hit=4
+        ->  Subquery Scan on "*SELECT* 2"  (cost=0.00..0.04 rows=1 width=0) (actual time=0.001..0.002 rows=0 loops=1)
+              ->  Nested Loop  (cost=0.00..0.03 rows=1 width=16) (actual time=0.001..0.002 rows=0 loops=1)
+                    Join Filter: (i.card_id = c.id)
+                    ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                          Join Filter: (i.id = t_1.invoice_id)
+                          ->  Seq Scan on card_transactions t_1  (cost=0.00..0.00 rows=1 width=16) (actual time=0.001..0.001 rows=0 loops=1)
+                                Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin IS NULL) OR ((origin)::text = 'LEGACY_UNKNOWN'::text)))
+                          ->  Seq Scan on invoices i  (cost=0.00..0.00 rows=1 width=32) (never executed)
+                    ->  Seq Scan on credit_cards c  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                          Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=22
+Planning Time: 0.504 ms
+Execution Time: 0.122 ms
+select t1_0.type,coalesce(sum(case when t1_0.origin='REVERSAL' then -t1_0.amount else t1_0.amount end),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t1_0 left join cf025_f0ae896ee3ee40da8355bdacfd6e36be.transactions t2_0 on t2_0.id=coalesce(t1_0.reversal_of_id,t1_0.correction_of_id) and t2_0.user_id=? where t1_0.user_id=? and t1_0.date between ? and ? and t1_0.status in ('SETTLED','REVERSED') and t1_0.type in ('INCOME','EXPENSE') and (t1_0.origin is null or t1_0.origin<>'REVERSAL' or t2_0.id is not null) and (case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end is null or case when t1_0.origin in ('REVERSAL','CORRECTION') then t2_0.origin else t1_0.origin end not in ('ACCOUNT_OPENING','INVOICE_PAYMENT','INVESTMENT_BUY','INVESTMENT_SELL')) and (? is null or t1_0.type=?) and (? is null or t1_0.account_id=?) group by t1_0.type
+HashAggregate  (cost=16.37..16.39 rows=1 width=39) (actual time=0.171..0.173 rows=1 loops=1)
+  Group Key: t1_0.type
+  Batches: 1  Memory Usage: 24kB
+  Buffers: shared hit=8
+  ->  Hash Left Join  (cost=7.41..15.19 rows=118 width=17) (actual time=0.068..0.142 rows=120 loops=1)
+        Hash Cond: (COALESCE(t1_0.reversal_of_id, t1_0.correction_of_id) = t2_0.id)
+        Filter: (((t1_0.origin IS NULL) OR ((t1_0.origin)::text <> 'REVERSAL'::text) OR (t2_0.id IS NOT NULL)) AND ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END IS NULL) OR ((CASE WHEN ((t1_0.origin)::text = ANY ('{REVERSAL,CORRECTION}'::text[])) THEN t2_0.origin ELSE t1_0.origin END)::text <> ALL ('{ACCOUNT_OPENING,INVOICE_PAYMENT,INVESTMENT_BUY,INVESTMENT_SELL}'::text[]))))
+        Buffers: shared hit=8
+        ->  Seq Scan on transactions t1_0  (cost=0.00..7.44 rows=120 width=49) (actual time=0.015..0.044 rows=120 loops=1)
+              Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((status)::text = ANY ('{SETTLED,REVERSED}'::text[])) AND ((type)::text = ANY ('{INCOME,EXPENSE}'::text[])) AND (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=4
+        ->  Hash  (cost=5.91..5.91 rows=120 width=21) (actual time=0.047..0.048 rows=120 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 15kB
+              Buffers: shared hit=4
+              ->  Seq Scan on transactions t2_0  (cost=0.00..5.91 rows=120 width=21) (actual time=0.004..0.025 rows=120 loops=1)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+                    Rows Removed by Filter: 33
+                    Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=14
+Planning Time: 0.302 ms
+Execution Time: 0.233 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=i1_0.card_id where c1_0.user_id=? and ct1_0.origin='PURCHASE' and ct1_0.date between ? and ?
+Aggregate  (cost=0.03..0.04 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.03 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (i1_0.card_id = c1_0.id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Join Filter: (i1_0.id = ct1_0.invoice_id)
+              ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+                    Filter: ((date >= '2026-01-01'::date) AND (date <= '2026-12-31'::date) AND ((origin)::text = 'PURCHASE'::text))
+              ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.151 ms
+Execution Time: 0.020 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id where c1_0.user_id=? and cr1_0.refund_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (c1_0.id = cr1_0.card_id)
+        ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((refund_date >= '2026-01-01'::date) AND (refund_date <= '2026-12-31'::date))
+        ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.108 ms
+Execution Time: 0.017 ms
+select count(it1_0.id) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ? and it1_0.realized_result is null
+Aggregate  (cost=0.02..0.03 rows=1 width=8) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=16) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=32) (actual time=0.002..0.002 rows=0 loops=1)
+              Filter: ((realized_result IS NULL) AND (operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.105 ms
+Execution Time: 0.018 ms
+select coalesce(sum(it1_0.realized_result),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.invest_transactions it1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 on i1_0.id=it1_0.investment_id where i1_0.user_id=? and it1_0.type='SELL' and it1_0.operation_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (it1_0.investment_id = i1_0.id)
+        ->  Seq Scan on invest_transactions it1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((operation_date >= '2026-01-01'::date) AND (operation_date <= '2026-12-31'::date) AND ((type)::text = 'SELL'::text))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.116 ms
+Execution Time: 0.018 ms
+select coalesce(sum(ic1_0.realized_delta),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investment_corrections ic1_0,cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where ic1_0.investment_id=i1_0.id and i1_0.user_id=? and ic1_0.effective_date between ? and ?
+Aggregate  (cost=0.02..0.03 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=30) (actual time=0.002..0.002 rows=0 loops=1)
+        Join Filter: (ic1_0.investment_id = i1_0.id)
+        ->  Seq Scan on investment_corrections ic1_0  (cost=0.00..0.00 rows=1 width=46) (actual time=0.001..0.001 rows=0 loops=1)
+              Filter: ((effective_date >= '2026-01-01'::date) AND (effective_date <= '2026-12-31'::date))
+        ->  Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+              Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.095 ms
+Execution Time: 0.017 ms
+select coalesce(sum(ct1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_transactions ct1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.invoices i1_0 on i1_0.id=ct1_0.invoice_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c2_0 on c2_0.id=i1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c1_0 on c1_0.id=ct1_0.category_id where c2_0.user_id=? and c1_0.name=? and ct1_0.origin='PURCHASE' and extract(year from ct1_0.date)=?
+Aggregate  (cost=1.08..1.09 rows=1 width=32) (actual time=0.005..0.006 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.07 rows=1 width=30) (actual time=0.003..0.004 rows=0 loops=1)
+        Join Filter: (c1_0.id = ct1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.03 rows=1 width=46) (actual time=0.003..0.003 rows=0 loops=1)
+              Join Filter: (i1_0.card_id = c2_0.id)
+              ->  Nested Loop  (cost=0.00..0.01 rows=1 width=62) (actual time=0.003..0.003 rows=0 loops=1)
+                    Join Filter: (i1_0.id = ct1_0.invoice_id)
+                    ->  Seq Scan on card_transactions ct1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.003..0.003 rows=0 loops=1)
+                          Filter: (((origin)::text = 'PURCHASE'::text) AND (EXTRACT(year FROM date) = '2026'::numeric))
+                    ->  Seq Scan on invoices i1_0  (cost=0.00..0.00 rows=1 width=32) (never executed)
+              ->  Seq Scan on credit_cards c2_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+        ->  Seq Scan on categories c1_0  (cost=0.00..1.04 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.197 ms
+Execution Time: 0.052 ms
+select coalesce(sum(cr1_0.amount),0) from cf025_f0ae896ee3ee40da8355bdacfd6e36be.card_refunds cr1_0 join cf025_f0ae896ee3ee40da8355bdacfd6e36be.credit_cards c1_0 on c1_0.id=cr1_0.card_id join cf025_f0ae896ee3ee40da8355bdacfd6e36be.categories c2_0 on c2_0.id=cr1_0.category_id where c1_0.user_id=? and extract(year from cr1_0.refund_date)=? and c2_0.name=?
+Aggregate  (cost=1.07..1.08 rows=1 width=32) (actual time=0.003..0.004 rows=1 loops=1)
+  ->  Nested Loop  (cost=0.00..1.06 rows=1 width=30) (actual time=0.001..0.002 rows=0 loops=1)
+        Join Filter: (c2_0.id = cr1_0.category_id)
+        ->  Nested Loop  (cost=0.00..0.01 rows=1 width=46) (actual time=0.001..0.002 rows=0 loops=1)
+              Join Filter: (c1_0.id = cr1_0.card_id)
+              ->  Seq Scan on card_refunds cr1_0  (cost=0.00..0.00 rows=1 width=62) (actual time=0.001..0.001 rows=0 loops=1)
+                    Filter: (EXTRACT(year FROM refund_date) = '2026'::numeric)
+              ->  Seq Scan on credit_cards c1_0  (cost=0.00..0.00 rows=1 width=16) (never executed)
+                    Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+        ->  Seq Scan on categories c2_0  (cost=0.00..1.04 rows=1 width=16) (never executed)
+              Filter: ((name)::text = 'Assinaturas'::text)
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.136 ms
+Execution Time: 0.020 ms
+select i1_0.id,i1_0.average_price,i1_0.current_price,i1_0.goal_id,i1_0.name,i1_0.operation_sequence,i1_0.quantity,i1_0.replay_cost,i1_0.replay_quantity,i1_0.reporting_known_from,i1_0.ticker,i1_0.total_cost,i1_0.type,i1_0.user_id,i1_0.valuation_amount,i1_0.valuation_basis,i1_0.valuation_date,i1_0.valuation_reference_amount,i1_0.valuation_reference_quantity,i1_0.valuation_source,i1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.investments i1_0 where i1_0.user_id=?
+Seq Scan on investments i1_0  (cost=0.00..0.00 rows=1 width=2426) (actual time=0.001..0.001 rows=0 loops=1)
+  Filter: (user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid)
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.037 ms
+Execution Time: 0.009 ms
+select yn1_0.id,yn1_0.content,yn1_0.updated_at,yn1_0.user_id,yn1_0.note_year from cf025_f0ae896ee3ee40da8355bdacfd6e36be.yearly_notes yn1_0 where yn1_0.user_id=? and yn1_0.note_year=?
+Seq Scan on yearly_notes yn1_0  (cost=0.00..0.00 rows=1 width=76) (actual time=0.001..0.002 rows=0 loops=1)
+  Filter: ((user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND (note_year = 2026))
+Planning:
+  Buffers: shared hit=2
+Planning Time: 0.041 ms
+Execution Time: 0.008 ms
+
+## reorder_accounts size=120
+select a1_0.id,a1_0.balance,a1_0.color,a1_0.is_archived,a1_0.name,a1_0.opening_balance,a1_0.opening_date,a1_0.opening_origin,a1_0.opening_recorded_at,a1_0.order_index,a1_0.type,a1_0.user_id,a1_0.version from cf025_f0ae896ee3ee40da8355bdacfd6e36be.accounts a1_0 where a1_0.user_id=? and a1_0.id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by a1_0.id for no key update of a1_0
+LockRows  (cost=49.45..50.62 rows=94 width=626) (actual time=0.146..0.210 rows=120 loops=1)
+  Buffers: shared hit=150
+  ->  Sort  (cost=49.45..49.68 rows=94 width=626) (actual time=0.141..0.146 rows=120 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 42kB
+        Buffers: shared hit=30
+        ->  Seq Scan on accounts a1_0  (cost=0.30..46.37 rows=94 width=626) (actual time=0.025..0.075 rows=120 loops=1)
+              Filter: ((user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND (id = ANY ('{f0b35033-d6a2-4aee-8f24-a6fe60908f87,c2047a59-839c-4bcc-b1f5-76bc5da261e7,54579a97-08b2-482e-8e41-4b91580fa580,ec0c8270-2d08-4a11-97a8-3c2adb5334b0,d3fbf077-d740-4cc5-95a0-c0720853318d,e035a7f1-fd79-434a-a89b-9ef5db9caf0d,7409fda3-1fbe-400e-80bf-e9df5f87aef5,f8f274b2-0eb9-4cd0-ad29-f18ae850ced3,17452b03-1048-4b11-8bb8-bcddb2b3aec3,7fd22dd3-9738-4e60-820a-b74faae798f0,9342d76b-b869-43d3-b348-aede76ff71f6,8bdd06da-2b2e-4cc2-8e49-f0c73a173662,e1037d8d-c5ce-411c-b9c2-c466e12948c3,60c4163a-58d8-4b56-9ee3-0070d247e9b0,5e79de5a-40a2-43f2-8994-45395190475b,6d71feeb-2778-4117-b86a-78ad4db59a90,a6d1cb65-8042-407a-8ffe-cb96e8817272,82c0c6d7-dda0-4d9a-a8cf-286f10b32d26,74a68706-a93b-4083-8491-07ea9eee1294,4e33fc47-b1fe-496a-95d7-75d360337acb,6f3995bd-4be0-4acf-a4ea-1f8d7d3ea9d3,f8970544-3291-4ccf-8005-fbf4fd5f1c01,a23fbf76-3ed0-4d66-b478-a9f240b482e4,f42b606a-48c7-48e4-9e6f-32292131d632,32c29ad5-9532-4182-ae22-759c4111022f,e2496bd7-03d0-4675-af38-aec6a01467fd,de4cb674-ce36-4357-ab66-0878fe3ae650,0fa178d7-0ae5-4205-affd-e56457776756,670b1635-2902-46a0-a538-15288b398787,94277864-0792-4775-852f-124fa47ef789,b937e8e5-d545-48e3-8697-b69b57739238,9ad4ae18-6051-4b8d-b284-3008906553ca,d5fb0748-3df5-4d1c-973d-af034f172846,164c52db-8681-4464-8d90-7e0d777f5ba5,3e809ad4-21d5-4897-9e6c-b4873585e840,46011abd-bde0-47c8-88e1-14f6cf316989,6870670f-7125-46f3-be0c-ed8318b48aae,15aa40ea-16b0-4353-b3b3-909d8fe66e57,43a01a70-e160-4be3-b89a-74a53e362f64,0d94c2db-cfd2-42de-80e1-f77e89f0f26c,693fb283-dcab-4ef2-856e-4fa958068167,0541ba43-f2f6-4f30-8787-7e947f68bdfc,35970155-e489-415c-9a99-c667b9c8ad64,dec2f100-d8e3-4d49-b2b0-01c996c27196,cd849f73-cb30-44b6-b11a-e3423bf8b794,086aefb7-fb6c-4597-9a46-0384d1c9556b,8375397e-4c10-486c-97b9-cf3ce384883e,699c7936-e551-4b62-b7f4-df15dc09c038,69e7a56d-3cb3-44cb-ab25-a0fbf908646e,43f92d74-db17-44af-a513-f2cb4dc0da7f,a035783c-d0db-4c42-9e31-fffa6ffda9f2,291f30d1-ee46-4ce1-ae5f-c0408a35f817,0eb299a0-236c-47c3-8187-bb444336d511,a98d4734-b7de-4b97-a674-a71d293b33f8,3fb821c7-4d38-41ca-864c-c39b8ac3e4c5,3a5b49b0-08df-4a50-a408-4153878d2bec,b509b237-be28-47ba-aa9c-d566c4b662bf,7124247e-c3da-436f-8307-770c4906e981,62f86cef-46dd-4ffa-97e7-9a67e3f7102e,11c00433-63e0-4f1d-87fd-c24e7648559f,82377f8d-bba9-4bfd-bd98-39fb16a36445,a4e7b4b7-4762-46e4-bcab-aec0aa3134e0,cb68dbb9-39d8-477e-a640-a7f926ddb97d,ef2733bd-d8e5-4371-a6a3-347fcc7141d3,b5a4bbdb-84f7-4e57-955f-d78605ab44de,2d92046c-749f-4b69-9db1-10a44a0cce69,f237988d-0c58-400c-b63b-6eca71e17783,fb581d87-e522-4dc6-8024-9cbf4613b8cd,aaf55ded-3cec-4b73-8994-d256f7415b81,a3b796d2-dd4c-495e-87b1-08930a1e99c3,7b5c5562-dc16-4804-83c5-5e1f1d057e7d,52936488-309e-4d5e-9a8d-b79249373a7d,599f1b5c-cf6f-4b97-937f-2545c298a909,6146b5ae-836d-4d33-b6bd-72b8a73e971e,19446144-14a1-4752-bc92-30a4444faf1c,963ca060-efe7-4fb2-a678-e15668556bed,015b0871-f3f5-4b94-8ec8-5b61726d3d2e,08961e13-6de1-4af7-8d99-1fcbca312053,eb8c169b-2374-4dbb-b484-72513596ee3d,778ee2f7-9d16-4b84-802a-d6b3beda5e0e,e111dddd-dd9c-47ff-acfd-c1c6f3fa9dc9,82cf8832-114a-49b9-92c6-79f70466a0f1,5a822742-25db-484a-96d5-624014f48c9a,a291299a-9e7a-4657-add7-63f034ed5946,a2d1bcf2-378c-4072-95e2-6233f83e6899,78c54cea-362b-4e59-96b4-b94452ff2de0,6b1e2fa4-d2dc-4955-97ae-fdbe3eec127c,a4364442-1428-4ee7-9f33-36894ba2f410,78fe639c-3042-450d-b978-fba3e11e9b5c,6eacac10-c69b-4189-ae93-4276d3fb5a0e,b95c8a8f-f5b8-4dff-b8e1-12967a67ec45,a182ebf7-457f-4c3f-b800-560ec195b76c,41b86fc7-68f8-49a2-b035-a2a5ae7c460a,81a6123c-dbf9-4b79-8e0f-a53abda73b4c,a1b92d1f-71ca-42ae-a5e9-b6369b872852,c842ed57-6e51-4b87-aa3a-44bf6b72ebfe,dcc11f9a-6c9b-4980-ba50-7423e3954374,df5d487e-560e-4722-b32a-8c02b088007d,ff7dc7df-30c4-46a1-8c34-cdd3085a74a9,432179a3-0902-40a3-9608-5169b16f42fa,073d1b81-dc26-49a7-a4ad-e0f433148ba7,70843282-4094-44de-a8ea-dcae92b8bd68,3504b9fe-b196-4aef-a4b6-505df7497ef9,72f4ac14-5062-4ac8-b94b-7b40454a8cd1,e6019757-b253-4f47-9f39-a9a1ab40b844,5e348fe9-515c-4c1b-b1dd-49bfe2c081e7,06b7a98e-5a22-408d-9b34-6c0b77e801a7,e3a0a1fa-795b-4577-abdd-a8354d8eabf7,56a137df-d2b7-4d70-a94b-11e08b77c98d,29a0a7ae-cf91-46c4-bd50-7e715f29d2bd,514391dc-2d59-42ed-ac78-d246053f79c4,508f5b98-f311-4e00-9c0d-fc895425ca48,d9370b55-4400-45dc-be99-b0b3a2326557,d5e0b28a-2a3c-451f-9288-39f7e60ceacb,e885cf41-fe30-4ccc-897b-292e908f6d14,631d42fa-a841-46b6-9e0b-aabe2eb17fe2,155b8424-5c44-4649-b2ed-a650906f1e58,cc74eb38-1c7e-41e8-93d1-d536044a728b,1cf257c9-0aed-4790-a26d-497b48bb6415,dffeb648-3c7c-4ef1-9ca7-31e0a9f30970}'::uuid[])))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=30
+Planning Time: 0.116 ms
+Execution Time: 0.234 ms
+
+## reorder_habits size=120
+select h1_0.id,h1_0.color,h1_0.created_at,h1_0.current_streak,h1_0.description,h1_0.frequency,h1_0.goal_id,h1_0.highest_streak,h1_0.icon,h1_0.name,h1_0.order_index,h1_0.streak_as_of,h1_0.user_id,h1_0.weekly_goal from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habits h1_0 where h1_0.user_id=? and h1_0.id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by h1_0.id for no key update of h1_0
+LockRows  (cost=33.76..34.94 rows=94 width=629) (actual time=0.101..0.151 rows=120 loops=1)
+  Buffers: shared hit=141
+  ->  Sort  (cost=33.76..34.00 rows=94 width=629) (actual time=0.096..0.101 rows=120 loops=1)
+        Sort Key: id
+        Sort Method: quicksort  Memory: 42kB
+        Buffers: shared hit=21
+        ->  Seq Scan on habits h1_0  (cost=0.30..30.68 rows=94 width=629) (actual time=0.016..0.059 rows=120 loops=1)
+              Filter: ((user_id = '69f78a01-9747-497b-b233-9f2d3586e1de'::uuid) AND (id = ANY ('{75486254-3f87-49c0-b6b9-706c8305d988,73b8ac53-2809-460b-b3bb-5fb8b4d47b3d,f5ba70fd-79bb-4d2b-a6b5-fd20e49b0ddd,30c53c6a-c607-40f9-8475-cab80cf7d96c,69e0a379-79f4-4e50-b092-5aa025df3bd9,e68219d6-6f6d-49fa-ad49-9b4dc0f50c3f,1dc5cfae-9b1c-403e-96db-4c73dde1c20d,157f75fa-7302-41df-b901-f34eedc7aec3,e203599e-e365-4c4a-9c26-c9e9e8e1c08a,ce85839f-e1ad-450a-9bc3-5890642249da,ecf420cc-5c27-4770-b561-ccd2906f82a8,a95021ee-9043-4fc4-975c-44cbac8c363c,70dd354c-d4e1-4db2-9d72-d78ebf7d015c,7e55815c-a64d-4749-959c-336c3366d9ba,93d9ef64-6146-457c-aa9e-8dec19fecc28,f274ec0f-e5f5-4a7e-97fc-de3bc383aa91,71e515b3-be63-40be-b3ce-95db1023ad98,9fba32b0-08f8-4ed7-849d-0c416960d6bf,7840d843-bb9d-4a1e-bbd4-dd0d74ed899e,809eab65-6479-468c-af41-9677d509eb1c,b687f6f1-fcf6-49a7-bd83-7f8414097e1a,7843d742-3f52-403f-8634-2290c54664ba,a4a8fc15-ae3a-4206-b984-51e28b8a175a,75d1678f-420b-4215-9a1c-0a73cc271735,2dffcbdc-6fb2-4d06-a1f3-b9fd39087cae,4cfe9993-aa95-45f6-aeec-30fc7a3c101d,efbdedeb-1cbc-42ac-98d2-f4ba2be4658b,0f72a3e7-6053-435e-b73a-a66584d8755e,8e7e700d-8b0f-4047-bebc-d3b9aaeb4797,2d7e3c5b-e0b3-478f-99d5-d1f91cf6c586,9f352b32-a06d-4db7-a03c-5159b6f72808,4d2db8f0-8f39-46c4-9ccb-27d477b42bcc,fa0c1d77-0393-4279-b4ac-5e3ef60cf847,39d99c52-fe71-41ff-8447-33d9233b3ae9,a65998f1-084e-4263-9512-65e4455e2263,3908e043-adde-4147-94c8-e897fe6643a4,69f2e98e-cc03-486a-87b1-a402c48ae87d,2e01b362-2a37-4e79-a4e3-b400993fe8a4,d699bab9-926e-4afd-a101-a3371b05cad5,b7115b63-fc05-4694-89c7-0f3c16d396aa,7220a4af-7f9b-41cb-a7f0-ac7f815dfb66,562e5d70-d9d3-4c98-9bae-b771249e0d38,f0f50a75-230a-4e8a-a63c-50bd2a152ef9,d436752b-fc5b-494e-9e72-1ff8de87f76a,cfe124c3-94c0-408c-8be9-5ec5486b5d59,1b4987b2-5bda-45ec-9c6a-626b5a33f08f,66753aff-c6d9-490a-be7e-4b8f0a2460f9,da46c314-8635-4374-b805-6aded5d77a69,f6d44378-8e2d-42fc-8b53-bd924b03d9c9,4f439349-3564-4bb9-97f4-4df01ffe6d54,2d772735-c768-48b1-9601-3f74d0e21676,c17a61bb-f987-4001-8017-fd3f258a789a,16b44b20-005d-4aa3-82ca-71b78a40bbd7,df6389f1-cb65-472e-acf0-5d0e7f7d9adc,d1653ac1-414b-4db1-812f-21407b56f8e0,c73e2328-5486-447e-8e19-7d83b3f4fb09,cd7e60ed-4656-41d4-9401-6fdaddf909b9,07d058a4-6aaa-4161-8435-a73c171c5920,77204e40-9737-4ad7-ab88-bb50872858fd,93d05aa8-0e29-43f3-96e9-7670165054e4,cc37d713-f9cc-42e5-85c3-17ac7957b2ba,e51116de-4a1e-4150-97fb-0fe74eebb2e5,8499b805-a439-4569-9df4-7127b48ff804,3303c6ae-816e-45cd-9f1b-cd3a059caf25,1e998cdd-3921-413f-b6b1-0418bb289b40,d552eb31-b9f6-4592-a7ae-e7160d026126,d89afa54-4981-4be6-b4a7-c04a7ab9e163,88599a3f-b7ec-4f5b-93ac-94a80cf6b180,993367b4-fbdf-4992-a3ab-dae20f513177,4a9f931c-3b9e-46cf-8818-f7765e34662e,0df97a38-ee2f-4079-a61d-a07740193e48,265b1a15-421c-4d64-af57-a6dbdf19780c,426d02d5-56de-4a9c-bf96-ecbbb5108268,dda02c79-f9ef-4b43-bac5-82d9cb99fc48,d9b359e7-2378-42dd-9682-fa73ae4bfef3,648cf564-c3ab-496f-a629-d61fff48cfeb,4d3feb9b-4db2-4235-872a-01aa5240de59,9621f5e9-c1ee-4648-8a77-e1edc7aba2e3,e7784c7d-8afb-444b-b877-3d3d55227761,c58e3b38-3f60-43be-be37-cbaa96c6d58f,7fbd0987-ab88-4ec4-82c3-75be550131b7,fc5380be-b32f-4cd9-8b58-2c5f4b3ae1e0,76ec0f5c-104e-4429-8111-e326ccb5be92,2d2cca29-1735-4654-91b1-15c859666cb2,097f5c3b-555a-4d05-9477-8c9a31a1d79d,e1ca42b5-b6ed-47b2-89a0-e05fe84edd5a,90d2a420-12ae-4168-aaec-cf7a962ca942,ac038829-de64-4f74-adab-fa4f40cc7ac3,841819e4-8a53-4a2b-bcb9-545bdc4a95fe,2a1b1677-26ad-4de9-95a8-af631da78496,57e62172-7034-4525-9614-21793d385606,b2f65a2d-48a7-4033-9816-405ebf6e5abe,91a4cd7b-8628-401a-ace9-3b948d50751b,35214dcc-82a5-40e5-9328-61582a3c993d,9d146ab2-9dd9-4026-a2f3-c546d83fe90f,c2090b45-2e73-4ec4-93bc-836f9f3178f9,4b0e3036-11aa-441d-8633-6be9a17b90cf,3e11f4f2-d313-4a76-987a-fbae345702e4,f89a91fa-68e2-41b5-9b96-71bc15752f8a,67ddc511-882d-429c-a955-2626172498c8,eeea020a-c705-4582-8a10-e34c211165ce,1a89227a-2c35-494e-8804-233cdbb0bfe6,0fa085ad-4438-4a09-ab11-d812414cce94,97ed8d7e-ad09-4f1c-9d49-2951a9f25484,26dd4eaa-e7f0-4b64-8b2d-516d0bafe2e4,855398d1-92be-4c1b-b01b-9698a47eb430,76f1d842-49b7-4fc0-be71-dcd131af6826,5248c51e-77b5-40a6-a810-834b4ea86258,1b5f5bdc-58a8-42b4-896f-909a0c2bb9b1,aa59e720-5575-4036-bec8-1efce720efdd,9a803dcf-f848-47f2-9c8d-c57c8f838b74,4e72ea55-decf-4b52-9f44-5489e9179694,08388a62-8117-48f0-b209-01f1fbd73c67,83be0638-8ae4-4cc4-b0be-103d555a9488,7d98c067-b446-4627-819f-51d62d541874,098d76ea-9ae8-4b01-b79f-8fbe8fc6d99e,79882913-f636-4472-8ab6-f7028ba16d3d,406d0e2e-c3c8-408f-81b9-df3ba0c9eeb3,a5442b5e-671b-41b9-9862-e1ed4adeb416,7c81df58-35ea-4502-ae4f-a423917057d2}'::uuid[])))
+              Rows Removed by Filter: 33
+              Buffers: shared hit=21
+Planning Time: 0.099 ms
+Execution Time: 0.175 ms
+select sd1_0.habit_id,sd1_0.day_of_week from cf025_f0ae896ee3ee40da8355bdacfd6e36be.habit_days sd1_0 where sd1_0.habit_id=?
+Seq Scan on habit_days sd1_0  (cost=0.00..9.74 rows=3 width=24) (actual time=0.012..0.023 rows=3 loops=1)
+  Filter: (habit_id = 'fc5380be-b32f-4cd9-8b58-2c5f4b3ae1e0'::uuid)
+  Rows Removed by Filter: 456
+  Buffers: shared hit=4
+Planning Time: 0.023 ms
+Execution Time: 0.028 ms
