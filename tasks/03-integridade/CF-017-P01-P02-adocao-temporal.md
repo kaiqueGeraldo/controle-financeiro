@@ -5,6 +5,17 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Consolidação documental — 01/10/2026
+
+A fundação local integrada foi ampliada até V13, com revisões específicas de V12
+(CF-022/023) e V13/upgrade V12→V13 (CF-024). A primeira liberação V1/V2 acima permanece
+histórica. P01/P02 continuam abertos nos critérios de adoção real, proveniência e
+coordenação de writers/clientes; o aceite sintético não autoriza migração/publicação no
+ambiente existente.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Campos e transição preparada
 
 | Tabela | Colunas aditivas | Semântica |

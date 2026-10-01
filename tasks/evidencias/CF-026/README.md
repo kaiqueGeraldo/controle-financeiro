@@ -1,5 +1,12 @@
 # Evidência CF-026
 
+> Nota posterior de 01/10/2026: o bloqueio documental registrado em `c7f7ffc`
+> foi superado pela [consolidação CF-001–026](../consolidacao-CF-001-CF-026/README.md),
+> que confrontou a liberação independente já existente com os pareceres posteriores.
+> O estado canônico passa a `pronta` somente para lint/tipagem local. O relatório,
+> a baseline e a conclusão histórica abaixo permanecem intactos; não houve execução
+> da CF-026, aprovação de CF-009/015 ou liberação de publicação nesta consolidação.
+
 - Estado real em 01/10/2026: `bloqueada`; somente preparação e diagnóstico executados.
 - Executor: Codex da sessão atual; recomendações de modelo/esforço no Markdown não configuram a sessão. Não houve delegação nem revisão independente.
 - Base: `04cad8d072f789fbe3f4050d8912d5526ec600f5`, branch `main`.

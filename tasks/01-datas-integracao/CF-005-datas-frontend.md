@@ -8,6 +8,17 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-002; F-001–004
 
+## Consolidação documental — 01/10/2026
+
+P05/diaProduto foi revalidado independentemente na revisão CF-015 (`1ced2f0` + candidato
+local); a referência de 09/09 ao defeito aberto é histórica. P01/P02 têm provas sintéticas
+e conservam adoção real na CF-017. Estado `em_revisao` mantido: falta confronto final por
+critério para encerrar o próprio escopo, sem exigir nova correção presumida de P05.
+Capacidade local explicitamente liberada pode ser consumida sem concluir esta tarefa.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 O patch inicial passou em testes de helper. Ainda falta provar que formulários, labels, prazo e navegação usam corretamente esse contrato, sem reintroduzir conversões locais/UTC.

@@ -8,6 +8,18 @@
 - Depende de: [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Consolidação documental — 01/10/2026
+
+Estado `em_revisao` mantido. R07 está encerrado; a revisão CF-023 acrescentou aceite de
+sessão/ownership e jornada entre abas, sem concluir todos os critérios de
+configurações/auth. O fechamento deve confrontar o roteiro próprio com evidências
+existentes e completar a recuperação ponta a ponta com provedor falso declarada ausente no
+parecer CF-015. RV24-02 mantém exclusão completa de usuário sem aceite em sua derivada;
+não foi transferida para esta tarefa.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Formulários públicos e preferências precisam de estados claros, teclado e persistência; falha de API deve continuar distinguível de entrada inválida.

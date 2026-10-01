@@ -8,6 +8,18 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-006](../01-datas-integracao/CF-006-datas-backend.md)
 - Origem: T-002, T-008, T-010; F-001–004
 
+## Consolidação documental — 01/10/2026
+
+P03/PUT, P04/relógios e P05/diaProduto foram revalidados na revisão CF-015; o checklist
+histórico de pendências não significa que esses três defeitos ainda exigem correção.
+Estado `em_revisao` mantido: o parecer posterior não concedeu conclusão integral e
+preservou condições P01/P02. Próximo parecer deve confrontar os critérios com a evidência
+temporal já existente e delimitar aceite local versus adoção real, sem repetir auditoria
+ampla por status.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Uma label correta com payload errado ainda grava o dia incorreto. Testar criação, leitura, edição e reload pelo BFF e backend reais.

@@ -8,6 +8,19 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-003; F-005, F-006
 
+## Consolidação documental — 01/10/2026
+
+P03/PUT foi revalidado na revisão CF-015; R06/ownership foi encerrado em `681102b`;
+D16-T01 foi validado na revisão CF-017. P01/P02 e o fechamento integral dos contratos
+continuam pendentes, estado `em_revisao`. Contratos HTTP/temporais necessários à CF-018
+tiveram liberação independente explícita na revisão CF-017, e o recorte CF-023 na
+revalidação residual. RV24-01 é defeito posterior do consumidor de resultado desconhecido,
+sob derivada/CF-009: o erro de transporte corretamente sinalizado não prova reconciliação
+segura.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 403 tratado como expiração e validação genérica podem transformar erros esperados em logout ou 500. Alinhar status, DTOs e feedback sem esconder falhas.

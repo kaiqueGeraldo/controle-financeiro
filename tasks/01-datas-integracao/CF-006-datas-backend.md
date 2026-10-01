@@ -8,6 +8,17 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-010; investigação temporal
 
+## Consolidação documental — 01/10/2026
+
+P01/P02 possuem writers/DTOs revalidados em ambiente sintético; a fundação Flyway avançou
+até V13 nos recortes revisados. O calendário necessário à CF-022 tem aceite independente
+local. Estado `em_revisao` mantido para o aceite final e adoção temporal real, sob
+CF-017/derivada; nenhuma migração remota ou proveniência foi certificada. Adoção pendente
+não é impedimento automático de desenvolvimento descartável.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Configurar Jackson não controla LocalDate.now/LocalDateTime.now nem o calendário dos crons. Centralizar decisões de tempo mantendo compatibilidade dos DTOs.

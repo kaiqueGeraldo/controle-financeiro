@@ -8,6 +8,18 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Consolidação documental — 01/10/2026
+
+R01/R04 e nota confirmada permanecem aprovados no escopo original. CF-020/021 concluíram
+regras financeiras próprias; CF-022 aprovou backend, mas conserva RJ-022-01 e H24-01.
+RV24-01 registra risco relacionado em operationModal, ainda sem contraprova dinâmica
+equivalente. Estado `em_revisao` mantido: consolidar aceites por módulo e completar
+lacunas de consumidores sem inferir aprovação geral a partir de backend ou nota/seleção
+corrigidos.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 As telas restantes combinam histórico, progresso, gráficos e formulários grandes. A auditoria deve separar erro de apresentação de erro financeiro.

@@ -8,6 +8,19 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Consolidação documental — 01/10/2026
+
+Estado `em_revisao` mantido. Zoom nativo 200% continua sem prova e sem aprovação; não é
+defeito demonstrado. A frase histórica de pendência exclusivamente de zoom descreve o
+parecer dirigido de 21/09, não elimina os achados posteriores RV24-01, RVA-03 e RJ-022-01
+nem os aceites residuais das telas. R03/RV01 permanece encerrado. A revisão residual
+`e927aea..0099185` liberou explicitamente manutenção CF-026 no seu recorte. Confronto
+documental em `c7f7ffc` preserva essa liberação, sem concluir o marco ou liberar
+publicação.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Antes de ampliar funcionalidades, confrontar os fluxos corrigidos com regras e evidências. Revisar também se os testes conseguem detectar os defeitos, não só executar código.

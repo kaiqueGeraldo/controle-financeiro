@@ -1,6 +1,6 @@
 # CF-026 — Eliminar dívida de lint e tipagem sem esconder defeitos
 
-- Estado: bloqueada
+- Estado: pronta
 - Prioridade: P2
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -42,6 +42,34 @@ Reescrever todas as telas ou enfraquecer regras sem justificativa do contrato.
 O escopo é delimitado por componentes/telas e contratos existentes; escalar para Sol se aparecer mudança financeira ou de estado compartilhado. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Decisão atual — consolidação documental de 01/10/2026
+
+**CF-026 apta a retomar localmente no escopo de lint e tipagem.** Estado
+pré-execução `pronta`; nenhuma correção executada e nenhum aceite marcado.
+O bloqueio registrado em `c7f7ffc` fica superado documentalmente, preservado abaixo.
+
+A [liberação independente residual](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md)
+em `0099185` já permitia esse recorte sem concluir CF-009/015. O confronto com
+as revisões CF-022/023 e CF-024, RV24-01/02 e a entrega CF-025 em `65ec14e`/`04cad8d`
+não encontrou impedimento posterior concreto ao início desses lotes na base
+`c7f7ffc`. [Decisão, arquivos da baseline e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+
+CF-009/015 continuam `em_revisao`. RV24-01, RVA-03, RJ-022-01, H24-01 e zoom
+nativo 200% não foram encerrados. Mudanças em hooks, sessão ou consumidores dos
+fluxos afetados exigem reconferência e testes específicos, sem atribuir correção
+funcional a uma limpeza de lint. Escalar defeitos encontrados com ID/dono/evidência;
+se um lote depender da correção funcional, delimitar seu bloqueio e prosseguir
+apenas nos lotes independentes comprovados.
+
+Na execução futura: reconferir HEAD/diffs e baseline, corrigir em lotes,
+preservar contratos/efeitos colaterais, validar consumidores e atualização/cleanup,
+rodar typecheck, build e lint. Proibidos casts cegos, ignores e exclusões para
+mascarar problemas. A baseline existente é 23 erros/21 avisos e typecheck aprovado;
+não foi reexecutada nesta consolidação. CF-032/034 continuam exigindo aceite CF-026;
+nenhuma homologação/publicação ou tarefa posterior está autorizada por esta nota.
+
+### Histórico — preparação de 01/10/2026, registrado em c7f7ffc
 
 Preparação executada em 01/10/2026 na base `04cad8d072f789fbe3f4050d8912d5526ec600f5`.
 Implementação bloqueada: CF-009 e CF-015 permanecem `em_revisao` nos

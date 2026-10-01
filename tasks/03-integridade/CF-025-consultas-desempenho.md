@@ -65,6 +65,11 @@ Checklist usa duas queries em lote; cobertura usa dois agregados por escopo; H-0
 
 ## Prontidão local após revisão independente — 01/10/2026
 
+> Registro histórico anterior à entrega em `65ec14e`/`04cad8d`. O estado
+> canônico atual é `em_revisao`, como detalhado na entrega abaixo; falta revisão
+> independente da CF-025. A liberação anterior não é aprovação da implementação.
+> [Consolidação documental](../evidencias/consolidacao-CF-001-CF-026/MATRIZ.md).
+
 **CF-025 apta a iniciar localmente.** Estado `pronta`, sem implementação,
 benchmark ou otimização iniciados. Ver [parecer F](../evidencias/revisao-CF-024/README.md).
 

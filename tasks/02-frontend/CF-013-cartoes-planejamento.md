@@ -8,6 +8,18 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Consolidação documental — 01/10/2026
+
+R03/RV01/R05/R06/R08 continuam encerrados nos cenários revisados. A pendência posterior
+RVA-03/CF-019 é interação120 sem saída visível após confirmação, com causa inconclusiva;
+não é prova de duplicidade financeira nem reabertura automática de R03. Estado
+`em_revisao` mantido: confrontar a matriz própria de estados/mobile/reload com evidências
+posteriores, completar lacunas e preservar zoom compartilhado. A CF-024 já concluiu seu
+recorte backend, sem certificar esta interação integral.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Faturas e planejamento reúnem datas, competências e status que podem divergir visualmente. Validar a navegação e apresentação sem redefinir fechamento bancário.

@@ -8,6 +8,18 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Consolidação documental — 01/10/2026
+
+F-018 não permanece pendente quanto ao total global/filtros: esse critério recebeu aceite
+independente na consolidação CF-021 da revisão CF-022/023 (`9ff1aec`). A anotação
+histórica de F-018 aberto fica superada nesse recorte. CF-012 permanece `em_revisao`:
+falta fechar o aceite visual autenticado de moeda/privacidade e lacunas da matriz,
+preservando zoom nativo na CF-010/015. Aceite do agregado não aprova automaticamente a
+interface inteira.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Principais visões do dia a dia devem exibir datas, moeda e estados coerentes, incluindo muitos registros e falha de carregamento.

@@ -8,6 +8,17 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Consolidação documental — 01/10/2026
+
+Estado `em_revisao` mantido. Além das provas locais até V12, a revisão CF-024 (`f225657`)
+revalidou banco vazio até V13 e upgrade V12→V13 no recorte de recibos, preservando dados
+anteriores. Isso não encerra RV17-01/RV17-02, P01/P02, proveniência, backup/restore ou
+adoção reais. A derivada temporal mantém seus critérios ainda não atendidos; V1/V2 é a
+referência histórica da primeira liberação, não a versão máxima atual da base local.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Produção valida schema, local o altera automaticamente e não há migrações versionadas. Banco vazio e atualização de schema precisam ser reproduzíveis sem comprometer legado.

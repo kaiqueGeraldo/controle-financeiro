@@ -8,6 +8,19 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Consolidação documental — 01/10/2026
+
+Estado `em_revisao` mantido por pendência concreta posterior:
+[RV24-01](RV24-01-criacao-resultado-desconhecido.md) confirma reenvio de criação após
+resultado desconhecido, violando AC-UI-009/005. O aceite restaurado em `e4079a9` continua
+válido somente para R03/RV01; não certifica todos os consumidores. RVA-03 continua com
+CF-019 e não reabre automaticamente R03/RV01. A liberação independente residual em
+`0099185` permite CF-026 no recorte de lint/tipagem, com reconferência e testes dos
+consumidores, sem concluir CF-009 ou aprovar produção.
+
+[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+As seções datadas abaixo preservam o histórico de suas respectivas bases.
+
 ## Problema e resultado esperado
 
 Atualizações otimistas e caches podem exibir resposta antiga ou sucesso após falha. Reproduzir concorrência de UI antes de decidir a correção.

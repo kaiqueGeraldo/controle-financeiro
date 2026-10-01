@@ -51,4 +51,41 @@ Reservar edição exclusiva de package.json/lockfile/configuração de testes a 
 
 ## Limites e bloqueios
 
+### Dependência integral e capacidade liberada localmente
+
+Antes de decidir prontidão, confrontar os arquivos canônicos com os pareceres
+posteriores, respeitando o escopo examinado em cada base. Ancestralidade Git
+demonstra integração, não aceite; checkboxes do executor não são revisão independente.
+
+Uma dependência está satisfeita para o trabalho pretendido somente quando:
+
+1. A implementação da capacidade usada está integrada no HEAD e os diffs locais
+   foram conferidos, preservando alterações alheias.
+2. Existe o aceite exigido da dependência ou uma liberação independente explícita
+   do recorte. Registrar origem, capacidade, tarefa consumidora, parecer, base,
+   limites e pendências que continuam na origem.
+3. Não há impedimento técnico posterior concreto para aquele trabalho. Se houver,
+   identificar caminho, critério, evidência e lote afetado; distinguir lotes
+   independentes quando isso for sustentado tecnicamente.
+4. As mudanças posteriores que possam afetar a garantia foram reconferidas.
+   Encerramento de um achado não aprova automaticamente toda a tarefa; um parecer
+   novo só prevalece no escopo que efetivamente examinou.
+
+`em_revisao` não é `concluida`. Uma liberação parcial mantém o estado honesto da
+origem e permite `pronta` para a consumidora no escopo explicitamente autorizado,
+sem executar a tarefa por efeito dessa anotação. Usar `bloqueada` apenas para
+impedimento concreto ao próprio trabalho; registrar separadamente impedimentos
+de homologação, adoção real e publicação. Não transferir achados para limpar status.
+
+Liberação local não aprova produção nem elimina a política de testes: alterações
+em hooks/estado exigem testes dos consumidores, atualização/cleanup, erros e
+respostas fora de ordem pertinentes; caminhos financeiros preservam contratos,
+ownership, atomicidade e provas no banco descartável quando afetados. Sem casts
+cegos, ignores, exclusões ou relaxamento de assertions para obter um gate verde.
+Se faltar evidência, registrar a lacuna e uma verificação dirigida, sem inventar
+aceite nem impor auditoria ampla a trabalho independente.
+
+Os arquivos individuais são canônicos. Matrizes de consolidação são snapshots
+datados com base e referências; não devem virar um segundo catálogo de estados.
+
 Falta de Docker local não autoriza testar em banco real: usar CI/ambiente de desenvolvimento descartável documentado. Estado do banco Railway ainda desconhecido bloqueia migração/publicação desse banco, mas não os testes sintéticos nem a investigação de UI. Credenciais ficam fora de commits e evidências.

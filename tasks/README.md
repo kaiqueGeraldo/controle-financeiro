@@ -45,10 +45,20 @@ tasks/
 
 ## Prontidão
 
-Revisão independente de 09/09/2026: [parecer CF-001–009](evidencias/revisao-CF-001-CF-009/README.md).
-CF-005/006/007/008 retornaram a `em_revisao`; resultados verdes parciais não
-fecham os contratos e cenários pendentes. Consultar o parecer antes de avançar.
+Consultar o [snapshot documental de 01/10/2026, CF-001–026](evidencias/consolidacao-CF-001-CF-026/README.md)
+e os pareceres nele referenciados. A revisão inicial de CF-001–009 é histórica:
+P03/P04/P05 foram revalidados posteriormente; P01/P02 conservam gates de adoção.
+Os arquivos individuais continuam sendo a fonte canônica de estado.
 
-Estados: `proposta`, `pronta`, `em_execucao`, `em_revisao`, `concluida`, `bloqueada`. Todas as tarefas começam propostas ou prontas; escrever esta lista não significa executar seu conteúdo. `Concluida` exige os critérios da tarefa e evidência verificável. Dependência concluída precisa estar integrada na base usada pela próxima tarefa.
+Estados: `proposta`, `pronta`, `em_execucao`, `em_revisao`, `concluida`, `bloqueada`. Todas as tarefas começam propostas ou prontas; escrever esta lista não significa executar seu conteúdo. `concluida` exige os critérios próprios e o aceite aplicável com evidência verificável; `em_revisao` não significa concluída. `bloqueada` exige impedimento concreto ao trabalho da própria tarefa.
+
+Para iniciar um recorte dependente, exigir conjuntamente: implementação integrada
+na base usada; aceite exigido ou liberação independente explícita da capacidade
+consumida; ausência de bloqueante concreto nesse recorte; referência ao parecer,
+base, consumidor e limitações. Seguir o [procedimento de execução](EXECUCAO.md).
+Liberação parcial não exige concluir a origem, não aprova produção e não dispensa
+testes dos caminhos alterados. Mudança posterior que afete a garantia consumida
+exige reconferência. Gates de adoção real não impedem automaticamente trabalho
+em ambiente descartável; nenhuma destas regras permite ignorar dependências.
 
 Se uma investigação não reproduzir um defeito, registrar cenários executados e manter a incerteza. Não inserir alteração especulativa para justificar o fechamento. Defeitos novos recebem ID e tarefa derivada pelo [template](templates/TAREFA.md).
