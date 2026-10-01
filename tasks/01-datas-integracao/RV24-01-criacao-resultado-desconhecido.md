@@ -38,7 +38,8 @@ Não transformar optional operationId em obrigatório no servidor sem contrato.
 - [x] Probe vermelho original detecta a versão defeituosa e passa com a correção causal.
 - [x] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
 - [x] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
-- [x] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
+- [ ] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
+- [ ] Resposta de ciclo/owner invalidado não aciona callbacks tardios, inclusive reconciliação de investimento.
 - [x] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
 
 ## Evidência e revisão
@@ -58,3 +59,23 @@ Quatro jornadas R03 originais reexecutadas; RVA-03 continua aberto.
 Identidade/corpo persistidos por owner/kind; perda do armazenamento não oferece
 recuperação inventada. Backend/BFF e opcionalidade de operationId preservados.
 CF-026 permanece em revisão; CF-027 não executada nem liberada por esta entrega.
+
+## Revalidação independente — 01/10/2026
+
+**Permanece em_revisao.** Reenvio sem chave original corrigido nos dois consumidores:
+contraprovas históricas continuam vermelhas, candidato conserva UUID/corpo, seis
+jornadas reais provam efeito único, replay/409/owner e nova intenção legítima.
+Entretanto RVR24-01 confirma sucesso indevido com result={} no GET e200/null/array
+no POST de investimento; RVR24-02 confirma onReconcile após unmount/troca de owner.
+O critério de resultado desconhecido voltou a pendente e cleanup fica explícito.
+[Achados e encerramento](../evidencias/revalidacao-RV24-01-RV24-02/ACHADOS.md).
+
+193 componentes existentes/lint/typecheck/build passam, mas cinco assertions
+novas falham causalmente; não são neutralizadas pelo gate verde. Prova visual
+adicional:5/6, um ECONNRESET de replay preservado como H-RV24-01; caso isolado
+posterior1/1 não encerra causa. R03/RV01 preservados; RVA-03 continua na CF-019.
+CF-026 aguarda sua revisão. Não houve correção de produto nesta revalidação.
+
+[Parecer independente](../evidencias/revalidacao-RV24-01-RV24-02/README.md)
+libera início local da CF-027 somente para a fronteira backend de identidade/
+recibos de criação, sem envolver estes consumidores ou encerrar os resíduos.

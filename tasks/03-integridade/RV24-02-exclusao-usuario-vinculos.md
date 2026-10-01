@@ -1,6 +1,6 @@
 # RV24-02 — Corrigir exclusão de usuário com vínculos financeiros
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P2
 - Marco: integridade
 - Modelo executor: gpt-5.6-sol
@@ -57,3 +57,20 @@ Checkboxes registram evidência do executor, não revisão independente.
 Gate afetado135/135 e gate dirigido final6/6 têm subconjuntos sobrepostos.
 Nenhuma exclusão de usuário real, migração nova, push ou deploy. CF-027 não executada
 e sua prontidão continua sujeita a avaliação independente posterior.
+
+## Revalidação independente — 01/10/2026
+
+**Concluída no contrato de exclusão integral autorizada do proprietário.** FK da
+compra comum paga reproduzida com UserService histórico em cópia; candidato6/6
+e três probes adicionais aprovados. Grafo29 tabelas/FKs/UUIDs herdados confrontado;
+outro owner permanece integralmente igual; rollback intermediário conserva
+dados/cache e não envia email. Outra conexão vê o commit quando o double de
+email é chamado; falha de submissão não alega rollback. Writer concorrente
+espera e falha sem fato/recibo órfão. Gate afetado139/139 verify/JAR, R03 4/4;
+contagens sobrepostas. [Parecer e limites](../evidencias/revalidacao-RV24-01-RV24-02/README.md).
+
+Não há garantia durável de email, ausência universal de deadlocks ou política
+completa de cache de leitura. Alcance global herdado de evicção preservado.
+RV24-01 continua em_revisao pelos resíduos próprios; CF-019/022/026 e pendências
+anteriores não foram encerradas. Produto/migrações/README alheio preservados;
+sem banco real/email real/push/deploy. CF-027 não foi executada.

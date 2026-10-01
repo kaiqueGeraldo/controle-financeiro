@@ -1,6 +1,6 @@
 # CF-027 — Organizar fronteiras do backend incrementalmente
 
-- Estado: proposta
+- Estado: pronta
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -53,3 +53,38 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Serviços de metas/cartões/investimentos/transações coordenam atomicidade do marco com política de fonte e locks documentados. Reorganização ampla de domínios, extração de módulos e contrato transversal permanecem nesta tarefa futura; saneamento não equivale à sua conclusão.
 
 [Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+
+## Prontidão local delimitada — 01/10/2026
+
+**CF-027 apta a iniciar localmente**, apenas na fronteira de identidade/recibos
+duráveis de criação entre TransactionService/InvestmentService/controller e a
+implementação PostgreSQL/JSON hoje em FinancialIntentService. Ver
+[parecer independente, dependências e testes obrigatórios](../evidencias/revalidacao-RV24-01-RV24-02/README.md).
+Estado `pronta`: nenhuma interface, módulo, movimento de pacote ou refatoração
+desta tarefa foi implementada pela revisão.
+
+Motivo concreto: investimento depende de protocolo/recibo hospedado no domínio
+de transações; consumidores conhecem implementação de persistência/lock/JSON.
+O primeiro lote deve explicitar contrato de aplicação e encapsular a implementação,
+com teste de dependência que detecte acesso indevido ao repositório/EntityManager
+do protocolo. Somente mover pastas não satisfaz o aceite.
+
+Preservar DEC-10: chave opcional, namespaces, owner/kind/fingerprint/canonicalização,
+snapshot/DTO/status HTTP/recuperação, MANDATORY, efeito+recibo no mesmo commit,
+ordem intenção→fontes, constraints e AFTER_COMMIT. Preservar CF-02430, contratos
+HTTP, consumidores/rollback/mutações pertinentes e jornadas com SQL/reload.
+Não introduzir REQUIRES_NEW, retry cego, alteração de schema ou cache de leitura.
+
+CF-018/020 têm aceite próprio; CF-019 oferece backend pagamento/intenção/recibo
+aprovado, mas mantém RVA-03; CF-022 oferece backend DEC-08 aprovado, mas mantém
+RJ-022-01/H24-01. Hábitos/scheduler e pagamento não serão reorganizados neste lote.
+CF-024 aprovou protocolo/atomicidade no seu recorte. RV24-02 foi encerrado;
+RV24-01 conserva RVR24-01/02 e H-RV24-01. Esses resíduos de consumidor/execução
+não exigem mudar a fronteira backend escolhida, mas permanecem na origem.
+CF-026 aguarda revisão e não é dependência desta tarefa.
+
+Reavaliar a liberação se houver mudança de DTO/API/schema/fingerprint/retenção,
+transação/ordem de locks/regras financeiras, ou se o lote alcançar UI/reconciliação,
+pagamentos, UserService/limpeza/email, scheduler/hábitos/metas. Outras fronteiras
+exigem recorte independente fundamentado. Sem liberação de produção; RV17-01/02,
+adoção real, zoom200% e demais gates de publicação permanecem.
