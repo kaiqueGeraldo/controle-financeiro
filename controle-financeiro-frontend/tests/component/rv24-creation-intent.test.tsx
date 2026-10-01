@@ -122,4 +122,3 @@ test("an array is not a receipt result object and must not confirm unknown money
   expect(props.onSuccess).not.toHaveBeenCalled(); await submit(view);
   expect(transactionService.create).toHaveBeenCalledTimes(1);
 });
-

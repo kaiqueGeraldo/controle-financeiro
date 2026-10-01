@@ -27,4 +27,3 @@ test("RV24-01: unknown creation must be reconciled before an unkeyed second send
   // UI observation only. The separate PostgreSQL legacy probe proves repeated money.
   expect(transactionService.create).toHaveBeenCalledTimes(1);
 });
-

@@ -109,4 +109,3 @@ class Rv24CreationBrowserIntegrationTest {
         Files.writeString(evidence.resolve("postgres-oracles.txt"),persistedAccounts+"\n"+counts+"\nSix investment operations; exact replay caused no extra rows.\n");
     }
 }
-
