@@ -55,7 +55,7 @@ class TransactionServiceTemporalTest {
         ReflectionTestUtils.setField(service, "eventPublisher", eventPublisher);
         ReflectionTestUtils.setField(service, "entityManager", mock(EntityManager.class));
         ReflectionTestUtils.setField(service, "clock", clock);
-        ReflectionTestUtils.setField(service, "intents", mock(FinancialIntentService.class));
+        ReflectionTestUtils.setField(service, "intents", mock(com.controlefinanceiro.api.service.intent.FinancialIntents.class));
 
         service.create(new CreateTransactionDTO(
                 "Operação informada",

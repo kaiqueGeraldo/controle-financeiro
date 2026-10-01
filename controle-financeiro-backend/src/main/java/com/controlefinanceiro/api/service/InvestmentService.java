@@ -22,6 +22,8 @@ import com.controlefinanceiro.api.domain.transaction.TransactionOrigin;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
+import com.controlefinanceiro.api.service.intent.FinancialIntents;
+import com.controlefinanceiro.api.service.intent.IntentFingerprint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -51,7 +53,7 @@ public class InvestmentService {
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private Clock clock;
     @Autowired private InvestmentValuationRepository valuationRepository;
-    @Autowired private FinancialIntentService intents;
+    @Autowired private FinancialIntents intents;
 
     public List<InvestmentResponseDTO> listAll(User user) {
         return investmentRepository.findAllByUserId(user.getId())
@@ -122,12 +124,12 @@ public class InvestmentService {
 
     @Transactional
     public InvestTransactionResponseDTO performOperation(InvestmentOperationDTO data, User user) {
-        String fingerprint=FinancialIntentService.fingerprint(data.investmentId(),data.type(),data.quantity(),
+        String fingerprint=IntentFingerprint.fingerprint(data.investmentId(),data.type(),data.quantity(),
                 data.price(),data.fees()==null?BigDecimal.ZERO:data.fees(),data.date(),data.accountId(),data.amount());
-        var previous=intents.replay(data.operationId(),user,FinancialIntentService.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
+        var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
         if(previous!=null) return previous;
         var result=performOperationOnce(data,user);
-        intents.complete(data.operationId(),user,FinancialIntentService.INVESTMENT_OPERATION,fingerprint,result);
+        intents.complete(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,result);
         return result;
     }
 

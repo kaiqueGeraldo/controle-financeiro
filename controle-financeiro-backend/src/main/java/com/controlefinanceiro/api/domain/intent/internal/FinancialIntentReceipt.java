@@ -1,4 +1,4 @@
-package com.controlefinanceiro.api.domain.transaction;
+package com.controlefinanceiro.api.domain.intent.internal;
 
 import jakarta.persistence.*;
 import lombok.Getter;

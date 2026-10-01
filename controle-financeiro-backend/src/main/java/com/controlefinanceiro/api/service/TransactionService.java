@@ -28,6 +28,8 @@ import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.exception.BusinessRuleException;
 import com.controlefinanceiro.api.service.exception.ResourceNotFoundException;
 import com.controlefinanceiro.api.utils.DateUtil;
+import com.controlefinanceiro.api.service.intent.FinancialIntents;
+import com.controlefinanceiro.api.service.intent.IntentFingerprint;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
@@ -80,17 +82,17 @@ public class TransactionService {
     @Autowired private CardRefundRepository cardRefundRepository;
     @Autowired private com.controlefinanceiro.api.domain.goal.GoalAllocationRepository allocationRepository;
     @Autowired private FinancialCommandRepository commands;
-    @Autowired private FinancialIntentService intents;
+    @Autowired private FinancialIntents intents;
 
     @Transactional
     public TransactionResponseDTO create(CreateTransactionDTO data, User user) {
-        String fingerprint=FinancialIntentService.fingerprint(data.description(),data.amount(),data.date(),
+        String fingerprint=IntentFingerprint.fingerprint(data.description(),data.amount(),data.date(),
                 DateUtil.optionalWallTime(data.time()),data.type(),data.accountId(),data.categoryId(),
                 data.isPaid()==null||data.isPaid(),data.destinationAccountId(),positiveOrZero(data.fee()));
-        var previous=intents.replay(data.operationId(),user,FinancialIntentService.TRANSACTION_CREATE,fingerprint,TransactionResponseDTO.class);
+        var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.TRANSACTION_CREATE,fingerprint,TransactionResponseDTO.class);
         if(previous!=null) return previous;
         var result=createOnce(data,user);
-        intents.complete(data.operationId(),user,FinancialIntentService.TRANSACTION_CREATE,fingerprint,result);
+        intents.complete(data.operationId(),user.getId(),FinancialIntents.TRANSACTION_CREATE,fingerprint,result);
         return result;
     }
 

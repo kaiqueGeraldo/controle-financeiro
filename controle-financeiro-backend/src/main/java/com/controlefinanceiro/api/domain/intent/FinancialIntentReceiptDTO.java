@@ -1,4 +1,4 @@
-package com.controlefinanceiro.api.domain.transaction.dto;
+package com.controlefinanceiro.api.domain.intent;
 
 import tools.jackson.databind.JsonNode;
 import java.time.Instant;
