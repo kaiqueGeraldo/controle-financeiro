@@ -133,6 +133,9 @@ independente. [Relatório atual e histórico](../evidencias/CF-024/README.md),
 [execuções](../evidencias/CF-024/EXECUCOES.md) e
 [mutações/restauração](../evidencias/CF-024/mutation-results.json).
 
+Commit local de produto/testes/contrato: `dbf828e`; fontes, JAR e preservação do
+README vinculados no [checkpoint](../evidencias/CF-024/checkpoint.json).
+
 Entregues: recibos imutáveis de criação/transferência/investimento em V13,
 operationId opcional/fingerprint/replay/GET autenticado; pagamento/adiantamento
 revalidado; cache após commit (writers, nota e exclusão de usuário);409 para
