@@ -1,6 +1,6 @@
 # CF-027 — Organizar fronteiras do backend incrementalmente
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -28,10 +28,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Uma fronteira identificada tem dependências explícitas e teste detecta acoplamento proibido.
-- [ ] As suítes financeiras e concorrentes preservam comportamento; nenhuma alteração escondida de schema/API.
-- [ ] Documentar o que ainda permanece acoplado e por que não migrar para microsserviços agora.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Uma fronteira identificada tem dependências explícitas e teste detecta acoplamento proibido.
+- [x] As suítes financeiras e concorrentes preservam comportamento; nenhuma alteração escondida de schema/API.
+- [x] Documentar o que ainda permanece acoplado e por que não migrar para microsserviços agora.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -43,7 +43,9 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-027/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Executada localmente em 01/10/2026 sobre `40e07ef`, somente na fronteira de intenção/recibo liberada abaixo. [Mapa anterior, implementação, regressões e limitações](../evidencias/CF-027/README.md). Checkboxes são evidência do executor, não aceite independente; estado `em_revisao`. Gate consolidado203/203 Java/verify/JAR, incluindo CF-02430; seis jornadas Playwright com SQL/reload; três mutações causais detectadas. API/schema/fingerprints/snapshots/ownership/atomicidade/ordem de locks/replay/recuperação preservados.
+
+Incidente explícito: `clean` acidental atingiu artefatos ignorados de target; runtime e fontes de duas cópias históricas reconstruídos, sem recuperação integral dos outputs originais. Fontes/evidências versionados e README alheio intactos. Detalhes/proveniência na evidência; não declarar preservação integral dos artefatos locais. RV24-01/RVR24-01/02 e ECONNRESET inconclusivo continuam abertos; RV24-02 permanece concluída. Frontend e CF-028 não alterados.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
@@ -60,8 +62,8 @@ Serviços de metas/cartões/investimentos/transações coordenam atomicidade do 
 duráveis de criação entre TransactionService/InvestmentService/controller e a
 implementação PostgreSQL/JSON hoje em FinancialIntentService. Ver
 [parecer independente, dependências e testes obrigatórios](../evidencias/revalidacao-RV24-01-RV24-02/README.md).
-Estado `pronta`: nenhuma interface, módulo, movimento de pacote ou refatoração
-desta tarefa foi implementada pela revisão.
+Na liberação histórica, estado `pronta`: nenhuma interface, módulo, movimento de pacote ou refatoração
+desta tarefa havia sido implementada pela revisão. Entrega posterior acima, em revisão própria.
 
 Motivo concreto: investimento depende de protocolo/recibo hospedado no domínio
 de transações; consumidores conhecem implementação de persistência/lock/JSON.
