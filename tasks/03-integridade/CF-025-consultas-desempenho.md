@@ -1,6 +1,6 @@
 # CF-025 — Medir e corrigir N+1 e consultas ineficientes
 
-- Estado: pronta
+- Estado: em_execucao
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -43,7 +43,16 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-025/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Execução iniciada em 01/10/2026 sobre `846c64c`, conforme prontidão local
+aprovada na revisão CF-024. Staging inicial vazio; `README.md` preexistente
+preservado e excluído do escopo/commits. Medições e testes novos ficam em
+`src/test/java/com/controlefinanceiro/api/service/`, correspondendo aos services
+do escopo, com PostgreSQL descartável e Flyway integrado. Nenhuma outra tarefa
+será implementada; CF-022 continua com ressalva de browser.
+
+Medições/testes em execução; fechamento registrado em `tasks/evidencias/CF-025/README.md`
+com o [template](../templates/EVIDENCIA.md). Evidência das correções anteriores
+não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

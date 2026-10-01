@@ -57,7 +57,9 @@ public class Habit {
     @Column(nullable = false)
     private HabitFrequency frequency = HabitFrequency.DAILY;
 
-    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.EAGER)
+    // Reordering and the list DTO do not consume these days. Loading them eagerly
+    // adds one secondary SELECT per habit to the owned, locked reorder batch.
+    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "habit_days", joinColumns = @JoinColumn(name = "habit_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week")
