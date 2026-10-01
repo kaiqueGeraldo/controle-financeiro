@@ -4,6 +4,8 @@ import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/contexts/toastContext";
 import { transactionService } from "@/services/transactionService";
 import { Account, Category, TransactionType } from "@/types";
+import { useCreationIntent } from "@/hooks/useCreationIntent";
+import { CreationRecovery } from "./creationRecovery";
 import { formatCurrency } from "@/utils/format";
 import { localDateString } from "@/utils/date";
 import { ChevronDown, Loader2 } from "lucide-react";
@@ -30,6 +32,14 @@ export function NewTransactionModal({
   const submitting = useRef(false);
   const [type, setType] = useState<TransactionType>("EXPENSE");
   const toast = useToast();
+  const intent = useCreationIntent("TRANSACTION_CREATE");
+  const send = (command: import("@/services/creationIntent").CreationCommand) => {
+    if (!("description" in command)) throw new Error("Tipo de intenção inválido.");
+    return transactionService.create(command);
+  };
+  const confirmed = () => {
+    onClose(); onSuccess(); window.dispatchEvent(new Event("refreshExtract"));
+  };
 
   const [formData, setFormData] = useState({
     description: "",
@@ -63,12 +73,12 @@ export function NewTransactionModal({
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (submitting.current) return;
+    if (submitting.current || intent.pending || intent.blocked || intent.busy) return;
     submitting.current = true;
     setIsLoading(true);
 
     try {
-      await transactionService.create({
+      const success = await intent.start({
         description: formData.description,
         amount: formData.amount,
         date: formData.date,
@@ -78,11 +88,8 @@ export function NewTransactionModal({
         categoryId: type === "TRANSFER" ? "" : formData.categoryId,
         isPaid: formData.isPaid,
         ...(type === "TRANSFER" ? {destinationAccountId: formData.destinationAccountId, fee: formData.fee} : {}),
-      });
-
-      onClose();
-      onSuccess();
-      window.dispatchEvent(new Event("refreshExtract"));
+      }, send);
+      if (success) confirmed();
     } catch (error) {
       toast.error("Erro ao criar transação. Verifique se preencheu tudo.");
       console.error(error);
@@ -95,6 +102,10 @@ export function NewTransactionModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Nova Transação">
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+        <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
+          recover={() => { void intent.recover().then(success => { if (success) confirmed(); }); }}
+          retry={() => { void intent.retry(send).then(success => { if (success) confirmed(); }); }} />
+        <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-4">
         {/* TIPO (Receita / Despesa) */}
         <div className="grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider">
           <button
@@ -265,7 +276,7 @@ export function NewTransactionModal({
 
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || intent.busy || !!intent.pending || intent.blocked}
           className="w-full mt-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3.5 rounded-xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {isLoading ? (
@@ -274,6 +285,7 @@ export function NewTransactionModal({
             "Salvar Transação"
           )}
         </button>
+        </fieldset>
       </form>
     </Modal>
   );

@@ -25,7 +25,7 @@ vi.mock("@/hooks/useFinanceData", () => ({
 }));
 
 vi.mock("@/hooks/useUser", () => ({
-  useUser: () => ({ user: { privacyMode: false } }),
+  useUser: () => ({ user: { id: "temporal-owner", privacyMode: false } }),
 }));
 
 vi.mock("@/services/cardService", () => ({
@@ -97,6 +97,7 @@ function timeInput(container: HTMLElement): HTMLInputElement {
 
 describe("defaults e payloads de data civil nos formulários", () => {
   beforeEach(() => {
+    sessionStorage.clear();
     vi.clearAllMocks();
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-09-08T02:59:59.000Z"));

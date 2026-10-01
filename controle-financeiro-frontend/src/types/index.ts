@@ -70,6 +70,7 @@ export interface CreateAccountDTO {
 }
 
 export interface CreateTransactionDTO {
+  operationId?: string;
   description: string;
   amount: number | string;
   date: string;
@@ -251,6 +252,7 @@ export interface CreateInvestmentDTO {
 }
 
 export interface InvestmentOperationDTO {
+  operationId?: string;
   amount?: string;
   investmentId: string;
   type: InvestTransType;

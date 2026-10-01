@@ -1,6 +1,6 @@
 # RV24-01 — Reconciliar criação com resultado desconhecido antes de reenviar
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Marco: datas/frontend/integridade
 - Modelo executor: gpt-5.6-sol
@@ -35,14 +35,26 @@ Não transformar optional operationId em obrigatório no servidor sem contrato.
 
 ## Aceite e testes adversariais
 
-- [ ] Probe vermelho original detecta a versão defeituosa e passa com a correção causal.
-- [ ] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
-- [ ] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
-- [ ] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
-- [ ] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
+- [x] Probe vermelho original detecta a versão defeituosa e passa com a correção causal.
+- [x] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
+- [x] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
+- [x] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
+- [x] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
 
 ## Evidência e revisão
 
 Usar `tasks/evidencias/RV24-01/` e política de testes. Evidência inicial preservada
-na revisão CF-024. Tarefa apenas registrada, não implementada nesta revisão;
+na revisão CF-024. Naquela revisão, tarefa apenas registrada, não implementada;
 CF-032 conserva seu gate integrado e CF-025 pode iniciar localmente.
+
+## Entrega de saneamento — 01/10/2026
+
+Implementação sobre30211b8, para revisão independente. Checkboxes acima registram
+validação do executor, não aceite independente. Dois probes causais vermelhos;
+193 componentes, lint0/0, typecheck/build e seis jornadas reais com PostgreSQL,
+incluindo falha de recibo antes do commit e resposta perdida após commit.
+Quatro jornadas R03 originais reexecutadas; RVA-03 continua aberto.
+[Causa, ciclo de vida, comandos, primeiras falhas e limites](../evidencias/RV24-01/README.md).
+Identidade/corpo persistidos por owner/kind; perda do armazenamento não oferece
+recuperação inventada. Backend/BFF e opcionalidade de operationId preservados.
+CF-026 permanece em revisão; CF-027 não executada nem liberada por esta entrega.

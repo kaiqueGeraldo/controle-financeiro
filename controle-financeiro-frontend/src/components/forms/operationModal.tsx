@@ -19,6 +19,9 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { PrivacyBlur } from "../ui/privacyBlur";
+import { useCreationIntent } from "@/hooks/useCreationIntent";
+import { CreationRecovery } from "./creationRecovery";
+import type { CreationCommand } from "@/services/creationIntent";
 
 interface OperationModalProps {
   isOpen: boolean;
@@ -50,6 +53,12 @@ export function OperationModal({
   const [fees, setFees] = useState("");
   const initializedAsset = useRef<string | null>(null);
   const toast = useToast();
+  const intent = useCreationIntent("INVESTMENT_OPERATION");
+  const send = (command: CreationCommand) => {
+    if (!("investmentId" in command)) throw new Error("Tipo de intenção inválido.");
+    return investmentService.operation(command);
+  };
+  const confirmed = () => { onSuccess(); onClose(); };
 
   const selectedAccountBalance =
     accounts.find((a) => a.id === accountId)?.balance || 0;
@@ -77,7 +86,7 @@ export function OperationModal({
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!asset || submitting.current) return;
+    if (!asset || submitting.current || intent.pending || intent.blocked || intent.busy) return;
     submitting.current = true;
     setIsLoading(true);
 
@@ -104,7 +113,7 @@ export function OperationModal({
           }
         }
 
-        await investmentService.operation({
+        const success = await intent.start({
           investmentId: asset.id,
           amount: isFixedIncome && activeTab === "SELL" ? totalValue : undefined,
           type:
@@ -116,7 +125,8 @@ export function OperationModal({
           date: date,
           accountId: accountId,
           fees: Number(fees || 0),
-        });
+        }, send, `${asset.ticker} — ${activeTab}`);
+        if (!success) { await onReconcile?.(); return; }
       }
 
       onSuccess();
@@ -251,6 +261,10 @@ export function OperationModal({
       title={`${asset.ticker} - Operação`}
     >
       <div className="space-y-5 mt-1">
+        <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
+          recover={() => { void intent.recover().then(success => { if (success) confirmed(); }); }}
+          retry={() => { void intent.retry(send).then(success => { if (success) confirmed(); }); }} />
+        <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-5">
         {/* TABS DE OPERAÇÃO */}
         <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider overflow-x-auto custom-scroll">
           {isFixedIncome && (
@@ -358,7 +372,7 @@ export function OperationModal({
 
           {/* BOTÃO DE SUBMIT */}
           <button
-            disabled={isLoading}
+            disabled={isLoading || intent.busy || !!intent.pending || intent.blocked}
             type="submit"
             className={`w-full font-bold py-3.5 rounded-xl mt-2 flex justify-center items-center gap-2 transition cursor-pointer text-white shadow-lg
                     ${
@@ -377,6 +391,7 @@ export function OperationModal({
             )}
           </button>
         </form>
+        </fieldset>
       </div>
     </Modal>
   );

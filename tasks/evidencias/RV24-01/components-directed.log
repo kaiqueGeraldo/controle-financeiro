@@ -1,0 +1,602 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/rv24-investment-probe.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rv24-creation-intent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/temporal-forms.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rv24-investment-probe.test.tsx > RV24-01: investment unknown outcome blocks a new submission 56ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > original causal expectation: unknown result prevents a second creation; identity is persisted before POST 62ms
+ × tests/component/rv24-creation-intent.test.tsx > closing, reopening and remount preserve exact retry body, even if draft was changed 34ms
+   → Invalid Chai property: toBeEnabled. Did you mean "toBeCalled"?
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > abre os quatro formulários às 23h59 com o dia do navegador, não o UTC 62ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R11: refresh de contas/ativo não apaga data editada no formulário aberto 25ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > preserva o campo aberto na virada e submete exatamente a data digitada 24ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > AC-UI-006: 503 mantém dados do formulário e não sinaliza sucesso 24ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R12: conflito de investimento não dispara callback de sucesso 14ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de transaction no mesmo tick enviam uma operação 15ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de card no mesmo tick enviam uma operação 10ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de payment no mesmo tick enviam uma operação 9ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de investment no mesmo tick enviam uma operação 15ms
+ × tests/component/rv24-creation-intent.test.tsx > GET 404 does not unlock a new intention 31ms
+   → Invalid Chai property: toBeDisabled
+ × tests/component/rv24-creation-intent.test.tsx > GET 503 does not unlock a new intention 32ms
+   → Invalid Chai property: toBeDisabled
+ ✓ tests/component/rv24-creation-intent.test.tsx > authenticated receipt confirms without POST; later equal legitimate intention gets a new identity 32ms
+ × tests/component/rv24-creation-intent.test.tsx > owner switch suppresses late success and leaves A intent untouched; B never retries it 1036ms
+   → Invalid Chai property: toBeEnabled. Did you mean "toBeCalled"?
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div>[39m
+        [36m<form[39m
+          [33mclass[39m=[32m"space-y-4 mt-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"space-y-2 text-sm"[39m
+            [33mrole[39m=[32m"alert"[39m
+          [36m>[39m
+            [36m<p>[39m
+              [0mNão foi possível confirmar a operação. Consulte o recibo ou repita somente a mesma intenção.[0m
+            [36m</p>[39m
+            [36m<p>[39m
+              [0mFechar ou recarregar preserva esta intenção nesta aba. Perder o armazenamento exige conferir o histórico; a identidade perdida não pode ser recuperada automaticamente.[0m
+            [36m</p>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"underline"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mConsultar recibo[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"block underline"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mRepetir a mesma intenção[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<fieldset[39m
+            [33mclass[39m=[32m"space-y-4"[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"py-2 rounded-lg text-sm font-bold transition-all bg-rose-500/10 text-rose-500 shadow-sm border border-rose-500/20"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mDespesa[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"py-2 rounded-lg text-sm font-bold transition-all text-text-muted hover:text-text-main"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mReceita[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"py-2 rounded-lg text-sm font-bold text-text-muted"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mTransferência[0m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"flex items-center gap-2 text-sm"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mtype[39m=[32m"checkbox"[39m
+              [36m/>[39m
+              [0mRegistrar previsão (sem movimentar saldo)[0m
+            [36m</label>[39m
+            [36m<div>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+              [36m>[39m
+                [0mValor[0m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"relative mt-1"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"absolute left-4 top-1/2 -translate-y-1/2 text-text-muted font-bold"[39m
+                [36m>[39m
+                  [0mR$[0m
+                [36m</span>[39m
+                [36m<input[39m
+                  [33maria-label[39m=[32m"Valor do lançamento"[39m
+                  [33mclass[39m=[32m"w-full bg-bg-base border border-border-divider rounded-xl py-3 pl-10 pr-4 text-xl font-bold text-text-main focus:outline-none focus:border-emerald-500 transition-colors"[39m
+                  [33mmax[39m=[32m"999999999999.99"[39m
+                  [33mmin[39m=[32m"0.01"[39m
+                  [33mplaceholder[39m=[32m"0,00"[39m
+                  [33mrequired[39m=[32m""[39m
+                  [33mstep[39m=[32m"0.01"[39m
+                  [33mtype[39m=[32m"number"[39m
+                  [33mvalue[39m=[32m"25.00"[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+              [36m>[39m
+                [0mDescrição[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33maria-label[39m=[32m"Descrição do lançamento"[39m
+                [33mclass[39m=[32m"w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"[39m
+                [33mplaceholder[39m=[32m"Ex: Mercado, Salário..."[39m
+                [33mrequired[39m=[32m""[39m
+                [33mtype[39m=[32m"text"[39m
+                [33mvalue[39m=[32m"Review"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"grid grid-cols-2 gap-4"[39m
+            [36m>[39m
+              [36m<div>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+                [36m>[39m
+                  [0mData[0m
+                [36m</label>[39m
+                [36m<input[39m
+                  [33maria-label[39m=[32m"Data do lançamento"[39m
+                  [33mclass[39m=[32m"w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"[39m
+                  [33mrequired[39m=[32m""[39m
+                  [33mtype[39m=[32m"date"[39m
+                  [33mvalue[39m=[32m"2026-10-01"[39m
+                [36m/>[39m
+              [36m</div>[39m
+              [36m<div>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+                [36m>[39m
+                  [0mHora[0m
+                [36m</label>[39m
+                [36m<input[39m
+                  [33maria-label[39m=[32m"Horário informado (opcional)"[39m
+                  [33mclass[39m=[32m"w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"[39m
+                  [33mtype[39m=[32m"time"[39m
+                  [33mvalue[39m=[32m"13:54"[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"grid grid-cols-2 gap-4"[39m
+            [36m>[39m
+              [36m<div>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+                [36m>[39m
+                  [0mCategoria[0m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"relative mt-1"[39m
+                [36m>[39m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Categoria do lançamento"[39m
+                    [33mclass[39m=[32m"w-full bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main appearance-none focus:outline-none focus:border-emerald-500 cursor-pointer"[39m
+                    [33mrequired[39m=[32m""[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mclass[39m=[32m"bg-bg-surface text-text-muted"[39m
+                      [33mdisabled[39m=[32m""[39m
+                      [33mvalue[39m=[32m""[39m
+                    [36m>[39m
+                      [0mSelecione[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mclass[39m=[32m"bg-bg-surface"[39m
+                      [33mvalue[39m=[32m"category"[39m
+                    [36m>[39m
+                      [0mCategoria[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                  [36m<svg[39m
+                    [33maria-hidden[39m=[32m"true"[39m
+                    [33mclass[39m=[32m"lucide lucide-chevron-down absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none"[39m
+                    [33mfill[39m=[32m"none"[39m
+                    [33mheight[39m=[32m"24"[39m
+                    [33mstroke[39m=[32m"currentColor"[39m
+                    [33mstroke-linecap[39m=[32m"round"[39m
+                    [33mstroke-linejoin[39m=[32m"round"[39m
+                    [33mstroke-width[39m=[32m"2"[39m
+                    [33mviewBox[39m=[32m"0 0 24 24"[39m
+                    [33mwidth[39m=[32m"24"[39m
+                    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                  [36m>[39m
+                    [36m<path[39m
+                      [33md[39m=[32m"m6 9 6 6 6-6"[39m
+                    [36m/>[39m
+                  [36m</svg>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"text-xs text-text-muted font-bold uppercase ml-1"[39m
+                [36m>[39m
+                  [0mConta[0m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"relative mt-1"[39m
+                [36m>[39m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Conta do lançamento"[39m
+                    [33mclass[39m=[32m"w-full bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main appearance-none focus:outline-none focus:border-emerald-500 cursor-pointer"[39m
+                    [33mrequired[39m=[32m""[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mclass[39m=[32m"bg-bg-surface text-text-muted"[39m
+                      [33mdisabled[39m=[32m""[39m
+                      [33mvalue[39m=[32m""[39m
+                    [36m>[39m
+                      [0mSelecione[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mclass[39m=[32m"bg-bg-surface"[39m
+                      [33mvalue[39m=[32m"account"[39m
+                    [36m>[39m
+                      [0mConta[0m
+                      [0m • [0m
+                      [0mR$ 1.000,00[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                  [36m<svg[39m
+                    [33maria-hidden[39m=[32m"true"[39m
+                    [33mclass[39m=[32m"lucide lucide-chevron-down absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none"[39m
+                    [33mfill[39m=[32m"none"[39m
+                    [33mheight[39m=[32m"24"[39m
+                    [33mstroke[39m=[32m"currentColor"[39m
+                    [33mstroke-linecap[39m=[32m"round"[39m
+                    [33mstroke-linejoin[39m=[32m"round"[39m
+                    [33mstroke-width[39m=[32m"2"[39m
+                    [33mviewBox[39m=[32m"0 0 24 24"[39m
+                    [33mwidth[39m=[32m"24"[39m
+                    [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                  [36m>[39m
+                    [36m<path[39m
+                      [33md[39m=[32m"m6 9 6 6 6-6"[39m
+                    [36m/>[39m
+                  [36m</svg>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"w-full mt-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3.5 rounded-xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtype[39m=[32m"submit"[39m
+            [36m>[39m
+              [0mSalvar Transação[0m
+            [36m</button>[39m
+          [36m</fieldset>[39m
+        [36m</form>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ × tests/component/rv24-creation-intent.test.tsx > storage unavailable prevents POST; corrupted saved payload cannot be silently discarded 49ms
+   → Invalid Chai property: toHaveTextContent
+ ✓ tests/component/rv24-creation-intent.test.tsx > definitive initial rejection permits correcting the draft with a new identity 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/rv24-creation-intent.test.tsx > closing, reopening and remount preserve exact retry body, even if draft was changed
+Error: Invalid Chai property: toBeEnabled. Did you mean "toBeCalled"?
+ ❯ tests/component/rv24-creation-intent.test.tsx:39:53
+     37|   view.rerender(<NewTransactionModal {...props} isOpen={false} />);
+     38|   view.rerender(<NewTransactionModal {...props} isOpen />);
+     39|   expect(view.getByText("Repetir a mesma intenção")).toBeEnabled();
+       |                                                     ^
+     40|   view.unmount();
+     41|   const reopened = form();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/component/rv24-creation-intent.test.tsx > GET 404 does not unlock a new intention
+ FAIL  tests/component/rv24-creation-intent.test.tsx > GET 503 does not unlock a new intention
+Error: Invalid Chai property: toBeDisabled
+ ❯ tests/component/rv24-creation-intent.test.tsx:54:45
+     52|   await submit(view);
+     53|   expect(transactionService.create).toHaveBeenCalledTimes(1);
+     54|   expect(view.getByText("Salvar Transação")).toBeDisabled();
+       |                                             ^
+     55|   expect(props.onSuccess).not.toHaveBeenCalled();
+     56| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/component/rv24-creation-intent.test.tsx > owner switch suppresses late success and leaves A intent untouched; B never retries it
+Error: Invalid Chai property: toBeEnabled. Did you mean "toBeCalled"?
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div>
+        <form
+          class="space-y-4 mt-2"
+        >
+          <div
+            class="space-y-2 text-sm"
+            role="alert"
+          >
+            <p>
+              Não foi possível confirmar a operação. Consulte o recibo ou repita somente a mesma intenção.
+            </p>
+            <p>
+              Fechar ou recarregar preserva esta intenção nesta aba. Perder o armazenamento exige conferir o histórico; a identidade perdida não pode ser recuperada automaticamente.
+            </p>
+            <button
+              class="underline"
+              type="button"
+            >
+              Consultar recibo
+            </button>
+            <button
+              class="block underline"
+              type="button"
+            >
+              Repetir a mesma intenção
+            </button>
+          </div>
+          <fieldset
+            class="space-y-4"
+            disabled=""
+          >
+            <div
+              class="grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider"
+            >
+              <button
+                class="py-2 rounded-lg text-sm font-bold transition-all bg-rose-500/10 text-rose-500 shadow-sm border border-rose-500/20"
+                type="button"
+              >
+                Despesa
+              </button>
+              <button
+                class="py-2 rounded-lg text-sm font-bold transition-all text-text-muted hover:text-text-main"
+                type="button"
+              >
+                Receita
+              </button>
+              <button
+                class="py-2 rounded-lg text-sm font-bold text-text-muted"
+                type="button"
+              >
+                Transferência
+              </button>
+            </div>
+            <label
+              class="flex items-center gap-2 text-sm"
+            >
+              <input
+                type="checkbox"
+              />
+              Registrar previsão (sem movimentar saldo)
+            </label>
+            <div>
+              <label
+                class="text-xs text-text-muted font-bold uppercase ml-1"
+              >
+                Valor
+              </label>
+              <div
+                class="relative mt-1"
+              >
+                <span
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted font-bold"
+                >
+                  R$
+                </span>
+                <input
+                  aria-label="Valor do lançamento"
+                  class="w-full bg-bg-base border border-border-divider rounded-xl py-3 pl-10 pr-4 text-xl font-bold text-text-main focus:outline-none focus:border-emerald-500 transition-colors"
+                  max="999999999999.99"
+                  min="0.01"
+                  placeholder="0,00"
+                  required=""
+                  step="0.01"
+                  type="number"
+                  value="25.00"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                class="text-xs text-text-muted font-bold uppercase ml-1"
+              >
+                Descrição
+              </label>
+              <input
+                aria-label="Descrição do lançamento"
+                class="w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"
+                placeholder="Ex: Mercado, Salário..."
+                required=""
+                type="text"
+                value="Review"
+              />
+            </div>
+            <div
+              class="grid grid-cols-2 gap-4"
+            >
+              <div>
+                <label
+                  class="text-xs text-text-muted font-bold uppercase ml-1"
+                >
+                  Data
+                </label>
+                <input
+                  aria-label="Data do lançamento"
+                  class="w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"
+                  required=""
+                  type="date"
+                  value="2026-10-01"
+                />
+              </div>
+              <div>
+                <label
+                  class="text-xs text-text-muted font-bold uppercase ml-1"
+                >
+                  Hora
+                </label>
+                <input
+                  aria-label="Horário informado (opcional)"
+                  class="w-full mt-1 bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main focus:outline-none focus:border-emerald-500 transition-colors"
+                  type="time"
+                  value="13:54"
+                />
+              </div>
+            </div>
+            <div
+              class="grid grid-cols-2 gap-4"
+            >
+              <div>
+                <label
+                  class="text-xs text-text-muted font-bold uppercase ml-1"
+                >
+                  Categoria
+                </label>
+                <div
+                  class="relative mt-1"
+                >
+                  <select
+                    aria-label="Categoria do lançamento"
+                    class="w-full bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main appearance-none focus:outline-none focus:border-emerald-500 cursor-pointer"
+                    required=""
+                  >
+                    <option
+                      class="bg-bg-surface text-text-muted"
+                      disabled=""
+                      value=""
+                    >
+                      Selecione
+                    </option>
+                    <option
+                      class="bg-bg-surface"
+                      value="category"
+                    >
+                      Categoria
+                    </option>
+                  </select>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <label
+                  class="text-xs text-text-muted font-bold uppercase ml-1"
+                >
+                  Conta
+                </label>
+                <div
+                  class="relative mt-1"
+                >
+                  <select
+                    aria-label="Conta do lançamento"
+                    class="w-full bg-bg-base border border-border-divider rounded-xl py-3 px-4 text-text-main appearance-none focus:outline-none focus:border-emerald-500 cursor-pointer"
+                    required=""
+                  >
+                    <option
+                      class="bg-bg-surface text-text-muted"
+                      disabled=""
+                      value=""
+                    >
+                      Selecione
+                    </option>
+                    <option
+                      class="bg-bg-surface"
+                      value="account"
+                    >
+                      Conta
+                       • 
+                      R$ 1.000,00
+                    </option>
+                  </select>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full mt-4 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3.5 rounded-xl transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled=""
+              type="submit"
+            >
+              Salvar Transação
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+ ❯ tests/component/rv24-creation-intent.test.tsx:82:73
+     80|   expect(view.queryByText("Repetir a mesma intenção")).toBeNull();
+     81|   session.user = { id: "owner-A" }; view.rerender(<NewTransactionModal…
+     82|   await waitFor(() => expect(view.getByText("Repetir a mesma intenção"…
+       |                                                                         ^
+     83| });
+     84| test("storage unavailable prevents POST; corrupted saved payload canno…
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  tests/component/rv24-creation-intent.test.tsx > storage unavailable prevents POST; corrupted saved payload cannot be silently discarded
+Error: Invalid Chai property: toHaveTextContent
+ ❯ tests/component/rv24-creation-intent.test.tsx:90:37
+     88|   sessionStorage.setItem("cf-creation:v1:owner-A:TRANSACTION_CREATE", …
+     89|   const corrupt = form(); await submit(corrupt); expect(transactionSer…
+     90|   expect(corrupt.getByRole("alert")).toHaveTextContent("Confira o hist…
+       |                                     ^
+     91| });
+     92| test("definitive initial rejection permits correcting the draft with a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  5 failed | 13 passed (18)
+   Start at  13:54:56
+   Duration  2.35s (transform 306ms, setup 524ms, import 601ms, tests 1.57s, environment 1.41s)
+
