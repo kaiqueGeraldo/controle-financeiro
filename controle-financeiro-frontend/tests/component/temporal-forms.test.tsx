@@ -282,12 +282,29 @@ describe("defaults e payloads de data civil nos formulários", () => {
       : kind === "card" ? render(<NewCardTransactionModal {...modalCallbacks} isOpen categories={categories} defaultCardId="card-synthetic" />)
       : kind === "payment" ? render(<PayInvoiceModal {...modalCallbacks} isOpen accounts={accounts} cardId="card-synthetic" cardName="Cartão" currentInvoiceValue={100} month={9} year={2026} />)
       : render(<OperationModal {...modalCallbacks} isOpen asset={asset} />);
+    if (kind === "transaction") {
+      fireEvent.change(rendered.getByPlaceholderText("0,00"), {target: {value: "25"}});
+      fireEvent.change(rendered.getByPlaceholderText("Ex: Mercado, Salário..."), {target: {value: "Double submit"}});
+      fireEvent.change(rendered.getByLabelText("Categoria do lançamento"), {target: {value: "category-synthetic"}});
+      fireEvent.change(rendered.getByLabelText("Conta do lançamento"), {target: {value: "account-synthetic"}});
+    } else if (kind === "investment") {
+      fireEvent.change(rendered.getByPlaceholderText("0"), {target: {value: "2"}});
+      fireEvent.change(rendered.getByPlaceholderText("0,00"), {target: {value: "100"}});
+    }
+    const data = kind === "transaction" ? {
+      id: "10000000-0000-4000-8000-000000000001", description: "Double submit", amount: 25,
+      date: "2026-09-07", type: "EXPENSE", accountId: "account-synthetic", categoryId: "category-synthetic",
+      isPaid: true, isSystemManaged: false, status: "SETTLED", origin: "USER",
+    } : kind === "investment" ? {
+      id: "10000000-0000-4000-8000-000000000002", type: "BUY", date: "2026-09-07", dateOrigin: "USER_INPUT",
+      quantity: 2, price: 100, totalValue: 200, fees: 0, costDelta: 200, realizedResult: null,
+    } : {};
     act(() => {
       fireEvent.submit(rendered.container.querySelector("form")!);
       fireEvent.submit(rendered.container.querySelector("form")!);
     });
     try { expect(endpoint).toHaveBeenCalledTimes(1); }
-    finally { await act(async () => { finish({ status: 200, data: {} } as never); await pending; }); }
+    finally { await act(async () => { finish({ status: 200, data } as never); await pending; }); }
     expect(modalCallbacks.onSuccess).toHaveBeenCalledTimes(1);
   });
 });

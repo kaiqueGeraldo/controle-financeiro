@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useSyncExternalStore } from "react";
+import { useLayoutEffect, useMemo, useSyncExternalStore } from "react";
 import { useUser } from "./useUser";
 import { subscribeToSessionChange } from "@/actions/sessionBoundary";
 import { ApiError } from "@/services/api";
 import { CreationCommand, CreationKind, parseSavedCreation, recoverCreation, SavedCreation } from "@/services/creationIntent";
+import { validateCreationResponse } from "@/services/creationResult";
+
+export type CreationOutcome = "confirmed" | "unknown" | "rejected" | "obsolete" | "ignored";
 
 type State = { pending: SavedCreation | null; busy: boolean; message: string; blocked: boolean };
 const empty: State = { pending: null, busy: false, message: "", blocked: true };
@@ -13,6 +16,7 @@ const uncertain = "Não foi possível confirmar a operação. Consulte o recibo 
 function creationStore(ownerId: string | undefined, kind: CreationKind) {
   const key = `cf-creation:v1:${ownerId}:${kind}`;
   let active = true;
+  let generation = 0;
   let state: State = { ...empty, blocked: !ownerId };
   const listeners = new Set<() => void>();
   const update = (patch: Partial<State>) => { state = { ...state, ...patch }; listeners.forEach(listener => listener()); };
@@ -22,48 +26,62 @@ function creationStore(ownerId: string | undefined, kind: CreationKind) {
       if (raw) state = { ...state, pending: parseSavedCreation(raw, ownerId, kind), message: uncertain };
     } catch { state = { ...state, blocked: true, message: "Não foi possível ler a intenção salva. Confira o histórico antes de uma nova operação." }; }
   }
-  const complete = () => {
-    if (!active) return false;
+  const complete = (current: () => boolean): CreationOutcome => {
+    if (!current()) return "obsolete";
     // A failure to remove storage keeps the same intention recoverable; never unlock an unpersisted replacement.
     sessionStorage.removeItem(key);
     update({ pending: null, message: "", blocked: false });
-    return true;
+    return "confirmed";
   };
-  const run = async (work: () => Promise<boolean>) => {
-    if (!active || !ownerId || state.busy || state.blocked) return false;
+  const run = async (work: (current: () => boolean) => Promise<CreationOutcome>): Promise<CreationOutcome> => {
+    if (!active) return "obsolete";
+    if (!ownerId || state.busy || state.blocked) return "ignored";
+    const started = generation;
+    const current = () => active && generation === started;
     update({ busy: true });
-    try { return await work(); }
+    try {
+      const outcome = await work(current);
+      return current() ? outcome : "obsolete";
+    }
     catch (error) {
-      if (active) update({ message: error instanceof ApiError && error.status === 404 ? "Recibo ainda não localizado. A operação pode estar em andamento; repita apenas a mesma intenção." : error instanceof Error ? `${state.pending ? `${uncertain} ` : ""}${error.message}` : uncertain });
-      return false;
-    } finally { if (active) update({ busy: false }); }
+      if (!current()) return "obsolete";
+      update({ message: error instanceof ApiError && error.status === 404 ? "Recibo ainda não localizado. A operação pode estar em andamento; repita apenas a mesma intenção." : error instanceof Error ? `${state.pending ? `${uncertain} ` : ""}${error.message}` : uncertain });
+      return state.pending ? "unknown" : "rejected";
+    } finally { if (current()) update({ busy: false }); }
   };
   return {
     snapshot: () => state,
     subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; },
-    activate: () => { active = true; },
-    invalidate: () => { active = false; },
-    start: (command: CreationCommand, send: (command: CreationCommand) => Promise<unknown>, label?: string) => run(async () => {
-      if (state.pending) return false;
+    activate: () => { active = true; update({ busy: false }); },
+    invalidate: () => { active = false; generation++; },
+    start: (command: CreationCommand, send: (command: CreationCommand) => Promise<unknown>, label?: string) => run(async current => {
+      if (state.pending) return "ignored";
       const saved: SavedCreation = { version: 1, ownerId: ownerId!, kind, label, command: { ...command, operationId: crypto.randomUUID() } };
       // Persist before any financial HTTP request. Serialization also freezes the exact JSON body.
       const raw = JSON.stringify(saved);
       sessionStorage.setItem(key, raw);
       const frozen = parseSavedCreation(raw, ownerId!, kind);
       update({ pending: frozen, message: uncertain });
-      try { await send(frozen.command); }
+      try {
+        const response = await send(frozen.command);
+        if (!current()) return "obsolete";
+        validateCreationResponse(response, frozen.command);
+      }
       catch (error) {
         // Only a first, definitive rejection permits editing into a new intention.
-        if (active && error instanceof ApiError && [400, 403, 422].includes(error.status) && !error.requiresReconciliation) complete();
+        if (current() && error instanceof ApiError && [400, 403, 422].includes(error.status) && !error.requiresReconciliation) complete(current);
         throw error;
       }
-      return complete();
+      return complete(current);
     }),
-    recover: () => run(async () => { if (!state.pending) return false; await recoverCreation(state.pending); return complete(); }),
-    retry: (send: (command: CreationCommand) => Promise<unknown>) => run(async () => {
-      if (!state.pending) return false;
-      await send(state.pending.command);
-      return complete();
+    recover: () => run(async current => { if (!state.pending) return "ignored"; await recoverCreation(state.pending); return complete(current); }),
+    retry: (send: (command: CreationCommand) => Promise<unknown>) => run(async current => {
+      if (!state.pending) return "ignored";
+      const command = state.pending.command;
+      const response = await send(command);
+      if (!current()) return "obsolete";
+      validateCreationResponse(response, command);
+      return complete(current);
     }),
   };
 }
@@ -73,7 +91,7 @@ export function useCreationIntent(kind: CreationKind) {
   const { user } = useUser();
   const store = useMemo(() => creationStore(user?.id, kind), [user?.id, kind]);
   const state = useSyncExternalStore(store.subscribe, store.snapshot, () => empty);
-  useEffect(() => {
+  useLayoutEffect(() => {
     store.activate();
     const invalidate = () => store.invalidate();
     window.addEventListener("sessionExpired", invalidate);

@@ -1,5 +1,6 @@
 import { apiRequest } from "./api";
 import type { CreateTransactionDTO, InvestmentOperationDTO } from "@/types";
+import { validateCreationResult } from "./creationResult";
 
 export type CreationKind = "TRANSACTION_CREATE" | "INVESTMENT_OPERATION";
 export type CreationCommand = CreateTransactionDTO | InvestmentOperationDTO;
@@ -27,4 +28,5 @@ export async function recoverCreation(saved: SavedCreation) {
   const response = await apiRequest<unknown>(`/financial-intents/${saved.command.operationId}`, { method: "GET" });
   const receipt = response.data;
   if (!record(receipt) || receipt.operationId !== saved.command.operationId || receipt.kind !== saved.kind || !record(receipt.result)) throw new Error("Recibo inválido; a operação continua pendente.");
+  validateCreationResult(receipt.result, saved.command);
 }

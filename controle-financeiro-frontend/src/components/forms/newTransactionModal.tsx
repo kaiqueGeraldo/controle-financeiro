@@ -89,7 +89,7 @@ export function NewTransactionModal({
         isPaid: formData.isPaid,
         ...(type === "TRANSFER" ? {destinationAccountId: formData.destinationAccountId, fee: formData.fee} : {}),
       }, send);
-      if (success) confirmed();
+      if (success === "confirmed") confirmed();
     } catch (error) {
       toast.error("Erro ao criar transação. Verifique se preencheu tudo.");
       console.error(error);
@@ -103,8 +103,8 @@ export function NewTransactionModal({
     <Modal isOpen={isOpen} onClose={onClose} title="Nova Transação">
       <form onSubmit={handleSubmit} className="space-y-4 mt-2">
         <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
-          recover={() => { void intent.recover().then(success => { if (success) confirmed(); }); }}
-          retry={() => { void intent.retry(send).then(success => { if (success) confirmed(); }); }} />
+          recover={() => { void intent.recover().then(outcome => { if (outcome === "confirmed") confirmed(); }); }}
+          retry={() => { void intent.retry(send).then(outcome => { if (outcome === "confirmed") confirmed(); }); }} />
         <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-4">
         {/* TIPO (Receita / Despesa) */}
         <div className="grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider">

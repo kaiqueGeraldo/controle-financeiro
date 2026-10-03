@@ -126,7 +126,10 @@ export function OperationModal({
           accountId: accountId,
           fees: Number(fees || 0),
         }, send, `${asset.ticker} — ${activeTab}`);
-        if (!success) { await onReconcile?.(); return; }
+        if (success !== "confirmed") {
+          if (success === "unknown" || success === "rejected") await onReconcile?.();
+          return;
+        }
       }
 
       onSuccess();
@@ -262,8 +265,8 @@ export function OperationModal({
     >
       <div className="space-y-5 mt-1">
         <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
-          recover={() => { void intent.recover().then(success => { if (success) confirmed(); }); }}
-          retry={() => { void intent.retry(send).then(success => { if (success) confirmed(); }); }} />
+          recover={() => { void intent.recover().then(outcome => { if (outcome === "confirmed") confirmed(); }); }}
+          retry={() => { void intent.retry(send).then(outcome => { if (outcome === "confirmed") confirmed(); }); }} />
         <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-5">
         {/* TABS DE OPERAÇÃO */}
         <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider overflow-x-auto custom-scroll">

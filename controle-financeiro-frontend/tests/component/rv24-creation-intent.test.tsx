@@ -39,7 +39,11 @@ test("closing, reopening and remount preserve exact retry body, even if draft wa
   expect((view.getByText("Repetir a mesma intenção") as HTMLButtonElement).disabled).toBe(false);
   view.unmount();
   const reopened = form();
-  vi.mocked(transactionService.create).mockResolvedValue({ status: 200, data: {} } as never);
+  vi.mocked(transactionService.create).mockResolvedValue({ status: 200, data: {
+    id: "10000000-0000-4000-8000-000000000001", description: "Review", amount: 25,
+    date: original.date, type: "EXPENSE", accountId: "account", categoryId: "category",
+    isPaid: true, isSystemManaged: false, status: "SETTLED", origin: "USER",
+  } } as never);
   await act(async () => fireEvent.click(reopened.getByText("Repetir a mesma intenção")));
   expect(transactionService.create).toHaveBeenLastCalledWith(original);
   expect(props.onSuccess).toHaveBeenCalledTimes(1);
@@ -57,12 +61,15 @@ test.each([404, 503])("GET %s does not unlock a new intention", async status => 
 test("authenticated receipt confirms without POST; later equal legitimate intention gets a new identity", async () => {
   const view = form(); await submit(view);
   const command = vi.mocked(transactionService.create).mock.calls[0][0];
-  const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify({ operationId: command.operationId, kind: "TRANSACTION_CREATE", result: { id: "fact" } })));
+  const result = { id: "10000000-0000-4000-8000-000000000001", description: "Review", amount: 25,
+    date: command.date, type: "EXPENSE", accountId: "account", categoryId: "category",
+    isPaid: true, isSystemManaged: false, status: "SETTLED", origin: "USER" };
+  const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify({ operationId: command.operationId, kind: "TRANSACTION_CREATE", result })));
   vi.stubGlobal("fetch", fetch);
   await act(async () => fireEvent.click(view.getByText("Consultar recibo")));
   expect(fetch).toHaveBeenCalledWith(`/api/financial-intents/${command.operationId}`, expect.objectContaining({ method: "GET", cache: "no-store" }));
   expect(transactionService.create).toHaveBeenCalledTimes(1);
-  vi.mocked(transactionService.create).mockResolvedValue({ status: 200, data: {} } as never);
+  vi.mocked(transactionService.create).mockResolvedValue({ status: 200, data: result } as never);
   await submit(view);
   expect(vi.mocked(transactionService.create).mock.calls[1][0]).toEqual({ ...command, operationId: expect.any(String) });
   expect(vi.mocked(transactionService.create).mock.calls[1][0].operationId).not.toBe(command.operationId);
