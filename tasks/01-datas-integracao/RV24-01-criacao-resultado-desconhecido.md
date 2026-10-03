@@ -11,6 +11,14 @@
 
 ## Problema e resultado esperado
 
+Situação em 03/10/2026: [saneamento residual do executor](../evidencias/saneamento-residual-RV24/README.md)
+implementa validação de resultado e retorno explícito de lifecycle, com as cinco
+provas independentes reproduzidas antes da correção. Estado em_revisao mantido:
+RVR24-01/02 aguardam novo parecer independente; H-RV24-01 ECONNRESET continua
+inconclusivo. Os dois critérios ainda desmarcados abaixo não recebem autoaceite.
+O texto de problema a seguir descreve a origem histórica; a revisão de 40e07ef
+já aceitou a correção do reenvio original sem chave.
+
 NewTransactionModal libera nova submissão depois de ApiError502 com
 requiresReconciliation=true e envia corpo sem operationId. Se a primeira
 operação tiver sido confirmada, o reenvio pode repetir dinheiro. O formulário

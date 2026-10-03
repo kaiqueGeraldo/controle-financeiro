@@ -8,6 +8,12 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-010; investigação temporal
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 1 e 5: falta decisão integral por critério sobre Clock/fuso, round trip/horário, bordas/token e writers; schema/proveniência/coordenação reais continuam CF-017/P01/P02. Calendário backend local já foi liberado para CF-022. Encerrar exige parecer delimitado, sem converter aprovação sintética em adoção real.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 P01/P02 possuem writers/DTOs revalidados em ambiente sintético; a fundação Flyway avançou

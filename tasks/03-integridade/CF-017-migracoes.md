@@ -8,6 +8,12 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 2 e 5, separadas: RV17-01 exige preflight versionado completo com adversariais antes da baseline; RV17-02 exige fingerprint por PK/campos brutos/origem/saldos/relações e schema no restore. Inventário, backup/restore, proveniência e writers do ambiente real dependem de autorização e evidência próprias. V13 local aprovada não satisfaz esses três gates.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 Estado `em_revisao` mantido. Além das provas locais até V12, a revisão CF-024 (`f225657`)

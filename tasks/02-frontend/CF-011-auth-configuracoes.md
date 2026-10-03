@@ -8,6 +8,12 @@
 - Depende de: [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 4 e 1: concluir recuperação de senha ponta a ponta com provedor falso e vincular mobile/teclado, preferências/reload/erro e download aos critérios originais. R07 e sessão CF-023 têm aceite delimitado. RV24-02 foi concluída independentemente em 40e07ef; exclusão não é mais defeito pendente desta reconciliação e não aprova toda autenticação.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 Estado `em_revisao` mantido. R07 está encerrado; a revisão CF-023 acrescentou aceite de

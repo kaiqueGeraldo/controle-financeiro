@@ -8,6 +8,12 @@
 - Depende de: [CF-021](../03-integridade/CF-021-relatorios.md), [CF-022](../03-integridade/CF-022-habitos-crons.md), [CF-024](../03-integridade/CF-024-concorrencia-cache.md)
 - Origem: T-009; F-013
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 1: revisão independente de 846c64c..65ec14e, evidências em 04cad8d. Examinar N+1, LAZY/coleções, dias/logs, paginação/ownership, locks e limites de memória/volume. Condição: parecer separado cobrindo os quatro critérios; 396 verdes do executor não são aceite nem SLA. Aprovação satisfaz apenas sua dependência em CF-033.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Problema e resultado esperado
 
 Há busca por item na reordenação e risco de carregamento de coleções. Otimizar somente depois de medir comportamento real do banco.

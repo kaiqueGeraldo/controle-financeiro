@@ -46,7 +46,8 @@ tasks/
 ## Prontidão
 
 Consultar o [snapshot documental de 01/10/2026, CF-001–026](evidencias/consolidacao-CF-001-CF-026/README.md)
-e os pareceres nele referenciados. A revisão inicial de CF-001–009 é histórica:
+e sua [reconciliação CF-001–027 de 03/10/2026](evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md),
+com os pareceres referenciados. A revisão inicial de CF-001–009 é histórica:
 P03/P04/P05 foram revalidados posteriormente; P01/P02 conservam gates de adoção.
 Os arquivos individuais continuam sendo a fonte canônica de estado.
 

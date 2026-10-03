@@ -1,5 +1,10 @@
 # Consolidação documental CF-001–CF-026
 
+Atualização posterior: [reconciliação CF-001–CF-027 de 03/10/2026](RECONCILIACAO-CF-001-CF-027.md),
+base `a8c3724`. CF-026/027 já implementadas e aguardando revisão; RV24-02 concluída
+independentemente; RV24-01 conserva resíduos em revalidação. O texto abaixo é
+o snapshot histórico, não a situação corrente dessas entregas.
+
 Snapshot de **01/10/2026, America/Sao_Paulo**, sobre
 `c7f7ffc9b91d028d1dba441affa81403984ffd53` (`main`). Não é nova auditoria técnica,
 revisão independente da CF-025 ou execução da CF-026. O estado vigente é sempre

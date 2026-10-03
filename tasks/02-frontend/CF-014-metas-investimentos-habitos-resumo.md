@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 4, 1, 2 e 3: falta aceite por módulo de metas, investimentos, hábitos e resumo anual nos estados/modais previstos; preservar R01/R04 e regras backend aceitas. RV24-01 requer revisão do saneamento de resultado/lifecycle; RJ-022-01 e H24-01 continuam investigações distintas de CF-022. Condição: parecer por critério e verificações dirigidas das lacunas, sem substituir UI por aceite backend.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 R01/R04 e nota confirmada permanecem aprovados no escopo original. CF-020/021 concluíram

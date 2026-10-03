@@ -8,6 +8,12 @@
 - Depende de: [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md)
 - Origem: T-011; F-017
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 1: revisão independente de 5f26a1d..30211b8, não nova implementação de lint. Examinar narrowing/efeitos/cleanup, contraprovas, consumidores e gates, distinguindo RV24 posterior. Condição: parecer próprio pelos quatro critérios sem supressões. Aprovação satisfaz suas arestas CF-032/034; CF-009/015 não precisam ser artificialmente concluídas.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Problema e resultado esperado
 
 Baseline de 70 erros e 37 avisos precisa ser reavaliado após correções. Tipagem e hooks devem revelar contratos, não silenciar o compilador.

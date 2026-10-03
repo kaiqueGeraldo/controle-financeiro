@@ -8,6 +8,12 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-006](../01-datas-integracao/CF-006-datas-backend.md)
 - Origem: T-002, T-008, T-010; F-001–004
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 1 e 5: P03/P04/P05 foram revalidados; falta parecer final sobre criar/editar/reabrir, erro recuperável e sensibilidade do E2E, confrontando as jornadas existentes e mudanças posteriores. Adoção P01/P02 conserva gate próprio. Não executar novamente toda a matriz apenas pelo estado em revisão.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 P03/PUT, P04/relógios e P05/diaProduto foram revalidados na revisão CF-015; o checklist

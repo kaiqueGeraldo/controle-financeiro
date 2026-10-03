@@ -8,6 +8,12 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 4, 1, 2 e 3: marco depende de zoom real e aceites próprios CF-011–014, além dos resíduos posteriores aplicáveis RV24-01/RVA-03/RJ-022-01. Não resumir tudo a zoom nem reabrir R03/RV01. Encerrar exige parecer do marco cruzando critérios, aceites e lacunas; liberação local de CF-026 não é conclusão integral.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 Estado `em_revisao` mantido. Zoom nativo 200% continua sem prova e sem aprovação; não é

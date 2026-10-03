@@ -8,6 +8,12 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-002; F-001–004
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. P05/diaProduto já aceito; pendência é o parecer final que vincule payload/label/hoje, prazo/navegação e mutações às provas existentes, incluindo consumidores posteriores de CF-026/RV24-01. Categorias 1 e 5: julgamento independente e adoção temporal P01/P02 na CF-017. Não exigir nova correção presumida de P05 nem concluir por aceite local.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 P05/diaProduto foi revalidado independentemente na revisão CF-015 (`1ced2f0` + candidato

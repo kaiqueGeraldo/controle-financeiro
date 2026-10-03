@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 4: completar matriz autenticada de moeda/privacidade, lista/detalhe, valores extensos e estados, reutilizando capturas já inspecionadas. Zoom compartilhado continua CF-010. F-018 foi aceito na CF-021; não reimplementar agregado para obter fechamento visual. Condição: parecer por critério com lacunas visuais cobertas.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 F-018 não permanece pendente quanto ao total global/filtros: esse critério recebeu aceite

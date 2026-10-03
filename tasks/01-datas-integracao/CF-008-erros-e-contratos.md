@@ -8,6 +8,12 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-003; F-005, F-006
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 1, 2 e 5: P03/R06/D16-T01 encerrados nos recortes; falta parecer integral de status/204/binário/abort/503 e seus consumidores. RV24-01 conserva RVR24-01/02 sob CF-009, agora saneados pelo executor e aguardando revalidação; adoção P01/P02 é separada. HTTP correto não comprova confirmação financeira.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 P03/PUT foi revalidado na revisão CF-015; R06/ownership foi encerrado em `681102b`;

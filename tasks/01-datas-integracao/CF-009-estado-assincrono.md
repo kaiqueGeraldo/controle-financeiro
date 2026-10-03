@@ -8,6 +8,12 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 1, 2 e 3: a revisão RV24 aceitou o reenvio original identificado; a pendência atual é revalidar RVR24-01 (resultado inválido) e RVR24-02 (callback obsoleto), saneados nesta execução, além de classificar H-RV24-01 ECONNRESET. R01/R02 e R03/RV01 permanecem encerrados. Revisor deve confrontar as cinco provas independentes, lifecycle e SQL/reload sem autoaprovar este saneamento.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 Estado `em_revisao` mantido por pendência concreta posterior:

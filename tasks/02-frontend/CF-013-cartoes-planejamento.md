@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categorias 4 e 3: falta consolidar estados de fatura vazia/aberta/paga/parcial, competência/reload, lista longa/mobile e zoom; RVA-03 pagamento120 permanece investigação CF-019/024. R03/RV01/R05/R06/R08 não são reabertos por associação. Encerrar exige matriz por critério e classificação causal da ressalva aplicável.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Consolidação documental — 01/10/2026
 
 R03/RV01/R05/R06/R08 continuam encerrados nos cenários revisados. A pendência posterior

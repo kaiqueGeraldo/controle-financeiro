@@ -8,6 +8,12 @@
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-017](../03-integridade/CF-017-migracoes.md)
 - Origem: T-010; investigação temporal
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 3: RJ-022-01 (interação semanal sem POST) e H24-01 (timeout de scheduler) exigem classificações separadas com DOM/rede/calllog e locks/fixtures. Categoria 1 na alteração posterior CF-025: LAZY e consumidores aguardam revisão própria. Backend DEC-08 aceito mantém liberações locais CF-025/027; verdes posteriores não encerram as causas.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Problema e resultado esperado
 
 Hábitos dependem de dia/semana, ofensiva e jobs. O fuso do servidor e uma execução repetida não devem alterar contagem ou progresso vinculado.

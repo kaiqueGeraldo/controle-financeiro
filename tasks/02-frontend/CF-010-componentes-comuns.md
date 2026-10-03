@@ -8,6 +8,12 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 4: verificar zoom nativo 200% com ações essenciais alcançáveis, scroll e foco, registrando inspeção. Geometria/foco nos recortes já aceitos continuam válidos; viewport estreito não substitui zoom. O aceite permanece CF-015.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Problema e resultado esperado
 
 Problemas de overflow, foco e botões podem se repetir em todas as telas por componentes compartilhados. Auditar esses elementos antes de corrigir telas individualmente.

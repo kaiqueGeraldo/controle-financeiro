@@ -8,6 +8,12 @@
 - Depende de: [CF-018](../03-integridade/CF-018-contas-transacoes.md), [CF-019](../03-integridade/CF-019-cartoes-faturas.md), [CF-020](../03-integridade/CF-020-investimentos-metas.md), [CF-022](../03-integridade/CF-022-habitos-crons.md), [CF-024](../03-integridade/CF-024-concorrencia-cache.md)
 - Origem: T-001, T-009; ADR-001
 
+## Reconciliação de pendências — 03/10/2026
+
+Estado `em_revisao` mantido. Categoria 1: revisão independente de 40e07ef..a8c3724, produto dcac7c5, somente fronteira intenção/recibo. Confirmar dependência proibida, MANDATORY, owner/fingerprint/snapshot/locks, API/schema e consumidores. Incidente target limita proveniência dos outputs históricos; cópia reconstruída não é original. Condição: parecer separado pelos quatro critérios, sem ampliar fronteiras. Aprovação satisfaz apenas sua aresta CF-033.
+
+[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+
 ## Problema e resultado esperado
 
 Entidades estão por domínio, mas serviços se cruzam em pacotes globais. Melhorar isolamento após testes financeiros, evitando reorganização cosmética ampla.
