@@ -1,12 +1,18 @@
 # CF-026 — Eliminar dívida de lint e tipagem sem esconder defeitos
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P2
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
 - Revisor sugerido: gpt-5.6-sol / high
 - Depende de: [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md)
 - Origem: T-011; F-017
+
+## Aceite independente — 03/10/2026, candidato 06c1a51
+
+Quatro critérios aceitos no intervalo `5f26a1d..30211b8`, reconferido no candidato. [Parecer separado](../evidencias/revisao-CF-025-CF-027-RV24/README.md) e [matriz](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md): narrowing real de preferências/erros, DTOs/efeitos preservados, cleanup por geração/token; contraprovas históricas e de geração falham causalmente, restauração23/23. Lint247 alvos0/0, typecheck/build e regressões atuais aprovados sem exclusões/ignores ou weakening.
+
+RVR24-01 permanece com RV24-01, introduzida depois deste lote; não é aceito nem duplicado como defeito CF-026. CF-009/015 continuam em_revisao. Satisfeitas somente suas arestas CF-032/034; não há aceite de todos os fluxos financeiros, matriz visual ou produção. Notas abaixo são históricas.
 
 ## Reconciliação de pendências — 03/10/2026
 

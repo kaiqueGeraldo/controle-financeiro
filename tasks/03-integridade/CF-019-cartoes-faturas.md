@@ -8,6 +8,10 @@
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md), [CF-017](../03-integridade/CF-017-migracoes.md), [CF-018](../03-integridade/CF-018-contas-transacoes.md)
 - Origem: T-004, T-009; fluxo de cartões
 
+## Capacidade liberada para especificação CF-028 — 03/10/2026
+
+[Parecer independente sobre o candidato 06c1a51](../evidencias/revisao-CF-025-CF-027-RV24/README.md): contratos de dívida/parcelas/abertura e capacidades backend já aceitos em J/C são suficientes para **iniciar somente a especificação CF-028**. Alterações posteriores pertinentes confrontadas; não há consumo da interação de pagamento120 para redigir esse contrato. RVA-03 permanece inconclusivo, esta tarefa continua em_revisao e a capacidade liberada não aprova UI/finalização/onboarding ou publicação. Nenhum critério foi transferido à sucessora para encerrar esta origem.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categoria 3: RVA-03 continua sem causa isolada após POST200, débito120 e pagável0 com modal sem recuperação. Encerrar exige correlação passiva da fase/causa e prova de saída ou recuperação sem novo envio na condição observada. Domínio backend tem aceite e liberações locais CF-024/027; não há liberação automática da especificação CF-028 por essa associação.

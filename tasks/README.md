@@ -45,6 +45,8 @@ tasks/
 
 ## Prontidão
 
+Parecer corrente do recorte em 03/10/2026: [revisão independente CF-025/026/027 e RV24](evidencias/revisao-CF-025-CF-027-RV24/README.md), base `06c1a51`, com [matriz de critérios/estados](evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md). CF-025/026/027 concluídas; RV24-01/CF-009 em revisão por RVR24-01, RVR24-02 encerrado. CF-028 pronta **somente para especificação**, sem implementação nem liberação automática das sucessoras. Demais aceites e investigações preservados; snapshots abaixo permanecem históricos.
+
 Consultar o [snapshot documental de 01/10/2026, CF-001–026](evidencias/consolidacao-CF-001-CF-026/README.md)
 e sua [reconciliação CF-001–027 de 03/10/2026](evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md),
 com os pareceres referenciados. A revisão inicial de CF-001–009 é histórica:

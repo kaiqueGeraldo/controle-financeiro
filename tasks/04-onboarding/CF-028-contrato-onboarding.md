@@ -1,12 +1,18 @@
 # CF-028 — Finalizar contrato da entrevista inicial
 
-- Estado: proposta
+- Estado: pronta
 - Prioridade: P1
 - Modelo executor: gpt-6-astra
 - Esforço: xhigh
 - Revisor sugerido: gpt-5.6-sol / high
 - Depende de: [CF-016](../03-integridade/CF-016-regras-financeiras.md), [CF-018](../03-integridade/CF-018-contas-transacoes.md), [CF-019](../03-integridade/CF-019-cartoes-faturas.md), [CF-020](../03-integridade/CF-020-investimentos-metas.md), [CF-023](../03-integridade/CF-023-isolamento-autenticacao.md)
 - Origem: T-006, T-007; F-008; SPEC-001
+
+## Prontidão independente restrita — 03/10/2026
+
+**Apta a iniciar exclusivamente a especificação**, base `06c1a51`. [Decisão independente](../evidencias/revisao-CF-025-CF-027-RV24/README.md) confronta CF-016/018/019/020/023 e alterações posteriores. CF-016/018/020/023 conservam aceite próprio; CF-019 oferece dívida/parcelas/abertura e backend aceitos em J/C, suficientes para definir contrato/DTOs/validações do onboarding sem consumir a interação de pagamento120 investigada em RVA-03.
+
+Liberação explícita de capacidade CF-019→CF-028, sem concluir CF-019 ou fechar RVA-03. Não há dependência direta criada de CF-025/026/027. Não implementada nem aprovada antecipadamente: todos os critérios abaixo permanecem pendentes. CF-029–034, finalização, UI, migração real e deploy não liberados por esta nota; protocolo/concorrência próprios do onboarding ainda serão especificados e validados nas tarefas correspondentes.
 
 ## Problema e resultado esperado
 
@@ -46,4 +52,3 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 Ainda não executada. Usar `tasks/evidencias/CF-028/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-

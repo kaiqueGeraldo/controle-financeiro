@@ -9,6 +9,12 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Revalidação independente — 03/10/2026, candidato 06c1a51
+
+**em_revisao mantido. RVR24-02 encerrado; RVR24-01 permanece aberto.** [Parecer/matriz](../evidencias/revisao-CF-025-CF-027-RV24/README.md), [reprodução e encerramento](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). Cinco vermelhos originais reproduzidos em cópia histórica, mesmos hashes/assertions; candidato passa seis originais e cobertura residual de storage/lifecycle. Doze jornadas novas com PostgreSQL/reload confirmam efeitos únicos e duas intenções legítimas independentes, incluindo null/array/result vazio após commit real.
+
+Resíduo do mesmo RVR24-01: BUY2×100 com totalValue999 é confirmado e remove a intenção em POST/retry/GET. Três probes independentes vermelhos preservados; nenhum produto corrigido nesta revisão. Sucesso/erro tardios após unmount/A→B/A→B→A/expiração não disparam callbacks, e execução ativa ainda recupera/reconcilia: RVR24-02 aceito. H-RV24-01 ECONNRESET continua inconclusivo; RV24-02 e R03/RV01 preservados. Relatos abaixo mantêm o alcance histórico.
+
 ## Problema e resultado esperado
 
 Situação em 03/10/2026: [saneamento residual do executor](../evidencias/saneamento-residual-RV24/README.md)
@@ -47,7 +53,7 @@ Não transformar optional operationId em obrigatório no servidor sem contrato.
 - [x] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
 - [x] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
 - [ ] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
-- [ ] Resposta de ciclo/owner invalidado não aciona callbacks tardios, inclusive reconciliação de investimento.
+- [x] Resposta de ciclo/owner invalidado não aciona callbacks tardios, inclusive reconciliação de investimento.
 - [x] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
 
 ## Evidência e revisão

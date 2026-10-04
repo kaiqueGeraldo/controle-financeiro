@@ -1,12 +1,18 @@
 # CF-027 — Organizar fronteiras do backend incrementalmente
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-018](../03-integridade/CF-018-contas-transacoes.md), [CF-019](../03-integridade/CF-019-cartoes-faturas.md), [CF-020](../03-integridade/CF-020-investimentos-metas.md), [CF-022](../03-integridade/CF-022-habitos-crons.md), [CF-024](../03-integridade/CF-024-concorrencia-cache.md)
 - Origem: T-001, T-009; ADR-001
+
+## Aceite independente — 03/10/2026, candidato 06c1a51
+
+Quatro critérios aceitos exclusivamente na fronteira intenção/recibo, intervalo `40e07ef..a8c3724`. [Parecer separado](../evidencias/revisao-CF-025-CF-027-RV24/README.md), [matriz](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md) e novas provas PostgreSQL confirmam MANDATORY/mesmo commit, owner/fingerprint/snapshot/replay, ordem de locks, HTTP/schema e consumidores. Contraprovas de dependência proibida, transação adicional e ausência de owner falham causalmente; restauração passa. Gate210 inclui CF-02430 e seis jornadas; variante inválida posterior também tem SQL/reload.
+
+Interface não impõe sequência por tipos; fronteira de pacote depende do teste e DTO mantém Jackson transitivamente. Incidente target preservado: outputs antigos perdidos não foram recuperados, decisões necessárias usam novas execuções duráveis. RVR24-01 frontend permanece aberto; RV24-02 conserva aceite. Satisfeita somente sua aresta CF-033; sem microsserviços, onboarding ou deploy. Notas abaixo são históricas.
 
 ## Reconciliação de pendências — 03/10/2026
 

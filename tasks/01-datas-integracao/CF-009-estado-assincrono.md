@@ -8,6 +8,10 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Parecer dirigido por critério — 03/10/2026
+
+Estado **em_revisao** mantido, candidato `06c1a51`. [Matriz dos quatro critérios](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md): aceites R01/R02 e R03/RV01, rollback e isolamento preservados; RVR24-02 callbacks obsoletos encerrado. Critério de erro sem falso sucesso permanece pendente por RVR24-01: total bruto incompatível do investimento ainda confirma/apaga intenção em POST/retry/GET. [Achado e saneamento necessário](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). H-RV24-01 é investigação de transporte separada, sem causa fechada por verdes novos. CF-026 aceita no lote próprio não conclui esta tarefa; sem nova auditoria integral de telas/adoção.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 1, 2 e 3: a revisão RV24 aceitou o reenvio original identificado; a pendência atual é revalidar RVR24-01 (resultado inválido) e RVR24-02 (callback obsoleto), saneados nesta execução, além de classificar H-RV24-01 ECONNRESET. R01/R02 e R03/RV01 permanecem encerrados. Revisor deve confrontar as cinco provas independentes, lifecycle e SQL/reload sem autoaprovar este saneamento.
@@ -49,7 +53,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Resposta atrasada da seleção anterior não substitui a seleção atual; rollback não apaga mutação posterior válida.
-- [x] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. RV01/R03 encerrado na revalidação dirigida de e4079a9.
+- [ ] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. RV01/R03 encerrado na revalidação dirigida de e4079a9. O critério integral permanece pendente por RVR24-01, sem reabrir RV01/R03.
 - [x] Cache de usuário A não aparece após login B; dupla chamada é testada e backend continua responsável pela integridade.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 

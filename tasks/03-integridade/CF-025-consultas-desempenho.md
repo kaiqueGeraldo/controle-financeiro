@@ -1,12 +1,18 @@
 # CF-025 — Medir e corrigir N+1 e consultas ineficientes
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P2
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-021](../03-integridade/CF-021-relatorios.md), [CF-022](../03-integridade/CF-022-habitos-crons.md), [CF-024](../03-integridade/CF-024-concorrencia-cache.md)
 - Origem: T-009; F-013
+
+## Aceite independente — 03/10/2026, candidato 06c1a51
+
+Quatro critérios aceitos na [revisão independente CF-025/026/027](../evidencias/revisao-CF-025-CF-027-RV24/README.md), com [matriz de provas](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md). Intervalo integral `846c64c..04cad8d` confrontado com o candidato. Nova medição3/30/120 confirma1 SELECT + N UPDATEs, dados/paginação/ownership preservados, waiter PostgreSQL em commit/rollback e dias/logs intactos. Contraprova EAGER reprova4≠1; restauração e consumidores passam.
+
+SELECT constante não torna reorder O(1): escritas/execuções JDBC/memória O(N), ordenação SQL potencial O(N log N); sem SLA/heap/carga de produção certificados. RJ-022-01/H24-01 continuam inconclusivos. Satisfeita somente sua aresta CF-033; sem liberação integral de release. Notas abaixo preservam estados e provas históricos.
 
 ## Reconciliação de pendências — 03/10/2026
 
