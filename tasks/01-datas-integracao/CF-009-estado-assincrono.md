@@ -8,6 +8,15 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Saneamento dirigido — 04/10/2026
+
+Estado **em_revisao** mantido. O executor corrigiu a coerência do bruto do
+investimento em RVR24-01, com decimal exato/HALF_UP e preservação do amount
+autoritativo de NG-01. [Contrato, provas e encaminhamento](../evidencias/saneamento-RVR24-01-bruto/README.md).
+O critério de falso sucesso aguarda revalidação independente; nenhum checkbox
+recebe autoaceite. RVR24-02, RV24-02 e CF-025/026/027 conservam os aceites de
+c45bfb6/40e07ef. CF-028 não executada; investigações históricas preservadas.
+
 ## Parecer dirigido por critério — 03/10/2026
 
 Estado **em_revisao** mantido, candidato `06c1a51`. [Matriz dos quatro critérios](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md): aceites R01/R02 e R03/RV01, rollback e isolamento preservados; RVR24-02 callbacks obsoletos encerrado. Critério de erro sem falso sucesso permanece pendente por RVR24-01: total bruto incompatível do investimento ainda confirma/apaga intenção em POST/retry/GET. [Achado e saneamento necessário](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). H-RV24-01 é investigação de transporte separada, sem causa fechada por verdes novos. CF-026 aceita no lote próprio não conclui esta tarefa; sem nova auditoria integral de telas/adoção.

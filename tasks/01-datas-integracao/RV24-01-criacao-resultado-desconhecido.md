@@ -9,6 +9,15 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Saneamento do bruto — 04/10/2026
+
+Estado **em_revisao** mantido. Continuação do mesmo **RVR24-01**: validação
+decimal do bruto de execução no ponto comum a POST/retry/GET, preservando o
+resgate monetário de NG-01 e a intenção quando o resultado é incompatível.
+[Contrato, antes/depois e revalidação dirigida](../evidencias/saneamento-RVR24-01-bruto/README.md).
+Entrega do executor, sem aprovação independente. RVR24-02 e RV24-02 permanecem
+encerrados; H-RV24-01 inconclusivo. Critérios e dependências permanecem intactos.
+
 ## Revalidação independente — 03/10/2026, candidato 06c1a51
 
 **em_revisao mantido. RVR24-02 encerrado; RVR24-01 permanece aberto.** [Parecer/matriz](../evidencias/revisao-CF-025-CF-027-RV24/README.md), [reprodução e encerramento](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). Cinco vermelhos originais reproduzidos em cópia histórica, mesmos hashes/assertions; candidato passa seis originais e cobertura residual de storage/lifecycle. Doze jornadas novas com PostgreSQL/reload confirmam efeitos únicos e duas intenções legítimas independentes, incluindo null/array/result vazio após commit real.
