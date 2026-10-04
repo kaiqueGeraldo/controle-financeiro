@@ -1,0 +1,155 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/decimal-independent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01499999 => 0.01 2ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.015 => 0.02 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01500001 => 0.02 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 0.33333333 * 3 => 1 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1e-8 * 999999999999 => 10000 0ms
+ ✓ tests/component/decimal-independent.test.tsx > BUY preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 100000000 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 1e-8 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 5e-324 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1.7976931348623157e+308 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude Infinity rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude NaN rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude -1 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1e-9 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > maximum permitted product operands cannot confirm a small claimed gross 0ms
+ × tests/component/decimal-independent.test.tsx > FIN-06 accepts maximum monetary gross but rejects one cent above ceiling 3ms
+   → expected [Function] to throw an error
+ × tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via POST 12ms
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+   → expected null not to be null
+   → expected null not to be null
+ × tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry 3ms
+   → expected null to be '{"version":1,"ownerId":"limit-review"…' // Object.is equality
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+   → expected null not to be null
+   → expected null not to be null
+ × tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET 3ms
+   → expected null to be '{"version":1,"ownerId":"limit-review"…' // Object.is equality
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+   → expected null not to be null
+   → expected null not to be null
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 accepts maximum monetary gross but rejects one cent above ceiling
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/component/decimal-independent.test.tsx:40:150
+     38|   const c={...command,quantity:1000000,price:999999.99999999,fees:0};
+     39|   expect(()=>validateCreationResult({...result,quantity:c.quantity,pri…
+     40|   expect(()=>validateCreationResult({...result,quantity:1000000,price:…
+       |                                                                                                                                                      ^
+     41| });
+     42| test.each(["POST","retry","GET"])("FIN-06 out-of-range gross preserves…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via POST
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET
+AssertionError: expected 'confirmed' to be 'unknown' // Object.is equality
+
+Expected: "unknown"
+Received: "confirmed"
+
+ ❯ tests/component/decimal-independent.test.tsx:64:24
+     62|     expect.soft(sessionStorage.getItem(key)).toBe(saved);
+     63|   }
+     64|   expect.soft(outcome).toBe("unknown");
+       |                        ^
+     65|   expect.soft(hook.result.current.pending).not.toBeNull();
+     66|   expect.soft(sessionStorage.getItem(key)).not.toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via POST
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET
+AssertionError: expected null not to be null
+ ❯ tests/component/decimal-independent.test.tsx:65:48
+     63|   }
+     64|   expect.soft(outcome).toBe("unknown");
+     65|   expect.soft(hook.result.current.pending).not.toBeNull();
+       |                                                ^
+     66|   expect.soft(sessionStorage.getItem(key)).not.toBeNull();
+     67| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via POST
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET
+AssertionError: expected null not to be null
+ ❯ tests/component/decimal-independent.test.tsx:66:48
+     64|   expect.soft(outcome).toBe("unknown");
+     65|   expect.soft(hook.result.current.pending).not.toBeNull();
+     66|   expect.soft(sessionStorage.getItem(key)).not.toBeNull();
+       |                                                ^
+     67| });
+     68|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry
+AssertionError: expected null to be '{"version":1,"ownerId":"limit-review"…' // Object.is equality
+
+- Expected:
+"{\"version\":1,\"ownerId\":\"limit-review\",\"kind\":\"INVESTMENT_OPERATION\",\"command\":{\"investmentId\":\"asset\",\"accountId\":\"account\",\"type\":\"BUY\",\"quantity\":1000000,\"price\":1000000,\"fees\":0,\"date\":\"2027-01-15\",\"operationId\":\"5547ac86-e703-489b-97ad-315db2237978\"}}"
+
++ Received:
+null
+
+ ❯ tests/component/decimal-independent.test.tsx:62:46
+     60|       await act(async()=>{outcome=await hook.result.current.recover();…
+     61|     }
+     62|     expect.soft(sessionStorage.getItem(key)).toBe(saved);
+       |                                              ^
+     63|   }
+     64|   expect.soft(outcome).toBe("unknown");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET
+AssertionError: expected null to be '{"version":1,"ownerId":"limit-review"…' // Object.is equality
+
+- Expected:
+"{\"version\":1,\"ownerId\":\"limit-review\",\"kind\":\"INVESTMENT_OPERATION\",\"command\":{\"investmentId\":\"asset\",\"accountId\":\"account\",\"type\":\"BUY\",\"quantity\":1000000,\"price\":1000000,\"fees\":0,\"date\":\"2027-01-15\",\"operationId\":\"d343e814-e3e3-43b2-9155-953975f55639\"}}"
+
++ Received:
+null
+
+ ❯ tests/component/decimal-independent.test.tsx:62:46
+     60|       await act(async()=>{outcome=await hook.result.current.recover();…
+     61|     }
+     62|     expect.soft(sessionStorage.getItem(key)).toBe(saved);
+       |                                              ^
+     63|   }
+     64|   expect.soft(outcome).toBe("unknown");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 21 passed (25)
+   Start at  11:45:35
+   Duration  753ms (transform 59ms, setup 140ms, import 57ms, tests 29ms, environment 376ms)
+

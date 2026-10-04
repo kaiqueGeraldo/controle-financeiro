@@ -8,6 +8,15 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Saneamento do teto FIN-06 — 04/10/2026
+
+Estado **em_revisao**, somente critério2 aguardando revalidação conforme1e9e932.
+O executor acrescentou faixa monetária/escala no validador comum do mesmo
+RVR24-01, preservando intenção e recuperação. [Matriz, provas e encaminhamento](../evidencias/saneamento-RVR24-01-teto/README.md).
+Critérios1/3/4, RVR24-02, RV24-02 e CF-025/026/027 conservam seus aceites.
+Nenhum checkbox alterado; CF-028 não executada. Investigações históricas
+permanecem separadas e não são reclassificadas como causa deste veto.
+
 ## Saneamento dirigido — 04/10/2026
 
 ### Decisão independente da entrega e069e33 — 04/10/2026

@@ -9,6 +9,15 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Saneamento do teto FIN-06 — 04/10/2026
+
+Estado **em_revisao**, critério4 aguardando revalidação independente.
+Continuação do **RVR24-01** registrado em1e9e932: faixa inclusiva monetária
+999999999999.99, comparação exata em centavos e preservação de amount/NG-01.
+[Matriz, quatro provas originais e integração](../evidencias/saneamento-RVR24-01-teto/README.md).
+Entrega do executor, sem autoaprovação. Critérios1/2/3/5/6 e aceites anteriores
+preservados; nenhum checkbox/dependência alterado e CF-028 não executada.
+
 ## Saneamento do bruto — 04/10/2026
 
 ### Parecer independente da entrega e069e33 — 04/10/2026
