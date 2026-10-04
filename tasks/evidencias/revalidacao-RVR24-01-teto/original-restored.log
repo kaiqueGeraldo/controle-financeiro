@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/review-teto-front-8130bce048b646d290e9a0250dba7672
+
+stdout | tests/component/decimal-independent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01499999 => 0.01 2ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.015 => 0.02 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01500001 => 0.02 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 0.33333333 * 3 => 1 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1e-8 * 999999999999 => 10000 0ms
+ ✓ tests/component/decimal-independent.test.tsx > BUY preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 100000000 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 1e-8 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 5e-324 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1.7976931348623157e+308 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude Infinity rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude NaN rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude -1 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1e-9 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > maximum permitted product operands cannot confirm a small claimed gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > FIN-06 accepts maximum monetary gross but rejects one cent above ceiling 0ms
+ ✓ tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via POST 10ms
+ ✓ tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via retry 3ms
+ ✓ tests/component/decimal-independent.test.tsx > FIN-06 out-of-range gross preserves intent via GET 3ms
+
+ Test Files  1 passed (1)
+      Tests  25 passed (25)
+   Start at  18:29:59
+   Duration  772ms (transform 73ms, setup 149ms, import 75ms, tests 23ms, environment 385ms)
+

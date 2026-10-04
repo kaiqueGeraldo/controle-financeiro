@@ -10,6 +10,19 @@
 
 ## Saneamento do teto FIN-06 — 04/10/2026
 
+### Decisão independente do candidato01d44d8 — 04/10/2026
+
+**em_revisao mantido, somente critério2 pendente.** O teto monetário anterior
+está corrigido; não é mais a justificativa. RVR24-01 mantém falha concreta de
+precisão: resultado NG-01 válido é rejeitado e não recupera após commit real;
+quantidades divergentes dentro do contrato colidem como Number e ainda produzem
+confirmed/removem intenção em probes POST/GET. [Matriz e provas](../evidencias/revalidacao-RVR24-01-teto/README.md),
+[payloads e fronteiras da perda](../evidencias/revalidacao-RVR24-01-teto/JSON-PRECISAO.md).
+Encerramento exige preservar precisão/resultado original nos caminhos afetados,
+passar os seis vermelhos novos e resgate real, mantendo teto/NG-01/lifecycle.
+Critérios1/3/4, R01/R02, R03/RV01, RVR24-02/RV24-02 e CF-025–027 preservados.
+Nenhuma transferência de critério ou liberação de publicação; CF-028 não executada.
+
 Estado **em_revisao**, somente critério2 aguardando revalidação conforme1e9e932.
 O executor acrescentou faixa monetária/escala no validador comum do mesmo
 RVR24-01, preservando intenção e recuperação. [Matriz, provas e encaminhamento](../evidencias/saneamento-RVR24-01-teto/README.md).

@@ -11,6 +11,21 @@
 
 ## Saneamento do teto FIN-06 — 04/10/2026
 
+### Revalidação independente do candidato01d44d8 — 04/10/2026
+
+**em_revisao mantido; critério4 pendente por precisão concreta do snapshot.**
+Os quatro originais do teto passam, com hashes/assertions intactos; a ausência
+de limite foi corrigida. Porém resgate NG-01 válido de amount1.00 e quantidade
+999999999999.99999999 comita uma operação/recibo e saldo1001, mas JSON.parse
+converte a quantidade para1e12 e a nova guarda rejeita a confirmação. GET já
+emite1.0E12 apesar do recibo persistido exato; recuperação mantém a intenção.
+Dois probes também confirmam quantidade divergente que colide como Number.
+[Parecer separado, JSON bruto e condição de encerramento](../evidencias/revalidacao-RVR24-01-teto/README.md).
+151 regressões passam; seis novos vermelhos e jornada NG-01 real falham.
+BUY200 com resposta acima do teto recupera sem duplicação; demais critérios e
+aceites preservados. Próximo saneamento é da precisão na fronteira afetada,
+sem aumentar teto/epsilon/clamp ou auditoria global. Produto/CF-028 não alterados.
+
 Estado **em_revisao**, critério4 aguardando revalidação independente.
 Continuação do **RVR24-01** registrado em1e9e932: faixa inclusiva monetária
 999999999999.99, comparação exata em centavos e preservação de amount/NG-01.

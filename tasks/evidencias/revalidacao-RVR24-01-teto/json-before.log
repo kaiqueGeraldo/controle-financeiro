@@ -1,0 +1,69 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/review-teto-front-8130bce048b646d290e9a0250dba7672
+
+stdout | tests/component/json-precision.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/json-precision.test.tsx > raw quantity maximum loses digits before BigInt, despite legal FIN-06 and NG-01 2ms
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through POST 13ms
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through retry 2ms
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through GET 2ms
+ × tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via POST 6ms
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+   → expected null not to be null
+ × tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via GET 2ms
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+   → expected null not to be null
+ × tests/component/json-precision.test.tsx > valid raw money at inclusive ceiling retains cents and authoritative amount 1ms
+   → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via POST
+ FAIL  tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via GET
+AssertionError: expected 'confirmed' to be 'unknown' // Object.is equality
+
+Expected: "unknown"
+Received: "confirmed"
+
+ ❯ tests/component/json-precision.test.tsx:47:24
+     45|     await act(async()=>{outcome=await hook.result.current.recover();});
+     46|   }
+     47|   expect.soft(outcome).toBe("unknown");expect.soft(sessionStorage.getI…
+       |                        ^
+     48| });
+     49| test("valid raw money at inclusive ceiling retains cents and authorita…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via POST
+ FAIL  tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via GET
+AssertionError: expected null not to be null
+ ❯ tests/component/json-precision.test.tsx:47:85
+     45|     await act(async()=>{outcome=await hook.result.current.recover();});
+     46|   }
+     47|   expect.soft(outcome).toBe("unknown");expect.soft(sessionStorage.getI…
+       |                                                                                     ^
+     48| });
+     49| test("valid raw money at inclusive ceiling retains cents and authorita…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  tests/component/json-precision.test.tsx > valid raw money at inclusive ceiling retains cents and authoritative amount
+AssertionError: expected [Function] to throw an error
+ ❯ tests/component/json-precision.test.tsx:55:81
+     53|   }
+     54|   const above=JSON.parse(validRedemption.replace('999999999999.9999999…
+     55|   expect(()=>validateCreationResult(above,{...sell,amount:"10000000000…
+       |                                                                                 ^
+     56| });
+     57|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 4 passed (7)
+   Start at  18:34:34
+   Duration  769ms (transform 91ms, setup 136ms, import 110ms, tests 30ms, environment 350ms)
+
