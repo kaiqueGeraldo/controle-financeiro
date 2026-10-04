@@ -1,0 +1,77 @@
+import { expect, test } from "@playwright/test";
+import { registerSyntheticUser, syntheticUser } from "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/e2e/support/synthetic-auth";
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+test("RVR24-01 committed BUY with corrupt gross remains pending and recovers exactly once", async ({ page }) => {
+  const tag = `${process.env.CF_E2E_NAMESPACE}-gross`;
+  await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));
+  await registerSyntheticUser(page, syntheticUser("A", tag));
+  const created = await page.request.post("/api/accounts", { data: { name: tag, type: "CHECKING", initialBalance: 1000, color: "BLUE" } });
+  expect(created.ok()).toBe(true); const account = await created.json();
+  const asset = await page.request.post("/api/investments", { data: { name: tag, ticker: "RV24", type: "STOCK", openingQuantity: "10", openingCost: "1000", openingValue: "1000", valuationDate: "2027-01-15", valuationSource: "SYNTHETIC" } });
+  expect(asset.ok()).toBe(true); const assetId = (await asset.json()).id;
+  const open = async () => {
+    await page.goto("/investimentos");
+    await page.getByText("RV24", { exact: true }).click();
+    await page.getByRole("button", { name: "Aportar", exact: true }).click();
+    return page.getByRole("dialog", { name: "RV24 - Operação", exact: true });
+  };
+  let modal = await open();
+  await modal.getByPlaceholder("0", { exact: true }).fill("2");
+  await modal.getByPlaceholder("0,00", { exact: true }).fill("100");
+  await modal.getByLabel("Conta", { exact: true }).selectOption(account.id);
+  let posts = 0;
+  let original: Record<string, unknown> = {};
+  await page.route("**/api/investments/operation", async route => {
+    if (route.request().method() !== "POST") { await route.continue(); return; }
+    posts++; original = route.request().postDataJSON();
+    const response = await route.fetch();
+    expect(response.ok()).toBe(true);
+    const actual = await response.json();
+    expect(actual.totalValue).toBe(200);
+    await route.fulfill({ response, json: { ...actual, totalValue: 999 } });
+  });
+  await modal.getByRole("button", { name: "Confirmar Operação", exact: true }).click();
+  await expect(modal.getByRole("alert")).toContainText("Resultado financeiro inválido");
+  await expect(modal.getByRole("button", { name: "Confirmar Operação", exact: true })).toBeDisabled();
+  const saved = await page.evaluate(() => Object.entries(sessionStorage).filter(([key]) => key.startsWith("cf-creation:")));
+  expect(saved).toHaveLength(1);
+  expect(JSON.parse(saved[0][1]).command).toEqual(original);
+  const identity = String(original.operationId);
+  const checkpoints: unknown[] = [];
+  const verifyCommitted = async (phase: string) => {
+    const response = await page.request.get("/api/rv24-probe/state");
+    expect(response.ok()).toBe(true);
+    const state = await response.json();
+    expect(state.accounts).toEqual([{ balance: 800 }]);
+    expect(state.operations).toEqual([{ total_value: 200, quantity: 2, fees: 0 }]);
+    expect(state.bank).toEqual([{ amount: 200, origin: "INVESTMENT_BUY" }]);
+    expect(state.receipts).toEqual([{ id: identity, gross: 200 }]);
+    checkpoints.push({ phase, state, posts });
+    writeFileSync(join(process.env.CF_REVIEW_EVIDENCE!, "sql-checkpoints.json"), JSON.stringify(checkpoints, null, 2));
+  };
+  await verifyCommitted("bad POST response, intent pending");
+  await page.route(`**/api/financial-intents/${identity}`, async route => {
+    const response = await route.fetch(); expect(response.status()).toBe(200);
+    const actual = await response.json(); expect(actual.result.totalValue).toBe(200);
+    await route.fulfill({ response, json: { ...actual, result: { ...actual.result, totalValue: 999 } } });
+  });
+  await modal.getByRole("button", { name: "Consultar recibo" }).click();
+  await expect(modal.getByRole("alert")).toContainText("Resultado financeiro inválido");
+  expect(await page.evaluate(() => Object.entries(sessionStorage).filter(([key]) => key.startsWith("cf-creation:")))).toEqual(saved);
+  await verifyCommitted("bad GET response, same intent pending");
+  await page.unroute(`**/api/financial-intents/${identity}`);
+  await page.reload(); modal = await open();
+  await modal.getByRole("button", { name: "Consultar recibo" }).click();
+  await expect(modal).toHaveCount(0);
+  expect(await page.evaluate(() => Object.keys(sessionStorage).filter(key => key.startsWith("cf-creation:")))).toHaveLength(0);
+  await page.reload(); await expect(page.getByText("RV24", { exact: true })).toBeVisible();
+  const history = await (await page.request.get(`/api/investments/${assetId}/history`)).json();
+  expect(history).toHaveLength(1); expect(history[0].totalValue).toBe(200);
+  const positions = await (await page.request.get("/api/investments")).json();
+  expect(positions.find((entry: { id: string }) => entry.id === assetId).quantity).toBe(12);
+  await verifyCommitted("valid GET and reload, exactly one effect");
+  expect(posts).toBe(1);
+  await page.screenshot({ path: join(process.env.CF_REVIEW_EVIDENCE!, "recovered.png"), fullPage: true });
+});

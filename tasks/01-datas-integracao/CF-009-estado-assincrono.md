@@ -10,6 +10,19 @@
 
 ## Saneamento dirigido — 04/10/2026
 
+### Decisão independente da entrega e069e33 — 04/10/2026
+
+**em_revisao mantido. Resta exatamente o critério2 no recorte de falso sucesso
+RVR24-01:** bruto1000000000000.00, um centavo acima do teto FIN-06, ainda confirma
+e remove intenção em POST/retry/GET. A relação aritmética200→999 está corrigida,
+mas não encerra o contrato monetário. [Matriz individual dos quatro critérios](../evidencias/revalidacao-RVR24-01-bruto/README.md)
+preserva aceites1 (seleção/rollback),3 (isolamento/dupla chamada) e4 (evidências).
+Condição restante: rejeitar teto excedido sem sucesso/descarte, conservar UUID/payload
+e recuperação válida; passar quatro novos vermelhos e regressões dirigidas.
+R01/R02, R03/RV01 e RVR24-02 permanecem encerrados; H-RV24-01 é investigação
+separada, não justificativa vaga para este estado. Sem revisão integral CF-025–027,
+implementação CF-028 ou alteração de critérios. [Achado e limites](../evidencias/revalidacao-RVR24-01-bruto/ACHADOS.md).
+
 Estado **em_revisao** mantido. O executor corrigiu a coerência do bruto do
 investimento em RVR24-01, com decimal exato/HALF_UP e preservação do amount
 autoritativo de NG-01. [Contrato, provas e encaminhamento](../evidencias/saneamento-RVR24-01-bruto/README.md).

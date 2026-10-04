@@ -1,0 +1,154 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/rvr24-independent-front-b8d658f83d234f08af56e1cbe4fb6f30
+
+stdout | tests/component/decimal-independent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01499999 => 0.01 3ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.015 => 0.02 1ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1 * 0.01500001 => 0.02 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 0.33333333 * 3 => 1 0ms
+ ✓ tests/component/decimal-independent.test.tsx > independent literal 1e-8 * 999999999999 => 10000 1ms
+ ✓ tests/component/decimal-independent.test.tsx > BUY preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST preserves gross before monetary fee 0ms
+ ✓ tests/component/decimal-independent.test.tsx > SELL permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > DIVIDEND permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > INTEREST permits fee equal to positive gross 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 100000000 0ms
+ ✓ tests/component/decimal-independent.test.tsx > NG-01 authoritative monetary amount with derived fields 1e-8 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 5e-324 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1.7976931348623157e+308 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude Infinity rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude NaN rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude -1 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > invalid/excess precision magnitude 1e-9 rejects through controlled error 0ms
+ ✓ tests/component/decimal-independent.test.tsx > maximum permitted product operands cannot confirm a small claimed gross 0ms
+stdout | tests/component/rv24-gross.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/financial-result-review.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 1 x 1.005 has gross 1.01 before fees 3ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 1 x 1.004 has gross 1 before fees 1ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 0.125 x 10.04 has gross 1.26 before fees 1ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 0.1 x 0.2 has gross 0.02 before fees 1ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 1e-8 x 1000000 has gross 0.01 before fees 1ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 3 x 0.335 has gross 1.01 before fees 0ms
+ ✓ tests/component/rv24-gross.test.tsx > FIN-06 execution 999999999999 x 0.01 has gross 9999999999.99 before fees 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 202 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 198 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 999 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 200.001 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 0 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total -200 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total Infinity cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total NaN cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total null cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total undefined cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > invalid or non-gross total 200 cannot confirm 0ms
+ ✓ tests/component/rv24-gross.test.tsx > fees are separate from gross, without reconstructing historical cost or current valuation 0ms
+ ✓ tests/component/rv24-gross.test.tsx > NG-01 monetary gross is authoritative despite rounded or zero descriptive price 0ms
+ ✓ tests/component/rv24-gross.test.tsx > excess execution precision is not silently rounded 0ms
+ ✓ tests/component/rv24-gross.test.tsx > bad POST, retry and GET retain exact intent; valid GET recovers without another POST 22ms
+ ✓ tests/component/financial-result-review.test.tsx > RVR24-01: inconsistent gross cannot confirm via POST 19ms
+ ✓ tests/component/financial-result-review.test.tsx > RVR24-01: inconsistent gross cannot confirm via retry 6ms
+ ✓ tests/component/financial-result-review.test.tsx > RVR24-01: inconsistent gross cannot confirm via GET 6ms
+ ✓ tests/component/financial-result-review.test.tsx > legitimate decimal rounding and unknown historical cost remain acceptable 2ms
+stdout | tests/component/async-state.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rv24-creation-intent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rv24-independent-review.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/temporal-forms.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rv24-residual.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh antigo de A/setembro não substitui B/outubro mesmo se o cliente ignorar abort 27ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > refresh de fatura pode ser repetido depois de erro real 5ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > resposta tardia do usuário A não aparece depois do login do usuário B 17ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > R09: evento de alteração financeira invalida o saldo das contas 5ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro 4ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-008: resposta mais recente e isolamento por usuário > CF-012: extrato com erro não vira página vazia e retry requisita a primeira página 4ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado success de sessão anterior A não atua após A/logout/A 2ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: resultado failure de sessão anterior A não atua após A/logout/A 1ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > R03: desmontagem invalida callbacks da mutação pendente 1ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > duas chamadas da mesma chave no mesmo tick compartilham uma requisição e a falha propaga 53ms
+ ✓ tests/component/async-state.test.tsx > AC-UI-009: mutações otimistas concorrentes > rollback tardio de M1 restaura só seu item e preserva M2 válida 4ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: empty result is not a valid financial receipt 80ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > original causal expectation: unknown result prevents a second creation; identity is persisted before POST 69ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result +0 remains recoverable on POST, retry and GET 20ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 1 remains recoverable on POST, retry and GET 3ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 2 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 3 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 4 remains recoverable on POST, retry and GET 3ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 5 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 6 remains recoverable on POST, retry and GET 1ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 7 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 8 remains recoverable on POST, retry and GET 3ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 9 remains recoverable on POST, retry and GET 3ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 10 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 11 remains recoverable on POST, retry and GET 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 12 remains recoverable on POST, retry and GET 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing id cannot confirm and valid retry keeps identity 2ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing type cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing date cannot confirm and valid retry keeps identity 2ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing dateOrigin cannot confirm and valid retry keeps identity 2ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing quantity cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing price cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing totalValue cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing fees cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing costDelta cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing realizedResult cannot confirm and valid retry keeps identity 1ms
+ ✓ tests/component/rv24-residual.test.tsx > valid result reaching removeItem keeps intent when storage removal fails 2ms
+ ✓ tests/component/rv24-residual.test.tsx > transfer ledger pair identity differs from intent; pending and monetary redemption remain valid 1ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > abre os quatro formulários às 23h59 com o dia do navegador, não o UTC 83ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: removal failure preserves the original identity 36ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: invalid investment POST result 'null' cannot confirm unknown money 23ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: invalid investment POST result 'array' cannot confirm unknown money 25ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: late investment response after unmount cannot run reconciliation callback 16ms
+ ✓ tests/component/rv24-independent-review.test.tsx > review: late investment response after owner-switch cannot run reconciliation callback 21ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > closing, reopening and remount preserve exact retry body, even if draft was changed 69ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > GET 404 does not unlock a new intention 42ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > GET 503 does not unlock a new intention 34ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R11: refresh de contas/ativo não apaga data editada no formulário aberto 40ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > preserva o campo aberto na virada e submete exatamente a data digitada 31ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > AC-UI-006: 503 mantém dados do formulário e não sinaliza sucesso 28ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R12: conflito de investimento não dispara callback de sucesso 14ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de transaction no mesmo tick enviam uma operação 23ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'unmount' leaves intent and no consumer callbacks 56ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'unmount' leaves intent and no consumer callbacks 27ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'A-B' leaves intent and no consumer callbacks 36ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'A-B' leaves intent and no consumer callbacks 34ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de card no mesmo tick enviam uma operação 10ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de payment no mesmo tick enviam uma operação 9ms
+ ✓ tests/component/temporal-forms.test.tsx > defaults e payloads de data civil nos formulários > R13: dois submits de investment no mesmo tick enviam uma operação 19ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > authenticated receipt confirms without POST; later equal legitimate intention gets a new identity 34ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > owner switch suppresses late success and leaves A intent untouched; B never retries it 28ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > storage unavailable prevents POST; corrupted saved payload cannot be silently discarded 56ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'A-B-A' leaves intent and no consumer callbacks 36ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'A-B-A' leaves intent and no consumer callbacks 39ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'expired' leaves intent and no consumer callbacks 26ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'expired' leaves intent and no consumer callbacks 32ms
+ ✓ tests/component/rv24-residual.test.tsx > active unknown investment execution still reconciles 18ms
+ ✓ tests/component/rv24-residual.test.tsx > active rejected investment execution still reconciles 17ms
+ ✓ tests/component/rv24-residual.test.tsx > late recover error from A cannot affect new A session and valid recovery is retained 2ms
+ ✓ tests/component/rv24-residual.test.tsx > late retry error from A cannot affect new A session and valid recovery is retained 1ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > definitive initial rejection permits correcting the draft with a new identity 38ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > unmount during POST suppresses late success and preserves the durable intention 17ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > receipt for a different kind or identity cannot unlock creation 22ms
+ ✓ tests/component/rv24-creation-intent.test.tsx > an array is not a receipt result object and must not confirm unknown money 20ms
+
+ Test Files  8 passed (8)
+      Tests  121 passed (121)
+   Start at  11:30:59
+   Duration  1.90s (transform 904ms, setup 1.95s, import 1.78s, tests 1.49s, environment 5.41s)
+

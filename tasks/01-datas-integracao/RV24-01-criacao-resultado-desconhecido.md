@@ -11,6 +11,22 @@
 
 ## Saneamento do bruto — 04/10/2026
 
+### Parecer independente da entrega e069e33 — 04/10/2026
+
+**em_revisao mantido, critério4 ainda pendente.** A coerência200→999 foi corrigida:
+três originais com hashes/assertions intactos falham no validador antigo e passam
+no candidato. Entretanto o mesmo RVR24-01 conserva ausência de teto monetário:
+quantity1000000×price1000000/total1000000000000 confirma e apaga a intenção em
+POST/retry/GET, acima do máximo999999999999.99 de FIN-06. Quatro novos vermelhos;
+121 regressões/bordas passam, lint/typecheck/build passam, jornada real BUY200
+com POST/GET adulterados999 conserva um POST/efeito/recibo e saldo800 após reload.
+[Parecer, critérios e condição objetiva de encerramento](../evidencias/revalidacao-RVR24-01-bruto/README.md),
+[reprodução do resíduo](../evidencias/revalidacao-RVR24-01-bruto/ACHADOS.md).
+Não se demonstrou emissão do total fora do teto pelo backend; a prova é do cliente.
+Saneamento necessário: faixa monetária no validador comum, preservando amount/NG-01
+e identidade/recuperação. RVR24-02/RV24-02/CF-025–027 conservam aceites;
+H-RV24-01 continua inconclusivo. Nenhum produto corrigido ou CF-028 executada.
+
 Estado **em_revisao** mantido. Continuação do mesmo **RVR24-01**: validação
 decimal do bruto de execução no ponto comum a POST/retry/GET, preservando o
 resgate monetário de NG-01 e a intenção quando o resultado é incompatível.
