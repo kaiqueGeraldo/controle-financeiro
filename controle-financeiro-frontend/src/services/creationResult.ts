@@ -1,4 +1,5 @@
 import type { CreateTransactionDTO, InvestmentOperationDTO } from "@/types";
+import { LosslessNumber } from "lossless-json";
 
 const record = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
@@ -9,25 +10,30 @@ const invalid = () => new Error("Resultado financeiro inválido; a operação co
 const maxMoneyCents = BigInt("99999999999999");
 const maxExecutionUnits = BigInt("99999999999999999999");
 
-/** Exact decimal units from the legacy JSON number, including its exponent notation. */
-function decimalUnits(value: number, scale: number): bigint | null {
-  if (!Number.isFinite(value) || value < 0) return null;
-  const [mantissa, exponent = "0"] = value.toString().split("e");
-  const [whole, fraction = ""] = mantissa.split(".");
-  const coefficient = BigInt(whole + fraction);
-  const power = scale + Number(exponent) - fraction.length;
+/** HTTP decimal lexeme, or the exact serialized value of an existing numeric command. */
+function decimalUnits(value: unknown, scale: number, absolute = false): bigint | null {
+  if (!(value instanceof LosslessNumber) && !finite(value)) return null;
+  const raw = value instanceof LosslessNumber ? value.value : value.toString();
+  const text = absolute ? raw.replace(/^-/, "") : raw;
+  const match = /^(0|[1-9]\d*)(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/.exec(text);
+  if (!match || match[0] !== text) return null;
+  const fraction = match[2] ?? "";
+  const exponent = Number(match[3] ?? "0");
+  // Bound work on untrusted tokens; valid FIN-06/NG-01 values are far below this.
+  if (text.length > 1024 || !Number.isSafeInteger(exponent) || Math.abs(exponent) > 1024) return null;
+  const coefficient = BigInt(match[1] + fraction);
+  const power = scale + exponent - fraction.length;
   if (power >= 0) return coefficient * BigInt(10) ** BigInt(power);
   const divisor = BigInt(10) ** BigInt(-power);
   return coefficient % divisor === BigInt(0) ? coefficient / divisor : null;
 }
 
-function boundedUnits(value: number, scale: 2 | 8): bigint | null {
-  const units = decimalUnits(value, scale);
+function boundedUnits(value: unknown, scale: 2 | 8, absolute = false): bigint | null {
+  const units = decimalUnits(value, scale, absolute);
   return units !== null && units <= (scale === 2 ? maxMoneyCents : maxExecutionUnits) ? units : null;
 }
 
-const nullableMoney = (value: unknown) => value === null ||
-  (finite(value) && boundedUnits(Math.abs(value), 2) !== null);
+const nullableMoney = (value: unknown) => value === null || boundedUnits(value, 2, true) !== null;
 
 /** Authoritative decimal input: preserve its scale/digits rather than first coercing to Number. */
 function amountCents(value: string): bigint | null {
@@ -37,7 +43,7 @@ function amountCents(value: string): bigint | null {
 }
 
 /** FIN-06: exact execution product, rounded once to cents HALF_UP, before fees. */
-function matchesExecutionGross(quantity: number, price: number, cents: bigint): boolean {
+function matchesExecutionGross(quantity: unknown, price: unknown, cents: bigint): boolean {
   const units = boundedUnits(quantity, 8);
   const unitPrice = boundedUnits(price, 8);
   if (units === null || unitPrice === null) return false;
@@ -61,18 +67,19 @@ export function validateTransactionResult(value: unknown, command: CreateTransac
 
 export function validateInvestmentResult(value: unknown, command: InvestmentOperationDTO): void {
   if (!record(value) || !uuid(value.id) || value.type !== command.type || value.date !== command.date ||
-      value.dateOrigin !== "USER_INPUT" || !finite(value.quantity) || value.quantity <= 0 ||
-      !finite(value.price) || value.price < 0 || !finite(value.totalValue) || value.totalValue <= 0 ||
-      !finite(value.fees) || value.fees !== (command.fees ?? 0) ||
+      value.dateOrigin !== "USER_INPUT" ||
       !nullableMoney(value.costDelta) || !nullableMoney(value.realizedResult)) throw invalid();
   const grossCents = boundedUnits(value.totalValue, 2);
   const feeCents = boundedUnits(value.fees, 2);
-  if (grossCents === null || feeCents === null || boundedUnits(value.quantity, 8) === null ||
+  const quantity = boundedUnits(value.quantity, 8);
+  const price = decimalUnits(value.price, 8);
+  if (grossCents === null || grossCents <= BigInt(0) || feeCents === null ||
+      feeCents !== boundedUnits(command.fees ?? 0, 2) || quantity === null || quantity <= BigInt(0) || price === null ||
       (command.type === "BUY" ? grossCents + feeCents > maxMoneyCents : feeCents > grossCents)) throw invalid();
   // NG-01: monetary redemption derives units/price; never rebuild its authoritative amount.
   if (command.amount !== undefined) {
     if (command.type !== "SELL" || grossCents !== amountCents(command.amount)) throw invalid();
-  } else if (value.price === 0 || value.quantity !== command.quantity || value.price !== command.price ||
+  } else if (price === BigInt(0) || quantity !== boundedUnits(command.quantity, 8) || price !== boundedUnits(command.price, 8) ||
       !matchesExecutionGross(value.quantity, value.price, grossCents)) throw invalid();
 }
 

@@ -1,3 +1,5 @@
+import { parseInvestmentResultJson } from "./investmentResultJson";
+
 const URL_BASE = "/api";
 
 export type ApiErrorKind =
@@ -19,7 +21,7 @@ export type ApiProblem = {
   fields?: Record<string, string[]>;
 };
 
-type ApiRequestOptions = RequestInit & { isBlob?: boolean; expectedContentType?: string };
+type ApiRequestOptions = RequestInit & { isBlob?: boolean; expectedContentType?: string; investmentSnapshot?: boolean };
 
 export type ApiResponse<T> = {
   status: number;
@@ -92,12 +94,13 @@ async function readJsonLikeBody(
   response: Response,
   strictJson = false,
   unsafeRequest = false,
+  investmentSnapshot = false,
 ): Promise<unknown> {
   const body = await response.text();
   if (!body) return null;
 
   try {
-    return JSON.parse(body) as unknown;
+    return investmentSnapshot ? parseInvestmentResultJson(body) : JSON.parse(body) as unknown;
   } catch {
     if (strictJson) {
       throw new ApiError("A API retornou JSON inválido.", 502, {
@@ -142,7 +145,7 @@ export async function apiRequest<T = unknown>(
   endpoint: string,
   options: ApiRequestOptions,
 ): Promise<ApiResponse<T>> {
-  const { isBlob, expectedContentType, ...fetchOptions } = options;
+  const { isBlob, expectedContentType, investmentSnapshot, ...fetchOptions } = options;
   const unsafeRequest = isUnsafeMethod(fetchOptions.method);
 
   try {
@@ -209,7 +212,7 @@ export async function apiRequest<T = unknown>(
 
     return {
       status: response.status,
-      data: (await readJsonLikeBody(response, true, unsafeRequest)) as T,
+      data: (await readJsonLikeBody(response, true, unsafeRequest, investmentSnapshot)) as T,
     };
   } catch (error: unknown) {
     if (isAbortError(error)) throw error;

@@ -51,6 +51,7 @@ export const investmentService = {
 
   operation: async (data: InvestmentOperationDTO) => {
     return apiRequest("/investments/operation", {
+      investmentSnapshot: true,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

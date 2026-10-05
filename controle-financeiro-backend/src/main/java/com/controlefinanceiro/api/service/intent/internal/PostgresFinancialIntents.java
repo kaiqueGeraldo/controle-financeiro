@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.*;
 import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.DeserializationFeature;
 import java.time.Clock;
 import java.util.*;
 
@@ -51,7 +52,10 @@ public class PostgresFinancialIntents implements FinancialIntents {
     public FinancialIntentReceiptDTO recover(UUID key, UUID ownerId) {
         var receipt=receipts.findByIdAndUserId(key,ownerId)
                 .orElseThrow(()->new ResourceNotFoundException("Intenção ainda não localizada."));
-        return new FinancialIntentReceiptDTO(key,receipt.getKind(),receipt.getRecordedAt(),json.readTree(receipt.getResultJson()));
+        // Existing receipts contain exact decimal tokens. Do not pass them through DoubleNode.
+        var snapshot = json.reader().with(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
+                .readTree(receipt.getResultJson());
+        return new FinancialIntentReceiptDTO(key,receipt.getKind(),receipt.getRecordedAt(),snapshot);
     }
 
 }

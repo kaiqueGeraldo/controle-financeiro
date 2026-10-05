@@ -45,6 +45,16 @@ describe("contrato do BFF [AC-UI-006/007]", () => {
     expect(response.headers.get("content-type")).toBeNull();
   });
 
+  test.each(["POST", "GET"])("RVR24-01: %s repassa tokens decimais sem parsing", async method => {
+    const body = '{"quantity":999999999999.99999999,"price":0E-8,"totalValue":1.00}';
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(body, {
+      headers: { "content-type": "application/json" },
+    })));
+    const path = method === "POST" ? ["investments", "operation"] : ["financial-intents", "receipt"];
+    const response = await proxyRequest(request(method), { params: Promise.resolve({ path }) });
+    expect(await response.text()).toBe(body);
+  });
+
   test("R04: request já cancelado não dispara escrita no backend", async () => {
     const client = new AbortController();
     client.abort(new DOMException("navegação anterior", "AbortError"));

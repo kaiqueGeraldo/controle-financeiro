@@ -25,7 +25,9 @@ export function parseSavedCreation(raw: string, ownerId: string, kind: CreationK
 }
 
 export async function recoverCreation(saved: SavedCreation) {
-  const response = await apiRequest<unknown>(`/financial-intents/${saved.command.operationId}`, { method: "GET" });
+  const response = await apiRequest<unknown>(`/financial-intents/${saved.command.operationId}`, {
+    method: "GET", investmentSnapshot: saved.kind === "INVESTMENT_OPERATION",
+  });
   const receipt = response.data;
   if (!record(receipt) || receipt.operationId !== saved.command.operationId || receipt.kind !== saved.kind || !record(receipt.result)) throw new Error("Recibo inválido; a operação continua pendente.");
   validateCreationResult(receipt.result, saved.command);

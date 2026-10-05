@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.support.TransactionTemplate;
 import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.DeserializationFeature;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -47,7 +48,7 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         for (UUID key : new UUID[]{UUID.randomUUID(), null}) {
             assertThatThrownBy(() -> intents.replay(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, InvestTransactionResponseDTO.class))
                     .isInstanceOf(IllegalTransactionStateException.class);
-            assertThatThrownBy(() -> intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readTree(SNAPSHOT)))
+            assertThatThrownBy(() -> intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readValue(SNAPSHOT, InvestTransactionResponseDTO.class)))
                     .isInstanceOf(IllegalTransactionStateException.class);
         }
         assertThat(receiptCount()).isZero();
@@ -57,7 +58,7 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         transaction.executeWithoutResult(status -> {
             assertThat(advisoryLocks()).isZero();
             assertThat(intents.replay(null, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, InvestTransactionResponseDTO.class)).isNull();
-            intents.complete(null, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readTree(SNAPSHOT));
+            intents.complete(null, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readValue(SNAPSHOT, InvestTransactionResponseDTO.class));
             assertThat(advisoryLocks()).isZero();
         });
         assertThat(receiptCount()).isZero();
@@ -68,7 +69,7 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         transaction.executeWithoutResult(status -> {
             assertThat(intents.replay(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, InvestTransactionResponseDTO.class)).isNull();
             assertThat(advisoryLocks()).isEqualTo(1);
-            intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readTree(SNAPSHOT));
+            intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readValue(SNAPSHOT, InvestTransactionResponseDTO.class));
             assertThat(receiptCount()).isEqualTo(1);
             status.setRollbackOnly();
         });
@@ -77,10 +78,12 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         transaction.executeWithoutResult(status -> {
             assertThat(advisoryLocks()).isZero();
             assertThat(intents.replay(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, InvestTransactionResponseDTO.class)).isNull();
-            intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readTree(SNAPSHOT));
+            intents.complete(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, json.readValue(SNAPSHOT, InvestTransactionResponseDTO.class));
         });
         assertThat(receiptCount()).isEqualTo(1);
-        assertThat(intents.recover(key, owner).result()).isEqualTo(json.readTree(SNAPSHOT));
+        // Recovery now exposes decimal nodes, not approximated DoubleNodes; same literal snapshot.
+        assertThat(intents.recover(key, owner).result()).isEqualTo(json.reader()
+                .with(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS).readTree(SNAPSHOT));
     }
 
     @Test void preexistingReceiptKeepsSnapshotTimestampOwnerAndConflictSemantics() {
@@ -92,7 +95,8 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         assertThat(recovered.operationId()).isEqualTo(key);
         assertThat(recovered.kind()).isEqualTo("INVESTMENT_OPERATION");
         assertThat(recovered.recordedAt()).isEqualTo(recordedAt);
-        assertThat(recovered.result()).isEqualTo(json.readTree(SNAPSHOT));
+        assertThat(recovered.result()).isEqualTo(json.reader()
+                .with(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS).readTree(SNAPSHOT));
         var replay = transaction.execute(status -> intents.replay(key, owner, FinancialIntents.INVESTMENT_OPERATION, FINGERPRINT, InvestTransactionResponseDTO.class));
         assertThat(replay.id()).isEqualTo(UUID.fromString("00000000-0000-0000-0000-000000000027"));
         assertThat(replay.totalValue()).isEqualByComparingTo("200.00");
@@ -102,6 +106,26 @@ class FinancialIntentsIntegrationTest extends PostgresIntegrationTest {
         assertConflict(key, owner, FinancialIntents.TRANSACTION_CREATE, FINGERPRINT);
         assertConflict(key, owner, FinancialIntents.INVESTMENT_OPERATION, "b".repeat(64));
         assertThat(sql.queryForObject("select result_json from financial_intent_receipts where id=?", String.class, key)).isEqualTo(SNAPSHOT);
+        assertThat(receiptCount()).isEqualTo(1);
+    }
+
+    @Test void exactExistingDecimalReceiptSurvivesRecoveryAndTypedReplayWithoutRewrite() {
+        var key = UUID.randomUUID();
+        String exact = SNAPSHOT.replace("2.00000000", "999999999999.99999999")
+                .replace("100.00", "0.00000000").replace("200.00", "1.00")
+                .replace("\"BUY\"", "\"SELL\"");
+        sql.update("insert into financial_intent_receipts(id,user_id,kind,fingerprint,result_json,recorded_at) values(?,?,?,?,?,?)",
+                key, owner, "INVESTMENT_OPERATION", FINGERPRINT, exact,
+                java.sql.Timestamp.from(Instant.parse("2026-09-30T15:00:00Z")));
+        var result = intents.recover(key, owner).result();
+        assertThat(result.get("quantity").decimalValue()).isEqualByComparingTo("999999999999.99999999");
+        assertThat(json.writeValueAsString(result)).contains("\"quantity\":999999999999.99999999");
+        var replay = transaction.execute(status -> intents.replay(key, owner, FinancialIntents.INVESTMENT_OPERATION,
+                FINGERPRINT, InvestTransactionResponseDTO.class));
+        assertThat(replay.quantity()).isEqualByComparingTo("999999999999.99999999");
+        assertThat(json.writeValueAsString(replay)).contains("\"quantity\":999999999999.99999999");
+        assertThat(sql.queryForObject("select result_json from financial_intent_receipts where id=?", String.class, key)).isEqualTo(exact);
+        assertThat(sql.queryForObject("select fingerprint from financial_intent_receipts where id=?", String.class, key)).isEqualTo(FINGERPRINT);
         assertThat(receiptCount()).isEqualTo(1);
     }
 
