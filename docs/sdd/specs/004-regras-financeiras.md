@@ -244,6 +244,15 @@ uma vez por posição; somar essas posições exibíveis. Custo baixado proporci
 arredonda uma vez a centavos; custo remanescente = custo anterior − custo baixado.
 Preço médio exibido pode arredondar a oito casas, sem recompor custo a partir dele.
 
+Precisão do snapshot de execução (RVR24-01, 04/10/2026): os endpoints legados
+de operação de investimento e recuperação mantêm tokens JSON numéricos exatos.
+O cliente deve preservar quantity, price, totalValue, fees, costDelta e
+realizedResult antes da validação, sem passagem intermediária por Number/double.
+POST, replay e GET conservam o mesmo valor decimal do recibo; GET não regrava
+o snapshot. O consumidor de confirmação usa parsing decimal específico desses
+resultados. Isso não torna preço descritivo autoridade nem altera o formato dos
+comandos/intenção existentes. [Matriz e compatibilidade](../../../tasks/evidencias/saneamento-RVR24-01-precisao/CONTRATO.md).
+
 Exemplos: 0.10 + 0.20 = 0.30; 1 × 1.005 = 1.01; 1 × 1.004 = 1.00;
 0.125 × 10.04 = 1.255 → 1.26. Custo 1.00 para três unidades: baixas sucessivas
 0.33/0.34/0.33, respeitando custo e quantidade remanescentes. Estorno usa o valor

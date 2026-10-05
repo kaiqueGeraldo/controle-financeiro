@@ -1,0 +1,46 @@
+
+> controle-financeiro@0.1.0 test:component
+> vitest run --config tests/component/vitest.config.mts tests/component/json-precision.test.tsx
+
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/json-precision.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/json-precision.test.tsx > raw quantity maximum loses digits before BigInt, despite legal FIN-06 and NG-01 9ms
+   → expected [Function] to not throw an error but 'Error: Resultado financeiro inválido;…' was thrown
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through POST 25ms
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through retry 5ms
+ ✓ tests/component/json-precision.test.tsx > valid authoritative redemption must complete through GET 3ms
+ ✓ tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via POST 3ms
+ ✓ tests/component/json-precision.test.tsx > different but legal raw quantity must not confirm same command via GET 3ms
+ ✓ tests/component/json-precision.test.tsx > valid raw money at inclusive ceiling retains cents and authoritative amount 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/json-precision.test.tsx > raw quantity maximum loses digits before BigInt, despite legal FIN-06 and NG-01
+AssertionError: expected [Function] to not throw an error but 'Error: Resultado financeiro inválido;…' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: Resultado financeiro inválido; a operação continua pendente de confirmação."
+
+ ❯ tests/component/json-precision.test.tsx:17:55
+     15|   const parsed=JSON.parse(validRedemption);
+     16|   expect(parsed.quantity).toBe(1000000000000);
+     17|   expect(()=>validateCreationResult(parsed,sell)).not.toThrow();
+       |                                                       ^
+     18| });
+     19| test.each(["POST","retry","GET"])("valid authoritative redemption must…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  23:08:54
+   Duration  1.64s (transform 152ms, setup 328ms, import 184ms, tests 52ms, environment 830ms)
+

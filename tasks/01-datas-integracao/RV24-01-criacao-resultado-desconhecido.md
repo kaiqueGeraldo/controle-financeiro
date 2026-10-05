@@ -9,6 +9,19 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Saneamento da precisão — 04/10/2026
+
+**em_revisao mantido, critério4 aguardando revalidação independente.** Mesmo
+RVR24-01 da revisão28e5682: preservar tokens do resultado no cliente e usar
+BigDecimal na recuperação do recibo. Cinco probes de transporte antes vermelhos
+passam intactos; o sexto original exige aceitar Number1e12 já perdido e foi
+preservado como contraprova, com adaptação explícita da fronteira no teste novo.
+NG-01 legítimo agora confirma e recupera após reload: quantidade exata, uma
+operação/recibo/crédito1, saldo1001 e posição0, inclusive replay da mesma identidade.
+BUY200/saldo800, teto, coerência, lifecycle e aceites anteriores preservados.
+[Provas, ressalva do probe e encaminhamento](../evidencias/saneamento-RVR24-01-precisao/README.md).
+Sem autoaprovação, novo ID, migração histórica ou execução da CF-028.
+
 ## Saneamento do teto FIN-06 — 04/10/2026
 
 ### Revalidação independente do candidato01d44d8 — 04/10/2026

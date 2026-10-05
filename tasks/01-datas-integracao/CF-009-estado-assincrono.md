@@ -8,6 +8,18 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Saneamento da precisão — 04/10/2026
+
+**em_revisao mantido, somente critério2 aguardando revalidação independente.**
+RVR24-01 sobre28e5682: parsing decimal antes da validação e recuperação backend
+sem DoubleNode. NG-01 confirma/recupera o snapshot exato; resultado divergente
+mantém UUID/payload/intenção. Cinco probes de transporte passam; original que
+exige aceitar informação já perdida permanece documentado, com substituição
+explícita da fronteira e sem flexibilizar FIN-06.
+[Entrega, provas e critérios](../evidencias/saneamento-RVR24-01-precisao/README.md).
+Critérios1/3/4, RVR24-02/RV24-02 e CF-025–027 preservados. CF-028 não executada;
+nenhum checkbox alterado ou aceite próprio do executor.
+
 ## Saneamento do teto FIN-06 — 04/10/2026
 
 ### Decisão independente do candidato01d44d8 — 04/10/2026

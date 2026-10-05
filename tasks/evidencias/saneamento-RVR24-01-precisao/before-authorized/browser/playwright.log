@@ -1,0 +1,108 @@
+[WebServer] (node:18836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:29068) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+(node:41936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [review-sao-paulo] › ..\..\..\..\..\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:5:5 › NG-01 legitimate maximum quantity redemption can confirm and recover
+[WebServer] (node:43112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:34260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:22364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › ..\..\..\..\..\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:5:5 › NG-01 legitimate maximum quantity redemption can confirm and recover 
+
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected substring: "\"quantity\":999999999999.99999999"
+    Received string:    "{\"operationId\":\"c9fe534c-86b8-4146-9d3c-63bd66759bdb\",\"kind\":\"INVESTMENT_OPERATION\",\"recordedAt\":\"2027-01-15T12:00:00.123456Z\",\"result\":{\"id\":\"588f7e76-7207-4fb3-a811-dbda85af084a\",\"type\":\"SELL\",\"date\":\"2027-01-15\",\"quantity\":1.0E12,\"price\":0.0,\"totalValue\":1.0,\"fees\":0,\"costDelta\":1.0,\"realizedResult\":0.0,\"dateOrigin\":\"USER_INPUT\",\"legacyDateRaw\":\"2027-01-15T00:00:00\"}}"
+
+      28 |   const receiptResponse=await page.request.get(`/api/financial-intents/${original.operationId}`);
+      29 |   const receiptRaw=await receiptResponse.text();writeFileSync(join(out,"receipt-raw.json"),receiptRaw);
+    > 30 |   expect(receiptResponse.ok()).toBe(true);expect.soft(receiptRaw).toContain('"quantity":999999999999.99999999');
+         |                                                                   ^
+      31 |   // If the legitimate response was rejected, exercise actual UI recovery, without modifying any response.
+      32 |   if(await modal.getByRole("button",{name:"Consultar recibo"}).isVisible()){
+      33 |     const recovery=page.waitForResponse(r=>r.url().endsWith(`/api/financial-intents/${original.operationId}`));
+        at C:\Users\Aluga.com\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:30:67
+
+    Error: expect(received).toHaveLength(expected)
+
+    Expected length: 0
+    Received length: 1
+    Received array:  [["cf-creation:v1:bc2b9b93-2653-44dc-9476-a6d9a837639f:INVESTMENT_OPERATION", "{\"version\":1,\"ownerId\":\"bc2b9b93-2653-44dc-9476-a6d9a837639f\",\"kind\":\"INVESTMENT_OPERATION\",\"label\":\"NGMAX — SELL\",\"command\":{\"investmentId\":\"67b1f299-696e-4aa7-b5e5-4827a264e394\",\"amount\":\"1.00\",\"type\":\"SELL\",\"quantity\":1,\"price\":1,\"date\":\"2027-01-15\",\"accountId\":\"47640d76-3c24-4b90-995f-c702f45acafb\",\"fees\":0,\"operationId\":\"c9fe534c-86b8-4146-9d3c-63bd66759bdb\"}}"]]
+
+      42 |   writeFileSync(join(out,"precision-state.json"),JSON.stringify({original,posts,state,saved,parsedQuantity:JSON.parse(raw).quantity},null,2));
+      43 |   await page.screenshot({path:join(out,"legitimate-pending.png"),fullPage:true});
+    > 44 |   expect.soft(saved).toHaveLength(0);
+         |                      ^
+      45 |   await expect.soft(modal).toHaveCount(0);
+      46 | });
+      47 |
+        at C:\Users\Aluga.com\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:44:22
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('dialog', { name: 'NGMAX - Operação', exact: true })
+    Expected: 0
+    Received: 1
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "soft toHaveCount" getByRole('dialog', { name: 'NGMAX - Operação', exact: true }) with timeout 15000ms
+      - waiting for getByRole('dialog', { name: 'NGMAX - Operação', exact: true })
+        33 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      43 |   await page.screenshot({path:join(out,"legitimate-pending.png"),fullPage:true});
+      44 |   expect.soft(saved).toHaveLength(0);
+    > 45 |   await expect.soft(modal).toHaveCount(0);
+         |                            ^
+      46 | });
+      47 |
+        at C:\Users\Aluga.com\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:45:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\tasks\evidencias\saneamento-RVR24-01-precisao\before-authorized\browser-artifacts\cf027-NG-01-legitimate-max-e8811-ion-can-confirm-and-recover-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\tasks\evidencias\saneamento-RVR24-01-precisao\before-authorized\browser-artifacts\cf027-NG-01-legitimate-max-e8811-ion-can-confirm-and-recover-review-sao-paulo\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\tasks\evidencias\saneamento-RVR24-01-precisao\before-authorized\browser-artifacts\cf027-NG-01-legitimate-max-e8811-ion-can-confirm-and-recover-review-sao-paulo\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\tasks\evidencias\saneamento-RVR24-01-precisao\before-authorized\browser-artifacts\cf027-NG-01-legitimate-max-e8811-ion-can-confirm-and-recover-review-sao-paulo\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\tasks\evidencias\saneamento-RVR24-01-precisao\before-authorized\browser-artifacts\cf027-NG-01-legitimate-max-e8811-ion-can-confirm-and-recover-review-sao-paulo\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [review-sao-paulo] › ..\..\..\..\..\AppData\Local\Temp\rv24-residual-1f9e84392d6a466084b4dd0a5e141311\browser\cf027.spec.ts:5:5 › NG-01 legitimate maximum quantity redemption can confirm and recover 
