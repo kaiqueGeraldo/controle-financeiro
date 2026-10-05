@@ -9,6 +9,23 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Revalidação independente da precisão — 05/10/2026
+
+**em_revisao mantido, somente critério 4 pendente.** Candidato `98d0343`,
+intervalo `28e5682..98d0343`: precisão decimal e recuperação BigDecimal aceitas
+no escopo verificado. NG-01 real preserva quantidade exata, um efeito e saldo1001;
+BUY200 conserva saldo800. A sexta prova original tem oráculo inadequado após
+JSON.parse destrutivo; adaptação explícita já ativa foi aceita, original preservado.
+
+Resta defeito concreto do mesmo **RVR24-01/P2**: o parser transforma __proto__
+em protótipo e campos herdados satisfazem a validação. POST/retry/GET retornam
+confirmed e removem intenção para JSON sem os campos financeiros próprios.
+[Parecer e provas](../evidencias/revalidacao-RVR24-01-precisao/README.md),
+[reprodução e condição de encerramento](../evidencias/revalidacao-RVR24-01-precisao/ACHADOS.md).
+Critérios1/2/3/5/6 e RVR24-02/RV24-02 preservados; nenhuma revisão global exigida.
+Próximo passo restrito à semântica de objetos/validação, mantendo precisão,
+FIN-06/NG-01 e identidade. CF-028 não executada; sem autorização de publicação.
+
 ## Saneamento da precisão — 04/10/2026
 
 **em_revisao mantido, critério4 aguardando revalidação independente.** Mesmo

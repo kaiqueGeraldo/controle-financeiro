@@ -8,6 +8,22 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Revalidação independente da precisão — 05/10/2026
+
+**em_revisao mantido, somente critério 2 pendente.** A perda decimal de
+RVR24-01 foi corrigida no candidato `98d0343`; a revalidação de NG-01/recibo
+e BUY200 passou. O oráculo direto da sexta prova foi julgado inadequado e a
+substituição ativa de fronteira foi aceita, preservando o original histórico.
+
+O impedimento atual é específico: campos financeiros herdados via __proto__
+são aceitos pelo parser/validador, produzindo confirmed e remoção da intenção
+em POST/retry/GET. Mesmo RVR24-01/P2, quatro probes vermelhos válidos.
+[Parecer independente](../evidencias/revalidacao-RVR24-01-precisao/README.md),
+[saneamento necessário e encerramento objetivo](../evidencias/revalidacao-RVR24-01-precisao/ACHADOS.md).
+Critérios1/3/4, R01/R02, R03/RV01, RVR24-02/RV24-02 e CF-025/026/027
+conservam os aceites; investigações separadas não foram encerradas.
+Nenhum critério retirado/transferido. CF-028 não executada nem publicação autorizada.
+
 ## Saneamento da precisão — 04/10/2026
 
 **em_revisao mantido, somente critério2 aguardando revalidação independente.**
