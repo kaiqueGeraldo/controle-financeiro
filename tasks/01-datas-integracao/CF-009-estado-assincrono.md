@@ -1,12 +1,29 @@
 # CF-009 — Corrigir corridas de requisição e mutações otimistas
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
+
+## Aceite independente de propriedades próprias — 08/10/2026
+
+**Concluida. Critério2 atendido, critérios1/3/4 preservados.** Candidato `b5e8550`,
+intervalo `d4e5a06..b5e8550`: encerrado RVR24-01/P2. Validação exige membros
+próprios, respostas inválidas mantêm intenção e não disparam sucesso/fechamento;
+recuperação válida posterior encerra uma vez, lifecycle/owner/cancelamento
+permanecem protegidos. Provas de modal/hook e SQL/reload sustentam este aceite.
+
+[Matriz dos quatro critérios, contraprovas e limites](../evidencias/revalidacao-RVR24-01-propriedades/README.md).
+Seleção/rollback e isolamento/dupla chamada mantêm aceites R01/R02/R03/RV01;
+evidências preservam originais e falha ambiental inicial, sem enfraquecimento.
+Conclusão individual desta tarefa, sem transferência de critérios nem conclusão
+por associação à derivada. RVR24-02/RV24-02 e CF-025/026/027 preservados;
+RVA-03, RJ-022-01/H24-01 e H-RV24-01 não são encerrados por este parecer.
+CF-028 somente especificação conforme liberação existente; sem execução/deploy.
+As seções abaixo são decisões históricas das respectivas bases.
 
 ## Saneamento de propriedades próprias — 07/10/2026
 
@@ -135,7 +152,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Resposta atrasada da seleção anterior não substitui a seleção atual; rollback não apaga mutação posterior válida.
-- [ ] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. RV01/R03 encerrado na revalidação dirigida de e4079a9. O critério integral permanece pendente por RVR24-01, sem reabrir RV01/R03.
+- [x] Erro não dispara callback/toast de sucesso; nova tentativa funciona; cancelamento não gera erro enganoso. RV01/R03 encerrado na revalidação dirigida de e4079a9; critério integral aceito na revalidação de RVR24-01/P2 em08/10/2026, sem reabrir RV01/R03.
 - [x] Cache de usuário A não aparece após login B; dupla chamada é testada e backend continua responsável pela integridade.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 

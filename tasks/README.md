@@ -45,6 +45,13 @@ tasks/
 
 ## Prontidão
 
+Atualização dirigida de08/10/2026: [revalidação independente RVR24-01/P2](evidencias/revalidacao-RVR24-01-propriedades/README.md),
+candidato `b5e8550`, encerra o resíduo e conclui RV24-01/CF-009 após confronto
+individual dos critérios. Aceites e investigações dos demais recortes preservados.
+CF-028 conserva a liberação anterior **somente para especificação**, sem execução
+ou autorização de publicação. O registro datado de03/10 abaixo permanece histórico;
+os arquivos individuais continuam sendo a fonte canônica de estado.
+
 Parecer corrente do recorte em 03/10/2026: [revisão independente CF-025/026/027 e RV24](evidencias/revisao-CF-025-CF-027-RV24/README.md), base `06c1a51`, com [matriz de critérios/estados](evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md). CF-025/026/027 concluídas; RV24-01/CF-009 em revisão por RVR24-01, RVR24-02 encerrado. CF-028 pronta **somente para especificação**, sem implementação nem liberação automática das sucessoras. Demais aceites e investigações preservados; snapshots abaixo permanecem históricos.
 
 Consultar o [snapshot documental de 01/10/2026, CF-001–026](evidencias/consolidacao-CF-001-CF-026/README.md)

@@ -1,6 +1,6 @@
 # RV24-01 — Reconciliar criação com resultado desconhecido antes de reenviar
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Marco: datas/frontend/integridade
 - Modelo executor: gpt-5.6-sol
@@ -8,6 +8,23 @@
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
+
+## Aceite independente de propriedades próprias — 08/10/2026
+
+**Concluida. RVR24-01/P2 encerrado; critério4 atendido.** Candidato `b5e8550`,
+intervalo `d4e5a06..b5e8550`: quatro probes originais intactos passam, contraprovas
+isolam construção e validação, fontes restauradas. Respostas herdadas não confirmam
+POST/retry/GET, conservam UUID/payload e recuperam após resposta válida/reload.
+BUY200 e NG-01 com PostgreSQL descartável confirmam um efeito por intenção.
+
+[Parecer e matriz individual dos seis critérios](../evidencias/revalidacao-RVR24-01-propriedades/README.md).
+Critérios1/2/3/5/6 conservam aceites acumulados, corroborados pelas regressões
+atuais; precisão/FIN-06/NG-01/coerência e substituição da sexta prova preservadas.
+267testes dirigidos e5adicionais, lint/typecheck/build aprovados; EPERM inicial
+anterior aos testes registrado separadamente. Não há pendência incompatível
+remanescente nesta derivada. RVR24-02/RV24-02 e investigações separadas preservados.
+CF-028 continua liberada somente para especificação, não executada; sem deploy.
+As seções abaixo mantêm suas decisões históricas nas respectivas bases.
 
 ## Saneamento de propriedades próprias — 07/10/2026
 
@@ -143,7 +160,7 @@ Não transformar optional operationId em obrigatório no servidor sem contrato.
 - [x] Probe vermelho original detecta a versão defeituosa e passa com a correção causal.
 - [x] Resposta descartada depois de commit e retry/reconciliação deixam um único efeito no PostgreSQL.
 - [x] Mesmo ID com payload diferente não aplica mutação; novas intenções iguais continuam permitidas.
-- [ ] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
+- [x] Resultado desconhecido não vira sucesso fictício; reload/perda de identidade têm comportamento explícito.
 - [x] Resposta de ciclo/owner invalidado não aciona callbacks tardios, inclusive reconciliação de investimento.
 - [x] R03/RV01 e a pendência separada RVA-03 são preservados; jornada integrada validada no escopo alterado.
 
