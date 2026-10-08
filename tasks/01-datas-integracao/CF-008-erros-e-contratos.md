@@ -1,12 +1,28 @@
 # CF-008 — Corrigir contratos HTTP e erros entre front e back
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-003; F-005, F-006
+
+## Parecer vigente — 08/10/2026
+
+**Concluída no escopo local original**, com os quatro critérios atendidos:
+401/403/400/409, 204/binário/abort, 503/timeout sem falso sucesso/perda de
+formulário e evidências verificáveis. Cliente, BFF, backend e consumidores
+foram confrontados separadamente; aceites de sessão, RV01, RV24-01 e CF-009
+foram reutilizados somente nos caminhos efetivamente cobertos.
+Paginação/campos/PUT de planejamento e contratos temporais locais verificados.
+
+[Matriz, parecer individual, comandos e limites](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. RD58-02 pertence à semântica
+de instante/label sob CF-006/005, sem violação demonstrada destes critérios
+de transporte/erro. P01/P02 reais permanecem CF-017; HTTP correto não equivale
+a migração ou publicação autorizada. Nenhum aceite automático de CF-011–014.
+As referências abaixo a RV24-01/CF-025–027 pendentes são históricas e superadas.
 
 ## Reconciliação de pendências — 03/10/2026
 

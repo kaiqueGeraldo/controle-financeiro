@@ -1,12 +1,31 @@
 # CF-007 — Validar datas pelo fluxo navegador–API–banco
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-006](../01-datas-integracao/CF-006-datas-backend.md)
 - Origem: T-002, T-008, T-010; F-001–004
+
+## Parecer vigente — 08/10/2026
+
+**Concluída no escopo local original**, após confronto separado dos quatro
+critérios: data escolhida preservada ao criar/editar/reabrir, erro 400 sem
+persistência e com entrada recuperável, sensibilidade integrada à alteração
+de dia na API, evidências e limites. Reutilizados os aceites F/V/R/U e suas
+bases, reconferidos diffs/consumidores e complementados com testes atuais.
+Não houve novo Playwright nesta revisão; as jornadas históricas permanecem
+identificadas como tais, sem contagem duplicada.
+
+[Matriz, parecer individual, comandos e limites](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. RD58-01/02 mantêm CF-005/006
+em revisão, mas não violam a data escolhida nas jornadas próprias comprovadas
+desta tarefa. Capacidades temporais consumidas têm liberação independente e
+foram reconferidas; não houve alteração das arestas de dependência.
+P01/P02 reais permanecem CF-017; nenhuma certificação Railway/publicação.
+A aresta CF-007 de CF-015 está satisfeita, sem encerrar o marco frontend.
+Esta decisão supera as pendências genéricas das notas históricas abaixo.
 
 ## Reconciliação de pendências — 03/10/2026
 

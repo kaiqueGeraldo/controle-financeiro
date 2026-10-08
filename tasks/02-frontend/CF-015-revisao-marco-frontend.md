@@ -8,6 +8,16 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Atualização das dependências — 08/10/2026
+
+A [revisão dirigida CF-005–008](../evidencias/revisao-dirigida-CF-005-CF-008/README.md)
+conclui CF-007/008 localmente. CF-009/RV24-01 e CF-025–027 já possuem aceites
+posteriores às notas abaixo. CF-005/006 têm pendências locais RD58-01/02,
+com vínculo aos consumidores de resumo anual/histórico de metas da CF-014.
+Estado do marco permanece `em_revisao`; não foi executado seu fechamento nem
+reavaliado zoom, pagamento120 ou as investigações de hábitos/scheduler.
+Aceites por tela e gates próprios continuam exigidos, sem mudar dependências.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 4, 1, 2 e 3: marco depende de zoom real e aceites próprios CF-011–014, além dos resíduos posteriores aplicáveis RV24-01/RVA-03/RJ-022-01. Não resumir tudo a zoom nem reabrir R03/RV01. Encerrar exige parecer do marco cruzando critérios, aceites e lacunas; liberação local de CF-026 não é conclusão integral.

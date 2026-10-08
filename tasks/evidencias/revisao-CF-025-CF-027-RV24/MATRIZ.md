@@ -1,5 +1,10 @@
 # Matriz de critérios e estados — candidato 06c1a51
 
+> Referência posterior de 08/10/2026: [revalidação de propriedades](../revalidacao-RVR24-01-propriedades/README.md)
+> encerrou RV24-01/CF-009. [Revisão dirigida CF-005–008](../revisao-dirigida-CF-005-CF-008/README.md)
+> concluiu CF-007/008 e identificou RD58-01/02 em CF-005/006. A matriz e a fila
+> abaixo conservam a data/base do parecer original, sem reescrita histórica.
+
 Parecer corrente: [README](README.md). Critérios originais preservados nos arquivos canônicos; a tabela os identifica por ordem e resume sua prova. Histórico reutilizado é marcado explicitamente, sem convertê-lo em execução desta revisão.
 
 | Tarefa / critério | Prova e origem | Decisão |

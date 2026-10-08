@@ -1,0 +1,622 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 13 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 220 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 71 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.controller.HttpContractControllerTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+08:51:46.938 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 9.0.1.Final
+08:51:47.460 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:47.461 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:47.468 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 4 ms
+08:51:47.722 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [date]]
+08:51:47.860 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:47.861 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:47.861 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:47.863 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 409: Conflito de concorr�ncia [URI: /contract/conflict]
+08:51:47.870 [main] ERROR com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API CRITICAL 500: Erro inesperado em /contract/failure 
+java.lang.IllegalStateException: segredo sint�tico
+	at com.controlefinanceiro.api.controller.HttpContractControllerTest$ContractProbeController.failure(HttpContractControllerTest.java:177)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:160)
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127)
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:199)
+	at com.controlefinanceiro.api.controller.HttpContractControllerTest.acUi005OptimisticConflictIs409AndServerFailureRemains500(HttpContractControllerTest.java:135)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502)
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+08:51:47.904 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:47.905 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:47.905 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:48.154 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [date, amount, accountId, type, description]]
+08:51:48.214 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:48.214 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:48.215 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:48.293 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:48.293 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:48.293 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:48.329 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions/10000000-0000-0000-0000-000000000001; campos: [time]]
+08:51:48.375 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:48.376 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:48.376 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.037 s -- in com.controlefinanceiro.api.controller.HttpContractControllerTest
+[INFO] Running com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest
+08:51:49.104 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.106 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.106 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.182 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary/note; campos: [year]]
+08:51:49.209 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/income; campos: [year]]
+08:51:49.248 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.248 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.248 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.259 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary/note; campos: [year]]
+08:51:49.271 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/income; campos: [year]]
+08:51:49.299 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.300 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.300 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.304 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary/note; campos: [year]]
+08:51:49.312 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/income; campos: [year]]
+08:51:49.337 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.337 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.338 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:49.341 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary/note; campos: [year]]
+08:51:49.348 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/income; campos: [year]]
+08:51:49.374 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.374 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.376 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 2 ms
+08:51:49.456 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [year]]
+08:51:49.488 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.488 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.488 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.504 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [month]]
+08:51:49.541 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.541 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.542 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:49.559 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [month]]
+08:51:49.588 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.588 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.589 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.600 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary; campos: [year]]
+08:51:49.627 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.627 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.628 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:49.679 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [month]]
+08:51:49.711 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.712 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.712 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.726 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [month]]
+08:51:49.752 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.752 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.752 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.775 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [year]]
+08:51:49.802 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.802 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.803 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:49.816 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [year]]
+08:51:49.841 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.841 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.841 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.904 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [month]]
+08:51:49.928 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.928 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.929 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:49.941 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning; campos: [month]]
+08:51:49.964 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:49.964 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:49.964 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:49.973 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning; campos: [year]]
+08:51:50.000 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.000 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.001 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.008 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /dashboard/flow; campos: [month]]
+08:51:50.032 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.032 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.033 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.041 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /annual-summary; campos: [year]]
+08:51:50.062 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.062 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.063 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.074 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /cards/30000000-0000-0000-0000-000000000002/invoice; campos: [month]]
+08:51:50.095 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.095 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.096 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.124 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /cards/30000000-0000-0000-0000-000000000002/pay; campos: [month, year]]
+08:51:50.150 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.151 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.151 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.219 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.219 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.219 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.225 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/30000000-0000-0000-0000-000000000002/status; campos: [status]]
+08:51:50.247 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.248 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.248 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.256 [main] INFO com.controlefinanceiro.api.controller.TransactionController -- API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: review@example.invalid | M�s: 2 | Conta: null
+08:51:50.307 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.307 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.308 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.320 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/copy-previous; campos: [month, year]]
+08:51:50.354 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.354 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.355 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+08:51:50.365 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/copy-previous; campos: [year]]
+08:51:50.389 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.390 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.390 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.399 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/copy-previous; campos: [month]]
+08:51:50.424 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.424 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.424 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.434 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/copy-previous; campos: [month]]
+08:51:50.457 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+08:51:50.458 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+08:51:50.458 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
+08:51:50.462 [main] WARN com.controlefinanceiro.api.infra.exception.ResourceExceptionHandler -- API ERROR 400: Requisi��o inv�lida [URI: /planning/copy-previous; campos: [month]]
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.056 s -- in com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest
+[INFO] Running com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest
+08:51:50.685 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:51:50.995 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest
+08:51:51.314 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+08:51:51.319 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-08 08:51:51.951 - INFO 29764 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-08 08:51:52.264 - INFO 29764 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-08 08:51:58.020 - INFO 29764 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-08 08:51:58.022 - INFO 29764 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-08 08:51:58.045 - INFO 29764 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-08 08:51:59.000 - INFO 29764 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-08 08:51:59.001 - INFO 29764 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-08 08:51:59.001 - INFO 29764 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-08 08:52:00.890 - INFO 29764 --- [           main] c.c.api.DirectedGoalHistoryTemporalTest  : Starting DirectedGoalHistoryTemporalTest using Java 21.0.12.1 with PID 29764 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-08 08:52:00.891 - INFO 29764 --- [           main] c.c.api.DirectedGoalHistoryTemporalTest  : The following 1 profile is active: "test"
+-2026-10-08 08:52:04.713 - WARN 29764 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-08 08:52:13.349 - INFO 29764 --- [           main] c.c.api.DirectedGoalHistoryTemporalTest  : Started DirectedGoalHistoryTemporalTest in 22.013 seconds (process running for 30.779)
+-2026-10-08 08:52:13.668 - INFO 29764 --- [           main] c.c.api.controller.GoalController        : API: Criar Meta 'Meta temporal' para usu�rio 04a319fe-b6c3-4785-83f0-0e7f71dbc2f4@example.test
+-2026-10-08 08:52:13.669 - INFO 29764 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta temporal
+-2026-10-08 08:52:13.727 - INFO 29764 --- [           main] c.c.api.controller.GoalController        : API: Dep�sito na Meta d78959ff-1d8e-4bfc-b9c8-7b6273c50381. Valor: 1. Conta Origem: null
+-2026-10-08 08:52:13.729 - INFO 29764 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: d78959ff-1d8e-4bfc-b9c8-7b6273c50381. Valor: 1
+-2026-10-08 08:52:13.761 - INFO 29764 --- [           main] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 1.00
+-RD58-02 SQL date=2026-09-08 00:10:00
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /goals
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Authorization:"Bearer [REDACTED_SYNTHETIC_JWT]", Content-Length:"84"]
+             Body = {"title":"Meta temporal","targetValue":10,"deadline":"2027-01-01","type":"NUMERIC"}
+
+    Session Attrs = {}
+
+Handler:
+             Type = com.controlefinanceiro.api.controller.GoalController
+           Method = com.controlefinanceiro.api.controller.GoalController#create(CreateGoalDTO, User)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json
+             Body = {"id":"d78959ff-1d8e-4bfc-b9c8-7b6273c50381","title":"Meta temporal","category":null,"icon":null,"color":null,"type":"NUMERIC","targetValue":10,"currentValue":0,"deadline":"2027-01-01","useChecklist":false,"orderIndex":0,"allocationReconciled":true,"items":[]}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /goals/d78959ff-1d8e-4bfc-b9c8-7b6273c50381/deposit
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Authorization:"Bearer [REDACTED_SYNTHETIC_JWT]", Content-Length:"27"]
+             Body = {"amount":1,"time":"08:15"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.controlefinanceiro.api.controller.GoalController
+           Method = com.controlefinanceiro.api.controller.GoalController#deposit(UUID, GoalDepositDTO, User)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /goals/d78959ff-1d8e-4bfc-b9c8-7b6273c50381/history
+       Parameters = {}
+          Headers = [Authorization:"Bearer [REDACTED_SYNTHETIC_JWT]"]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.controlefinanceiro.api.controller.GoalController
+           Method = com.controlefinanceiro.api.controller.GoalController#listHistory(UUID, User)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json
+             Body = [{"id":"ac144dc4-33b1-45c7-b7f9-c3ffa0abd6eb","date":"2026-09-08T00:10:00","amount":1.00,"note":"Registro de progresso","allocationId":null,"protocol":null}]
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 23.66 s <<< FAILURE! -- in com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest
+[ERROR] com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest.newGoalHistoryReturnsTheRecordedInstantAfterCommitAndReload -- Time elapsed: 0.818 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: "2026-09-08T03:10:00Z"
+ but was: "2026-09-08T00:10:00"
+	at com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest.newGoalHistoryReturnsTheRecordedInstantAfterCommitAndReload(DirectedGoalHistoryTemporalTest.java:51)
+
+[INFO] Running com.controlefinanceiro.api.domain.TemporalJsonContractTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-08 05:52:14.336 - INFO 29764 --- [           main] c.c.api.domain.TemporalJsonContractTest  : Starting TemporalJsonContractTest using Java 21.0.12.1 with PID 29764 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-08 05:52:14.336 - INFO 29764 --- [           main] c.c.api.domain.TemporalJsonContractTest  : No active profile set, falling back to 1 default profile: "default"
+-2026-10-08 05:52:14.713 - INFO 29764 --- [           main] c.c.api.domain.TemporalJsonContractTest  : Started TemporalJsonContractTest in 0.424 seconds (process running for 32.142)
+-[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.835 s -- in com.controlefinanceiro.api.domain.TemporalJsonContractTest
+[INFO] Running com.controlefinanceiro.api.PlanningEditIntegrationTest
+2026-10-08 05:52:15.029 - INFO 29764 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+-2026-10-08 05:52:15.033 - INFO 29764 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.PlanningEditIntegrationTest
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-08 05:52:15.096 - INFO 29764 --- [           main] c.c.api.PlanningEditIntegrationTest      : Starting PlanningEditIntegrationTest using Java 21.0.12.1 with PID 29764 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-08 05:52:15.097 - INFO 29764 --- [           main] c.c.api.PlanningEditIntegrationTest      : The following 1 profile is active: "test"
+-2026-10-08 05:52:15.927 - WARN 29764 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-08 05:52:17.443 - INFO 29764 --- [           main] c.c.api.PlanningEditIntegrationTest      : Started PlanningEditIntegrationTest in 2.406 seconds (process running for 34.873)
+-2026-10-08 05:52:17.487 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [description]]
+-2026-10-08 05:52:17.517 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [description]]
+-2026-10-08 05:52:17.528 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [amount]]
+-2026-10-08 05:52:17.539 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [amount]]
+-2026-10-08 05:52:17.547 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [dueDate]]
+-2026-10-08 05:52:17.557 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [dueDate]]
+-2026-10-08 05:52:17.566 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [dueDate]]
+-2026-10-08 05:52:17.610 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [dueDate]]
+-2026-10-08 05:52:17.621 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [status]]
+-2026-10-08 05:52:17.630 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [cardId]]
+-2026-10-08 05:52:17.640 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [planId]]
+-2026-10-08 05:52:17.649 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [orderIndex]]
+-2026-10-08 05:52:17.657 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [isSystemManaged]]
+-2026-10-08 05:52:17.667 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/dc8e6bae-8010-433a-b6f2-a40ff19498e4; campos: [categoryId]]
+-2026-10-08 05:52:17.832 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Item n�o encontrado [URI: /planning/5d058d86-a969-4389-8d1f-1823a8c66808]
+-2026-10-08 05:52:17.849 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Item n�o encontrado [URI: /planning/e460a502-3b09-4c3d-9015-bd82baa1d11d]
+-2026-10-08 05:52:17.870 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Categoria n�o encontrada [URI: /planning/e460a502-3b09-4c3d-9015-bd82baa1d11d]
+-2026-10-08 05:52:17.885 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Categoria n�o encontrada [URI: /planning/e460a502-3b09-4c3d-9015-bd82baa1d11d]
+-2026-10-08 05:52:17.924 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /planning/7a98de2e-5c4d-460c-a043-9287223c4396; campos: [cardId]]
+-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.902 s -- in com.controlefinanceiro.api.PlanningEditIntegrationTest
+[INFO] Running com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-08 05:52:17.979 - INFO 29764 --- [           main] c.c.a.PostgreSqlTemporalRoundTripTests   : Starting PostgreSqlTemporalRoundTripTests using Java 21.0.12.1 with PID 29764 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-08 05:52:17.979 - INFO 29764 --- [           main] c.c.a.PostgreSqlTemporalRoundTripTests   : The following 1 profile is active: "test"
+-2026-10-08 05:52:18.453 - WARN 29764 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-08 05:52:19.661 - INFO 29764 --- [           main] c.c.a.PostgreSqlTemporalRoundTripTests   : Started PostgreSqlTemporalRoundTripTests in 1.724 seconds (process running for 37.091)
+-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.911 s -- in com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests
+[INFO] Running com.controlefinanceiro.api.service.CredentialExpiryClockTest
+2026-10-08 05:52:20.094 - INFO 29764 --- [           main] c.c.api.service.AuthService              : Tentativa de reset de senha solicitada para o e-mail: credencial@example.test
+-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.256 s -- in com.controlefinanceiro.api.service.CredentialExpiryClockTest
+[INFO] Running com.controlefinanceiro.api.service.ScheduledCalendarClockTest
+2026-10-08 05:52:20.296 - INFO 29764 --- [           main] c.c.api.service.NotificationCronService  : CRON: Iniciando verifica��o de contas a vencer para amanh�...
+-2026-10-08 05:52:20.297 - INFO 29764 --- [           main] c.c.api.service.NotificationCronService  : CRON: Verifica��o de contas a vencer finalizada.
+-2026-10-08 05:52:20.959 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-08 05:52:20.960 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-10-08 05:52:20.960 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-08 05:52:20.964 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 9/2026)
+-2026-10-08 05:52:20.968 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-10-08 05:52:20.972 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-08 05:52:20.973 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 12/2025)
+-2026-10-08 05:52:20.973 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-2026-10-08 05:52:20.975 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-08 05:52:20.976 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cart�o Cart�o sint�tico (M�s 2/2024)
+-2026-10-08 05:52:20.976 - INFO 29764 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verifica��o conclu�da com sucesso.
+-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.877 s -- in com.controlefinanceiro.api.service.ScheduledCalendarClockTest
+[INFO] Running com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+2026-10-08 05:52:21.042 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:21.049 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ce16f49e-8df5-418e-8464-b8a36a2b0356
+-2026-10-08 05:52:21.077 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ae8b87cb-bc40-4513-82dc-65dffb7ae9a6
+-2026-10-08 05:52:21.100 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:21.101 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ce16f49e-8df5-418e-8464-b8a36a2b0356
+-2026-10-08 05:52:21.109 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID cc769669-07ad-4c17-8d9f-80b9d508c286
+-2026-10-08 05:52:21.123 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:21.124 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ce16f49e-8df5-418e-8464-b8a36a2b0356
+-2026-10-08 05:52:21.134 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 48f1a0df-d7c2-400b-8492-5e0a6928ee62
+-2026-10-08 05:52:21.157 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | M�s: 9 | Conta: null
+-2026-10-08 05:52:21.241 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | M�s: 9 | Conta: null
+-2026-10-08 05:52:21.281 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test | M�s: 9 | Conta: null
+-2026-10-08 05:52:21.309 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test
+-2026-10-08 05:52:21.316 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 7385baf2-ddf6-4178-acbc-cef443a1be0a@example.test
+-2026-10-08 05:52:23.078 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 2e074d1c-3721-4696-a443-b06a3d6642f1@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:23.079 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=fa4c6389-b133-40db-941c-32837db45467
+-2026-10-08 05:52:23.086 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 91ac4db5-55e0-40ef-ac4b-7b6aeaf6b95e
+-2026-10-08 05:52:23.096 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [recordedAt]]
+-2026-10-08 05:52:23.107 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/91ac4db5-55e0-40ef-ac4b-7b6aeaf6b95e; campos: [recordedAt]]
+-2026-10-08 05:52:23.113 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [createdAt]]
+-2026-10-08 05:52:23.125 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/91ac4db5-55e0-40ef-ac4b-7b6aeaf6b95e; campos: [createdAt]]
+-2026-10-08 05:52:23.132 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [legacyCreatedAtRaw]]
+-2026-10-08 05:52:23.139 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/91ac4db5-55e0-40ef-ac4b-7b6aeaf6b95e; campos: [legacyCreatedAtRaw]]
+-2026-10-08 05:52:23.145 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [timeOrigin]]
+-2026-10-08 05:52:23.152 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/91ac4db5-55e0-40ef-ac4b-7b6aeaf6b95e; campos: [timeOrigin]]
+-2026-10-08 05:52:23.310 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 9a816e37-87ea-4369-ae63-acaebc591dff@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:23.311 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ae92b9b5-1512-420b-bf45-a5a973346159
+-2026-10-08 05:52:23.317 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5d37bb1a-3ca5-42c6-a31c-da3f3646569b
+-2026-10-08 05:52:23.327 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 9a816e37-87ea-4369-ae63-acaebc591dff@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:23.328 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ae92b9b5-1512-420b-bf45-a5a973346159
+-2026-10-08 05:52:23.334 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 58b36a0b-dc4b-40eb-b1c4-df26c829961f
+-2026-10-08 05:52:23.344 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 9a816e37-87ea-4369-ae63-acaebc591dff@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:23.345 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ae92b9b5-1512-420b-bf45-a5a973346159
+-2026-10-08 05:52:23.350 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ff818f47-8ba8-4338-8355-b3f77f4d7be3
+-2026-10-08 05:52:23.372 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-08 05:52:23.372 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=12d5d2b6-6c0c-47f4-87fb-7b9855cf922e
+-2026-10-08 05:52:23.377 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 44ce2adc-e870-4da0-aac6-312624b2bfa2
+-2026-10-08 05:52:23.389 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 44ce2adc-e870-4da0-aac6-312624b2bfa2. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test
+-2026-10-08 05:52:23.390 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 44ce2adc-e870-4da0-aac6-312624b2bfa2
+-2026-10-08 05:52:23.425 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 44ce2adc-e870-4da0-aac6-312624b2bfa2. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test
+-2026-10-08 05:52:23.425 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 44ce2adc-e870-4da0-aac6-312624b2bfa2
+-2026-10-08 05:52:23.444 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 44ce2adc-e870-4da0-aac6-312624b2bfa2. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test
+-2026-10-08 05:52:23.444 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 44ce2adc-e870-4da0-aac6-312624b2bfa2
+-2026-10-08 05:52:23.462 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 44ce2adc-e870-4da0-aac6-312624b2bfa2. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test
+-2026-10-08 05:52:23.462 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 44ce2adc-e870-4da0-aac6-312624b2bfa2
+-2026-10-08 05:52:23.482 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 5e78dcc6-7ef8-4bad-925b-d3f7f8590eff@example.test | M�s: 9 | Conta: null
+-2026-10-08 05:52:23.523 - INFO 29764 --- [           main] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 5c829618-941c-4532-9635-a2d638639bd4. Qtd: 1, Pre�o: 10
+-2026-10-08 05:52:23.524 - INFO 29764 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 5c829618-941c-4532-9635-a2d638639bd4
+-2026-10-08 05:52:23.551 - INFO 29764 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-08 05:52:23.606 - INFO 29764 --- [           main] c.c.api.controller.InvestmentController  : API: Atualiza��o manual de saldo para ativo ID 4c3fcd73-2091-4b37-9b78-712b29603017
+-2026-10-08 05:52:23.646 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 7ad721b8-7edb-4554-8874-f4ca35ced53f@example.test | M�s: 9 | Conta: null
+-2026-10-08 05:52:23.685 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 6008829c-bab8-48b7-ad46-478961ebd84f. Usu�rio: 038bc623-86bb-410f-b8f2-2a80a45cd188@example.test
+-2026-10-08 05:52:23.686 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 6008829c-bab8-48b7-ad46-478961ebd84f
+-2026-10-08 05:52:23.711 - INFO 29764 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 6008829c-bab8-48b7-ad46-478961ebd84f. Usu�rio: 038bc623-86bb-410f-b8f2-2a80a45cd188@example.test
+-2026-10-08 05:52:23.711 - INFO 29764 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 6008829c-bab8-48b7-ad46-478961ebd84f
+-2026-10-08 05:52:23.761 - INFO 29764 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 8a99156b-0bf5-471f-9ea6-ceb442cb6c6e. Valor: 10. Parcelas: 1
+-2026-10-08 05:52:23.761 - INFO 29764 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 8a99156b-0bf5-471f-9ea6-ceb442cb6c6e: 10 (1x)
+-2026-10-08 05:52:23.816 - INFO 29764 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-08 05:52:23.857 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/53cb00cb-0740-4002-b886-9fd6bc8f3a49; campos: [recordedAt]]
+-2026-10-08 05:52:23.863 - INFO 29764 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 8a99156b-0bf5-471f-9ea6-ceb442cb6c6e. Valor: 10. Parcelas: 1
+-2026-10-08 05:52:23.864 - INFO 29764 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 8a99156b-0bf5-471f-9ea6-ceb442cb6c6e: 10 (1x)
+-2026-10-08 05:52:23.888 - INFO 29764 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-08 05:52:23.923 - WARN 29764 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/939ca47b-db0c-4c6c-9c42-122bc2ef2311; campos: [recordedAt]]
+-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.946 s -- in com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+[INFO] Running com.controlefinanceiro.api.utils.TemporalConfigTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.controlefinanceiro.api.utils.TemporalConfigTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   DirectedGoalHistoryTemporalTest.newGoalHistoryReturnsTheRecordedInstantAfterCommitAndReload:51 
+expected: "2026-09-08T03:10:00Z"
+ but was: "2026-09-08T00:10:00"
+[INFO] 
+[ERROR] Tests run: 77, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:43 min
+[INFO] Finished at: 2026-10-08T08:52:24Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -8,6 +8,20 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-002; F-001–004
 
+## Parecer vigente — 08/10/2026
+
+Estado `em_revisao` mantido por dois defeitos locais comprovados: RD58-01, ano
+inicial do resumo usa calendário de produto em vez do navegador; RD58-02,
+histórico legado de metas sem indicação de fuso desconhecido. Pertencem ao
+trabalho original 1/3 de auditar consumidores e conformá-los à CF-004.
+Payload/label civil, quatro formulários, prazo de metas, navegação mensal,
+P05 e mutações M01/M02 permanecem aceitos nos cenários discriminados.
+Não é bloqueio automático da adoção CF-017 nem falta de frase de aprovação.
+
+[Matriz por critério, parecer e condições de encerramento](../evidencias/revisao-dirigida-CF-005-CF-008/README.md).
+Base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. CF-025–027, RV24-01 e CF-009
+já têm aceite posterior; referências antigas abaixo permanecem históricas.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. P05/diaProduto já aceito; pendência é o parecer final que vincule payload/label/hoje, prazo/navegação e mutações às provas existentes, incluindo consumidores posteriores de CF-026/RV24-01. Categorias 1 e 5: julgamento independente e adoção temporal P01/P02 na CF-017. Não exigir nova correção presumida de P05 nem concluir por aceite local.

@@ -8,6 +8,15 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Vínculo dirigido — 08/10/2026
+
+A [revisão CF-005–008](../evidencias/revisao-dirigida-CF-005-CF-008/ACHADOS.md)
+reproduziu RD58-01 (ano inicial do resumo) e RD58-02 (histórico de metas sem
+semântica explícita de instante/legado). Saneamento temporal sob CF-005/006,
+com consumidores neste recorte. Não houve revisão integral desta tela ou
+mudança de estado da CF-014. RV24-01/CF-009 estão concluídas por aceite posterior;
+as referências antigas abaixo não são bloqueios atuais por si sós.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 4, 1, 2 e 3: falta aceite por módulo de metas, investimentos, hábitos e resumo anual nos estados/modais previstos; preservar R01/R04 e regras backend aceitas. RV24-01 requer revisão do saneamento de resultado/lifecycle; RJ-022-01 e H24-01 continuam investigações distintas de CF-022. Condição: parecer por critério e verificações dirigidas das lacunas, sem substituir UI por aceite backend.

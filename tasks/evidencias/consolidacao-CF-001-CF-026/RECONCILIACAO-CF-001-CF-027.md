@@ -1,5 +1,12 @@
 # Reconciliação CF-001–CF-027 — 03/10/2026
 
+> Atualização de referência em 08/10/2026: este snapshot permanece histórico.
+> [Parecer dirigido CF-005–008](../revisao-dirigida-CF-005-CF-008/README.md)
+> conclui CF-007/008 e mantém CF-005/006 pelos defeitos locais RD58-01/02.
+> CF-025–027 foram concluídas na revisão própria; RV24-01/CF-009 foram concluídas
+> pela revalidação de propriedades. CF-028 já está liberada somente para
+> especificação. As linhas datadas abaixo não substituem os estados canônicos.
+
 Base inicial e documental examinada: `a8c3724f386e0b249d09615d6343ba5774c0658f`,
 main. Continuação do snapshot `c7f7ffc` de [MATRIZ](MATRIZ.md), cujas fontes e
 limites anteriores são reutilizados. Os arquivos individuais continuam canônicos.

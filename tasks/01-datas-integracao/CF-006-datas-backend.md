@@ -8,6 +8,20 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-010; investigação temporal
 
+## Parecer vigente — 08/10/2026
+
+Estado `em_revisao` mantido por RD58-02: gravação nova de GoalHistory perde o
+offset do instante exigido por CT-10/E11. POST/commit/GET/PostgreSQL descartável
+com Clock fixo reproduz `00:10:00` sem offset em vez de `03:10:00Z`.
+Trabalho original 1/2 de aplicar o contrato e serializar datas/horários ainda
+incompleto nesse writer/DTO; não atribuir origem ao legado para encerrá-lo.
+Clock/fuso, civil/hora informada, bordas/token e P01/P02 sintéticos preservam
+aceites nos caminhos comprovados. Adoção real continua na CF-017/derivada.
+
+[Matriz por critério, parecer e condições de encerramento](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. Não é pendência genérica de
+revisão ou exigência de operar banco real; as notas datadas abaixo são históricas.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 1 e 5: falta decisão integral por critério sobre Clock/fuso, round trip/horário, bordas/token e writers; schema/proveniência/coordenação reais continuam CF-017/P01/P02. Calendário backend local já foi liberado para CF-022. Encerrar exige parecer delimitado, sem converter aprovação sintética em adoção real.
