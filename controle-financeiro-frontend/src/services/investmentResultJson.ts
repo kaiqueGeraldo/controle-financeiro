@@ -1,4 +1,5 @@
-import { isLosslessNumber, parse } from "lossless-json";
+import { isLosslessNumber } from "lossless-json";
+import { parse } from "./vendor/lossless-json/parse";
 
 const snapshotDecimals = new Set([
   "quantity", "price", "totalValue", "fees", "costDelta", "realizedResult",

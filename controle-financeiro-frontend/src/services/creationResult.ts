@@ -1,8 +1,7 @@
 import type { CreateTransactionDTO, InvestmentOperationDTO } from "@/types";
 import { LosslessNumber } from "lossless-json";
+import { ownRecord } from "./ownRecord";
 
-const record = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null && !Array.isArray(value);
 const uuid = (value: unknown) => typeof value === "string" && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(value);
 const finite = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value);
 const invalid = () => new Error("Resultado financeiro inválido; a operação continua pendente de confirmação.");
@@ -53,20 +52,23 @@ function matchesExecutionGross(quantity: unknown, price: unknown, cents: bigint)
 
 /** Validate the immutable creation snapshot, never a projection of today's balance. */
 export function validateTransactionResult(value: unknown, command: CreateTransactionDTO): void {
-  if (!record(value) || !uuid(value.id) || value.type !== command.type || value.date !== command.date ||
+  if (!ownRecord(value, ["id", "type", "date", "description", "accountId", "amount", "isPaid", "status", "isSystemManaged", "origin"]) ||
+      !uuid(value.id) || value.type !== command.type || value.date !== command.date ||
       value.description !== command.description || value.accountId !== command.accountId ||
       !finite(value.amount) || value.amount <= 0 || value.amount !== Number(command.amount) ||
       value.isPaid !== command.isPaid || value.status !== (command.isPaid ? "SETTLED" : "PENDING") ||
       typeof value.isSystemManaged !== "boolean") throw invalid();
   if (command.type === "TRANSFER") {
     // This operationId identifies the ledger pair; it is NOT the transport intent key.
-    if (!uuid(value.operationId) || value.origin !== "TRANSFER" || value.transferDirection !== "OUTBOUND" ||
+    if (!ownRecord(value, ["operationId", "transferDirection", "counterpartyAccountId"]) ||
+        !uuid(value.operationId) || value.origin !== "TRANSFER" || value.transferDirection !== "OUTBOUND" ||
         value.counterpartyAccountId !== command.destinationAccountId) throw invalid();
-  } else if (value.origin !== "USER" || value.categoryId !== command.categoryId) throw invalid();
+  } else if (!Object.hasOwn(value, "categoryId") || value.origin !== "USER" || value.categoryId !== command.categoryId) throw invalid();
 }
 
 export function validateInvestmentResult(value: unknown, command: InvestmentOperationDTO): void {
-  if (!record(value) || !uuid(value.id) || value.type !== command.type || value.date !== command.date ||
+  if (!ownRecord(value, ["id", "type", "date", "dateOrigin", "quantity", "price", "totalValue", "fees", "costDelta", "realizedResult"]) ||
+      !uuid(value.id) || value.type !== command.type || value.date !== command.date ||
       value.dateOrigin !== "USER_INPUT" ||
       !nullableMoney(value.costDelta) || !nullableMoney(value.realizedResult)) throw invalid();
   const grossCents = boundedUnits(value.totalValue, 2);
@@ -84,11 +86,13 @@ export function validateInvestmentResult(value: unknown, command: InvestmentOper
 }
 
 export function validateCreationResponse(response: unknown, command: CreateTransactionDTO | InvestmentOperationDTO): void {
-  if (!record(response)) throw invalid();
+  if (!ownRecord(response, ["data"])) throw invalid();
   validateCreationResult(response.data, command);
 }
 
 export function validateCreationResult(value: unknown, command: CreateTransactionDTO | InvestmentOperationDTO): void {
-  if ("investmentId" in command) validateInvestmentResult(value, command);
-  else validateTransactionResult(value, command);
+  if ("investmentId" in command) {
+    if (!Object.hasOwn(command, "investmentId")) throw invalid();
+    validateInvestmentResult(value, command);
+  } else validateTransactionResult(value, command);
 }
