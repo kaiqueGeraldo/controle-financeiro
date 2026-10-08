@@ -9,6 +9,18 @@
 - Depende de: contratos CF-009/018/020/024 integrados; não depende de CF-025
 - Origem: revisão independente CF-024, RV24-01; AC-UI-009/005 e FIN-07
 
+## Saneamento de propriedades próprias — 07/10/2026
+
+**em_revisao mantido, critério 4 aguardando revalidação independente.** Mesmo
+RVR24-01/P2, base d4e5a06: construção de chaves JSON como dados próprios e
+verificação de membros obrigatórios próprios no snapshot/envelopes de resposta.
+Quatro probes originais antes vermelhos passam sem alteração; 267 regressões
+passam. BUY200 adulterado mantém intenção até GET válido, um efeito/saldo800;
+NG-01 mantém decimal exato, replay/recuperação e um efeito/saldo1001.
+[Entrega e encaminhamento dirigido](../evidencias/saneamento-RVR24-01-propriedades/README.md).
+Precisão, substituição da sexta prova e demais aceites preservados. Sem
+autoaprovação, mudança de checkbox, reabertura por associação ou CF-028.
+
 ## Revalidação independente da precisão — 05/10/2026
 
 **em_revisao mantido, somente critério 4 pendente.** Candidato `98d0343`,

@@ -8,6 +8,16 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md)
 - Origem: T-003, T-009; F-007
 
+## Saneamento de propriedades próprias — 07/10/2026
+
+**em_revisao mantido, somente critério 2 aguardando revalidação independente.**
+Mesmo RVR24-01/P2, base d4e5a06: parser preserva chaves especiais como dados,
+validação exige campos próprios antes do conteúdo; POST/retry/GET inválidos
+conservam identidade/intenção. Quatro probes originais passam intactos, 267
+regressões e jornadas reais BUY200/NG-01 confirmam recuperação sem duplicação.
+[Evidências e critérios de encerramento](../evidencias/saneamento-RVR24-01-propriedades/README.md).
+Aceites anteriores preservados, sem autoaprovação, CF-028 ou revisão global.
+
 ## Revalidação independente da precisão — 05/10/2026
 
 **em_revisao mantido, somente critério 2 pendente.** A perda decimal de

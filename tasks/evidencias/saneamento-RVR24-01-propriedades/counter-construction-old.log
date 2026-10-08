@@ -1,0 +1,77 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/rv24-own-1ad072faa1a444b78a0c8e31a0eb7d38
+
+stdout | tests/component/parser-independent.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/parser-independent.test.tsx > JSON object members must not be promoted into the prototype 57ms
+   → expected { …(10) } to be { …(12) } // Object.is equality
+ ✓ tests/component/parser-independent.test.tsx > inherited-only financial fields cannot confirm via POST 98ms
+ ✓ tests/component/parser-independent.test.tsx > inherited-only financial fields cannot confirm via retry 14ms
+ ✓ tests/component/parser-independent.test.tsx > inherited-only financial fields cannot confirm via GET 10ms
+ ✓ tests/component/parser-independent.test.tsx > strings, escaped keys, arrays, booleans and null preserve their JSON meanings 5ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"quantity":01} 3ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"quantity":+1} 1ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"quantity":1.} 1ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"quantity":1e} 2ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"quantity":NaN} 2ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: [1,] 1ms
+ ✓ tests/component/parser-independent.test.tsx > malformed JSON is rejected: {"x":"\q"} 1ms
+ ✓ tests/component/parser-independent.test.tsx > out-of-domain decimal work is bounded: 1e1025 2ms
+ ✓ tests/component/parser-independent.test.tsx > out-of-domain decimal work is bounded: 1e-1025 2ms
+ ✓ tests/component/parser-independent.test.tsx > out-of-domain decimal work is bounded: 1e99999999999999999999 1ms
+ ✓ tests/component/parser-independent.test.tsx > out-of-domain decimal work is bounded: 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/parser-independent.test.tsx > JSON object members must not be promoted into the prototype
+AssertionError: expected { …(10) } to be { …(12) } // Object.is equality
+
+- Expected
++ Received
+
+- {}
++ {
++   "costDelta": LosslessNumber {
++     "isLosslessNumber": true,
++     "value": "200",
++   },
++   "date": "2027-01-15",
++   "dateOrigin": "USER_INPUT",
++   "fees": LosslessNumber {
++     "isLosslessNumber": true,
++     "value": "0",
++   },
++   "id": "10000000-0000-4000-8000-000000000001",
++   "price": LosslessNumber {
++     "isLosslessNumber": true,
++     "value": "100",
++   },
++   "quantity": LosslessNumber {
++     "isLosslessNumber": true,
++     "value": "2",
++   },
++   "realizedResult": null,
++   "totalValue": LosslessNumber {
++     "isLosslessNumber": true,
++     "value": "200",
++   },
++   "type": "BUY",
++ }
+
+ ❯ tests/component/parser-independent.test.tsx:17:40
+     15| test("JSON object members must not be promoted into the prototype", ()…
+     16|   const value = parseInvestmentResultJson(inherited);
+     17|   expect(Object.getPrototypeOf(value)).toBe(Object.prototype);
+       |                                        ^
+     18|   expect(Object.hasOwn(value as object, "__proto__")).toBe(true);
+     19|   expect(() => validateCreationResult(value, command)).toThrow();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 passed (16)
+   Start at  21:52:48
+   Duration  7.71s (transform 664ms, setup 1.12s, import 753ms, tests 215ms, environment 4.20s)
+

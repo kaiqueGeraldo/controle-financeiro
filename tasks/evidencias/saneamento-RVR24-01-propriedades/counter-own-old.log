@@ -1,0 +1,142 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/AppData/Local/Temp/rv24-own-1ad072faa1a444b78a0c8e31a0eb7d38
+
+stdout | tests/component/own-properties.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/own-properties.test.tsx > required investment member id cannot be inherited 28ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member type cannot be inherited 8ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member date cannot be inherited 5ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member dateOrigin cannot be inherited 3ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member quantity cannot be inherited 3ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member price cannot be inherited 2ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member totalValue cannot be inherited 3ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member fees cannot be inherited 3ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member costDelta cannot be inherited 4ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > required investment member realizedResult cannot be inherited 3ms
+   → expected [Function] to throw an error
+ ✓ tests/component/own-properties.test.tsx > own valid members on null/custom prototypes and shadowed method names remain valid 3ms
+ × tests/component/own-properties.test.tsx > envelope data must be own, independently of snapshot validity 2ms
+   → expected [Function] to throw an error
+ × tests/component/own-properties.test.tsx > receipt member operationId must be own 20ms
+   → promise resolved "undefined" instead of rejecting
+ × tests/component/own-properties.test.tsx > receipt member kind must be own 4ms
+   → promise resolved "undefined" instead of rejecting
+ × tests/component/own-properties.test.tsx > receipt member result must be own 3ms
+   → promise resolved "undefined" instead of rejecting
+ × tests/component/own-properties.test.tsx > direct inherited snapshot via POST keeps identity, valid recovery then completes 82ms
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+ × tests/component/own-properties.test.tsx > direct inherited snapshot via retry keeps identity, valid recovery then completes 12ms
+   → expected 'confirmed' to be 'unknown' // Object.is equality
+ × tests/component/own-properties.test.tsx > transaction and transfer snapshots also require their own conditional members 3ms
+   → expected [Function] to throw an error
+ ✓ tests/component/own-properties.test.tsx > __proto__ value {"mark":true} stays a data member 4ms
+ ✓ tests/component/own-properties.test.tsx > __proto__ value null stays a data member 1ms
+ ✓ tests/component/own-properties.test.tsx > __proto__ value 7 stays a data member 3ms
+ ✓ tests/component/own-properties.test.tsx > __proto__ value "text" stays a data member 2ms
+ ✓ tests/component/own-properties.test.tsx > nested objects, escaped special keys and arrays preserve exact decimal tokens 6ms
+ ✓ tests/component/own-properties.test.tsx > duplicate-key replacement also defines a data property instead of invoking a setter 4ms
+ ✓ tests/component/own-properties.test.tsx > actual modal suppresses success and close for inherited JSON, then valid recovery completes 799ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/own-properties.test.tsx > required investment member id cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member type cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member date cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member dateOrigin cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member quantity cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member price cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member totalValue cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member fees cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member costDelta cannot be inherited
+ FAIL  tests/component/own-properties.test.tsx > required investment member realizedResult cannot be inherited
+AssertionError: expected [Function] to throw an error
+ ❯ tests/component/own-properties.test.tsx:27:52
+     25|   const value = Object.assign(Object.create({ [field]: inherited }), o…
+     26|   expect(Object.hasOwn(value, field)).toBe(false);
+     27|   expect(() => validateCreationResult(value, buy)).toThrow();
+       |                                                    ^
+     28| });
+     29| test("own valid members on null/custom prototypes and shadowed method …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  tests/component/own-properties.test.tsx > envelope data must be own, independently of snapshot validity
+AssertionError: expected [Function] to throw an error
+ ❯ tests/component/own-properties.test.tsx:38:80
+     36| });
+     37| test("envelope data must be own, independently of snapshot validity", …
+     38|   expect(() => validateCreationResponse(Object.create({ data: result }…
+       |                                                                                ^
+     39|   expect(() => validateCreationResponse({ data: result, hasOwnProperty…
+     40| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  tests/component/own-properties.test.tsx > receipt member operationId must be own
+ FAIL  tests/component/own-properties.test.tsx > receipt member kind must be own
+ FAIL  tests/component/own-properties.test.tsx > receipt member result must be own
+AssertionError: promise resolved "undefined" instead of rejecting
+
+- Expected:
+Error {
+  "message": "rejected promise",
+}
+
++ Received:
+undefined
+
+ ❯ tests/component/own-properties.test.tsx:47:39
+     45|   delete receipt[field];
+     46|   vi.spyOn(api, "apiRequest").mockResolvedValue({ status: 200, data: O…
+     47|   await expect(recoverCreation(saved)).rejects.toThrow("Recibo inválid…
+       |                                       ^
+     48| });
+     49| test.each(["POST", "retry"])("direct inherited snapshot via %s keeps i…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  tests/component/own-properties.test.tsx > direct inherited snapshot via POST keeps identity, valid recovery then completes
+ FAIL  tests/component/own-properties.test.tsx > direct inherited snapshot via retry keeps identity, valid recovery then completes
+AssertionError: expected 'confirmed' to be 'unknown' // Object.is equality
+
+Expected: "unknown"
+Received: "confirmed"
+
+ ❯ tests/component/own-properties.test.tsx:52:78
+     50|   const hook = renderHook(() => useCreationIntent("INVESTMENT_OPERATIO…
+     51|   const send = vi.fn().mockResolvedValue({ data: Object.create(result)…
+     52|   await act(async () => { expect(await hook.result.current.start(buy, …
+       |                                                                              ^
+     53|   const saved = sessionStorage.getItem(key)!;
+     54|   if (route === "retry") await act(async () => { expect(await hook.res…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  tests/component/own-properties.test.tsx > transaction and transfer snapshots also require their own conditional members
+AssertionError: expected [Function] to throw an error
+ ❯ tests/component/own-properties.test.tsx:69:97
+     67|     const own: Record<string, unknown> = { ...snapshot };
+     68|     const inherited = { [field]: own[field] }; delete own[field];
+     69|     expect(() => validateCreationResult(Object.assign(Object.create(in…
+       |                                                                                                 ^
+     70|   }
+     71|   const transfer = { ...command, type: "TRANSFER" as const, destinatio…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  17 failed | 8 passed (25)
+   Start at  21:52:42
+   Duration  4.19s (transform 654ms, setup 462ms, import 1.16s, tests 1.03s, environment 1.13s)
+
