@@ -45,11 +45,11 @@ tasks/
 
 ## Prontidão
 
-Parecer dirigido vigente de 08/10/2026 sobre `1b0d9bc`:
-[CF-005–008](evidencias/revisao-dirigida-CF-005-CF-008/README.md).
-CF-007/008 concluídas no escopo local; CF-005/006 permanecem em revisão por
-RD58-01 (ano inicial) e RD58-02 (instante/legado de GoalHistory), conforme
-[matriz por critério](evidencias/revisao-dirigida-CF-005-CF-008/MATRIZ.md).
+Parecer vigente de 09/10/2026 sobre `0c068d9`, intervalo `18cd6df..0c068d9`:
+[revalidação independente RD58](evidencias/revalidacao-RD58/README.md).
+RD58-01/02 aprovados; **CF-005 e CF-006 concluídas** após confronto de critérios
+e obrigações originais com os aceites acumulados. CF-007/008 preservam conclusão
+local da [revisão dirigida anterior](evidencias/revisao-dirigida-CF-005-CF-008/README.md).
 P01/P02/CF-017 mantêm adoção real separada. CF-025–027, RV24-01 e CF-009 já
 possuem aceites posteriores às notas históricas. Liberação de CF-028 somente
 para especificação preservada; nenhum fechamento geral de CF-010–015.

@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/rd58-history.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/rd58-history.test.tsx > RD58 independent HTTP client parsing and reload in UTC 140ms
+   → expected "vi.fn()" to be called 2 times, but got 4 times
+ × tests/component/rd58-history.test.tsx > RD58 independent HTTP client parsing and reload in Pacific/Kiritimati 64ms
+   → expected "vi.fn()" to be called 2 times, but got 4 times
+ ✓ tests/component/rd58-history.test.tsx > RD58-02 presentation and reopen in UTC 62ms
+ ✓ tests/component/rd58-history.test.tsx > RD58-02 presentation and reopen in America/Sao_Paulo 61ms
+ ✓ tests/component/rd58-history.test.tsx > RD58-02 presentation and reopen in Pacific/Kiritimati 48ms
+ ✓ tests/component/rd58-history.test.tsx > offset alone does not prove provenance; raw/null and precision are preserved 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/rd58-history.test.tsx > RD58 independent HTTP client parsing and reload in UTC
+ FAIL  tests/component/rd58-history.test.tsx > RD58 independent HTTP client parsing and reload in Pacific/Kiritimati
+AssertionError: expected "vi.fn()" to be called 2 times, but got 4 times
+ ❯ tests/component/rd58-history.test.tsx:42:21
+     40|     view.unmount();
+     41|   }
+     42|   expect(fetchMock).toHaveBeenCalledTimes(2);
+       |                     ^
+     43|   expect(fetchMock).toHaveBeenCalledWith("/api/goals/goal/history", ex…
+     44| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed (6)
+   Start at  07:21:31
+   Duration  3.18s (transform 387ms, setup 306ms, import 1.22s, tests 381ms, environment 796ms)
+

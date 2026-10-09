@@ -1,6 +1,6 @@
 # CF-005 — Completar regressões e correções temporais do frontend
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -8,7 +8,20 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-002; F-001–004
 
-## Parecer vigente — 08/10/2026
+## Parecer vigente — 09/10/2026
+
+RD58-01 e a apresentação de RD58-02 aprovados independentemente sobre
+`0c068d9bd750e648ba839742991108deace31f9f`, intervalo `18cd6df..0c068d9`.
+DEC-01 exige ano inicial do navegador; seleção/query/rascunho/reabertura comprovados.
+Histórico distingue instante conhecido de legado bruto/null com fuso desconhecido.
+Os quatro critérios originais e o trabalho1/3 foram confrontados com os aceites
+acumulados: todos atendidos; tarefa **concluida**. Nenhum critério removido.
+[Parecer, matriz, hashes, validação e limites](../evidencias/revalidacao-RD58/README.md).
+CF-007/008 local e CF-009/RV24-01 preservados; CF-017/adoção real permanece aberta.
+CF-028 conserva liberação somente para especificação, sem execução nesta revisão.
+Os registros datados abaixo descrevem suas bases históricas e não o estado vigente.
+
+## Parecer — 08/10/2026
 
 Estado `em_revisao` mantido por dois defeitos locais comprovados: RD58-01, ano
 inicial do resumo usa calendário de produto em vez do navegador; RD58-02,

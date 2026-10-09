@@ -1,6 +1,6 @@
 # CF-006 — Aplicar relógio e serialização temporal consistentes no backend
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -8,7 +8,22 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-004](../01-datas-integracao/CF-004-contrato-temporal.md)
 - Origem: T-010; investigação temporal
 
-## Parecer vigente — 08/10/2026
+## Parecer vigente — 09/10/2026
+
+RD58-02 aprovado independentemente sobre `0c068d9bd750e648ba839742991108deace31f9f`,
+intervalo `18cd6df..0c068d9`: todos os writers de GoalHistory registram o instante
+do Clock, SQL/HTTP/reload preservam UTC e proveniência; legado bruto/null permanece
+UNKNOWN. V14 aprovada localmente em banco vazio e upgrade V13, sem backfill.
+Os quatro critérios originais e trabalhos1/2/3 foram confrontados com aceites
+acumulados: todos atendidos no escopo próprio; tarefa **concluida**.
+[Parecer, matriz, hashes, validação e limites](../evidencias/revalidacao-RD58/README.md).
+Não se transfere obrigação para encerrar a tarefa: adoção real já pertence ao
+escopo original CF-017/derivada e continua aberta, sem certificação Railway.
+CF-007/008 local, CF-009/RV24-01 e contratos financeiros preservados.
+CF-028 conserva liberação somente para especificação, sem execução nesta revisão.
+Os registros datados abaixo descrevem suas bases históricas e não o estado vigente.
+
+## Parecer — 08/10/2026
 
 Estado `em_revisao` mantido por RD58-02: gravação nova de GoalHistory perde o
 offset do instante exigido por CT-10/E11. POST/commit/GET/PostgreSQL descartável

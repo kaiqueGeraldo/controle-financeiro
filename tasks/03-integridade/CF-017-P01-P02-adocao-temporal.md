@@ -18,12 +18,22 @@ As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Campos e transição preparada
 
+Atualização local — 09/10/2026: V14 acrescenta `goal_history.recorded_at`
+(`timestamp(6) with time zone`, nullable, sem default/backfill). Novos writers usam
+Clock; legado preserva date bruto/null e origem UNKNOWN. Banco vazio, upgrade V13,
+Hibernate/HTTP/releitura e consumidores foram aprovados na
+[revalidação RD58](../evidencias/revalidacao-RD58/README.md), encerrando CF-005/006.
+Isso não encerra os gates reais desta derivada nem CF-017. Incluir V14 no rollout:
+migrar antes do binário novo, coordenar writers/clientes e não apagar metadados após
+novas escritas. Nenhum inventário, baseline, migração ou publicação remota executado.
+
 | Tabela | Colunas aditivas | Semântica |
 |---|---|---|
 | transactions / card_transactions | operation_time, time_origin | Hora opcional; USER_INPUT ou NOT_PROVIDED; null de origem é UNKNOWN |
 | transactions / card_transactions | recorded_at | Instante UTC real de nova gravação, precisão de microssegundos, imutável no ORM; histórico null |
 | transactions / card_transactions | legacy_created_at_raw | Original misto, preservado antes de reescrever o alias created_at |
 | invest_transactions | operation_date, date_origin | Civil com origem USER_INPUT/PRODUCT_CALENDAR, preenchida pelo writer; desconhecido null |
+| goal_history | recorded_at (V14) | Instante do Clock; date bruto/null preservado; recorded_at null significa origem UNKNOWN no DTO |
 
 Não remover nem reinterpretar `date`/`created_at` antigos. O alias createdAt continua
 misto e pode ser reescrito pela edição compatível; consumidores novos usam time e
