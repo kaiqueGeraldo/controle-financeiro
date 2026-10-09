@@ -104,3 +104,14 @@ P05 corrigido e autotestado. P01/P02 receberam adaptadores e consumidores do can
 
 [Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
 Estado permanece em_revisao; esta execução não substitui revisão independente.
+
+## Saneamento restrito RD58 — 09/10/2026
+
+Candidato implementado sobre `18cd6df`, aguardando revalidação independente.
+Estado **em_revisao** preservado, sem autoaprovação dos achados ou da tarefa.
+RD58-01 restaura o ano inicial do navegador conforme DEC-01 e preserva seleção/query.
+RD58-02 adiciona auditoria de GoalHistory por Clock, V14 sem backfill, DTO com
+proveniência e apresentação de legado com fuso desconhecido. Provas originais
+preservadas; integração PostgreSQL, upgrade/legado e regressões documentados.
+Aceites locais CF-007/008 e CF-009/RV24-01 preservados; adoção real sob CF-017.
+CF-028 não iniciada. [Causas, provas, limites e encaminhamento](../evidencias/saneamento-RD58/README.md).
