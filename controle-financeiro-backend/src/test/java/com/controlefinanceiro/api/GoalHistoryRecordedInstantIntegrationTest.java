@@ -45,6 +45,23 @@ class GoalHistoryRecordedInstantIntegrationTest extends PostgresIntegrationTest 
     @Autowired JdbcTemplate sql;
     @Autowired MockMvc mvc;
     @Autowired TokenService tokens;
+    @Autowired GoalHistoryRepository histories;
+
+    @org.junit.jupiter.api.Test
+    void independentOrmUpdatePreservesOriginalAuditInstant() {
+        User owner = new User(); owner.setNome("Review"); owner.setEmail(UUID.randomUUID()+"@example.test"); owner.setSenha("synthetic");
+        users.save(owner);
+        UUID id = goal(owner, GoalType.NUMERIC);
+        goals.addValue(id, new GoalDepositDTO(null, BigDecimal.ONE, "08:15", "before", null), owner);
+        GoalHistory original = histories.findByGoalIdOrderByDateDesc(id).getFirst();
+        original.setNote("updated");
+        original.setRecordedAt(Instant.parse("2030-01-01T00:00:00Z"));
+        histories.saveAndFlush(original);
+        GoalHistory reloaded = histories.findById(original.getId()).orElseThrow();
+        assertThat(reloaded.getNote()).isEqualTo("updated");
+        assertThat(reloaded.getRecordedAt()).isEqualTo(Instant.parse("2026-09-08T03:10:00.123456Z"));
+        assertThat(sql.queryForObject("select is_nullable from information_schema.columns where table_schema=current_schema() and table_name='goal_history' and column_name='recorded_at'", String.class)).isEqualTo("YES");
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"UTC", "America/Sao_Paulo", "Pacific/Kiritimati"})
