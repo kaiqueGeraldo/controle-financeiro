@@ -8,6 +8,9 @@ import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +28,15 @@ public class GoalHistory {
 
     // Writers supply the product Clock explicitly; generation used to overwrite it.
     private LocalDateTime date;
+
+    // Null means unknown provenance. Never infer an instant from the legacy date.
+    @Column(name = "recorded_at", updatable = false)
+    private Instant recordedAt;
+
+    public void recordAt(ZonedDateTime now) {
+        recordedAt = now.toInstant().truncatedTo(ChronoUnit.MICROS);
+        date = now.toLocalDateTime().truncatedTo(ChronoUnit.MICROS);
+    }
 
     @Column(nullable = false)
     private BigDecimal amount;

@@ -61,7 +61,8 @@ class LegacyDatabaseMigrationIntegrationTest {
                         Map.of("type", "SQL", "version", "10", "success", true),
                         Map.of("type", "SQL", "version", "11", "success", true),
                         Map.of("type", "SQL", "version", "12", "success", true),
-                        Map.of("type", "SQL", "version", "13", "success", true)
+                        Map.of("type", "SQL", "version", "13", "success", true),
+                        Map.of("type", "SQL", "version", "14", "success", true)
                 );
         assertThat(sql.queryForObject("select balance from accounts where id=?", BigDecimal.class, ACCOUNT_ID))
                 .isEqualByComparingTo("1000.25");

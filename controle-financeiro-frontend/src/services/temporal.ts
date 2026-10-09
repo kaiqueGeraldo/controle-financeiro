@@ -1,5 +1,24 @@
-import type { InvestTransaction, Transaction } from "@/types";
-import { formatCalendarDate } from "@/utils/date";
+import type { GoalHistory, InvestTransaction, Transaction } from "@/types";
+import { formatCalendarDate, PRODUCT_TIME_ZONE } from "@/utils/date";
+
+/** Explicit provenance is required even if the compatibility alias contains an offset. */
+export function goalHistoryTimeLabel(value: GoalHistory): string {
+  const instant = value.dateOrigin === "SERVER_CLOCK" ? knownInstant(value.recordedAt) : null;
+  if (instant) {
+    return `${new Intl.DateTimeFormat("pt-BR", {
+      timeZone: PRODUCT_TIME_ZONE, day: "2-digit", month: "2-digit", year: "numeric",
+      hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+    }).format(new Date(instant))} (${PRODUCT_TIME_ZONE})`;
+  }
+  const raw = value.legacyDateRaw ?? value.date;
+  if (!raw) return "Data indisponível — Fuso desconhecido";
+  const local = /^(\d{4}-\d{2}-\d{2})T((?:[01]\d|2[0-3]):[0-5]\d):([0-5]\d)(\.\d{1,6})?$/.exec(raw);
+  if (local && formatCalendarDate(local[1]) !== "—") {
+    const seconds = local[3] !== "00" || local[4] ? `:${local[3]}${local[4] ?? ""}` : "";
+    return `${formatCalendarDate(local[1])} ${local[2]}${seconds} — Fuso desconhecido`;
+  }
+  return `${raw} — Fuso desconhecido`;
+}
 
 /** Wall time is literal; createdAt is never evidence of an informed time. */
 export function informedTime(value: Pick<Transaction, "time" | "timeOrigin">): string | null {

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +50,7 @@ public class HabitService {
 
     @Transactional
     public void toggleHabit(UUID habitId, ToggleHabitDTO data, User user) {
-        LocalDateTime now = LocalDateTime.now(clock);
+        ZonedDateTime now = ZonedDateTime.now(clock);
         LocalDate today = now.toLocalDate();
         if (data.date() == null || data.date().isAfter(today)) {
             throw new BusinessRuleException("Dia do hábito deve ser hoje ou passado");
@@ -74,14 +74,14 @@ public class HabitService {
         recalculate(habit, today);
     }
 
-    private void addContribution(Habit habit, HabitLog entry, User user, LocalDateTime now) {
+    private void addContribution(Habit habit, HabitLog entry, User user, ZonedDateTime now) {
         if (habit.getGoal() != null) {
             Goal goal = ownedNumericGoal(habit.getGoal().getId(), user);
             GoalHistory effect = new GoalHistory();
             effect.setGoal(goal);
             effect.setAmount(BigDecimal.ONE);
             effect.setNote("Check via Hábito: " + habit.getName());
-            effect.setDate(now);
+            effect.recordAt(now);
             effect = goalHistoryRepository.save(effect);
             entry.setGoalHistoryId(effect.getId());
             goal.setCurrentValue(goal.getCurrentValue().add(BigDecimal.ONE));

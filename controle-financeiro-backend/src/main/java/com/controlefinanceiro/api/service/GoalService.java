@@ -191,7 +191,7 @@ public class GoalService {
         history.setGoal(goal);
         history.setAmount(data.amount());
         history.setNote(data.note() != null ? data.note() : (goal.getType() == GoalType.MONETARY ? "Aporte financeiro" : "Registro de progresso"));
-        history.setDate(now.toLocalDateTime());
+        history.recordAt(now);
         if (allocation != null) history.setAllocationId(allocation.getId());
         historyRepository.save(history);
 
@@ -245,6 +245,7 @@ public class GoalService {
 
     @Transactional
     public void setAllocation(UUID goalId, SetGoalAllocationDTO data, User user) {
+        ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
         requireOneSource(data.accountId(), data.investmentId());
@@ -267,12 +268,13 @@ public class GoalService {
         allocationRepository.save(allocation);
         goal.setCurrentValue(goal.getCurrentValue().add(delta));
         repository.save(goal);
-        recordAllocationChange(goal, allocation.getId(), delta, "Ajuste de destinação");
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now(clock).getYear()));
+        recordAllocationChange(goal, allocation.getId(), delta, "Ajuste de destinação", now);
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
     }
 
     @Transactional
     public void moveAllocation(UUID goalId, MoveGoalAllocationDTO data, User user) {
+        ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
         if (data.amount().signum() == 0) throw new BusinessRuleException("Valor de movimentação deve ser positivo.");
@@ -312,8 +314,8 @@ public class GoalService {
         allocationRepository.save(source);
         allocationRepository.save(destination);
         recordAllocationChange(goal, destination.getId(), BigDecimal.ZERO,
-                "Destinação movida de " + sourceKey + " para " + destinationKey);
-        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), LocalDate.now(clock).getYear()));
+                "Destinação movida de " + sourceKey + " para " + destinationKey, now);
+        eventPublisher.publishEvent(new UserFinancialDataChangedEvent(user.getId(), now.getYear()));
     }
 
     private Goal ownedMonetaryGoal(UUID goalId, User user) {
@@ -350,13 +352,13 @@ public class GoalService {
         }
     }
 
-    private void recordAllocationChange(Goal goal, UUID allocationId, BigDecimal delta, String note) {
+    private void recordAllocationChange(Goal goal, UUID allocationId, BigDecimal delta, String note, ZonedDateTime now) {
         GoalHistory change = new GoalHistory();
         change.setGoal(goal);
         change.setAllocationId(allocationId);
         change.setAmount(delta);
         change.setNote(note);
-        change.setDate(ZonedDateTime.now(clock).toLocalDateTime());
+        change.recordAt(now);
         historyRepository.save(change);
     }
 

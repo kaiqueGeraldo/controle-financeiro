@@ -134,7 +134,10 @@ export type GoalType = "MONETARY" | "NUMERIC";
 
 export interface GoalHistory {
   id: string;
-  date: string;
+  date: string | null;
+  recordedAt?: string | null;
+  dateOrigin?: "SERVER_CLOCK" | "UNKNOWN";
+  legacyDateRaw?: string | null;
   amount: number;
   note?: string;
   protocol?: EvolutionProtocol;

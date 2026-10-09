@@ -7,6 +7,7 @@ import { useGoalModals } from "@/contexts/modals/goalModalContext";
 import { useToast } from "@/contexts/toastContext";
 import { CreditCard } from "@/services/cardService";
 import { goalService, type GoalAllocation } from "@/services/goalService";
+import { goalHistoryTimeLabel } from "@/services/temporal";
 import { Account, Goal, GoalHistory, GoalItem } from "@/types";
 import { formatCurrency } from "@/utils/format";
 import { AnimatePresence, motion, Reorder } from "framer-motion";
@@ -761,11 +762,7 @@ export function GoalDetails({
                                   {item.note || "Aporte"}
                                 </p>
                                 <p className="text-text-muted text-[10px] mt-0.5">
-                                  {new Date(item.date).toLocaleDateString()} às{" "}
-                                  {new Date(item.date).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })}
+                                  {goalHistoryTimeLabel(item)}
                                 </p>
                               </div>
                               <div className="flex items-center gap-3">

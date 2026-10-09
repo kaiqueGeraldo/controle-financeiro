@@ -1,6 +1,5 @@
 package com.controlefinanceiro.api.controller;
 
-import com.controlefinanceiro.api.domain.goal.GoalHistory;
 import com.controlefinanceiro.api.domain.goal.dto.*;
 import com.controlefinanceiro.api.domain.user.User;
 import com.controlefinanceiro.api.service.GoalService;
@@ -45,10 +44,10 @@ public class GoalController {
     }
 
     @GetMapping("/{id}/history")
-    public ResponseEntity<List<GoalHistory>> listHistory(
+    public ResponseEntity<List<GoalHistoryResponseDTO>> listHistory(
             @PathVariable UUID id,
             @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(service.listHistory(id, user));
+        return ResponseEntity.ok(service.listHistory(id, user).stream().map(GoalHistoryResponseDTO::new).toList());
     }
 
     @PutMapping("/{id}")
