@@ -1,6 +1,6 @@
 # CF-028 — Finalizar contrato da entrevista inicial
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-6-astra
 - Esforço: xhigh
@@ -21,6 +21,7 @@ A entrevista já está especificada, mas deve usar o modelo financeiro corrigido
 ## Escopo e referências
 
 - `docs/sdd/specs/001-onboarding.md`
+- `tasks/evidencias/CF-028/` (fixtures e scripts exclusivamente documentais)
 - `controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/`
 - `controle-financeiro-frontend/src/types/`
 
@@ -34,10 +35,13 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Exemplo completo reconcilia patrimônio/dívida/reservas e cada payload tem regra de validação.
-- [ ] Reenvio após timeout, duas abas e alteração de fonte vinculada têm resultado determinado.
-- [ ] Nenhuma etapa cria receita histórica, compra fictícia ou segundo saldo da carteira padrão.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Exemplo completo reconcilia patrimônio/dívida/reservas e cada payload tem regra de validação.
+- [x] Reenvio após timeout, duas abas e alteração de fonte vinculada têm resultado determinado.
+- [x] Nenhuma etapa cria receita histórica, compra fictícia ou segundo saldo da carteira padrão.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+Checks atestam entregáveis documentais do executor, não aceite independente ou
+conformidade de produto. A tarefa aguarda revisão, não está concluída.
 
 ## Fora de escopo
 
@@ -49,6 +53,24 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-028/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Executada exclusivamente como especificação em 09/10/2026 sobre
+`c6a7c3ef3b563e9a432f80166aa4982a25180cd5`, branch
+`codex/cf-028-contrato-onboarding`. [Evidências e reprodução](../evidencias/CF-028/README.md).
+README raiz preexistente preservado por hash e fora dos commits. Estado passou
+pronta→em_execucao→em_revisao, sem autoaprovação ou execução das sucessoras.
+
+SPEC-001 v1 contém fluxo/estados, schema lógico/DTOs, limites/validações,
+preparação/finalização/recuperação, concorrência/atomicidade exigidas, exemplos
+e matriz de capacidades/diferenças CF-029–032. DEC-ONB-01 respondida pelo usuário:
+metas preexistentes aceitam prazo original hoje/passado. Liberação parcial CF-019
+confirmada; CF-017/019/frontend conservam gates.
+
+Nove grupos de verificações documentais aprovados em três TZ; cinco corrupções
+em memória rejeitadas. E01: patrimônio1451.00/dívida350.00/reservas550.00;
+pagamento posterior conserva patrimônio. BigInt/esperados literais e calendário
+gregoriano sem helpers de produto. Sem testes fictícios de HTTP/SQL/locks;
+garantias nos aceites futuros. Nenhum endpoint/serviço/migração/tela alterado.
+Sem push/deploy/banco real. Após revisão, sequência planejada: fechamento dirigido
+frontend CF-010–015, não implementação automática de onboarding.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

@@ -1,0 +1,2439 @@
+{
+  "notice": "Exemplos documentais sintéticos, não execução de produto.",
+  "existing": {
+    "account": {
+      "id": "00000000-0000-4000-8000-000000000901",
+      "balance": "0.00",
+      "openingOrigin": "SYSTEM_INITIALIZED",
+      "version": "0",
+      "hasFinancialFacts": false
+    },
+    "category": {
+      "id": "00000000-0000-4000-8000-000000000902",
+      "type": "INCOME"
+    }
+  },
+  "draft": {
+    "contractVersion": 1,
+    "expectedVersion": "0",
+    "action": "SAVE",
+    "payload": {
+      "context": {
+        "currency": "BRL",
+        "baseDate": "2026-10-09",
+        "boundaryAcknowledged": true,
+        "cashOnlyAcknowledged": true
+      },
+      "currentStep": "REVIEW",
+      "sections": {
+        "accounts": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000001",
+              "action": "INITIALIZE_DEFAULT",
+              "ref": {
+                "kind": "ACCOUNT",
+                "id": "00000000-0000-4000-8000-000000000901"
+              },
+              "balance": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "deficitAcknowledged": false
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000002",
+              "action": "CREATE",
+              "name": "Corrente sintética",
+              "type": "CHECKING",
+              "balance": {
+                "state": "KNOWN",
+                "value": "1000.00"
+              },
+              "deficitAcknowledged": false,
+              "distinctCashConfirmed": false
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000003",
+              "action": "CREATE",
+              "name": "Poupança sintética",
+              "type": "SAVINGS",
+              "balance": {
+                "state": "KNOWN",
+                "value": "200.00"
+              },
+              "deficitAcknowledged": false,
+              "distinctCashConfirmed": false
+            }
+          ]
+        },
+        "cards": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000031",
+              "action": "CREATE",
+              "name": "Cartão sintético",
+              "limit": {
+                "state": "KNOWN",
+                "value": "1000.00"
+              },
+              "closingDay": 20,
+              "dueDay": 28,
+              "opening": {
+                "currentCompetence": {
+                  "year": 2026,
+                  "month": 10
+                },
+                "currentOutstanding": "200.00",
+                "currentPrincipal": {
+                  "state": "KNOWN",
+                  "value": "194.00"
+                },
+                "currentCharges": {
+                  "state": "KNOWN",
+                  "value": "6.00"
+                },
+                "credit": "0.00",
+                "creditNotNettedAcknowledged": true,
+                "futureInstallments": [
+                  {
+                    "tempId": "00000000-0000-4000-8000-000000000032",
+                    "competence": {
+                      "year": 2026,
+                      "month": 11
+                    },
+                    "amount": "50.00",
+                    "principal": {
+                      "state": "KNOWN",
+                      "value": "50.00"
+                    },
+                    "charges": {
+                      "state": "KNOWN",
+                      "value": "0.00"
+                    }
+                  },
+                  {
+                    "tempId": "00000000-0000-4000-8000-000000000033",
+                    "competence": {
+                      "year": 2026,
+                      "month": 12
+                    },
+                    "amount": "50.00",
+                    "principal": {
+                      "state": "KNOWN",
+                      "value": "50.00"
+                    },
+                    "charges": {
+                      "state": "KNOWN",
+                      "value": "0.00"
+                    }
+                  },
+                  {
+                    "tempId": "00000000-0000-4000-8000-000000000034",
+                    "competence": {
+                      "year": 2027,
+                      "month": 1
+                    },
+                    "amount": "50.00",
+                    "principal": {
+                      "state": "KNOWN",
+                      "value": "50.00"
+                    },
+                    "charges": {
+                      "state": "KNOWN",
+                      "value": "0.00"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "investments": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000021",
+              "action": "CREATE",
+              "name": "Renda fixa sintética",
+              "type": "FIXED_INCOME",
+              "positionMode": "MONETARY",
+              "quantity": {
+                "state": "NOT_APPLICABLE"
+              },
+              "cost": {
+                "state": "UNKNOWN"
+              },
+              "valuation": {
+                "state": "KNOWN",
+                "basis": "TOTAL",
+                "amount": "500.00",
+                "date": "2026-10-09",
+                "source": "USER_DECLARED"
+              },
+              "acquisitionDate": {
+                "state": "UNKNOWN"
+              },
+              "historicalSource": {
+                "state": "UNKNOWN"
+              }
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000022",
+              "action": "CREATE",
+              "name": "Ação sintética",
+              "type": "STOCK",
+              "positionMode": "UNIT",
+              "quantity": {
+                "state": "KNOWN",
+                "value": "3.00000000"
+              },
+              "cost": {
+                "state": "KNOWN",
+                "value": "0.60"
+              },
+              "valuation": {
+                "state": "KNOWN",
+                "basis": "TOTAL",
+                "amount": "1.00",
+                "date": "2026-10-09",
+                "source": "USER_DECLARED"
+              },
+              "acquisitionDate": {
+                "state": "UNKNOWN"
+              },
+              "historicalSource": {
+                "state": "UNKNOWN"
+              }
+            }
+          ]
+        },
+        "goals": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000041",
+              "action": "CREATE",
+              "title": "Viagem",
+              "type": "MONETARY",
+              "target": "600.00",
+              "deadline": "2027-06-30"
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000042",
+              "action": "CREATE",
+              "title": "Reserva",
+              "type": "MONETARY",
+              "target": "100.00",
+              "deadline": "2026-09-30"
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000043",
+              "action": "CREATE",
+              "title": "Leituras",
+              "type": "NUMERIC",
+              "target": "12.00000000",
+              "initialProgress": "4.00000000",
+              "unit": "livros",
+              "deadline": "2026-12-31"
+            }
+          ]
+        },
+        "allocations": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000051",
+              "goal": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000041"
+              },
+              "source": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000002"
+              },
+              "amount": "300.00"
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000052",
+              "goal": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000041"
+              },
+              "source": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000021"
+              },
+              "amount": "200.00"
+            },
+            {
+              "tempId": "00000000-0000-4000-8000-000000000053",
+              "goal": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000042"
+              },
+              "source": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000003"
+              },
+              "amount": "50.00"
+            }
+          ]
+        },
+        "forecasts": {
+          "answer": "PROVIDED",
+          "items": [
+            {
+              "tempId": "00000000-0000-4000-8000-000000000061",
+              "description": "Receita prevista sintética",
+              "direction": "INCOME",
+              "amount": "80.00",
+              "dueDate": "2026-11-05",
+              "account": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000002"
+              },
+              "category": {
+                "id": "00000000-0000-4000-8000-000000000902"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "expected": {
+    "accountsSigned": "1300.00",
+    "investmentsValue": "501.00",
+    "cardCredit": "0.00",
+    "cardDebt": "350.00",
+    "netWorth": "1451.00",
+    "reservedAccounts": "350.00",
+    "reservedInvestments": "200.00",
+    "freeAccountCash": "950.00",
+    "unallocatedInvestments": "301.00"
+  },
+  "expectedAfterPayment": {
+    "accountsSigned": "1100.00",
+    "cardDebt": "150.00",
+    "committed": "150.00",
+    "availableLimit": "850.00",
+    "netWorth": "1451.00",
+    "freeAccountCash": "750.00"
+  },
+  "prepareRequest": {
+    "contractVersion": 1,
+    "sessionId": "00000000-0000-4000-8000-000000000801",
+    "expectedVersion": "1",
+    "operationId": "00000000-0000-4000-8000-000000000802"
+  },
+  "prepareResponse": {
+    "data": {
+      "contractVersion": 1,
+      "operationId": "00000000-0000-4000-8000-000000000802",
+      "kind": "ONBOARDING_COMPLETE",
+      "sessionId": "00000000-0000-4000-8000-000000000801",
+      "draftVersion": "1",
+      "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+      "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+      "sourceSnapshot": {
+        "inventoryToken": "df49049f027e5622a3b867536f8de0a2cea0a10471c515de4e8d96bc363e0138",
+        "sources": [
+          {
+            "kind": "ACCOUNT",
+            "id": "00000000-0000-4000-8000-000000000901",
+            "revision": "0",
+            "token": "e6204735d63d4759df20babab46f7a25f230136bc1f6bb9cf7db4ce37d21c0ed"
+          }
+        ]
+      },
+      "summary": {
+        "baseDate": "2026-10-09",
+        "existingAsOf": "2026-10-09T15:00:00Z",
+        "scope": "SELECTED_AND_EXISTING",
+        "coverage": [
+          {
+            "dimension": "accounts",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "investments",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "cards",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "allocations",
+            "complete": true,
+            "missingPaths": []
+          }
+        ],
+        "metrics": {
+          "accountsSigned": {
+            "state": "KNOWN",
+            "value": "1300.00",
+            "knownSubtotal": "1300.00"
+          },
+          "investmentsValue": {
+            "state": "KNOWN",
+            "value": "501.00",
+            "knownSubtotal": "501.00"
+          },
+          "cardCredit": {
+            "state": "KNOWN",
+            "value": "0.00",
+            "knownSubtotal": "0.00"
+          },
+          "cardDebt": {
+            "state": "KNOWN",
+            "value": "350.00",
+            "knownSubtotal": "350.00"
+          },
+          "netWorth": {
+            "state": "KNOWN",
+            "value": "1451.00",
+            "knownSubtotal": "1451.00"
+          },
+          "reservedAccounts": {
+            "state": "KNOWN",
+            "value": "350.00",
+            "knownSubtotal": "350.00"
+          },
+          "reservedInvestments": {
+            "state": "KNOWN",
+            "value": "200.00",
+            "knownSubtotal": "200.00"
+          },
+          "freeAccountCash": {
+            "state": "KNOWN",
+            "value": "950.00",
+            "knownSubtotal": "950.00"
+          },
+          "unallocatedInvestments": {
+            "state": "KNOWN",
+            "value": "301.00",
+            "knownSubtotal": "301.00"
+          }
+        },
+        "bySource": [
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000001"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "100.00"
+            },
+            "reserved": "0.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "100.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "100.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000002"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "1000.00"
+            },
+            "reserved": "300.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "700.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "700.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000003"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "200.00"
+            },
+            "reserved": "50.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "150.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "150.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "INVESTMENT",
+              "tempId": "00000000-0000-4000-8000-000000000021"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "500.00"
+            },
+            "reserved": "200.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "300.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "300.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "INVESTMENT",
+              "tempId": "00000000-0000-4000-8000-000000000022"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "1.00"
+            },
+            "reserved": "0.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "1.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "1.00"
+            }
+          }
+        ],
+        "byCard": [
+          {
+            "ref": {
+              "kind": "CARD",
+              "tempId": "00000000-0000-4000-8000-000000000031"
+            },
+            "debt": {
+              "state": "KNOWN",
+              "value": "350.00"
+            },
+            "credit": {
+              "state": "KNOWN",
+              "value": "0.00"
+            },
+            "committed": {
+              "state": "KNOWN",
+              "value": "344.00"
+            },
+            "availableLimit": {
+              "state": "KNOWN",
+              "value": "656.00"
+            }
+          }
+        ],
+        "byGoal": [
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000041"
+            },
+            "type": "MONETARY",
+            "progress": "500.00",
+            "covered": {
+              "state": "KNOWN",
+              "value": "500.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000042"
+            },
+            "type": "MONETARY",
+            "progress": "50.00",
+            "covered": {
+              "state": "KNOWN",
+              "value": "50.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000043"
+            },
+            "type": "NUMERIC",
+            "progress": "4.00000000",
+            "covered": {
+              "state": "NOT_APPLICABLE"
+            }
+          }
+        ],
+        "deferredSections": []
+      },
+      "mappingPreview": [
+        {
+          "tempId": "00000000-0000-4000-8000-000000000001",
+          "kind": "ACCOUNT",
+          "action": "INITIALIZE_DEFAULT",
+          "existingId": "00000000-0000-4000-8000-000000000901"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000002",
+          "kind": "ACCOUNT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000003",
+          "kind": "ACCOUNT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000021",
+          "kind": "INVESTMENT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000022",
+          "kind": "INVESTMENT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000031",
+          "kind": "CARD",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000032",
+          "kind": "INSTALLMENT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000033",
+          "kind": "INSTALLMENT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000034",
+          "kind": "INSTALLMENT",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000041",
+          "kind": "GOAL",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000042",
+          "kind": "GOAL",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000043",
+          "kind": "GOAL",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000051",
+          "kind": "ALLOCATION",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000052",
+          "kind": "ALLOCATION",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000053",
+          "kind": "ALLOCATION",
+          "action": "CREATE",
+          "existingId": null
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000061",
+          "kind": "FORECAST",
+          "action": "CREATE",
+          "existingId": null
+        }
+      ],
+      "preparedAt": "2026-10-09T15:00:00Z"
+    }
+  },
+  "completeRequest": {
+    "contractVersion": 1,
+    "sessionId": "00000000-0000-4000-8000-000000000801",
+    "expectedVersion": "1",
+    "operationId": "00000000-0000-4000-8000-000000000802",
+    "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+    "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+    "confirm": true
+  },
+  "completeResponse": {
+    "data": {
+      "contractVersion": 1,
+      "operationId": "00000000-0000-4000-8000-000000000802",
+      "kind": "ONBOARDING_COMPLETE",
+      "sessionId": "00000000-0000-4000-8000-000000000801",
+      "draftVersion": "1",
+      "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+      "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-09T15:01:00Z",
+      "mapping": [
+        {
+          "tempId": "00000000-0000-4000-8000-000000000001",
+          "kind": "ACCOUNT",
+          "id": "00000000-0000-4000-8000-000000000901",
+          "action": "INITIALIZE_DEFAULT"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000002",
+          "kind": "ACCOUNT",
+          "id": "00000000-0000-4000-8000-000000001001",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000003",
+          "kind": "ACCOUNT",
+          "id": "00000000-0000-4000-8000-000000001002",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000021",
+          "kind": "INVESTMENT",
+          "id": "00000000-0000-4000-8000-000000001003",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000022",
+          "kind": "INVESTMENT",
+          "id": "00000000-0000-4000-8000-000000001004",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000031",
+          "kind": "CARD",
+          "id": "00000000-0000-4000-8000-000000001005",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000032",
+          "kind": "INSTALLMENT",
+          "id": "00000000-0000-4000-8000-000000001006",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000033",
+          "kind": "INSTALLMENT",
+          "id": "00000000-0000-4000-8000-000000001007",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000034",
+          "kind": "INSTALLMENT",
+          "id": "00000000-0000-4000-8000-000000001008",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000041",
+          "kind": "GOAL",
+          "id": "00000000-0000-4000-8000-000000001009",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000042",
+          "kind": "GOAL",
+          "id": "00000000-0000-4000-8000-000000001010",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000043",
+          "kind": "GOAL",
+          "id": "00000000-0000-4000-8000-000000001011",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000051",
+          "kind": "ALLOCATION",
+          "id": "00000000-0000-4000-8000-000000001012",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000052",
+          "kind": "ALLOCATION",
+          "id": "00000000-0000-4000-8000-000000001013",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000053",
+          "kind": "ALLOCATION",
+          "id": "00000000-0000-4000-8000-000000001014",
+          "action": "CREATE"
+        },
+        {
+          "tempId": "00000000-0000-4000-8000-000000000061",
+          "kind": "FORECAST",
+          "id": "00000000-0000-4000-8000-000000001015",
+          "action": "CREATE"
+        }
+      ],
+      "summary": {
+        "baseDate": "2026-10-09",
+        "existingAsOf": "2026-10-09T15:00:00Z",
+        "scope": "SELECTED_AND_EXISTING",
+        "coverage": [
+          {
+            "dimension": "accounts",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "investments",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "cards",
+            "complete": true,
+            "missingPaths": []
+          },
+          {
+            "dimension": "allocations",
+            "complete": true,
+            "missingPaths": []
+          }
+        ],
+        "metrics": {
+          "accountsSigned": {
+            "state": "KNOWN",
+            "value": "1300.00",
+            "knownSubtotal": "1300.00"
+          },
+          "investmentsValue": {
+            "state": "KNOWN",
+            "value": "501.00",
+            "knownSubtotal": "501.00"
+          },
+          "cardCredit": {
+            "state": "KNOWN",
+            "value": "0.00",
+            "knownSubtotal": "0.00"
+          },
+          "cardDebt": {
+            "state": "KNOWN",
+            "value": "350.00",
+            "knownSubtotal": "350.00"
+          },
+          "netWorth": {
+            "state": "KNOWN",
+            "value": "1451.00",
+            "knownSubtotal": "1451.00"
+          },
+          "reservedAccounts": {
+            "state": "KNOWN",
+            "value": "350.00",
+            "knownSubtotal": "350.00"
+          },
+          "reservedInvestments": {
+            "state": "KNOWN",
+            "value": "200.00",
+            "knownSubtotal": "200.00"
+          },
+          "freeAccountCash": {
+            "state": "KNOWN",
+            "value": "950.00",
+            "knownSubtotal": "950.00"
+          },
+          "unallocatedInvestments": {
+            "state": "KNOWN",
+            "value": "301.00",
+            "knownSubtotal": "301.00"
+          }
+        },
+        "bySource": [
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000001"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "100.00"
+            },
+            "reserved": "0.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "100.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "100.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000002"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "1000.00"
+            },
+            "reserved": "300.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "700.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "700.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000003"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "200.00"
+            },
+            "reserved": "50.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "150.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "150.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "INVESTMENT",
+              "tempId": "00000000-0000-4000-8000-000000000021"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "500.00"
+            },
+            "reserved": "200.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "300.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "300.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "INVESTMENT",
+              "tempId": "00000000-0000-4000-8000-000000000022"
+            },
+            "value": {
+              "state": "KNOWN",
+              "value": "1.00"
+            },
+            "reserved": "0.00",
+            "free": {
+              "state": "KNOWN",
+              "value": "1.00"
+            },
+            "newAllocationCapacity": {
+              "state": "KNOWN",
+              "value": "1.00"
+            }
+          }
+        ],
+        "byCard": [
+          {
+            "ref": {
+              "kind": "CARD",
+              "tempId": "00000000-0000-4000-8000-000000000031"
+            },
+            "debt": {
+              "state": "KNOWN",
+              "value": "350.00"
+            },
+            "credit": {
+              "state": "KNOWN",
+              "value": "0.00"
+            },
+            "committed": {
+              "state": "KNOWN",
+              "value": "344.00"
+            },
+            "availableLimit": {
+              "state": "KNOWN",
+              "value": "656.00"
+            }
+          }
+        ],
+        "byGoal": [
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000041"
+            },
+            "type": "MONETARY",
+            "progress": "500.00",
+            "covered": {
+              "state": "KNOWN",
+              "value": "500.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000042"
+            },
+            "type": "MONETARY",
+            "progress": "50.00",
+            "covered": {
+              "state": "KNOWN",
+              "value": "50.00"
+            }
+          },
+          {
+            "ref": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000043"
+            },
+            "type": "NUMERIC",
+            "progress": "4.00000000",
+            "covered": {
+              "state": "NOT_APPLICABLE"
+            }
+          }
+        ],
+        "deferredSections": []
+      }
+    }
+  },
+  "recoveryResponse": {
+    "data": {
+      "contractVersion": 1,
+      "operationId": "00000000-0000-4000-8000-000000000802",
+      "kind": "ONBOARDING_COMPLETE",
+      "sessionId": "00000000-0000-4000-8000-000000000801",
+      "state": "COMPLETED",
+      "prepared": {
+        "contractVersion": 1,
+        "operationId": "00000000-0000-4000-8000-000000000802",
+        "kind": "ONBOARDING_COMPLETE",
+        "sessionId": "00000000-0000-4000-8000-000000000801",
+        "draftVersion": "1",
+        "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+        "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+        "sourceSnapshot": {
+          "inventoryToken": "df49049f027e5622a3b867536f8de0a2cea0a10471c515de4e8d96bc363e0138",
+          "sources": [
+            {
+              "kind": "ACCOUNT",
+              "id": "00000000-0000-4000-8000-000000000901",
+              "revision": "0",
+              "token": "e6204735d63d4759df20babab46f7a25f230136bc1f6bb9cf7db4ce37d21c0ed"
+            }
+          ]
+        },
+        "summary": {
+          "baseDate": "2026-10-09",
+          "existingAsOf": "2026-10-09T15:00:00Z",
+          "scope": "SELECTED_AND_EXISTING",
+          "coverage": [
+            {
+              "dimension": "accounts",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "investments",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "cards",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "allocations",
+              "complete": true,
+              "missingPaths": []
+            }
+          ],
+          "metrics": {
+            "accountsSigned": {
+              "state": "KNOWN",
+              "value": "1300.00",
+              "knownSubtotal": "1300.00"
+            },
+            "investmentsValue": {
+              "state": "KNOWN",
+              "value": "501.00",
+              "knownSubtotal": "501.00"
+            },
+            "cardCredit": {
+              "state": "KNOWN",
+              "value": "0.00",
+              "knownSubtotal": "0.00"
+            },
+            "cardDebt": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "netWorth": {
+              "state": "KNOWN",
+              "value": "1451.00",
+              "knownSubtotal": "1451.00"
+            },
+            "reservedAccounts": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "reservedInvestments": {
+              "state": "KNOWN",
+              "value": "200.00",
+              "knownSubtotal": "200.00"
+            },
+            "freeAccountCash": {
+              "state": "KNOWN",
+              "value": "950.00",
+              "knownSubtotal": "950.00"
+            },
+            "unallocatedInvestments": {
+              "state": "KNOWN",
+              "value": "301.00",
+              "knownSubtotal": "301.00"
+            }
+          },
+          "bySource": [
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000001"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "100.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000002"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1000.00"
+              },
+              "reserved": "300.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "700.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "700.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000003"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "200.00"
+              },
+              "reserved": "50.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "150.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "150.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000021"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "500.00"
+              },
+              "reserved": "200.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "300.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "300.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000022"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "1.00"
+              }
+            }
+          ],
+          "byCard": [
+            {
+              "ref": {
+                "kind": "CARD",
+                "tempId": "00000000-0000-4000-8000-000000000031"
+              },
+              "debt": {
+                "state": "KNOWN",
+                "value": "350.00"
+              },
+              "credit": {
+                "state": "KNOWN",
+                "value": "0.00"
+              },
+              "committed": {
+                "state": "KNOWN",
+                "value": "344.00"
+              },
+              "availableLimit": {
+                "state": "KNOWN",
+                "value": "656.00"
+              }
+            }
+          ],
+          "byGoal": [
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000041"
+              },
+              "type": "MONETARY",
+              "progress": "500.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "500.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000042"
+              },
+              "type": "MONETARY",
+              "progress": "50.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "50.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000043"
+              },
+              "type": "NUMERIC",
+              "progress": "4.00000000",
+              "covered": {
+                "state": "NOT_APPLICABLE"
+              }
+            }
+          ],
+          "deferredSections": []
+        },
+        "mappingPreview": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000001",
+            "kind": "ACCOUNT",
+            "action": "INITIALIZE_DEFAULT",
+            "existingId": "00000000-0000-4000-8000-000000000901"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000002",
+            "kind": "ACCOUNT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000003",
+            "kind": "ACCOUNT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000021",
+            "kind": "INVESTMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000022",
+            "kind": "INVESTMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000031",
+            "kind": "CARD",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000032",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000033",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000034",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000041",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000042",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000043",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000051",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000052",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000053",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000061",
+            "kind": "FORECAST",
+            "action": "CREATE",
+            "existingId": null
+          }
+        ],
+        "preparedAt": "2026-10-09T15:00:00Z"
+      },
+      "receipt": {
+        "contractVersion": 1,
+        "operationId": "00000000-0000-4000-8000-000000000802",
+        "kind": "ONBOARDING_COMPLETE",
+        "sessionId": "00000000-0000-4000-8000-000000000801",
+        "draftVersion": "1",
+        "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+        "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+        "status": "COMPLETED",
+        "completedAt": "2026-10-09T15:01:00Z",
+        "mapping": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000001",
+            "kind": "ACCOUNT",
+            "id": "00000000-0000-4000-8000-000000000901",
+            "action": "INITIALIZE_DEFAULT"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000002",
+            "kind": "ACCOUNT",
+            "id": "00000000-0000-4000-8000-000000001001",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000003",
+            "kind": "ACCOUNT",
+            "id": "00000000-0000-4000-8000-000000001002",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000021",
+            "kind": "INVESTMENT",
+            "id": "00000000-0000-4000-8000-000000001003",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000022",
+            "kind": "INVESTMENT",
+            "id": "00000000-0000-4000-8000-000000001004",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000031",
+            "kind": "CARD",
+            "id": "00000000-0000-4000-8000-000000001005",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000032",
+            "kind": "INSTALLMENT",
+            "id": "00000000-0000-4000-8000-000000001006",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000033",
+            "kind": "INSTALLMENT",
+            "id": "00000000-0000-4000-8000-000000001007",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000034",
+            "kind": "INSTALLMENT",
+            "id": "00000000-0000-4000-8000-000000001008",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000041",
+            "kind": "GOAL",
+            "id": "00000000-0000-4000-8000-000000001009",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000042",
+            "kind": "GOAL",
+            "id": "00000000-0000-4000-8000-000000001010",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000043",
+            "kind": "GOAL",
+            "id": "00000000-0000-4000-8000-000000001011",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000051",
+            "kind": "ALLOCATION",
+            "id": "00000000-0000-4000-8000-000000001012",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000052",
+            "kind": "ALLOCATION",
+            "id": "00000000-0000-4000-8000-000000001013",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000053",
+            "kind": "ALLOCATION",
+            "id": "00000000-0000-4000-8000-000000001014",
+            "action": "CREATE"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000061",
+            "kind": "FORECAST",
+            "id": "00000000-0000-4000-8000-000000001015",
+            "action": "CREATE"
+          }
+        ],
+        "summary": {
+          "baseDate": "2026-10-09",
+          "existingAsOf": "2026-10-09T15:00:00Z",
+          "scope": "SELECTED_AND_EXISTING",
+          "coverage": [
+            {
+              "dimension": "accounts",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "investments",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "cards",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "allocations",
+              "complete": true,
+              "missingPaths": []
+            }
+          ],
+          "metrics": {
+            "accountsSigned": {
+              "state": "KNOWN",
+              "value": "1300.00",
+              "knownSubtotal": "1300.00"
+            },
+            "investmentsValue": {
+              "state": "KNOWN",
+              "value": "501.00",
+              "knownSubtotal": "501.00"
+            },
+            "cardCredit": {
+              "state": "KNOWN",
+              "value": "0.00",
+              "knownSubtotal": "0.00"
+            },
+            "cardDebt": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "netWorth": {
+              "state": "KNOWN",
+              "value": "1451.00",
+              "knownSubtotal": "1451.00"
+            },
+            "reservedAccounts": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "reservedInvestments": {
+              "state": "KNOWN",
+              "value": "200.00",
+              "knownSubtotal": "200.00"
+            },
+            "freeAccountCash": {
+              "state": "KNOWN",
+              "value": "950.00",
+              "knownSubtotal": "950.00"
+            },
+            "unallocatedInvestments": {
+              "state": "KNOWN",
+              "value": "301.00",
+              "knownSubtotal": "301.00"
+            }
+          },
+          "bySource": [
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000001"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "100.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000002"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1000.00"
+              },
+              "reserved": "300.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "700.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "700.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000003"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "200.00"
+              },
+              "reserved": "50.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "150.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "150.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000021"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "500.00"
+              },
+              "reserved": "200.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "300.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "300.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000022"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "1.00"
+              }
+            }
+          ],
+          "byCard": [
+            {
+              "ref": {
+                "kind": "CARD",
+                "tempId": "00000000-0000-4000-8000-000000000031"
+              },
+              "debt": {
+                "state": "KNOWN",
+                "value": "350.00"
+              },
+              "credit": {
+                "state": "KNOWN",
+                "value": "0.00"
+              },
+              "committed": {
+                "state": "KNOWN",
+                "value": "344.00"
+              },
+              "availableLimit": {
+                "state": "KNOWN",
+                "value": "656.00"
+              }
+            }
+          ],
+          "byGoal": [
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000041"
+              },
+              "type": "MONETARY",
+              "progress": "500.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "500.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000042"
+              },
+              "type": "MONETARY",
+              "progress": "50.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "50.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000043"
+              },
+              "type": "NUMERIC",
+              "progress": "4.00000000",
+              "covered": {
+                "state": "NOT_APPLICABLE"
+              }
+            }
+          ],
+          "deferredSections": []
+        }
+      }
+    }
+  },
+  "unknownResult": {
+    "uiState": "RESULT_UNKNOWN",
+    "reason": "Resposta perdida após commit; GET recupera receipt; nenhum novo operationId."
+  },
+  "conflictResponse": {
+    "error": {
+      "code": "SOURCE_CHANGED",
+      "message": "Os dados vinculados mudaram. Revise novamente.",
+      "fieldErrors": []
+    }
+  },
+  "invalidVariants": [
+    {
+      "path": "/sections/accounts/items/0/balance/value",
+      "value": "1.005",
+      "code": "DECIMAL_SCALE"
+    },
+    {
+      "path": "/sections/accounts/items/0/balance/value",
+      "value": "1000000000000.00",
+      "code": "DECIMAL_RANGE"
+    },
+    {
+      "path": "/sections/cards/items/0/opening/futureInstallments/0/competence",
+      "value": {
+        "year": 2026,
+        "month": 10
+      },
+      "code": "CURRENT_INSTALLMENT_DUPLICATED"
+    },
+    {
+      "path": "/sections/goals/items/0/deadline",
+      "value": "2027-02-29",
+      "code": "DATE_INVALID"
+    }
+  ],
+  "saveResponse": {
+    "data": {
+      "contractVersion": 1,
+      "sessionId": "00000000-0000-4000-8000-000000000801",
+      "version": "1",
+      "status": "IN_PROGRESS",
+      "mode": "NEW",
+      "payload": {
+        "context": {
+          "currency": "BRL",
+          "baseDate": "2026-10-09",
+          "boundaryAcknowledged": true,
+          "cashOnlyAcknowledged": true
+        },
+        "currentStep": "REVIEW",
+        "sections": {
+          "accounts": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000001",
+                "action": "INITIALIZE_DEFAULT",
+                "ref": {
+                  "kind": "ACCOUNT",
+                  "id": "00000000-0000-4000-8000-000000000901"
+                },
+                "balance": {
+                  "state": "KNOWN",
+                  "value": "100.00"
+                },
+                "deficitAcknowledged": false
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000002",
+                "action": "CREATE",
+                "name": "Corrente sintética",
+                "type": "CHECKING",
+                "balance": {
+                  "state": "KNOWN",
+                  "value": "1000.00"
+                },
+                "deficitAcknowledged": false,
+                "distinctCashConfirmed": false
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000003",
+                "action": "CREATE",
+                "name": "Poupança sintética",
+                "type": "SAVINGS",
+                "balance": {
+                  "state": "KNOWN",
+                  "value": "200.00"
+                },
+                "deficitAcknowledged": false,
+                "distinctCashConfirmed": false
+              }
+            ]
+          },
+          "cards": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000031",
+                "action": "CREATE",
+                "name": "Cartão sintético",
+                "limit": {
+                  "state": "KNOWN",
+                  "value": "1000.00"
+                },
+                "closingDay": 20,
+                "dueDay": 28,
+                "opening": {
+                  "currentCompetence": {
+                    "year": 2026,
+                    "month": 10
+                  },
+                  "currentOutstanding": "200.00",
+                  "currentPrincipal": {
+                    "state": "KNOWN",
+                    "value": "194.00"
+                  },
+                  "currentCharges": {
+                    "state": "KNOWN",
+                    "value": "6.00"
+                  },
+                  "credit": "0.00",
+                  "creditNotNettedAcknowledged": true,
+                  "futureInstallments": [
+                    {
+                      "tempId": "00000000-0000-4000-8000-000000000032",
+                      "competence": {
+                        "year": 2026,
+                        "month": 11
+                      },
+                      "amount": "50.00",
+                      "principal": {
+                        "state": "KNOWN",
+                        "value": "50.00"
+                      },
+                      "charges": {
+                        "state": "KNOWN",
+                        "value": "0.00"
+                      }
+                    },
+                    {
+                      "tempId": "00000000-0000-4000-8000-000000000033",
+                      "competence": {
+                        "year": 2026,
+                        "month": 12
+                      },
+                      "amount": "50.00",
+                      "principal": {
+                        "state": "KNOWN",
+                        "value": "50.00"
+                      },
+                      "charges": {
+                        "state": "KNOWN",
+                        "value": "0.00"
+                      }
+                    },
+                    {
+                      "tempId": "00000000-0000-4000-8000-000000000034",
+                      "competence": {
+                        "year": 2027,
+                        "month": 1
+                      },
+                      "amount": "50.00",
+                      "principal": {
+                        "state": "KNOWN",
+                        "value": "50.00"
+                      },
+                      "charges": {
+                        "state": "KNOWN",
+                        "value": "0.00"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "investments": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000021",
+                "action": "CREATE",
+                "name": "Renda fixa sintética",
+                "type": "FIXED_INCOME",
+                "positionMode": "MONETARY",
+                "quantity": {
+                  "state": "NOT_APPLICABLE"
+                },
+                "cost": {
+                  "state": "UNKNOWN"
+                },
+                "valuation": {
+                  "state": "KNOWN",
+                  "basis": "TOTAL",
+                  "amount": "500.00",
+                  "date": "2026-10-09",
+                  "source": "USER_DECLARED"
+                },
+                "acquisitionDate": {
+                  "state": "UNKNOWN"
+                },
+                "historicalSource": {
+                  "state": "UNKNOWN"
+                }
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000022",
+                "action": "CREATE",
+                "name": "Ação sintética",
+                "type": "STOCK",
+                "positionMode": "UNIT",
+                "quantity": {
+                  "state": "KNOWN",
+                  "value": "3.00000000"
+                },
+                "cost": {
+                  "state": "KNOWN",
+                  "value": "0.60"
+                },
+                "valuation": {
+                  "state": "KNOWN",
+                  "basis": "TOTAL",
+                  "amount": "1.00",
+                  "date": "2026-10-09",
+                  "source": "USER_DECLARED"
+                },
+                "acquisitionDate": {
+                  "state": "UNKNOWN"
+                },
+                "historicalSource": {
+                  "state": "UNKNOWN"
+                }
+              }
+            ]
+          },
+          "goals": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000041",
+                "action": "CREATE",
+                "title": "Viagem",
+                "type": "MONETARY",
+                "target": "600.00",
+                "deadline": "2027-06-30"
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000042",
+                "action": "CREATE",
+                "title": "Reserva",
+                "type": "MONETARY",
+                "target": "100.00",
+                "deadline": "2026-09-30"
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000043",
+                "action": "CREATE",
+                "title": "Leituras",
+                "type": "NUMERIC",
+                "target": "12.00000000",
+                "initialProgress": "4.00000000",
+                "unit": "livros",
+                "deadline": "2026-12-31"
+              }
+            ]
+          },
+          "allocations": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000051",
+                "goal": {
+                  "kind": "GOAL",
+                  "tempId": "00000000-0000-4000-8000-000000000041"
+                },
+                "source": {
+                  "kind": "ACCOUNT",
+                  "tempId": "00000000-0000-4000-8000-000000000002"
+                },
+                "amount": "300.00"
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000052",
+                "goal": {
+                  "kind": "GOAL",
+                  "tempId": "00000000-0000-4000-8000-000000000041"
+                },
+                "source": {
+                  "kind": "INVESTMENT",
+                  "tempId": "00000000-0000-4000-8000-000000000021"
+                },
+                "amount": "200.00"
+              },
+              {
+                "tempId": "00000000-0000-4000-8000-000000000053",
+                "goal": {
+                  "kind": "GOAL",
+                  "tempId": "00000000-0000-4000-8000-000000000042"
+                },
+                "source": {
+                  "kind": "ACCOUNT",
+                  "tempId": "00000000-0000-4000-8000-000000000003"
+                },
+                "amount": "50.00"
+              }
+            ]
+          },
+          "forecasts": {
+            "answer": "PROVIDED",
+            "items": [
+              {
+                "tempId": "00000000-0000-4000-8000-000000000061",
+                "description": "Receita prevista sintética",
+                "direction": "INCOME",
+                "amount": "80.00",
+                "dueDate": "2026-11-05",
+                "account": {
+                  "kind": "ACCOUNT",
+                  "tempId": "00000000-0000-4000-8000-000000000002"
+                },
+                "category": {
+                  "id": "00000000-0000-4000-8000-000000000902"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "issues": [],
+      "updatedAt": "2026-10-09T14:59:00Z",
+      "pendingIntent": null,
+      "completedReceipt": null
+    }
+  },
+  "preparedRecoveryResponse": {
+    "data": {
+      "contractVersion": 1,
+      "operationId": "00000000-0000-4000-8000-000000000802",
+      "kind": "ONBOARDING_COMPLETE",
+      "sessionId": "00000000-0000-4000-8000-000000000801",
+      "state": "PREPARED",
+      "prepared": {
+        "contractVersion": 1,
+        "operationId": "00000000-0000-4000-8000-000000000802",
+        "kind": "ONBOARDING_COMPLETE",
+        "sessionId": "00000000-0000-4000-8000-000000000801",
+        "draftVersion": "1",
+        "contentHash": "d0c76c433005f79c563d63a84c7850658f50ee18dd4c02fdbc3951c7ded95a99",
+        "reviewHash": "b4df1de407226153b396010dcfd4d10971eeafd11a5f06eeb5f4d2ee7fc9feb6",
+        "sourceSnapshot": {
+          "inventoryToken": "df49049f027e5622a3b867536f8de0a2cea0a10471c515de4e8d96bc363e0138",
+          "sources": [
+            {
+              "kind": "ACCOUNT",
+              "id": "00000000-0000-4000-8000-000000000901",
+              "revision": "0",
+              "token": "e6204735d63d4759df20babab46f7a25f230136bc1f6bb9cf7db4ce37d21c0ed"
+            }
+          ]
+        },
+        "summary": {
+          "baseDate": "2026-10-09",
+          "existingAsOf": "2026-10-09T15:00:00Z",
+          "scope": "SELECTED_AND_EXISTING",
+          "coverage": [
+            {
+              "dimension": "accounts",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "investments",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "cards",
+              "complete": true,
+              "missingPaths": []
+            },
+            {
+              "dimension": "allocations",
+              "complete": true,
+              "missingPaths": []
+            }
+          ],
+          "metrics": {
+            "accountsSigned": {
+              "state": "KNOWN",
+              "value": "1300.00",
+              "knownSubtotal": "1300.00"
+            },
+            "investmentsValue": {
+              "state": "KNOWN",
+              "value": "501.00",
+              "knownSubtotal": "501.00"
+            },
+            "cardCredit": {
+              "state": "KNOWN",
+              "value": "0.00",
+              "knownSubtotal": "0.00"
+            },
+            "cardDebt": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "netWorth": {
+              "state": "KNOWN",
+              "value": "1451.00",
+              "knownSubtotal": "1451.00"
+            },
+            "reservedAccounts": {
+              "state": "KNOWN",
+              "value": "350.00",
+              "knownSubtotal": "350.00"
+            },
+            "reservedInvestments": {
+              "state": "KNOWN",
+              "value": "200.00",
+              "knownSubtotal": "200.00"
+            },
+            "freeAccountCash": {
+              "state": "KNOWN",
+              "value": "950.00",
+              "knownSubtotal": "950.00"
+            },
+            "unallocatedInvestments": {
+              "state": "KNOWN",
+              "value": "301.00",
+              "knownSubtotal": "301.00"
+            }
+          },
+          "bySource": [
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000001"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "100.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "100.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000002"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1000.00"
+              },
+              "reserved": "300.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "700.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "700.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "ACCOUNT",
+                "tempId": "00000000-0000-4000-8000-000000000003"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "200.00"
+              },
+              "reserved": "50.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "150.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "150.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000021"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "500.00"
+              },
+              "reserved": "200.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "300.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "300.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "INVESTMENT",
+                "tempId": "00000000-0000-4000-8000-000000000022"
+              },
+              "value": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "reserved": "0.00",
+              "free": {
+                "state": "KNOWN",
+                "value": "1.00"
+              },
+              "newAllocationCapacity": {
+                "state": "KNOWN",
+                "value": "1.00"
+              }
+            }
+          ],
+          "byCard": [
+            {
+              "ref": {
+                "kind": "CARD",
+                "tempId": "00000000-0000-4000-8000-000000000031"
+              },
+              "debt": {
+                "state": "KNOWN",
+                "value": "350.00"
+              },
+              "credit": {
+                "state": "KNOWN",
+                "value": "0.00"
+              },
+              "committed": {
+                "state": "KNOWN",
+                "value": "344.00"
+              },
+              "availableLimit": {
+                "state": "KNOWN",
+                "value": "656.00"
+              }
+            }
+          ],
+          "byGoal": [
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000041"
+              },
+              "type": "MONETARY",
+              "progress": "500.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "500.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000042"
+              },
+              "type": "MONETARY",
+              "progress": "50.00",
+              "covered": {
+                "state": "KNOWN",
+                "value": "50.00"
+              }
+            },
+            {
+              "ref": {
+                "kind": "GOAL",
+                "tempId": "00000000-0000-4000-8000-000000000043"
+              },
+              "type": "NUMERIC",
+              "progress": "4.00000000",
+              "covered": {
+                "state": "NOT_APPLICABLE"
+              }
+            }
+          ],
+          "deferredSections": []
+        },
+        "mappingPreview": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000001",
+            "kind": "ACCOUNT",
+            "action": "INITIALIZE_DEFAULT",
+            "existingId": "00000000-0000-4000-8000-000000000901"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000002",
+            "kind": "ACCOUNT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000003",
+            "kind": "ACCOUNT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000021",
+            "kind": "INVESTMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000022",
+            "kind": "INVESTMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000031",
+            "kind": "CARD",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000032",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000033",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000034",
+            "kind": "INSTALLMENT",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000041",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000042",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000043",
+            "kind": "GOAL",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000051",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000052",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000053",
+            "kind": "ALLOCATION",
+            "action": "CREATE",
+            "existingId": null
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000061",
+            "kind": "FORECAST",
+            "action": "CREATE",
+            "existingId": null
+          }
+        ],
+        "preparedAt": "2026-10-09T15:00:00Z"
+      },
+      "receipt": null
+    }
+  }
+}
