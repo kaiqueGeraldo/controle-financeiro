@@ -3,7 +3,6 @@ import { annualSummaryService } from "@/services/annualSummaryService";
 import { AnnualSummaryResponse } from "@/types";
 import { useUser } from "./useUser";
 import { useToast } from "@/contexts/toastContext";
-import { productDateString } from "@/utils/date";
 import {
   isAbortError,
   useRequestCoordinator,
@@ -11,7 +10,8 @@ import {
 
 export function useAnnualSummary() {
   const { user, isLoading: isUserLoading } = useUser();
-  const [year, setYear] = useState<number>(() => Number(productDateString(new Date()).slice(0, 4)));
+  // DEC-01: capture the browser year once; navigation and drafts retain the selection.
+  const [year, setYear] = useState<number>(() => new Date().getFullYear());
   const [summary, setSummary] = useState<AnnualSummaryResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
