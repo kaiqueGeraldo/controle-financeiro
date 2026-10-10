@@ -74,3 +74,17 @@ Sem push/deploy/banco real. Após revisão, sequência planejada: fechamento dir
 frontend CF-010–015, não implementação automática de onboarding.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Revisão independente — 10/10/2026
+
+**Não aprovada; em_revisao mantido.** Candidato `b7ebac8`, intervalo
+`c6a7c3e..b7ebac8`. [Parecer, matriz, achados e provas](../evidencias/revisao-CF-028/README.md).
+E01 reconciliado independentemente: patrimônio1451/dívida350/reservas550.
+Protocolo de recuperação/concorrência e proibições de histórico fictício atendem
+ao contrato; primeiro critério permanece parcial por R28-01/02 (P2): detalhes do
+Summary sem representação de agregados fora de faixa e de reserva/progresso legado
+desconhecido. Checks acima registram entrega do executor, não superam este parecer.
+
+Saneamento documental dirigido dos DTOs/validações/exemplos e posterior revalidação,
+sem implementação, revisão global ou liberação CF-029–034. DEC-ONB-01 preservada.
+Somente após aceite, sequência planejada de fechamento dirigido CF-010–015.
