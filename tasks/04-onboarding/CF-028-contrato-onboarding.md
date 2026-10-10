@@ -1,6 +1,6 @@
 # CF-028 — Finalizar contrato da entrevista inicial
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-6-astra
 - Esforço: xhigh
@@ -40,8 +40,9 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Nenhuma etapa cria receita histórica, compra fictícia ou segundo saldo da carteira padrão.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
-Checks atestam entregáveis documentais do executor, não aceite independente ou
-conformidade de produto. A tarefa aguarda revisão, não está concluída.
+Checks confirmados pelo aceite independente final de 10/10/2026, base `a7bc256`.
+Conclusão exclusivamente como especificação; não atestam conformidade de produto.
+Os registros de revisão abaixo conservam a sequência histórica das decisões.
 
 ## Fora de escopo
 
@@ -147,3 +148,16 @@ E32=KNOWN500.00, com avaliador/fixtures coerentes e regressão dirigida.
 [Evidência e encaminhamento](../evidencias/saneamento-CF-028-totais/README.md).
 Demais campos e aceites preservados, incluindo R28-01 encerrado. CF-028 permanece
 **em_revisao** e R28-02 aguarda revalidação independente, sem autoaprovação.
+
+## Aceite independente final — 10/10/2026
+
+Base `a7bc256`, intervalo `bbbe8c3..a7bc256`:
+[parecer, cálculos e provas](../evidencias/revalidacao-CF-028-totais/README.md).
+**Resíduo dos totais aprovado; R28-02 encerrado; CF-028 concluida exclusivamente
+como especificação.** E23/E28/E34=KNOWN400.00 e E32=KNOWN500.00 derivados das
+entradas, com atribuição incerta, bloqueios e demais campos dos14 casos preservados.
+Controles UNKNOWN/PARTIAL e quatro contraprovas causais confirmados; E01/E16–E20
+e seis snapshots/hashes conferidos. R28-01 e demais aceites acumulados preservados.
+Os quatro critérios originais foram confrontados e atendidos no escopo documental.
+Sem implementação ou validação runtime. Próximo trabalho planejado: fechamento
+dirigido CF-010–015, sem iniciá-lo ou liberar automaticamente CF-029–034.

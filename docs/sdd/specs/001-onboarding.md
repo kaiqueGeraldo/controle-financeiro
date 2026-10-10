@@ -1,5 +1,11 @@
 # SPEC-001 — Contrato da entrevista financeira inicial
 
+**Estado vigente em 10/10/2026: v1 aprovada exclusivamente como especificação**, base
+`a7bc256`. CF-028 concluída; R28-01/02 encerrados.
+[Aceite independente final](../../../tasks/evidencias/revalidacao-CF-028-totais/README.md).
+Não declara implementação nem libera automaticamente CF-029–034.
+As notas de candidatura/saneamento a seguir registram estados históricos anteriores.
+
 Contrato **v1**, candidato CF-028 de 09/10/2026, **em revisão independente**.
 Base: `c6a7c3ef3b563e9a432f80166aa4982a25180cd5`. Fonte canônica dos DTOs/regras
 futuros; não declara implementação. [Evidências](../../../tasks/evidencias/CF-028/README.md).

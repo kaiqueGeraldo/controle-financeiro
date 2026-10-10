@@ -1,0 +1,860 @@
+{
+  "scope": "Aceite documental dirigido; nenhum runtime validado",
+  "base": "a7bc256c2600958bac8b87f6971424c581da2a8f",
+  "interval": "bbbe8c3..a7bc256",
+  "delivered": {
+    "scope": "Somente documento; sem runtime/HTTP/SQL",
+    "findings": [
+      {
+        "case": "E23-unbounded",
+        "before": {
+          "state": "UNKNOWN",
+          "value": null,
+          "knownSubtotal": null,
+          "outsideIndividualRange": null,
+          "missingPaths": [
+            "20000000-0000-4000-8000-000000000011"
+          ]
+        },
+        "after": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "20000000-0000-4000-8000-000000000001",
+            "total": "400.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000002",
+            "total": "400.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000003",
+            "total": "400.00"
+          }
+        ]
+      },
+      {
+        "case": "E28-new-source-before-prepare",
+        "before": {
+          "state": "UNKNOWN",
+          "value": null,
+          "knownSubtotal": null,
+          "outsideIndividualRange": null,
+          "missingPaths": [
+            "20000000-0000-4000-8000-000000000011"
+          ]
+        },
+        "after": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "20000000-0000-4000-8000-000000000001",
+            "total": "400.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000002",
+            "total": "400.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000003",
+            "total": "400.00"
+          }
+        ]
+      },
+      {
+        "case": "E32-proven-exclusion",
+        "before": {
+          "state": "PARTIAL",
+          "value": null,
+          "knownSubtotal": "100.00",
+          "outsideIndividualRange": false,
+          "missingPaths": [
+            "20000000-0000-4000-8000-000000000011"
+          ]
+        },
+        "after": {
+          "state": "KNOWN",
+          "value": "500.00",
+          "knownSubtotal": "500.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "20000000-0000-4000-8000-000000000001",
+            "total": "500.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000002",
+            "total": "500.00"
+          }
+        ]
+      },
+      {
+        "case": "E34-correct-draft-confirmation",
+        "before": {
+          "state": "UNKNOWN",
+          "value": null,
+          "knownSubtotal": null,
+          "outsideIndividualRange": null,
+          "missingPaths": [
+            "20000000-0000-4000-8000-000000000011"
+          ]
+        },
+        "after": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "20000000-0000-4000-8000-000000000001",
+            "total": "400.00"
+          },
+          {
+            "source": "20000000-0000-4000-8000-000000000002",
+            "total": "400.00"
+          }
+        ]
+      }
+    ],
+    "counterproofs": [
+      {
+        "case": "E23-unbounded",
+        "mutation": "Ramo anterior UNBOUNDED adiciona lacuna incondicional",
+        "cause": "DIMENSION_TOTAL"
+      },
+      {
+        "case": "E28-new-source-before-prepare",
+        "mutation": "Ramo anterior UNBOUNDED adiciona lacuna incondicional",
+        "cause": "DIMENSION_TOTAL"
+      },
+      {
+        "case": "E32-proven-exclusion",
+        "mutation": "Ramo anterior UNBOUNDED adiciona lacuna incondicional",
+        "cause": "DIMENSION_TOTAL"
+      },
+      {
+        "case": "E34-correct-draft-confirmation",
+        "mutation": "Ramo anterior UNBOUNDED adiciona lacuna incondicional",
+        "cause": "DIMENSION_TOTAL"
+      }
+    ],
+    "controls": [
+      "universo misto UNKNOWN",
+      "misto com reserva300 comprovada PARTIAL300",
+      "nominal desconhecido UNKNOWN",
+      "E31 sem fontes UNKNOWN",
+      "E29 obsoleto409/UNKNOWN",
+      "tipo após exclusões KNOWN400"
+    ],
+    "allOtherOutputFieldsPreserved": true,
+    "runs": [
+      {
+        "passed": 9,
+        "scope": "somente documentação; sem produto/HTTP/SQL/browser"
+      },
+      {
+        "passed": 9,
+        "scope": "documental; sem runtime/HTTP/banco"
+      },
+      {
+        "passed": 7,
+        "scope": "Somente contrato documental; nenhum runtime/HTTP/SQL"
+      }
+    ],
+    "historicalProofsAndSnapshotsPreserved": true,
+    "preservation": {
+      "before": {
+        "README.md": "6235DA8E1D2247DAD2C585FE7B2E7B0D2FD41F47414A4A2701B20F7FBF7D12CA",
+        "tasks/evidencias/CF-028/README.md": "A40C3D235EB4658ECCA5A382C5B55D558507D82DD7CC7B268873DBA36BC042A6",
+        "tasks/evidencias/CF-028/build-examples.mjs": "68973D7DCF6488361D7837AEAFD20788ED968D16E427E97226F66206308486DE",
+        "tasks/evidencias/CF-028/examples.json": "D54EC308C7C506E7826410C08A0588649230DEB121B8ADFB03302D45A9FC1DB3",
+        "tasks/evidencias/CF-028/validation-kiritimati.json": "936CD0C0C2B633442BAC23A0994B218347F6FDA46784D76C0F14E6D273205809",
+        "tasks/evidencias/CF-028/validation-sao-paulo.json": "256BC3872B0399F10CA25E92C35A6A4CC2A75AEB962B8451C8165329183FBC3F",
+        "tasks/evidencias/CF-028/validation-utc.json": "CCC87935CF3D3A1AD0627F6440D5961CF8190D4DA37BC4391F9B21B91996E848",
+        "tasks/evidencias/CF-028/verify.mjs": "052E4E1E4A53BD1D407EF9AB6E41CAA1F57B86B87F9091E5CEA6BD1D3F21C4E1",
+        "tasks/evidencias/revalidacao-CF-028-R28/README.md": "A57CF94F480C5E985A7FB0DFF91294D912E86AB4EDA0E6C1EBA9DDB52C3474E5",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "FC360A3AFB0FB2368910CB2E900551378C1DD0719CC4F6429C8DE21E08356EA0",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701EAEC89963D022942766CCCD28D229740300D777B255FC26FEB77D22",
+        "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799B92568DB2B5E5875855DEAB514CBFE30A51936A0041024CFEFE1CD5DD2F10",
+        "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54B18DD99034B3E5B97AA09729E5D832CBDB12E6A3F88566C715847734FE60B9",
+        "tasks/evidencias/revalidacao-CF-028-origem/README.md": "32E250A9ADCF017BEBF062A35D5687E4BB4B293367607F1537762218230E177D",
+        "tasks/evidencias/revalidacao-CF-028-origem/result.json": "453B8DB87EA6B9F8147CA8B754F8B1628EBB6783A7C7B193055B97131D59D7A6",
+        "tasks/evidencias/revalidacao-CF-028-origem/verify.mjs": "BC118E0005043F1788FA32DA4AF9BF9DAF5C7A8A378CDEDC2710C7EB2BB9565B",
+        "tasks/evidencias/revisao-CF-028/README.md": "56051729A07D889C6A538B7CB0FCFCA828047BB450B45852389AE0F50A2E7179",
+        "tasks/evidencias/revisao-CF-028/harness-result.json": "4DAC6DDDFB0FC022E53114DCE34F204E2237B0A5E4BE08867C476F62F46AA1BF",
+        "tasks/evidencias/revisao-CF-028/harness.mjs": "1FBF581F68B766D100BA7539FF83D915E7112894E891AAEF4154F1105FC44CED",
+        "tasks/evidencias/revisao-CF-028/probe-result.json": "F1BFAF4DCDF274FB1505FF29788CC2B9D9700CB26AFEBFE56F27DE34E9A48591",
+        "tasks/evidencias/revisao-CF-028/probe.ps1": "519DA9632B2A08AA5B4CBCD116B55B1308F52F1D1F73F468E7E86FCA03955F00",
+        "tasks/evidencias/saneamento-CF-028-R28/README.md": "F8E8F66854C103DA4733F26B5668634E83468D132D3DA8558741F6D22530C86F",
+        "tasks/evidencias/saneamento-CF-028-R28/after-e01.json": "2012E86C0C01C29354D0EBFED007B787F8D7A7C71E3AD0A429705B8ED3573370",
+        "tasks/evidencias/saneamento-CF-028-R28/after-r28.json": "A9F8C5CB5D74468CFEE6ADB631214578D5B652589521E56E16B80DEA3DF98C5C",
+        "tasks/evidencias/saneamento-CF-028-R28/baseline.json": "77108700F4ABAC1BD837A64C1D683A4C5294419842B302F939A6DDDBBF3118D2",
+        "tasks/evidencias/saneamento-CF-028-R28/before-harness.json": "4DAC6DDDFB0FC022E53114DCE34F204E2237B0A5E4BE08867C476F62F46AA1BF",
+        "tasks/evidencias/saneamento-CF-028-R28/before-probe.json": "F1BFAF4DCDF274FB1505FF29788CC2B9D9700CB26AFEBFE56F27DE34E9A48591",
+        "tasks/evidencias/saneamento-CF-028-R28/build-cases.mjs": "8A8A8DF86D313D91C3AD91F3C77644E20B4E0AB7877B64B8FDE43B215604D746",
+        "tasks/evidencias/saneamento-CF-028-R28/cases.json": "0A58FD9F72A5D5EF4B4957F4CCFC56858CE5F19EE81330FD94E7DBBE7E9C0F58",
+        "tasks/evidencias/saneamento-CF-028-R28/summary-contract.mjs": "4E7305B613D192BA5C039B4B6B1FDE7CF3E82C81BA9E0D911E751A7B698649CD",
+        "tasks/evidencias/saneamento-CF-028-R28/verify.mjs": "C51639006D04FC7728D7C47611C9584991D721597A77F25CF42D15F20F118310",
+        "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951E8520E727DDE228FA643F3817CEB5503A4473C8BFA0C06288A4E0974",
+        "tasks/evidencias/saneamento-CF-028-origem/baseline.json": "7D06D6DBEAC6C127650D8A6506FE2285B2DC73FC178A4C1EE60FBC071F3C28C0",
+        "tasks/evidencias/saneamento-CF-028-origem/before-independent.json": "F02E1B10CBB2610AD82367608A54B1FEF900B2FC875C217682171EF3704E3A78",
+        "tasks/evidencias/saneamento-CF-028-origem/before-verification.json": "6ABA925CB6561CDE7A18118842FEB13F003A6659DD33DCF57D7A31320CCF4301",
+        "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9C36DBC3FAAB1D41F450DFFA418EFD25856404500A77CDA5C289529C126EAB39",
+        "tasks/evidencias/saneamento-CF-028-origem/build-snapshots.mjs": "A27D29D11660EDBB9F44E977A97B8026ACD8D9EF457A3D854ADCFF865C0F85B5",
+        "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300A6D1748603BF4E8E190C5B5F9C0ACCED5038F4A387F942AE9BEE74",
+        "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "D424EA80B1CC1BA6C7D970EE3721754E69FBAD608F0C8A464DC635BF44B9B551",
+        "tasks/evidencias/saneamento-CF-028-origem/snapshots.json": "BD848988BC0CF90D839D4D9E1488DC63CDE5A3AB4FB395B0062C29E2587395EA",
+        "tasks/evidencias/saneamento-CF-028-origem/verification.json": "EB2D2929185C30ACEBF0BD5E296630C46BC7439A73117AE2C2CB774BECBA2AAD",
+        "tasks/evidencias/saneamento-CF-028-origem/verify.mjs": "88A428425FFD88ED30190C8DDB0E0C06D32AA70E5ED48FBCB09C13BB5D729CFA",
+        "docs/sdd/specs/001-onboarding.md": "101564C95B4D0F587AC19F74DC8983D7CC40DD9C89807CEF39A241F45D1D9F27",
+        "tasks/evidencias/saneamento-CF-028-totais/verify.mjs": "C1BFA208E3C2AB4E5FAA1E0341B636B75C40C1D0FB237A8AACA9DAAD69B284B0"
+      },
+      "after": {
+        "README.md": "6235DA8E1D2247DAD2C585FE7B2E7B0D2FD41F47414A4A2701B20F7FBF7D12CA",
+        "tasks/evidencias/CF-028/README.md": "A40C3D235EB4658ECCA5A382C5B55D558507D82DD7CC7B268873DBA36BC042A6",
+        "tasks/evidencias/CF-028/build-examples.mjs": "68973D7DCF6488361D7837AEAFD20788ED968D16E427E97226F66206308486DE",
+        "tasks/evidencias/CF-028/examples.json": "D54EC308C7C506E7826410C08A0588649230DEB121B8ADFB03302D45A9FC1DB3",
+        "tasks/evidencias/CF-028/validation-kiritimati.json": "936CD0C0C2B633442BAC23A0994B218347F6FDA46784D76C0F14E6D273205809",
+        "tasks/evidencias/CF-028/validation-sao-paulo.json": "256BC3872B0399F10CA25E92C35A6A4CC2A75AEB962B8451C8165329183FBC3F",
+        "tasks/evidencias/CF-028/validation-utc.json": "CCC87935CF3D3A1AD0627F6440D5961CF8190D4DA37BC4391F9B21B91996E848",
+        "tasks/evidencias/CF-028/verify.mjs": "052E4E1E4A53BD1D407EF9AB6E41CAA1F57B86B87F9091E5CEA6BD1D3F21C4E1",
+        "tasks/evidencias/revalidacao-CF-028-R28/README.md": "A57CF94F480C5E985A7FB0DFF91294D912E86AB4EDA0E6C1EBA9DDB52C3474E5",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "FC360A3AFB0FB2368910CB2E900551378C1DD0719CC4F6429C8DE21E08356EA0",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701EAEC89963D022942766CCCD28D229740300D777B255FC26FEB77D22",
+        "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799B92568DB2B5E5875855DEAB514CBFE30A51936A0041024CFEFE1CD5DD2F10",
+        "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54B18DD99034B3E5B97AA09729E5D832CBDB12E6A3F88566C715847734FE60B9",
+        "tasks/evidencias/revalidacao-CF-028-origem/README.md": "32E250A9ADCF017BEBF062A35D5687E4BB4B293367607F1537762218230E177D",
+        "tasks/evidencias/revalidacao-CF-028-origem/result.json": "453B8DB87EA6B9F8147CA8B754F8B1628EBB6783A7C7B193055B97131D59D7A6",
+        "tasks/evidencias/revalidacao-CF-028-origem/verify.mjs": "BC118E0005043F1788FA32DA4AF9BF9DAF5C7A8A378CDEDC2710C7EB2BB9565B",
+        "tasks/evidencias/revisao-CF-028/README.md": "56051729A07D889C6A538B7CB0FCFCA828047BB450B45852389AE0F50A2E7179",
+        "tasks/evidencias/revisao-CF-028/harness-result.json": "4DAC6DDDFB0FC022E53114DCE34F204E2237B0A5E4BE08867C476F62F46AA1BF",
+        "tasks/evidencias/revisao-CF-028/harness.mjs": "1FBF581F68B766D100BA7539FF83D915E7112894E891AAEF4154F1105FC44CED",
+        "tasks/evidencias/revisao-CF-028/probe-result.json": "F1BFAF4DCDF274FB1505FF29788CC2B9D9700CB26AFEBFE56F27DE34E9A48591",
+        "tasks/evidencias/revisao-CF-028/probe.ps1": "519DA9632B2A08AA5B4CBCD116B55B1308F52F1D1F73F468E7E86FCA03955F00",
+        "tasks/evidencias/saneamento-CF-028-R28/README.md": "F8E8F66854C103DA4733F26B5668634E83468D132D3DA8558741F6D22530C86F",
+        "tasks/evidencias/saneamento-CF-028-R28/after-e01.json": "2012E86C0C01C29354D0EBFED007B787F8D7A7C71E3AD0A429705B8ED3573370",
+        "tasks/evidencias/saneamento-CF-028-R28/after-r28.json": "A9F8C5CB5D74468CFEE6ADB631214578D5B652589521E56E16B80DEA3DF98C5C",
+        "tasks/evidencias/saneamento-CF-028-R28/baseline.json": "77108700F4ABAC1BD837A64C1D683A4C5294419842B302F939A6DDDBBF3118D2",
+        "tasks/evidencias/saneamento-CF-028-R28/before-harness.json": "4DAC6DDDFB0FC022E53114DCE34F204E2237B0A5E4BE08867C476F62F46AA1BF",
+        "tasks/evidencias/saneamento-CF-028-R28/before-probe.json": "F1BFAF4DCDF274FB1505FF29788CC2B9D9700CB26AFEBFE56F27DE34E9A48591",
+        "tasks/evidencias/saneamento-CF-028-R28/build-cases.mjs": "8A8A8DF86D313D91C3AD91F3C77644E20B4E0AB7877B64B8FDE43B215604D746",
+        "tasks/evidencias/saneamento-CF-028-R28/cases.json": "0A58FD9F72A5D5EF4B4957F4CCFC56858CE5F19EE81330FD94E7DBBE7E9C0F58",
+        "tasks/evidencias/saneamento-CF-028-R28/summary-contract.mjs": "4E7305B613D192BA5C039B4B6B1FDE7CF3E82C81BA9E0D911E751A7B698649CD",
+        "tasks/evidencias/saneamento-CF-028-R28/verify.mjs": "C51639006D04FC7728D7C47611C9584991D721597A77F25CF42D15F20F118310",
+        "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951E8520E727DDE228FA643F3817CEB5503A4473C8BFA0C06288A4E0974",
+        "tasks/evidencias/saneamento-CF-028-origem/baseline.json": "7D06D6DBEAC6C127650D8A6506FE2285B2DC73FC178A4C1EE60FBC071F3C28C0",
+        "tasks/evidencias/saneamento-CF-028-origem/before-independent.json": "F02E1B10CBB2610AD82367608A54B1FEF900B2FC875C217682171EF3704E3A78",
+        "tasks/evidencias/saneamento-CF-028-origem/before-verification.json": "6ABA925CB6561CDE7A18118842FEB13F003A6659DD33DCF57D7A31320CCF4301",
+        "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9C36DBC3FAAB1D41F450DFFA418EFD25856404500A77CDA5C289529C126EAB39",
+        "tasks/evidencias/saneamento-CF-028-origem/build-snapshots.mjs": "A27D29D11660EDBB9F44E977A97B8026ACD8D9EF457A3D854ADCFF865C0F85B5",
+        "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300A6D1748603BF4E8E190C5B5F9C0ACCED5038F4A387F942AE9BEE74",
+        "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "D424EA80B1CC1BA6C7D970EE3721754E69FBAD608F0C8A464DC635BF44B9B551",
+        "tasks/evidencias/saneamento-CF-028-origem/snapshots.json": "BD848988BC0CF90D839D4D9E1488DC63CDE5A3AB4FB395B0062C29E2587395EA",
+        "tasks/evidencias/saneamento-CF-028-origem/verification.json": "EB2D2929185C30ACEBF0BD5E296630C46BC7439A73117AE2C2CB774BECBA2AAD",
+        "tasks/evidencias/saneamento-CF-028-origem/verify.mjs": "88A428425FFD88ED30190C8DDB0E0C06D32AA70E5ED48FBCB09C13BB5D729CFA",
+        "docs/sdd/specs/001-onboarding.md": "101564C95B4D0F587AC19F74DC8983D7CC40DD9C89807CEF39A241F45D1D9F27",
+        "tasks/evidencias/saneamento-CF-028-totais/verify.mjs": "C1BFA208E3C2AB4E5FAA1E0341B636B75C40C1D0FB237A8AACA9DAAD69B284B0"
+      },
+      "unchanged": true
+    }
+  },
+  "independent": {
+    "scope": "Somente documento; reproduzir uma divergência não a aprova",
+    "base": "dc02cd18da348d132bac786a4e943e2375981160",
+    "interval": "1c54533..dc02cd1",
+    "delivered": {
+      "scope": "Somente contrato documental; nenhum runtime/HTTP/SQL",
+      "passed": 7,
+      "checks": [
+        "E21–E34: conjuntos, totais sem duplicação, permissões, declaração e versões",
+        "Pareceres, provas anteriores, fixtures históricas e README preservados",
+        "E01 e E16–E20: verificadores anteriores intactos",
+        "E16–E20 revalidados a partir das entradas e atribuição explícita E18/E19",
+        "Snapshots E16–E20/E35: prepare, complete, receipt, GET e hashes",
+        "Contraprovas isoladas contra resultados literais",
+        "Evidência inválida não limita risco; candidatas vazias e owner alheio rejeitados"
+      ],
+      "cases": [
+        {
+          "name": "E21-known-origin",
+          "status": 200,
+          "reason": "Origem A comprovada; valor desconhecido só bloqueia A."
+        },
+        {
+          "name": "E22-limited-candidates",
+          "status": 200,
+          "reason": "A/B candidatas; C excluída por prova exaustiva, alocação100 válida."
+        },
+        {
+          "name": "E23-unbounded",
+          "status": 200,
+          "reason": "Origem individual indeterminada entre contas; total400 conhecido, concluir sem alocar."
+        },
+        {
+          "name": "E24-overlap-close-one",
+          "status": 200,
+          "reason": "Encerrar11 libera A; B/C ainda afetadas por12."
+        },
+        {
+          "name": "E25-known-value-unknown-link",
+          "status": 400,
+          "reason": "B pode conter400:500 novo não autorizado; nenhum efeito."
+        },
+        {
+          "name": "E26-partial-source",
+          "status": 200,
+          "reason": "Saldo1000 e reserva300 comprovados não certificam livre700."
+        },
+        {
+          "name": "E27-close-no-history",
+          "status": 200,
+          "reason": "Encerramento atual explícito, sem caixa/histórico fictício; B pode destinar500."
+        },
+        {
+          "name": "E28-new-source-before-prepare",
+          "status": 400,
+          "reason": "Fonte nova também potencialmente afetada; novo ID não comprova independência."
+        },
+        {
+          "name": "E29-stale-evidence",
+          "status": 409,
+          "reason": "Independência antiga não vale no inventário novo; SOURCE_CHANGED antes de efeitos."
+        },
+        {
+          "name": "E30-confirm-two-sources",
+          "status": 200,
+          "reason": "Declaração atual completa confirma duas partes; saldos1000/500 preservados."
+        },
+        {
+          "name": "E31-no-sources-is-not-closed",
+          "status": 200,
+          "reason": "Inventário sem fontes não encerra11; futura fonte herda risco."
+        },
+        {
+          "name": "E32-proven-exclusion",
+          "status": 200,
+          "reason": "C excluída explicitamente só desta reserva; restante universo continua incerto."
+        },
+        {
+          "name": "E33-archived-and-stale-confirmation",
+          "status": 409,
+          "reason": "Arquivar A não apaga risco; confirmação v1 não encerra reserva v2."
+        },
+        {
+          "name": "E34-correct-draft-confirmation",
+          "status": 200,
+          "reason": "SAVE corrigido remove CLOSE antes de prepare, restaura pendência sem efeito."
+        }
+      ],
+      "counterproofs": [
+        {
+          "name": "origem ausente tratada como reserva ausente",
+          "cause": "SOURCE_PROPAGATION"
+        },
+        {
+          "name": "escolha arbitrária de A",
+          "cause": "SOURCE_PROPAGATION"
+        },
+        {
+          "name": "liberação indevida de candidata",
+          "cause": "PERMISSION"
+        },
+        {
+          "name": "bloqueio indevido de independente",
+          "cause": "INDEPENDENT_ALLOWED"
+        },
+        {
+          "name": "encerrar uma elimina outra pendência",
+          "cause": "SOURCE_PROPAGATION"
+        },
+        {
+          "name": "unknown convertido em zero",
+          "cause": "SOURCE_PROPAGATION"
+        },
+        {
+          "name": "finalização aceita alocação proibida",
+          "cause": "FINALIZATION"
+        },
+        {
+          "name": "encerramento produz histórico financeiro",
+          "cause": "NO_FAKE_HISTORY"
+        },
+        {
+          "name": "versão/inventário ignorado",
+          "cause": "FINALIZATION"
+        }
+      ],
+      "preservation": {
+        "before": {
+          "./cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+          "./snapshots.json": "bd848988bc0cf90d839d4d9e1488dc63cde5a3ab4fb395b0062c29e2587395ea",
+          "./build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+          "./build-snapshots.mjs": "a27d29d11660edbb9f44e977a97b8026acd8d9ef457a3d854adcff865c0f85b5",
+          "./check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+          "./verify.mjs": "88a428425ffd88ed30190c8ddb0e0c06d32aa70e5ed48fbcb09c13bb5d729cfa",
+          "../../../docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27"
+        },
+        "after": {
+          "./cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+          "./snapshots.json": "bd848988bc0cf90d839d4d9e1488dc63cde5a3ab4fb395b0062c29e2587395ea",
+          "./build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+          "./build-snapshots.mjs": "a27d29d11660edbb9f44e977a97b8026acd8d9ef457a3d854adcff865c0f85b5",
+          "./check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+          "./verify.mjs": "88a428425ffd88ed30190c8ddb0e0c06d32aa70e5ed48fbcb09c13bb5d729cfa",
+          "../../../docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27"
+        },
+        "unchanged": true
+      }
+    },
+    "setResults": [
+      {
+        "case": "E21-known-origin",
+        "blockers": [
+          [
+            11
+          ],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E22-limited-candidates",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E23-unbounded",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ],
+          [
+            11
+          ]
+        ],
+        "status": 200
+      },
+      {
+        "case": "E24-overlap-close-one",
+        "blockers": [
+          [],
+          [
+            12
+          ],
+          [
+            12
+          ]
+        ],
+        "status": 200
+      },
+      {
+        "case": "E25-known-value-unknown-link",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ]
+        ],
+        "status": 400
+      },
+      {
+        "case": "E26-partial-source",
+        "blockers": [
+          [
+            11
+          ],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E27-close-no-history",
+        "blockers": [
+          [],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E28-new-source-before-prepare",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ],
+          [
+            11
+          ]
+        ],
+        "status": 400
+      },
+      {
+        "case": "E29-stale-evidence",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ],
+          [
+            11
+          ]
+        ],
+        "status": 409
+      },
+      {
+        "case": "E30-confirm-two-sources",
+        "blockers": [
+          [],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E31-no-sources-is-not-closed",
+        "blockers": [],
+        "status": 200
+      },
+      {
+        "case": "E32-proven-exclusion",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ],
+          []
+        ],
+        "status": 200
+      },
+      {
+        "case": "E33-archived-and-stale-confirmation",
+        "blockers": [
+          [
+            11
+          ],
+          []
+        ],
+        "status": 409
+      },
+      {
+        "case": "E34-correct-draft-confirmation",
+        "blockers": [
+          [
+            11
+          ],
+          [
+            11
+          ]
+        ],
+        "status": 200
+      }
+    ],
+    "entireGeneratorsMatch": true,
+    "sixIndependentHashes": "passed",
+    "arithmetic": {
+      "E01": {
+        "netWorth": "1451.00",
+        "debt": "350.00",
+        "reserved": "550.00"
+      },
+      "E16": "1999999999999.98",
+      "E17": "-1999999999999.98",
+      "E18_E20": "preserved",
+      "E35": "1500.00 / 400.00"
+    },
+    "extraCompositionControls": "passed",
+    "acceptedTotals": [
+      {
+        "case": "E23-unbounded",
+        "expectedState": "KNOWN",
+        "expected": "400.00",
+        "actual": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000001",
+            "accountTotal": "400.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000002",
+            "accountTotal": "400.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000003",
+            "accountTotal": "400.00"
+          }
+        ]
+      },
+      {
+        "case": "E28-new-source-before-prepare",
+        "expectedState": "KNOWN",
+        "expected": "400.00",
+        "actual": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000001",
+            "accountTotal": "400.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000002",
+            "accountTotal": "400.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000003",
+            "accountTotal": "400.00"
+          }
+        ]
+      },
+      {
+        "case": "E32-proven-exclusion",
+        "expectedState": "KNOWN",
+        "expected": "500.00",
+        "actual": {
+          "state": "KNOWN",
+          "value": "500.00",
+          "knownSubtotal": "500.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000001",
+            "accountTotal": "500.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000002",
+            "accountTotal": "500.00"
+          }
+        ]
+      },
+      {
+        "case": "E34-correct-draft-confirmation",
+        "expectedState": "KNOWN",
+        "expected": "400.00",
+        "actual": {
+          "state": "KNOWN",
+          "value": "400.00",
+          "knownSubtotal": "400.00",
+          "outsideIndividualRange": false,
+          "missingPaths": []
+        },
+        "worlds": [
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000001",
+            "accountTotal": "400.00"
+          },
+          {
+            "source": "ACCOUNT/20000000-0000-4000-8000-000000000002",
+            "accountTotal": "400.00"
+          }
+        ]
+      }
+    ],
+    "dimensionControls": [
+      "CANDIDATES ACCOUNT only: KNOWN400",
+      "UNBOUNDED ACCOUNT/INVESTMENT: UNKNOWN"
+    ],
+    "preservation": {
+      "before": {
+        "docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27",
+        "tasks/04-onboarding/CF-028-contrato-onboarding.md": "56650499a100f3a0672c28e3470528590f393b2b03933ebb1e29759b79fd3e23",
+        "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951e8520e727dde228fa643f3817ceb5503a4473c8bfa0c06288a4e0974",
+        "tasks/evidencias/saneamento-CF-028-origem/baseline.json": "7d06d6dbeac6c127650d8a6506fe2285b2dc73fc178a4c1ee60fbc071f3c28c0",
+        "tasks/evidencias/saneamento-CF-028-origem/before-independent.json": "f02e1b10cbb2610ad82367608a54b1fef900b2fc875c217682171ef3704e3a78",
+        "tasks/evidencias/saneamento-CF-028-origem/before-verification.json": "6aba925cb6561cde7a18118842feb13f003a6659dd33dcf57d7a31320ccf4301",
+        "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+        "tasks/evidencias/saneamento-CF-028-origem/build-snapshots.mjs": "a27d29d11660edbb9f44e977a97b8026acd8d9ef457a3d854adcff865c0f85b5",
+        "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+        "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+        "tasks/evidencias/saneamento-CF-028-origem/snapshots.json": "bd848988bc0cf90d839d4d9e1488dc63cde5a3ab4fb395b0062c29e2587395ea",
+        "tasks/evidencias/saneamento-CF-028-origem/verification.json": "eb2d2929185c30acebf0bd5e296630c46bc7439a73117ae2c2cb774becba2aad",
+        "tasks/evidencias/saneamento-CF-028-origem/verify.mjs": "88a428425ffd88ed30190c8ddb0e0c06d32aa70e5ed48fbcb09c13bb5d729cfa",
+        "README.md": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+        "tasks/evidencias/CF-028/README.md": "a40c3d235eb4658ecca5a382c5b55d558507d82dd7cc7b268873dba36bc042a6",
+        "tasks/evidencias/CF-028/build-examples.mjs": "68973d7dcf6488361d7837aeafd20788ed968d16e427e97226f66206308486de",
+        "tasks/evidencias/CF-028/examples.json": "d54ec308c7c506e7826410c08a0588649230deb121b8adfb03302d45a9fc1db3",
+        "tasks/evidencias/CF-028/validation-kiritimati.json": "936cd0c0c2b633442bac23a0994b218347f6fda46784d76c0f14e6d273205809",
+        "tasks/evidencias/CF-028/validation-sao-paulo.json": "256bc3872b0399f10ca25e92c35a6a4cc2a75aeb962b8451c8165329183fbc3f",
+        "tasks/evidencias/CF-028/validation-utc.json": "ccc87935cf3d3a1ad0627f6440d5961cf8190d4da37bc4391f9b21b91996e848",
+        "tasks/evidencias/CF-028/verify.mjs": "052e4e1e4a53bd1d407ef9ab6e41caa1f57b86b87f9091e5cea6bd1d3f21c4e1",
+        "tasks/evidencias/revalidacao-CF-028-R28/README.md": "a57cf94f480c5e985a7fb0dff91294d912e86ab4eda0e6c1eba9ddb52c3474e5",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "fc360a3afb0fb2368910cb2e900551378c1dd0719cc4f6429c8de21e08356ea0",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701eaec89963d022942766cccd28d229740300d777b255fc26feb77d22",
+        "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799b92568db2b5e5875855deab514cbfe30a51936a0041024cfefe1cd5dd2f10",
+        "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54b18dd99034b3e5b97aa09729e5d832cbdb12e6a3f88566c715847734fe60b9",
+        "tasks/evidencias/revisao-CF-028/README.md": "56051729a07d889c6a538b7cb0fcfca828047bb450b45852389ae0f50a2e7179",
+        "tasks/evidencias/revisao-CF-028/harness-result.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+        "tasks/evidencias/revisao-CF-028/harness.mjs": "1fbf581f68b766d100ba7539ff83d915e7112894e891aaef4154f1105fc44ced",
+        "tasks/evidencias/revisao-CF-028/probe-result.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+        "tasks/evidencias/revisao-CF-028/probe.ps1": "519da9632b2a08aa5b4cbcd116b55b1308f52f1d1f73f468e7e86fca03955f00",
+        "tasks/evidencias/saneamento-CF-028-R28/README.md": "f8e8f66854c103da4733f26b5668634e83468d132d3da8558741f6d22530c86f",
+        "tasks/evidencias/saneamento-CF-028-R28/after-e01.json": "2012e86c0c01c29354d0ebfed007b787f8d7a7c71e3ad0a429705b8ed3573370",
+        "tasks/evidencias/saneamento-CF-028-R28/after-r28.json": "a9f8c5cb5d74468cfee6adb631214578d5b652589521e56e16b80dea3df98c5c",
+        "tasks/evidencias/saneamento-CF-028-R28/baseline.json": "77108700f4abac1bd837a64c1d683a4c5294419842b302f939a6dddbbf3118d2",
+        "tasks/evidencias/saneamento-CF-028-R28/before-harness.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+        "tasks/evidencias/saneamento-CF-028-R28/before-probe.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+        "tasks/evidencias/saneamento-CF-028-R28/build-cases.mjs": "8a8a8df86d313d91c3ad91f3c77644e20b4e0ab7877b64b8fde43b215604d746",
+        "tasks/evidencias/saneamento-CF-028-R28/cases.json": "0a58fd9f72a5d5ef4b4957f4ccfc56858ce5f19ee81330fd94e7dbbe7e9c0f58",
+        "tasks/evidencias/saneamento-CF-028-R28/summary-contract.mjs": "4e7305b613d192ba5c039b4b6b1fde7cf3e82c81ba9e0d911e751a7b698649cd",
+        "tasks/evidencias/saneamento-CF-028-R28/verify.mjs": "c51639006d04fc7728d7c47611c9584991d721597a77f25cf42d15f20f118310"
+      },
+      "after": {
+        "docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27",
+        "tasks/04-onboarding/CF-028-contrato-onboarding.md": "56650499a100f3a0672c28e3470528590f393b2b03933ebb1e29759b79fd3e23",
+        "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951e8520e727dde228fa643f3817ceb5503a4473c8bfa0c06288a4e0974",
+        "tasks/evidencias/saneamento-CF-028-origem/baseline.json": "7d06d6dbeac6c127650d8a6506fe2285b2dc73fc178a4c1ee60fbc071f3c28c0",
+        "tasks/evidencias/saneamento-CF-028-origem/before-independent.json": "f02e1b10cbb2610ad82367608a54b1fef900b2fc875c217682171ef3704e3a78",
+        "tasks/evidencias/saneamento-CF-028-origem/before-verification.json": "6aba925cb6561cde7a18118842feb13f003a6659dd33dcf57d7a31320ccf4301",
+        "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+        "tasks/evidencias/saneamento-CF-028-origem/build-snapshots.mjs": "a27d29d11660edbb9f44e977a97b8026acd8d9ef457a3d854adcff865c0f85b5",
+        "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+        "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+        "tasks/evidencias/saneamento-CF-028-origem/snapshots.json": "bd848988bc0cf90d839d4d9e1488dc63cde5a3ab4fb395b0062c29e2587395ea",
+        "tasks/evidencias/saneamento-CF-028-origem/verification.json": "eb2d2929185c30acebf0bd5e296630c46bc7439a73117ae2c2cb774becba2aad",
+        "tasks/evidencias/saneamento-CF-028-origem/verify.mjs": "88a428425ffd88ed30190c8ddb0e0c06d32aa70e5ed48fbcb09c13bb5d729cfa",
+        "README.md": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+        "tasks/evidencias/CF-028/README.md": "a40c3d235eb4658ecca5a382c5b55d558507d82dd7cc7b268873dba36bc042a6",
+        "tasks/evidencias/CF-028/build-examples.mjs": "68973d7dcf6488361d7837aeafd20788ed968d16e427e97226f66206308486de",
+        "tasks/evidencias/CF-028/examples.json": "d54ec308c7c506e7826410c08a0588649230deb121b8adfb03302d45a9fc1db3",
+        "tasks/evidencias/CF-028/validation-kiritimati.json": "936cd0c0c2b633442bac23a0994b218347f6fda46784d76c0f14e6d273205809",
+        "tasks/evidencias/CF-028/validation-sao-paulo.json": "256bc3872b0399f10ca25e92c35a6a4cc2a75aeb962b8451c8165329183fbc3f",
+        "tasks/evidencias/CF-028/validation-utc.json": "ccc87935cf3d3a1ad0627f6440d5961cf8190d4da37bc4391f9b21b91996e848",
+        "tasks/evidencias/CF-028/verify.mjs": "052e4e1e4a53bd1d407ef9ab6e41caa1f57b86b87f9091e5cea6bd1d3f21c4e1",
+        "tasks/evidencias/revalidacao-CF-028-R28/README.md": "a57cf94f480c5e985a7fb0dff91294d912e86ab4eda0e6c1eba9ddb52c3474e5",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "fc360a3afb0fb2368910cb2e900551378c1dd0719cc4f6429c8de21e08356ea0",
+        "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701eaec89963d022942766cccd28d229740300d777b255fc26feb77d22",
+        "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799b92568db2b5e5875855deab514cbfe30a51936a0041024cfefe1cd5dd2f10",
+        "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54b18dd99034b3e5b97aa09729e5d832cbdb12e6a3f88566c715847734fe60b9",
+        "tasks/evidencias/revisao-CF-028/README.md": "56051729a07d889c6a538b7cb0fcfca828047bb450b45852389ae0f50a2e7179",
+        "tasks/evidencias/revisao-CF-028/harness-result.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+        "tasks/evidencias/revisao-CF-028/harness.mjs": "1fbf581f68b766d100ba7539ff83d915e7112894e891aaef4154f1105fc44ced",
+        "tasks/evidencias/revisao-CF-028/probe-result.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+        "tasks/evidencias/revisao-CF-028/probe.ps1": "519da9632b2a08aa5b4cbcd116b55b1308f52f1d1f73f468e7e86fca03955f00",
+        "tasks/evidencias/saneamento-CF-028-R28/README.md": "f8e8f66854c103da4733f26b5668634e83468d132d3da8558741f6d22530c86f",
+        "tasks/evidencias/saneamento-CF-028-R28/after-e01.json": "2012e86c0c01c29354d0ebfed007b787f8d7a7c71e3ad0a429705b8ed3573370",
+        "tasks/evidencias/saneamento-CF-028-R28/after-r28.json": "a9f8c5cb5d74468cfee6adb631214578d5b652589521e56e16b80dea3df98c5c",
+        "tasks/evidencias/saneamento-CF-028-R28/baseline.json": "77108700f4abac1bd837a64c1d683a4c5294419842b302f939a6dddbbf3118d2",
+        "tasks/evidencias/saneamento-CF-028-R28/before-harness.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+        "tasks/evidencias/saneamento-CF-028-R28/before-probe.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+        "tasks/evidencias/saneamento-CF-028-R28/build-cases.mjs": "8a8a8df86d313d91c3ad91f3c77644e20b4e0ab7877b64b8fde43b215604d746",
+        "tasks/evidencias/saneamento-CF-028-R28/cases.json": "0a58fd9f72a5d5ef4b4957f4ccfc56858ce5f19ee81330fd94e7dbbe7e9c0f58",
+        "tasks/evidencias/saneamento-CF-028-R28/summary-contract.mjs": "4e7305b613d192ba5c039b4b6b1fde7cf3e82c81ba9e0d911e751a7b698649cd",
+        "tasks/evidencias/saneamento-CF-028-R28/verify.mjs": "c51639006d04fc7728d7c47611c9584991d721597a77f25cf42d15f20f118310"
+      },
+      "unchanged": true
+    }
+  },
+  "fixtureDeltaOnlyFourTotalsAndReason": true,
+  "partialNominalControl": {
+    "state": "PARTIAL",
+    "value": null,
+    "knownSubtotal": "123.45",
+    "outsideIndividualRange": false,
+    "missingPaths": [
+      "20000000-0000-4000-8000-000000000011"
+    ]
+  },
+  "historicalReviewsUnchanged": true,
+  "preservation": {
+    "before": {
+      "README.md": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+      "docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27",
+      "tasks/04-onboarding/CF-028-contrato-onboarding.md": "56650499a100f3a0672c28e3470528590f393b2b03933ebb1e29759b79fd3e23",
+      "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951e8520e727dde228fa643f3817ceb5503a4473c8bfa0c06288a4e0974",
+      "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+      "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+      "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+      "tasks/evidencias/saneamento-CF-028-origem/verification.json": "eb2d2929185c30acebf0bd5e296630c46bc7439a73117ae2c2cb774becba2aad",
+      "tasks/evidencias/saneamento-CF-028-totais/README.md": "b8a088f7e6bf72dba7f555a26c7ba9e8ddce3c173c06ff5da78815dc4a34b269",
+      "tasks/evidencias/saneamento-CF-028-totais/after.json": "38887fdab56ec9e81efdb96a20eab02228db3cf8e614b7de35f577de4d015ceb",
+      "tasks/evidencias/saneamento-CF-028-totais/baseline.json": "1e3e9f328b2bbfbd7ceec32a5b636602e96106f2b2e1fa8b10951f74f6339d2a",
+      "tasks/evidencias/saneamento-CF-028-totais/before.json": "0fb3842f0add4dff6e5eca610c776fac125da7a4c7ed66d9863a3467f9d16040",
+      "tasks/evidencias/saneamento-CF-028-totais/verify.mjs": "c1bfa208e3c2ab4e5faa1e0341b636b75c40c1d0fb237a8aaca9daad69b284b0",
+      "tasks/evidencias/revalidacao-CF-028-R28/README.md": "a57cf94f480c5e985a7fb0dff91294d912e86ab4eda0e6c1eba9ddb52c3474e5",
+      "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "fc360a3afb0fb2368910cb2e900551378c1dd0719cc4f6429c8de21e08356ea0",
+      "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701eaec89963d022942766cccd28d229740300d777b255fc26feb77d22",
+      "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799b92568db2b5e5875855deab514cbfe30a51936a0041024cfefe1cd5dd2f10",
+      "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54b18dd99034b3e5b97aa09729e5d832cbdb12e6a3f88566c715847734fe60b9",
+      "tasks/evidencias/revalidacao-CF-028-origem/README.md": "32e250a9adcf017bebf062a35d5687e4bb4b293367607f1537762218230e177d",
+      "tasks/evidencias/revalidacao-CF-028-origem/result.json": "453b8db87ea6b9f8147ca8b754f8b1628ebb6783a7c7b193055b97131d59d7a6",
+      "tasks/evidencias/revalidacao-CF-028-origem/verify.mjs": "bc118e0005043f1788fa32da4af9bf9daf5c7a8a378cdedc2710c7eb2bb9565b",
+      "tasks/evidencias/revisao-CF-028/README.md": "56051729a07d889c6a538b7cb0fcfca828047bb450b45852389ae0f50a2e7179",
+      "tasks/evidencias/revisao-CF-028/harness-result.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+      "tasks/evidencias/revisao-CF-028/harness.mjs": "1fbf581f68b766d100ba7539ff83d915e7112894e891aaef4154f1105fc44ced",
+      "tasks/evidencias/revisao-CF-028/probe-result.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+      "tasks/evidencias/revisao-CF-028/probe.ps1": "519da9632b2a08aa5b4cbcd116b55b1308f52f1d1f73f468e7e86fca03955f00"
+    },
+    "after": {
+      "README.md": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+      "docs/sdd/specs/001-onboarding.md": "101564c95b4d0f587ac19f74dc8983d7cc40dd9c89807cef39a241f45d1d9f27",
+      "tasks/04-onboarding/CF-028-contrato-onboarding.md": "56650499a100f3a0672c28e3470528590f393b2b03933ebb1e29759b79fd3e23",
+      "tasks/evidencias/saneamento-CF-028-origem/README.md": "03455951e8520e727dde228fa643f3817ceb5503a4473c8bfa0c06288a4e0974",
+      "tasks/evidencias/saneamento-CF-028-origem/build-cases.mjs": "9c36dbc3faab1d41f450dffa418efd25856404500a77cda5c289529c126eab39",
+      "tasks/evidencias/saneamento-CF-028-origem/cases.json": "9286060300a6d1748603bf4e8e190c5b5f9c0acced5038f4a387f942ae9bee74",
+      "tasks/evidencias/saneamento-CF-028-origem/check-contract.mjs": "d424ea80b1cc1ba6c7d970ee3721754e69fbad608f0c8a464dc635bf44b9b551",
+      "tasks/evidencias/saneamento-CF-028-origem/verification.json": "eb2d2929185c30acebf0bd5e296630c46bc7439a73117ae2c2cb774becba2aad",
+      "tasks/evidencias/saneamento-CF-028-totais/README.md": "b8a088f7e6bf72dba7f555a26c7ba9e8ddce3c173c06ff5da78815dc4a34b269",
+      "tasks/evidencias/saneamento-CF-028-totais/after.json": "38887fdab56ec9e81efdb96a20eab02228db3cf8e614b7de35f577de4d015ceb",
+      "tasks/evidencias/saneamento-CF-028-totais/baseline.json": "1e3e9f328b2bbfbd7ceec32a5b636602e96106f2b2e1fa8b10951f74f6339d2a",
+      "tasks/evidencias/saneamento-CF-028-totais/before.json": "0fb3842f0add4dff6e5eca610c776fac125da7a4c7ed66d9863a3467f9d16040",
+      "tasks/evidencias/saneamento-CF-028-totais/verify.mjs": "c1bfa208e3c2ab4e5faa1e0341b636b75c40c1d0fb237a8aaca9daad69b284b0",
+      "tasks/evidencias/revalidacao-CF-028-R28/README.md": "a57cf94f480c5e985a7fb0dff91294d912e86ab4eda0e6c1eba9ddb52c3474e5",
+      "tasks/evidencias/revalidacao-CF-028-R28/independent-result.json": "fc360a3afb0fb2368910cb2e900551378c1dd0719cc4f6429c8de21e08356ea0",
+      "tasks/evidencias/revalidacao-CF-028-R28/independent.ps1": "276564701eaec89963d022942766cccd28d229740300d777b255fc26feb77d22",
+      "tasks/evidencias/revalidacao-CF-028-R28/verification-result.json": "799b92568db2b5e5875855deab514cbfe30a51936a0041024cfefe1cd5dd2f10",
+      "tasks/evidencias/revalidacao-CF-028-R28/verify.mjs": "54b18dd99034b3e5b97aa09729e5d832cbdb12e6a3f88566c715847734fe60b9",
+      "tasks/evidencias/revalidacao-CF-028-origem/README.md": "32e250a9adcf017bebf062a35d5687e4bb4b293367607f1537762218230e177d",
+      "tasks/evidencias/revalidacao-CF-028-origem/result.json": "453b8db87ea6b9f8147ca8b754f8b1628ebb6783a7c7b193055b97131d59d7a6",
+      "tasks/evidencias/revalidacao-CF-028-origem/verify.mjs": "bc118e0005043f1788fa32da4af9bf9daf5c7a8a378cdedc2710c7eb2bb9565b",
+      "tasks/evidencias/revisao-CF-028/README.md": "56051729a07d889c6a538b7cb0fcfca828047bb450b45852389ae0f50a2e7179",
+      "tasks/evidencias/revisao-CF-028/harness-result.json": "4dac6dddfb0fc022e53114dce34f204e2237b0a5e4be08867c476f62f46aa1bf",
+      "tasks/evidencias/revisao-CF-028/harness.mjs": "1fbf581f68b766d100ba7539ff83d915e7112894e891aaef4154f1105fc44ced",
+      "tasks/evidencias/revisao-CF-028/probe-result.json": "f1bfaf4dcdf274fb1505ff29788cc2b9d9700cb26afebfe56f27de34e9a48591",
+      "tasks/evidencias/revisao-CF-028/probe.ps1": "519da9632b2a08aa5b4cbcd116b55b1308f52f1d1f73f468e7e86fca03955f00"
+    },
+    "unchanged": true
+  }
+}

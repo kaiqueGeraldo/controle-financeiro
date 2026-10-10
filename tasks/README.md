@@ -45,6 +45,13 @@ tasks/
 
 ## Prontidão
 
+Atualização CF-028 de10/10/2026, base `a7bc256`:
+[aceite independente final](evidencias/revalidacao-CF-028-totais/README.md).
+**CF-028 concluída exclusivamente como especificação; R28-01/02 encerrados.**
+Próximo trabalho planejado: fechamento dirigido CF-010–015, não iniciado nesta
+revisão. Nenhuma liberação automática de CF-029–034 ou implementação de onboarding.
+As notas datadas anteriores abaixo permanecem históricas no recorte CF-028.
+
 Parecer vigente de 09/10/2026 sobre `0c068d9`, intervalo `18cd6df..0c068d9`:
 [revalidação independente RD58](evidencias/revalidacao-RD58/README.md).
 RD58-01/02 aprovados; **CF-005 e CF-006 concluídas** após confronto de critérios
