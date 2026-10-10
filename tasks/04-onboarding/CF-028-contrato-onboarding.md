@@ -88,3 +88,12 @@ desconhecido. Checks acima registram entrega do executor, não superam este pare
 Saneamento documental dirigido dos DTOs/validações/exemplos e posterior revalidação,
 sem implementação, revisão global ou liberação CF-029–034. DEC-ONB-01 preservada.
 Somente após aceite, sequência planejada de fechamento dirigido CF-010–015.
+
+## Saneamento documental R28-01/02 — 10/10/2026
+
+Sobre a revisão `ef5cfae`, corrigidos agregados exatos e estados de conhecimento
+no Summary, com E16–E20, atualização de E01 e contraprovas documentais.
+[Delta, resultados e encaminhamento ao mesmo revisor](../evidencias/saneamento-CF-028-R28/README.md).
+Parecer/provas independentes e README raiz preservados por hash. Sem implementação,
+mudança de dependências ou nova decisão de produto. **em_revisao mantido**; saneamento
+é candidato à revalidação, não encerramento dos achados nem aprovação do executor.

@@ -42,6 +42,24 @@ const bySource = [
   {ref:ref('INVESTMENT',22),value:known('1.00'),reserved:'0.00',free:known('1.00'),newAllocationCapacity:known('1.00')}
 ];
 const summary = {baseDate:'2026-10-09',existingAsOf:'2026-10-09T15:00:00Z',scope:'SELECTED_AND_EXISTING',coverage:['accounts','investments','cards','allocations'].map(dimension=>({dimension,complete:true,missingPaths:[]})),metrics,bySource,byCard:[{ref:ref('CARD',31),debt:known('350.00'),credit:known('0.00'),committed:known('344.00'),availableLimit:known('656.00')}],byGoal:[{ref:ref('GOAL',41),type:'MONETARY',progress:'500.00',covered:known('500.00')},{ref:ref('GOAL',42),type:'MONETARY',progress:'50.00',covered:known('50.00')},{ref:ref('GOAL',43),type:'NUMERIC',progress:'4.00000000',covered:{state:'NOT_APPLICABLE'}}],deferredSections:[]};
+// R28: somente representação dos mesmos números literais E01. Sem cálculo financeiro.
+const amount = value => ({state:'KNOWN',value,knownSubtotal:value,outsideIndividualRange:false,missingPaths:[]});
+for (const [key,value] of Object.entries(expected)) summary.metrics[key]=amount(value);
+for (const row of summary.bySource) {
+  row.reserved=amount(row.reserved);
+  row.free=amount(row.free.value);
+  row.newAllocationCapacity=amount(row.newAllocationCapacity.value);
+}
+for (const row of summary.byCard) {
+  row.committed=amount(row.committed.value);
+  row.availableLimit=amount(row.availableLimit.value);
+}
+for (const row of summary.byGoal) {
+  row.progress=amount(row.progress);
+  row.covered=row.type==='NUMERIC'
+    ? {state:'NOT_APPLICABLE',value:null,knownSubtotal:null,outsideIndividualRange:null,missingPaths:[]}
+    : amount(row.covered.value);
+}
 const all = [['ACCOUNT',accounts],['INVESTMENT',investments],['CARD',cards],['INSTALLMENT',cards[0].opening.futureInstallments],['GOAL',goals],['ALLOCATION',allocations],['FORECAST',forecasts]].flatMap(([kind,items])=>items.map(item=>({tempId:item.tempId,kind,action:item.action??'CREATE',existingId:item.ref?.id??null})));
 // Só ordenação/serialização de documentação; oráculos financeiros acima são literais.
 function canonical(x) {

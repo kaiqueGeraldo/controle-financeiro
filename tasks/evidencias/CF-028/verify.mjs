@@ -36,8 +36,8 @@ function reconcile(f){
   const actual={accountsSigned:accounts,investmentsValue:investments,cardCredit:credit,cardDebt:debt,netWorth:accounts+investments+credit-debt,reservedAccounts:ra,reservedInvestments:ri,freeAccountCash:accounts-ra,unallocatedInvestments:investments-ri};
   for(const [k,v] of Object.entries(actual)){assert.equal(money(v),f.expected[k],k);assert.equal(f.completeResponse.data.summary.metrics[k].value,f.expected[k]);}
   assert.equal(money(principal),'344.00');assert.equal(money(units(c[0].limit.value)-principal),'656.00');
-  for(const row of f.completeResponse.data.summary.byGoal){const goal=g.find(x=>x.tempId===row.ref.tempId);assert.equal(row.progress,goal.type==='NUMERIC'?goal.initialProgress:money(progress.get(goal.tempId)??0n));}
-  for(const row of f.completeResponse.data.summary.bySource){const value=sources.get(row.ref.tempId).value,res=reserved.get(row.ref.tempId)??0n;assert.equal(row.value.value,money(value));assert.equal(row.reserved,money(res));assert.equal(row.free.value,money(value-res));}
+  for(const row of f.completeResponse.data.summary.byGoal){const goal=g.find(x=>x.tempId===row.ref.tempId);assert.equal(row.progress.value,goal.type==='NUMERIC'?goal.initialProgress:money(progress.get(goal.tempId)??0n));}
+  for(const row of f.completeResponse.data.summary.bySource){const value=sources.get(row.ref.tempId).value,res=reserved.get(row.ref.tempId)??0n;assert.equal(row.value.value,money(value));assert.equal(row.reserved.value,money(res));assert.equal(row.free.value,money(value-res));assert.equal(row.newAllocationCapacity.value,money(value-res));}
   for(const goal of g)date(goal.deadline);
   assert.equal(i[0].cost.state,'UNKNOWN');assert.equal(i[0].quantity.state,'NOT_APPLICABLE');
   return {accounts,debt,principal,ra};

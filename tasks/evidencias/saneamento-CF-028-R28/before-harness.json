@@ -1,0 +1,82 @@
+{
+  "generatorBytesIdentical": true,
+  "runs": [
+    {
+      "scope": "somente documentação; sem produto/HTTP/SQL/browser",
+      "node": "v24.18.0",
+      "timezone": "America/Sao_Paulo",
+      "passed": 9,
+      "checks": [
+        "E01: entradas reconciliam nove totais, capacidade, composição e progresso",
+        "E01: pagamento posterior sem nova despesa ou mudança de patrimônio",
+        "FIN-06: teto inclusivo, escala, Number e tokens inválidos",
+        "DEC-03: meses curtos, bissexto, vencimento estritamente posterior",
+        "Recibos documentais: identidade, conteúdo, mapping e replay/recuperação",
+        "Hashes: conteúdo e revisão conferidos por serialização independente",
+        "Contraprovas documentais: cinco corrupções são detectadas",
+        "E14: conta negativa não é dívida duplicada; crédito é ativo",
+        "Preservação README e links/JSON da especificação"
+      ],
+      "mutationsRejected": 5
+    },
+    {
+      "scope": "somente documentação; sem produto/HTTP/SQL/browser",
+      "node": "v24.18.0",
+      "timezone": "UTC",
+      "passed": 9,
+      "checks": [
+        "E01: entradas reconciliam nove totais, capacidade, composição e progresso",
+        "E01: pagamento posterior sem nova despesa ou mudança de patrimônio",
+        "FIN-06: teto inclusivo, escala, Number e tokens inválidos",
+        "DEC-03: meses curtos, bissexto, vencimento estritamente posterior",
+        "Recibos documentais: identidade, conteúdo, mapping e replay/recuperação",
+        "Hashes: conteúdo e revisão conferidos por serialização independente",
+        "Contraprovas documentais: cinco corrupções são detectadas",
+        "E14: conta negativa não é dívida duplicada; crédito é ativo",
+        "Preservação README e links/JSON da especificação"
+      ],
+      "mutationsRejected": 5
+    },
+    {
+      "scope": "somente documentação; sem produto/HTTP/SQL/browser",
+      "node": "v24.18.0",
+      "timezone": "Pacific/Kiritimati",
+      "passed": 9,
+      "checks": [
+        "E01: entradas reconciliam nove totais, capacidade, composição e progresso",
+        "E01: pagamento posterior sem nova despesa ou mudança de patrimônio",
+        "FIN-06: teto inclusivo, escala, Number e tokens inválidos",
+        "DEC-03: meses curtos, bissexto, vencimento estritamente posterior",
+        "Recibos documentais: identidade, conteúdo, mapping e replay/recuperação",
+        "Hashes: conteúdo e revisão conferidos por serialização independente",
+        "Contraprovas documentais: cinco corrupções são detectadas",
+        "E14: conta negativa não é dívida duplicada; crédito é ativo",
+        "Preservação README e links/JSON da especificação"
+      ],
+      "mutationsRejected": 5
+    }
+  ],
+  "causes": [
+    {
+      "name": "netWorth",
+      "message": "netWorth\n+ actual - expected\n\n+ '1451.00'\n- '2001.00'\n"
+    },
+    {
+      "name": "currentInstallment",
+      "message": "corrente duplicada"
+    },
+    {
+      "name": "capacity",
+      "message": "capacidade excedida"
+    },
+    {
+      "name": "Number",
+      "message": "decimal deve ser string\n\n'number' !== 'string'\n"
+    },
+    {
+      "name": "invalidDate",
+      "message": "The expression evaluated to a falsy value:\n\n  assert(y>=1&&y<=9999&&m>=1&&m<=12&&d>=1&&d<=days(y,m))\n"
+    }
+  ],
+  "uncheckedResponseField": "newAllocationCapacity: 999.00 survives reconcile; expected 100.00"
+}

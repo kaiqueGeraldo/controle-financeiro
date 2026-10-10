@@ -4,6 +4,10 @@ Contrato **v1**, candidato CF-028 de 09/10/2026, **em revisão independente**.
 Base: `c6a7c3ef3b563e9a432f80166aa4982a25180cd5`. Fonte canônica dos DTOs/regras
 futuros; não declara implementação. [Evidências](../../../tasks/evidencias/CF-028/README.md).
 
+Saneamento documental R28-01/02 em 10/10/2026 sobre `ef5cfae`, ainda **em_revisao**.
+[Reprodução e encaminhamento](../../../tasks/evidencias/saneamento-CF-028-R28/README.md).
+O parecer independente original permanece histórico e não foi reescrito.
+
 ## 1. Autoridade, decisões e escopo
 
 Aplicam-se [FIN-01–08, FIN-06/NG-01](004-regras-financeiras.md),
@@ -169,9 +173,12 @@ capacidade de cada fonte. Investimento livre não é caixa. Dívida mostrada ao 
 sem abatê-la de novo ou prometer autorização bancária para gastar.
 
 Desconhecido/adiamento/legado sem prova impede rótulo total completo na dimensão
-afetada; mostrar subtotal e lacunas. Agregado fora FIN-06→OUT_OF_RANGE/null, sem
-overflow/zero/truncamento. Fonte individual/dívida por cartão precisam caber na
-faixa, senão rejeitar finalização. Não reconstruir posição anterior à data-base.
+afetada; mostrar subtotal e lacunas conforme SummaryAmount (§5). Agregado conhecido
+acima do teto individual continua exato e conhecido, com outsideIndividualRange=true:
+isso informa a faixa excedida exigida por FIN-06, sem ocultar o valor em null.
+Entrada, posição individual e dívida por cartão continuam limitadas; não aceitar
+operação individual inválida porque o transporte de agregado é mais amplo.
+Não reconstruir posição anterior à data-base.
 
 ## 4. Schema lógico dos DTOs futuros v1
 
@@ -192,6 +199,8 @@ podem usar inteiros JSON dentro dos limites, sem confundir com decimal monetári
 | UUID | String canônica minúscula; owner exclusivamente da autenticação |
 | Revision | String inteira sem sinal/zeros iniciais,0..9223372036854775807; não Number; impedir overflow |
 | Money | String até12 inteiros/2 casas, máximo absoluto999999999999.99 inclusivo; saída2 casas |
+| AggregateMoney | Somente derivado de leitura: string decimal exata, exatamente2 casas, inteiros sem zeros iniciais, sinal por campo; sem teto financeiro fixo de dígitos. Ver capacidade e limites derivados no §5 |
+| AggregateQuantity | Somente progresso numérico de leitura: string exata não negativa, exatamente8 casas; sem teto fixo de dígitos. Entradas Quantity conservam12+8 |
 | Quantity/Price | String não negativa até12 inteiros/8 casas, máximo999999999999.99999999; saída8 casas |
 | Text(n) | Unicode trim,1..n pontos de código, sem controles/HTML interpretado |
 | CivilDate | YYYY-MM-DD gregoriana, anos0001–9999, sem hora/fuso |
@@ -208,6 +217,10 @@ exato/BigInt escalado cliente→BFF string→BigDecimal→numeric→string no re
 sem parseFloat/Number intermediário. Delimitar tamanho antes da aritmética.
 HALF_UP só resultado calculado; preço médio/derivado não recompõe custo/TOTAL.
 Preço derivado NG-01 não recebe teto de preço informado nem integra comando.
+
+AggregateMoney/AggregateQuantity rejeitam Number, expoente, vírgula, sinal+,
+espaços, zeros iniciais, -0 e escala diferente, sem arredondar um agregado de
+parcelas já canônicas. Não são tipos de escrita nem substitutos de Money/Quantity.
 
 | DTO | Campos de escrita |
 |---|---|
@@ -330,18 +343,127 @@ Exibir separadamente “aberturas na data-base”/“existentes na revisão”; 
 informa captura da carteira. Recibo conserva existingAsOf da revisão aceita.
 
 Coverage lista `{dimension,complete,missingPaths}` para accounts/investments/cards/
-allocations. UNKNOWN/defer/legado sem prova marca false. Metrics: accountsSigned,
-investmentsValue,cardCredit,cardDebt,netWorth,reservedAccounts,reservedInvestments,
-freeAccountCash,unallocatedInvestments. Cada métrica:
-`{state:KNOWN|INCOMPLETE|OUT_OF_RANGE,value:Money|null,knownSubtotal:Money|null}`.
-KNOWN exige value=knownSubtotal; outros value=null; subtotal fora da faixa é null.
-BySource: `{ref,value:Fact<Money>,reserved:Money,free:Fact<Money>,
-newAllocationCapacity:Fact<Money>}`. ByCard: `{ref,debt:Fact<Money>,credit:Fact<Money>,
-committed:Fact<Money>,availableLimit:Fact<Money>}`. ByGoal:
-`{ref,type,progress:string,covered:Fact<Money>}`; progress na escala do tipo,
-covered NOT_APPLICABLE para NUMERIC. Déficit compartilhado→cobertura por meta
-UNKNOWN, sem rateio arbitrário; déficit conhecido por fonte. Desconhecidos
-propagam para métricas dependentes, não para dimensão independente conhecida.
+allocations. UNKNOWN/PARTIAL/defer/legado sem prova marcam false na dimensão afetada.
+Metrics: accountsSigned, investmentsValue, cardCredit, cardDebt, netWorth,
+reservedAccounts, reservedInvestments, freeAccountCash, unallocatedInvestments;
+**todas são SummaryAmount<AggregateMoney>**, definido abaixo.
+BySource: `{ref,value:Fact<Money>,reserved:SummaryAmount<AggregateMoney>,
+free:SummaryAmount<AggregateMoney>,newAllocationCapacity:SummaryAmount<AggregateMoney>}`.
+ByCard: `{ref,debt:Fact<Money>,credit:Fact<Money>,committed:SummaryAmount<AggregateMoney>,
+availableLimit:SummaryAmount<AggregateMoney>}`. ByGoal: `{ref,type,progress,covered}`:
+progress é SummaryAmount<AggregateMoney> para MONETARY e
+SummaryAmount<AggregateQuantity> para NUMERIC; covered é SummaryAmount<AggregateMoney>.
+covered de NUMERIC é NOT_APPLICABLE, único uso desse estado em Summary.
+
+### SummaryAmount: conhecimento independente da faixa
+
+Todos os campos do objeto são obrigatórios: `{state,value,knownSubtotal,
+outsideIndividualRange,missingPaths}`. Não há variantes INCOMPLETE/OUT_OF_RANGE
+concorrentes: a incompletude é UNKNOWN/PARTIAL; faixa é um indicador ortogonal.
+
+| state | value | knownSubtotal | outsideIndividualRange | missingPaths |
+|---|---|---|---|---|
+| KNOWN | Decimal exato, inclusive zero | Mesmo decimal que value | boolean calculado de abs(value)>teto individual da unidade | [] |
+| PARTIAL | null | Soma exata dos componentes conhecidos; pode ser zero | boolean calculado desse subtotal, não do total desconhecido | Uma ou mais lacunas |
+| UNKNOWN | null | null | null | Uma ou mais lacunas |
+| NOT_APPLICABLE | null | null | null | []; somente covered NUMERIC |
+
+Lacunas são JSON Pointers estáveis no snapshot de domínio apresentado, como
+`/existing/allocations/0/amount`; não são nomes de terceiros nem prova histórica
+fabricada. A existência de componentes desconhecidos exige lacuna mesmo que os
+conhecidos somem zero. UNKNOWN significa nenhum componente confiável daquele valor;
+PARTIAL exige ao menos um componente conhecido **e** um desconhecido. Soma vazia
+comprovadamente completa é KNOWN zero. Estado não se deduz do valor numérico.
+SummaryAmount não substitui Fact<T> das entradas/posições individuais.
+
+UI: KNOWN “0,00”/valor completo; KNOWN fora do teto “total exato; excede faixa de
+operação individual”; PARTIAL “subtotal conhecido …; total indisponível” e lacunas;
+UNKNOWN “não reconciliado/indisponível”; NOT_APPLICABLE “não se aplica”. Nunca usar
+subtotal em barra de progresso como total, nem em autorização de nova reserva.
+
+| Campo | Sinal, escala, domínio e reconciliação |
+|---|---|
+| Inputs Money, posições BySource.value, dívida/crédito ByCard | Teto M=999999999999.99 preservado; sinal negativo só conta. Custo/alvo/limite/valor/reserva individual não negativos; regra >0 de cada comando preservada |
+| Metrics.accountsSigned / netWorth | AggregateMoney assinado; soma de contas / contas+investimentos+crédito−dívida |
+| Metrics.investmentsValue / cardCredit / cardDebt / reservedAccounts / reservedInvestments | AggregateMoney não negativo; soma dos componentes da dimensão |
+| Metrics.freeAccountCash / unallocatedInvestments | AggregateMoney assinado: somar livres por fonte de conta/investimento, inclusive déficit |
+| BySource.reserved | AggregateMoney não negativo: todas as destinações nominais da fonte, incluindo legado e pares não alterados |
+| BySource.free | AggregateMoney assinado: valor da fonte−reserva nominal, sem clamp. Déficit é max(0,−free) quando conhecido |
+| BySource.newAllocationCapacity | AggregateMoney não negativo; quando calculável max(0,free), limitado a M por fonte; fora de faixa individual sempre false |
+| ByCard.committed / availableLimit | AggregateMoney: principal não negativo≤dívida M / limite−principal assinado entre −M e M; nunca somar crédito ao limite |
+| ByGoal.progress MONETARY / covered | AggregateMoney não negativo: soma de destinações / partes comprovadamente cobertas. Não limitar progresso ao alvo |
+| ByGoal.progress NUMERIC | AggregateQuantity não negativo; soma de contribuições comprovadas, escala8. Valor inicial informado continua Quantity≤999999999999.99999999; não limitar ao alvo |
+
+Teto de comparação do indicador é M para BRL, Q=999999999999.99999999 para unidades.
+Indicator true não é UNKNOWN, erro de finalização ou permissão para gravar esse
+valor como operação individual. Cada soma deve reconciliar com **suas** parcelas
+e estado de conhecimento, não apenas passar regex. Validar parcelas antes da soma;
+dois valores individuais fora da faixa não são legitimados por soma pequena.
+Valores intermediários (p.ex. ativos antes de subtrair passivos) usam aritmética
+exata ampla, sem rejeitar por M ou cancelar inválidos por netting. Fora de faixa
+FIN-06 em operação/posição individual mantém rejeição; no resumo é informado pelo
+indicador e pelo decimal exato. FIN-06/NG-01 não são alterados globalmente.
+
+### Cardinalidade e capacidade, sem teto arbitrário para legado
+
+Sem registros existentes, limites de request dão: contas em [−50M,50M], investimentos
+até50M, dívida até20M, crédito até20M, patrimônio em [−70M,120M]. As200 linhas de
+reserva têm limite bruto200M, mas capacidade de100 fontes (50+50) reduz soma válida
+a100M; progresso/cobertura de uma meta podem chegar a100M. Livre de fonte nova
+fica em [−M,M] porque reserva nova≤max(0,valor). São limites derivados superiores,
+não relaxamento de entradas nem obrigação de preencher todas as listas.
+
+Inventário existente não tem cardinalidade máxima contratada:50 contas/1200 IDs
+limitam o **rascunho**, não Summary. Com a contas, i investimentos, c cartões e r
+reservas, limites dependem das contagens observadas: |contas|≤aM, ativos investidos≤iM,
+dívida/crédito≤cM, reservas≤rM; livre de uma conta≥−(rFonte+1)M. Não reutilizar100M
+ou outro teto estático para legado; se uma posição individual é inválida, tratar
+sua integridade separadamente, sem ocultá-la na soma. Progresso numérico legado
+também não ganha teto sem limite de contribuições.
+
+CF-030 deve contar/materializar projeções em lote e acumular inteiros escalados
+amplos/BigDecimal sem MathContext que arredonde. Capacidade operacional de bytes,
+memória, tempo de preparação e tamanho do recibo deve ser configurada/medida e
+documentada antes da implementação.256KiB continua limite de **request**; não se
+aplica automaticamente ao inventário/response. Falta de recurso →503
+SUMMARY_CAPACITY_EXCEEDED, sem resumo truncado, sem commit financeiro ou falsa
+incerteza; preparar novamente após resolver capacidade. Recibo já persistido não
+é recalculado/reescrito: falha de transporte mantém recuperação da mesma identidade.
+Leitura/serialização incremental e projeções limitam memória transitória; snapshot
+completo continua durável. Medir legado volumoso e retenção, sem criar infraestrutura
+nova ou esconder linhas. Custo N/R inclui existentes (observação R28-N1).
+
+### Propagação de desconhecimento e admissibilidade de finalização
+
+Reserva desconhecida implica free UNKNOWN nessa fonte, ainda que saldo conhecido:
+não chamar `saldo−subtotal reservado` de livre parcial; a subtração depende da
+reserva **inteira**. Reserva parcialmente conhecida torna progress/total de
+reservas PARTIAL quando existem componentes conhecidos, mas free daquela fonte
+continua UNKNOWN. Capacidade fica UNKNOWN e bloqueia aumento/novo vínculo; se
+valor da fonte conhecido≤0, capacidade é KNOWN zero por impossibilidade matemática,
+sem afirmar reserva zero. Fonte arquivada não admite aumento mesmo com capacidade
+aritmética positiva. Somar livres de fontes distintas: conhecidos+desconhecidos→
+PARTIAL com soma só dos livres conhecidos; todos desconhecidos→UNKNOWN.
+
+Meta monetária: progresso soma reservas confiáveis; vínculo legado sem valor
+confiável participa como desconhecido. Cobertura calculada por fonte separadamente:
+fonte insuficiente com várias metas não recebe rateio fictício. Se outras parcelas
+da meta têm cobertura comprovada, covered é PARTIAL; sem nenhuma, UNKNOWN. Uma
+única meta na fonte tem cobertura min(reserva,max(0,valor)), quando ambos conhecidos.
+Meta numérica legada sem progresso comprovado também UNKNOWN; não inferir por alvo,
+prazo, nome ou histórico incompleto. Custo desconhecido não altera patrimônio
+quando avaliação é conhecida; reserva desconhecida não altera dívida/patrimônio.
+
+Legado UNKNOWN/PARTIAL permite concluir **complemento que não modifica esses vínculos**,
+incluindo LINK ou novos dados independentes. Resumo completo em linhas, incompleto
+nos valores afetados; confirmação mostra lacunas. Novo vínculo/aumento na fonte
+não reconciliada→400 BUSINESS_RULE, field code SOURCE_RESERVATION_UNRECONCILED;
+alterar/liberar par sem valor/proveniência comprovados→400
+ALLOCATION_UNRECONCILED. Redução de par conhecido é permitida, mesmo se outros pares
+forem desconhecidos, sem declarar o saldo livre; para mover reserva, destino precisa
+de capacidade conhecida. Reservas/progresso iniciais novos continuam exigindo
+entradas conhecidas/validáveis; não criar reserva UNKNOWN. Nenhum bloqueio global
+ou obrigação de inventar número para terminar, nenhuma correção histórica automática.
 
 Refs do resumo conservam tempId dos itens selecionados; existentes não selecionados
 usam id. Mapping do recibo resolve tempIds, sem reescrever o resumo congelado.
@@ -349,7 +471,19 @@ Cobertura considera conhecimento da dimensão medida: custo desconhecido não to
 valor do investimento desconhecido; composição da dívida desconhecida só impede
 limite comprometido. Campo financeiro obrigatório ausente em legado é UNKNOWN,
 nunca zero. Reservas legadas não reconciliadas impedem novos vínculos nessa fonte;
-resumo marca allocations incompleta e não atesta caixa livre total.
+resumo marca allocations incompleta e não atesta caixa livre total. A classificação
+de cada métrica, e não coverage isoladamente, governa sua apresentação.
+
+Impacto de representação: contractVersion continua1, sessão/UUID/replay/cancel/
+canonicalização e CompleteRequest inalterados. v1 ainda é candidato não publicado;
+busca no produto não encontrou consumidor de onboarding. Artefatos afetados são
+fixtures/gerador/verificadores documentais. Novos objetos em Summary mudam reviewHash
+e, por consequência, fingerprint; contentHash do mesmo draft permanece igual.
+Exemplos são regenerados, recibos históricos da revisão permanecem nos commits e
+nas provas originais. Não propor migração/re-hash de recibos reais. Qualquer futura
+implantação com snapshots anteriores exigiria versionamento explícito, não replay
+com esquema novo sob recibo antigo. Estado de conhecimento integra o hash, inclusive
+zero KNOWN versus UNKNOWN/PARTIAL, em prepare/commit/GET.
 
 OperationView: `{contractVersion:1,operationId,kind,sessionId,state,
 prepared:PreparedIntent,receipt:Receipt|null}`. COMPLETED exige recibo válido;
@@ -373,6 +507,8 @@ RESERVATION_EXCEEDS_SOURCE/INVOICE_COMPONENT_MISMATCH/CURRENT_INSTALLMENT_DUPLIC
 BOUNDARY_UNCONFIRMED.404 REFERENCE_NOT_FOUND uniforme;401 UNAUTHENTICATED;
 409 VERSION_CONFLICT/INTENT_PENDING/INTENT_CONTENT_CONFLICT/SOURCE_CHANGED/
 DEFAULT_NOT_PRISTINE/ALREADY_COMPLETED/INTENT_CANCELLED/LOCK_CONFLICT;413 BODY_LIMIT.
+Os códigos de campo SOURCE_RESERVATION_UNRECONCILED/ALLOCATION_UNRECONCILED são400;
+falha operacional de tamanho/recursos do resumo é503 SUMMARY_CAPACITY_EXCEEDED.
 500 inesperado/503 indisponível, sem detalhes internos. Erro de regra não escreve
 finanças; transporte/5xx/resposta inválida não provam rollback.409 de conteúdo
 diferente não desfaz commit anterior; recuperar primeiro.
@@ -494,7 +630,7 @@ são valores de wire. Exemplos completos gerados somente a partir de dados sint�
 | E12 mesma chave/outro hash ou versão |409 INTENT_CONTENT_CONFLICT, recibo intacto |
 | E13 fonte1000/reservas300; outro writer reserva650 |SOURCE_CHANGED antes de aplicar mais100, reservas vigentes950 preservadas |
 | E14 conta−100/investimento500/dívida200/crédito20 |Patrimônio220; conta sem capacidade; crédito não aumenta limite |
-| E15 TOTAL máximo/quantidade0.00000001 |Total válido apesar do preço derivado; soma duas fontes máximas→OUT_OF_RANGE |
+| E15 TOTAL máximo/quantidade0.00000001 |Total válido apesar do preço derivado; soma duas fontes máximas=1999999999999.98 KNOWN/outsideIndividualRange=true |
 
 Erro para dinheiro1.005:
 
@@ -505,6 +641,24 @@ Erro para dinheiro1.005:
 Conflito409: `{"error":{"code":"SOURCE_CHANGED","message":"Os dados vinculados mudaram. Revise novamente.","fieldErrors":[]}}`.
 Timeout não gera JSON de sucesso: UI RESULT_UNKNOWN consulta operação; PREPARED
 mantém pendência, COMPLETED válido confirma,401 login,404 reconciliação.
+
+### E16–E20 — R28-01/02, sem mudar E01
+
+Fixtures completas de prepare/receipt/GET e comandos finais em
+[casos R28](../../../tasks/evidencias/saneamento-CF-028-R28/cases.json).
+
+| Caso | Entradas/esperado | Finalização |
+|---|---|---|
+| E16 R28-01A | Duas contas/reservas de999999999999.99 para uma meta: patrimônio, reservas, progresso e cobertura1999999999999.98 KNOWN, indicador true; livre0 KNOWN | Permitida, sem limitar meta ao alvo |
+| E17 R28-01B | Conta legada−999999999999.99 e reserva999999999999.99: free−1999999999999.98 KNOWN/true, capacidade0 KNOWN; coberto0 | Complemento sem alterar reserva permitido; aumento rejeitado |
+| E18 R28-02 | Conta1000/reserva legada sem prova; meta monetária e numérica sem progresso confiável: reserved/progress/free UNKNOWN, nenhum número fabricado; patrimônio1000 KNOWN | LINK/nenhuma alteração permitidos; novo vínculo400 SOURCE_RESERVATION_UNRECONCILED |
+| E19 parcial | FonteA1000/par legado com componente300 comprovado e restante desconhecido; fonteB500/reserva0 comprovada. Reservas300 PARTIAL; livreA UNKNOWN, livreB500 KNOWN, caixa livre500 PARTIAL; meta progresso300 PARTIAL | Complemento independente permitido; A não financia aumento |
+| E20 zero | Fonte1000/nenhuma reserva comprovadamente; meta progresso0 conhecido | reserved/progress0 KNOWN, free/capacidade1000; ausência não é UNKNOWN |
+
+Inválidos: entrada Money1000000000000.00; E16 agregado1999999999999.99 (soma errada);
+UNKNOWN com value0; KNOWN/null; PARTIAL sem lacunas/subtotal; total KNOWN sobre
+componentes ausentes; escala monetária3/numérica9; sinal negativo em reserva/cobertura.
+Representar agregado amplo não dispensa reconciliação nem validação do estado.
 
 ## 8. Matriz de compatibilidade e implementação futura
 
@@ -531,6 +685,12 @@ CF-017 conserva adoção real, não absorve implementação nova para encerrar C
 CF-031 mantém CF-015/demais dependências;CF-032 não substitui testes próprios.
 Nenhuma sucessora muda de estado. Fontes financeiras com dado UNKNOWN exigem
 adaptação também dos leitores afetados em CF-030/031, sem default0 silencioso.
+
+R28-01/02: CF-029 preserva tipos/limites de escrita; CF-030 implementará SummaryAmount,
+agregação exata ampla/estado por dimensão/guardas de reservas legadas e capacidade
+operacional do snapshot; CF-031 validará/renderizará estados, indicador de faixa
+e hashes novos sem Number; CF-032 provará E16–E20 integrados. São critérios futuros,
+não execução ou liberação de dependências nesta entrega.
 
 ## 9. Trade-offs, revisão e limites
 

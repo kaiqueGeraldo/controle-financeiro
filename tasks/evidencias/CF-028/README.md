@@ -7,6 +7,12 @@ executadas. Estado final: `em_revisao`, sem autoaprovação.
 
 ## Base e preservação
 
+Nota de saneamento em 10/10/2026: [R28-01/02](../saneamento-CF-028-R28/README.md)
+atualiza o schema do Summary em examples.json e seus gerador/verificador. Os números
+E01 e contentHash permanecem; reviewHash muda pelo novo DTO. Logs validation-*.json
+abaixo são históricos da entrega anterior. A nova execução fica na pasta de
+saneamento; parecer e provas independentes originais não foram reescritos.
+
 HEAD inicial e base informada idênticos:
 `c6a7c3ef3b563e9a432f80166aa4982a25180cd5`, branch inicial `main`, staging vazio.
 `git merge-base --is-ancestor c6a7c3ef3b563e9a432f80166aa4982a25180cd5 HEAD`
