@@ -8,6 +8,10 @@ Saneamento documental R28-01/02 em 10/10/2026 sobre `ef5cfae`, ainda **em_revisa
 [Reprodução e encaminhamento](../../../tasks/evidencias/saneamento-CF-028-R28/README.md).
 O parecer independente original permanece histórico e não foi reescrito.
 
+Resíduo de atribuição R28-02: saneamento sobre `1c54533`, conforme decisão do usuário
+nesta conversa, **DEC-ONB-02** (§5.1). [Provas e encaminhamento](../../../tasks/evidencias/saneamento-CF-028-origem/README.md).
+R28-01 encerrado pela revalidação; CF-028 continua em_revisao.
+
 ## 1. Autoridade, decisões e escopo
 
 Aplicam-se [FIN-01–08, FIN-06/NG-01](004-regras-financeiras.md),
@@ -52,7 +56,9 @@ Seções usam `answer=UNANSWERED|NONE|PROVIDED|DEFERRED`. NONE declara ausência
 DEFERRED é adiamento, não zero. PROVIDED exige itens; NONE/DEFERRED listas vazias
 (UI confirma antes de remover respostas). CONTEXT/REVIEW não podem ser pulados
 ao concluir. ACCOUNTS permite PROVIDED/NONE; NONE preserva carteira existente.
-ALLOCATIONS NONE permite meta monetária de progresso zero. Pular entrevista não
+ALLOCATIONS NONE declara ausência de novos comandos, não encerra reserva legada nem
+prova que não há reservas. Ausência de reservas comprovada permite progresso zero.
+Pular entrevista não
 bloqueia acesso ao app. Usuário novo recebe sugestão; legado recebe complemento
 voluntário mostrando primeiro seus registros, sem reinicialização forçada.
 
@@ -156,6 +162,7 @@ ter lacunas/várias linhas no mês com IDs distintos, sem deduzir duplicata por 
 
 NUMERIC não é dinheiro. MONETARY progride pela soma das reservas, não campo livre.
 “Já consegui300” exige fonte dos300; sem fonte não há progresso monetário confirmado.
+Valor nominal legado conhecido sem origem fica separado no §5.1, sem atribuição fictícia.
 Checklist de bens comprados não vira reserva; importação detalhada fora de v1.
 
 Reserva liga meta monetária a ACCOUNT/INVESTMENT; par único no snapshot. Valor
@@ -225,7 +232,7 @@ parcelas já canônicas. Não são tipos de escrita nem substitutos de Money/Qua
 | DTO | Campos de escrita |
 |---|---|
 | DraftWrite | contractVersion:1,expectedVersion:Revision,action:SAVE/PAUSE/RESUME/DISCARD,payload:Interview; DISCARD omite payload, demais mandam snapshot completo |
-| Interview | context:Context,currentStep:enum seção2,sections:{accounts,cards,investments,goals,allocations,forecasts} |
+| Interview | context:Context,currentStep:enum seção2,sections:{accounts,cards,investments,goals,allocations,forecasts},reservationConfirmations?:ReservationConfirmation[] (§5.1) |
 | Section | answer:enum seção2,items:lista tipada; UNANSWERED admite itens incompletos no rascunho |
 | Context | currency:BRL,baseDate:CivilDate,preferredName?:Text(80),objective?:Text(200),browserZone?:Text(80) IANA válida contextual,boundaryAcknowledged:boolean,cashOnlyAcknowledged:boolean |
 | Account CREATE | tempId,action:CREATE,name:Text(100),type:CHECKING/INVESTMENT/CASH/SAVINGS,balance:Fact<Money>,color?:#RRGGBB,deficitAcknowledged:boolean,distinctCashConfirmed:boolean |
@@ -336,7 +343,7 @@ INITIALIZE_DEFAULT/INITIALIZE_EMPTY; parcelas CREATE. Toda tempId resolvida.
 Summary original, não releitura atual. Recibo imutável/sem expiração automática.
 
 Summary: `{baseDate,existingAsOf:Instant,scope:SELECTED_AND_EXISTING,coverage,metrics,
-bySource,byCard,byGoal,deferredSections}`. Existentes contam uma vez, inclusive
+bySource,byCard,byGoal,deferredSections,reservationReview?:ReservationReview}`. Existentes contam uma vez, inclusive
 arquivados, não só página. COMPLEMENT: baseDate é fronteira das novas aberturas;
 existentes são posição capturada existingAsOf, nunca história reconstruída.
 Exibir separadamente “aberturas na data-base”/“existentes na revisão”; também NEW
@@ -464,6 +471,8 @@ forem desconhecidos, sem declarar o saldo livre; para mover reserva, destino pre
 de capacidade conhecida. Reservas/progresso iniciais novos continuam exigindo
 entradas conhecidas/validáveis; não criar reserva UNKNOWN. Nenhum bloqueio global
 ou obrigação de inventar número para terminar, nenhuma correção histórica automática.
+Atribuição sem sourceId e confirmações explícitas ASSIGN/CLOSE seguem §5.1, inclusive
+a exceção controlada para reconciliar vínculo não comprovado.
 
 Refs do resumo conservam tempId dos itens selecionados; existentes não selecionados
 usam id. Mapping do recibo resolve tempIds, sem reescrever o resumo congelado.
@@ -512,6 +521,195 @@ falha operacional de tamanho/recursos do resumo é503 SUMMARY_CAPACITY_EXCEEDED.
 500 inesperado/503 indisponível, sem detalhes internos. Erro de regra não escreve
 finanças; transporte/5xx/resposta inválida não provam rollback.409 de conteúdo
 diferente não desfaz commit anterior; recuperar primeiro.
+
+## 5.1. Atribuição incerta de reserva — DEC-ONB-02
+
+Política conservadora **autorizada pelo usuário nesta conversa**: origem comprovada
+restringe o alcance às fontes identificadas; conjunto comprovadamente limitado afeta
+todas as candidatas; sem delimitação comprovável, todas as fontes elegíveis do owner
+são potenciais participantes, exceto independências comprovadas. Não é bloqueio do
+aplicativo nem proibição indiscriminada de movimentações financeiras. As regras
+FIN-05 de débitos reais, transferências e liberação explícita continuam próprias.
+
+### Evidência e universo de fontes
+
+Fonte elegível para análise é ACCOUNT ou INVESTMENT BRL do mesmo owner que pode
+conter patrimônio destinado, existente ou proposto no draft. Inclui saldo zero,
+negativo ou desconhecido e arquivadas com legado: ausência de capacidade atual não
+prova independência. Arquivada não recebe aumento. Cartão/limite, meta, previsão e
+fonte alheia não são fontes de reserva. Inventário completo, não página/seleção.
+Referência excluída com legado conserva tombstone/lacuna; não equivale a encerramento.
+
+Evidência é registro do domínio validado no servidor: identidade/owner da reserva,
+meta, fontes, escopo de atribuição ou exclusão, revisão e proveniência. Pode ser
+vínculo consistente existente ou **declaração atual explícita** do usuário autenticado,
+validada e auditável. Declaração atual confirma situação atual, não aquisição,
+transferência ou origem histórica. Não criar documentação histórica a partir dela.
+
+Um conjunto CANDIDATES só é limitado se a evidência sustenta a **exaustividade**:
+a reserva atual só pode estar nas fontes listadas, com cobertura das exclusões no
+inventário daquela revisão. A mera lista de fontes encontradas não basta. Fonte
+independente exige evidência que exclua sua participação em **cada** pendência que
+poderia alcançá-la. Não ter vínculo registrado, nome/ticker diferente, saldo elevado,
+amount zero ausente, data de criação recente ou ID novo não são essa evidência.
+Documento/texto enviado pelo browser é alegação até validação; servidor não aceita
+`independent:true`, listas de candidatas, owner, evidências ou permissões arbitrárias.
+Sem delimitação validável, usar UNBOUNDED. Não inventar a fonte mais provável.
+
+### DTOs de leitura, conhecimento e composição
+
+`ReservationReview = {reservations:LegacyReservation[],evidence:ReservationEvidence[],
+decisions:AllocationDecision[],confirmations:ConfirmationResult[]}`. Omitir a extensão
+somente quando o servidor comprova inexistência de pendências/confirmações legadas;
+omissão nunca é evidência fornecida pelo cliente. E01 sem legado permanece idêntico.
+Se presente, listas obrigatórias, decisões para todas as fontes do snapshot. Versões,
+IDs, Ref, Money, SummaryAmount e ownership seguem §§4–6; não são novos tipos financeiros.
+
+`LegacyReservation = {reservationId:UUID,revision:Revision,goal:Fact<Ref GOAL>,
+nominal:SummaryAmount<AggregateMoney>,attribution:Attribution}`. Cada reserva tem ID
+estável próprio no inventário, mesmo sem sourceId. Deduplicar por identidade, nunca
+por nome/valor. Nominal é valor atual comprovado/subtotal/lacuna dessa reserva, não
+progresso autorizado nem atribuição. Cada parte individual mantém Money e teto.
+
+| Attribution (união fechada) | Campos e semântica |
+|---|---|
+| CONFIRMED | `{state,parts:[{source:Ref,amount:SummaryAmount<Money>}],evidenceRefs:UUID[]}`; lista não vazia, fontes únicas, amount KNOWN>0, PARTIAL ou UNKNOWN (nunca NOT_APPLICABLE); parcela/subtotal individual≤M; origem exata, inclusive divisão comprovada; soma/estado reconcilia nominal |
+| CANDIDATES | `{state,sources:Ref[],evidenceRefs:UUID[]}`; lista não vazia, única e exaustiva; até uma candidata ainda não confirma valor/vínculo. Nominal conhecido não atribui parcelas |
+| UNBOUNDED | `{state,excluded:[{source:Ref,evidenceRefs:UUID[]}]}`; conjunto desconhecido, exclusões somente comprovadas. Sem campo sources nem array vazio como substituto |
+| CLOSED | `{state,evidenceRefs:UUID[]}`; encerramento atual explícito validado; nenhuma parte, nominal KNOWN0; trilha anterior preservada |
+
+`ReservationEvidence = {id:UUID,revision:Revision,basis:DOMAIN_RECORD/CURRENT_DECLARATION,
+reservationId:UUID,claim:ASSIGNMENT/EXHAUSTIVE_CANDIDATES/EXCLUSION/CLOSURE,
+sources:Ref[],inventoryToken:string,validatedAt:Instant}`. Evidências geradas/validadas
+no servidor; referências resolvem exatamente a claim/reserva/fontes alegadas. O
+inventoryToken da evidência identifica a versão do inventário-base de sua validação;
+não é o hash composto SourceSnapshot.inventoryToken (que também inclui evidências),
+evitando referência circular. Validar compatibilidade com o inventário-base corrente.
+Para CLOSURE, sources=[] é permitido; EXCLUSION tem fonte explícita. Documento bruto não
+vai ao recibo. Evidência histórica permanece na trilha protegida. Divergência ou
+evidência vencida não restringe o risco. CURRENT_DECLARATION registra autoria via
+autenticação e texto semântico confirmado, sem expor owner no comando.
+
+Conjunto desconhecido UNBOUNDED sem fontes cadastradas continua pendente, decisões=[];
+não vira CLOSED. Ao surgir fonte elegível, recalcular. CLOSED é o único vazio por
+encerramento. Inventário comprovadamente sem reserva é outro caso, independente
+de não haver fontes. CANDIDATES [] é inválido.
+
+Para reserva r: CONFIRMED com parte UNKNOWN/PARTIAL afeta as respectivas fontes;
+CANDIDATES afeta todas as candidatas; UNBOUNDED afeta universo elegível menos exclusões
+comprovadas; CLOSED não afeta nenhuma. CONFIRMED com partes conhecidas entra na soma
+normal de reservas e FIN-05, sem bloqueio de incerteza. Por fonte, unir IDs de todas
+as reservas pendentes que a afetam. Resolver uma remove somente seu ID; nenhuma
+liberação enquanto restar outro. Não transformar esses conjuntos em débitos.
+
+`AllocationDecision = {source:Ref,blockingReservationIds:UUID[],state:ALLOWED/BLOCKED,
+reason:null/RESERVATION_UNCERTAIN/SOURCE_INELIGIBLE/CAPACITY_UNAVAILABLE/NO_CAPACITY}`.
+ALLOWED exige lista vazia, reason=null, fonte ativa e capacidade conhecida>0; autoriza
+somente aumento até essa capacidade, não qualquer valor. Havendo pendência, BLOCKED/
+RESERVATION_UNCERTAIN prevalece, mesmo com saldo conhecido ou≤0. Sem pendência,
+arquivada→SOURCE_INELIGIBLE, capacidade desconhecida→CAPACITY_UNAVAILABLE,
+capacidade0→NO_CAPACITY. Ordem é determinística. Este é o único campo de permissão;
+BySource.newAllocationCapacity conserva a informação numérica, não concede ação.
+
+BySource.value não muda pelo bloqueio. BySource.reserved inclui partes atribuídas
+comprovadas e lacunas de pertinência/valor: se não há parcela comprovada, UNKNOWN;
+se há parcela conhecida e lacuna, PARTIAL. O zero vazio não conta como parcela
+conhecida diante de risco não atribuído. BySource.free fica UNKNOWN para fonte
+afetada, nunca `saldo−subtotal` como livre. Capacidade UNKNOWN, salvo fonte de valor
+conhecido≤0 onde é KNOWN0 por impossibilidade matemática, ainda BLOCKED.
+
+Reservas nominais sem origem são mostradas **uma vez** na lista de reservas, nunca
+descontadas integralmente de cada candidata. Por dimensão reservedAccounts/
+reservedInvestments: contar nominal uma vez se todas as origens possíveis são do
+mesmo tipo; se tipo também incerto, cada dimensão recebe uma lacuna, sem parcela
+numérica duplicada. Partes confirmadas entram no seu tipo. Progresso monetário só
+soma partes com meta/fonte/valor comprovados; nominal sem origem não é progresso
+confirmado, nem cobertura. Usar UNKNOWN/PARTIAL conforme §5. Livre total soma apenas
+fontes com livre conhecido; exclusões comprovadas preservam subtotais independentes.
+Não somar as linhas BySource.reserved para obter total quando a atribuição é incerta.
+Cobertura allocations=false enquanto houver origem/valor/proveniência pendente.
+
+### Confirmações atuais e transições
+
+`ReservationConfirmation` é união fechada; campo opcional Interview.reservationConfirmations,
+máximo200 itens/200 partes no total, limitado também pelo request256KiB. Ausente ou[]
+significa nenhum comando de reconciliação. Itens por reservationId, único por draft:
+
+* ASSIGN: `{reservationId,expectedRevision,action:ASSIGN,goal:Ref GOAL,
+  parts:[{source:Ref ACCOUNT/INVESTMENT,amount:Money>0}],currentSituationConfirmed:true}`.
+* CLOSE: `{reservationId,expectedRevision,action:CLOSE,currentSituationConfirmed:true}`.
+
+Declaração ASSIGN é completa para **a situação atual daquela reserva**: identifica
+meta monetária própria, todas as fontes e valores atuais; confirma que não há outras
+partes dessa reserva. Não é prova retroativa. Uma fonte/valor ainda desconhecido não
+é ASSIGN válido: pode salvar folha incompleta com issue, mas remover esse comando
+incompleto da seleção para finalizar mantendo a pendência. Múltiplas fontes exigem
+partes únicas, soma exata ampla e valor individual válido. Diferença do nominal
+anterior é mostrada antes/depois e confirmada como correção declarada atual, não
+transação. CLOSE confirma que **essa reserva** não existe atualmente, não que nunca
+existiu nem que outras reservas terminaram. Não exigir fonte/valor fictício em CLOSE.
+
+Validar sessão/owner/refs, revisão de reserva, contradições com fatos autoritativos,
+duplicação de par e consistência das partes. 404 para referência alheia/ausente;
+409 SOURCE_CHANGED para revisão/evidência/inventário alterados;400
+RESERVATION_CONFIRMATION_INVALID para estrutura semântica/conflito, inclusive mesmo
+par simultaneamente em confirmação e Allocation. Par de duas reservas confirmadas
+com mesma meta/fonte requer reconciliação explícita de identidade, nunca merge
+silencioso. Datas/proveniência incompatíveis não são aprovadas só por checkbox.
+
+ASSIGN/CLOSE atualizam somente projeção no draft/prepare; aplicar no domínio apenas
+no commit atômico. ASSIGN representa destinação já existente, não aumento novo:
+pode revelar déficit nominal real, preservado conforme FIN-05; isso não autoriza
+alocação adicional. CLOSE conserva identificação, estado anterior e declaração na
+trilha; nenhuma receita, despesa, transferência, compra, venda ou ajuste de saldo.
+O vínculo atual pode ser confirmado mesmo com outra reserva ainda incerta na fonte:
+ela continua bloqueada. Restrição a CANDIDATES/exclusão decorre de evidência validada
+do domínio; este DTO não oferece botão de exclusão arbitrária no cliente.
+
+`ConfirmationResult = {reservationId,action:ASSIGN/CLOSE,previousRevision:Revision,
+resultingRevision:Revision}` no ReservationReview confirma a aplicação e integra o
+snapshot. Prepare usa a revisão resultante proposta sob revisão esperada; commit
+usa exatamente a mesma, ou falha. Não adicionar tempId/mapping financeiro para uma
+declaração que não cria movimento. Recibo recuperado conserva a declaração aceita.
+Corrigir/remover confirmação antes de preparar faz novo SAVE, incrementa draftVersion
+e recalcula todos os conjuntos. Se PREPARED, cancelar primeiro; nunca editar intenção.
+
+### Finalização, mudanças concorrentes e apresentação
+
+Finalização sem nova alocação afetada é permitida com lacunas explícitas; não exige
+reconciliar todo legado. Alocações em fontes comprovadamente independentes são
+permitidas se FIN-05 atendido. Novo par/aumento em fonte afetada→400 BUSINESS_RULE,
+field code SOURCE_RESERVATION_UNRECONCILED, sem aplicar lote parcialmente. Redução
+de par comprovado não limpa outras pendências; alteração de par não comprovado
+continua ALLOCATION_UNRECONCILED, salvo ASSIGN/CLOSE válidos acima.
+
+SourceSnapshot.inventoryToken cobre universo de fontes, reservas sem sourceId,
+atribuições, exclusões e revisões das evidências/declarações. Tokens das fontes
+cobrem todas as pendências que podem afetá-las. Acrescentar fonte após SAVE exige
+recálculo no prepare; após prepare invalida snapshot. Fonte nova não é independente
+por data/ID: UNBOUNDED a alcança; CANDIDATES precisa ter exaustividade revalidada
+contra o novo inventário, senão volta a UNBOUNDED. Transferência/reidentificação pode
+transportar recursos antes afetados: revalidar exclusões, não herdar independência.
+Exclusão/arquivamento não apagam pendências; preservar tombstone, reavaliar escopo.
+Alteração de saldo/vínculo, confirmação em outra aba ou revisão de evidência invalida
+token. Complete reconfere estado autoritativo sob coordenação §6 **antes** de aplicar
+confirmações e alocações em conjunto; stale→409 SOURCE_CHANGED/VERSION_CONFLICT.
+Sem adaptação automática ou confiança no resumo anterior. Replay COMPLETED conserva
+o recibo original sem reaplicar ou revalidar contra a posição atual.
+
+A extensão integra reviewHash/fingerprint; confirmações integram contentHash.
+Ordenar reservations/confirmations por reservationId, evidence por id, decisions/
+parts/excluded por source kind/id ou tempId, sources/evidenceRefs/IDs bloqueantes por
+identidade. Instantes de evidência integram revisão por serem dados de proveniência;
+somente existingAsOf continua excluído. contractVersion1 candidato, CompleteRequest,
+IDs de operação, replay/GET e isolamento não mudam. Fixtures anteriores são históricas;
+nenhum re-hash de recibo real. E01 sem extensão mantém seus hashes.
+
+UI distingue “Saldo informado”, “Reserva comprovada”, “Disponibilidade não confirmada”
+e “Confirme a origem ou o encerramento da reserva para destinar mais desta fonte”.
+Não mostrar saldo0 ao bloquear; não exibir códigos, tokens, locks ou nomes de terceiros.
+Consulta/edição/reconciliação continuam disponíveis, respeitando PREPARED; sem
+autobloqueio do app. Desconhecimento de origem não altera patrimônio conhecido.
 
 ## 6. Atomicidade, concorrência e custos
 
@@ -565,6 +763,13 @@ limites máximos, exige ausência de SELECT secundário linear por item, prova l
 rollback. Guard owner serializa cadastros/confirmações do mesmo usuário; owners
 diferentes independentes. Sem justificativa para Kafka/saga/ledger novo/microsserviços.
 Não ativar cache financeiro nem prometer coerência distribuída inexistente.
+
+Com atribuição incerta, E é o número de relações fonte–pendência materializadas:
+análise O(N+R+E), memória/serialização O(N+R+E); E pode chegar a N×R em UNBOUNDED.
+Não prometer O(N+R) para expansão de todas as listas de bloqueio. Reutilizar consultas
+em lote por owner e índices de incidência; sem N+1 por candidata. Guard owner/tokens
+existentes cobrem reconciliação e mudanças de evidência. Capacidade §5 continua
+obrigação de medição CF-030, sem teto financeiro arbitrário ou truncamento.
 
 ## 7. Exemplos e oráculos independentes
 
@@ -644,8 +849,10 @@ mantém pendência, COMPLETED válido confirma,401 login,404 reconciliação.
 
 ### E16–E20 — R28-01/02, sem mudar E01
 
-Fixtures completas de prepare/receipt/GET e comandos finais em
+Fixtures históricas de prepare/receipt/GET em
 [casos R28](../../../tasks/evidencias/saneamento-CF-028-R28/cases.json).
+Versão atual E16–E20 com evidência explícita de atribuição em E18/E19:
+[snapshots revalidados](../../../tasks/evidencias/saneamento-CF-028-origem/snapshots.json).
 
 | Caso | Entradas/esperado | Finalização |
 |---|---|---|
@@ -659,6 +866,16 @@ Inválidos: entrada Money1000000000000.00; E16 agregado1999999999999.99 (soma er
 UNKNOWN com value0; KNOWN/null; PARTIAL sem lacunas/subtotal; total KNOWN sobre
 componentes ausentes; escala monetária3/numérica9; sinal negativo em reserva/cobertura.
 Representar agregado amplo não dispensa reconciliação nem validação do estado.
+
+### E21–E35 — atribuição incerta de fonte
+
+E21–E35 de atribuição: [casos e resultados esperados](../../../tasks/evidencias/saneamento-CF-028-origem/cases.json),
+[matriz por cenário](../../../tasks/evidencias/saneamento-CF-028-origem/README.md) e
+[E35 completo sem sourceId](../../../tasks/evidencias/saneamento-CF-028-origem/snapshots.json).
+E21/E26 origem certa/valor incerto; E22 candidatas e independente; E23 indeterminada;
+E24 sobreposição; E25 valor conhecido/vínculo incerto; E27 encerramento; E28 fonte
+nova; E29/E33 concorrência/arquivo; E30 confirmação multipartes; E31 sem fontes;
+E32 exclusão comprovada; E34 correção do draft; E35 conclusão segura sem nova reserva.
 
 ## 8. Matriz de compatibilidade e implementação futura
 
@@ -691,6 +908,13 @@ agregação exata ampla/estado por dimensão/guardas de reservas legadas e capac
 operacional do snapshot; CF-031 validará/renderizará estados, indicador de faixa
 e hashes novos sem Number; CF-032 provará E16–E20 integrados. São critérios futuros,
 não execução ou liberação de dependências nesta entrega.
+
+Resíduo R28-02: CF-029 especificará persistência protegida de confirmação/evidência/
+atribuição e respectivas versões, sem histórico financeiro fictício; CF-030 aplicará
+união de riscos, validação autoritativa/exaustividade, reconciliação e tokens no commit;
+CF-031 apresentará dinheiro separado de permissão, declarações atuais e conflitos;
+CF-032 provará E21–E35, ownership, mudanças de universo, rollback e recuperação reais.
+Extensões são opcionais com condições estritas de omissão, não novos endpoints.
 
 ## 9. Trade-offs, revisão e limites
 

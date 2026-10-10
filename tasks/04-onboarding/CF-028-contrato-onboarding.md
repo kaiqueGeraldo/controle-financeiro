@@ -111,3 +111,13 @@ independentes. E01 preservado; oito contraprovas causais confirmadas.
 CF-028 permanece **em_revisao**, não aprovada integralmente. Sanear somente esse
 resíduo documental e revalidar; aceites anteriores e encerramento R28-01 preservados.
 Nenhuma implementação, liberação CF-029–034 ou início do fechamento frontend.
+
+## Continuação documental R28-02 — origem incerta
+
+Base `1c54533`, mesma branch. Política conservadora autorizada nesta conversa
+incorporada como DEC-ONB-02: candidatas comprovadas, universo elegível quando
+indeterminado, independência comprovada, união dos riscos e reconciliação atual
+sem histórico fictício. [Evidências e encaminhamento](../evidencias/saneamento-CF-028-origem/README.md).
+E21–E35 e revalidação documental E01/E16–E20; provas anteriores preservadas.
+CF-028 **em_revisao**, R28-02 candidato a encerramento somente pelo revisor.
+R28-01 encerrado e demais aceites mantidos; sucessoras/frontend não iniciados.
