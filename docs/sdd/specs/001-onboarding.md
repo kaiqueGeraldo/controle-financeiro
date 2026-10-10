@@ -877,6 +877,18 @@ E24 sobreposição; E25 valor conhecido/vínculo incerto; E27 encerramento; E28 
 nova; E29/E33 concorrência/arquivo; E30 confirmação multipartes; E31 sem fontes;
 E32 exclusão comprovada; E34 correção do draft; E35 conclusão segura sem nova reserva.
 
+Totais corrigidos sobre `bbbe8c3`, aplicando a regra por dimensão do §5.1:
+
+| Exemplo | reservedAccounts | Derivação; incerteza preservada |
+|---|---|---|
+| E23 | KNOWN400.00 | Nominal400, universo A/B/C só ACCOUNT; origem individual e livres UNKNOWN |
+| E28 | KNOWN400.00 | Mesmo nominal400; novo10 recusado não entra no total; fontes continuam bloqueadas |
+| E32 | KNOWN500.00 | Nominal400 em A/B +100 autorizado em C; origem dos400 incerta, C independente |
+| E34 | KNOWN400.00 | CLOSE removido não encerra nominal400; A/B continuam afetadas |
+
+Não estender esse conhecimento a universo de tipos mistos, vazio ou ainda não
+revalidado, nem a nominal desconhecido. [Regressão dirigida](../../../tasks/evidencias/saneamento-CF-028-totais/README.md).
+
 ## 8. Matriz de compatibilidade e implementação futura
 
 Caminhos relativos a `controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/`,

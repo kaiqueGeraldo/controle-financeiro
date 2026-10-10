@@ -139,3 +139,11 @@ bloqueios e controles de universo misto/sem fontes, e revalidar o delta.
 divergência reproduzida por oráculo independente. E01, E16–E20, R28-01 e demais
 aceites preservados. Não há nova decisão de produto pendente nem revisão global
 requerida. Sem implementação, CF-029, frontend, push/deploy ou banco real.
+
+## Saneamento residual dos totais R28-02
+
+Sobre `bbbe8c3`, corrigidos somente os totais E23/E28/E34=KNOWN400.00 e
+E32=KNOWN500.00, com avaliador/fixtures coerentes e regressão dirigida.
+[Evidência e encaminhamento](../evidencias/saneamento-CF-028-totais/README.md).
+Demais campos e aceites preservados, incluindo R28-01 encerrado. CF-028 permanece
+**em_revisao** e R28-02 aguarda revalidação independente, sem autoaprovação.

@@ -5,6 +5,12 @@ Base `1c5453375d07ef824c9757f9fd6a761597bdc7ae`, branch
 [revalidação independente](../revalidacao-CF-028-R28/README.md).
 R28-01 permanece encerrado; CF-028 **em_revisao**, sem autoaprovação.
 
+Correção residual sobre `bbbe8c3`: [totais E23/E28/E32/E34](../saneamento-CF-028-totais/README.md).
+Gerador, cases.json e avaliador atuais corrigem apenas reservedAccounts:400/400/500/400
+KNOWN. Origem individual e livres afetados continuam UNKNOWN; bloqueios inalterados.
+verification.json foi atualizado; provas independentes e logs before-* são históricos.
+snapshots.json foi regenerado e permaneceu idêntico (não contém os quatro casos).
+
 ## Decisão e causa
 
 A política conservadora foi autorizada pelo usuário nesta conversa. DEC-ONB-02

@@ -71,7 +71,13 @@ export function evaluate(input){
     }else{
       assert.equal(a.state,'UNBOUNDED','ATTRIBUTION_REQUIRED');
       const excluded=a.excluded.filter(e=>proven(e.evidenceRefs,r,'EXCLUSION',[e.source])).map(e=>key(e.source));
-      affected=sources.filter(s=>!excluded.includes(key(s.ref))).map(s=>s.ref);totalMissing.push(r.reservationId);
+      affected=sources.filter(s=>!excluded.includes(key(s.ref))).map(s=>s.ref);
+      // Universo atual não vazio de contas certifica a dimensão, não a origem individual.
+      // Inventário obsoleto ou vazio não permite essa conclusão por vacuidade.
+      if(token===c.inventoryToken&&affected.length>0&&affected.every(ref=>ref.kind==='ACCOUNT')){
+        if(r.nominal.knownSubtotal!==null)totalValues.push(r.nominal.knownSubtotal);
+        if(r.nominal.state!=='KNOWN')totalMissing.push(r.reservationId);
+      }else totalMissing.push(r.reservationId);
     }
     for(const ref of affected)rows.get(key(ref)).risks.push(r.reservationId);
   }
