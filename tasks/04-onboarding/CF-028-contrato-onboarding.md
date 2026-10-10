@@ -97,3 +97,17 @@ no Summary, com E16–E20, atualização de E01 e contraprovas documentais.
 Parecer/provas independentes e README raiz preservados por hash. Sem implementação,
 mudança de dependências ou nova decisão de produto. **em_revisao mantido**; saneamento
 é candidato à revalidação, não encerramento dos achados nem aprovação do executor.
+
+## Revalidação independente R28 — 10/10/2026
+
+Candidato `4dc5f67`, intervalo `ef5cfae..4dc5f67`:
+[parecer, matriz e provas independentes](../evidencias/revalidacao-CF-028-R28/README.md).
+**R28-01 encerrado; R28-02 parcialmente saneado, permanece aberto (P2).**
+Agregados exatos e representação de conhecimento aprovados no recorte. Falta
+determinar fontes afetadas/bloqueios quando reserva legada não tem vínculo de
+fonte comprovado, sem liberar capacidade falsa nem bloquear fontes comprovadamente
+independentes. E01 preservado; oito contraprovas causais confirmadas.
+
+CF-028 permanece **em_revisao**, não aprovada integralmente. Sanear somente esse
+resíduo documental e revalidar; aceites anteriores e encerramento R28-01 preservados.
+Nenhuma implementação, liberação CF-029–034 ou início do fechamento frontend.
