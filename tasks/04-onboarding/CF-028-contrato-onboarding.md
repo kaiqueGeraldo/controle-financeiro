@@ -121,3 +121,21 @@ sem histórico fictício. [Evidências e encaminhamento](../evidencias/saneament
 E21–E35 e revalidação documental E01/E16–E20; provas anteriores preservadas.
 CF-028 **em_revisao**, R28-02 candidato a encerramento somente pelo revisor.
 R28-01 encerrado e demais aceites mantidos; sucessoras/frontend não iniciados.
+
+## Revalidação independente de origem — 10/10/2026
+
+Candidato `dc02cd1`, intervalo `1c54533..dc02cd1`:
+[parecer e provas independentes](../evidencias/revalidacao-CF-028-origem/README.md).
+Política de fontes, evidências, união dos bloqueios, reconciliação e concorrência
+atendidas. **R28-02 permanece aberto (P2) somente por inconsistência documental
+introduzida nos totais por dimensão; CF-028 permanece em_revisao.** E23/E28/E34
+têm universo apenas ACCOUNT e nominal400, mas esperam UNKNOWN em reservedAccounts;
+E32 deve totalizar500 (400 legado +100 independente), mas espera PARTIAL100.
+O texto já exige contar nominal uma vez quando todas as origens possíveis são
+do mesmo tipo. Corrigir somente avaliador/fixtures/esperados desse ramo, mantendo
+bloqueios e controles de universo misto/sem fontes, e revalidar o delta.
+
+14 conjuntos/status, seis snapshots/hashes e nove contraprovas conferidos;
+divergência reproduzida por oráculo independente. E01, E16–E20, R28-01 e demais
+aceites preservados. Não há nova decisão de produto pendente nem revisão global
+requerida. Sem implementação, CF-029, frontend, push/deploy ou banco real.
