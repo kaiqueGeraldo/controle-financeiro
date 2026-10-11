@@ -6,7 +6,7 @@ import {
 import { normalizeOperationTemporal } from "@/services/temporal";
 import { Category } from "@/types";
 import { formatCurrency } from "@/utils/format";
-import { formatCalendarDate } from "@/utils/date";
+import { formatCalendarDate, isCalendarDatePast } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Banknote,
@@ -20,7 +20,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useId, useMemo, useState } from "react";
+import { useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { getCardStyle } from "./creditCardItem";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
@@ -83,32 +83,9 @@ export function InvoiceDetails({
     categoryId: "",
   });
 
-  // Lógica Inteligente de Cálculo de Datas Exatas
-  const { closingDateStr, dueDateStr } = useMemo(() => {
-    if (!invoiceData || !card) return { closingDateStr: "", dueDateStr: "" };
-
-    const m = invoiceData.month - 1;
-    const y = invoiceData.year;
-
-    const lastDayDueMonth = new Date(y, m + 1, 0).getDate();
-    const safeDue = Math.min(card.dueDay, lastDayDueMonth);
-    const dueDate = new Date(y, m, safeDue);
-
-    const closingM = card.closingDay > card.dueDay ? m - 1 : m;
-    const lastDayClosingMonth = new Date(y, closingM + 1, 0).getDate();
-    const safeClosing = Math.min(card.closingDay, lastDayClosingMonth);
-    const closingDate = new Date(y, closingM, safeClosing);
-
-    return {
-      closingDateStr: closingDate
-        .toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })
-        .replace(".", ""),
-      dueDateStr: dueDate
-        .toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })
-        .replace(".", ""),
-    };
-  }, [invoiceData, card]);
-
+  // Datas civis persistidas: a competência é a do fechamento (DEC-03).
+  const closingDateStr = formatCalendarDate(invoiceData?.closingDate ?? "", { day: "2-digit", month: "short" }).replace(".", "");
+  const dueDateStr = formatCalendarDate(invoiceData?.dueDate ?? "", { day: "2-digit", month: "short" }).replace(".", "");
   if (!card) return null;
 
   const styles = getCardStyle(card.name, card.color || "#333");
@@ -120,20 +97,8 @@ export function InvoiceDetails({
   const isClosed = invoiceData?.status === "CLOSED";
   const isEmpty = payableAmount <= 0;
 
-  let isOverdue = false;
-  if (invoiceData && card) {
-    const todayObj = new Date();
-    todayObj.setHours(0, 0, 0, 0);
-
-    const m = invoiceData.month - 1;
-    const y = invoiceData.year;
-    const lastDayDueMonth = new Date(y, m + 1, 0).getDate();
-    const safeDue = Math.min(card.dueDay, lastDayDueMonth);
-    const dueDateObj = new Date(y, m, safeDue);
-
-    isOverdue = !isPaid && todayObj > dueDateObj;
-  }
-
+  const isOverdue = !isPaid && payableAmount > 0 &&
+    isCalendarDatePast(invoiceData?.dueDate ?? "");
   const unavailable = isLoadingInvoice || !!invoiceError || !invoiceData;
   const isPayDisabled = unavailable || isPaid || isEmpty;
 

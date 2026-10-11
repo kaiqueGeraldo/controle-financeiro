@@ -74,6 +74,8 @@ export interface CardInvoiceDetails {
   totalAmount: number;
   payableAmount?: number;
   carriedAmount?: number;
+  dueDate?: string | null;
+  closingDate?: string | null;
   transactions: CardInvoiceTransaction[];
 }
 

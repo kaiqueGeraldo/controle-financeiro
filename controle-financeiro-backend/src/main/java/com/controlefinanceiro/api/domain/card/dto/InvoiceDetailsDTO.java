@@ -14,5 +14,6 @@ public record InvoiceDetailsDTO(
         BigDecimal payableAmount,
         BigDecimal carriedAmount,
         LocalDate dueDate,
+        LocalDate closingDate,
         List<CardTransactionDTO> transactions
 ) {}

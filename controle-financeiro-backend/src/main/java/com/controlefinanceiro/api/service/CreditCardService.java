@@ -408,7 +408,7 @@ public class CreditCardService {
                 cardId, month, year, includeRolled(invoice));
 
         return new InvoiceDetailsDTO(invoice.getId(), month, year, invoice.getStatus().name(),
-                total, payable, payable.subtract(ownOutstanding), invoice.getDueDate(), transactions);
+                total, payable, payable.subtract(ownOutstanding), invoice.getDueDate(), invoice.getClosingDate(), transactions);
     }
 
     private boolean includeRolled(Invoice invoice) {
