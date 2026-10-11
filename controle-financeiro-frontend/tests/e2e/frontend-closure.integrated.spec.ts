@@ -21,10 +21,11 @@ test('B: recuperação real com caixa falsa, rejeição e login após reload',as
  await page.getByLabel('Código de 6 dígitos').fill(wrong);
  await page.getByLabel('Criar Nova Senha').fill('Synthetic-New-2026');
  await page.getByRole('button',{name:'Redefinir Senha'}).click();
- await expect(page.getByRole('alert')).toBeVisible();
+ await expect(page.getByRole('alert').filter({hasText:'Código inválido'})).toBeVisible();
  await shot(page,'B-recovery-invalid-mobile');
  await page.getByLabel('Código de 6 dígitos').fill(code);
  await page.getByLabel('Criar Nova Senha').focus();await page.keyboard.press('Tab');
+ await expect(page.getByRole('button',{name:'Mostrar nova senha'})).toBeFocused();await page.keyboard.press('Tab');
  await expect(page.getByRole('button',{name:'Redefinir Senha'})).toBeFocused();await page.keyboard.press('Enter');
  await expect(page.getByText('Senha redefinida com sucesso! Faça seu login.')).toBeVisible();
  await page.reload();
@@ -45,7 +46,7 @@ test('B/C: preferências persistidas, erro recuperável, privacidade e valores',
  await privacy.focus();await page.keyboard.press('Space');await expect(privacy).toHaveAttribute('aria-checked','true');
  await page.reload();await expect(privacy).toHaveAttribute('aria-checked','true');
  await page.route('**/api/users/me/preferences',route=>route.fulfill({status:503,contentType:'application/json',body:'{"message":"Falha sintética"}'}));
- await privacy.click();await expect(page.getByRole('alert')).toContainText('Erro ao alterar preferência');await expect(privacy).toHaveAttribute('aria-checked','true');
+ await privacy.click();await expect(page.getByRole('alert').filter({hasText:'Erro ao alterar preferência'})).toContainText('Erro ao alterar preferência');await expect(privacy).toHaveAttribute('aria-checked','true');
  await shot(page,'B-preference-error');await page.unroute('**/api/users/me/preferences');
  await page.goto('/contas');await expect(page.getByText('Conta sintética longa privacidade',{exact:true})).toBeVisible();
  await shot(page,'C-accounts-private');
@@ -63,11 +64,11 @@ test('E: interação semanal passiva com persistência e reload',async({page})=>
  try {
  await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));await registerSyntheticUser(page,syntheticUser('A',ns+'-weekly'));
  const goal=await post(page,'/goals',{title:'Meta semanal sintética',type:'NUMERIC',targetValue:100,deadline:'2028-01-04',color:'BLUE',useChecklist:false});
- await page.setViewportSize({width:360,height:800});await page.goto('/habitos');await page.getByRole('button',{name:'Novo Hábito'}).click();
+ await page.setViewportSize({width:1440,height:900});await page.goto('/habitos');await page.getByRole('button',{name:'Novo Hábito'}).click();
  const modal=page.getByRole('dialog',{name:'Novo Hábito',exact:true});await modal.getByPlaceholder('Ex: Beber 3L de Água').fill('Hábito semanal sintético');
  await modal.getByRole('button',{name:'Meta na Semana'}).click();await modal.getByPlaceholder('Ex: 4').fill('2');await modal.locator('select').selectOption(goal.id);
  await modal.getByRole('button',{name:'Criar Hábito'}).click();
- const card=page.getByRole('button',{name:'Ver detalhes do hábito Hábito semanal sintético'});await expect(card).toBeVisible();await shot(page,'E-weekly-before');
+ const card=page.getByRole('button',{name:'Ver detalhes do hábito Hábito semanal sintético'});await expect(card).toBeVisible();await page.setViewportSize({width:360,height:800});await shot(page,'E-weekly-before');
  const response=page.waitForResponse(r=>r.url().includes('/toggle')&&r.request().method()==='POST');
  const [,marked]=await Promise.all([card.getByRole('button',{name:'Avançar Progresso'}).click(),response]);expect(marked.status()).toBe(200);
  expect(marked.request().postDataJSON()).toEqual({date:'2027-01-15'});
@@ -75,5 +76,5 @@ test('E: interação semanal passiva com persistência e reload',async({page})=>
  let goals=await (await page.request.get('/api/goals')).json();expect(goals.find((x:{id:string})=>x.id===goal.id).currentValue).toBe(1);
  await card.getByRole('button',{name:'Feito Hoje'}).click();await page.reload();await expect(card.getByRole('button',{name:'Avançar Progresso'})).toBeVisible();
  goals=await (await page.request.get('/api/goals')).json();expect(goals.find((x:{id:string})=>x.id===goal.id).currentValue).toBe(0);
- } finally {await writeFile(path.join(dir,'E-weekly-network.json'),JSON.stringify(events,null,2));await shot(page,'E-weekly-terminal');}
+ } finally {await writeFile(path.join(dir,'E-weekly-network.json'),JSON.stringify(events,null,2));if(!page.isClosed()) await shot(page,'E-weekly-terminal').catch(()=>undefined);}
 });
