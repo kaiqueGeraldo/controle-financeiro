@@ -18,7 +18,8 @@ export function PrivacyBlur({ children, className = "" }: PrivacyBlurProps) {
           : ""
       }`}
     >
-      {children}
+      <span aria-hidden={user?.privacyMode || undefined}>{children}</span>
+      {user?.privacyMode && <span className="sr-only">Valor oculto</span>}
     </span>
   );
 }

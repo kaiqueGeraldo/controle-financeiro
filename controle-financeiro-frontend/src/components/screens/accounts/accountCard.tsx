@@ -141,7 +141,7 @@ export function AccountCard({
           <p className="text-text-muted text-[9px] uppercase font-bold tracking-wider mb-1">
             Saldo Atual
           </p>
-          <PrivacyBlur className="text-2xl font-bold text-text-main tracking-tight w-min">
+          <PrivacyBlur className="text-2xl font-bold text-text-main tracking-tight w-fit max-w-full [overflow-wrap:anywhere]">
             {formatCurrency(account.balance)}
           </PrivacyBlur>
         </div>

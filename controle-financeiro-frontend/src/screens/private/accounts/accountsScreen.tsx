@@ -1,5 +1,6 @@
 "use client";
 import { monetaryAggregate } from "@/utils/monetaryAggregate";
+import { PrivacyBlur } from "@/components/ui/privacyBlur";
 
 import { EditAccountModal } from "@/components/forms/editAccountModal";
 import { ReorderModal } from "@/components/forms/reorderModal";
@@ -92,8 +93,16 @@ export default function AccountsScreen() {
 
       {/* CONTEÚDO */}
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6">
-        {accountPosition&&<p className="mb-4 text-sm text-text-muted">Posição atual em {formatCalendarDate(accountPosition.asOfDate)}: inclui contas arquivadas. {accountPosition.outsideSupportedRange?"Agregado fora da faixa monetária suportada; posição indisponível nesta tela.":`Saldo em contas arquivadas: ${formatCurrency(Number(accountPosition.archivedBalance))}.`}</p>}
-        {accountPosition?.accounts.some(a=>a.isArchived)&&<section aria-label="Posição de contas arquivadas" className="mb-4 space-y-2 text-sm">{accountPosition.accounts.filter(a=>a.isArchived).map(a=><p key={a.id}>{a.name} · Arquivada · {formatCurrency(a.balance)}</p>)}</section>}
+        {accountPosition && <p className="mb-4 text-sm text-text-muted">
+          Posição atual em {formatCalendarDate(accountPosition.asOfDate)}: inclui contas arquivadas. {accountPosition.outsideSupportedRange
+            ? "Agregado fora da faixa monetária suportada; posição indisponível nesta tela."
+            : <>Saldo em contas arquivadas: <PrivacyBlur className="inline-flex">{formatCurrency(Number(accountPosition.archivedBalance))}</PrivacyBlur>.</>}
+        </p>}
+        {accountPosition?.accounts.some(a => a.isArchived) && <section aria-label="Posição de contas arquivadas" className="mb-4 space-y-2 text-sm">
+          {accountPosition.accounts.filter(a => a.isArchived).map(a => <p key={a.id}>
+            {a.name} · Arquivada · <PrivacyBlur className="inline-flex">{formatCurrency(a.balance)}</PrivacyBlur>
+          </p>)}
+        </section>}
         {/* RESUMO */}
         <AccountsSummary
           total={total}
