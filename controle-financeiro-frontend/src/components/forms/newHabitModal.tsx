@@ -107,7 +107,7 @@ export function NewHabitModal({
         goalId: formData.goalId || undefined,
       });
 
-      await refreshHabits();
+      await refreshHabits(true);
       onClose();
     } catch {
       toast.error("Erro ao criar hábito.");
@@ -125,7 +125,6 @@ export function NewHabitModal({
           </label>
           <input
             required
-            autoFocus
             placeholder="Ex: Beber 3L de Água"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}

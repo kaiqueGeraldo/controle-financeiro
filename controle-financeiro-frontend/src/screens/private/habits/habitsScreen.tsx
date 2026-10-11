@@ -58,6 +58,8 @@ export default function HabitsScreen() {
             )}
             <button
               onClick={openNewHabit}
+              type="button"
+              aria-label="Novo Hábito"
               className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm transition shadow-lg shadow-emerald-900/20 cursor-pointer"
             >
               <Plus size={18} />
