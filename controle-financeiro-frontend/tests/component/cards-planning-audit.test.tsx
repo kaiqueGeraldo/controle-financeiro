@@ -51,6 +51,9 @@ function renderInvoice(
         year: 2026,
         status,
         totalAmount: status === "PAID" ? 0 : 1200,
+        // DEC-03: setembro é a competência de fechamento; datas civis vêm da API.
+        closingDate: "2026-09-30",
+        dueDate: "2026-10-10",
         transactions,
       }}
       isLoadingInvoice={false}
@@ -97,8 +100,8 @@ describe("CF-013: cartões, faturas e planejamento", () => {
 
       expect(screen.getByText(label)).toBeDefined();
       expect(screen.getByRole("button", { name: paymentAction })).toHaveProperty("disabled", disabled);
-      expect(screen.getByText(/Fecha:/).textContent).toContain("30 de ago");
-      expect(screen.getByText(/Vence:/).textContent).toContain("10 de set");
+      expect(screen.getByText(/Fecha:/).textContent).toContain("30 de set");
+      expect(screen.getByText(/Vence:/).textContent).toContain("10 de out");
     },
   );
 
