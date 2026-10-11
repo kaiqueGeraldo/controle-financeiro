@@ -1,0 +1,23 @@
+import { expect, test } from '@playwright/test';
+import path from 'node:path';
+import { registerSyntheticUser, syntheticUser } from './support/synthetic-auth';
+test('RF15-01: criação mobile por nome e teclado', async ({ page }) => {
+  await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));
+  await registerSyntheticUser(page, syntheticUser('A', process.env.CF_E2E_NAMESPACE+'-mobile'));
+  await page.setViewportSize({width:360,height:800});
+  await page.goto('/habitos');
+  await expect(page.getByRole('heading',{name:'Hábitos',exact:true})).toBeVisible();
+  await page.screenshot({path:path.join(process.env.CF_REVIEW_EVIDENCE!,'RF15-01-mobile.png')});
+  const create=page.getByRole('button',{name:'Novo Hábito',exact:true});
+  await expect(create).toBeVisible(); await create.focus(); await page.keyboard.press('Enter');
+  const modal=page.getByRole('dialog',{name:'Novo Hábito',exact:true});
+  await expect(modal.getByRole('button',{name:'Fechar modal'})).toBeFocused();
+  await page.keyboard.press('Escape'); await expect(create).toBeFocused();
+  await page.keyboard.press('Enter');
+  await modal.getByPlaceholder('Ex: Beber 3L de Água').fill('Hábito mobile sintético');
+  await modal.getByRole('button',{name:'Criar Hábito'}).focus(); await page.keyboard.press('Enter');
+  await expect(modal).toHaveCount(0); await expect(create).toBeFocused();
+  await page.reload();
+  await expect(page.getByRole('button',{name:'Ver detalhes do hábito Hábito mobile sintético'})).toBeVisible();
+  await page.screenshot({path:path.join(process.env.CF_REVIEW_EVIDENCE!,'RF15-01-created.png')});
+});
