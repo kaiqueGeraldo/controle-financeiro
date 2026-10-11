@@ -4,8 +4,8 @@ const dialogs: HTMLElement[] = [];
 let previousOverflow = "";
 const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export function useDialogFocus(isOpen: boolean, onClose: () => void) {
-  const dialogRef = useRef<HTMLDivElement>(null);
+export function useDialogFocus<T extends HTMLElement = HTMLDivElement>(isOpen: boolean, onClose: () => void) {
+  const dialogRef = useRef<T>(null);
   const closeRef = useRef(onClose);
   useEffect(() => { closeRef.current = onClose; }, [onClose]);
 
@@ -22,7 +22,7 @@ export function useDialogFocus(isOpen: boolean, onClose: () => void) {
       .filter(element => !element.closest('[hidden], [inert], [aria-hidden="true"]') && getComputedStyle(element).display !== "none" && getComputedStyle(element).visibility !== "hidden");
     (dialog.querySelector<HTMLElement>('[data-dialog-close]') ?? focusable()[0] ?? dialog).focus();
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (dialogs.at(-1) !== dialog) return;
+      if (dialogs.at(-1) !== dialog || event.defaultPrevented) return;
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopImmediatePropagation();

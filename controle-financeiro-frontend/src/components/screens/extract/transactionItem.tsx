@@ -68,6 +68,15 @@ export function TransactionItem({
 
   return (
     <motion.div
+      role={user?.privacyMode ? undefined : "button"}
+      tabIndex={user?.privacyMode ? undefined : 0}
+      aria-label={user?.privacyMode ? undefined : `Ver detalhes de ${item.description}`}
+      onKeyDown={(event) => {
+        if (!user?.privacyMode && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          onClick(item.id);
+        }
+      }}
       layoutId={`${layoutIdPrefix}-card-container-${item.id}`}
       onClick={() => !user?.privacyMode && onClick(item.id)}
       className={`
@@ -134,7 +143,7 @@ export function TransactionItem({
             {forecast ? `Previsto: ${formatCurrency(item.amount)}` : !cashKnown || displayed === null ? "Caixa indisponível" : `${displayed < 0 ? "- " : displayed > 0 ? "+ " : ""}${formatCurrency(Math.abs(displayed))}`}
           </PrivacyBlur>
         </motion.span>
-        {!forecast && item.cashAmount !== undefined && item.cashAmount !== item.amount && <span className="text-xs text-text-muted">Bruto: {formatCurrency(item.amount)}</span>}
+        {!forecast && item.cashAmount !== undefined && item.cashAmount !== item.amount && <span className="text-xs text-text-muted">Bruto: <PrivacyBlur className="inline-flex">{formatCurrency(item.amount)}</PrivacyBlur></span>}
       </div>
     </motion.div>
   );

@@ -2,6 +2,8 @@ import { compactWallTime, informedTime, normalizeTransaction } from "@/services/
 import { Account, Category, Transaction, CreateTransactionDTO } from "@/types";
 import { formatCalendarDate } from "@/utils/date";
 import { formatCurrency } from "@/utils/format";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
+import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Calendar,
@@ -53,6 +55,17 @@ export function TransactionDetails({
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [timeChanged, setTimeChanged] = useState(false);
+  const closeDetails = () => {
+    if (isSaving) return;
+    if (isEditing && transaction) {
+      setFormData(transactionForm(transaction));
+      setTimeChanged(false);
+      setIsEditing(false);
+      return;
+    }
+    onClose();
+  };
+  const dialogRef = useDialogFocus<HTMLFormElement>(isOpen && !!transaction, closeDetails);
   const [formData, setFormData] = useState<Omit<CreateTransactionDTO, "amount" | "time"> & { amount: string | number; time: string }>({ description: "", amount: "", date: "", time: "", type: "EXPENSE", accountId: "", categoryId: "", isPaid: false });
 
   useEffect(() => {
@@ -104,11 +117,16 @@ export function TransactionDetails({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={closeDetails}
             className="absolute inset-0 bg-bg-base/80 backdrop-blur-sm cursor-pointer"
           />
 
           <motion.form
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalhes de ${transaction.description}`}
+            tabIndex={-1}
             layoutId={`extract-card-container-${transaction.id}`}
             onSubmit={handleSave}
             className="w-full max-w-lg bg-bg-surface border border-border-divider rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col max-h-[90vh]"
@@ -116,7 +134,10 @@ export function TransactionDetails({
             <div className="p-6 border-b border-border-divider relative bg-bg-surface">
               <button
                 type="button"
-                onClick={onClose}
+                onClick={closeDetails}
+                aria-label={isEditing ? "Cancelar edição do lançamento" : "Fechar detalhes do lançamento"}
+                data-dialog-close
+                disabled={isSaving}
                 className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-text-main transition cursor-pointer z-20"
               >
                 <X size={20} />
@@ -193,11 +214,11 @@ export function TransactionDetails({
                 ) : (
                   <motion.p
                     layoutId={`extract-amount-${transaction.id}`}
-                    className={`text-4xl font-bold ${transaction.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
+                    className={`text-3xl sm:text-4xl [overflow-wrap:anywhere] font-bold ${transaction.type === "INCOME" ? "text-emerald-500" : "text-text-main"}`}
                   >
-                    {formatCurrency(
+                    <PrivacyBlur>{formatCurrency(
                       Number(formData.amount || transaction.amount),
-                    )}
+                    )}</PrivacyBlur>
                   </motion.p>
                 )}
               </div>
@@ -211,9 +232,9 @@ export function TransactionDetails({
               className="p-6 space-y-4 overflow-y-auto custom-scroll flex-1 bg-bg-base/50"
             >
               <p className="text-sm">Situação: {transaction.status ?? (transaction.isPaid?"Realizado":"Previsto")}</p>
-              {transaction.cashDelta !== undefined && <p className="text-sm">Efeito no caixa: {transaction.cashDelta === null ? "Indisponível: direção desconhecida" : formatCurrency(transaction.cashDelta)}. Valor bruto do fato: {formatCurrency(transaction.amount)}.</p>}
+              {transaction.cashDelta !== undefined && <p className="text-sm">Efeito no caixa: {transaction.cashDelta === null ? "Indisponível: direção desconhecida" : <PrivacyBlur className="inline-flex">{formatCurrency(transaction.cashDelta)}</PrivacyBlur>}. Valor bruto do fato: <PrivacyBlur className="inline-flex">{formatCurrency(transaction.amount)}</PrivacyBlur>.</p>}
               {transaction.dueDate&&<p className="text-sm">Vencimento previsto: {formatCalendarDate(transaction.dueDate)}</p>}
-              <p className="text-sm">Restante {isForecast?"previsto":"reversível"}: {formatCurrency(transaction.remainingAmount??transaction.amount)}</p>
+              <p className="text-sm">Restante {isForecast?"previsto":"reversível"}: <PrivacyBlur className="inline-flex">{formatCurrency(transaction.remainingAmount??transaction.amount)}</PrivacyBlur></p>
               {transaction.reason&&<p className="text-sm break-words">Motivo: {transaction.reason}</p>}
               {transaction.settlementOfId&&<p className="text-xs break-all">Baixa vinculada à previsão {transaction.settlementOfId}</p>}
               {transaction.realizationOfId&&<p className="text-xs break-all">Realização vinculada à previsão {transaction.realizationOfId}</p>}
