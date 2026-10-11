@@ -1,0 +1,79 @@
+[WebServer] (node:22048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:44112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:1796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 1 worker
+
+(node:36784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [review-sao-paulo] › tests\e2e\rf15-matrix.integrated.spec.ts:63:5 › Matriz CF014: hábito formulário longo e detalhe diário
+[WebServer] (node:23344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:10004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:25396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:42840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\rf15-matrix.integrated.spec.ts:63:5 › Matriz CF014: hábito formulário longo e detalhe diário 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Hábito diário longo RF15', exact: true })
+    Expected: visible
+    Error: strict mode violation: getByRole('heading', { name: 'Hábito diário longo RF15', exact: true }) resolved to 2 elements:
+        1) <h3 class="font-bold text-base text-text-main truncate">Hábito diário longo RF15</h3> aka getByRole('button', { name: 'Ver detalhes do hábito Hábito' })
+        2) <h3 class="text-2xl font-bold text-text-main leading-tight">Hábito diário longo RF15</h3> aka locator('form').getByRole('heading', { name: 'Hábito diário longo RF15' })
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Hábito diário longo RF15', exact: true }) with timeout 15000ms
+      - waiting for getByRole('heading', { name: 'Hábito diário longo RF15', exact: true })
+
+
+      68 |  await page.keyboard.press('Escape');await expect(opener).toBeFocused();
+      69 |  const habit=await post(page,'/habits',{name:'Hábito diário longo RF15',description:'Descrição sintética extensa para verificar as ações e o calendário. '.repeat(3),frequency:'DAILY',icon:'Flame',color:'BLUE'});
+    > 70 |  await page.reload();await page.getByRole('button',{name:`Ver detalhes do hábito ${habit.name}`}).focus();await page.keyboard.press('Enter');await expect(page.locator('form').filter({hasText:habit.description})).toBeVisible();await expect(page.getByRole('heading',{name:habit.name,exact:true})).toBeVisible();await shot(page,'matrix-habit-detail');
+         |                                                                                                                                                                                                                                                                                                        ^
+      71 |  await page.keyboard.press('Escape');
+      72 |  await writeFile(path.join(dir,'matrix-habit-detail.json'),JSON.stringify({dialogs:await page.getByRole('dialog').count(),detailStillOpen:await page.locator('form').filter({hasText:habit.description}).count()},null,2));
+      73 | });
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\rf15-matrix.integrated.spec.ts:70:296
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\rf15\rf15-matrix.integrated-Mat-2a8ee-ário-longo-e-detalhe-diário-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\rf15\rf15-matrix.integrated-Mat-2a8ee-ário-longo-e-detalhe-diário-review-sao-paulo\error-context.md
+
+
+(node:42572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [review-sao-paulo] › tests\e2e\rf15-surfaces.integrated.spec.ts:39:5 › RF15-03: teclado real, containment, edição cancelável e retorno
+[WebServer] (node:37532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:42004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:37444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1 failed
+    [review-sao-paulo] › tests\e2e\rf15-matrix.integrated.spec.ts:63:5 › Matriz CF014: hábito formulário longo e detalhe diário 
+  1 passed (33.3s)

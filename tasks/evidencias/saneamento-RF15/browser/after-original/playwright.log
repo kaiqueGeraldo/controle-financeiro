@@ -1,0 +1,105 @@
+[WebServer] (node:17896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:34336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 4 tests using 1 worker
+
+(node:49136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] [review-sao-paulo] › tests\e2e\frontend-closure-final.integrated.spec.ts:15:5 › D: competência de fechamento conserva vencimento contratual no detalhe
+[WebServer] (node:43588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:48684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:9048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:27212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:1420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:9:5 › C: privacidade deve ocultar saldo monetário de conta arquivada
+[WebServer] (node:39080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:13880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:22460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/4] [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:23:5 › C: detalhe do extrato deve fechar por Escape e devolver foco
+[WebServer] (node:26204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/4] [review-sao-paulo] › tests\e2e\rf15-accessibility.integrated.spec.ts:4:5 › RF15-01: criação mobile por nome e teclado
+[WebServer] (node:48568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:12616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:26384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\rf15-accessibility.integrated.spec.ts:4:5 › RF15-01: criação mobile por nome e teclado 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('button', { name: 'Novo Hábito', exact: true })
+    Expected: focused
+    Received: inactive
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('button', { name: 'Novo Hábito', exact: true }) with timeout 15000ms
+      - waiting for getByRole('button', { name: 'Novo Hábito', exact: true })
+        33 × locator resolved to <button type="button" aria-label="Novo Hábito" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm transition shadow-lg shadow-emerald-900/20 cursor-pointer">…</button>
+           - unexpected value "inactive"
+
+
+      13 |   const modal=page.getByRole('dialog',{name:'Novo Hábito',exact:true});
+      14 |   await expect(modal.getByRole('button',{name:'Fechar modal'})).toBeFocused();
+    > 15 |   await page.keyboard.press('Escape'); await expect(create).toBeFocused();
+         |                                                             ^
+      16 |   await page.keyboard.press('Enter');
+      17 |   await modal.getByPlaceholder('Ex: Beber 3L de Água').fill('Hábito mobile sintético');
+      18 |   await modal.getByRole('button',{name:'Criar Hábito'}).focus(); await page.keyboard.press('Enter');
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\rf15-accessibility.integrated.spec.ts:15:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\rf15\rf15-accessibility.integra-0615e-o-mobile-por-nome-e-teclado-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\rf15\rf15-accessibility.integra-0615e-o-mobile-por-nome-e-teclado-review-sao-paulo\error-context.md
+
+
+  1 failed
+    [review-sao-paulo] › tests\e2e\rf15-accessibility.integrated.spec.ts:4:5 › RF15-01: criação mobile por nome e teclado 
+  3 passed (45.2s)

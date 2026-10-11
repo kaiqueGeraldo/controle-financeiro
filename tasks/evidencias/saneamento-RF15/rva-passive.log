@@ -1,0 +1,146 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 14 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.Rf15RemediationBrowserTest
+14:00:39.554 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.Rf15RemediationBrowserTest
+14:00:39.738 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+14:00:39.745 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+14:00:39.750 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+14:00:39.944 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+14:00:43.097 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+14:00:43.101 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+14:00:43.127 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+14:00:43.241 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+14:00:43.583 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: ccff131dbedbf57e487aeb04dbe6771317804c6866ff0435e528bca7940fc6f4
+14:00:43.920 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.6786077S
+14:00:43.927 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+14:00:43.927 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+14:00:43.928 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+14:00:43.929 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+14:00:44.008 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 6e948c3d9e983721bec3e791d544d69f9841fb00b3c26258ad5d68e3ffc34823
+14:00:45.635 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.7068194S
+14:00:45.636 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:51896/cf_test_cf017_a19c085a180f40eca308531e5bce9322?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-11 14:00:46.353 - INFO 48860 --- [           main] c.c.api.Rf15RemediationBrowserTest       : Starting Rf15RemediationBrowserTest using Java 21.0.12.1 with PID 48860 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-11 14:00:46.355 - INFO 48860 --- [           main] c.c.api.Rf15RemediationBrowserTest       : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-10-11 14:00:55.654 - WARN 48860 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-11 14:01:02.914 - INFO 48860 --- [           main] c.c.api.Rf15RemediationBrowserTest       : Started Rf15RemediationBrowserTest in 17.022 seconds (process running for 24.391)
+-2026-10-11 14:01:09.622 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:09.655 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:10.097 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 4f8eabfa-3bcd-44c0-91e8-0a21670dd0d4
+-2026-10-11 14:01:10.099 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 4f8eabfa-3bcd-44c0-91e8-0a21670dd0d4
+-2026-10-11 14:01:10.262 - INFO 48860 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:10.458 - INFO 48860 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:11.035 - INFO 48860 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:11.298 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.controller.AccountController     : API: Criar Conta 'SAN banco cart�o'. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:11.300 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4f8eabfa-3bcd-44c0-91e8-0a21670dd0d4
+-2026-10-11 14:01:11.451 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'SAN cart�o 20'. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:11.451 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'SAN cart�o 20' (Final 4242)
+-2026-10-11 14:01:11.558 - INFO 48860 --- [o-auto-1-exec-7] c.c.api.controller.GoalController        : API: Criar Meta 'SAN meta cart�o 20' para usu�rio cf003-a-closure-62b8079c-goal-card-20@example.invalid
+-2026-10-11 14:01:11.559 - INFO 48860 --- [o-auto-1-exec-7] c.c.api.service.GoalService              : Criando nova meta: SAN meta cart�o 20
+-2026-10-11 14:01:12.672 - INFO 48860 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:14.122 - WARN 48860 --- [o-auto-1-exec-6] c.c.api.controller.GoalController        : API: Criar Item na Meta 1994aab1-f666-40b6-bad6-6d3726bf3c80. para usu�rio: com.controlefinanceiro.api.domain.user.User@82a6360a
+-2026-10-11 14:01:14.962 - INFO 48860 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:16.484 - WARN 48860 --- [o-auto-1-exec-2] c.c.api.controller.GoalController        : API: Atualizando Item Meta 13ba1b6a-f00c-46c7-be3c-1d8106bc0fa4. valor pago: PurchaseGoalItemDTO[paidPrice=120, accountId=null, cardId=9a5f43bf-4888-4ef4-b966-05f4f20402e8, installments=1, allocationId=null]
+-2026-10-11 14:01:16.509 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 9a5f43bf-4888-4ef4-b966-05f4f20402e8: 120 (1x)
+-2026-10-11 14:01:16.691 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-11 14:01:18.380 - INFO 48860 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:20.905 - INFO 48860 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 9a5f43bf-4888-4ef4-b966-05f4f20402e8. Valor: 20. � adiantamento? true
+-2026-10-11 14:01:20.905 - INFO 48860 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-11 14:01:20.978 - INFO 48860 --- [o-auto-1-exec-3] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o SAN cart�o 20
+-2026-10-11 14:01:21.202 - INFO 48860 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:32.108 - INFO 48860 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:32.812 - INFO 48860 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:34.228 - WARN 48860 --- [o-auto-1-exec-7] c.c.api.controller.GoalController        : API: Exclus�o de META 1994aab1-f666-40b6-bad6-6d3726bf3c80. Conta para Estorno/Devolu��o: null
+-2026-10-11 14:01:34.917 - INFO 48860 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:36.098 - INFO 48860 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:36.619 - WARN 48860 --- [-auto-1-exec-10] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Compra j� estornada. [URI: /goals/items/13ba1b6a-f00c-46c7-be3c-1d8106bc0fa4/refund]
+-2026-10-11 14:01:39.281 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:39.283 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:39.416 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 8a607b1f-ecdb-4a6e-909d-c5a599f78991
+-2026-10-11 14:01:39.416 - INFO 48860 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 8a607b1f-ecdb-4a6e-909d-c5a599f78991
+-2026-10-11 14:01:39.504 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:39.625 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:39.869 - INFO 48860 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:40.165 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'SAN banco cart�o'. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:40.166 - INFO 48860 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 8a607b1f-ecdb-4a6e-909d-c5a599f78991
+-2026-10-11 14:01:40.222 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'SAN cart�o 120'. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:40.222 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Criando cart�o 'SAN cart�o 120' (Final 4242)
+-2026-10-11 14:01:40.268 - INFO 48860 --- [o-auto-1-exec-1] c.c.api.controller.GoalController        : API: Criar Meta 'SAN meta cart�o 120' para usu�rio cf003-a-closure-62b8079c-goal-card-120@example.invalid
+-2026-10-11 14:01:40.269 - INFO 48860 --- [o-auto-1-exec-1] c.c.api.service.GoalService              : Criando nova meta: SAN meta cart�o 120
+-2026-10-11 14:01:40.950 - INFO 48860 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:41.949 - WARN 48860 --- [o-auto-1-exec-7] c.c.api.controller.GoalController        : API: Criar Item na Meta 55a125ed-4a53-45b5-bd67-a2228c4b02ca. para usu�rio: com.controlefinanceiro.api.domain.user.User@6fd17d80
+-2026-10-11 14:01:42.651 - INFO 48860 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:44.838 - WARN 48860 --- [o-auto-1-exec-6] c.c.api.controller.GoalController        : API: Atualizando Item Meta f63977ec-f314-4a71-8419-0ba04bb77058. valor pago: PurchaseGoalItemDTO[paidPrice=120, accountId=null, cardId=77f3e795-2dc5-4778-95db-1ec8573d2a4f, installments=1, allocationId=null]
+-2026-10-11 14:01:44.842 - INFO 48860 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 77f3e795-2dc5-4778-95db-1ec8573d2a4f: 120 (1x)
+-2026-10-11 14:01:44.858 - INFO 48860 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-11 14:01:45.349 - INFO 48860 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:47.541 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 77f3e795-2dc5-4778-95db-1ec8573d2a4f. Valor: 120. � adiantamento? true
+-2026-10-11 14:01:47.542 - INFO 48860 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-11 14:01:47.551 - INFO 48860 --- [o-auto-1-exec-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o SAN cart�o 120
+-2026-10-11 14:01:47.684 - INFO 48860 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:56.077 - INFO 48860 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:56.593 - INFO 48860 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:01:58.498 - WARN 48860 --- [o-auto-1-exec-5] c.c.api.controller.GoalController        : API: Exclus�o de META 55a125ed-4a53-45b5-bd67-a2228c4b02ca. Conta para Estorno/Devolu��o: null
+-2026-10-11 14:01:59.204 - INFO 48860 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:02:00.347 - INFO 48860 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-62b8079c-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-11 14:02:00.865 - WARN 48860 --- [o-auto-1-exec-1] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Compra j� estornada. [URI: /goals/items/f63977ec-f314-4a71-8419-0ba04bb77058/refund]
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 83.61 s -- in com.controlefinanceiro.api.Rf15RemediationBrowserTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:27 min
+[INFO] Finished at: 2026-10-11T14:02:03-03:00
+[INFO] ------------------------------------------------------------------------

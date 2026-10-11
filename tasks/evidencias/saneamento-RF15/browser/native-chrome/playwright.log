@@ -1,0 +1,58 @@
+[WebServer] (node:42412) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:41020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:11424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+(node:18224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [review-sao-paulo] › tests\e2e\rf15-native-chrome.integrated.spec.ts:8:5 › RF15: zoom nativo Chrome 200% com ações, rolagem e foco
+[WebServer] (node:39008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:39076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:16844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\rf15-native-chrome.integrated.spec.ts:8:5 › RF15: zoom nativo Chrome 200% com ações, rolagem e foco 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 1
+
+    Call Log:
+    - Timeout 180000ms exceeded while waiting on the predicate
+
+      33 |     await writeFile(path.join(directory, "ready.json"), JSON.stringify({ browser: browser.version(), before, project: info.project.name }, null, 2));
+      34 |     // This assertion observes actual zoom; it does not implement zoom.
+    > 35 |     await expect.poll(async () => (await metrics()).dpr / before.dpr, { timeout: 180_000 }).toBe(2);
+         |                                                                                             ^
+      36 |     // Allow the operator to capture the native 200% indicator before navigation.
+      37 |     await expect.poll(async () => readFile(path.join(directory, "native-confirmed.txt"), "utf8").catch(() => "pending"), { timeout: 60_000 }).toBe("200%");
+      38 |     const after = await metrics();
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\rf15-native-chrome.integrated.spec.ts:35:93
+
+    Error Context: tests\artifacts\rf15\rf15-native-chrome.integra-41162-00-com-ações-rolagem-e-foco-review-sao-paulo\error-context.md
+
+
+  1 failed
+    [review-sao-paulo] › tests\e2e\rf15-native-chrome.integrated.spec.ts:8:5 › RF15: zoom nativo Chrome 200% com ações, rolagem e foco 

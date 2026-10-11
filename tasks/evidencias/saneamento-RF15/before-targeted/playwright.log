@@ -1,0 +1,160 @@
+[WebServer] (node:4132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[WebServer] (node:29108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 3 tests using 1 worker
+
+(node:12204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:9:5 › C: privacidade deve ocultar saldo monetário de conta arquivada
+[WebServer] (node:36708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:24740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:48208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:35052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  1) [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:9:5 › C: privacidade deve ocultar saldo monetário de conta arquivada 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "rgba(0, 0, 0, 0)"
+    Received: "rgb(255, 255, 255)"
+
+      18 |  // Product says "Ocultar valores monetários na interface"; this is a visible amount,
+      19 |  // not a claim that client-side financial data is confidential.
+    > 20 |  expect(actual.color).toBe('rgba(0, 0, 0, 0)');
+         |                       ^
+      21 | });
+      22 |
+      23 | test('C: detalhe do extrato deve fechar por Escape e devolver foco',async({page})=>{
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\frontend-closure-targeted.integrated.spec.ts:20:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\frontend-closure\frontend-closure-targeted.-5d2da-onetário-de-conta-arquivada-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\frontend-closure\frontend-closure-targeted.-5d2da-onetário-de-conta-arquivada-review-sao-paulo\error-context.md
+
+
+(node:46152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/3] [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:23:5 › C: detalhe do extrato deve fechar por Escape e devolver foco
+[WebServer] (node:46348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:44000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:34116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  2) [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:23:5 › C: detalhe do extrato deve fechar por Escape e devolver foco 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('heading', { name: 'Receita detalhe sintética' })
+    Expected: 0
+    Received: 1
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('heading', { name: 'Receita detalhe sintética' }) with timeout 15000ms
+      - waiting for getByRole('heading', { name: 'Receita detalhe sintética' })
+        33 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      30 |  const focus=await page.evaluate(()=>({tag:document.activeElement?.tagName,text:document.activeElement?.textContent,aria:document.activeElement?.getAttribute('aria-label'),dialogs:document.querySelectorAll('[role="dialog"]').length}));
+      31 |  await page.keyboard.press('Escape');await page.screenshot({path:path.join(dir,'C-detail-after-escape.png')});await writeFile(path.join(dir,'C-detail-focus.json'),JSON.stringify(focus,null,2));
+    > 32 |  await expect(title).toHaveCount(0);
+         |                      ^
+      33 | });
+      34 |
+      35 | test('C: cem lançamentos, filtro, página e reload',async({page})=>{
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\tests\e2e\frontend-closure-targeted.integrated.spec.ts:32:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    tests\artifacts\frontend-closure\frontend-closure-targeted.-e69d3--por-Escape-e-devolver-foco-review-sao-paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: tests\artifacts\frontend-closure\frontend-closure-targeted.-e69d3--por-Escape-e-devolver-foco-review-sao-paulo\error-context.md
+
+
+(node:26848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/3] [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:35:5 › C: cem lançamentos, filtro, página e reload
+[WebServer] (node:36700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:29120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:33156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:42108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:14972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:34344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:13016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:32520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:11560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:6948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:10344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:40652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:38640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:30384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:20800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:46976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer] (node:36288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+  2 failed
+    [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:9:5 › C: privacidade deve ocultar saldo monetário de conta arquivada 
+    [review-sao-paulo] › tests\e2e\frontend-closure-targeted.integrated.spec.ts:23:5 › C: detalhe do extrato deve fechar por Escape e devolver foco 
+  1 passed (46.4s)
