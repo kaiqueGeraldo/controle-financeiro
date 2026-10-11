@@ -1,12 +1,18 @@
 # CF-011 — Auditar e corrigir autenticação e configurações
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
 - Revisor sugerido: gpt-5.6-sol / high
 - Depende de: [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
+
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `concluida`: recuperação mobile/teclado com email falso e backend real, rejeições e login após reload; preferências reais/reload/erro503; download falho sem arquivo e sucesso binário. Reutilizados R07, sessão CF-023 e exclusão RV24-02. Critérios próprios comprovados; zoom da CF-010 não bloqueia este aceite delimitado.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
 
 ## Reconciliação de pendências — 03/10/2026
 

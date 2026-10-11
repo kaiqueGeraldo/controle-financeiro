@@ -8,6 +8,12 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `em_revisao`: CF-011 concluída; CF-010/012/013/014 conservam impedimentos específicos. RF15-02/04 P1 e RF15-01/03 P2, zoom nativo sem prova e demais lacunas/investigações impedem aprovação do marco. R03/RV01, RV24-01/02, CF-005–009 e CF-025–027 conservam aceites. CF-017 não é bloqueio automático da revisão local. CF-028 segue exclusivamente especificação.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+
 ## Atualização das dependências — 08/10/2026
 
 A [revisão dirigida CF-005–008](../evidencias/revisao-dirigida-CF-005-CF-008/README.md)

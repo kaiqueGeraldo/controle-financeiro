@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `em_revisao`: RF15-04 (P1) confirma datas e indicação de atraso divergentes da API/DEC-03 no detalhe da fatura. Lista longa/mobile/aninhamento e sequência20→120 executados. RVA-03 segue causalmente inconclusivo; falta prova visual específica PAID, pois adiantamento integral permanece OPEN. R03/RV01 e ownership continuam encerrados.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 4 e 3: falta consolidar estados de fatura vazia/aberta/paga/parcial, competência/reload, lista longa/mobile e zoom; RVA-03 pagamento120 permanece investigação CF-019/024. R03/RV01/R05/R06/R08 não são reabertos por associação. Encerrar exige matriz por critério e classificação causal da ressalva aplicável.

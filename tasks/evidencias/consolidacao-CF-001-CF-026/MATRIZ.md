@@ -1,5 +1,7 @@
 # Matriz CF-001–CF-026
 
+> Situação vigente em 11/10/2026: CF-011 concluída; CF-010/012/013/014/015 em revisão por RF15-01–04 e lacunas delimitadas. [Matriz atual por critério](../fechamento-CF-010-CF-015/MATRIZ.md). O conteúdo datado abaixo permanece snapshot histórico; RV24-01/02, RD58 e demais aceites posteriores não são reabertos.
+
 Snapshot documental de 01/10/2026 (America/Sao_Paulo), base `c7f7ffc`.
 Os links individuais são canônicos; este snapshot não deve ser mantido como catálogo paralelo.
 Somente CF-026 muda de estado. Todos os outros estados são mantidos pelas razões abaixo.

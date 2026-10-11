@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `em_revisao`: RF15-01 (P2) confirma criação de hábito sem nome acessível em360px. Interação semanal atual envia POST200 e persiste após reload, sem esclarecer causa histórica RJ-022-01. H24-01 permanece separado sob CF-022. Nota anual/posição e aceites RD58, CF-020/021 e RV24-01 preservados. Modais longos e estados próprios ainda sem prova suficiente estão discriminados na matriz.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+
 ## Vínculo dirigido — 08/10/2026
 
 A [revisão CF-005–008](../evidencias/revisao-dirigida-CF-005-CF-008/ACHADOS.md)

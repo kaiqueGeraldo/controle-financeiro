@@ -4,6 +4,10 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
+## Situação vigente CF-010–CF-015 — 11/10/2026
+
+CF-011 concluída após fechamento independente de recuperação, preferências e download. CF-010/012/013/014/015 seguem em revisão por defeitos e lacunas específicos. [Parecer completo e próximo saneamento delimitado](evidencias/fechamento-CF-010-CF-015/README.md). Aceites anteriores CF-005–009, RV24-01/02, CF-025–027 e CF-028 documental preservados.
+
 ## Por onde começar
 
 1. Executar CF-001 para fixar critérios e casos independentes do código.

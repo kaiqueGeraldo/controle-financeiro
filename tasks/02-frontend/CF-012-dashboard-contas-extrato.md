@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `em_revisao`: RF15-02 (P1, saldo arquivado visível no modo privacidade) e RF15-03 (P2, detalhe não fecha com Escape e não possui semântica de diálogo). Lista100/filtros/páginas/reload/saldo real aprovados; F018 e aceites temporais conservados. Limites de inspeção visual explicitados na matriz.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categoria 4: completar matriz autenticada de moeda/privacidade, lista/detalhe, valores extensos e estados, reutilizando capturas já inspecionadas. Zoom compartilhado continua CF-010. F-018 foi aceito na CF-021; não reimplementar agregado para obter fechamento visual. Condição: parecer por critério com lacunas visuais cobertas.

@@ -1,0 +1,613 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 14 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.FrontendClosureBrowserTest
+15:58:20.358 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.FrontendClosureBrowserTest
+15:58:20.920 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+15:58:20.924 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+15:58:20.943 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+15:58:21.553 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+15:58:22.752 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+15:58:22.755 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+15:58:22.796 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+15:58:22.967 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+15:58:23.639 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: b8076f425a8dff87bc2d6f59c16044c5db1f24287d78efc55af0cd19837be51b
+15:58:24.538 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT1.571022S
+15:58:24.562 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+15:58:24.563 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+15:58:24.564 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+15:58:24.566 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+15:58:24.724 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 734dc98b6e982750f2b88949207ffc1c68a8a98e8b3e690388aabe5f9a589e33
+15:58:27.118 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT2.5523207S
+15:58:27.120 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:64417/cf_test_cf017_390a8c189b2a4e5aad409883dc50e3f9?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-10 15:58:28.625 - INFO 20640 --- [           main] c.c.api.FrontendClosureBrowserTest       : Starting FrontendClosureBrowserTest using Java 21.0.12.1 with PID 20640 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-10 15:58:28.625 - INFO 20640 --- [           main] c.c.api.FrontendClosureBrowserTest       : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-10 15:58:44.292 - WARN 20640 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-10 15:58:57.109 - INFO 20640 --- [           main] c.c.api.FrontendClosureBrowserTest       : Started FrontendClosureBrowserTest in 29.529 seconds (process running for 39.51)
+-2026-10-10 15:59:07.542 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:07.579 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:08.186 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: a0914732-2f79-424c-abe7-d6b0a00ceef6
+-2026-10-10 15:59:08.186 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID a0914732-2f79-424c-abe7-d6b0a00ceef6
+-2026-10-10 15:59:08.447 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:08.741 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:09.831 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:10.461 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.controller.AccountController     : API: Criar Conta 'SAN banco cart�o'. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:10.464 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.AccountService           : Criando nova conta para o usu�rio a0914732-2f79-424c-abe7-d6b0a00ceef6
+-2026-10-10 15:59:10.670 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'SAN cart�o 20'. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:10.672 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'SAN cart�o 20' (Final 4242)
+-2026-10-10 15:59:10.847 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.controller.GoalController        : API: Criar Meta 'SAN meta cart�o 20' para usu�rio cf003-a-closure-3dc7ef50-goal-card-20@example.invalid
+-2026-10-10 15:59:10.850 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.GoalService              : Criando nova meta: SAN meta cart�o 20
+-2026-10-10 15:59:12.408 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:14.078 - WARN 20640 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Criar Item na Meta 7bd8f59c-e323-4a35-92f5-21ad75b5dee1. para usu�rio: com.controlefinanceiro.api.domain.user.User@84033d73
+-2026-10-10 15:59:15.171 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:17.015 - WARN 20640 --- [o-auto-1-exec-4] c.c.api.controller.GoalController        : API: Atualizando Item Meta 5248068e-0f77-492f-8640-61a85636c40f. valor pago: PurchaseGoalItemDTO[paidPrice=120, accountId=null, cardId=1ca02eee-9ee2-4650-b157-da2cef371fcc, installments=1, allocationId=null]
+-2026-10-10 15:59:17.052 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 1ca02eee-9ee2-4650-b157-da2cef371fcc: 120 (1x)
+-2026-10-10 15:59:17.202 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:59:18.817 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:20.902 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 1ca02eee-9ee2-4650-b157-da2cef371fcc. Valor: 20. � adiantamento? true
+-2026-10-10 15:59:20.903 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-10 15:59:21.079 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o SAN cart�o 20
+-2026-10-10 15:59:21.554 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:36.343 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:37.364 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:39.091 - WARN 20640 --- [o-auto-1-exec-8] c.c.api.controller.GoalController        : API: Exclus�o de META 7bd8f59c-e323-4a35-92f5-21ad75b5dee1. Conta para Estorno/Devolu��o: null
+-2026-10-10 15:59:40.271 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:41.975 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-20@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:42.646 - WARN 20640 --- [o-auto-1-exec-5] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Compra j� estornada. [URI: /goals/items/5248068e-0f77-492f-8640-61a85636c40f/refund]
+-2026-10-10 15:59:46.562 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:46.568 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:46.786 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 4bab1760-42a3-485f-ae61-6dcdaa327c8d
+-2026-10-10 15:59:46.788 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 4bab1760-42a3-485f-ae61-6dcdaa327c8d
+-2026-10-10 15:59:46.916 - INFO 20640 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:47.118 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:47.560 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:48.055 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.controller.AccountController     : API: Criar Conta 'SAN banco cart�o'. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:48.056 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4bab1760-42a3-485f-ae61-6dcdaa327c8d
+-2026-10-10 15:59:48.140 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'SAN cart�o 120'. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:48.141 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Criando cart�o 'SAN cart�o 120' (Final 4242)
+-2026-10-10 15:59:48.273 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Criar Meta 'SAN meta cart�o 120' para usu�rio cf003-a-closure-3dc7ef50-goal-card-120@example.invalid
+-2026-10-10 15:59:48.275 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.GoalService              : Criando nova meta: SAN meta cart�o 120
+-2026-10-10 15:59:49.449 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:50.946 - WARN 20640 --- [o-auto-1-exec-2] c.c.api.controller.GoalController        : API: Criar Item na Meta 47b9c473-9c0f-400e-8160-620a4c38aab0. para usu�rio: com.controlefinanceiro.api.domain.user.User@d5b4eba
+-2026-10-10 15:59:52.285 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:53.573 - WARN 20640 --- [o-auto-1-exec-6] c.c.api.controller.GoalController        : API: Atualizando Item Meta 07afd616-3b85-40a2-9e19-65cf70395712. valor pago: PurchaseGoalItemDTO[paidPrice=120, accountId=null, cardId=ac343fa3-e23d-41e4-a4c4-228bc3f377c1, installments=1, allocationId=null]
+-2026-10-10 15:59:53.587 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ac343fa3-e23d-41e4-a4c4-228bc3f377c1: 120 (1x)
+-2026-10-10 15:59:53.632 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:59:54.825 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:59:56.790 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o ac343fa3-e23d-41e4-a4c4-228bc3f377c1. Valor: 120. � adiantamento? true
+-2026-10-10 15:59:56.790 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-10 15:59:56.814 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o SAN cart�o 120
+-2026-10-10 15:59:57.127 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:08.210 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:09.182 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:11.002 - WARN 20640 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Exclus�o de META 47b9c473-9c0f-400e-8160-620a4c38aab0. Conta para Estorno/Devolu��o: null
+-2026-10-10 16:00:12.043 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:13.683 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-3dc7ef50-goal-card-120@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:14.313 - WARN 20640 --- [o-auto-1-exec-8] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Compra j� estornada. [URI: /goals/items/07afd616-3b85-40a2-9e19-65cf70395712/refund]
+-2026-10-10 16:00:17.362 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:17.367 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:17.578 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 50e07637-d8a7-41e3-98a0-2e04e4af110f
+-2026-10-10 16:00:17.578 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 50e07637-d8a7-41e3-98a0-2e04e4af110f
+-2026-10-10 16:00:17.673 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:17.843 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:18.265 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-archived@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:18.765 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.controller.AccountController     : API: Criar Conta 'Conta arquivada sint�tica'. Usu�rio: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:18.765 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 50e07637-d8a7-41e3-98a0-2e04e4af110f
+-2026-10-10 16:00:18.855 - WARN 20640 --- [o-auto-1-exec-6] c.c.api.controller.AccountController     : API: Excluir Conta 9972b7d3-1394-400a-9916-61c5afa57c14. Usu�rio: cf003-b-closure-3dc7ef50-archived@example.invalid
+-2026-10-10 16:00:18.856 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 9972b7d3-1394-400a-9916-61c5afa57c14
+-2026-10-10 16:00:18.865 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-10-10 16:00:20.170 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-archived@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:23.575 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-3dc7ef50-detail@example.invalid
+-2026-10-10 16:00:23.583 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid
+-2026-10-10 16:00:23.792 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 8c43bc38-5ea6-4112-a888-8641e37f3368
+-2026-10-10 16:00:23.792 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 8c43bc38-5ea6-4112-a888-8641e37f3368
+-2026-10-10 16:00:23.923 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-3dc7ef50-detail@example.invalid
+-2026-10-10 16:00:24.131 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-3dc7ef50-detail@example.invalid
+-2026-10-10 16:00:24.658 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:25.034 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'Conta detalhe'. Usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid
+-2026-10-10 16:00:25.035 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 8c43bc38-5ea6-4112-a888-8641e37f3368
+-2026-10-10 16:00:25.263 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid | Valor: 1300 | Tipo: INCOME
+-2026-10-10 16:00:25.275 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1300, ContaID=85c90a87-737e-459d-ae61-52739d0cd8c0
+-2026-10-10 16:00:25.293 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 85c90a87-737e-459d-ae61-52739d0cd8c0. Novo saldo: 1300.00
+-2026-10-10 16:00:25.307 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 8b39a1f9-9964-4875-9abc-02522cf11411
+-2026-10-10 16:00:26.467 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:26.611 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-detail@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:43.584 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-3dc7ef50-hundred@example.invalid
+-2026-10-10 16:00:43.586 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid
+-2026-10-10 16:00:43.671 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ec0de30e-7975-4ba2-bb0c-a04dcc307000
+-2026-10-10 16:00:43.671 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ec0de30e-7975-4ba2-bb0c-a04dcc307000
+-2026-10-10 16:00:43.711 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-3dc7ef50-hundred@example.invalid
+-2026-10-10 16:00:43.792 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-3dc7ef50-hundred@example.invalid
+-2026-10-10 16:00:44.120 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:44.474 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.controller.AccountController     : API: Criar Conta 'Conta lista longa'. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid
+-2026-10-10 16:00:44.476 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.AccountService           : Criando nova conta para o usu�rio ec0de30e-7975-4ba2-bb0c-a04dcc307000
+-2026-10-10 16:00:44.642 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:44.643 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:44.657 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 1.00
+-2026-10-10 16:00:44.667 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 17738ac5-e123-4e65-8038-d5bd8796d670
+-2026-10-10 16:00:44.815 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:44.816 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:44.826 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 2.00
+-2026-10-10 16:00:44.836 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aba8ac2a-5f38-4576-b27f-e49261713a4c
+-2026-10-10 16:00:44.918 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:44.919 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:44.926 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 3.00
+-2026-10-10 16:00:44.933 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 656a9aac-de98-4ac1-8365-6d206f304800
+-2026-10-10 16:00:45.015 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.016 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.024 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 4.00
+-2026-10-10 16:00:45.035 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5980b3a3-6a52-4489-8095-a308289e75d4
+-2026-10-10 16:00:45.106 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.106 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.112 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 5.00
+-2026-10-10 16:00:45.119 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 55731b5e-e5b9-46ac-b714-e1c943d7dd3d
+-2026-10-10 16:00:45.193 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.194 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.202 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 6.00
+-2026-10-10 16:00:45.210 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID fdd35029-eb9b-4658-b218-13f2ccf45afa
+-2026-10-10 16:00:45.278 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.279 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.286 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 7.00
+-2026-10-10 16:00:45.296 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 364173e7-e9de-48bb-a33b-b87bd9680f61
+-2026-10-10 16:00:45.365 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.367 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.373 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 8.00
+-2026-10-10 16:00:45.379 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9ee8b6da-18c0-48f5-bc9c-b1fe7f3ce48e
+-2026-10-10 16:00:45.423 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.423 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.429 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 9.00
+-2026-10-10 16:00:45.434 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 1ddcc028-caea-4896-8922-6fad3f004766
+-2026-10-10 16:00:45.500 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.502 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.509 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 10.00
+-2026-10-10 16:00:45.519 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 99807c36-0dce-43c0-8f3e-77744574fb98
+-2026-10-10 16:00:45.606 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.606 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.611 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 11.00
+-2026-10-10 16:00:45.617 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 88028609-b500-446f-bf13-0395e0d2aa6b
+-2026-10-10 16:00:45.664 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.665 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.669 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 12.00
+-2026-10-10 16:00:45.674 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 360a279f-72f3-4cd3-a417-45823d953f3f
+-2026-10-10 16:00:45.742 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.743 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.748 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 13.00
+-2026-10-10 16:00:45.754 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 156ac518-7724-4ead-a00c-c28f099b803a
+-2026-10-10 16:00:45.808 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.809 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.813 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 14.00
+-2026-10-10 16:00:45.820 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID df522c49-1b14-4dac-b1ad-eb2932125131
+-2026-10-10 16:00:45.884 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.885 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.890 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 15.00
+-2026-10-10 16:00:45.897 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 1d869048-76df-4a2e-af51-d9afac3f6a59
+-2026-10-10 16:00:45.975 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:45.975 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:45.980 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 16.00
+-2026-10-10 16:00:45.986 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 725bc511-1eb2-446d-b8b3-1b1875d7db71
+-2026-10-10 16:00:46.039 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.040 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.045 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 17.00
+-2026-10-10 16:00:46.052 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0f8adb4a-c991-495a-a01a-b504bb58fcc7
+-2026-10-10 16:00:46.118 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.119 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.124 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 18.00
+-2026-10-10 16:00:46.131 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2ce81c35-00db-4c35-b118-286c5828497d
+-2026-10-10 16:00:46.211 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.212 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.216 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 19.00
+-2026-10-10 16:00:46.221 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 490813e1-bffe-4de2-a3c9-103266261841
+-2026-10-10 16:00:46.273 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.274 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.280 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 20.00
+-2026-10-10 16:00:46.287 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a09cdf1d-1815-4ef4-bc9c-8e4ea93c7fdd
+-2026-10-10 16:00:46.353 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.353 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.362 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 21.00
+-2026-10-10 16:00:46.371 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ad304294-1ed2-4d53-9246-b9587d3846d4
+-2026-10-10 16:00:46.460 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.461 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.468 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 22.00
+-2026-10-10 16:00:46.475 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3bde1b90-d733-4beb-8f3e-49df0a9ceba8
+-2026-10-10 16:00:46.557 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.557 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.564 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 23.00
+-2026-10-10 16:00:46.573 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4d00da2a-9155-4634-93c1-fbf77e0abe12
+-2026-10-10 16:00:46.659 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.660 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.667 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 24.00
+-2026-10-10 16:00:46.674 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 89670d28-cb0a-4505-a3e3-aa127229c2e2
+-2026-10-10 16:00:46.741 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.741 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.748 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 25.00
+-2026-10-10 16:00:46.756 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 72710eab-27ac-476d-9a69-76ad6c1b4688
+-2026-10-10 16:00:46.822 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.822 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.828 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 26.00
+-2026-10-10 16:00:46.834 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 668dab70-dc5f-4c35-82df-962552c75883
+-2026-10-10 16:00:46.915 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.916 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.921 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 27.00
+-2026-10-10 16:00:46.928 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2c3dfea1-5b20-4697-938e-a83613e2c051
+-2026-10-10 16:00:46.992 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:46.992 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:46.997 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 28.00
+-2026-10-10 16:00:47.003 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0a05493a-4ca6-433e-8828-de300a4eb5a5
+-2026-10-10 16:00:47.070 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.071 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.076 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 29.00
+-2026-10-10 16:00:47.082 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b159c14d-7cf6-430d-ad15-ce2566b75062
+-2026-10-10 16:00:47.144 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.144 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.148 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 30.00
+-2026-10-10 16:00:47.152 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 349e55f4-cf4f-466c-9d9c-8da0636729d4
+-2026-10-10 16:00:47.195 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.195 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.199 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 31.00
+-2026-10-10 16:00:47.204 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4c648e98-756b-479f-a9a2-4563d41c8584
+-2026-10-10 16:00:47.263 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.264 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.268 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 32.00
+-2026-10-10 16:00:47.273 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2cd24a99-e651-473a-abb0-ff264434dc4d
+-2026-10-10 16:00:47.320 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.321 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.325 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 33.00
+-2026-10-10 16:00:47.330 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5bc6d71c-90c5-4b1a-b364-2e9d4b0b2a12
+-2026-10-10 16:00:47.366 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.367 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.371 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 34.00
+-2026-10-10 16:00:47.375 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 995c86f0-c9fc-46bf-8717-4961230dd4c0
+-2026-10-10 16:00:47.424 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.425 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.428 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 35.00
+-2026-10-10 16:00:47.433 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 077ff411-8b51-4e4c-861c-1a00b9274b72
+-2026-10-10 16:00:47.465 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.466 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.470 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 36.00
+-2026-10-10 16:00:47.484 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3142de27-2ba8-41b3-a775-95e13c67591c
+-2026-10-10 16:00:47.594 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.594 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.598 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 37.00
+-2026-10-10 16:00:47.603 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 75ece920-c72a-4d83-bc9b-b8cfc93b9fec
+-2026-10-10 16:00:47.656 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.657 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.660 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 38.00
+-2026-10-10 16:00:47.665 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 556ff79f-8028-4dd1-8bd6-166106aafdff
+-2026-10-10 16:00:47.719 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.719 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.723 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 39.00
+-2026-10-10 16:00:47.728 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e3c92bd3-137f-4b28-8e5d-3f14858da335
+-2026-10-10 16:00:47.798 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.799 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.802 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 40.00
+-2026-10-10 16:00:47.808 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9fc032a3-ab4a-41ba-a1d0-c9e37caab327
+-2026-10-10 16:00:47.864 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.865 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.868 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 41.00
+-2026-10-10 16:00:47.873 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID efc040ce-5269-4788-ad45-dc57680a1486
+-2026-10-10 16:00:47.937 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:47.938 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:47.943 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 42.00
+-2026-10-10 16:00:47.950 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aa035cd0-8cac-4b26-8532-ba89eb9bb8f2
+-2026-10-10 16:00:48.021 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.022 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.028 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 43.00
+-2026-10-10 16:00:48.034 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 1c64b12e-0790-4d67-95e5-f5a3516561b6
+-2026-10-10 16:00:48.100 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.101 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.106 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 44.00
+-2026-10-10 16:00:48.112 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b2888e77-f1d1-4edb-a7fb-8e842991f7c2
+-2026-10-10 16:00:48.176 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.176 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.181 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 45.00
+-2026-10-10 16:00:48.185 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 455f094e-7673-416e-92a6-a7c23935bcd9
+-2026-10-10 16:00:48.238 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.239 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.243 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 46.00
+-2026-10-10 16:00:48.247 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e597593f-16e2-4ea4-87ec-433010ef1af2
+-2026-10-10 16:00:48.287 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.288 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.293 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 47.00
+-2026-10-10 16:00:48.300 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6996764f-0333-47e0-95b1-d70a0aef0d4e
+-2026-10-10 16:00:48.345 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.346 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.351 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 48.00
+-2026-10-10 16:00:48.356 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 7ba1079e-2a86-4eb4-b338-1db75c2d75c8
+-2026-10-10 16:00:48.486 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.487 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.492 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 49.00
+-2026-10-10 16:00:48.498 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 94de5bfd-1241-4bf8-982d-21a742faefe5
+-2026-10-10 16:00:48.585 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.585 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.592 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 50.00
+-2026-10-10 16:00:48.600 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 35c27b8c-1e75-43b2-8837-79d72285ec19
+-2026-10-10 16:00:48.678 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.678 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.685 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 51.00
+-2026-10-10 16:00:48.693 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f0b2c87a-0349-486c-bec9-78960ddb85ad
+-2026-10-10 16:00:48.774 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.775 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.781 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 52.00
+-2026-10-10 16:00:48.788 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0dc6eff0-811f-45cf-8f93-c254df4b1e48
+-2026-10-10 16:00:48.850 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.851 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.858 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 53.00
+-2026-10-10 16:00:48.866 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 8adbb926-cb9d-4e64-9c5e-92f641fce8db
+-2026-10-10 16:00:48.925 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:48.926 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:48.931 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 54.00
+-2026-10-10 16:00:48.939 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID cb27c4b9-141c-4ce6-9616-781fcc553983
+-2026-10-10 16:00:49.007 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.007 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.011 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 55.00
+-2026-10-10 16:00:49.016 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0ce4337a-80f6-4728-ad7d-2f8b91bc86b9
+-2026-10-10 16:00:49.065 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.066 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.070 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 56.00
+-2026-10-10 16:00:49.074 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a557238d-1f04-4041-903f-018549fb6c5f
+-2026-10-10 16:00:49.115 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.115 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.119 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 57.00
+-2026-10-10 16:00:49.123 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 24d2b24a-0016-49e8-b391-4cec18d25bc0
+-2026-10-10 16:00:49.177 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.177 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.180 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 58.00
+-2026-10-10 16:00:49.184 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 7eb00701-4ed8-4fd5-858d-bda66ccfb8be
+-2026-10-10 16:00:49.239 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.240 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.244 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 59.00
+-2026-10-10 16:00:49.249 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0ed8c94f-8c57-40ae-89e2-6df63358858e
+-2026-10-10 16:00:49.287 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.287 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.292 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 60.00
+-2026-10-10 16:00:49.297 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0f504101-473f-42c0-9406-b570466c5bc8
+-2026-10-10 16:00:49.380 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.380 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.384 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 61.00
+-2026-10-10 16:00:49.389 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b0c407a8-b1c0-4b7f-9bf0-6638dd105daf
+-2026-10-10 16:00:49.443 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.444 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.449 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 62.00
+-2026-10-10 16:00:49.454 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6684c32d-f747-4c15-b61b-1b38027575d0
+-2026-10-10 16:00:49.517 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.517 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.521 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 63.00
+-2026-10-10 16:00:49.526 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3c582723-fe34-416c-b2f4-535768e8bd46
+-2026-10-10 16:00:49.578 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.578 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.581 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 64.00
+-2026-10-10 16:00:49.585 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d3f977d1-409b-4d80-bfc9-f039cfc9948a
+-2026-10-10 16:00:49.640 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.640 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.644 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 65.00
+-2026-10-10 16:00:49.648 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f6ce4430-32da-4df6-b535-d2afd0530cdc
+-2026-10-10 16:00:49.702 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.703 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.707 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 66.00
+-2026-10-10 16:00:49.712 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0b043831-8501-4b46-a925-05740512fab0
+-2026-10-10 16:00:49.802 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.803 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.808 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 67.00
+-2026-10-10 16:00:49.812 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 87bf2282-0f3f-4af6-8644-1fc1a69f3c3d
+-2026-10-10 16:00:49.843 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.844 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.848 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 68.00
+-2026-10-10 16:00:49.851 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6306c1a8-2f3b-4cec-878d-ede446101538
+-2026-10-10 16:00:49.910 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.910 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.914 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 69.00
+-2026-10-10 16:00:49.917 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 909e6389-8d2f-4352-ad7c-c0fb056e5d52
+-2026-10-10 16:00:49.969 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:49.969 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:49.972 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 70.00
+-2026-10-10 16:00:49.975 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a3f5bf5e-7297-4b94-aaeb-9729216ec78d
+-2026-10-10 16:00:50.032 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.032 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.035 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 71.00
+-2026-10-10 16:00:50.038 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 36b1cd0b-4821-45e9-aeb4-cfa869c0f048
+-2026-10-10 16:00:50.079 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.079 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.082 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 72.00
+-2026-10-10 16:00:50.086 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 158d8d44-5976-4fba-a518-257b424d3998
+-2026-10-10 16:00:50.142 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.142 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.145 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 73.00
+-2026-10-10 16:00:50.150 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 44d34220-5904-42c5-8214-da05ad0eb05a
+-2026-10-10 16:00:50.206 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.206 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.209 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 74.00
+-2026-10-10 16:00:50.214 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b9670362-de88-4a59-ad8f-a2b0912fca3b
+-2026-10-10 16:00:50.253 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.253 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.257 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 75.00
+-2026-10-10 16:00:50.261 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c3f0eee0-3f74-4dcb-af11-7596a2e3d329
+-2026-10-10 16:00:50.336 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.337 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.341 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 76.00
+-2026-10-10 16:00:50.346 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c4ebec6c-e977-4325-b8c3-f1dd0b2f8546
+-2026-10-10 16:00:50.413 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.413 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.417 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 77.00
+-2026-10-10 16:00:50.421 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ff6adeff-3cf3-488a-a7dc-1567fb4e99ad
+-2026-10-10 16:00:50.471 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.471 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.475 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 78.00
+-2026-10-10 16:00:50.480 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 046b7500-0617-4c06-82a7-b922900cb37a
+-2026-10-10 16:00:50.538 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.538 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.542 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 79.00
+-2026-10-10 16:00:50.547 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 7ebbed36-0c53-4dec-b052-8ad34a00ebce
+-2026-10-10 16:00:50.598 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.598 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.601 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 80.00
+-2026-10-10 16:00:50.605 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 82c50eac-cc2c-4c36-8be6-f5653f5e92f0
+-2026-10-10 16:00:50.651 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.651 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.654 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 81.00
+-2026-10-10 16:00:50.658 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 9657cf87-15c1-498c-9c2c-d88e47c017ed
+-2026-10-10 16:00:50.709 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.709 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.712 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 82.00
+-2026-10-10 16:00:50.716 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID b7525cfa-7ba2-4d40-95fa-3d4ac2398c5f
+-2026-10-10 16:00:50.774 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.774 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.777 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 83.00
+-2026-10-10 16:00:50.780 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e8f18c27-d8d4-4ed0-9753-303b7e20eaa3
+-2026-10-10 16:00:50.820 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.820 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.824 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 84.00
+-2026-10-10 16:00:50.828 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f242b40f-2749-46e0-881f-1316c55b3dd3
+-2026-10-10 16:00:50.882 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.882 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.885 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 85.00
+-2026-10-10 16:00:50.890 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 6eb63207-aea1-47ad-b7c6-2b52eed0baf8
+-2026-10-10 16:00:50.961 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:50.961 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:50.965 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 86.00
+-2026-10-10 16:00:50.969 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 14de2529-37bb-493c-8eca-cb8d2cd5cf51
+-2026-10-10 16:00:51.026 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.026 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.030 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 87.00
+-2026-10-10 16:00:51.034 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0c8d433d-59fe-4f8a-b19b-6b5fde86112d
+-2026-10-10 16:00:51.086 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.087 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.089 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 88.00
+-2026-10-10 16:00:51.093 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a1ea5544-4387-4749-b300-2145443161a0
+-2026-10-10 16:00:51.149 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.150 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.153 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 89.00
+-2026-10-10 16:00:51.158 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aaaf99fe-abb2-46fe-a5e1-a26460fddb48
+-2026-10-10 16:00:51.211 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.212 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.216 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 90.00
+-2026-10-10 16:00:51.220 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 7087eeca-1e65-452e-a7ab-c87070e1bce8
+-2026-10-10 16:00:51.280 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.280 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.283 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 91.00
+-2026-10-10 16:00:51.287 - INFO 20640 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3370c1fa-1fbb-40f3-9469-7e1f7b456835
+-2026-10-10 16:00:51.323 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.323 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.327 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 92.00
+-2026-10-10 16:00:51.331 - INFO 20640 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID c93fcec3-f4b4-4446-8f3f-4d8509a65f2c
+-2026-10-10 16:00:51.389 - INFO 20640 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.389 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.392 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 93.00
+-2026-10-10 16:00:51.396 - INFO 20640 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 2918cd4e-3cf4-4e23-bf56-9ac609af0145
+-2026-10-10 16:00:51.448 - INFO 20640 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.448 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.450 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 94.00
+-2026-10-10 16:00:51.455 - INFO 20640 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aee2d8c1-343b-456d-9bed-fae9fc295efc
+-2026-10-10 16:00:51.496 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.496 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.499 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 95.00
+-2026-10-10 16:00:51.502 - INFO 20640 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID a58c2717-ba3e-4be5-9ab2-c93996b877d6
+-2026-10-10 16:00:51.554 - INFO 20640 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.554 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.558 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 96.00
+-2026-10-10 16:00:51.561 - INFO 20640 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 44b95431-8028-4f56-bde3-e424f7df7169
+-2026-10-10 16:00:51.622 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.622 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.626 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 97.00
+-2026-10-10 16:00:51.631 - INFO 20640 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ba00326f-2b83-4a57-be19-bc309c542487
+-2026-10-10 16:00:51.686 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.686 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.690 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 98.00
+-2026-10-10 16:00:51.695 - INFO 20640 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e1b487ba-f71c-4ff5-8f82-62723be079d9
+-2026-10-10 16:00:51.765 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.765 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.769 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 99.00
+-2026-10-10 16:00:51.774 - INFO 20640 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e6f2c62c-4be8-47de-8205-679b69844096
+-2026-10-10 16:00:51.841 - INFO 20640 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | Valor: 1 | Tipo: INCOME
+-2026-10-10 16:00:51.841 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1, ContaID=81ac3be3-db28-4729-a6b0-bd6666ce696b
+-2026-10-10 16:00:51.845 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 81ac3be3-db28-4729-a6b0-bd6666ce696b. Novo saldo: 100.00
+-2026-10-10 16:00:51.850 - INFO 20640 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID aaa6b456-1c69-4a99-b0fb-6468b2bb1877
+-2026-10-10 16:00:52.775 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:52.911 - INFO 20640 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: null | Conta: null
+-2026-10-10 16:00:53.500 - INFO 20640 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:54.731 - INFO 20640 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:54.903 - INFO 20640 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:55.723 - INFO 20640 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: 1 | Conta: null
+-2026-10-10 16:00:55.852 - INFO 20640 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-3dc7ef50-hundred@example.invalid | M�s: null | Conta: null
+-[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 158.1 s <<< FAILURE! -- in com.controlefinanceiro.api.FrontendClosureBrowserTest
+[ERROR] com.controlefinanceiro.api.FrontendClosureBrowserTest.browserBffSpringPostgresAndReload -- Time elapsed: 120.4 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[See browser/playwright.log; expected red findings remain red] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.FrontendClosureBrowserTest.browserBffSpringPostgresAndReload(FrontendClosureBrowserTest.java:93)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   FrontendClosureBrowserTest.browserBffSpringPostgresAndReload:93 [See browser/playwright.log; expected red findings remain red] 
+expected: 0
+ but was: 1
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:47 min
+[INFO] Finished at: 2026-10-10T16:00:58-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

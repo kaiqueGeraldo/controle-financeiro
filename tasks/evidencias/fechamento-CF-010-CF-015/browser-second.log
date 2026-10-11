@@ -1,0 +1,388 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 14 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.FrontendClosureBrowserTest
+15:54:22.447 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.FrontendClosureBrowserTest
+15:54:22.628 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+15:54:22.628 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+15:54:22.633 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+15:54:22.833 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+15:54:23.256 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+15:54:23.256 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+15:54:23.274 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+15:54:23.335 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+15:54:23.568 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: f395393aff338d59bb7859e46aa81097689505f40ec28cb4ea83ef455499de8e
+15:54:23.801 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.466539S
+15:54:23.813 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+15:54:23.813 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+15:54:23.813 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+15:54:23.813 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+15:54:23.865 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 107f7e3bc861ddf63dc99a09d232458eddee67a34f8202be070c671af1ab4135
+15:54:25.194 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.3808542S
+15:54:25.194 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:53811/cf_test_cf017_9e19ed6d321e46a9805de8fc36c4d607?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-10 15:54:26.064 - INFO 31812 --- [           main] c.c.api.FrontendClosureBrowserTest       : Starting FrontendClosureBrowserTest using Java 21.0.12.1 with PID 31812 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-10 15:54:26.065 - INFO 31812 --- [           main] c.c.api.FrontendClosureBrowserTest       : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-10 15:54:38.329 - WARN 31812 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-10 15:54:49.245 - INFO 31812 --- [           main] c.c.api.FrontendClosureBrowserTest       : Started FrontendClosureBrowserTest in 23.712 seconds (process running for 27.838)
+-2026-10-10 15:54:58.331 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:54:58.381 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:54:59.019 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 4c8e7fcf-385b-4b15-975a-8eb80b422743
+-2026-10-10 15:54:59.019 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 4c8e7fcf-385b-4b15-975a-8eb80b422743
+-2026-10-10 15:54:59.240 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:54:59.505 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:00.243 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:00.824 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:00.828 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4c8e7fcf-385b-4b15-975a-8eb80b422743
+-2026-10-10 15:55:00.970 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.AccountController     : API: Criar Conta 'Receita sint�tica para geometria'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:00.971 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4c8e7fcf-385b-4b15-975a-8eb80b422743
+-2026-10-10 15:55:01.363 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | Valor: 123456789.12 | Tipo: INCOME
+-2026-10-10 15:55:01.373 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=123456789.12, ContaID=87025cc4-0259-4fd7-bc98-c7ca1e34eb92
+-2026-10-10 15:55:01.449 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta 87025cc4-0259-4fd7-bc98-c7ca1e34eb92. Novo saldo: 123456789.12
+-2026-10-10 15:55:01.524 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID df14956f-7903-4bf7-91d8-2d4615fcff33
+-2026-10-10 15:55:01.856 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:01.856 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-10-10 15:55:02.088 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.088 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.236 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:02.347 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.347 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.404 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:02.510 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.510 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.553 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:02.632 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.633 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.673 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:02.785 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.786 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.852 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:02.916 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:02.918 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:02.972 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.065 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.068 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.118 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.195 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.196 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.257 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.345 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.346 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.393 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.508 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.509 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.568 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.661 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.661 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.712 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.801 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o bc5c3274-729d-4898-8912-decd8dff773b. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:03.802 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID bc5c3274-729d-4898-8912-decd8dff773b: 1234.56 (1x)
+-2026-10-10 15:55:03.849 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:03.960 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-10-10 15:55:03.962 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-10-10 15:55:04.084 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:04.084 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-360@example.invalid
+-2026-10-10 15:55:04.091 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a158f8ee-f96e-4e11-9663-888e1738497c
+-2026-10-10 15:55:05.525 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:07.816 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:09.495 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:55:09.757 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:11.542 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:13.261 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:15.503 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:17.279 - INFO 31812 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:18.932 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:20.556 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:22.791 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:24.163 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:28.026 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:30.149 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:32.091 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:32.886 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:34.028 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:35.287 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:37.320 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:38.643 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:39.840 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:55:40.076 - INFO 31812 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:41.919 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:43.176 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:55:43.353 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-360@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:46.151 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:46.158 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:46.384 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 335cdc2c-35d6-47ed-8afe-b0b4ac1dc36e
+-2026-10-10 15:55:46.384 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 335cdc2c-35d6-47ed-8afe-b0b4ac1dc36e
+-2026-10-10 15:55:46.484 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:46.725 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:47.055 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:47.570 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:47.572 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 335cdc2c-35d6-47ed-8afe-b0b4ac1dc36e
+-2026-10-10 15:55:47.676 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.AccountController     : API: Criar Conta 'Receita sint�tica para geometria'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:47.677 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 335cdc2c-35d6-47ed-8afe-b0b4ac1dc36e
+-2026-10-10 15:55:47.821 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | Valor: 123456789.12 | Tipo: INCOME
+-2026-10-10 15:55:47.822 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=123456789.12, ContaID=d630e721-f215-4262-8023-6af6f87afc66
+-2026-10-10 15:55:47.830 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta d630e721-f215-4262-8023-6af6f87afc66. Novo saldo: 123456789.12
+-2026-10-10 15:55:47.841 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5c849272-3df9-45fb-9926-97ddb24d987f
+-2026-10-10 15:55:47.900 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:47.901 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-10-10 15:55:48.030 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.031 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.070 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.144 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.145 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.182 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.279 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.280 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.324 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.402 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.403 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.446 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.509 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.509 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.550 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.636 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.637 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.675 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.777 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.778 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.815 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.884 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.884 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:48.919 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:48.995 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:48.995 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:49.024 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:49.104 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:49.104 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:49.131 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:49.196 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:49.197 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:49.227 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:49.319 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o eb16033f-187f-47fa-8383-5ba41e750dbb. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:55:49.319 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID eb16033f-187f-47fa-8383-5ba41e750dbb: 1234.56 (1x)
+-2026-10-10 15:55:49.353 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:55:49.429 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-10-10 15:55:49.430 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-10-10 15:55:49.508 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:49.510 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-768@example.invalid
+-2026-10-10 15:55:49.511 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 346c5b35-7320-484a-ad8a-bc310ea83e5c
+-2026-10-10 15:55:50.709 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:52.575 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:53.999 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:55:54.163 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:55.447 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:57.103 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:55:58.959 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:00.187 - INFO 31812 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:01.493 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:02.762 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:04.866 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:06.173 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:10.240 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:12.194 - INFO 31812 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:14.237 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:15.852 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:17.129 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:19.013 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:20.676 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:21.964 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:56:22.199 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:23.868 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:25.317 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:56:25.487 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-768@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:28.283 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:28.288 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:28.464 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 4c1c0137-14e0-44a0-bedb-55a640449646
+-2026-10-10 15:56:28.464 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 4c1c0137-14e0-44a0-bedb-55a640449646
+-2026-10-10 15:56:28.575 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:28.743 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:29.086 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:29.273 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica com nome longo para revis�o visual'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:29.274 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4c1c0137-14e0-44a0-bedb-55a640449646
+-2026-10-10 15:56:29.434 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Criar Conta 'Receita sint�tica para geometria'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:29.434 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 4c1c0137-14e0-44a0-bedb-55a640449646
+-2026-10-10 15:56:29.609 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | Valor: 123456789.12 | Tipo: INCOME
+-2026-10-10 15:56:29.610 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=123456789.12, ContaID=6e77bd23-ff95-4b52-b502-f1483075ecad
+-2026-10-10 15:56:29.620 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta 6e77bd23-ff95-4b52-b502-f1483075ecad. Novo saldo: 123456789.12
+-2026-10-10 15:56:29.631 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ce9b06f0-503e-4bee-a1e0-52196d3bbcf4
+-2026-10-10 15:56:29.702 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Cart�o sint�tico com nome longo'. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:29.703 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Criando cart�o 'Cart�o sint�tico com nome longo' (Final 4242)
+-2026-10-10 15:56:29.828 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:29.828 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:29.868 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:29.921 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:29.921 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:29.962 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.069 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.070 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.108 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.186 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.187 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.225 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.320 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.320 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.357 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.423 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.423 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.464 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.552 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.552 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.593 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.673 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.673 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.706 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.779 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.779 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.814 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.870 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.871 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:30.915 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:30.991 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:30.991 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:31.029 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:31.114 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 2fcccaeb-57d7-4908-8524-0cc3eb3901d0. Valor: 1234.56. Parcelas: 1
+-2026-10-10 15:56:31.115 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 2fcccaeb-57d7-4908-8524-0cc3eb3901d0: 1234.56 (1x)
+-2026-10-10 15:56:31.150 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-10 15:56:31.225 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.PlanningController    : API: Novo item no planejamento: Planejamento sint�tico longo - Valor: 25
+-2026-10-10 15:56:31.225 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.PlanningService          : Adicionando item ao planejamento: Planejamento sint�tico longo (Valor: 25)
+-2026-10-10 15:56:31.299 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.controller.InvestmentController  : API: Novo Ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:31.299 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'CF015' (OTHER) para usu�rio cf003-b-closure-14722b4e-visual-sp-1440@example.invalid
+-2026-10-10 15:56:31.300 - INFO 31812 --- [o-auto-1-exec-5] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 925d35b5-b6ac-44aa-a5d1-7eadc33e7bd4
+-2026-10-10 15:56:32.415 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:34.384 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:35.714 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:56:35.883 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:37.535 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:39.191 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:40.711 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:41.998 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:43.433 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:44.912 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:47.153 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:48.643 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:53.700 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:55.573 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:57.813 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:58.561 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:56:59.781 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:00.749 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:02.752 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:04.473 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:05.788 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:57:05.936 - INFO 31812 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:07.449 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:09.057 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: 10 | Conta: null
+-2026-10-10 15:57:09.208 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-closure-14722b4e-visual-sp-1440@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:11.736 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:11.742 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:11.911 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 29e771f3-d77f-4895-b40f-1d43b8581baa
+-2026-10-10 15:57:11.911 - INFO 31812 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 29e771f3-d77f-4895-b40f-1d43b8581baa
+-2026-10-10 15:57:12.006 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:12.179 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:12.627 - INFO 31812 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-recovery@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:14.993 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Recupera��o de senha solicitada para cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:14.993 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Solicita��o de recupera��o de senha para: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:15.013 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Token de recupera��o gerado para usu�rio ID 29e771f3-d77f-4895-b40f-1d43b8581baa. Enviando e-mail...
+-2026-10-10 15:57:15.235 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Redefini��o de senha com token.
+-2026-10-10 15:57:15.235 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de reset de senha solicitada para o e-mail: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:15.266 - WARN 31812 --- [o-auto-1-exec-6] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - C�digo inv�lido. Voc� tem 2 tentativa(s) restante(s). [URI: /auth/reset-password]
+-2026-10-10 15:57:15.738 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Redefini��o de senha com token.
+-2026-10-10 15:57:15.738 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de reset de senha solicitada para o e-mail: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:15.921 - INFO 31812 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Senha alterada com sucesso para o usu�rio 29e771f3-d77f-4895-b40f-1d43b8581baa
+-2026-10-10 15:57:17.150 - INFO 31812 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:17.360 - WARN 31812 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Falha de login (credenciais inv�lidas): cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:17.360 - WARN 31812 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Erro no login para cf003-a-closure-14722b4e-recovery@example.invalid: E-mail ou senha inv�lidos
+-2026-10-10 15:57:17.422 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Redefini��o de senha com token.
+-2026-10-10 15:57:17.422 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de reset de senha solicitada para o e-mail: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:17.432 - WARN 31812 --- [o-auto-1-exec-1] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Nenhuma solicita��o de recupera��o ativa para este usu�rio. [URI: /auth/reset-password]
+-2026-10-10 15:57:17.697 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:17.923 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-14722b4e-recovery@example.invalid
+-2026-10-10 15:57:18.351 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-recovery@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:20.278 - INFO 31812 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:20.283 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:20.460 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 2992edbd-1d63-456d-a77f-a3d34eb68f32
+-2026-10-10 15:57:20.460 - INFO 31812 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 2992edbd-1d63-456d-a77f-a3d34eb68f32
+-2026-10-10 15:57:20.577 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:20.743 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:21.104 - INFO 31812 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:21.692 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.controller.AccountController     : API: Criar Conta 'Conta sint�tica longa privacidade'. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:21.692 - INFO 31812 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 2992edbd-1d63-456d-a77f-a3d34eb68f32
+-2026-10-10 15:57:21.804 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.controller.AccountController     : API: Criar Conta 'Conta com valor extenso'. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid
+-2026-10-10 15:57:21.804 - INFO 31812 --- [o-auto-1-exec-6] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 2992edbd-1d63-456d-a77f-a3d34eb68f32
+-2026-10-10 15:57:23.037 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:23.589 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:24.900 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:26.376 - INFO 31812 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:27.872 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:30.386 - INFO 31812 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:32.993 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-14722b4e-weekly@example.invalid
+-2026-10-10 15:57:33.001 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-14722b4e-weekly@example.invalid
+-2026-10-10 15:57:33.229 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 2a8b7d64-91ce-48c5-8023-6f555ecd9966
+-2026-10-10 15:57:33.229 - INFO 31812 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 2a8b7d64-91ce-48c5-8023-6f555ecd9966
+-2026-10-10 15:57:33.332 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-14722b4e-weekly@example.invalid
+-2026-10-10 15:57:33.511 - INFO 31812 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-14722b4e-weekly@example.invalid
+-2026-10-10 15:57:34.280 - INFO 31812 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-weekly@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:34.630 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.controller.GoalController        : API: Criar Meta 'Meta semanal sint�tica' para usu�rio cf003-a-closure-14722b4e-weekly@example.invalid
+-2026-10-10 15:57:34.631 - INFO 31812 --- [o-auto-1-exec-8] c.c.api.service.GoalService              : Criando nova meta: Meta semanal sint�tica
+-2026-10-10 15:57:35.669 - INFO 31812 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-weekly@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:42.234 - INFO 31812 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-weekly@example.invalid | M�s: null | Conta: null
+-2026-10-10 15:57:43.344 - INFO 31812 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-14722b4e-weekly@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 202.7 s -- in com.controlefinanceiro.api.FrontendClosureBrowserTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:26 min
+[INFO] Finished at: 2026-10-10T15:57:45-03:00
+[INFO] ------------------------------------------------------------------------

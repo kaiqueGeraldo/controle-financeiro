@@ -8,6 +8,12 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
+## Parecer dirigido vigente — 11/10/2026
+
+Estado `em_revisao`: componentes comuns, temas, larguras360/768/1440 e diálogo aninhado revalidados no recorte. Falta zoom nativo200, cuja tentativa falhou antes de qualquer input. RF15-01/03 pertencem aos consumidores CF-014/012; não se atribui falha ao componente comum sem prova.
+
+[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categoria 4: verificar zoom nativo 200% com ações essenciais alcançáveis, scroll e foco, registrando inspeção. Geometria/foco nos recortes já aceitos continuam válidos; viewport estreito não substitui zoom. O aceite permanece CF-015.

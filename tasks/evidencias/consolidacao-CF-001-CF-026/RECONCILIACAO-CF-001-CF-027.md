@@ -1,5 +1,7 @@
 # Reconciliação CF-001–CF-027 — 03/10/2026
 
+> Situação vigente em 11/10/2026: CF-011 concluída; CF-010/012/013/014/015 em revisão por RF15-01–04 e lacunas delimitadas. [Matriz atual por critério](../fechamento-CF-010-CF-015/MATRIZ.md). O conteúdo datado abaixo permanece snapshot histórico; RV24-01/02, RD58 e demais aceites posteriores não são reabertos.
+
 > Atualização de referência em 08/10/2026: este snapshot permanece histórico.
 > [Parecer dirigido CF-005–008](../revisao-dirigida-CF-005-CF-008/README.md)
 > conclui CF-007/008 e mantém CF-005/006 pelos defeitos locais RD58-01/02.
