@@ -113,3 +113,10 @@ capaz de detectar o defeito; reconciliação substituída não fecha como sucess
 R05/R06/R08 e limites anteriores preservados; esta revisão não conclui toda
 CF-013 nem idempotência durável CF-024. Estado em_revisao mantido.
 [Parecer dirigido](../evidencias/revalidacao-CF-015-RV01/README.md).
+
+
+## Candidato de saneamento RF15 — 11/10/2026
+
+RF15-04 corrigido localmente: datas civis persistidas de fechamento/vencimento e atraso condicionado ao saldo pagável. Backend20 testes e provas em três fusos; PAID real capturado. Três assertions históricas conflitantes com DEC-03 foram preservadas e continuam vermelhas. RVA-03 teve uma sequência passiva20→120, continua inconclusivo causalmente. Estado em_revisao.
+
+[Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).

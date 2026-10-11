@@ -8,6 +8,8 @@ Estas são tarefas versionadas no repositório, abrangendo frontend e backend. C
 
 CF-011 concluída após fechamento independente de recuperação, preferências e download. CF-010/012/013/014/015 seguem em revisão por defeitos e lacunas específicos. [Parecer completo e próximo saneamento delimitado](evidencias/fechamento-CF-010-CF-015/README.md). Aceites anteriores CF-005–009, RV24-01/02, CF-025–027 e CF-028 documental preservados.
 
+Saneamento RF15-01–04 preparado localmente, sem alteração dos estados acima. [Candidato do executor e pendências delimitadas](evidencias/saneamento-RF15/README.md); aceites dependem do mesmo revisor.
+
 ## Por onde começar
 
 1. Executar CF-001 para fixar critérios e casos independentes do código.

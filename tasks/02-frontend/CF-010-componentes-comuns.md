@@ -97,3 +97,10 @@ com viewport 1424×905 a 100%, mas o controle nativo recusou o identificador da
 janela após nova seleção. Nenhum ajuste de produto para contornar ferramenta;
 viewport reduzido não conta como zoom. Manter aceite aberto e estado em_revisao:
 [tentativa e roteiro manual](../evidencias/saneamento-CF-015-RV01/ZOOM.md).
+
+
+## Candidato de saneamento RF15 — 11/10/2026
+
+Infraestrutura de diálogo respeita Escape consumido pelo controle e continua limitando resposta à camada superior. Consumidores afetados reexercitados. Zoom nativo 200% permanece pendente por limitação técnica documentada, sem equivalência por viewport/CSS. Estado em_revisao.
+
+[Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).

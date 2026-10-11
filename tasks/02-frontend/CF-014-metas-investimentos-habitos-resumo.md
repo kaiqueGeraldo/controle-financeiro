@@ -114,3 +114,10 @@ preservado como registro histórico.
 R01/R04 encerrados no escopo original; nota confirmada verificada por GET, reload e SQL. A revisão dirigida não certifica integralmente todos os módulos da tarefa. Estado em_revisao mantido.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+
+## Candidato de saneamento RF15 — 11/10/2026
+
+RF15-01 corrigido localmente: ação Novo Hábito nomeada no mobile e retorno de foco na criação. Complemento da matriz registrou hoje/concluída, históricos e formulários longos. Detalhes customizados de meta/hábito permanecem sem Escape/semântica de diálogo; investimento termina em BODY após substituir o acionador pelo formulário. Resíduos encaminhados sem ampliar silenciosamente o lote. Estado em_revisao.
+
+[Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).

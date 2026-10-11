@@ -99,3 +99,10 @@ preservado como registro histórico.
 R02/R12 encerrados nos cenários originais. Capturas inspecionadas mostram os recortes tratados; não foi certificada toda a matriz de privacidade. Estado em_revisao mantido; F-018/CF-021 permanece separado.
 
 [Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+
+
+## Candidato de saneamento RF15 — 11/10/2026
+
+RF15-02 e RF15-03 corrigidos localmente: saldo arquivado e exposição acessível protegidos pelo mecanismo compartilhado; detalhe do extrato integrado a teclado/Escape/foco, com moeda extensa mobile. Provas originais vermelhas antes e verdes depois, capturas e regressões anexadas. Estado em_revisao até decisão independente.
+
+[Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).
