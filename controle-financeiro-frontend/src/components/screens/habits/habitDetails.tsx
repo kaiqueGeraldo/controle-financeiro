@@ -5,8 +5,9 @@ import { useProductToday } from "@/contexts/browserTodayContext";
 import { addCalendarDays, formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Flame, Loader2, Minus, Save, Trash2, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { getGoalColorClass, getGoalIcon } from "../goals/goalItem";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 interface HabitDetailsProps {
   isOpen: boolean;
@@ -29,16 +30,35 @@ export function HabitDetails({
   onDelete,
 }: HabitDetailsProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const editing = useRef(false);
+  const setEditing = useCallback((value: boolean) => {
+    // Escape nativo pode chegar novamente antes do próximo commit do React.
+    editing.current = value;
+    setIsEditing(value);
+  }, []);
   const todayStr = useProductToday();
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({ name: "", description: "" });
 
+  const cancelEditing = () => {
+    if (isSaving) return;
+    setFormData({ name: habit?.name ?? "", description: habit?.description ?? "" });
+    setEditing(false);
+    dialogRef.current?.focus();
+  };
+  const handleClose = () => {
+    if (isSaving) return;
+    if (editing.current) cancelEditing();
+    else onClose();
+  };
+  const dialogRef = useDialogFocus<HTMLFormElement>(isOpen && !!habit, handleClose);
+
   useEffect(() => {
     if (habit && isOpen) {
       setFormData({ name: habit.name, description: habit.description || "" });
-      setIsEditing(false);
+      setEditing(false);
     }
-  }, [habit, isOpen]);
+  }, [habit, isOpen, setEditing]);
 
   const handleSave = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -46,7 +66,7 @@ export function HabitDetails({
     setIsSaving(true);
     try {
       await onUpdate(habit.id, formData);
-      setIsEditing(false);
+      setEditing(false);
     } finally {
       setIsSaving(false);
     }
@@ -73,18 +93,25 @@ export function HabitDetails({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute inset-0 bg-bg-base/80 backdrop-blur-sm cursor-pointer"
           />
 
           <motion.form
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalhes do hábito ${habit.name}`}
+            tabIndex={-1}
             layoutId={`habits-habit-card-${habit.id}`}
             onSubmit={handleSave}
-            className="w-full max-w-md bg-bg-surface border border-border-divider rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col"
+            className="w-full max-w-md max-h-[90dvh] overflow-y-auto bg-bg-surface border border-border-divider rounded-3xl shadow-2xl relative z-10 flex flex-col"
           >
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
+              data-dialog-close
+              aria-label="Fechar detalhe do hábito"
               className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-text-main transition cursor-pointer z-20"
             >
               <X size={20} />
@@ -211,13 +238,16 @@ export function HabitDetails({
               {isEditing ? (
                 <>
                   <button
+                    key="cancel-edit"
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={cancelEditing}
+                    disabled={isSaving}
                     className="py-3 rounded-xl font-bold text-text-muted hover:bg-bg-button-hover transition cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
+                    key="save-habit"
                     type="submit"
                     disabled={isSaving}
                     className="py-3 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center justify-center gap-2 shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
@@ -234,6 +264,7 @@ export function HabitDetails({
               ) : (
                 <>
                   <button
+                    key="delete-habit"
                     type="button"
                     onClick={() => onDelete(habit.id)}
                     className="py-3 rounded-xl font-bold text-rose-500 hover:bg-rose-500/10 transition flex items-center justify-center gap-2 cursor-pointer"
@@ -241,8 +272,9 @@ export function HabitDetails({
                     <Trash2 size={18} /> Excluir
                   </button>
                   <button
+                    key="edit-habit"
                     type="button"
-                    onClick={() => setIsEditing(true)}
+                    onClick={() => setEditing(true)}
                     className="py-3 rounded-xl font-bold bg-bg-surface-hover text-text-main transition cursor-pointer"
                   >
                     Editar Hábito

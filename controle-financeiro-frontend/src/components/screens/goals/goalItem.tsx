@@ -168,6 +168,16 @@ export function GoalItem({ goal, onClick, layoutIdPrefix = "goals" }: GoalItemPr
       <motion.div 
         layoutId={`${layoutIdPrefix}-card-container-${goal.id}`}
         onClick={() => !user?.privacyMode && onClick(goal.id)}
+        role="button"
+        tabIndex={user?.privacyMode ? -1 : 0}
+        aria-disabled={user?.privacyMode || undefined}
+        aria-label={`Ver detalhes da meta ${goal.title}`}
+        onKeyDown={(event) => {
+          if (!user?.privacyMode && event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) {
+            event.preventDefault();
+            onClick(goal.id);
+          }
+        }}
         className={`
           bg-bg-surface border border-border-divider rounded-2xl p-5 
           group relative overflow-hidden h-full flex flex-col justify-between

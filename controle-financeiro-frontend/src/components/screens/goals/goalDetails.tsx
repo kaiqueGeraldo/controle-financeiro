@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 import {
   formatarValorMeta,
   getGoalColorClass,
@@ -95,6 +96,28 @@ export function GoalDetails({
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [allocations, setAllocations] = useState<GoalAllocation[]>([]);
   const [allocationError, setAllocationError] = useState(false);
+  const [isSavingItem, setIsSavingItem] = useState(false);
+
+  const handleClose = () => {
+    if (isSavingEdit || isSavingItem) return;
+    if (isEditing && goal) {
+      setEditForm({ title: goal.title, targetValue: goal.targetValue.toString(), deadline: goal.deadline });
+      setIsEditing(false);
+    } else if (isAddingItem) {
+      setNewItemForm({ name: "", suggestedModel: "", estimatedPrice: "" });
+      setIsAddingItem(false);
+    } else if (buyingItemId) {
+      setBuyingItemId(null);
+      setPaidPrice("");
+      setSelectedPaymentMethod("");
+      setInstallments(1);
+    } else {
+      onClose();
+      return;
+    }
+    dialogRef.current?.focus();
+  };
+  const dialogRef = useDialogFocus(isOpen && !!goal, handleClose);
 
   useEffect(() => {
     if (!isOpen || !goal) return;
@@ -158,6 +181,7 @@ export function GoalDetails({
   const handleAddItem = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (!goal) return;
+    setIsSavingItem(true);
     try {
       await goalService.addItem(goal.id, {
         name: newItemForm.name,
@@ -169,10 +193,13 @@ export function GoalDetails({
       setIsAddingItem(false);
     } catch {
       toast.error("Erro ao adicionar item.");
+    } finally {
+      setIsSavingItem(false);
     }
   };
 
   const handlePurchaseItem = async (itemId: string) => {
+    setIsSavingItem(true);
     let accountId = undefined;
     let cardId = undefined;
     const allocation = allocations.find(a => `RES_${a.id}` === selectedPaymentMethod);
@@ -200,6 +227,8 @@ export function GoalDetails({
       window.dispatchEvent(new Event("refreshCards"));
     } catch (error: unknown) {
       toast.error(error instanceof Error ? error.message : "Erro ao confirmar compra.");
+    } finally {
+      setIsSavingItem(false);
     }
   };
 
@@ -247,17 +276,25 @@ export function GoalDetails({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute inset-0 bg-bg-base/90 backdrop-blur-md cursor-pointer"
           />
 
           <motion.div
             key={`goals-card-container-${goal.id}`}
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalhes da meta ${goal.title}`}
+            tabIndex={-1}
             layoutId={`goals-card-container-${goal.id}`}
             className="w-full max-w-lg bg-bg-surface border border-border-divider rounded-3xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col pointer-events-auto z-10"
           >
             <button
-              onClick={onClose}
+              onClick={handleClose}
+              type="button"
+              data-dialog-close
+              aria-label="Fechar detalhe da meta"
               className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-text-main transition z-20 cursor-pointer"
             >
               <X size={20} />
@@ -339,6 +376,7 @@ export function GoalDetails({
                         </motion.h3>
                         <button
                           onClick={() => setIsEditing(true)}
+                          aria-label="Editar meta"
                           className="text-text-muted hover:text-text-main transition p-1 cursor-pointer shrink-0"
                         >
                           <Pencil size={14} />
