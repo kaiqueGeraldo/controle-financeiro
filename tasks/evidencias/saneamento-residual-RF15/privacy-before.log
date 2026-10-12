@@ -1,0 +1,41 @@
+npm notice run controle-financeiro@0.1.0 test:component
+npm notice run vitest run --config tests/component/vitest.config.mts rf15-residual-privacy
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/rf15-residual-privacy.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-text-main text-3xl) 135ms
+   → expected 'visible' to be 'hidden' // Object.is equality
+ × tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-blue-500) 20ms
+   → expected 'visible' to be 'hidden' // Object.is equality
+ × tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (gap-2 items-center) 12ms
+   → expected 'visible' to be 'hidden' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-text-main text-3xl)
+ FAIL  tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-blue-500)
+ FAIL  tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (gap-2 items-center)
+AssertionError: expected 'visible' to be 'hidden' // Object.is equality
+
+Expected: "hidden"
+Received: "visible"
+
+ ❯ tests/component/rf15-residual-privacy.test.tsx:12:72
+     10|   const view = (value: string) => <PrivacyBlur className={className}><…
+     11|   const r = render(view('R$ 1.234,56'));
+     12|   expect(getComputedStyle(screen.getByText('R$ 1.234,56')).visibility)…
+       |                                                                        ^
+     13|   expect(screen.getByText('R$ 1.234,56').closest('[aria-hidden="true"]…
+     14|   r.rerender(view('-R$ 125,45'));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  10:27:13
+   Duration  3.67s (transform 131ms, setup 730ms, import 99ms, tests 174ms, environment 2.16s)
+

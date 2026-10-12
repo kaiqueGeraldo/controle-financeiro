@@ -1,0 +1,357 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 14 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.Rf15ResidualBrowserTest
+17:43:27.231 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.Rf15ResidualBrowserTest
+17:43:27.387 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+17:43:27.387 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+17:43:27.399 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+17:43:27.567 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+17:43:27.922 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+17:43:27.922 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+17:43:27.940 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+17:43:27.995 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+17:43:28.211 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 6b5d52ef908318419f7a37a83e363dcf582792525105f1a2f34c4fe1169fee4c
+17:43:28.432 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.4355613S
+17:43:28.442 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+17:43:28.442 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+17:43:28.442 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+17:43:28.443 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+17:43:28.494 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 53fbff808eea7f3c73bcf5116ac59638c64cc8e545c6fbb2ab394ec21edb9ec1
+17:43:29.465 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.0219527S
+17:43:29.465 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:61762/cf_test_cf017_6cd0b28623a14c088d998a5402857410?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-12 17:43:29.845 - INFO 40348 --- [           main] c.c.api.Rf15ResidualBrowserTest          : Starting Rf15ResidualBrowserTest using Java 21.0.12.1 with PID 40348 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-12 17:43:29.846 - INFO 40348 --- [           main] c.c.api.Rf15ResidualBrowserTest          : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-10-12 17:43:37.120 - WARN 40348 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-12 17:43:44.052 - INFO 40348 --- [           main] c.c.api.Rf15ResidualBrowserTest          : Started Rf15ResidualBrowserTest in 14.479 seconds (process running for 17.736)
+-2026-10-12 17:43:50.029 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-mobile@example.invalid
+-2026-10-12 17:43:50.053 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-mobile@example.invalid
+-2026-10-12 17:43:50.423 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 77ae9cd9-6900-4d93-a828-ff8a306c2ff0
+-2026-10-12 17:43:50.423 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 77ae9cd9-6900-4d93-a828-ff8a306c2ff0
+-2026-10-12 17:43:50.546 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-mobile@example.invalid
+-2026-10-12 17:43:50.724 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-mobile@example.invalid
+-2026-10-12 17:43:51.224 - INFO 40348 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-mobile@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:43:52.343 - INFO 40348 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-mobile@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:43:57.542 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-mobile@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:43:58.844 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:58.847 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:58.946 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 376f3318-aaff-4e2e-89a6-e7aa16af8dbb
+-2026-10-12 17:43:58.946 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 376f3318-aaff-4e2e-89a6-e7aa16af8dbb
+-2026-10-12 17:43:59.024 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:59.129 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:59.399 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-accounts-animation@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:43:59.752 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.controller.AccountController     : API: Criar Conta 'Conta arquivada anima��o'. Usu�rio: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:59.752 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 376f3318-aaff-4e2e-89a6-e7aa16af8dbb
+-2026-10-12 17:43:59.873 - WARN 40348 --- [o-auto-1-exec-9] c.c.api.controller.AccountController     : API: Excluir Conta a18343f0-5551-4584-adc3-d88b0cf5ed0d. Usu�rio: cf003-a-closure-de050ac9-accounts-animation@example.invalid
+-2026-10-12 17:43:59.875 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID a18343f0-5551-4584-adc3-d88b0cf5ed0d
+-2026-10-12 17:43:59.905 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-10-12 17:44:01.075 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-accounts-animation@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:02.849 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-midnight@example.invalid
+-2026-10-12 17:44:02.852 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-midnight@example.invalid
+-2026-10-12 17:44:02.962 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 069d99d5-8769-4366-b470-26487c721184
+-2026-10-12 17:44:02.962 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 069d99d5-8769-4366-b470-26487c721184
+-2026-10-12 17:44:03.023 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-midnight@example.invalid
+-2026-10-12 17:44:03.119 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-midnight@example.invalid
+-2026-10-12 17:44:03.370 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-midnight@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:03.765 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Virada independente'. Usu�rio: cf003-a-closure-de050ac9-midnight@example.invalid
+-2026-10-12 17:44:03.767 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Criando cart�o 'Virada independente' (Final 4242)
+-2026-10-12 17:44:03.952 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 04c0591e-67bc-4098-be1b-85af88830b50. Valor: 120. Parcelas: 1
+-2026-10-12 17:44:03.953 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 04c0591e-67bc-4098-be1b-85af88830b50: 120 (1x)
+-2026-10-12 17:44:04.053 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:44:04.855 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-midnight@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:08.582 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-transition@example.invalid
+-2026-10-12 17:44:08.586 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-transition@example.invalid
+-2026-10-12 17:44:08.694 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: aaa58edd-93e3-466d-be3a-b526a8f6f70e
+-2026-10-12 17:44:08.694 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID aaa58edd-93e3-466d-be3a-b526a8f6f70e
+-2026-10-12 17:44:08.768 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-transition@example.invalid
+-2026-10-12 17:44:08.880 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-transition@example.invalid
+-2026-10-12 17:44:09.129 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:09.474 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.AccountController     : API: Criar Conta 'Conta transi��o'. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid
+-2026-10-12 17:44:09.474 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.AccountService           : Criando nova conta para o usu�rio aaa58edd-93e3-466d-be3a-b526a8f6f70e
+-2026-10-12 17:44:09.643 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | Valor: 1300 | Tipo: INCOME
+-2026-10-12 17:44:09.652 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1300, ContaID=7c6fca08-8b68-44ae-904c-d9e06e4f6e82
+-2026-10-12 17:44:09.665 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 7c6fca08-8b68-44ae-904c-d9e06e4f6e82. Novo saldo: 1300.00
+-2026-10-12 17:44:09.679 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 72ba39be-da83-4603-a297-d69299f4353b
+-2026-10-12 17:44:10.690 - INFO 40348 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:11.172 - INFO 40348 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:12.200 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: 1 | Conta: null
+-2026-10-12 17:44:12.403 - INFO 40348 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:13.854 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:14.280 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:15.116 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: 1 | Conta: null
+-2026-10-12 17:44:15.283 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:17.419 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: 1 | Conta: null
+-2026-10-12 17:44:17.568 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-transition@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:19.037 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:19.040 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:19.162 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: a98c9773-bb78-4732-b38e-7f1a279dae5a
+-2026-10-12 17:44:19.163 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID a98c9773-bb78-4732-b38e-7f1a279dae5a
+-2026-10-12 17:44:19.229 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:19.334 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:19.576 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-investment@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:19.936 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AccountController     : API: Criar Conta 'Banco hist�rico RF15'. Usu�rio: cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:19.936 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AccountService           : Criando nova conta para o usu�rio a98c9773-bb78-4732-b38e-7f1a279dae5a
+-2026-10-12 17:44:20.041 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.controller.InvestmentController  : API: Novo Ativo 'RF15' (OTHER) para usu�rio cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:20.041 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Iniciando cria��o de ativo 'RF15' (OTHER) para usu�rio cf003-a-closure-de050ac9-investment@example.invalid
+-2026-10-12 17:44:20.046 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.128 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.144 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.180 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.282 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.288 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.305 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.379 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.385 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.398 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.474 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.478 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.490 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.571 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.574 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.584 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.657 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.661 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.671 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.739 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.743 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.752 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:20.828 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876. Qtd: 1, Pre�o: 10
+-2026-10-12 17:44:20.832 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 65a1bac4-34b9-4584-818d-84d50ac52876
+-2026-10-12 17:44:20.841 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-12 17:44:21.616 - INFO 40348 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-investment@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:31.225 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:31.231 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:31.344 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: e9e9a2b1-334f-4c58-8e6a-ce14b66b0307
+-2026-10-12 17:44:31.344 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID e9e9a2b1-334f-4c58-8e6a-ce14b66b0307
+-2026-10-12 17:44:31.415 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:31.527 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:31.790 - INFO 40348 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:32.100 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AccountController     : API: Criar Conta 'Conta ciclo privado'. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:32.100 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e9e9a2b1-334f-4c58-8e6a-ce14b66b0307
+-2026-10-12 17:44:32.932 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:33.415 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:33.765 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'Conta nova privada'. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid
+-2026-10-12 17:44:33.766 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio e9e9a2b1-334f-4c58-8e6a-ce14b66b0307
+-2026-10-12 17:44:33.885 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:35.076 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:35.602 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy-cycle@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:37.096 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-goal@example.invalid
+-2026-10-12 17:44:37.098 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-goal@example.invalid
+-2026-10-12 17:44:37.190 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 7a1a8982-9379-4064-b769-23f04e0e9917
+-2026-10-12 17:44:37.190 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 7a1a8982-9379-4064-b769-23f04e0e9917
+-2026-10-12 17:44:37.248 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-goal@example.invalid
+-2026-10-12 17:44:37.352 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-goal@example.invalid
+-2026-10-12 17:44:37.542 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-goal@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:38.056 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.GoalController        : API: Criar Meta 'Meta residual longa' para usu�rio cf003-a-closure-de050ac9-goal@example.invalid
+-2026-10-12 17:44:38.057 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.GoalService              : Criando nova meta: Meta residual longa
+-2026-10-12 17:44:38.129 - WARN 40348 --- [o-auto-1-exec-5] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.222 - WARN 40348 --- [o-auto-1-exec-4] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.316 - WARN 40348 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.379 - WARN 40348 --- [-auto-1-exec-10] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.417 - WARN 40348 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.476 - WARN 40348 --- [o-auto-1-exec-1] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.539 - WARN 40348 --- [o-auto-1-exec-7] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.569 - WARN 40348 --- [o-auto-1-exec-6] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.617 - WARN 40348 --- [o-auto-1-exec-8] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:38.664 - WARN 40348 --- [o-auto-1-exec-5] c.c.api.controller.GoalController        : API: Criar Item na Meta efbf0c06-9ce8-47bd-a4ef-569f99a08671. para usu�rio: com.controlefinanceiro.api.domain.user.User@1004733c
+-2026-10-12 17:44:39.200 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-goal@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:45.065 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-habit@example.invalid
+-2026-10-12 17:44:45.067 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-habit@example.invalid
+-2026-10-12 17:44:45.161 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: c692a7c9-3dc8-4d1c-b2fa-44376950c910
+-2026-10-12 17:44:45.161 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID c692a7c9-3dc8-4d1c-b2fa-44376950c910
+-2026-10-12 17:44:45.221 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-habit@example.invalid
+-2026-10-12 17:44:45.320 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-habit@example.invalid
+-2026-10-12 17:44:45.546 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-habit@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:46.819 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-habit@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:49.708 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid
+-2026-10-12 17:44:49.711 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid
+-2026-10-12 17:44:49.828 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 5a8cd631-1565-4852-a1c1-0e9f75f26336
+-2026-10-12 17:44:49.828 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 5a8cd631-1565-4852-a1c1-0e9f75f26336
+-2026-10-12 17:44:49.910 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid
+-2026-10-12 17:44:50.018 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid
+-2026-10-12 17:44:50.267 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:50.637 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid
+-2026-10-12 17:44:50.637 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:44:50.735 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 5f911fdd-7982-4e7b-9db8-5a2f1ad487e4. Valor: 120. Parcelas: 1
+-2026-10-12 17:44:50.735 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 5f911fdd-7982-4e7b-9db8-5a2f1ad487e4: 120 (1x)
+-2026-10-12 17:44:50.760 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:44:51.589 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:55.017 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid
+-2026-10-12 17:44:55.020 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid
+-2026-10-12 17:44:55.122 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 5bf7983a-8604-49cb-86bf-3c7cc826c594
+-2026-10-12 17:44:55.122 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 5bf7983a-8604-49cb-86bf-3c7cc826c594
+-2026-10-12 17:44:55.187 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid
+-2026-10-12 17:44:55.287 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid
+-2026-10-12 17:44:55.558 - INFO 40348 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:44:55.964 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid
+-2026-10-12 17:44:55.964 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:44:56.095 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 908a21a3-5a4c-465f-a482-d61049470ab6. Valor: 120. Parcelas: 1
+-2026-10-12 17:44:56.095 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 908a21a3-5a4c-465f-a482-d61049470ab6: 120 (1x)
+-2026-10-12 17:44:56.121 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:44:56.750 - INFO 40348 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-america-sao-paulo-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:00.010 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-utc-focus@example.invalid
+-2026-10-12 17:45:00.013 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-utc-focus@example.invalid
+-2026-10-12 17:45:00.127 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: e7696d91-4a6e-40ed-aa88-442b8a3991a0
+-2026-10-12 17:45:00.127 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID e7696d91-4a6e-40ed-aa88-442b8a3991a0
+-2026-10-12 17:45:00.198 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-utc-focus@example.invalid
+-2026-10-12 17:45:00.304 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-utc-focus@example.invalid
+-2026-10-12 17:45:00.566 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-utc-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:00.897 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-utc-focus@example.invalid
+-2026-10-12 17:45:00.897 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:45:00.991 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 23829d49-e90c-45dc-9952-c269ff669235. Valor: 120. Parcelas: 1
+-2026-10-12 17:45:00.991 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 23829d49-e90c-45dc-9952-c269ff669235: 120 (1x)
+-2026-10-12 17:45:01.013 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:45:01.835 - INFO 40348 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-utc-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:05.111 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid
+-2026-10-12 17:45:05.114 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid
+-2026-10-12 17:45:05.202 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: b53b94f6-ba27-48d0-ae7e-ec5df5584393
+-2026-10-12 17:45:05.202 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID b53b94f6-ba27-48d0-ae7e-ec5df5584393
+-2026-10-12 17:45:05.270 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid
+-2026-10-12 17:45:05.368 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid
+-2026-10-12 17:45:05.593 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:06.161 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid
+-2026-10-12 17:45:06.161 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:45:06.289 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o f08c5c81-3f59-42b2-a65b-ee8d4d4260d4. Valor: 120. Parcelas: 1
+-2026-10-12 17:45:06.290 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID f08c5c81-3f59-42b2-a65b-ee8d4d4260d4: 120 (1x)
+-2026-10-12 17:45:06.311 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:45:06.834 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-utc-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:10.055 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid
+-2026-10-12 17:45:10.058 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid
+-2026-10-12 17:45:10.183 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: e9031d41-6c6c-4a41-89d9-d0f71fb8919e
+-2026-10-12 17:45:10.183 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID e9031d41-6c6c-4a41-89d9-d0f71fb8919e
+-2026-10-12 17:45:10.233 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid
+-2026-10-12 17:45:10.345 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid
+-2026-10-12 17:45:10.577 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:10.962 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid
+-2026-10-12 17:45:10.962 - INFO 40348 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:45:11.089 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o d8614554-7f64-4db7-9aae-aba9c4ed8769. Valor: 120. Parcelas: 1
+-2026-10-12 17:45:11.089 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Nova compra no cart�o ID d8614554-7f64-4db7-9aae-aba9c4ed8769: 120 (1x)
+-2026-10-12 17:45:11.112 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:45:11.846 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-focus@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:15.156 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid
+-2026-10-12 17:45:15.159 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid
+-2026-10-12 17:45:15.278 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 471b9386-1186-4c04-bb4a-2f45f6655773
+-2026-10-12 17:45:15.278 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 471b9386-1186-4c04-bb4a-2f45f6655773
+-2026-10-12 17:45:15.351 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid
+-2026-10-12 17:45:15.472 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid
+-2026-10-12 17:45:15.723 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:16.101 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'Fatura residual'. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid
+-2026-10-12 17:45:16.101 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'Fatura residual' (Final 4242)
+-2026-10-12 17:45:16.219 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o c727166c-abb3-4aff-a645-0fc482e63871. Valor: 120. Parcelas: 1
+-2026-10-12 17:45:16.220 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Nova compra no cart�o ID c727166c-abb3-4aff-a645-0fc482e63871: 120 (1x)
+-2026-10-12 17:45:16.254 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-12 17:45:17.084 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-pacific-kiritimati-visibilitychange@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:20.371 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-layers@example.invalid
+-2026-10-12 17:45:20.374 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-layers@example.invalid
+-2026-10-12 17:45:20.485 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 9badb0ad-76e9-4667-8adc-e5f7d5cd2460
+-2026-10-12 17:45:20.485 - INFO 40348 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 9badb0ad-76e9-4667-8adc-e5f7d5cd2460
+-2026-10-12 17:45:20.557 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-layers@example.invalid
+-2026-10-12 17:45:20.675 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-layers@example.invalid
+-2026-10-12 17:45:20.942 - INFO 40348 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-layers@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:21.373 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.controller.GoalController        : API: Criar Meta 'Meta camadas' para usu�rio cf003-a-closure-de050ac9-layers@example.invalid
+-2026-10-12 17:45:21.374 - INFO 40348 --- [o-auto-1-exec-8] c.c.api.service.GoalService              : Criando nova meta: Meta camadas
+-2026-10-12 17:45:21.454 - WARN 40348 --- [o-auto-1-exec-1] c.c.api.controller.GoalController        : API: Criar Item na Meta b9a34839-d77e-4257-99ea-450e524f679b. para usu�rio: com.controlefinanceiro.api.domain.user.User@b2553798
+-2026-10-12 17:45:22.201 - INFO 40348 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-layers@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:25.500 - INFO 40348 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-layers@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:28.184 - INFO 40348 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-layers@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:29.521 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:29.523 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:29.644 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 497ea803-23d1-4515-96c3-3b412b666e1e
+-2026-10-12 17:45:29.644 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 497ea803-23d1-4515-96c3-3b412b666e1e
+-2026-10-12 17:45:29.722 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:29.837 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:30.143 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:30.467 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.controller.AccountController     : API: Criar Conta 'Arquivada RF15'. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:30.468 - INFO 40348 --- [o-auto-1-exec-2] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 497ea803-23d1-4515-96c3-3b412b666e1e
+-2026-10-12 17:45:30.522 - INFO 40348 --- [-auto-1-exec-10] c.c.api.controller.AccountController     : API: Criar Conta 'Ativa negativa RF15'. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:30.522 - INFO 40348 --- [-auto-1-exec-10] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 497ea803-23d1-4515-96c3-3b412b666e1e
+-2026-10-12 17:45:30.610 - WARN 40348 --- [o-auto-1-exec-5] c.c.api.controller.AccountController     : API: Excluir Conta 052ab672-99f8-48b6-b269-3a49387c4cfd. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid
+-2026-10-12 17:45:30.611 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Solicita��o de exclus�o (arquivamento) da conta ID 052ab672-99f8-48b6-b269-3a49387c4cfd
+-2026-10-12 17:45:30.615 - INFO 40348 --- [o-auto-1-exec-5] c.c.api.service.AccountService           : Conta arquivada com sucesso. Hist�rico preservado.
+-2026-10-12 17:45:31.795 - INFO 40348 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:32.836 - INFO 40348 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:34.489 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:35.341 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:37.099 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:37.965 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:39.519 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:40.532 - INFO 40348 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:42.329 - INFO 40348 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:43.252 - INFO 40348 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:45.602 - INFO 40348 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:46.657 - INFO 40348 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-privacy@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:48.952 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-closure-de050ac9-keyboard@example.invalid
+-2026-10-12 17:45:48.956 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid
+-2026-10-12 17:45:49.051 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: d4b8b6dc-efad-4a8e-b704-e308f6a55472
+-2026-10-12 17:45:49.051 - INFO 40348 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID d4b8b6dc-efad-4a8e-b704-e308f6a55472
+-2026-10-12 17:45:49.100 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-closure-de050ac9-keyboard@example.invalid
+-2026-10-12 17:45:49.194 - INFO 40348 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-closure-de050ac9-keyboard@example.invalid
+-2026-10-12 17:45:49.399 - INFO 40348 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid | M�s: null | Conta: null
+-2026-10-12 17:45:49.830 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Criar Conta 'Conta detalhe RF15'. Usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid
+-2026-10-12 17:45:49.830 - INFO 40348 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Criando nova conta para o usu�rio d4b8b6dc-efad-4a8e-b704-e308f6a55472
+-2026-10-12 17:45:49.970 - INFO 40348 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid | Valor: 123456789.12 | Tipo: INCOME
+-2026-10-12 17:45:49.970 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=123456789.12, ContaID=785ef666-00ea-4b17-b357-bc0be1f75c9a
+-2026-10-12 17:45:49.975 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 785ef666-00ea-4b17-b357-bc0be1f75c9a. Novo saldo: 123456789.12
+-2026-10-12 17:45:49.983 - INFO 40348 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5f3af5bb-3ea5-4e85-8ba3-6c22ba8b2019
+-2026-10-12 17:45:50.649 - INFO 40348 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid | M�s: 1 | Conta: null
+-2026-10-12 17:45:50.807 - INFO 40348 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-closure-de050ac9-keyboard@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 155.7 s -- in com.controlefinanceiro.api.Rf15ResidualBrowserTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:38 min
+[INFO] Finished at: 2026-10-12T17:46:03Z
+[INFO] ------------------------------------------------------------------------

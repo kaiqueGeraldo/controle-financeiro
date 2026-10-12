@@ -1,0 +1,227 @@
+npm notice run controle-financeiro@0.1.0 test:component
+npm notice run vitest run --config tests/component/vitest.config.mts rf15- common-ui-accessibility sidebar-accessibility auth-settings-accessibility dashboard-accounts-extract cards-planning-audit goals-investments-habits-annual-audit cf015-invoice-focus cf015-recovery-expanded cf015-payment-reconciliation precision-decimals precision-boundary rv24-original-contract rv24-residual
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/precision-decimals.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/precision-boundary.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/sidebar-accessibility.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/precision-boundary.test.tsx > raw maximum is accepted only when parsed without destructive conversion 25ms
+ ✓ tests/component/precision-decimals.test.tsx > exact legal quantity 999999999999.99999998 reaches the validator intact 17ms
+ ✓ tests/component/precision-decimals.test.tsx > exact legal quantity 999999999999.99999999 reaches the validator intact 3ms
+ ✓ tests/component/precision-decimals.test.tsx > exact legal quantity 0.00000001 reaches the validator intact 2ms
+ ✓ tests/component/precision-decimals.test.tsx > exact legal quantity 1E-8 reaches the validator intact 2ms
+ ✓ tests/component/precision-decimals.test.tsx > quantity outside precision/range 1000000000000.00000000 is not normalized 1ms
+ ✓ tests/component/precision-decimals.test.tsx > quantity outside precision/range 999999999999.999999999 is not normalized 1ms
+ ✓ tests/component/precision-decimals.test.tsx > quantity outside precision/range 0.000000001 is not normalized 1ms
+ ✓ tests/component/precision-decimals.test.tsx > quantity outside precision/range 0 is not normalized 1ms
+ ✓ tests/component/precision-decimals.test.tsx > quantity outside precision/range -1 is not normalized 1ms
+ ✓ tests/component/precision-decimals.test.tsx > money boundary 999999999999.98 is exact 1ms
+ ✓ tests/component/precision-decimals.test.tsx > money boundary 999999999999.99 is exact 1ms
+ ✓ tests/component/precision-decimals.test.tsx > invalid monetary token 1000000000000.00 is rejected 1ms
+ ✓ tests/component/precision-decimals.test.tsx > invalid monetary token 999999999999.99001 is rejected 1ms
+ ✓ tests/component/precision-decimals.test.tsx > NG-01 descriptive price may exceed the input-price ceiling without becoming authoritative 1ms
+ ✓ tests/component/precision-decimals.test.tsx > exact fees, negative realized snapshot and null are preserved 2ms
+ ✓ tests/component/precision-decimals.test.tsx > HALF_UP uses exact price 1.00500000 1ms
+ ✓ tests/component/precision-decimals.test.tsx > HALF_UP uses exact price 1.00400000 1ms
+ ✓ tests/component/precision-decimals.test.tsx > numeric-looking JSON strings and forged numeric objects do not become financial numbers 2ms
+ ✓ tests/component/precision-decimals.test.tsx > other API responses keep numeric types; parse failures remain reconcilable 15ms
+ ✓ tests/component/precision-decimals.test.tsx > legacy persisted command keeps UUID and payload through bad POST/GET then exact recovery 78ms
+ ✓ tests/component/precision-boundary.test.tsx > valid authoritative redemption must complete through POST 68ms
+ ✓ tests/component/precision-boundary.test.tsx > valid authoritative redemption must complete through retry 11ms
+ ✓ tests/component/precision-boundary.test.tsx > valid authoritative redemption must complete through GET 10ms
+ ✓ tests/component/precision-boundary.test.tsx > different but legal raw quantity must not confirm same command via POST 10ms
+ ✓ tests/component/precision-boundary.test.tsx > different but legal raw quantity must not confirm same command via GET 9ms
+ ✓ tests/component/precision-boundary.test.tsx > valid raw money at inclusive ceiling retains cents and authoritative amount 2ms
+stdout | tests/component/rv24-original-contract.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rv24-residual.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/sidebar-accessibility.test.tsx > componentes compartilhados: navegação móvel > expõe gatilhos nomeados para abrir e fechar o menu pelo teclado 428ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result +0 remains recoverable on POST, retry and GET 84ms
+ ✓ tests/component/rv24-original-contract.test.tsx > RV24-01: unknown creation must be reconciled before an unkeyed second send 274ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 1 remains recoverable on POST, retry and GET 11ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 2 remains recoverable on POST, retry and GET 10ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 3 remains recoverable on POST, retry and GET 9ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 4 remains recoverable on POST, retry and GET 10ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 5 remains recoverable on POST, retry and GET 7ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 6 remains recoverable on POST, retry and GET 7ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 7 remains recoverable on POST, retry and GET 7ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 8 remains recoverable on POST, retry and GET 7ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 9 remains recoverable on POST, retry and GET 8ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 10 remains recoverable on POST, retry and GET 6ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 11 remains recoverable on POST, retry and GET 6ms
+ ✓ tests/component/rv24-residual.test.tsx > transaction invalid result 12 remains recoverable on POST, retry and GET 7ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing id cannot confirm and valid retry keeps identity 14ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing type cannot confirm and valid retry keeps identity 9ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing date cannot confirm and valid retry keeps identity 7ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing dateOrigin cannot confirm and valid retry keeps identity 7ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing quantity cannot confirm and valid retry keeps identity 7ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing price cannot confirm and valid retry keeps identity 6ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing totalValue cannot confirm and valid retry keeps identity 8ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing fees cannot confirm and valid retry keeps identity 6ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing costDelta cannot confirm and valid retry keeps identity 7ms
+ ✓ tests/component/rv24-residual.test.tsx > investment missing realizedResult cannot confirm and valid retry keeps identity 6ms
+ ✓ tests/component/rv24-residual.test.tsx > valid result reaching removeItem keeps intent when storage removal fails 14ms
+ ✓ tests/component/rv24-residual.test.tsx > transfer ledger pair identity differs from intent; pending and monetary redemption remain valid 7ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'unmount' leaves intent and no consumer callbacks 223ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'unmount' leaves intent and no consumer callbacks 126ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'A-B' leaves intent and no consumer callbacks 156ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'A-B' leaves intent and no consumer callbacks 148ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'A-B-A' leaves intent and no consumer callbacks 209ms
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'A-B-A' leaves intent and no consumer callbacks 229ms
+stdout | tests/component/rf15-privacy-detail.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rv24-residual.test.tsx > late 'success' after 'expired' leaves intent and no consumer callbacks 215ms
+stdout | tests/component/cards-planning-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rv24-residual.test.tsx > late 'error' after 'expired' leaves intent and no consumer callbacks 213ms
+stdout | tests/component/rf15-causal.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/cf015-invoice-focus.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rv24-residual.test.tsx > active unknown investment execution still reconciles 108ms
+ ✓ tests/component/rv24-residual.test.tsx > active rejected investment execution still reconciles 116ms
+ ✓ tests/component/rv24-residual.test.tsx > late recover error from A cannot affect new A session and valid recovery is retained 9ms
+ ✓ tests/component/rv24-residual.test.tsx > late retry error from A cannot affect new A session and valid recovery is retained 7ms
+stdout | tests/component/cf015-payment-reconciliation.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/rf15-residual-calendar.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | tests/component/auth-settings-accessibility.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rf15-privacy-detail.test.tsx > RF15-02: lista/detalhe não anunciam valor, caixa, bruto ou restante no modo privado 871ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > o cartão inteiro é uma ação de detalhe alcançável por teclado 561ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: datas civis da API 2027/1 790ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura OPEN com status e ação coerentes 276ms
+ ✓ tests/component/cf015-invoice-focus.test.tsx > CF015-R08: abrir detalhe da fatura por teclado leva foco para o diálogo 584ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: datas civis da API 2027/2 139ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: datas civis da API 2028/2 93ms
+stderr | tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado
+Erro ao atualizar fatura Error: 503 sintético: releitura indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/cf015-payment-reconciliation.test.tsx:33:62
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20
+
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura CLOSED com status e ação coerentes 166ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: datas civis da API 2027/12 78ms
+ ✓ tests/component/cf015-payment-reconciliation.test.tsx > CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado 804ms
+stdout | tests/component/cf015-recovery-expanded.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rf15-residual-calendar.test.tsx > RF15-04: atualização por focus sem mudar período nem datas 693ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: prazo civil/saldo 2027-02-05T23:59:59 120 CLOSED 98ms
+ ✓ tests/component/cf015-invoice-focus.test.tsx > R08: Tab fica no diálogo superior, Escape fecha só o filho e foco retorna 825ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: prazo civil/saldo 2027-02-06T00:00:00 100 CLOSED 221ms
+stdout | tests/component/goals-investments-habits-annual-audit.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/rf15-residual-calendar.test.tsx > RF15-04: atualização por visibilitychange sem mudar período nem datas 186ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: prazo civil/saldo 2027-02-06T00:00:00 0 OPEN 73ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: prazo civil/saldo 2027-02-06T00:00:00 0 PAID 51ms
+ ✓ tests/component/rf15-residual-calendar.test.tsx > RF15-04: atualização por timer sem mudar período nem datas 288ms
+ ✓ tests/component/rf15-residual-calendar.test.tsx > RF15-04: paga continua desabilitada depois da virada 185ms
+ ✓ tests/component/rf15-residual-calendar.test.tsx > RF15-04: calendário compartilha um timer e remove callbacks ao desmontar 39ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-04: ausente/inválida não afirma data nem atraso; competência atualiza 100ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-02: máscara preserva geometria mas remove valor da árvore acessível e alterna 13ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > V-ERROR: metas e investimentos não apresentam coleções vazias como sucesso 469ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > V-ERROR: resumo anual conserva erro recuperável, sem alegar ano vazio 47ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: duplo envio faz um POST; falha de releitura recupera só com GETs 786ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > AC-UI-012: posição atual não é rotulada como fechamento de ano passado 137ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > posição somente do ano corrente deixa explícito que não é fechamento anual 56ms
+ ✓ tests/component/rf15-causal.test.tsx > RF15-03: foco, controle com Escape próprio, aninhamento e cleanup 664ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > falha ao salvar nota conserva o editor e o texto para nova tentativa 74ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > AC-TIME-001: histórico de investimento mostra data civil sem deslocar o dia 95ms
+ ✓ tests/component/goals-investments-habits-annual-audit.test.tsx > CF-014: metas, investimentos, hábitos e resumo anual > hábitos diário e semanal usam o dia do produto e contam apenas logs da semana 78ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > login vazio identifica a senha e não envia credenciais incompletas 2058ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: resultado desconhecido continua protegido após remontagem e atualização 441ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R03: recusa HTTP permite corrigir a entrada sem confirmação falsa 166ms
+ × tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado 28ms
+   → O calendário deve ser usado dentro de BrowserTodayProvider
+ × tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera 17ms
+   → O calendário deve ser usado dentro de BrowserTodayProvider
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura 27ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados 15ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão 15ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R07: troca de identidade e cancelar/reabrir inicializam o formulário correto 96ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade 13ms
+ ✓ tests/component/cf015-recovery-expanded.test.tsx > R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior 10ms
+stdout | tests/component/rf15-residual-privacy.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > apresenta fatura PAID com status e ação coerentes 212ms
+ ✓ tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-text-main text-3xl) 225ms
+ ✓ tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (text-blue-500) 36ms
+ ✓ tests/component/rf15-residual-privacy.test.tsx > RF15-02: proteção imediata, troca e liberação (gap-2 items-center) 39ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável 2340ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > pagamento parcial aguarda a releitura antes de fechar o formulário 220ms
+ ✓ tests/component/cards-planning-audit.test.tsx > CF-013: cartões, faturas e planejamento > falha de resultado desconhecido conserva o pagamento e orienta a reconciliação 169ms
+stdout | tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha
+Aviso: Não foi possível invalidar o token na API. Error: Provedor sintético indisponível
+    at C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/tests/component/auth-settings-accessibility.test.tsx:109:45
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20
+    at new Promise (<anonymous>)
+    at runWithCancel (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2956:64
+
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > recuperação usa provedor falso e mantém erro remoto distinguível da entrada inválida 1791ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > logout limpa a sessão local mesmo quando o provedor remoto falha 19ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > switches têm nome acessível, funcionam por teclado e falha não inventa preferência salva 142ms
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > preferência confirmada reaparece depois de recarregar os dados do usuário 177ms
+stdout | tests/component/dashboard-accounts-extract.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/auth-settings-accessibility.test.tsx > CF-011: autenticação e configurações acessíveis > ações de configuração podem ser acionadas por teclado e exportação falha sem criar download 254ms
+ ✓ tests/component/dashboard-accounts-extract.test.tsx > CF-012: estados de leitura nas telas financeiras > falha de contas não se passa por patrimônio zero e retry chama a fonte 189ms
+ ✓ tests/component/dashboard-accounts-extract.test.tsx > CF-012: estados de leitura nas telas financeiras > falha de extrato não se passa por saldo do período vazio e retry é acionável 20ms
+ ✓ tests/component/dashboard-accounts-extract.test.tsx > CF-012: estados de leitura nas telas financeiras > dashboard aguarda e bloqueia cartões de saldo quando uma fonte falha 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/cf015-recovery-expanded.test.tsx > R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado
+ FAIL  tests/component/cf015-recovery-expanded.test.tsx > R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera
+Error: O calendário deve ser usado dentro de BrowserTodayProvider
+ ❯ useCalendarToday src/contexts/browserTodayContext.tsx:67:11
+     65|   const today = useContext(BrowserTodayContext);
+     66|   if (today === undefined) {
+     67|     throw new Error(
+       |           ^
+     68|       "O calendário deve ser usado dentro de BrowserTodayProvider",
+     69|     );
+ ❯ useBrowserToday src/contexts/browserTodayContext.tsx:75:10
+ ❯ CartoesScreen src/screens/private/cards/cardsScreen.tsx:19:17
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 15 passed (16)
+      Tests  2 failed | 121 passed (123)
+   Start at  14:26:59
+   Duration  13.57s (transform 12.58s, setup 16.12s, import 46.97s, tests 21.47s, environment 51.10s)
+
