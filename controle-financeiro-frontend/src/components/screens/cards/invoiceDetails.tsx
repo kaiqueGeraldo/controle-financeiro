@@ -52,6 +52,8 @@ interface InvoiceDetailsProps {
   onDeleteTransaction?: (id: string) => Promise<void>;
   canGoBack?: boolean;
   canGoForward?: boolean;
+  /** Dia civil do calendário compartilhado; consumidores isolados usam o dia local. */
+  referenceDay?: string | null;
 }
 
 export function InvoiceDetails({
@@ -72,6 +74,7 @@ export function InvoiceDetails({
   onDeleteTransaction,
   canGoBack = false,
   canGoForward = false,
+  referenceDay,
 }: InvoiceDetailsProps) {
   const titleId = useId();
   const dialogRef = useDialogFocus(isOpen && !!card, onClose);
@@ -98,7 +101,7 @@ export function InvoiceDetails({
   const isEmpty = payableAmount <= 0;
 
   const isOverdue = !isPaid && payableAmount > 0 &&
-    isCalendarDatePast(invoiceData?.dueDate ?? "");
+    isCalendarDatePast(invoiceData?.dueDate ?? "", referenceDay ?? undefined);
   const unavailable = isLoadingInvoice || !!invoiceError || !invoiceData;
   const isPayDisabled = unavailable || isPaid || isEmpty;
 

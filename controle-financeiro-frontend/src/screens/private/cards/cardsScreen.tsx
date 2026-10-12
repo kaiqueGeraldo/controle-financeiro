@@ -13,8 +13,14 @@ import { useCards } from "@/hooks/useCards";
 import { cardService } from "@/services/cardService";
 import { ArrowUpDown, CreditCard, Loader2, Plus, Receipt } from "lucide-react";
 import { useState } from "react";
+import { useBrowserToday } from "@/contexts/browserTodayContext";
 
-export default function CartoesScreen() {
+export function CardsCalendarScreen() {
+  const today = useBrowserToday();
+  return <CartoesScreen referenceDay={today} />;
+}
+
+export default function CartoesScreen({ referenceDay }: { referenceDay?: string | null }) {
   const { openNewCard } = useCardModals();
 
   const {
@@ -148,6 +154,7 @@ export default function CartoesScreen() {
 
       {/* MODAL DETALHES */}
       <InvoiceDetails
+        referenceDay={referenceDay}
         isOpen={!!selectedCardId}
         onClose={closeCardDetails}
         canGoBack={canGoBack}
