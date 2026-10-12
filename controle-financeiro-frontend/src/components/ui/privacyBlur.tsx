@@ -12,13 +12,17 @@ export function PrivacyBlur({ children, className = "" }: PrivacyBlurProps) {
 
   return (
     <span 
-      className={`transition-all duration-300 flex ${className} ${
+      className={`flex ${className} ${
         user?.privacyMode 
           ? "text-transparent! bg-bg-blur-hover! bg-none! border-transparent! rounded-md select-none pointer-events-none px-2 animate-pulse" 
           : ""
       }`}
     >
-      <span className={user?.privacyMode ? undefined : "contents"} aria-hidden={user?.privacyMode || undefined}>{children}</span>
+      <span
+        className={user?.privacyMode ? undefined : "contents"}
+        style={user?.privacyMode ? { visibility: "hidden" } : undefined}
+        aria-hidden={user?.privacyMode || undefined}
+      >{children}</span>
       {user?.privacyMode && <span className="sr-only">Valor oculto</span>}
     </span>
   );
