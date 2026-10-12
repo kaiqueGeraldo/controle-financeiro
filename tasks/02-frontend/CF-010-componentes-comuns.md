@@ -8,7 +8,13 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
-## Parecer dirigido vigente — 11/10/2026
+## Revalidação independente vigente — 12/10/2026
+
+Estado `em_revisao`: zoom nativo200 continua sem prova suportada; RF15-02 conserva exposição visual transitória no componente PrivacyBlur. Hook compartilhado e consumidores examinados aprovados no recorte, sem imputar ao hook os detalhes customizados CF014.
+
+[Parecer, matriz, achados, testes contestados e evidências](../evidencias/revalidacao-RF15/README.md). Supera o estado corrente descrito nas notas anteriores, preservando seu alcance histórico. Sem correção de produto nesta revisão.
+
+## Parecer dirigido anterior — 11/10/2026
 
 Estado `em_revisao`: componentes comuns, temas, larguras360/768/1440 e diálogo aninhado revalidados no recorte. Falta zoom nativo200, cuja tentativa falhou antes de qualquer input. RF15-01/03 pertencem aos consumidores CF-014/012; não se atribui falha ao componente comum sem prova.
 

@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Parecer dirigido vigente — 11/10/2026
+## Revalidação independente vigente — 12/10/2026
+
+Estado `em_revisao`: datas civis persistidas/DEC-03, fusos, parcial e PAID real/reload aprovados. RF15-04 permanece aberto somente pelo atraso desatualizado com fatura aberta atravessando meia-noite/foco. Três expectativas antigas corrigidas em teste com contraprova; seleção ampla115/115. RVA-03 continua causalmente inconclusivo, sem repetir pagamento sem hipótese nova.
+
+[Parecer, matriz, achados, testes contestados e evidências](../evidencias/revalidacao-RF15/README.md). Supera o estado corrente descrito nas notas anteriores, preservando seu alcance histórico. Sem correção de produto nesta revisão.
+
+## Parecer dirigido anterior — 11/10/2026
 
 Estado `em_revisao`: RF15-04 (P1) confirma datas e indicação de atraso divergentes da API/DEC-03 no detalhe da fatura. Lista longa/mobile/aninhamento e sequência20→120 executados. RVA-03 segue causalmente inconclusivo; falta prova visual específica PAID, pois adiantamento integral permanece OPEN. R03/RV01 e ownership continuam encerrados.
 

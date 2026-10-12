@@ -8,7 +8,13 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
-## Parecer dirigido vigente — 11/10/2026
+## Revalidação independente vigente — 12/10/2026
+
+Estado `em_revisao`: RF15-01/03 encerrados; RF15-02/04 parcialmente saneados com resíduos reproduzidos; resíduos CF014, zoom e RVA-03 delimitados. Nenhuma nova tarefa integralmente concluída; CF011 permanece concluída. Aceites CF005–009/RV24/CF025–028 preservados, sem veto automático de CF017 nem início de onboarding.
+
+[Parecer, matriz, achados, testes contestados e evidências](../evidencias/revalidacao-RF15/README.md). Supera o estado corrente descrito nas notas anteriores, preservando seu alcance histórico. Sem correção de produto nesta revisão.
+
+## Parecer dirigido anterior — 11/10/2026
 
 Estado `em_revisao`: CF-011 concluída; CF-010/012/013/014 conservam impedimentos específicos. RF15-02/04 P1 e RF15-01/03 P2, zoom nativo sem prova e demais lacunas/investigações impedem aprovação do marco. R03/RV01, RV24-01/02, CF-005–009 e CF-025–027 conservam aceites. CF-017 não é bloqueio automático da revisão local. CF-028 segue exclusivamente especificação.
 

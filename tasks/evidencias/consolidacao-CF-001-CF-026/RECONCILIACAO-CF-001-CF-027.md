@@ -1,5 +1,7 @@
 # Reconciliação CF-001–CF-027 — 03/10/2026
 
+> Situação vigente em 12/10/2026: [revalidação RF15](../revalidacao-RF15/README.md) encerra RF15-01/03, mantém RF15-02/04 parcialmente saneados e confirma resíduos CF014. CF011 continua concluída; CF010/012/013/014/015 permanecem em revisão por impedimentos delimitados, sem reabrir aceites anteriores. As notas abaixo preservam sua data e alcance.
+
 > Situação vigente em 11/10/2026: CF-011 concluída; CF-010/012/013/014/015 em revisão por RF15-01–04 e lacunas delimitadas. [Matriz atual por critério](../fechamento-CF-010-CF-015/MATRIZ.md). O conteúdo datado abaixo permanece snapshot histórico; RV24-01/02, RD58 e demais aceites posteriores não são reabertos.
 
 > Atualização de referência em 08/10/2026: este snapshot permanece histórico.

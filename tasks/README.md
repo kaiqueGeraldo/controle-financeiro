@@ -4,7 +4,11 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente CF-010–CF-015 — 11/10/2026
+## Situação vigente CF-010–CF-015 — 12/10/2026
+
+Revalidação independente do candidato db2d77d: RF15-01/03 encerrados; RF15-02/04 parcialmente saneados, com exposição visual na transição e atraso desatualizado na aba aberta. Resíduos de Escape/foco CF014 confirmados. CF010/012/013/014/015 permanecem em revisão; CF011 conserva conclusão. [Parecer atual e saneamento restante delimitado](evidencias/revalidacao-RF15/README.md). Zoom é verificação faltante; RVA-03 investigação inconclusiva, sem veto por associação.
+
+## Situação anterior CF-010–CF-015 — 11/10/2026
 
 CF-011 concluída após fechamento independente de recuperação, preferências e download. CF-010/012/013/014/015 seguem em revisão por defeitos e lacunas específicos. [Parecer completo e próximo saneamento delimitado](evidencias/fechamento-CF-010-CF-015/README.md). Aceites anteriores CF-005–009, RV24-01/02, CF-025–027 e CF-028 documental preservados.
 

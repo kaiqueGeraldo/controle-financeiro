@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Parecer dirigido vigente — 11/10/2026
+## Revalidação independente vigente — 12/10/2026
+
+Estado `em_revisao`: RF15-01 encerrado para ação/criação mobile e foco. Metas hoje/concluída, formulários/históricos longos tiveram complemento dirigido. Impedimentos confirmados: Escape/semântica dos detalhes de meta/hábito e retorno de foco perdido na transição de investimento. Não confundir esses consumidores com os RF15-01/03 encerrados. RJ02201/H24-01 permanecem separados sob CF022.
+
+[Parecer, matriz, achados, testes contestados e evidências](../evidencias/revalidacao-RF15/README.md). Supera o estado corrente descrito nas notas anteriores, preservando seu alcance histórico. Sem correção de produto nesta revisão.
+
+## Parecer dirigido anterior — 11/10/2026
 
 Estado `em_revisao`: RF15-01 (P2) confirma criação de hábito sem nome acessível em360px. Interação semanal atual envia POST200 e persiste após reload, sem esclarecer causa histórica RJ-022-01. H24-01 permanece separado sob CF-022. Nota anual/posição e aceites RD58, CF-020/021 e RV24-01 preservados. Modais longos e estados próprios ainda sem prova suficiente estão discriminados na matriz.
 

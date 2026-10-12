@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Parecer dirigido vigente — 11/10/2026
+## Revalidação independente vigente — 12/10/2026
+
+Estado `em_revisao`: RF15-03 encerrado no detalhe do extrato (teclado, Escape, retorno e descarte). RF15-02 parcialmente saneado: contas arquivadas e árvore acessível protegidas no estado estável, mas resumo expõe valores durante animação inicial. Moeda negativa/extensa, reload e demais aceites anteriores preservados.
+
+[Parecer, matriz, achados, testes contestados e evidências](../evidencias/revalidacao-RF15/README.md). Supera o estado corrente descrito nas notas anteriores, preservando seu alcance histórico. Sem correção de produto nesta revisão.
+
+## Parecer dirigido anterior — 11/10/2026
 
 Estado `em_revisao`: RF15-02 (P1, saldo arquivado visível no modo privacidade) e RF15-03 (P2, detalhe não fecha com Escape e não possui semântica de diálogo). Lista100/filtros/páginas/reload/saldo real aprovados; F018 e aceites temporais conservados. Limites de inspeção visual explicitados na matriz.
 

@@ -1,5 +1,7 @@
 # Matriz CF-001–CF-026
 
+> Atualização vigente em 12/10/2026: RF15-01/03 encerrados; RF15-02/04 e resíduos CF014 permanecem abertos. CF011 concluída, CF010/012/013/014/015 em revisão com critérios específicos na [matriz de revalidação](../revalidacao-RF15/MATRIZ.md). Notas e linhas abaixo são snapshots históricos.
+
 > Situação vigente em 11/10/2026: CF-011 concluída; CF-010/012/013/014/015 em revisão por RF15-01–04 e lacunas delimitadas. [Matriz atual por critério](../fechamento-CF-010-CF-015/MATRIZ.md). O conteúdo datado abaixo permanece snapshot histórico; RV24-01/02, RD58 e demais aceites posteriores não são reabertos.
 
 Snapshot documental de 01/10/2026 (America/Sao_Paulo), base `c7f7ffc`.
