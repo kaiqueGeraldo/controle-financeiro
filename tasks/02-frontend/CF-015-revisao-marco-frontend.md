@@ -146,3 +146,9 @@ publicação. CF-016 não foi iniciada nem teve seu estado alterado nesta revis�
 Candidato de saneamento RF15-01–04 preparado com provas anteriores/posteriores e hashes independentes preservados. Não houve autoaprovação. CF-011 continua concluída; CF-010/012/013/014/015 em_revisao. Zoom nativo pendente, RVA-03 inconclusivo, conflitos das provas antigas de datas e resíduos próprios da matriz CF-014 explicitados. Sem onboarding, tarefas posteriores, push, deploy ou banco real.
 
 [Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).
+
+## Saneamento residual do executor — 12/10/2026
+
+Resíduos do parecer cdf0060 tratados localmente: RF15-02 (ocultação imediata), RF15-04 (reatividade do dia local) e detalhes/retorno de foco CF014. Provas originais preservadas; RF15-01/RF15-03 mantêm aceites anteriores. Este registro não concede aprovação: CF010/012/013/014/015 continuam em_revisao e CF011 concluída. Zoom nativo pendente e RVA-03 inconclusivo, sem novos experimentos por ausência de condição técnica/hipótese nova.
+
+[Relatório, matriz residual, capturas e encaminhamento](../evidencias/saneamento-residual-RF15/README.md).

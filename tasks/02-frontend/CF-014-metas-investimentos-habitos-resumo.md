@@ -127,3 +127,9 @@ R01/R04 encerrados no escopo original; nota confirmada verificada por GET, reloa
 RF15-01 corrigido localmente: ação Novo Hábito nomeada no mobile e retorno de foco na criação. Complemento da matriz registrou hoje/concluída, históricos e formulários longos. Detalhes customizados de meta/hábito permanecem sem Escape/semântica de diálogo; investimento termina em BODY após substituir o acionador pelo formulário. Resíduos encaminhados sem ampliar silenciosamente o lote. Estado em_revisao.
 
 [Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).
+
+## Saneamento residual do executor — 12/10/2026
+
+Resíduos do parecer cdf0060 tratados localmente: RF15-02 (ocultação imediata), RF15-04 (reatividade do dia local) e detalhes/retorno de foco CF014. Provas originais preservadas; RF15-01/RF15-03 mantêm aceites anteriores. Este registro não concede aprovação: CF010/012/013/014/015 continuam em_revisao e CF011 concluída. Zoom nativo pendente e RVA-03 inconclusivo, sem novos experimentos por ausência de condição técnica/hipótese nova.
+
+[Relatório, matriz residual, capturas e encaminhamento](../evidencias/saneamento-residual-RF15/README.md).

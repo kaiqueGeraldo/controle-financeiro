@@ -112,3 +112,9 @@ R02/R12 encerrados nos cenários originais. Capturas inspecionadas mostram os re
 RF15-02 e RF15-03 corrigidos localmente: saldo arquivado e exposição acessível protegidos pelo mecanismo compartilhado; detalhe do extrato integrado a teclado/Escape/foco, com moeda extensa mobile. Provas originais vermelhas antes e verdes depois, capturas e regressões anexadas. Estado em_revisao até decisão independente.
 
 [Relatório do executor, matriz, provas e encaminhamento](../evidencias/saneamento-RF15/README.md).
+
+## Saneamento residual do executor — 12/10/2026
+
+Resíduos do parecer cdf0060 tratados localmente: RF15-02 (ocultação imediata), RF15-04 (reatividade do dia local) e detalhes/retorno de foco CF014. Provas originais preservadas; RF15-01/RF15-03 mantêm aceites anteriores. Este registro não concede aprovação: CF010/012/013/014/015 continuam em_revisao e CF011 concluída. Zoom nativo pendente e RVA-03 inconclusivo, sem novos experimentos por ausência de condição técnica/hipótese nova.
+
+[Relatório, matriz residual, capturas e encaminhamento](../evidencias/saneamento-residual-RF15/README.md).

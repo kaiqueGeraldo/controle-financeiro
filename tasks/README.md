@@ -98,3 +98,6 @@ exige reconferência. Gates de adoção real não impedem automaticamente trabal
 em ambiente descartável; nenhuma destas regras permite ignorar dependências.
 
 Se uma investigação não reproduzir um defeito, registrar cenários executados e manter a incerteza. Não inserir alteração especulativa para justificar o fechamento. Defeitos novos recebem ID e tarefa derivada pelo [template](templates/TAREFA.md).
+
+
+Saneamento residual RF15 do executor (12/10/2026): [evidências e matriz](evidencias/saneamento-residual-RF15/README.md). CF010/012/013/014/015 permanecem em_revisao; CF011 concluída. Sem aprovação do marco, onboarding ou tarefas posteriores.
