@@ -38,7 +38,7 @@ export default function InvestimentosScreen() {
   const [correction, setCorrection] = useState<InvestTransaction | null>(null);
   const {refresh} = useFinanceData();
 
-  if (isLoading) {
+  if (isLoading && !selectedInvestment) {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-base">
         <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
@@ -46,7 +46,7 @@ export default function InvestimentosScreen() {
     );
   }
 
-  if (error) {
+  if (error && investments.length === 0) {
     return (
       <div className="min-h-screen bg-bg-base font-sans text-text-main">
         <DataLoadError onRetry={refreshInvestments} />
@@ -84,6 +84,7 @@ export default function InvestimentosScreen() {
 
       {/* CONTEÚDO */}
       <main className="px-6 md:px-8 max-w-5xl mx-auto mt-6">
+        {error && <div role="alert"><DataLoadError onRetry={refreshInvestments} isRetrying={isLoading} /></div>}
         {/* SUMÁRIO */}
         <InvestmentsSummary
           totalInvestido={totalInvestido}
@@ -132,7 +133,7 @@ export default function InvestimentosScreen() {
         asset={selectedInvestment}
         history={history}
         isHistoryLoading={isHistoryLoading}
-        onOperation={(asset) => { setSelectedInvestmentId(null); openOperation(asset); }}
+        onOperation={openOperation}
         onDeleteAsset={(id) => {setSelectedInvestmentId(null);setAssetToDelete(id);}}
         onDeleteHistory={(id) => {const row=history.find(t=>t.id===id);if(row){setCorrection(row);setSelectedInvestmentId(null);}}}
       />

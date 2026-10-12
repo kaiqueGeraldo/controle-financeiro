@@ -7,6 +7,7 @@ import { History, Loader2, Plus, RefreshCw, Trash2, X } from "lucide-react";
 import React from "react";
 import { BadgeTipo, getAssetColor, getAssetIcon } from "./investmentItem";
 import {InvestmentCorrections} from "./investmentCorrections";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 interface InvestmentDetailsProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ export function InvestmentDetails({
   onDeleteAsset,
   onDeleteHistory,
 }: InvestmentDetailsProps) {
+  const dialogRef = useDialogFocus(isOpen && !!asset, onClose);
   if (!asset) return null;
 
   const saldoAtual = asset.valuationAmount ?? null;
@@ -53,6 +55,11 @@ export function InvestmentDetails({
           {/* Card Modal (Shared Element) */}
           <motion.div
             layoutId={`card-ativo-${asset.id}`}
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalhes do investimento ${asset.ticker}`}
+            tabIndex={-1}
             className="w-full max-w-lg bg-bg-surface border border-border-divider rounded-3xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col z-10"
           >
             <div className="absolute top-4 right-4 flex gap-2 z-20">
@@ -69,6 +76,9 @@ export function InvestmentDetails({
                   e.stopPropagation();
                   onClose();
                 }}
+                type="button"
+                data-dialog-close
+                aria-label="Fechar detalhe do investimento"
                 className="p-2 bg-black/20 hover:bg-black/40 rounded-full text-text-main transition cursor-pointer"
               >
                 <X size={16} />

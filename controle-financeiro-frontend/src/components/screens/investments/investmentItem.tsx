@@ -61,6 +61,16 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
       <motion.div 
         layoutId={`card-ativo-${asset.id}`}
         onClick={() => !user?.privacyMode && onClick(asset.id)}
+        role="button"
+        tabIndex={user?.privacyMode ? -1 : 0}
+        aria-disabled={user?.privacyMode || undefined}
+        aria-label={`Ver detalhes do investimento ${asset.ticker}`}
+        onKeyDown={(event) => {
+          if (!user?.privacyMode && event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) {
+            event.preventDefault();
+            onClick(asset.id);
+          }
+        }}
         className={`bg-bg-surface border border-border-divider rounded-2xl p-5 group transition-all relative overflow-hidden h-full flex flex-col justify-between ${user?.privacyMode ? 'cursor-default' : 'cursor-pointer hover:border-border-divider hover:shadow-xl'}`}
       >
         {/* Topo */}
