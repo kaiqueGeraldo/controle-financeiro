@@ -17,11 +17,13 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { PrivacyBlur } from "../ui/privacyBlur";
 import { useCreationIntent } from "@/hooks/useCreationIntent";
 import { CreationRecovery } from "./creationRecovery";
 import type { CreationCommand } from "@/services/creationIntent";
+import { useUser } from "@/hooks/useUser";
+import { subscribeToSessionChange } from "@/actions/sessionBoundary";
 
 interface OperationModalProps {
   isOpen: boolean;
@@ -41,8 +43,11 @@ export function OperationModal({
   asset,
 }: OperationModalProps) {
   const { accounts } = useFinanceData();
+  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
-  const submitting = useRef(false);
+  const submitting = useRef<symbol | null>(null);
+  const visualInstance = useRef({ active: false });
+  const session = useRef({ active: false });
   const [activeTab, setActiveTab] = useState<TabType>("BUY");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -58,7 +63,46 @@ export function OperationModal({
     if (!("investmentId" in command)) throw new Error("Tipo de intenção inválido.");
     return investmentService.operation(command);
   };
-  const confirmed = () => { onSuccess(); onClose(); };
+
+  // Visual replacement must not invalidate the durable financial intention.
+  // Session/unmount invalidation also covers valuation, which has no creation receipt.
+  useLayoutEffect(() => {
+    const scope = { active: true };
+    session.current = scope;
+    const invalidate = () => { scope.active = false; };
+    window.addEventListener("sessionExpired", invalidate);
+    const unsubscribe = subscribeToSessionChange(invalidate);
+    return () => { invalidate(); unsubscribe(); window.removeEventListener("sessionExpired", invalidate); };
+  }, [user?.id]);
+
+  useLayoutEffect(() => {
+    const instance = { active: isOpen && !!asset?.id };
+    visualInstance.current = instance;
+    submitting.current = null;
+    setIsLoading(false);
+    return () => { instance.active = false; };
+  }, [isOpen, asset?.id, user?.id]);
+
+  const captureExecution = () => {
+    const scope = session.current;
+    const instance = visualInstance.current;
+    return {
+      sessionCurrent: () => scope.active && session.current === scope,
+      visualCurrent: () => scope.active && session.current === scope &&
+        instance.active && visualInstance.current === instance,
+    };
+  };
+  const close = () => { visualInstance.current.active = false; onClose(); };
+  const recoverOrRetry = async (action: () => ReturnType<typeof intent.recover>) => {
+    const execution = captureExecution();
+    const command = intent.pending?.command;
+    const belongsToAsset = command && "investmentId" in command && command.investmentId === asset?.id;
+    const outcome = await action();
+    if (outcome === "confirmed" && execution.sessionCurrent()) {
+      onSuccess();
+      if (belongsToAsset && execution.visualCurrent()) close();
+    }
+  };
 
   const selectedAccountBalance =
     accounts.find((a) => a.id === accountId)?.balance || 0;
@@ -70,8 +114,9 @@ export function OperationModal({
       initializedAsset.current = null;
       return;
     }
-    if (!asset || initializedAsset.current === asset.id) return;
-    initializedAsset.current = asset.id;
+    const assetKey = `${user?.id}:${asset?.id}`;
+    if (!asset || initializedAsset.current === assetKey) return;
+    initializedAsset.current = assetKey;
     if (isOpen && asset) {
       setActiveTab(isFixedIncome ? "UPDATE_BALANCE" : "BUY");
       setQuantity("");
@@ -82,12 +127,15 @@ export function OperationModal({
       setDate(localDateString());
       setIsLoading(false);
     }
-  }, [isOpen, asset, accounts, isFixedIncome]);
+  }, [isOpen, asset, accounts, isFixedIncome, user?.id]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (!asset || submitting.current || intent.pending || intent.blocked || intent.busy) return;
-    submitting.current = true;
+    const execution = captureExecution();
+    if (!execution.visualCurrent()) return;
+    const submission = Symbol("investment execution");
+    submitting.current = submission;
     setIsLoading(true);
 
     try {
@@ -127,22 +175,22 @@ export function OperationModal({
           fees: Number(fees || 0),
         }, send, `${asset.ticker} — ${activeTab}`);
         if (success !== "confirmed") {
-          if (success === "unknown" || success === "rejected") await onReconcile?.();
+          if (execution.sessionCurrent() && (success === "unknown" || success === "rejected")) await onReconcile?.();
           return;
         }
       }
 
-      onSuccess();
-      onClose();
+      if (execution.sessionCurrent()) onSuccess();
+      if (execution.visualCurrent()) close();
     } catch (error: unknown) {
-      toast.error(error instanceof Error ? error.message : "Erro ao realizar operação.");
+      if (execution.visualCurrent()) toast.error(error instanceof Error ? error.message : "Erro ao realizar operação.");
 
-      if (error instanceof ApiError && error.requiresReconciliation) {
+      if (execution.sessionCurrent() && error instanceof ApiError && error.requiresReconciliation) {
         await onReconcile?.();
       }
     } finally {
-      submitting.current = false;
-      setIsLoading(false);
+      if (submitting.current === submission) submitting.current = null;
+      if (execution.visualCurrent()) setIsLoading(false);
     }
   };
 
@@ -260,13 +308,13 @@ export function OperationModal({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={close}
       title={`${asset.ticker} - Operação`}
     >
       <div className="space-y-5 mt-1">
         <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
-          recover={() => { void intent.recover().then(outcome => { if (outcome === "confirmed") confirmed(); }); }}
-          retry={() => { void intent.retry(send).then(outcome => { if (outcome === "confirmed") confirmed(); }); }} />
+          recover={() => { void recoverOrRetry(intent.recover); }}
+          retry={() => { void recoverOrRetry(() => intent.retry(send)); }} />
         <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-5">
         {/* TABS DE OPERAÇÃO */}
         <div className="flex bg-bg-base p-1 rounded-xl border border-border-divider overflow-x-auto custom-scroll">
