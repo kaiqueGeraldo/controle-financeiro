@@ -1,0 +1,29 @@
+import {act, fireEvent, render, screen} from '@testing-library/react';
+import {expect, test, vi} from 'vitest';
+import {OperationModal} from '@/components/forms/operationModal';
+
+vi.mock('@/hooks/useUser',()=>({useUser:()=>({user:{id:'residual-review-owner'}})}));
+vi.mock('@/contexts/toastContext',()=>({useToast:()=>({error:vi.fn()})}));
+vi.mock('@/hooks/useFinanceData',()=>({useFinanceData:()=>({accounts:[{id:'account',balance:1000}]})}));
+const asset={id:'asset-A',name:'Ativo A',ticker:'REVISA',type:'OTHER' as const,quantity:0,averagePrice:0,currentPrice:0};
+
+test('CF014: close A and reopen B rejects callbacks from the previous operation instance',async()=>{
+  sessionStorage.clear();
+  let finish!:(value:Response)=>void;
+  const fetch=vi.fn().mockReturnValue(new Promise<Response>(r=>{finish=r;}));vi.stubGlobal('fetch',fetch);
+  const callbacks={onSuccess:vi.fn(),onClose:vi.fn(),onReconcile:vi.fn()};
+  const view=render(<OperationModal isOpen asset={asset} {...callbacks}/>);
+  fireEvent.change(screen.getByPlaceholderText('0'),{target:{value:'2'}});
+  fireEvent.change(screen.getByPlaceholderText('0,00'),{target:{value:'10'}});
+  act(()=>fireEvent.submit(view.container.querySelector('form')!));
+  const key='cf-creation:v1:residual-review-owner:INVESTMENT_OPERATION';
+  const saved=sessionStorage.getItem(key)!;const command=JSON.parse(saved).command;
+  view.rerender(<OperationModal isOpen={false} asset={null} {...callbacks}/>);
+  view.rerender(<OperationModal isOpen asset={{...asset,id:'asset-B',ticker:'REVISB'}} {...callbacks}/>);
+  await act(async()=>finish(new Response(JSON.stringify({id:'10000000-0000-4000-8000-000000000002',type:'BUY',date:command.date,dateOrigin:'USER_INPUT',quantity:2,price:10,totalValue:20,fees:0,costDelta:20,realizedResult:null}))));
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect.soft(callbacks.onClose).not.toHaveBeenCalled();
+  expect.soft(callbacks.onSuccess).not.toHaveBeenCalled();
+  expect.soft(callbacks.onReconcile).not.toHaveBeenCalled();
+  expect.soft(sessionStorage.getItem(key)).toBe(saved);
+});
