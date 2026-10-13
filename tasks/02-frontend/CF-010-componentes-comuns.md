@@ -8,7 +8,13 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
-## Revalidação independente vigente — 12/10/2026
+## Parecer independente vigente — 13/10/2026
+
+Estado `em_revisao`: RF15-02 encerrado; foco/scroll compartilhados e privacidade liberados nos recortes comprovados. Resta zoom nativo 200% no critério de reflow/alcance de ações. O P2 de ciclo visual de operação pertence ao consumidor CF014. Não bloqueia genericamente CF012.
+
+[Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.
+
+## Revalidação independente anterior — 12/10/2026
 
 Estado `em_revisao`: zoom nativo200 continua sem prova suportada; RF15-02 conserva exposição visual transitória no componente PrivacyBlur. Hook compartilhado e consumidores examinados aprovados no recorte, sem imputar ao hook os detalhes customizados CF014.
 
@@ -48,9 +54,9 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [ ] Em 360px, zoom 200% e teclado, ações essenciais seguem alcançáveis; texto não sobrepõe valores/botões.
-- [ ] Modal aberto mantém foco coerente; fechar devolve foco; área rolável não esconde confirmação.
-- [ ] Comparar antes/depois em claro/escuro; snapshots não mascaram a geometria corrigida.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Modal aberto mantém foco coerente; fechar devolve foco; área rolável não esconde confirmação.
+- [x] Comparar antes/depois em claro/escuro; snapshots não mascaram a geometria corrigida.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 

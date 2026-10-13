@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Revalidação independente vigente — 12/10/2026
+## Parecer independente vigente — 13/10/2026
+
+Estado `em_revisao`: RF15-04 encerrado, com virada do dia, foco e visibilidade separados, competência preservada e cleanup. Demais aceites de lista longa/valores/status real mantidos. Resta RVA-03, investigação inconclusiva da recuperação após commit, sem nova hipótese ou novos pagamentos.
+
+[Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.
+
+## Revalidação independente anterior — 12/10/2026
 
 Estado `em_revisao`: datas civis persistidas/DEC-03, fusos, parcial e PAID real/reload aprovados. RF15-04 permanece aberto somente pelo atraso desatualizado com fatura aberta atravessando meia-noite/foco. Três expectativas antigas corrigidas em teste com contraprova; seleção ampla115/115. RVA-03 continua causalmente inconclusivo, sem repetir pagamento sem hipótese nova.
 
@@ -59,10 +65,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Mesma competência permanece selecionada e datas não recuam; status após operação é confirmado pela API/reload.
-- [ ] Valores extensos e lista longa não escondem ação de pagamento em mobile.
+- [x] Mesma competência permanece selecionada e datas não recuam; status após operação é confirmado pela API/reload.
+- [x] Valores extensos e lista longa não escondem ação de pagamento em mobile.
 - [ ] Falha ou conflito conserva estado recuperável; snapshot é inspecionado e ligado ao defeito.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 

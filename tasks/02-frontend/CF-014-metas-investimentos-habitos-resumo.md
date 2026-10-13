@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Revalidação independente vigente — 12/10/2026
+## Parecer independente vigente — 13/10/2026
+
+Estado `em_revisao`: resíduos originais de Escape/semântica/foco, detalhe de investimento e edição indevida de hábito encerrados. P2 confirmado no recorte adicional do ciclo visual (vínculo RVR24-02): resposta tardia de A fecha formulário B; um único efeito financeiro correto. Ocorrência opacity0 no histórico continua inconclusiva apesar de reprodução isolada aprovada. RJ-022-01/H24-01 e validação histórica de descrição não encerrados por associação.
+
+[Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.
+
+## Revalidação independente anterior — 12/10/2026
 
 Estado `em_revisao`: RF15-01 encerrado para ação/criação mobile e foco. Metas hoje/concluída, formulários/históricos longos tiveram complemento dirigido. Impedimentos confirmados: Escape/semântica dos detalhes de meta/hábito e retorno de foco perdido na transição de investimento. Não confundir esses consumidores com os RF15-01/03 encerrados. RJ02201/H24-01 permanecem separados sob CF022.
 
@@ -69,10 +75,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Meta concluída e vencendo hoje apresentam status esperado; gráfico vazio não representa erro como ausência de patrimônio.
+- [x] Meta concluída e vencendo hoje apresentam status esperado; gráfico vazio não representa erro como ausência de patrimônio.
 - [ ] Calendário de hábito e histórico preservam data; modais longos continuam operáveis.
-- [ ] Nota anual salva sobrevive ao reload; posição atual exibida em ano passado é encaminhada a CF-021, sem snapshot legitimando ambiguidade.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Nota anual salva sobrevive ao reload; posição atual exibida em ano passado é encaminhada a CF-021, sem snapshot legitimando ambiguidade.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 

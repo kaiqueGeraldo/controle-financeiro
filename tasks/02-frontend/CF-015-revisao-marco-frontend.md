@@ -8,7 +8,13 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
-## Revalidação independente vigente — 12/10/2026
+## Parecer independente vigente — 13/10/2026
+
+Estado `em_revisao`: RF15-02/04 e resíduos originais CF014 encerrados; CF012 concluída e CF011 preservada. Faltam zoom nativo, investigação RVA-03 e resíduo CF014 (P2 de ciclo visual A→B, mais ocorrência de opacidade inconclusiva). Não restam somente verificações faltantes; há defeito confirmado. Critérios originais do marco preservados.
+
+[Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.
+
+## Revalidação independente anterior — 12/10/2026
 
 Estado `em_revisao`: RF15-01/03 encerrados; RF15-02/04 parcialmente saneados com resíduos reproduzidos; resíduos CF014, zoom e RVA-03 delimitados. Nenhuma nova tarefa integralmente concluída; CF011 permanece concluída. Aceites CF005–009/RV24/CF025–028 preservados, sem veto automático de CF017 nem início de onboarding.
 

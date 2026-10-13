@@ -1,6 +1,6 @@
 # CF-012 — Auditar e corrigir dashboard, contas e extrato
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -8,7 +8,13 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Revalidação independente vigente — 12/10/2026
+## Parecer independente vigente — 13/10/2026
+
+Estado `concluida`: RF15-02 encerrado durante a transição, além do aceite RF15-03. Datas/moeda/privacidade, erro/retry e filtro/página/total global atendem aos critérios completos com os aceites anteriores. Zoom compartilhado CF010/015 e RVA-03 CF013 não impedem esta conclusão.
+
+[Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.
+
+## Revalidação independente anterior — 12/10/2026
 
 Estado `em_revisao`: RF15-03 encerrado no detalhe do extrato (teclado, Escape, retorno e descarte). RF15-02 parcialmente saneado: contas arquivadas e árvore acessível protegidas no estado estável, mas resumo expõe valores durante animação inicial. Moeda negativa/extensa, reload e demais aceites anteriores preservados.
 
@@ -61,7 +67,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente (validação visual autenticada pendente).
+- [x] Datas de lista/detalhe concordam; moeda/privacidade não cortam ou revelam valores indevidamente.
 - [x] Erro de API não aparece como saldo zero ou lista vazia legítima; retry funciona.
 - [x] Filtro/página não altera indevidamente a interpretação do total; divergência de cálculo tem achado separado (F-018 → CF-021).
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
