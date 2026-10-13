@@ -6,6 +6,8 @@ Estas são tarefas versionadas no repositório, abrangendo frontend e backend. C
 
 ## Situação vigente CF-010–CF-015 — 13/10/2026
 
+Candidato posterior do executor: [saneamento exclusivo do P2 de ciclo visual CF014, vínculo RVR24-02](evidencias/saneamento-RVR24-02-ciclo-visual/README.md), base cbbf58d. Aguardando revalidação dirigida, sem alterar os aceites/estados independentes abaixo.
+
 Revalidação independente de a991114: RF15-02/04 e resíduos originais CF014 encerrados; **CF012 concluída**, CF011 preservada. CF010 segue por zoom nativo; CF013 por RVA-03 inconclusivo; CF014 por P2 confirmado de resposta tardia A→B e ocorrência visual inconclusiva; CF015 conserva essas pendências específicas. [Parecer, critérios completos e próximo trabalho delimitado](evidencias/revalidacao-residual-RF15/README.md). Sem alteração de produto ou aceite global por associação.
 
 ## Situação anterior CF-010–CF-015 — 12/10/2026

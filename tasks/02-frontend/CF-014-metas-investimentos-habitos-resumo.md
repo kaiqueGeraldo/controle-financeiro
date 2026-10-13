@@ -8,6 +8,12 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
+## Candidato do executor — ciclo visual, 13/10/2026
+
+P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02): correção local vincula fechamento/loading/erro à instância visual que iniciou a execução, conservando recibo e atualização financeira legítimos de A. Base cbbf58d; provas independentes preservadas, sem reabrir os resíduos já encerrados. Aguarda revalidação dirigida; estado em_revisao. Opacidade do histórico continua investigação separada.
+
+[Causa, identidades, provas e encaminhamento](../evidencias/saneamento-RVR24-02-ciclo-visual/README.md).
+
 ## Parecer independente vigente — 13/10/2026
 
 Estado `em_revisao`: resíduos originais de Escape/semântica/foco, detalhe de investimento e edição indevida de hábito encerrados. P2 confirmado no recorte adicional do ciclo visual (vínculo RVR24-02): resposta tardia de A fecha formulário B; um único efeito financeiro correto. Ocorrência opacity0 no histórico continua inconclusiva apesar de reprodução isolada aprovada. RJ-022-01/H24-01 e validação histórica de descrição não encerrados por associação.

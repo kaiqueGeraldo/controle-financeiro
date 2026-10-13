@@ -1,0 +1,147 @@
+npm notice run controle-financeiro@0.1.0 test:component
+npm notice run vitest run --config tests/component/vitest.config.mts rvr24-visual-instance
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/rvr24-visual-instance.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt B 490ms
+   → expected "vi.fn()" to be called +0 times, but got 1 times
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt ABA 165ms
+   → expected "vi.fn()" to be called +0 times, but got 1 times
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt reopen 94ms
+   → expected "vi.fn()" to be called +0 times, but got 1 times
+ ✓ tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt normal 117ms
+ ✓ tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt unmount 81ms
+ ✓ tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt owner 109ms
+ ✓ tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt ownerABA 146ms
+ ✓ tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt expired 171ms
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: unknown A survives; late recover resolves receipt without closing B 262ms
+   → expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array []
+
+
+Number of calls: 1
+
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: unknown A survives; late retry resolves receipt without closing B 207ms
+   → expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array []
+
+
+Number of calls: 1
+
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late error preserves unknown A and authenticated recovery from B 276ms
+   → expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array []
+
+
+Number of calls: 1
+
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: B draft/loading survive late valuation A success 225ms
+   → expected false to be true // Object.is equality
+ × tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: B draft/loading survive late valuation A error 210ms
+   → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt B
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt ABA
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late receipt reopen
+AssertionError: expected "vi.fn()" to be called +0 times, but got 1 times
+ ❯ tests/component/rvr24-visual-instance.test.tsx:39:21
+     37|   expect(fetch).toHaveBeenCalledTimes(1);
+     38|   expect(v.onSuccess).toHaveBeenCalledTimes(invalidSession?0:1);
+     39|   expect(v.onClose).toHaveBeenCalledTimes(mode==='normal'?1:0);
+       |                     ^
+     40|   expect(sessionStorage.getItem(key)).toBe(invalidSession?saved:null);
+     41|   if(['B','ABA','reopen'].includes(mode)) expect(screen.getByRole('dia…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: unknown A survives; late recover resolves receipt without closing B
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: unknown A survives; late retry resolves receipt without closing B
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array []
+
+
+Number of calls: 1
+
+ ❯ tests/component/rvr24-visual-instance.test.tsx:52:70
+     50|   v.show(null);v.show('B');
+     51|   await act(async()=>d.resolve(new Response(JSON.stringify(action==='r…
+     52|   expect(v.onSuccess).toHaveBeenCalledTimes(1);expect(v.onClose).not.t…
+       |                                                                      ^
+     53|   expect(sessionStorage.getItem(key)).toBeNull();expect(screen.getByRo…
+     54|   if(action==='retry') expect(JSON.parse(fetch.mock.calls[1][1].body))…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: late error preserves unknown A and authenticated recovery from B
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array []
+
+
+Number of calls: 1
+
+ ❯ tests/component/rvr24-visual-instance.test.tsx:70:25
+     68|   expect(v.onSuccess).toHaveBeenCalledTimes(1);
+     69|   // Resolving A explicitly from B must not treat the result as B's su…
+     70|   expect(v.onClose).not.toHaveBeenCalled();expect(sessionStorage.getIt…
+       |                         ^
+     71|   expect(fetch.mock.calls.filter(([,options])=>options.method==='POST'…
+     72| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: B draft/loading survive late valuation A success
+ FAIL  tests/component/rvr24-visual-instance.test.tsx > RVR24-02 visual: B draft/loading survive late valuation A error
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/component/rvr24-visual-instance.test.tsx:80:71
+     78|   await act(async()=>outcome==='success'?a.resolve(new Response('{}'))…
+     79|   expect((input as HTMLInputElement).value).toBe('47');expect(screen.g…
+     80|   expect((input.closest('fieldset') as HTMLFieldSetElement).disabled).…
+       |                                                                       ^
+     81|   expect(v.onClose).not.toHaveBeenCalled();expect(toast.error).not.toH…
+     82|   await act(async()=>b.resolve(new Response('{}')));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 5 passed (13)
+   Start at  15:22:47
+   Duration  5.41s (transform 342ms, setup 322ms, import 1.12s, tests 2.56s, environment 950ms)
+
