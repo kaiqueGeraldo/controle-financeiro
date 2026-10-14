@@ -8,13 +8,19 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Parecer independente vigente — 14/10/2026
+
+O achado **P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02)** está encerrado, sem aprovar o marco por associação. Estado `em_revisao`: zoom nativo200 não verificado, RVA-03 inconclusivo e histórico invisível CF014 continuam pendências específicas. Dois timeouts históricos seguem causalmente inconclusivos, sem impedir o aceite deste P2: seleção ampla independente219/219 e cleanup dirigido aprovados. CF011/012 e RF15-01–04 preservados.
+
+[Modelo de identidade, matriz, interface/SQL, timeouts e resultados](../evidencias/revalidacao-RVR24-02-ciclo-visual/README.md). Base cbbf58d..0f9beb1; esta decisão supera as notas anteriores somente no recorte examinado. Nenhuma correção de produto nesta revisão.
+
 ## Candidato do executor — ciclo visual, 13/10/2026
 
 Saneamento delimitado do P2 de CF014 (vínculo RVR24-02), base cbbf58d, preparado para o mesmo revisor. Não concede aceite do marco: CF014/015 seguem em_revisao; CF011/012 e RF15-01/02/03/04 preservados. Zoom, RVA-03 e ocorrência de histórico invisível não encerrados por associação. Sem onboarding ou tarefas posteriores.
 
 [Causa, identidades, provas e encaminhamento](../evidencias/saneamento-RVR24-02-ciclo-visual/README.md).
 
-## Parecer independente vigente — 13/10/2026
+## Parecer independente anterior — 13/10/2026
 
 Estado `em_revisao`: RF15-02/04 e resíduos originais CF014 encerrados; CF012 concluída e CF011 preservada. Faltam zoom nativo, investigação RVA-03 e resíduo CF014 (P2 de ciclo visual A→B, mais ocorrência de opacidade inconclusiva). Não restam somente verificações faltantes; há defeito confirmado. Critérios originais do marco preservados.
 

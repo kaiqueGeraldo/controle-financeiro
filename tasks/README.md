@@ -4,7 +4,11 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente CF-010–CF-015 — 13/10/2026
+## Situação vigente CF-010–CF-015 — 14/10/2026
+
+Encerrado independentemente o **P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02)** em0f9beb1. CF014 continua em_revisao pela investigação específica de histórico invisível; CF015 conserva essa pendência, zoom nativo e RVA-03. CF011/012 e RF15-01–04 preservados. Nenhuma nova tarefa integralmente concluída. Seleção ampla219/219; os dois timeouts anteriores continuam inconclusivos quanto à causa, sem novo bloqueio por associação. [Parecer, provas e próximo passo restrito](evidencias/revalidacao-RVR24-02-ciclo-visual/README.md).
+
+## Situação anterior CF-010–CF-015 — 13/10/2026
 
 Candidato posterior do executor: [saneamento exclusivo do P2 de ciclo visual CF014, vínculo RVR24-02](evidencias/saneamento-RVR24-02-ciclo-visual/README.md), base cbbf58d. Aguardando revalidação dirigida, sem alterar os aceites/estados independentes abaixo.
 

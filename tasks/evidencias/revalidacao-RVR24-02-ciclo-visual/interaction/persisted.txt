@@ -1,0 +1,22 @@
+Namespace: closure-675b7ee0
+Flyway versions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+select u.email,r.id as operation_id,r.kind,r.result_json from financial_intent_receipts r join users u on u.id=r.user_id where u.email like ? order by u.email,r.id
+[{email=cf003-a-closure-675b7ee0-late-recovery@example.invalid, operation_id=76452896-b43a-479f-97e8-b25a6af17663, kind=INVESTMENT_OPERATION, result_json={"id":"03b51ac4-5d7b-4468-ba9e-1276a0b52e3d","type":"BUY","date":"2027-01-15","quantity":2,"price":10,"totalValue":20.00,"fees":0,"costDelta":20.00,"realizedResult":null,"dateOrigin":"USER_INPUT","legacyDateRaw":"2027-01-15T00:00:00"}}]
+select u.email,t.id,t.investment_id,t.bank_transaction_id,t.quantity,t.total_value from invest_transactions t join investments i on i.id=t.investment_id join users u on u.id=i.user_id where u.email like ? order by u.email,t.id
+[{email=cf003-a-closure-675b7ee0-late-recovery@example.invalid, id=03b51ac4-5d7b-4468-ba9e-1276a0b52e3d, investment_id=eed8b8f9-9405-407c-a75d-2d4e9ef10b9e, bank_transaction_id=35b1d978-f6b0-4c68-b26a-73dd59793ff9, quantity=2.00000000, total_value=20.00}]
+select p.amount,p.is_prepayment,p.payment_date,p.created_at,p.bank_transaction_id from card_payments p join invoices i on i.id=p.invoice_id join credit_cards c on c.id=i.card_id join users u on u.id=c.user_id where u.email like ? order by p.amount
+[]
+select a.name,a.balance,a.opening_balance,a.is_archived from accounts a join users u on u.id=a.user_id where u.email like ? order by a.name
+[{name=Carteira Física, balance=0.00, opening_balance=0.00, is_archived=false}, {name=Conta ciclo, balance=980.00, opening_balance=1000.00, is_archived=false}]
+select t.description,t.amount,t.date,t.type,t.origin,t.status,t.settlement_of_id,t.reversal_of_id from transactions t join users u on u.id=t.user_id where u.email like ? order by t.description,t.origin
+[{description=Aporte: CICLOA, amount=20.00, date=2027-01-15, type=EXPENSE, origin=INVESTMENT_BUY, status=SETTLED, settlement_of_id=null, reversal_of_id=null}]
+select c.name,i.month,i.year,i.status,ct.amount,ct.paid_amount,ct.refunded_amount from card_transactions ct join invoices i on i.id=ct.invoice_id join credit_cards c on c.id=i.card_id join users u on u.id=c.user_id where u.email like ? order by c.name,i.year,i.month
+[]
+select g.title,g.current_value,a.amount from goals g left join goal_allocations a on a.goal_id=g.id join users u on u.id=g.user_id where u.email like ?
+[]
+select i.name,i.quantity,i.total_cost,i.valuation_amount from investments i join users u on u.id=i.user_id where u.email like ?
+[{name=Ciclo A, quantity=2.00000000, total_cost=20.00, valuation_amount=null}, {name=Ciclo B, quantity=0E-8, total_cost=0.00, valuation_amount=null}]
+select c.original_id,c.cash_delta,c.realized_delta,c.returned_fees,c.reason,c.recorded_at from investment_corrections c join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[]
+select r.transaction_id,r.cost_delta,r.realized_result from investment_cost_revisions r join investment_corrections c on c.id=r.correction_id join investments i on i.id=c.investment_id join users u on u.id=i.user_id where u.email like ?
+[]
