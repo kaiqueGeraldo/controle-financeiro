@@ -10,6 +10,14 @@
 
 ## Parecer independente vigente — 14/10/2026
 
+Diagnóstico dirigido posterior do executor, base8096b22: a ocorrência sustentada
+de histórico `opacity: 0` por15s foi atribuída ao relógio do harness, com
+contraprova por timeline WAAPI, fixture SQL preexistente, API/estado/DOM e
+capturas/interação. Ajuste localizado de harness, produto intacto. Não é novo
+aceite independente: estado/checkboxes preservados; encaminhar a causa e o
+ajuste a outra revisão e confrontar o critério completo antes de encerrar.
+[Diagnóstico, falhas preservadas e limites](../evidencias/investigacao-CF014-historico-invisivel/README.md).
+
 O achado **P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02)** está encerrado. Provas originais intactas e complementos confirmam isolamento de B/nova A, execução ativa, UUID/recibo/recuperação de A e formulário utilizável. Estado `em_revisao` mantido exclusivamente pela ocorrência inconclusiva de histórico invisível no critério de histórico/modais operáveis. Demais critérios e aceites acumulados preservados; não houve novo defeito confirmado neste recorte.
 
 [Modelo de identidade, matriz, interface/SQL, timeouts e resultados](../evidencias/revalidacao-RVR24-02-ciclo-visual/README.md). Base cbbf58d..0f9beb1; esta decisão supera as notas anteriores somente no recorte examinado. Nenhuma correção de produto nesta revisão.

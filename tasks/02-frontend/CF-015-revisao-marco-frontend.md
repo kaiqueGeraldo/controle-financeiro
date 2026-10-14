@@ -10,6 +10,13 @@
 
 ## Parecer independente vigente — 14/10/2026
 
+Diagnóstico dirigido posterior do executor sobre o histórico CF014 identifica
+divergência de origem temporal do harness/WAAPI e prepara ajuste apenas de
+teste; produto e aceites anteriores preservados. Aguarda decisão independente
+sobre o recorte e seu critério acumulado; CF015 continua `em_revisao`, sem
+liberação automática, investigação de RVA-03, zoom ou timeouts nesta rodada.
+[Provas e condições de encerramento](../evidencias/investigacao-CF014-historico-invisivel/README.md).
+
 O achado **P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02)** está encerrado, sem aprovar o marco por associação. Estado `em_revisao`: zoom nativo200 não verificado, RVA-03 inconclusivo e histórico invisível CF014 continuam pendências específicas. Dois timeouts históricos seguem causalmente inconclusivos, sem impedir o aceite deste P2: seleção ampla independente219/219 e cleanup dirigido aprovados. CF011/012 e RF15-01–04 preservados.
 
 [Modelo de identidade, matriz, interface/SQL, timeouts e resultados](../evidencias/revalidacao-RVR24-02-ciclo-visual/README.md). Base cbbf58d..0f9beb1; esta decisão supera as notas anteriores somente no recorte examinado. Nenhuma correção de produto nesta revisão.

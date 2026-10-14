@@ -6,6 +6,11 @@ Estas são tarefas versionadas no repositório, abrangendo frontend e backend. C
 
 ## Situação vigente CF-010–CF-015 — 14/10/2026
 
+Diagnóstico posterior do executor, base8096b22: [histórico invisível CF014](evidencias/investigacao-CF014-historico-invisivel/README.md)
+atribuído ao relógio do harness por contraprova causal e fixture persistida;
+ajuste somente de teste. Aguarda revisão independente, sem concluir CF014/015
+ou alterar os aceites abaixo.
+
 Encerrado independentemente o **P2 confirmado — CF014, ciclo visual da operação (vínculo RVR24-02)** em0f9beb1. CF014 continua em_revisao pela investigação específica de histórico invisível; CF015 conserva essa pendência, zoom nativo e RVA-03. CF011/012 e RF15-01–04 preservados. Nenhuma nova tarefa integralmente concluída. Seleção ampla219/219; os dois timeouts anteriores continuam inconclusivos quanto à causa, sem novo bloqueio por associação. [Parecer, provas e próximo passo restrito](evidencias/revalidacao-RVR24-02-ciclo-visual/README.md).
 
 ## Situação anterior CF-010–CF-015 — 13/10/2026
