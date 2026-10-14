@@ -3,8 +3,16 @@ import {expect,test,type Page} from '@playwright/test';
 import {writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {registerSyntheticUser,syntheticUser} from './support/synthetic-auth';
+import {setCivilDateOnly} from './support/civil-date-clock';
 const dir=process.env.CF_REVIEW_EVIDENCE!;
-async function start(page:Page,key:string){await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));await registerSyntheticUser(page,syntheticUser('A',process.env.CF_E2E_NAMESPACE+'-'+key));await page.setViewportSize({width:360,height:800});}
+async function start(page:Page,key:string){
+ const date=new Date('2027-01-15T12:00:00Z');
+ // History's WAAPI fade needs the native performance/document timeline origin.
+ if(key==='investment')await setCivilDateOnly(page,date);
+ else await page.clock.setFixedTime(date);
+ await registerSyntheticUser(page,syntheticUser('A',process.env.CF_E2E_NAMESPACE+'-'+key));
+ await page.setViewportSize({width:360,height:800});
+}
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post('/api'+url,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 async function shot(page:Page,name:string){for(const dialog of await page.getByRole('dialog').all())await expect(dialog).toHaveCSS('opacity','1');await settleVisual(page);await page.screenshot({path:path.join(dir,name+'.png')});}
 
