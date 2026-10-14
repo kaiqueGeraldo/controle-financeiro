@@ -115,7 +115,15 @@ for(const mode of ['playwright-clock','native','civil-date-only'] as const){
       expect(Number(initial.animations[0].currentTime)).toBeLessThan(-20000);
       expect(final.ancestors[0].opacity).toBe('0');
     }else{
-      expect(final.ancestors.every(a=>a.opacity==='1'&&a.visibility==='visible'&&a.display!=='none')).toBe(true);
+      // History and its parent modal animate independently. Observe their completion,
+      // retaining the same exact paint predicate and existing expect timeout.
+      await expect.poll(async()=>{
+        const state=await observation(page);
+        return state.ancestors.every(a=>a.opacity==='1'&&a.visibility==='visible'&&a.display!=='none');
+      }).toBe(true);
+      const settled=await observation(page);
+      await writeFile(path.join(dir,mode+'-causal-settled.json'),JSON.stringify(settled,null,2));
+      await page.screenshot({path:path.join(dir,mode+'-causal-settled.png')});
       await page.getByText('Compra',{exact:true}).first().click();
       const last=page.getByTitle('Compensar operação').last();
       await last.scrollIntoViewIfNeeded();await last.focus();
