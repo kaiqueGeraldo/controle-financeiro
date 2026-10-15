@@ -1,6 +1,6 @@
 # CF-014 — Auditar metas, investimentos, hábitos e resumo anual
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -8,7 +8,21 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Parecer independente vigente — 14/10/2026
+## Parecer independente vigente — histórico, 14/10/2026
+
+**CF-014 concluída.** Causa do histórico invisível demonstrada por contraprova:
+Clock acumula tempo entre documentos, Motion inicia WAAPI no futuro e mantém
+opacity0. Date fixa específica do cenário preserva o contrato e a timeline nativa.
+HTTP/React/DOM8, pintura, scroll/foco, Escape/reabertura/reload e banco inalterado
+comprovados independentemente. Todos os critérios acumulados satisfeitos;
+P2 ciclo visual e demais aceites preservados. A falha de sincronização do probe
+nativo foi preservada e corrigida separadamente; controles finais3/3.
+
+[Parecer A–E, matriz vigente, provas e limites](../evidencias/revalidacao-CF014-historico-invisivel/README.md).
+CF015 continua em_revisao por zoom nativo e RVA-03. Outras capturas/timeouts
+históricos não encerrados por associação. Nenhuma alteração de produto.
+
+## Parecer anterior — ciclo visual e candidato de harness, 14/10/2026
 
 Diagnóstico dirigido posterior do executor, base8096b22: a ocorrência sustentada
 de histórico `opacity: 0` por15s foi atribuída ao relógio do harness, com
@@ -96,7 +110,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Meta concluída e vencendo hoje apresentam status esperado; gráfico vazio não representa erro como ausência de patrimônio.
-- [ ] Calendário de hábito e histórico preservam data; modais longos continuam operáveis.
+- [x] Calendário de hábito e histórico preservam data; modais longos continuam operáveis.
 - [x] Nota anual salva sobrevive ao reload; posição atual exibida em ano passado é encaminhada a CF-021, sem snapshot legitimando ambiguidade.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 

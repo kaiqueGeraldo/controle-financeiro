@@ -8,7 +8,18 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
-## Parecer independente vigente — 14/10/2026
+## Parecer independente vigente — histórico CF014, 14/10/2026
+
+**CF-015 permanece em_revisao.** CF014 concluída após validação independente
+do diagnóstico temporal/harness e confronto dos quatro critérios acumulados.
+Histórico invisível e P2 ciclo visual encerrados no escopo demonstrado.
+Restam zoom nativo200% não verificado (CF010) e RVA-03 inconclusivo (CF013).
+CF011/012 e RF15-01–04 preservados; outras capturas e timeouts históricos não
+explicados por associação. Sem aprovação integral do marco ou onboarding.
+
+[Parecer A–E, matriz vigente, provas e encaminhamento delimitado](../evidencias/revalidacao-CF014-historico-invisivel/README.md).
+
+## Parecer anterior — ciclo visual e candidato de harness, 14/10/2026
 
 Diagnóstico dirigido posterior do executor sobre o histórico CF014 identifica
 divergência de origem temporal do harness/WAAPI e prepara ajuste apenas de
