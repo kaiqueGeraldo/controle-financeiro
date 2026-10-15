@@ -1,5 +1,10 @@
 # Encaminhamento para revisão independente
 
+Situação vigente após revisão de `6e64aad`: [resíduo P2 aprovado e RV17-01 encerrado
+localmente/documentalmente](../revalidacao-RV17-01-P2/README.md). RV17-02/V1–V14 e
+prontidão CF-029 somente local preservados. Adoção real segue pendente; os
+encaminhamentos abaixo são históricos e não solicitam novas execuções.
+
 Nota de 15/10/2026, base `ef08950`: o encaminhamento abaixo é histórico, já
 atendido pelo [parecer vigente](../reconferencia-CF-017/README.md). A revisão agora
 solicitada limita-se ao [delta documental de validade RV17-01/P2](../saneamento-RV17-01-P2/README.md).

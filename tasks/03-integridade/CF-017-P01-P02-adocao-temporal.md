@@ -7,6 +7,11 @@
 
 ## Delta documental da janela preflight→baseline — 15/10/2026
 
+**Situação vigente:** [P2 e RV17-01 encerrados no escopo local/documental](../evidencias/revalidacao-RV17-01-P2/README.md),
+candidato `6e64aad`. Esta derivada mantém em_revisao: inventário, compatibilidade,
+backup/restore, proveniência e coordenação reais continuam pendentes. Nenhum
+checkbox real alterado. As notas de candidatura/revisões anteriores abaixo são históricas.
+
 [Saneamento restrito RV17-01/P2](../evidencias/saneamento-RV17-01-P2/README.md), base
 `ef08950`, aguardando revalidação independente. Diferencia validade estrutural,
 DML/sequences e freezes próprios de backup/migração. Estado em_revisao mantido;

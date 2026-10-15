@@ -10,6 +10,11 @@
 
 ## Delta documental RV17-01/P2 — 15/10/2026
 
+**Situação vigente:** [revalidação independente de 6e64aad](../evidencias/revalidacao-RV17-01-P2/README.md)
+encerra P2 e RV17-01 no escopo local/procedimento documentado. RV17-02 e V1–V14
+preservados. CF-017 permanece em_revisao pelas obrigações de adoção real; CF-029
+continua pronta somente local/descartável. O registro de candidatura abaixo é histórico.
+
 Base `ef08950`: [regra de validade, cenários e encaminhamento restrito](../evidencias/saneamento-RV17-01-P2/README.md).
 Runbook explicita identidade/versões, continuidade da janela, invalidação e parada
 antes da baseline. Candidato aguardando revalidação independente; P2 não encerrado

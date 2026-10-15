@@ -1,5 +1,9 @@
 # RV17-01/P2 — validade operacional do preflight
 
+**Revalidação independente posterior:** [candidato 6e64aad aprovado; P2 encerrado](../revalidacao-RV17-01-P2/README.md).
+RV17-01 encerrado no escopo local/procedimento documentado; adoção real pendente.
+O relato do executor abaixo preserva a situação histórica da entrega.
+
 15/10/2026. **Candidato documental aguardando revalidação independente**, sem
 autoencerramento. Corrige somente a regra de reutilização do resultado entre
 preflight e baseline; não reabre código RV17-01, RV17-02 ou fundação V1–V14.

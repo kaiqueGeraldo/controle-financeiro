@@ -20,8 +20,9 @@ no recorte de isolamento/sessão e CF-028 concluída como SPEC-001 v1, integrada
 conferidas nos deltas pertinentes. Satisfeita a regra de liberação parcial de
 EXECUCAO.md, sem concluir CF-017/P01/P02 nem executar esta tarefa.
 
-Usar somente banco novo/gerenciado descartável. RV17-01 residual exige sanear
-validade do preflight no rollout legado, sem impedir esse recorte. Nova migração
+Usar somente banco novo/gerenciado descartável. O [resíduo RV17-01 foi encerrado
+localmente/documentalmente](../evidencias/revalidacao-RV17-01-P2/README.md), sem ampliar
+esta prontidão nem concluir adoção real. Nova migração
 posterior à V14, persistência protegida de evidência/atribuição, ownership, versão,
 conflitos, retomada e ausência de efeito financeiro exigem testes próprios conforme
 SPEC-001. Reconferir base se houver mudanças posteriores. Adoção real, baseline,

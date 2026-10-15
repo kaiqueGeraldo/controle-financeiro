@@ -264,8 +264,9 @@ original, usar clone separado e correção progressiva em **nova versão posteri
 última aplicada**, nunca “V3” fixo do runbook histórico. Recibos não dispensam inventário
 nem garantem replay de todos os writers legados. Não inventar origem/recordedAt.
 
-CF-017/P01/P02 permanecem em_revisao. O [parecer vigente](../reconferencia-CF-017/README.md)
-mantém código RV17-01 aprovado, RV17-02 encerrado localmente, fundação V1–V14 aprovada
-e CF-029 apta exclusivamente local/descartável, sem executá-la. O delta da janela
-RV17-01/P2 [aguarda revalidação independente](../saneamento-RV17-01-P2/README.md).
+CF-017/P01/P02 permanecem em_revisao. A [revalidação documental de 6e64aad](../revalidacao-RV17-01-P2/README.md)
+encerra P2 e RV17-01 no escopo local/procedimento documentado, somando-se ao
+[aceite anterior do código](../reconferencia-CF-017/README.md). RV17-02 encerrado
+localmente, fundação V1–V14 aprovada e CF-029 apta exclusivamente local/descartável
+permanecem preservados, sem execução de CF-029.
 Inventário, compatibilidade, backup/restore, proveniência e coordenação reais seguem pendentes.
