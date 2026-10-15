@@ -8,6 +8,21 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Saneamento local RV17-01/02 — 15/10/2026, candidato em revisão
+
+Base integrada `4206d88`, branch `codex/cf017-preflight-restore`. Reproduções atuais
+confirmaram os dois achados antes da correção. Candidato acrescenta preflight
+operacional read-only contra inventário semântico da V1, adversariais e oracle de
+restore por linha/campo/schema com pg_dump/pg_restore em destinos descartáveis novos.
+Cadeia atual V1–V14 preservada, sem editar migrations nem fabricar proveniência.
+
+[Evidências, matriz, custos e encaminhamento independente](../evidencias/saneamento-CF-017/README.md).
+Saneamento do executor não encerra achados por autoaprovação: CF-017 e sua derivada
+continuam `em_revisao`. Inventário/backup/proveniência/writers/adoção reais permanecem
+não autorizados e não comprovados. CF-029 permanece proposta, sem liberação automática.
+As notas datadas abaixo são histórico; CF-014/CF-028 e pendências próprias da CF-015
+foram preservadas, sem nova revisão integral do marco.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 2 e 5, separadas: RV17-01 exige preflight versionado completo com adversariais antes da baseline; RV17-02 exige fingerprint por PK/campos brutos/origem/saldos/relações e schema no restore. Inventário, backup/restore, proveniência e writers do ambiente real dependem de autorização e evidência próprias. V13 local aprovada não satisfaz esses três gates.

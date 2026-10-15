@@ -5,6 +5,15 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Candidato local de preflight/restore — 15/10/2026
+
+[Saneamento RV17-01/02](../evidencias/saneamento-CF-017/README.md) na base integrada
+`4206d88`, cadeia V1–V14. Preflight V1 e restauração sintética completa pertinente
+foram separados dos gates de adoção. Exige revisão independente; não altera os
+checkboxes de comprovação real abaixo. Preservação de bruto/null e instante V14
+é verificada sem backfill. Nenhum banco real, writer real ou onboarding executado.
+Estado `em_revisao` mantido; o aceite histórico V1/V2 no cabeçalho não é teto da cadeia.
+
 ## Consolidação documental — 01/10/2026
 
 A fundação local integrada foi ampliada até V13, com revisões específicas de V12

@@ -1,5 +1,12 @@
 # Inventário de schema local CF-017
 
+Atualização de15/10/2026: este inventário narrativo é histórico. A fonte normativa
+para baseline1 agora é a **V1 congelada**, confrontada com o inventário semântico
+versionado e fixture independente no [saneamento local](../saneamento-CF-017/MATRIZ.md).
+Entidades atuais não são oracle do legado. Cadeia integrada atual: V1–V14.
+Política de adicionais e limites de equivalência estão na matriz; adoção real segue
+sem autorização/comprovação e candidato aguarda revisão independente.
+
 Fonte: entidades da revisão `2269b22`, schema `create-drop` descartável usado só
 para confrontar tipos/nulabilidade e fixture SQL independente. O resultado real
 de Railway **não foi consultado**.

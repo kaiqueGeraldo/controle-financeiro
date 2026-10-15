@@ -1,0 +1,113 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 16 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 225 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 87 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.Cf017RestoreTest
+23:53:49.976 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+23:53:49.992 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+23:53:50.008 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+23:53:50.395 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+23:53:51.096 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+23:53:51.098 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+23:53:51.128 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+23:53:51.261 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+23:53:51.692 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 437b18dfc9d020f0f851e51231d69df323fad9c0b3254c7bf341d85491cc1728
+23:53:52.219 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.9584065S
+23:53:52.234 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+23:53:52.235 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+23:53:52.236 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+23:53:52.236 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+23:53:52.353 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: dbe2c0c5cac1072a99b29b8285b5c15d4b1669255cbc1df8e5a11c8469ae4e30
+23:53:54.504 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT2.2670535S
+23:53:54.504 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:60726/cf_test_cf017_63227a3f0e57468596ddb9476b111fbb?loggerLevel=OFF)
+23:53:56.168 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:60726/cf_test_cf017_63227a3f0e57468596ddb9476b111fbb?loggerLevel=OFF (PostgreSQL 16.15)
+23:53:56.250 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf"."flyway_schema_history" with baseline ...
+23:53:56.319 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+23:53:56.442 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:60726/cf_test_cf017_63227a3f0e57468596ddb9476b111fbb?loggerLevel=OFF (PostgreSQL 16.15)
+23:53:56.544 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.070s)
+23:53:56.591 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf": 1
+23:53:56.619 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "2 - adopt temporal metadata"
+23:53:56.705 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "3 - account opening and transaction flow"
+23:53:56.808 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "4 - card invoice integrity"
+23:53:56.945 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "5 - investment positions and goal allocations"
+23:53:57.104 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "6 - preserve goal purchase facts"
+23:53:57.159 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "7 - valuation reference and audit"
+23:53:57.218 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "8 - investment corrections"
+23:53:57.299 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "9 - payment intent receipt"
+23:53:57.331 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "10 - financial commands and partial reversals"
+23:53:57.389 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "11 - reporting coverage baselines"
+23:53:57.430 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "12 - habit goal effect identity"
+23:53:57.493 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "13 - financial creation intent receipts"
+23:53:57.537 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf" to version "14 - goal history recorded instant"
+23:53:57.583 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_5795a76ccd9b4f60b46845ae2a673adf", now at version v14 (execution time 00:00.579s)
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 10.92 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.Cf017RestoreTest
+[ERROR] com.controlefinanceiro.api.migration.Cf017RestoreTest.realCustomDumpRestoresCurrentV14AndFlywayRemainsStable(Path) -- Time elapsed: 10.88 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting empty but was: ["catalog.txt line=315 fieldPositions=[2] reason=logical content differs (values withheld)"]
+	at com.controlefinanceiro.api.migration.Cf017RestoreTest.roundTrip(Cf017RestoreTest.java:143)
+	at com.controlefinanceiro.api.migration.Cf017RestoreTest.realCustomDumpRestoresCurrentV14AndFlywayRemainsStable(Cf017RestoreTest.java:42)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   Cf017RestoreTest.realCustomDumpRestoresCurrentV14AndFlywayRemainsStable:42->roundTrip:143 
+Expecting empty but was: ["catalog.txt line=315 fieldPositions=[2] reason=logical content differs (values withheld)"]
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  44.411 s
+[INFO] Finished at: 2026-10-14T23:54:01-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
