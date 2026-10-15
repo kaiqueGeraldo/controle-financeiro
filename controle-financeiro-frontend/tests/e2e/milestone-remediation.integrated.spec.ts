@@ -2,6 +2,7 @@ import {expect,test,type Page} from "@playwright/test";
 import {mkdir,writeFile} from "node:fs/promises";
 import path from "node:path";
 import {registerSyntheticUser,syntheticUser} from "./support/synthetic-auth";
+import {setCivilDateOnly} from "./support/civil-date-clock";
 const dir=process.env.CF_REVIEW_EVIDENCE!;
 const ns=process.env.CF_E2E_NAMESPACE!;
 // Opt-in investigation: metadata only, no auth headers or response bodies.
@@ -24,7 +25,12 @@ test.afterEach(async ({page},info)=>{
    await (window as unknown as {saveRva03:()=>Promise<void>}).saveRva03();
  });
 });
-async function start(page:Page,suffix:string){await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));}
+async function start(page:Page,suffix:string){
+ // RVA-03: this journey requires a fixed civil date, with native animation timing across navigation.
+ if(suffix.startsWith("goal-card-"))await setCivilDateOnly(page,new Date("2027-01-15T12:00:00Z"));
+ else await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));
+ await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));
+}
 async function post(page:Page,url:string,data:unknown){
  // Synthetic fixtures explicitly serialize the new opening contract; legacy commands retain their transport.
  if(url==="/investments"&&data&&typeof data==="object"){
