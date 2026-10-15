@@ -10,6 +10,10 @@
 
 ## Revisão independente do saneamento — 15/10/2026
 
+Reconferência sobre HEAD `d806f82`, código `bcec50c` sem delta posterior:
+[75 testes reexecutados e parecer preservado](../evidencias/reconferencia-CF-017/README.md).
+RV17-01 residual P2 aberto, RV17-02 encerrado localmente e adoção real pendente.
+
 Base `bcec50c`, intervalo `4206d88..bcec50c`:
 [parecer, matriz e provas](../evidencias/revalidacao-CF-017/README.md).
 RV17-02 encerrado localmente. RV17-01 aprovado no comparador/read-only/fail-closed,

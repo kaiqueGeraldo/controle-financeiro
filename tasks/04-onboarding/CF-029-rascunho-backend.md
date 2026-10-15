@@ -10,6 +10,10 @@
 
 ## Prontidão independente local — 15/10/2026
 
+[Reconferência independente sobre d806f82](../evidencias/reconferencia-CF-017/README.md)
+mantém esta prontidão e seus limites; código da fundação idêntico a bcec50c.
+Nenhuma implementação desta tarefa foi iniciada.
+
 Base `bcec50c`, [parecer CF-017 e decisão de dependência](../evidencias/revalidacao-CF-017/README.md).
 Fundação versionada V1–V14/upgrade/Hibernate/restore local aprovada; CF-023 aceita
 no recorte de isolamento/sessão e CF-028 concluída como SPEC-001 v1, integradas e
