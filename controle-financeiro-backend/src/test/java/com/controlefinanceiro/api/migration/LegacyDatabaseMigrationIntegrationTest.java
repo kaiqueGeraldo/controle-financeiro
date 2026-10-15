@@ -140,63 +140,35 @@ class LegacyDatabaseMigrationIntegrationTest {
     }
 
     @Test
-    void syntheticPgDumpRestoreReconcilesThenFlywayRemainsStable() throws Exception {
+    void syntheticPgDumpRestoreReconcilesThenFlywayRemainsStable(@org.junit.jupiter.api.io.TempDir java.nio.file.Path temp) throws Exception {
         String schema = Cf017PostgresSupport.createSchema("cf017_restore");
         Cf017PostgresSupport.loadLegacyFixture(schema);
         Cf017PostgresSupport.assertLegacyV1Preflight(schema);
-        var flyway = Cf017PostgresSupport.flyway(schema);
-        flyway.baseline();
-        flyway.migrate();
-
-        Map<String, Object> before = fingerprint(schema);
-        String backup = "/tmp/" + schema + ".sql";
-        var dump = Cf017PostgresSupport.exec(
-                "pg_dump", "-U", Cf017PostgresSupport.username(), "-d", Cf017PostgresSupport.databaseName(),
-                "--schema=" + schema, "--no-owner", "--no-privileges", "--file=" + backup
-        );
-        assertThat(dump.getExitCode()).as(dump.getStderr()).isZero();
-
-        try (var connection = Cf017PostgresSupport.connect(); var statement = connection.createStatement()) {
-            statement.execute("DROP SCHEMA " + schema + " CASCADE");
-        }
-        var restore = Cf017PostgresSupport.exec(
-                "psql", "-v", "ON_ERROR_STOP=1", "-U", Cf017PostgresSupport.username(),
-                "-d", Cf017PostgresSupport.databaseName(), "-f", backup
-        );
-        assertThat(restore.getExitCode()).as(restore.getStderr()).isZero();
-
-        assertThat(fingerprint(schema)).isEqualTo(before);
-        Cf017PostgresSupport.flyway(schema).validate();
-        assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isZero();
+        Cf017PostgresSupport.flyway(schema).baseline();
+        Cf017PostgresSupport.flyway(schema).migrate();
+        String database = Cf017RestoreTest.roundTrip(schema,temp);
+        var flyway = org.flywaydb.core.Flyway.configure().dataSource(Cf017PostgresSupport.restoreDatabaseUrl(database),
+                Cf017PostgresSupport.username(),Cf017PostgresSupport.password()).defaultSchema(schema).schemas(schema)
+                .baselineOnMigrate(false).cleanDisabled(true).load();
+        flyway.validate();
+        assertThat(flyway.migrate().migrationsExecuted).isZero();
     }
 
+    // Kept as the entrypoint of the original directed regression; now covers every field/schema object.
     private Map<String, Object> fingerprint(String schema) throws Exception {
-        try (var connection = Cf017PostgresSupport.connect(); var statement = connection.createStatement();
-             var rows = statement.executeQuery("""
-                     SELECT
-                       (SELECT count(*) FROM %1$s.transactions) AS transaction_count,
-                       (SELECT sum(amount) FROM %1$s.transactions) AS transaction_sum,
-                       (SELECT count(*) FROM %1$s.card_transactions) AS card_count,
-                       (SELECT sum(amount) FROM %1$s.card_transactions) AS card_sum,
-                       (SELECT count(*) FROM %1$s.invest_transactions) AS investment_count,
-                       (SELECT sum(total_value) FROM %1$s.invest_transactions) AS investment_sum,
-                       (SELECT count(*) FROM %1$s.transactions t JOIN %1$s.accounts a ON a.id=t.account_id
-                          JOIN %1$s.users u ON u.id=t.user_id WHERE a.user_id=u.id) AS owned_relations,
-                       (SELECT count(*) FROM %1$s.transactions WHERE recorded_at IS NULL) AS unknown_audits,
-                       (SELECT count(*) FROM %1$s.flyway_schema_history WHERE success) AS migration_count
-                     """.formatted(schema))) {
-            rows.next();
-            return Map.of(
-                    "transactionCount", rows.getInt("transaction_count"),
-                    "transactionSum", rows.getBigDecimal("transaction_sum"),
-                    "cardCount", rows.getInt("card_count"),
-                    "cardSum", rows.getBigDecimal("card_sum"),
-                    "investmentCount", rows.getInt("investment_count"),
-                    "investmentSum", rows.getBigDecimal("investment_sum"),
-                    "ownedRelations", rows.getInt("owned_relations"),
-                    "unknownAudits", rows.getInt("unknown_audits"),
-                    "migrationCount", rows.getInt("migration_count")
-            );
+        var directory = java.nio.file.Files.createTempDirectory(java.nio.file.Path.of("target"), "cf017-fingerprint-");
+        var snapshot = directory.resolve("snapshot");
+        Cf017PreflightTest.snapshot(schema,snapshot);
+        var result = new java.util.TreeMap<String,Object>();
+        try (var files = java.nio.file.Files.list(snapshot)) {
+            for (var path : files.toList()) {
+                var digest = java.security.MessageDigest.getInstance("SHA-256");
+                try (var in = new java.security.DigestInputStream(java.nio.file.Files.newInputStream(path),digest)) {
+                    in.transferTo(java.io.OutputStream.nullOutputStream());
+                }
+                result.put(path.getFileName().toString(),java.util.HexFormat.of().formatHex(digest.digest()));
+            }
         }
+        return result;
     }
 }
