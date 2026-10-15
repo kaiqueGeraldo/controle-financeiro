@@ -8,6 +8,14 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Delta documental RV17-01/P2 — 15/10/2026
+
+Base `ef08950`: [regra de validade, cenários e encaminhamento restrito](../evidencias/saneamento-RV17-01-P2/README.md).
+Runbook explicita identidade/versões, continuidade da janela, invalidação e parada
+antes da baseline. Candidato aguardando revalidação independente; P2 não encerrado
+pelo executor. Estado em_revisao, aceites locais e prontidão exclusivamente
+local/descartável da CF-029 preservados; nenhuma execução de CF-029 ou adoção real.
+
 ## Revisão independente do saneamento — 15/10/2026
 
 Reconferência sobre HEAD `d806f82`, código `bcec50c` sem delta posterior:

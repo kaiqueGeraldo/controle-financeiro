@@ -5,6 +5,15 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Delta documental da janela preflight→baseline — 15/10/2026
+
+[Saneamento restrito RV17-01/P2](../evidencias/saneamento-RV17-01-P2/README.md), base
+`ef08950`, aguardando revalidação independente. Diferencia validade estrutural,
+DML/sequences e freezes próprios de backup/migração. Estado em_revisao mantido;
+nenhum critério de adoção real abaixo foi satisfeito por esta edição documental.
+Aceites de código RV17-01, RV17-02 local e V1–V14 permanecem; CF-029 continua apta
+exclusivamente local/descartável, sem execução por efeito deste encaminhamento.
+
 ## Revisão independente local — 15/10/2026
 
 Base `bcec50c`: [parecer e matriz](../evidencias/revalidacao-CF-017/README.md).

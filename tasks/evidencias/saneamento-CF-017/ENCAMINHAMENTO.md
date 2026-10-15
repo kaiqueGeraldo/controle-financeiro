@@ -1,5 +1,11 @@
 # Encaminhamento para revisão independente
 
+Nota de 15/10/2026, base `ef08950`: o encaminhamento abaixo é histórico, já
+atendido pelo [parecer vigente](../reconferencia-CF-017/README.md). A revisão agora
+solicitada limita-se ao [delta documental de validade RV17-01/P2](../saneamento-RV17-01-P2/README.md).
+Não repetir por esta nota a revisão de código/suítes/restore abaixo. Mantidos os
+aceites RV17-01 código, RV17-02 local, V1–V14 e prontidão CF-029 somente local/descartável.
+
 Revisar somente o saneamento local RV17-01/02. Não executar nova auditoria integral
 de 03-integridade, onboarding, Railway, baseline real, deploy ou push.
 
