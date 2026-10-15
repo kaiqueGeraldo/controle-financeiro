@@ -1,0 +1,795 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 16 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 225 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/.codex/visualizations/2026/10/15/01a14056-9862-7810-9cf7-32f4cd64d172/cf017-confirmation/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/.codex/visualizations/2026/10/15/01a14056-9862-7810-9cf7-32f4cd64d172/cf017-confirmation/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 3 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 88 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/.codex/visualizations/2026/10/15/01a14056-9862-7810-9cf7-32f4cd64d172/cf017-confirmation/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/.codex/visualizations/2026/10/15/01a14056-9862-7810-9cf7-32f4cd64d172/cf017-confirmation/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security/UserIsolationIntegrationTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.Cf017IndependentReviewTest
+16:15:53.390 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+16:15:53.398 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+16:15:53.409 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+16:15:53.821 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+16:16:00.208 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+16:16:00.209 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+16:16:00.227 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+16:16:00.318 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+16:16:00.666 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 9e8244faacc1e899be1199ceebd93f66b27d0f66eef643b5a4b529bb6c6a57aa
+16:16:01.145 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.8269761S
+16:16:01.176 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+16:16:01.176 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+16:16:01.178 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+16:16:01.178 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+16:16:01.289 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 68166ac885571f3b08033ebb04c63e2a76d8aa8e76622151975662d0600f7894
+16:16:02.829 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.6503676S
+16:16:02.829 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF)
+CF017_DUMP 44a756318360f7b20d2c3995d5b8c339a6d3e60a1dd109a43f49fe76d1fe65de  /tmp/rv17_literals_472cfe0062b940e2a079cd3603ae5af0.dump bytes=2363
+CF017_ROUNDTRIP schema=rv17_literals_472cfe0062b940e2a079cd3603ae5af0 target=cf_test_cf017_restore_542e9ae0b7a54160acaf13f19c5449f1 result=EQUIVALENT
+REVIEW literal-decimal-null-text oracle=PASS real-dump=PASS
+16:16:04.753 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:04.798 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "rv17_stale_67e79befb0864e6f981945e642b9f5e1"."flyway_schema_history" with baseline ...
+16:16:04.837 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:04.913 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:05.149 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.218s)
+16:16:05.174 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1": 1
+16:16:05.188 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "2 - adopt temporal metadata"
+16:16:05.224 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "3 - account opening and transaction flow"
+16:16:05.271 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "4 - card invoice integrity"
+16:16:05.338 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "5 - investment positions and goal allocations"
+16:16:05.413 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "6 - preserve goal purchase facts"
+16:16:05.438 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "7 - valuation reference and audit"
+16:16:05.467 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "8 - investment corrections"
+16:16:05.508 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "9 - payment intent receipt"
+16:16:05.522 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "10 - financial commands and partial reversals"
+16:16:05.550 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "11 - reporting coverage baselines"
+16:16:05.570 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "12 - habit goal effect identity"
+16:16:05.600 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "13 - financial creation intent receipts"
+16:16:05.621 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1" to version "14 - goal history recorded instant"
+16:16:05.645 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "rv17_stale_67e79befb0864e6f981945e642b9f5e1", now at version v14 (execution time 00:00.273s)
+REVIEW stale-pass: first=0 second=2 bypass-baseline=true missing-fk-after-V14=true
+REVIEW external-same-name-fk=STOP
+CF017_DUMP 8547e57524072388dafc5380cb8f2d860000f777cc4788382f79d0e1151c554c  /tmp/rv17_multiset_3cd7f37d241e44708ad1e573d7b7650c.dump bytes=2523
+CF017_ROUNDTRIP schema=rv17_multiset_3cd7f37d241e44708ad1e573d7b7650c target=cf_test_cf017_restore_3115f3f4853740deab4fb2492908e7fa result=EQUIVALENT
+REVIEW duplicate-null-deletion=DETECTED empty-table=CAPTURED final=EQUIVALENT
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.70 s -- in com.controlefinanceiro.api.migration.Cf017IndependentReviewTest
+[INFO] Running com.controlefinanceiro.api.migration.Cf017ManifestTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.267 s -- in com.controlefinanceiro.api.migration.Cf017ManifestTest
+[INFO] Running com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest
+16:16:07.625 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:07.647 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25"."flyway_schema_history" with baseline ...
+16:16:07.663 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:07.726 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:07.764 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.022s)
+16:16:07.790 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25": 1
+16:16:07.796 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "2 - adopt temporal metadata"
+16:16:07.831 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "3 - account opening and transaction flow"
+16:16:07.886 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "4 - card invoice integrity"
+16:16:07.953 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "5 - investment positions and goal allocations"
+16:16:08.036 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "6 - preserve goal purchase facts"
+16:16:08.062 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "7 - valuation reference and audit"
+16:16:08.091 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "8 - investment corrections"
+16:16:08.133 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "9 - payment intent receipt"
+16:16:08.146 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "10 - financial commands and partial reversals"
+16:16:08.173 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "11 - reporting coverage baselines"
+16:16:08.191 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "12 - habit goal effect identity"
+16:16:08.218 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "13 - financial creation intent receipts"
+16:16:08.237 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25" to version "14 - goal history recorded instant"
+16:16:08.249 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_original_raw_37bae6749af04b40bb8511fdae1efe25", now at version v14 (execution time 00:00.289s)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.094 s -- in com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest
+[INFO] Running com.controlefinanceiro.api.migration.Cf017PreflightTest
+16:16:09.292 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:09.328 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111"."flyway_schema_history" does not exist yet
+16:16:09.330 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 14 migrations (execution time 00:00.022s)
+16:16:09.344 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111"."flyway_schema_history" ...
+16:16:09.381 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111": << Empty Schema >>
+16:16:09.390 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "1 - baseline pre temporal"
+16:16:09.513 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "2 - adopt temporal metadata"
+16:16:09.543 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "3 - account opening and transaction flow"
+16:16:09.588 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "4 - card invoice integrity"
+16:16:09.655 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "5 - investment positions and goal allocations"
+16:16:09.726 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "6 - preserve goal purchase facts"
+16:16:09.749 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "7 - valuation reference and audit"
+16:16:09.776 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "8 - investment corrections"
+16:16:09.814 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "9 - payment intent receipt"
+16:16:09.828 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "10 - financial commands and partial reversals"
+16:16:09.852 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "11 - reporting coverage baselines"
+16:16:09.870 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "12 - habit goal effect identity"
+16:16:09.896 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "13 - financial creation intent receipts"
+16:16:09.919 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111" to version "14 - goal history recorded instant"
+16:16:09.930 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 14 migrations to schema "cf017_empty_gate_784ba8fef0a64619a900251eb49a7111", now at version v14 (execution time 00:00.374s)
+16:16:10.265 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:10.282 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_partial_history_90f8eecbe57e4d61b2ab07aac0bbcedb"."flyway_schema_history" with baseline ...
+16:16:10.295 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:11.297 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:11.311 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a"."flyway_schema_history" with baseline ...
+16:16:11.322 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:11.366 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:11.388 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.012s)
+16:16:11.408 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a": 1
+16:16:11.412 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "2 - adopt temporal metadata"
+16:16:11.442 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "3 - account opening and transaction flow"
+16:16:11.483 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "4 - card invoice integrity"
+16:16:11.544 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "5 - investment positions and goal allocations"
+16:16:11.614 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "6 - preserve goal purchase facts"
+16:16:11.637 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "7 - valuation reference and audit"
+16:16:11.661 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "8 - investment corrections"
+16:16:11.697 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "9 - payment intent receipt"
+16:16:11.711 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "10 - financial commands and partial reversals"
+16:16:11.735 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "11 - reporting coverage baselines"
+16:16:11.752 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "12 - habit goal effect identity"
+16:16:11.778 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "13 - financial creation intent receipts"
+16:16:11.794 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a" to version "14 - goal history recorded instant"
+16:16:11.805 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_matrix_1c35dffb08fd4054b423a2176a3e428a", now at version v14 (execution time 00:00.253s)
+CF017_PREFLIGHT case=compatible-independent-fixture exit=0 readonly=true
+16:16:12.388 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:12.405 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_matrix_e4934af17c61453a96820829677acfcb"."flyway_schema_history" with baseline ...
+16:16:12.416 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:12.465 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:12.491 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.014s)
+16:16:12.511 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_matrix_e4934af17c61453a96820829677acfcb": 1
+16:16:12.515 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "2 - adopt temporal metadata"
+16:16:12.543 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "3 - account opening and transaction flow"
+16:16:12.581 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "4 - card invoice integrity"
+16:16:12.640 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "5 - investment positions and goal allocations"
+16:16:12.713 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "6 - preserve goal purchase facts"
+16:16:12.736 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "7 - valuation reference and audit"
+16:16:12.759 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "8 - investment corrections"
+16:16:12.797 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "9 - payment intent receipt"
+16:16:12.810 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "10 - financial commands and partial reversals"
+16:16:12.835 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "11 - reporting coverage baselines"
+16:16:12.853 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "12 - habit goal effect identity"
+16:16:12.877 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "13 - financial creation intent receipts"
+16:16:12.893 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_e4934af17c61453a96820829677acfcb" to version "14 - goal history recorded instant"
+16:16:12.904 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_matrix_e4934af17c61453a96820829677acfcb", now at version v14 (execution time 00:00.250s)
+CF017_PREFLIGHT case=generated-names-equivalent exit=0 readonly=true
+16:16:13.494 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:13.511 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db"."flyway_schema_history" with baseline ...
+16:16:13.523 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:13.569 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:13.592 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.012s)
+16:16:13.615 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db": 1
+16:16:13.619 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "2 - adopt temporal metadata"
+16:16:13.650 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "3 - account opening and transaction flow"
+16:16:13.693 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "4 - card invoice integrity"
+16:16:13.754 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "5 - investment positions and goal allocations"
+16:16:13.823 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "6 - preserve goal purchase facts"
+16:16:13.845 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "7 - valuation reference and audit"
+16:16:13.868 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "8 - investment corrections"
+16:16:13.904 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "9 - payment intent receipt"
+16:16:13.916 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "10 - financial commands and partial reversals"
+16:16:13.939 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "11 - reporting coverage baselines"
+16:16:13.954 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "12 - habit goal effect identity"
+16:16:13.979 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "13 - financial creation intent receipts"
+16:16:13.997 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db" to version "14 - goal history recorded instant"
+16:16:14.006 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_matrix_54f5bc467b864e19b6e61d5b4adf57db", now at version v14 (execution time 00:00.253s)
+CF017_PREFLIGHT case=extra-plain-index exit=0 readonly=true
+CF017_PREFLIGHT case=missing-original-fk exit=2 readonly=true
+CF017_PREFLIGHT case=wrong-fk-target exit=2 readonly=true
+CF017_PREFLIGHT case=unvalidated-correct-fk exit=2 readonly=true
+CF017_PREFLIGHT case=disabled-fk-triggers exit=2 readonly=true
+CF017_PREFLIGHT case=wrong-fk-action exit=2 readonly=true
+CF017_PREFLIGHT case=money-scale exit=2 readonly=true
+CF017_PREFLIGHT case=temporal-type exit=2 readonly=true
+CF017_PREFLIGHT case=temporal-precision exit=2 readonly=true
+CF017_PREFLIGHT case=nullability exit=2 readonly=true
+CF017_PREFLIGHT case=default exit=2 readonly=true
+CF017_PREFLIGHT case=missing-column exit=2 readonly=true
+CF017_PREFLIGHT case=missing-unique exit=2 readonly=true
+CF017_PREFLIGHT case=missing-pk exit=2 readonly=true
+CF017_PREFLIGHT case=additional-check exit=2 readonly=true
+CF017_PREFLIGHT case=missing-index exit=2 readonly=true
+CF017_PREFLIGHT case=different-predicate exit=2 readonly=true
+CF017_PREFLIGHT case=different-expression exit=2 readonly=true
+CF017_PREFLIGHT case=extra-table exit=2 readonly=true
+CF017_PREFLIGHT case=extra-column exit=2 readonly=true
+CF017_PREFLIGHT case=unexpected-sequence exit=2 readonly=true
+CF017_PREFLIGHT case=partial-temporal-adoption exit=2 readonly=true
+[INFO] Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.31 s -- in com.controlefinanceiro.api.migration.Cf017PreflightTest
+[INFO] Running com.controlefinanceiro.api.migration.Cf017RestoreTest
+16:16:27.690 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:27.709 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e"."flyway_schema_history" with baseline ...
+16:16:27.722 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:27.768 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:27.798 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.018s)
+16:16:27.819 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e": 1
+16:16:27.824 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "2 - adopt temporal metadata"
+16:16:27.853 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "3 - account opening and transaction flow"
+16:16:27.896 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "4 - card invoice integrity"
+16:16:27.958 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "5 - investment positions and goal allocations"
+16:16:28.033 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "6 - preserve goal purchase facts"
+16:16:28.054 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "7 - valuation reference and audit"
+16:16:28.077 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "8 - investment corrections"
+16:16:28.115 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "9 - payment intent receipt"
+16:16:28.128 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "10 - financial commands and partial reversals"
+16:16:28.152 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "11 - reporting coverage baselines"
+16:16:28.167 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "12 - habit goal effect identity"
+16:16:28.191 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "13 - financial creation intent receipts"
+16:16:28.207 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e" to version "14 - goal history recorded instant"
+16:16:28.217 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e", now at version v14 (execution time 00:00.258s)
+CF017_DUMP 29440d148f1d31021b55f9bec9cb3e802cb22f004aa798828af494ec0c7cea89  /tmp/cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e.dump bytes=120949
+CF017_ROUNDTRIP schema=cf017_restore_matrix_00f4566ea4cd4bba92885690bbfb679e target=cf_test_cf017_restore_ef8fc92772964d6699300c4c5dae0d16 result=EQUIVALENT
+CF017_RESTORE mutation=swap-with-same-total detected=[transactions.rows line=2 fieldPositions=[2] key=id	fields=account_id,amount,cash_amount,category_id,correction_of_id,counterparty_account_id,created_at,date,description,due_date,goal_item_id,id,is_paid,is_system_managed,legacy_created_at_raw,operation_id,operation_time,origin,realization_of_id,reason,recorded_at,reversal_of_id,settled_at,settlement_of_id,status,time_origin,transfer_direction,type,user_id reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:30.219 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:30.235 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d"."flyway_schema_history" with baseline ...
+16:16:30.247 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:30.288 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:30.315 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.016s)
+16:16:30.333 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d": 1
+16:16:30.337 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "2 - adopt temporal metadata"
+16:16:30.363 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "3 - account opening and transaction flow"
+16:16:30.399 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "4 - card invoice integrity"
+16:16:30.452 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "5 - investment positions and goal allocations"
+16:16:30.528 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "6 - preserve goal purchase facts"
+16:16:30.549 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "7 - valuation reference and audit"
+16:16:30.571 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "8 - investment corrections"
+16:16:30.606 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "9 - payment intent receipt"
+16:16:30.618 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "10 - financial commands and partial reversals"
+16:16:30.641 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "11 - reporting coverage baselines"
+16:16:30.656 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "12 - habit goal effect identity"
+16:16:30.678 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "13 - financial creation intent receipts"
+16:16:30.693 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d" to version "14 - goal history recorded instant"
+16:16:30.703 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_36046077278d4e58b4c852d259437c0d", now at version v14 (execution time 00:00.231s)
+CF017_DUMP 1ffb6396a687311bebd943d4aecb855a85faa37c80cad8b084181df3941f2f38  /tmp/cf017_restore_matrix_36046077278d4e58b4c852d259437c0d.dump bytes=121155
+CF017_ROUNDTRIP schema=cf017_restore_matrix_36046077278d4e58b4c852d259437c0d target=cf_test_cf017_restore_8af186c2218941ab942d178c6e21e8c8 result=EQUIVALENT
+CF017_RESTORE mutation=raw-microsecond detected=[transactions.rows line=2 fieldPositions=[7] key=id	fields=account_id,amount,cash_amount,category_id,correction_of_id,counterparty_account_id,created_at,date,description,due_date,goal_item_id,id,is_paid,is_system_managed,legacy_created_at_raw,operation_id,operation_time,origin,realization_of_id,reason,recorded_at,reversal_of_id,settled_at,settlement_of_id,status,time_origin,transfer_direction,type,user_id reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:32.761 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:32.778 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4"."flyway_schema_history" with baseline ...
+16:16:32.790 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:32.833 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:32.856 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.012s)
+16:16:32.875 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4": 1
+16:16:32.879 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "2 - adopt temporal metadata"
+16:16:32.908 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "3 - account opening and transaction flow"
+16:16:32.946 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "4 - card invoice integrity"
+16:16:33.008 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "5 - investment positions and goal allocations"
+16:16:33.083 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "6 - preserve goal purchase facts"
+16:16:33.110 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "7 - valuation reference and audit"
+16:16:33.138 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "8 - investment corrections"
+16:16:33.181 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "9 - payment intent receipt"
+16:16:33.198 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "10 - financial commands and partial reversals"
+16:16:33.225 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "11 - reporting coverage baselines"
+16:16:33.245 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "12 - habit goal effect identity"
+16:16:33.273 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "13 - financial creation intent receipts"
+16:16:33.293 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4" to version "14 - goal history recorded instant"
+16:16:33.305 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4", now at version v14 (execution time 00:00.270s)
+CF017_DUMP baeb81d8d35fb80907a34042909fd151b0524cb18a26505bab7f0addef630421  /tmp/cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4.dump bytes=121157
+CF017_ROUNDTRIP schema=cf017_restore_matrix_06f4b4de63dd44abb5e830c8fb6d2ba4 target=cf_test_cf017_restore_dc798861bccc49fb95df46f5f396a3ac result=EQUIVALENT
+CF017_RESTORE mutation=raw-preserved-field detected=[transactions.rows line=2 fieldPositions=[15] key=id	fields=account_id,amount,cash_amount,category_id,correction_of_id,counterparty_account_id,created_at,date,description,due_date,goal_item_id,id,is_paid,is_system_managed,legacy_created_at_raw,operation_id,operation_time,origin,realization_of_id,reason,recorded_at,reversal_of_id,settled_at,settlement_of_id,status,time_origin,transfer_direction,type,user_id reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:35.095 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:35.109 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d"."flyway_schema_history" with baseline ...
+16:16:35.120 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:35.161 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:35.182 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.010s)
+16:16:35.200 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d": 1
+16:16:35.203 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "2 - adopt temporal metadata"
+16:16:35.229 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "3 - account opening and transaction flow"
+16:16:35.264 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "4 - card invoice integrity"
+16:16:35.320 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "5 - investment positions and goal allocations"
+16:16:35.387 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "6 - preserve goal purchase facts"
+16:16:35.407 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "7 - valuation reference and audit"
+16:16:35.433 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "8 - investment corrections"
+16:16:35.467 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "9 - payment intent receipt"
+16:16:35.479 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "10 - financial commands and partial reversals"
+16:16:35.500 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "11 - reporting coverage baselines"
+16:16:35.516 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "12 - habit goal effect identity"
+16:16:35.539 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "13 - financial creation intent receipts"
+16:16:35.554 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d" to version "14 - goal history recorded instant"
+16:16:35.563 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d", now at version v14 (execution time 00:00.233s)
+CF017_DUMP 525cd234ba86aed9c00c0a9b900cd853c5542c00b8c89219ef0ca6f18a6199ca  /tmp/cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d.dump bytes=121148
+CF017_ROUNDTRIP schema=cf017_restore_matrix_66e03835ab1c4bf499242e44c1859f2d target=cf_test_cf017_restore_a98367292913463a9f03b435a8357696 result=EQUIVALENT
+CF017_RESTORE mutation=origin-null-vs-value detected=[transactions.rows line=2 fieldPositions=[26] key=id	fields=account_id,amount,cash_amount,category_id,correction_of_id,counterparty_account_id,created_at,date,description,due_date,goal_item_id,id,is_paid,is_system_managed,legacy_created_at_raw,operation_id,operation_time,origin,realization_of_id,reason,recorded_at,reversal_of_id,settled_at,settlement_of_id,status,time_origin,transfer_direction,type,user_id reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:37.452 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:37.468 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8"."flyway_schema_history" with baseline ...
+16:16:37.479 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:37.523 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:37.546 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.011s)
+16:16:37.565 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8": 1
+16:16:37.569 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "2 - adopt temporal metadata"
+16:16:37.596 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "3 - account opening and transaction flow"
+16:16:37.637 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "4 - card invoice integrity"
+16:16:37.693 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "5 - investment positions and goal allocations"
+16:16:37.761 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "6 - preserve goal purchase facts"
+16:16:37.780 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "7 - valuation reference and audit"
+16:16:37.799 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "8 - investment corrections"
+16:16:37.833 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "9 - payment intent receipt"
+16:16:37.844 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "10 - financial commands and partial reversals"
+16:16:37.866 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "11 - reporting coverage baselines"
+16:16:37.880 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "12 - habit goal effect identity"
+16:16:37.902 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "13 - financial creation intent receipts"
+16:16:37.917 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8" to version "14 - goal history recorded instant"
+16:16:37.927 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8", now at version v14 (execution time 00:00.234s)
+CF017_DUMP 03bbbbe89b6461f9adfd791c8394480153b94d3ed73b48c031919b852cebe74a  /tmp/cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8.dump bytes=121155
+CF017_ROUNDTRIP schema=cf017_restore_matrix_d2d5d9f48623445894b56d3b56adcad8 target=cf_test_cf017_restore_ddb81596637c49819be5ceb3f3711873 result=EQUIVALENT
+CF017_RESTORE mutation=relationship detected=[transactions.rows line=2 fieldPositions=[4] key=id	fields=account_id,amount,cash_amount,category_id,correction_of_id,counterparty_account_id,created_at,date,description,due_date,goal_item_id,id,is_paid,is_system_managed,legacy_created_at_raw,operation_id,operation_time,origin,realization_of_id,reason,recorded_at,reversal_of_id,settled_at,settlement_of_id,status,time_origin,transfer_direction,type,user_id reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:39.730 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:39.744 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc"."flyway_schema_history" with baseline ...
+16:16:39.754 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:39.792 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:39.813 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.011s)
+16:16:39.831 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc": 1
+16:16:39.835 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "2 - adopt temporal metadata"
+16:16:39.860 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "3 - account opening and transaction flow"
+16:16:39.897 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "4 - card invoice integrity"
+16:16:39.950 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "5 - investment positions and goal allocations"
+16:16:40.015 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "6 - preserve goal purchase facts"
+16:16:40.035 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "7 - valuation reference and audit"
+16:16:40.057 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "8 - investment corrections"
+16:16:40.091 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "9 - payment intent receipt"
+16:16:40.102 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "10 - financial commands and partial reversals"
+16:16:40.123 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "11 - reporting coverage baselines"
+16:16:40.138 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "12 - habit goal effect identity"
+16:16:40.160 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "13 - financial creation intent receipts"
+16:16:40.175 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc" to version "14 - goal history recorded instant"
+16:16:40.184 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc", now at version v14 (execution time 00:00.229s)
+CF017_DUMP d3a6229d613cd567b601b342db3529a30b8f1ad7ad7c08601602252b6db5bf38  /tmp/cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc.dump bytes=121155
+CF017_ROUNDTRIP schema=cf017_restore_matrix_affc36191f3d4ed195103067344f3bdc target=cf_test_cf017_restore_47d131511cbf43ef82c21203bb744fce result=EQUIVALENT
+CF017_RESTORE mutation=balance detected=[accounts.rows line=2 fieldPositions=[1] key=id	fields=balance,color,id,is_archived,name,opening_balance,opening_date,opening_origin,opening_recorded_at,order_index,type,user_id,version reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:41.995 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:42.013 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44"."flyway_schema_history" with baseline ...
+16:16:42.025 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:42.076 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:42.102 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.014s)
+16:16:42.123 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44": 1
+16:16:42.127 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "2 - adopt temporal metadata"
+16:16:42.157 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "3 - account opening and transaction flow"
+16:16:42.199 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "4 - card invoice integrity"
+16:16:42.260 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "5 - investment positions and goal allocations"
+16:16:42.326 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "6 - preserve goal purchase facts"
+16:16:42.346 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "7 - valuation reference and audit"
+16:16:42.368 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "8 - investment corrections"
+16:16:42.403 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "9 - payment intent receipt"
+16:16:42.415 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "10 - financial commands and partial reversals"
+16:16:42.435 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "11 - reporting coverage baselines"
+16:16:42.450 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "12 - habit goal effect identity"
+16:16:42.474 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "13 - financial creation intent receipts"
+16:16:42.490 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44" to version "14 - goal history recorded instant"
+16:16:42.501 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44", now at version v14 (execution time 00:00.242s)
+CF017_DUMP 5aa8e833a6614138c6002902835fa6da38ae1626342e6b10a6788045c190ce17  /tmp/cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44.dump bytes=121155
+CF017_ROUNDTRIP schema=cf017_restore_matrix_1976c1ab2161470789cbf36c32945b44 target=cf_test_cf017_restore_6227fee1c4ab4aab86fb574758b6e5ad result=EQUIVALENT
+CF017_RESTORE mutation=remove-check detected=[catalog.txt line=437 fieldPositions=[2] reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:44.240 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:44.253 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80"."flyway_schema_history" with baseline ...
+16:16:44.263 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:44.299 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:44.317 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.010s)
+16:16:44.336 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80": 1
+16:16:44.339 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "2 - adopt temporal metadata"
+16:16:44.364 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "3 - account opening and transaction flow"
+16:16:44.397 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "4 - card invoice integrity"
+16:16:44.447 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "5 - investment positions and goal allocations"
+16:16:44.505 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "6 - preserve goal purchase facts"
+16:16:44.523 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "7 - valuation reference and audit"
+16:16:44.543 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "8 - investment corrections"
+16:16:44.575 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "9 - payment intent receipt"
+16:16:44.585 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "10 - financial commands and partial reversals"
+16:16:44.605 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "11 - reporting coverage baselines"
+16:16:44.618 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "12 - habit goal effect identity"
+16:16:44.640 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "13 - financial creation intent receipts"
+16:16:44.655 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80" to version "14 - goal history recorded instant"
+16:16:44.665 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80", now at version v14 (execution time 00:00.212s)
+CF017_DUMP 4919ce7021ae51a295f2982cf85e1e00dc0535d6bf92ce32509ef5d26fab3810  /tmp/cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80.dump bytes=121153
+CF017_ROUNDTRIP schema=cf017_restore_matrix_7bc16cfe2cbe4929beb9d162c28d2e80 target=cf_test_cf017_restore_7af8dbfc876241309077ec3f705b71b5 result=EQUIVALENT
+CF017_RESTORE mutation=change-check-literal detected=[catalog.txt line=437 fieldPositions=[2] reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:46.415 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:46.435 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e"."flyway_schema_history" with baseline ...
+16:16:46.446 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:46.484 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:46.503 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.010s)
+16:16:46.520 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e": 1
+16:16:46.525 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "2 - adopt temporal metadata"
+16:16:46.549 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "3 - account opening and transaction flow"
+16:16:46.583 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "4 - card invoice integrity"
+16:16:46.630 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "5 - investment positions and goal allocations"
+16:16:46.688 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "6 - preserve goal purchase facts"
+16:16:46.705 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "7 - valuation reference and audit"
+16:16:46.725 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "8 - investment corrections"
+16:16:46.757 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "9 - payment intent receipt"
+16:16:46.767 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "10 - financial commands and partial reversals"
+16:16:46.788 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "11 - reporting coverage baselines"
+16:16:46.801 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "12 - habit goal effect identity"
+16:16:46.822 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "13 - financial creation intent receipts"
+16:16:46.836 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e" to version "14 - goal history recorded instant"
+16:16:46.845 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e", now at version v14 (execution time 00:00.209s)
+CF017_DUMP 26228147d7d3818d1a0b0871d444b22d6005033209baf4dd68fccfccb7b09d4d  /tmp/cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e.dump bytes=121151
+CF017_ROUNDTRIP schema=cf017_restore_matrix_fc4baa67994f41e498d1f9c208168e2e target=cf_test_cf017_restore_1a7f0913ccc7459fa2c74243f5abf3df result=EQUIVALENT
+CF017_RESTORE mutation=unvalidated-check detected=[catalog.txt line=437 fieldPositions=[2] reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:48.582 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:48.596 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612"."flyway_schema_history" with baseline ...
+16:16:48.606 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:48.643 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:48.667 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.013s)
+16:16:48.686 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612": 1
+16:16:48.689 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "2 - adopt temporal metadata"
+16:16:48.715 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "3 - account opening and transaction flow"
+16:16:48.757 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "4 - card invoice integrity"
+16:16:48.810 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "5 - investment positions and goal allocations"
+16:16:48.871 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "6 - preserve goal purchase facts"
+16:16:48.890 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "7 - valuation reference and audit"
+16:16:48.911 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "8 - investment corrections"
+16:16:48.942 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "9 - payment intent receipt"
+16:16:48.953 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "10 - financial commands and partial reversals"
+16:16:48.974 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "11 - reporting coverage baselines"
+16:16:48.988 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "12 - habit goal effect identity"
+16:16:49.010 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "13 - financial creation intent receipts"
+16:16:49.024 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612" to version "14 - goal history recorded instant"
+16:16:49.033 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612", now at version v14 (execution time 00:00.224s)
+CF017_DUMP 11b528c206bfa59ae7020b10a17152abc140fd3068118070b240180f1434b5a1  /tmp/cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612.dump bytes=121156
+CF017_ROUNDTRIP schema=cf017_restore_matrix_30f25e9e8b1f4f279e8d4be467767612 target=cf_test_cf017_restore_125caca7a9cf4dfea4b7903bc7e4df35 result=EQUIVALENT
+CF017_RESTORE mutation=remove-index detected=[catalog.txt line=508 fieldPositions=[1, 2] reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:50.734 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:50.747 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee"."flyway_schema_history" with baseline ...
+16:16:50.757 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:50.793 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:50.813 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.010s)
+16:16:50.829 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee": 1
+16:16:50.833 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "2 - adopt temporal metadata"
+16:16:50.856 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "3 - account opening and transaction flow"
+16:16:50.889 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "4 - card invoice integrity"
+16:16:50.937 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "5 - investment positions and goal allocations"
+16:16:50.992 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "6 - preserve goal purchase facts"
+16:16:51.010 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "7 - valuation reference and audit"
+16:16:51.029 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "8 - investment corrections"
+16:16:51.061 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "9 - payment intent receipt"
+16:16:51.071 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "10 - financial commands and partial reversals"
+16:16:51.090 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "11 - reporting coverage baselines"
+16:16:51.103 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "12 - habit goal effect identity"
+16:16:51.125 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "13 - financial creation intent receipts"
+16:16:51.139 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee" to version "14 - goal history recorded instant"
+16:16:51.148 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee", now at version v14 (execution time 00:00.202s)
+CF017_DUMP 774ffd17f089dfb64a7617a4f8471ae1470e2a845c79d8ca5a3e848d5d9405f7  /tmp/cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee.dump bytes=121157
+CF017_ROUNDTRIP schema=cf017_restore_matrix_8e7cca0a0a3c4ab9833ed7ff9ba27eee target=cf_test_cf017_restore_d1a714cc7fa549f58fa476578a89202a result=EQUIVALENT
+CF017_RESTORE mutation=changed-index-expression detected=[catalog.txt line=508 fieldPositions=[2] reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:52.966 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:52.984 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8"."flyway_schema_history" with baseline ...
+16:16:52.997 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:53.049 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:53.081 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.021s)
+16:16:53.101 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8": 1
+16:16:53.104 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "2 - adopt temporal metadata"
+16:16:53.132 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "3 - account opening and transaction flow"
+16:16:53.172 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "4 - card invoice integrity"
+16:16:53.228 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "5 - investment positions and goal allocations"
+16:16:53.293 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "6 - preserve goal purchase facts"
+16:16:53.313 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "7 - valuation reference and audit"
+16:16:53.334 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "8 - investment corrections"
+16:16:53.369 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "9 - payment intent receipt"
+16:16:53.381 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "10 - financial commands and partial reversals"
+16:16:53.404 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "11 - reporting coverage baselines"
+16:16:53.419 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "12 - habit goal effect identity"
+16:16:53.440 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "13 - financial creation intent receipts"
+16:16:53.456 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8" to version "14 - goal history recorded instant"
+16:16:53.466 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8", now at version v14 (execution time 00:00.232s)
+CF017_DUMP 78227bd8c140f078425fc9038865fc26acd590a66dcbbd9a2db97f7f210dd88a  /tmp/cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8.dump bytes=121157
+CF017_ROUNDTRIP schema=cf017_restore_matrix_1d918e556b6f4a639e19071040dbc1a8 target=cf_test_cf017_restore_96b9b945e4d647d6af20c733c7c3901d result=EQUIVALENT
+CF017_RESTORE mutation=history detected=[flyway_schema_history.rows line=7 fieldPositions=[1] key=installed_rank	fields=checksum,description,execution_time,installed_by,installed_on,installed_rank,script,success,type,version reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:55.123 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:55.135 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039"."flyway_schema_history" with baseline ...
+16:16:55.145 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:55.180 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:55.203 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.012s)
+16:16:55.221 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039": 1
+16:16:55.225 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "2 - adopt temporal metadata"
+16:16:55.251 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "3 - account opening and transaction flow"
+16:16:55.285 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "4 - card invoice integrity"
+16:16:55.335 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "5 - investment positions and goal allocations"
+16:16:55.391 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "6 - preserve goal purchase facts"
+16:16:55.408 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "7 - valuation reference and audit"
+16:16:55.427 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "8 - investment corrections"
+16:16:55.455 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "9 - payment intent receipt"
+16:16:55.466 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "10 - financial commands and partial reversals"
+16:16:55.485 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "11 - reporting coverage baselines"
+16:16:55.499 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "12 - habit goal effect identity"
+16:16:55.518 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "13 - financial creation intent receipts"
+16:16:55.532 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039" to version "14 - goal history recorded instant"
+16:16:55.540 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039", now at version v14 (execution time 00:00.204s)
+CF017_DUMP b719fff4b65cbde569ede508eaae68e2b855a96c6586577efc6adc2239d9d9b2  /tmp/cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039.dump bytes=121151
+CF017_ROUNDTRIP schema=cf017_restore_matrix_b65c3c6c59ee4420945bc16d2387e039 target=cf_test_cf017_restore_d565ec83342941f49861c0245548d427 result=EQUIVALENT
+CF017_RESTORE mutation=null-vs-empty detected=[users.rows line=2 fieldPositions=[10] key=id	fields=created_at,dark_mode,dashboard_config,email,id,nome,notif_contas,notif_semanal,privacy_mode,recovery_token,recovery_token_expiry,reset_attempts,senha,updated_at reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:57.139 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:57.152 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66"."flyway_schema_history" with baseline ...
+16:16:57.163 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:57.197 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:57.215 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.010s)
+16:16:57.232 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66": 1
+16:16:57.235 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "2 - adopt temporal metadata"
+16:16:57.258 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "3 - account opening and transaction flow"
+16:16:57.291 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "4 - card invoice integrity"
+16:16:57.336 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "5 - investment positions and goal allocations"
+16:16:57.391 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "6 - preserve goal purchase facts"
+16:16:57.409 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "7 - valuation reference and audit"
+16:16:57.429 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "8 - investment corrections"
+16:16:57.462 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "9 - payment intent receipt"
+16:16:57.473 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "10 - financial commands and partial reversals"
+16:16:57.494 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "11 - reporting coverage baselines"
+16:16:57.507 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "12 - habit goal effect identity"
+16:16:57.526 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "13 - financial creation intent receipts"
+16:16:57.539 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66" to version "14 - goal history recorded instant"
+16:16:57.546 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66", now at version v14 (execution time 00:00.205s)
+CF017_DUMP 6162660989d3d6336ac222569b3c97ab6dff64f26d9d437dcc70b4e26cfb434a  /tmp/cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66.dump bytes=121153
+CF017_ROUNDTRIP schema=cf017_restore_matrix_57a9843f85c04930901fdbe0098fcb66 target=cf_test_cf017_restore_4e8cf302f3434712a4e95e96c8aecbac result=EQUIVALENT
+CF017_RESTORE mutation=known-instant detected=[goal_history.rows line=4 fieldPositions=[8] key=id	fields=allocation_id,amount,date,goal_id,id,note,protocol,recorded_at reason=logical content differs (values withheld)] final=EQUIVALENT
+16:16:59.245 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:59.258 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122"."flyway_schema_history" with baseline ...
+16:16:59.268 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:16:59.307 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:16:59.325 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:16:59.341 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122": 1
+16:16:59.344 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "2 - adopt temporal metadata"
+16:16:59.367 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "3 - account opening and transaction flow"
+16:16:59.398 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "4 - card invoice integrity"
+16:16:59.443 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "5 - investment positions and goal allocations"
+16:16:59.495 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "6 - preserve goal purchase facts"
+16:16:59.512 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "7 - valuation reference and audit"
+16:16:59.529 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "8 - investment corrections"
+16:16:59.557 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "9 - payment intent receipt"
+16:16:59.568 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "10 - financial commands and partial reversals"
+16:16:59.587 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "11 - reporting coverage baselines"
+16:16:59.600 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "12 - habit goal effect identity"
+16:16:59.619 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "13 - financial creation intent receipts"
+16:16:59.633 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122" to version "14 - goal history recorded instant"
+16:16:59.642 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122", now at version v14 (execution time 00:00.193s)
+CF017_DUMP feebee200103cb1afcc3193b17b299d2d59b7227cf924830b3795c861d3f9c1d  /tmp/cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122.dump bytes=121152
+CF017_ROUNDTRIP schema=cf017_restore_matrix_3f7416c090f04bdb82858ebe299c2122 target=cf_test_cf017_restore_2923f373ade847cdb261f6db31129e8e result=EQUIVALENT
+CF017_RESTORE mutation=delete-line detected=[card_transactions.rows line=2 fieldPositions=[0, 1, 3, 6, 7, 15] key=id	fields=amount,category_id,created_at,credit_applied,date,description,id,installment,invoice_id,legacy_created_at_raw,opening_batch_id,operation_time,origin,paid_amount,purchase_id,recorded_at,refunded_amount,time_origin,total_installments reason=logical content differs (values withheld)] final=EQUIVALENT
+CF017_DUMP f10d06307a03e663a6e712979f4855d4312211b85bd5626676d27f4ceb5b79be  /tmp/cf017_restore_matrix_13cff11fe0214a18b95282045201e9cf.dump bytes=55465
+CF017_ROUNDTRIP schema=cf017_restore_matrix_13cff11fe0214a18b95282045201e9cf target=cf_test_cf017_restore_eafe9bd0f9684d0db0d6d05433355fd8 result=EQUIVALENT
+16:17:02.534 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:02.548 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de"."flyway_schema_history" with baseline ...
+16:17:02.559 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:17:02.595 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:02.613 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:17:02.630 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de": 1
+16:17:02.633 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "2 - adopt temporal metadata"
+16:17:02.655 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "3 - account opening and transaction flow"
+16:17:02.687 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "4 - card invoice integrity"
+16:17:02.736 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "5 - investment positions and goal allocations"
+16:17:02.795 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "6 - preserve goal purchase facts"
+16:17:02.814 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "7 - valuation reference and audit"
+16:17:02.834 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "8 - investment corrections"
+16:17:02.864 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "9 - payment intent receipt"
+16:17:02.874 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "10 - financial commands and partial reversals"
+16:17:02.892 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "11 - reporting coverage baselines"
+16:17:02.905 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "12 - habit goal effect identity"
+16:17:02.924 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "13 - financial creation intent receipts"
+16:17:02.938 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de" to version "14 - goal history recorded instant"
+16:17:02.946 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de", now at version v14 (execution time 00:00.202s)
+CF017_DUMP 02a4f0662a0d18fa07bb62aa8ac53f8b0215a213ec042689d1baf3244d962be6  /tmp/cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de.dump bytes=121154
+CF017_ROUNDTRIP schema=cf017_restore_matrix_246a73b3a7a74cc098f0e159349966de target=cf_test_cf017_restore_9db7f3ca17ef49329ea8feb98c372529 result=EQUIVALENT
+16:17:04.277 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:04.289 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce"."flyway_schema_history" with baseline ...
+16:17:04.300 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:17:04.335 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:04.353 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:17:04.369 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce": 1
+16:17:04.372 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "2 - adopt temporal metadata"
+16:17:04.395 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "3 - account opening and transaction flow"
+16:17:04.428 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "4 - card invoice integrity"
+16:17:04.475 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "5 - investment positions and goal allocations"
+16:17:04.530 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "6 - preserve goal purchase facts"
+16:17:04.546 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "7 - valuation reference and audit"
+16:17:04.565 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "8 - investment corrections"
+16:17:04.595 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "9 - payment intent receipt"
+16:17:04.604 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "10 - financial commands and partial reversals"
+16:17:04.623 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "11 - reporting coverage baselines"
+16:17:04.636 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "12 - habit goal effect identity"
+16:17:04.657 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "13 - financial creation intent receipts"
+16:17:04.671 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce" to version "14 - goal history recorded instant"
+16:17:04.679 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_d9e40fc320764fd3be9ac42251ef01ce", now at version v14 (execution time 00:00.201s)
+CF017_DUMP 095dcf9b664e13555e18a44bc3a285e2742c9a63cfa6f6d5115c6066cb8268c6  /tmp/cf017_restore_matrix_5f95eb387a0b4ab3881c313b0427a6a2.dump bytes=52573
+CF017_ROUNDTRIP schema=cf017_restore_matrix_5f95eb387a0b4ab3881c313b0427a6a2 target=cf_test_cf017_restore_6821c85c48b046c5a318e93e9b9b86ed result=EQUIVALENT
+CF017_RESTORE_FAILURE exit=1 targetUnchanged=true
+16:17:06.365 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:06.378 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_restore_matrix_72de588c29164a5cbc5e429033157061"."flyway_schema_history" with baseline ...
+16:17:06.388 [main] INFO org.flywaydb.core.internal.command.DbBaseline -- Successfully baselined schema with version: 1
+16:17:06.421 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_6ade312b44f046f69bc9a184c09613a1?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:06.438 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:17:06.454 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061": 1
+16:17:06.457 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "2 - adopt temporal metadata"
+16:17:06.479 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "3 - account opening and transaction flow"
+16:17:06.512 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "4 - card invoice integrity"
+16:17:06.561 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "5 - investment positions and goal allocations"
+16:17:06.620 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "6 - preserve goal purchase facts"
+16:17:06.637 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "7 - valuation reference and audit"
+16:17:06.656 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "8 - investment corrections"
+16:17:06.687 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "9 - payment intent receipt"
+16:17:06.697 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "10 - financial commands and partial reversals"
+16:17:06.717 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "11 - reporting coverage baselines"
+16:17:06.730 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "12 - habit goal effect identity"
+16:17:06.749 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "13 - financial creation intent receipts"
+16:17:06.763 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" to version "14 - goal history recorded instant"
+16:17:06.771 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 13 migrations to schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061", now at version v14 (execution time 00:00.206s)
+CF017_DUMP 5a67ace56820c7e45a5762210e23f7c4aff82d672d86c3464fbfbff080b44a38  /tmp/cf017_restore_matrix_72de588c29164a5cbc5e429033157061.dump bytes=121153
+CF017_ROUNDTRIP schema=cf017_restore_matrix_72de588c29164a5cbc5e429033157061 target=cf_test_cf017_restore_a566096e56254da08d1ea66fb8ca8666 result=EQUIVALENT
+16:17:07.617 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: jdbc:postgresql://localhost:51685/cf_test_cf017_restore_a566096e56254da08d1ea66fb8ca8666?loggerLevel=OFF (PostgreSQL 16.15)
+16:17:07.635 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:17:07.674 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 15 migrations (execution time 00:00.009s)
+16:17:07.689 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061": 14
+16:17:07.689 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Schema "cf017_restore_matrix_72de588c29164a5cbc5e429033157061" is up to date. No migration necessary.
+CF017_DUMP 6347f5154e78aaee4bfea80abd12a55c22fc0a09ac2577aa57e37dbeef1507ec  /tmp/cf017_restore_matrix_fcb314681f054b619e38b565b4ee956a.dump bytes=52573
+CF017_ROUNDTRIP schema=cf017_restore_matrix_fcb314681f054b619e38b565b4ee956a target=cf_test_cf017_restore_c504abfbfa694ef7855a561e525e1561 result=EQUIVALENT
+[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 41.26 s -- in com.controlefinanceiro.api.migration.Cf017RestoreTest
+[INFO] Running com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+16:17:08.849 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest]: EmptyDatabaseMigrationIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:17:10.263 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-15 16:17:10.676 - INFO 26960 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : Starting EmptyDatabaseMigrationIntegrationTest using Java 21.0.12.1 with PID 26960 (started by Aluga.com in C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend)
+-2026-10-15 16:17:10.677 - INFO 26960 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-10-15 16:17:21.100 - WARN 26960 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-15 16:17:30.130 - INFO 26960 --- [           main] .m.EmptyDatabaseMigrationIntegrationTest : Started EmptyDatabaseMigrationIntegrationTest in 19.734 seconds (process running for 99.386)
+-CF017_SYNTHETIC_EXPLAIN Limit  (cost=0.29..5.43 rows=50 width=29) (actual time=0.018..0.063 rows=50 loops=1) |   Buffers: shared hit=52 |   ->  Index Only Scan using idx_transactions_user_temporal_order on transactions  (cost=0.29..2056.29 rows=20000 width=29) (actual time=0.017..0.059 rows=50 loops=1) |         Index Cond: (user_id = '71000000-0000-0000-0000-000000000001'::uuid) |         Heap Fetches: 50 |         Buffers: shared hit=52 | Planning: |   Buffers: shared hit=101 read=8 | Planning Time: 0.527 ms | Execution Time: 0.080 ms | 
+CF017_SYNTHETIC_MIGRATION_MS version=1 executionTime=107
+CF017_SYNTHETIC_MIGRATION_MS version=2 executionTime=15
+2026-10-15 16:17:32.828 -ERROR 26960 --- [           main] o.f.core.internal.command.DbMigrate      : Migration of schema "cf017_failure_ffdb48d063b34277a2e4e7662bfad0e8" to version "2 - adopt temporal metadata" failed! Changes successfully rolled back.
+-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.94 s -- in com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest
+[INFO] Running com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest
+RD58 V13->V14: preserved PK, goal, amount, note, raw date/null; recorded_at null for both legacy rows; migration idempotent.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.102 s -- in com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest
+[INFO] Running com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-15 13:17:35.947 - INFO 26960 --- [           main] m.LegacyDatabaseMigrationIntegrationTest : Starting LegacyDatabaseMigrationIntegrationTest using Java 21.0.12.1 with PID 26960 (started by Aluga.com in C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend)
+-2026-10-15 13:17:35.948 - INFO 26960 --- [           main] m.LegacyDatabaseMigrationIntegrationTest : The following 1 profile is active: "test"
+-2026-10-15 13:17:37.505 - WARN 26960 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-15 13:17:39.544 - INFO 26960 --- [           main] m.LegacyDatabaseMigrationIntegrationTest : Started LegacyDatabaseMigrationIntegrationTest in 3.68 seconds (process running for 108.799)
+-2026-10-15 13:17:40.000 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 40000000-0000-0000-0000-000000000001. Usu�rio: legacy-cf017@example.test
+-2026-10-15 13:17:40.002 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 40000000-0000-0000-0000-000000000001
+-2026-10-15 13:17:40.453 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: legacy-cf017@example.test | Valor: 12.34 | Tipo: EXPENSE
+-2026-10-15 13:17:40.456 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=12.34, ContaID=20000000-0000-0000-0000-000000000001
+-2026-10-15 13:17:40.476 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 42fbf430-2135-4f62-a894-16eaf65f3afc
+-CF017_DUMP a133c9228e564a61ba38803256f58263126caba30b5f8acf0b334fd777495fb6  /tmp/cf017_restore_f87d744ecaae47a385ac8b5cf0ce7d2e.dump bytes=116514
+CF017_ROUNDTRIP schema=cf017_restore_f87d744ecaae47a385ac8b5cf0ce7d2e target=cf_test_cf017_restore_fcd3e4bb844d457593e5604ccd39ff7b result=EQUIVALENT
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.082 s -- in com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest
+[INFO] Running com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-15 13:17:44.759 - INFO 26960 --- [           main] c.a.TemporalCompatibilityIntegrationTest : Starting TemporalCompatibilityIntegrationTest using Java 21.0.12.1 with PID 26960 (started by Aluga.com in C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend)
+-2026-10-15 13:17:44.760 - INFO 26960 --- [           main] c.a.TemporalCompatibilityIntegrationTest : The following 1 profile is active: "test"
+-2026-10-15 13:17:45.379 - WARN 26960 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-15 13:17:47.138 - INFO 26960 --- [           main] c.a.TemporalCompatibilityIntegrationTest : Started TemporalCompatibilityIntegrationTest in 4.184 seconds (process running for 116.394)
+-2026-10-15 13:17:47.178 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:47.179 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ef6cee92-e2f5-44e1-9e48-dfab443b9a68
+-2026-10-15 13:17:47.191 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 0d6bb9bc-4d20-4a75-a185-16f2f80065ed
+-2026-10-15 13:17:47.212 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:47.213 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ef6cee92-e2f5-44e1-9e48-dfab443b9a68
+-2026-10-15 13:17:47.221 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f5359e23-68e3-43b8-8aeb-9491386ae0ad
+-2026-10-15 13:17:47.233 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:47.234 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=ef6cee92-e2f5-44e1-9e48-dfab443b9a68
+-2026-10-15 13:17:47.240 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 3d0e327b-ac03-4acc-8811-6400ba466a0f
+-2026-10-15 13:17:47.287 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | M�s: 9 | Conta: null
+-2026-10-15 13:17:47.519 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | M�s: 9 | Conta: null
+-2026-10-15 13:17:47.551 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test | M�s: 9 | Conta: null
+-2026-10-15 13:17:47.573 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: 27b22617-8051-456a-8662-4da4a6fcf836@example.test
+-2026-10-15 13:17:47.578 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio 27b22617-8051-456a-8662-4da4a6fcf836@example.test
+-2026-10-15 13:17:49.345 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: ef9ec545-9cc2-481e-a8f1-8957af2c354a@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:49.345 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=6d18343e-7d2a-4d26-b473-74c6f75d3711
+-2026-10-15 13:17:49.352 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 07d3e86e-cd71-494d-980f-0f980d1ad73d
+-2026-10-15 13:17:49.367 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [recordedAt]]
+-2026-10-15 13:17:49.389 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/07d3e86e-cd71-494d-980f-0f980d1ad73d; campos: [recordedAt]]
+-2026-10-15 13:17:49.398 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [createdAt]]
+-2026-10-15 13:17:49.406 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/07d3e86e-cd71-494d-980f-0f980d1ad73d; campos: [createdAt]]
+-2026-10-15 13:17:49.412 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [legacyCreatedAtRaw]]
+-2026-10-15 13:17:49.419 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/07d3e86e-cd71-494d-980f-0f980d1ad73d; campos: [legacyCreatedAtRaw]]
+-2026-10-15 13:17:49.424 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions; campos: [timeOrigin]]
+-2026-10-15 13:17:49.430 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /transactions/07d3e86e-cd71-494d-980f-0f980d1ad73d; campos: [timeOrigin]]
+-2026-10-15 13:17:49.566 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 4f6ba13b-d887-477e-a0f0-77f112e8e991@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:49.566 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=f71d9ee6-969e-45ec-87bb-62c4227824de
+-2026-10-15 13:17:49.571 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e2679a85-ceb4-40b7-a578-ac363ed5e3e8
+-2026-10-15 13:17:49.585 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 4f6ba13b-d887-477e-a0f0-77f112e8e991@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:49.585 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=f71d9ee6-969e-45ec-87bb-62c4227824de
+-2026-10-15 13:17:49.590 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID be1ddb0b-fb6f-4a10-a875-38f8837384c2
+-2026-10-15 13:17:49.602 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: 4f6ba13b-d887-477e-a0f0-77f112e8e991@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:49.602 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=f71d9ee6-969e-45ec-87bb-62c4227824de
+-2026-10-15 13:17:49.609 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID dbfe7eb7-728a-44c7-99d6-51fa3c1834fb
+-2026-10-15 13:17:49.637 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test | Valor: 10 | Tipo: EXPENSE
+-2026-10-15 13:17:49.638 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=10, ContaID=6e8f7a82-1738-4240-a8df-625de7ff4178
+-2026-10-15 13:17:49.645 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 64da696a-e5c3-4c42-af17-27178cad61e6
+-2026-10-15 13:17:49.659 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 64da696a-e5c3-4c42-af17-27178cad61e6. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test
+-2026-10-15 13:17:49.659 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 64da696a-e5c3-4c42-af17-27178cad61e6
+-2026-10-15 13:17:49.695 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 64da696a-e5c3-4c42-af17-27178cad61e6. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test
+-2026-10-15 13:17:49.696 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 64da696a-e5c3-4c42-af17-27178cad61e6
+-2026-10-15 13:17:49.724 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 64da696a-e5c3-4c42-af17-27178cad61e6. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test
+-2026-10-15 13:17:49.725 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 64da696a-e5c3-4c42-af17-27178cad61e6
+-2026-10-15 13:17:49.747 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o 64da696a-e5c3-4c42-af17-27178cad61e6. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test
+-2026-10-15 13:17:49.748 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID 64da696a-e5c3-4c42-af17-27178cad61e6
+-2026-10-15 13:17:49.778 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: ec0b7f71-6155-45a5-9bd1-cd54a964bfb4@example.test | M�s: 9 | Conta: null
+-2026-10-15 13:17:49.849 - INFO 26960 --- [           main] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID a835e675-3d40-4020-8242-06cd962a9c85. Qtd: 1, Pre�o: 10
+-2026-10-15 13:17:49.850 - INFO 26960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID a835e675-3d40-4020-8242-06cd962a9c85
+-2026-10-15 13:17:49.874 - INFO 26960 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-15 13:17:49.943 - INFO 26960 --- [           main] c.c.api.controller.InvestmentController  : API: Atualiza��o manual de saldo para ativo ID 2517caf3-ae58-40fb-b18c-abd18b74de1c
+-2026-10-15 13:17:49.988 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: 3e05d1cb-017d-4ba3-b0fb-034b5ee3ce7e@example.test | M�s: 9 | Conta: null
+-2026-10-15 13:17:50.027 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a99c2a71-faa6-44f0-84d8-25778e67ec7e. Usu�rio: 5ac95743-00f2-4d08-8e53-6ee3799f9e29@example.test
+-2026-10-15 13:17:50.028 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a99c2a71-faa6-44f0-84d8-25778e67ec7e
+-2026-10-15 13:17:50.056 - INFO 26960 --- [           main] c.c.a.controller.TransactionController   : API: Requisi��o para ATUALIZAR transa��o a99c2a71-faa6-44f0-84d8-25778e67ec7e. Usu�rio: 5ac95743-00f2-4d08-8e53-6ee3799f9e29@example.test
+-2026-10-15 13:17:50.056 - INFO 26960 --- [           main] c.c.api.service.TransactionService       : Atualizando transa��o ID a99c2a71-faa6-44f0-84d8-25778e67ec7e
+-2026-10-15 13:17:50.122 - INFO 26960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o d14864f8-f5d8-43af-87c5-4263c1fa4415. Valor: 10. Parcelas: 1
+-2026-10-15 13:17:50.123 - INFO 26960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID d14864f8-f5d8-43af-87c5-4263c1fa4415: 10 (1x)
+-2026-10-15 13:17:50.215 - INFO 26960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-15 13:17:50.272 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/bb19e68b-a7c8-4cbf-bc3f-e2d8ed872e7a; campos: [recordedAt]]
+-2026-10-15 13:17:50.281 - INFO 26960 --- [           main] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o d14864f8-f5d8-43af-87c5-4263c1fa4415. Valor: 10. Parcelas: 1
+-2026-10-15 13:17:50.282 - INFO 26960 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cart�o ID d14864f8-f5d8-43af-87c5-4263c1fa4415: 10 (1x)
+-2026-10-15 13:17:50.317 - INFO 26960 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-15 13:17:50.362 - WARN 26960 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Requisi��o inv�lida [URI: /cards/transaction/c98e8011-b616-445a-b5c2-4801a3af74e1; campos: [recordedAt]]
+-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.467 s -- in com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 75, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ api ---
+[INFO] Building jar: C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend\target\api-0.0.1.jar
+[INFO] 
+[INFO] --- spring-boot:4.0.2:repackage (repackage) @ api ---
+[INFO] Replacing main artifact C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend\target\api-0.0.1.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\Aluga.com\.codex\visualizations\2026\10\15\01a14056-9862-7810-9cf7-32f4cd64d172\cf017-confirmation\controle-financeiro-backend\target\api-0.0.1.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:14 min
+[INFO] Finished at: 2026-10-15T16:17:57Z
+[INFO] ------------------------------------------------------------------------
