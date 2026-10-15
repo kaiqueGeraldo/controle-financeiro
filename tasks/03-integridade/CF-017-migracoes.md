@@ -8,6 +8,22 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revisão independente do saneamento — 15/10/2026
+
+Base `bcec50c`, intervalo `4206d88..bcec50c`:
+[parecer, matriz e provas](../evidencias/revalidacao-CF-017/README.md).
+RV17-02 encerrado localmente. RV17-01 aprovado no comparador/read-only/fail-closed,
+mas permanece aberto somente por resíduo operacional P2: validade do preflight
+entre verificação, freeze e baseline, com repetição quando o alvo muda.
+Fundação V1–V14, upgrade/rollback/Hibernate e restore local aprovados;71testes
+dirigidos e4probes novos, sem falhas/skips. Migrações/configuração preservadas.
+
+Estado integral `em_revisao`: restam esse resíduo e compatibilidade/adoção real,
+incluindo inventário, backup/restore, proveniência e writers. Capacidade liberada
+para **iniciar CF-029 somente local/descartável** sobre essa base, com CF-023 e
+CF-028 integradas/aceitas. Não executar onboarding por efeito desta anotação;
+nenhuma liberação de banco real ou publicação. Notas abaixo são históricas.
+
 ## Saneamento local RV17-01/02 — 15/10/2026, candidato em revisão
 
 Base integrada `4206d88`, branch `codex/cf017-preflight-restore`. Reproduções atuais

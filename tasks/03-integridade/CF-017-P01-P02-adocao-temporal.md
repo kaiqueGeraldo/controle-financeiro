@@ -5,6 +5,15 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revisão independente local — 15/10/2026
+
+Base `bcec50c`: [parecer e matriz](../evidencias/revalidacao-CF-017/README.md).
+Fundação V1–V14 e restore local aprovados; RV17-02 encerrado no escopo sintético.
+RV17-01 conserva somente resíduo operacional P2 da janela preflight→baseline.
+Esta derivada permanece em_revisao: inventário, compatibilidade, backup/restore,
+proveniência, writers/clientes, medição e adoção do ambiente existente não foram
+executados nem transferidos. Prontidão local da CF-029 não conclui essas obrigações.
+
 ## Candidato local de preflight/restore — 15/10/2026
 
 [Saneamento RV17-01/02](../evidencias/saneamento-CF-017/README.md) na base integrada

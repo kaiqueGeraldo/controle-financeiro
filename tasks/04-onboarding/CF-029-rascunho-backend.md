@@ -1,12 +1,27 @@
 # CF-029 — Implementar rascunho autenticado e retomável
 
-- Estado: proposta
+- Estado: pronta (exclusivamente local/descartável; não executada)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-017](../03-integridade/CF-017-migracoes.md), [CF-023](../03-integridade/CF-023-isolamento-autenticacao.md), [CF-028](../04-onboarding/CF-028-contrato-onboarding.md)
 - Origem: T-006; F-008
+
+## Prontidão independente local — 15/10/2026
+
+Base `bcec50c`, [parecer CF-017 e decisão de dependência](../evidencias/revalidacao-CF-017/README.md).
+Fundação versionada V1–V14/upgrade/Hibernate/restore local aprovada; CF-023 aceita
+no recorte de isolamento/sessão e CF-028 concluída como SPEC-001 v1, integradas e
+conferidas nos deltas pertinentes. Satisfeita a regra de liberação parcial de
+EXECUCAO.md, sem concluir CF-017/P01/P02 nem executar esta tarefa.
+
+Usar somente banco novo/gerenciado descartável. RV17-01 residual exige sanear
+validade do preflight no rollout legado, sem impedir esse recorte. Nova migração
+posterior à V14, persistência protegida de evidência/atribuição, ownership, versão,
+conflitos, retomada e ausência de efeito financeiro exigem testes próprios conforme
+SPEC-001. Reconferir base se houver mudanças posteriores. Adoção real, baseline,
+publicação e sucessoras não estão liberadas.
 
 ## Problema e resultado esperado
 
