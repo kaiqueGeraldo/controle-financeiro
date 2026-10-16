@@ -1,0 +1,20 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\test\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitBrowserIntegrationTest.java" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\.cf22\\controle-financeiro-backend\\src\\test\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitBrowserIntegrationTest.java"
+index d040fe2..99243bc 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\src\\test\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitBrowserIntegrationTest.java"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\.cf22\\controle-financeiro-backend\\src\\test\\java\\com\\controlefinanceiro\\api\\domain\\habit\\HabitBrowserIntegrationTest.java"
+@@ -44,6 +44,7 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
+                     frontend.toString(), evidence.toString(), namespace, instant);
+             browser.directory(frontend.toFile()); browser.redirectErrorStream(true); browser.redirectOutput(evidence.resolve("playwright.log").toFile());
+             browser.environment().put("PLAYWRIGHT_BROWSERS_PATH", "0");
++            browser.environment().put("CF022_CLOCK", System.getProperty("cf022.clock", "original"));
+             Process process = browser.start();
+             boolean completed = process.waitFor(180, TimeUnit.SECONDS);
+             if (!completed) { process.descendants().forEach(ProcessHandle::destroyForcibly); process.destroyForcibly(); }
+@@ -61,6 +62,6 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
+                     Integer.class, "%" + namespace + "%")).isEqualTo(4);
+             assertThat(sql.queryForObject("select count(*) from goal_history gh join goals g on g.id=gh.goal_id join users u on u.id=g.user_id where u.email like ?",
+                     Integer.class, "%" + namespace + "%")).isZero();
+-        } finally { next.descendants().forEach(ProcessHandle::destroyForcibly); next.destroyForcibly(); }
++        } finally { Files.writeString(evidence.resolve("terminal-sql.txt"), sql.queryForList("select h.name,h.frequency,h.current_streak,h.highest_streak,l.log_date,l.status,l.goal_history_id,g.current_value from habits h left join habit_logs l on l.habit_id=h.id left join goals g on g.id=h.goal_id").toString()); next.descendants().forEach(ProcessHandle::destroyForcibly); next.destroyForcibly(); }
+     }
+ }
