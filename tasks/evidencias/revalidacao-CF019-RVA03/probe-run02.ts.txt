@@ -1,0 +1,121 @@
+import {test,expect,type Page} from '@playwright/test';
+import {writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {registerSyntheticUser,syntheticUser} from './support/synthetic-auth';
+import {setCivilDateOnly} from './support/civil-date-clock';
+const dir=process.env.CF_REVIEW_EVIDENCE!;
+const ns=process.env.CF_E2E_NAMESPACE!;
+async function post(page:Page,url:string,data:unknown){const r=await page.request.post('/api'+url,{data});expect(r.ok()).toBe(true);return r.json();}
+async function json(page:Page,url:string){const r=await page.request.get('/api'+url);expect(r.ok()).toBe(true);return r.json();}
+async function observe(page:Page){return page.evaluate(()=>{
+ const el=document.querySelector('main');
+ type Fiber={type?:{name?:string};memoizedProps:Record<string,unknown>;memoizedState:{memoizedState:unknown;next:unknown}|null;return:Fiber|null;child:Fiber|null;sibling:Fiber|null;stateNode:{current:Fiber}};
+ const key=el&&Object.keys(el).find(k=>k.startsWith('__reactFiber$'));
+ let root=el&&key?(el as unknown as Record<string,Fiber>)[key]:null;
+ while(root?.return)root=root.return;
+ const stack:Fiber[]=root?.stateNode.current?[root.stateNode.current]:[];
+ let consumer=null;
+ while(stack.length){const f=stack.pop()!;if(f.type?.name==='PayInvoiceModal'){
+  consumer={isOpen:f.memoizedProps.isOpen,isLoading:f.memoizedState?.memoizedState,cardId:f.memoizedProps.cardId,payable:f.memoizedProps.currentInvoiceValue};break;
+ }if(f.sibling)stack.push(f.sibling);if(f.child)stack.push(f.child);}
+ const dialogs=Array.from(document.querySelectorAll('[role="dialog"]')).filter(e=>e.textContent?.includes('Pagar Fatura -')).map(e=>({
+  text:e.textContent,opacity:getComputedStyle(e).opacity,transform:getComputedStyle(e).transform,
+  disabled:!!e.querySelector('fieldset:disabled'),spinner:!!e.querySelector('.animate-spin'),
+  parentOpacity:e.parentElement?getComputedStyle(e.parentElement).opacity:null,
+  animations:(e.parentElement??e).getAnimations({subtree:true}).map(a=>({playState:a.playState,currentTime:a.currentTime,startTime:a.startTime,timing:a.effect?.getComputedTiming(),keyframes:a.effect instanceof KeyframeEffect?a.effect.getKeyframes():null})),
+ }));
+ return {performance:performance.now(),timeline:document.timeline.currentTime,date:new Date().toISOString(),consumer,dialogs,
+ clocks:{performance:performance.now.toString(),raf:requestAnimationFrame.toString(),timer:setTimeout.toString()},
+ intents:Object.keys(sessionStorage).filter(k=>k.startsWith('invoice-payment:')).map(k=>({key:k,value:sessionStorage.getItem(k)}))};
+});}
+
+for(const mode of ['original','date-only'] as const)for(const payment of [20,120])test(`RVA03 ${mode} pagamento ${payment}`,async({page})=>{
+ if(mode==='original')await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));
+ else await setCivilDateOnly(page,new Date('2027-01-15T12:00:00Z'));
+ const user=syntheticUser('A',`${ns}-${mode}-${payment}`);
+ await registerSyntheticUser(page,user);
+ const prefix=`${mode}-${payment}`;
+ await page.context().tracing.start({screenshots:true,snapshots:true,sources:false});
+ const events:unknown[]=[];
+ let sequence=0;
+ const ids=new Map<unknown,number>();
+ page.on('request',r=>{if(!r.url().includes('/api/'))return;const id=++sequence;ids.set(r,id);events.push({event:'request',id,time:Date.now(),method:r.method(),path:new URL(r.url()).pathname,command:r.url().endsWith('/pay')?r.postDataJSON():undefined});});
+ page.on('response',r=>events.push({event:'response',id:ids.get(r.request()),time:Date.now(),status:r.status(),path:new URL(r.url()).pathname}));
+ page.on('requestfinished',r=>events.push({event:'finished',id:ids.get(r),time:Date.now(),path:new URL(r.url()).pathname}));
+ page.on('requestfailed',r=>events.push({event:'failed',id:ids.get(r),time:Date.now(),path:new URL(r.url()).pathname,error:r.failure()?.errorText}));
+ page.on('pageerror',e=>events.push({event:'pageerror',message:e.message}));
+ try {
+ const a=await post(page,"/accounts",{name:"SAN banco cartão",type:"CHECKING",initialBalance:1000,color:"#10b981"});
+ const c=await post(page,"/cards",{name:`SAN cartão ${payment}`,last4Digits:"4242",limit:1000,closingDay:20,dueDay:28,brand:"VISA",color:"#7c3aed"});
+ let paymentPosts=0;
+ page.on("request",request=>{if(request.method()==="POST"&&request.url().endsWith(`/cards/${c.id}/pay`))paymentPosts++;});
+ const g=await post(page,"/goals",{title:`SAN meta cartão ${payment}`,targetValue:1000,deadline:"2028-01-01",type:"MONETARY",useChecklist:true,color:"BLUE"});
+ const name=`SAN compra cartão ${payment}`;
+ await page.goto("/metas");await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:/Adicionar.*item/i}).click();
+ await page.getByPlaceholder("Nome do item (ex: Processador)").fill(name);await page.getByPlaceholder(/Valor|Estimado|Preço/i).fill("120");
+ const added=page.waitForResponse(r=>r.url().endsWith(`/goals/${g.id}/items`)&&r.request().method()==="POST");await page.getByRole("button",{name:"Adicionar",exact:true}).click();expect((await added).ok()).toBe(true);
+ await page.reload();await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:`Comprar ${name}`,exact:true}).click();
+ await page.locator("select").filter({has:page.locator(`option[value="CARD_${c.id}"]`)}).selectOption(`CARD_${c.id}`);
+ const bought=page.waitForResponse(r=>r.url().endsWith("/purchase")&&r.request().method()==="PATCH");await page.getByRole("button",{name:"Confirmar",exact:true}).click();expect((await bought).ok()).toBe(true);
+ if(payment===120)await page.waitForFunction(()=>performance.now()>=25000);
+ await page.goto("/cartoes");await page.getByRole("button",{name:`Ver fatura de ${c.name}, final 4242`}).click();
+ await page.getByRole("dialog",{name:`${c.name} •••• 4242`}).getByRole("button",{name:/^(Pagar|Adiantar)/}).click();
+ const pay=page.getByRole("dialog",{name:`Pagar Fatura - ${c.name}`,exact:true});await pay.getByRole("button",{name:"Adiantamento",exact:true}).click();await pay.getByLabel("Valor do Pagamento").fill(String(payment));await pay.getByLabel("Pagar com").selectOption(a.id);
+
+
+ const before=await observe(page);
+ const invoiceBefore=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);
+ expect(invoiceBefore.payableAmount).toBe(120);
+ const paid=page.waitForResponse(r=>r.url().endsWith(`/cards/${c.id}/pay`)&&r.request().method()==='POST');
+ await pay.getByRole('button',{name:'Confirmar Pagamento',exact:true}).click();
+ const response=await paid;expect(response.status()).toBe(200);
+ const command=response.request().postDataJSON();
+ const body=await response.text();
+ const samples:Awaited<ReturnType<typeof observe>>[]=[];
+ let closed=true;
+ try{await expect.poll(async()=>{const state=await observe(page);samples.push(state);return state.dialogs.length;}).toBe(0);}catch{closed=false;}
+ const terminal=await observe(page);
+ await page.screenshot({path:path.join(dir,prefix+'-terminal.png')});
+ const invoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);
+ const account=(await json(page,'/accounts')).find((v:{id:string})=>v.id===a.id);
+ const receipt=await json(page,`/cards/${c.id}/payments/${command.operationId}`);
+ await writeFile(path.join(dir,prefix+'.json'),JSON.stringify({mode,payment,user:user.email,accountId:a.id,cardId:c.id,command,response:{status:response.status(),body},before,invoiceBefore,samples,terminal,closed,invoice,account,receipt,paymentPosts},null,2));
+ if(mode==='date-only'){
+  await expect(pay).toHaveCount(0);
+  const detail=page.getByRole('dialog',{name:`${c.name} •••• 4242`,exact:true});
+  await expect(detail.locator('.animate-spin')).toHaveCount(0);
+  await detail.getByRole('button',{name:'Fechar detalhes da fatura',exact:true}).click();
+  await expect(detail).toHaveCount(0);
+  await page.getByRole('button',{name:`Ver fatura de ${c.name}, final 4242`}).click();
+  await expect(detail.getByText('Compra Meta: '+name,{exact:true})).toBeVisible();
+ }
+ expect(paymentPosts).toBe(1);expect(account.balance).toBe(1000-payment);expect(invoice.payableAmount).toBe(120-payment);
+ expect(receipt.operationId).toBe(command.operationId);
+ await page.reload();
+ await page.getByRole('button',{name:`Ver fatura de ${c.name}, final 4242`}).click();
+ await expect(page.getByRole('dialog',{name:`${c.name} •••• 4242`})).toBeVisible();
+ const reloadInvoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);
+ const reloadAccount=(await json(page,'/accounts')).find((v:{id:string})=>v.id===a.id);
+ expect(reloadInvoice.payableAmount).toBe(120-payment);expect(reloadAccount.balance).toBe(1000-payment);expect(paymentPosts).toBe(1);
+ await page.screenshot({path:path.join(dir,prefix+'-reload-early.png')});
+ if(mode==='date-only'){
+ const detail=page.getByRole('dialog',{name:`${c.name} •••• 4242`,exact:true});
+ await expect(detail.getByText('Compra Meta: '+name,{exact:true})).toBeVisible();
+ await expect(detail.locator('.animate-pulse')).toHaveCount(0);
+ await expect(detail).toHaveCSS('opacity','1');
+ if(payment===120)await expect(detail.getByRole('button',{name:'Fatura Zerada',exact:true})).toBeVisible();
+ await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));
+ await page.screenshot({path:path.join(dir,prefix+'-reload.png')});
+ await detail.getByRole('button',{name:'Fechar detalhes da fatura',exact:true}).click();
+ await expect(detail).toHaveCount(0);
+ await page.getByRole('button',{name:`Ver fatura de ${c.name}, final 4242`}).click();
+ await expect(detail.getByText('Compra Meta: '+name,{exact:true})).toBeVisible();
+ await writeFile(path.join(dir,prefix+'-interaction.json'),JSON.stringify({closedAndReopened:true,postCount:paymentPosts}));
+ }
+ await writeFile(path.join(dir,prefix+'-reload.json'),JSON.stringify({reloadInvoice,reloadAccount,paymentPosts,state:await observe(page)},null,2));
+ // This is an observation probe: classification requires inspecting both modes, not assuming all close.
+ }finally{
+ await writeFile(path.join(dir,prefix+'-events.json'),JSON.stringify(events,null,2));
+ await page.context().tracing.stop({path:path.join(dir,prefix+'-trace.zip')});
+ }
+});

@@ -1,0 +1,40 @@
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\tests\\e2e\\cf019-rva03.integrated.spec.ts" "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\.rv3\\controle-financeiro-frontend\\tests\\e2e\\cf019-rva03.integrated.spec.ts"
+index bb14d40..705ebb7 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\tests\\e2e\\cf019-rva03.integrated.spec.ts"
++++ "b/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\.rv3\\controle-financeiro-frontend\\tests\\e2e\\cf019-rva03.integrated.spec.ts"
+@@ -80,6 +80,15 @@ for(const mode of ['original','date-only'] as const)for(const payment of [20,120
+  const account=(await json(page,'/accounts')).find((v:{id:string})=>v.id===a.id);
+  const receipt=await json(page,`/cards/${c.id}/payments/${command.operationId}`);
+  await writeFile(path.join(dir,prefix+'.json'),JSON.stringify({mode,payment,user:user.email,accountId:a.id,cardId:c.id,command,response:{status:response.status(),body},before,invoiceBefore,samples,terminal,closed,invoice,account,receipt,paymentPosts},null,2));
++ if(mode==='date-only'){
++  await expect(pay).toHaveCount(0);
++  const detail=page.getByRole('dialog',{name:`${c.name} •••• 4242`,exact:true});
++  await expect(detail.locator('.animate-spin')).toHaveCount(0);
++  await detail.getByRole('button',{name:'Fechar detalhes da fatura',exact:true}).click();
++  await expect(detail).toHaveCount(0);
++  await page.getByRole('button',{name:`Ver fatura de ${c.name}, final 4242`}).click();
++  await expect(detail.getByText(name,{exact:true})).toBeVisible();
++ }
+  expect(paymentPosts).toBe(1);expect(account.balance).toBe(1000-payment);expect(invoice.payableAmount).toBe(120-payment);
+  expect(receipt.operationId).toBe(command.operationId);
+  await page.reload();
+@@ -88,7 +97,19 @@ for(const mode of ['original','date-only'] as const)for(const payment of [20,120
+  const reloadInvoice=await json(page,`/cards/${c.id}/invoice?month=1&year=2027`);
+  const reloadAccount=(await json(page,'/accounts')).find((v:{id:string})=>v.id===a.id);
+  expect(reloadInvoice.payableAmount).toBe(120-payment);expect(reloadAccount.balance).toBe(1000-payment);expect(paymentPosts).toBe(1);
++ await page.screenshot({path:path.join(dir,prefix+'-reload-early.png')});
++ const detail=page.getByRole('dialog',{name:`${c.name} •••• 4242`,exact:true});
++ await expect(detail.getByText(name,{exact:true})).toBeVisible();
++ await expect(detail.locator('.animate-pulse')).toHaveCount(0);
++ await expect(detail).toHaveCSS('opacity','1');
++ if(payment===120)await expect(detail.getByRole('button',{name:'Fatura Zerada',exact:true})).toBeVisible();
++ await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));
+  await page.screenshot({path:path.join(dir,prefix+'-reload.png')});
++ await detail.getByRole('button',{name:'Fechar detalhes da fatura',exact:true}).click();
++ await expect(detail).toHaveCount(0);
++ await page.getByRole('button',{name:`Ver fatura de ${c.name}, final 4242`}).click();
++ await expect(detail.getByText(name,{exact:true})).toBeVisible();
++ await writeFile(path.join(dir,prefix+'-interaction.json'),JSON.stringify({closedAndReopened:true,postCount:paymentPosts}));
+  await writeFile(path.join(dir,prefix+'-reload.json'),JSON.stringify({reloadInvoice,reloadAccount,paymentPosts,state:await observe(page)},null,2));
+  // This is an observation probe: classification requires inspecting both modes, not assuming all close.
+  }finally{
