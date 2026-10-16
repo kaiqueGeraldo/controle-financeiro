@@ -43,6 +43,17 @@ Revisão independente significa outra execução e uma análise do contrato sem 
 
 ## Fechamento e concorrência de trabalho
 
+### Integração de lotes aprovados
+
+Investigar/implementar em branch específica, submeter à revisão independente,
+publicar e integrar somente o intervalo aprovado; criar a branch do próximo
+escopo a partir da base integrada. Commits novos permanecem locais até seu aceite.
+Antes de integrar, preservar alterações alheias, atualizar referências e conferir
+ancestralidade, divergências e conteúdo do intervalo. Preferir fast-forward e
+verificar o hash remoto após publicar. Não forçar histórico nem incluir trabalho
+pendente por compartilhar a branch. Divergências exigem merge/PR delimitado;
+integração Git não equivale a aprovação de deploy ou adoção real.
+
 Entregar código + testes + evidência + atualização da especificação quando necessária. Um verde obtido após retries não apaga falha na primeira tentativa. `Em_revisao` não é `concluida`.
 
 Por padrão executar sequencialmente. Se o usuário iniciar tarefas em paralelo, usar worktrees isoladas, dependências integradas e um responsável por merge; não compartilhar banco de teste mutável. CF-002/003 podem avançar separadamente. CF-005/006 podem avançar após CF-004. CF-011/012/013/014 podem avançar após CF-010 e suas outras dependências. Revalidar o conjunto após integração.

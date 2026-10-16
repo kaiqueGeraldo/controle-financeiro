@@ -8,6 +8,22 @@
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-017](../03-integridade/CF-017-migracoes.md)
 - Origem: T-010; investigação temporal
 
+## Investigação dirigida — 16/10/2026
+
+Estado `em_revisao` preservado. [Diagnóstico, matriz e provas](../evidencias/investigacao-CF022/README.md):
+RJ-022-01 tem interferência do clock completo demonstrada no caminho de hábitos,
+mas sem reprodução do timeout histórico; H24-01 tem sensibilidade ao volume de
+fixtures demonstrada, sem causa histórica fechada. São investigações distintas.
+Nenhuma correção de produto ou harness compartilhado aplicada; próximos
+experimentos discriminantes e revisão independente delimitados por identificador.
+
+A pendência de revisão LAZY/consumidores citada na reconciliação de03/10 abaixo
+já foi satisfeita pelo [parecer CF-025](../evidencias/revisao-CF-025-CF-027-RV24/README.md#parecer-cf-025--concluída)
+e sua [matriz critérios1–4](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md),
+base06c1a51. Essa atualização documental não é novo aceite desta investigação e
+não encerra RJ-022-01/H24-01. Demais aceites/dependências e prontidão local CF029
+preservados; sem adoção real, onboarding ou publicação de commits novos.
+
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categoria 3: RJ-022-01 (interação semanal sem POST) e H24-01 (timeout de scheduler) exigem classificações separadas com DOM/rede/calllog e locks/fixtures. Categoria 1 na alteração posterior CF-025: LAZY e consumidores aguardam revisão própria. Backend DEC-08 aceito mantém liberações locais CF-025/027; verdes posteriores não encerram as causas.
