@@ -1,12 +1,25 @@
 # CF-019 — Validar faturas, parcelamento e pagamento
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md), [CF-017](../03-integridade/CF-017-migracoes.md), [CF-018](../03-integridade/CF-018-contas-transacoes.md)
 - Origem: T-004, T-009; fluxo de cartões
+
+## Parecer independente vigente — RVA-03, 16/10/2026
+
+**CF-019 concluída no escopo local entregue.** Critérios de parcelas/ciclo/limite,
+pagamento único/recibo e cron/rollback conservam os aceites independentes anteriores.
+RVA-03 encerrada: contraprova própria confirma React fechado com saída WAAPI no
+futuro; Date-only corrige somente o harness e comprova880/0, efeito único,
+interação e reload. Atribuição ao original sustentada pelos vestígios, sem alegar
+medição histórica de React/WAAPI. Não certifica banco real/adoção CF017/P01/P02.
+
+[Parecer, matriz de todos os critérios, falhas preservadas e limites](../evidencias/revalidacao-CF019-RVA03/README.md).
+Supera a pendência corrente RVA-03 nas notas datadas abaixo, preservando seu
+histórico. Sem onboarding, tarefas posteriores ou publicação nesta revisão.
 
 ## Capacidade liberada para especificação CF-028 — 03/10/2026
 

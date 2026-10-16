@@ -4,7 +4,17 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente CF-010–CF-015 — histórico, 14/10/2026
+## Situação vigente — RVA-03, 16/10/2026
+
+**CF-019 e CF-013 concluídas.** Revisão independente do candidato18c7150 aprova
+o mecanismo causal e a correção Date-only do harness. RVA-03 encerrada no recorte
+demonstrado, com atribuição histórica sustentada sem medição retroativa inventada.
+**CF-015 continua em_revisao por zoom nativo200%**, sem aceite global/publicação.
+CF011/012/014 preservadas; CF017/P01/P02 mantêm adoção real. CF029 conserva
+prontidão anterior somente local/descartável; nenhuma implementação iniciada.
+[Parecer, matriz integral, provas e próximo trabalho delimitado](evidencias/revalidacao-CF019-RVA03/README.md).
+
+## Situação anterior CF-010–CF-015 — histórico, 14/10/2026
 
 **CF014 concluída** após revisão independente do histórico invisível: causa no
 harness demonstrada, correção Date-only aceita, pintura/interação/reload e banco

@@ -1,6 +1,6 @@
 # CF-013 — Auditar e corrigir cartões, faturas e planejamento
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-terra
 - Esforço: high
@@ -8,7 +8,19 @@
 - Depende de: [CF-005](../01-datas-integracao/CF-005-datas-frontend.md), [CF-008](../01-datas-integracao/CF-008-erros-e-contratos.md), [CF-010](../02-frontend/CF-010-componentes-comuns.md)
 - Origem: T-008; F-015
 
-## Parecer independente vigente — 13/10/2026
+## Parecer independente vigente — RVA-03, 16/10/2026
+
+**CF-013 concluída.** Quatro critérios confrontados com aceites RF15-04,
+R03/RV01, lista longa/mobile e provas atuais. RVA-03 encerrada por contraprova
+causal própria do relógio: Date-only preserva data e remove a saída retida,
+com clique real, pintura carregada e reload880/0. Original compatível, sem
+afirmar medição retrospectiva de React/WAAPI. Nenhum produto alterado.
+
+[Parecer, matriz integral, evidências e limites](../evidencias/revalidacao-CF019-RVA03/README.md).
+Zoom nativo200% continua verificação separada CF010/015; este aceite não aprova
+o marco ou publicação. Notas abaixo conservam sua base/data histórica.
+
+## Parecer independente anterior — 13/10/2026
 
 Estado `em_revisao`: RF15-04 encerrado, com virada do dia, foco e visibilidade separados, competência preservada e cleanup. Demais aceites de lista longa/valores/status real mantidos. Resta RVA-03, investigação inconclusiva da recuperação após commit, sem nova hipótese ou novos pagamentos.
 
@@ -67,7 +79,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 - [x] Mesma competência permanece selecionada e datas não recuam; status após operação é confirmado pela API/reload.
 - [x] Valores extensos e lista longa não escondem ação de pagamento em mobile.
-- [ ] Falha ou conflito conserva estado recuperável; snapshot é inspecionado e ligado ao defeito.
+- [x] Falha ou conflito conserva estado recuperável; snapshot é inspecionado e ligado ao defeito.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo

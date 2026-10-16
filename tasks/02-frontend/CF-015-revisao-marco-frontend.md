@@ -8,7 +8,19 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
-## Parecer independente vigente — histórico CF014, 14/10/2026
+## Parecer independente vigente — RVA-03, 16/10/2026
+
+**CF-015 permanece em_revisao pela verificação faltante de zoom nativo200%.**
+RVA-03 encerrada com ressalva histórica explícita; CF019/013 concluídas após
+confronto de todos os critérios. CF011/012/014 e demais aceites preservados.
+Não encerra outros timeouts/falhas de pintura por associação, nem certifica
+adoção real CF017/P01/P02, onboarding ou publicação.
+
+[Parecer A–E, matriz integral, limites e próximo trabalho](../evidencias/revalidacao-CF019-RVA03/README.md).
+Próximo trabalho do marco: prova real de zoom200%, reflow e alcance das ações;
+viewport/DPR/capturas atuais não substituem. Notas abaixo são históricas.
+
+## Parecer independente anterior — histórico CF014, 14/10/2026
 
 **CF-015 permanece em_revisao.** CF014 concluída após validação independente
 do diagnóstico temporal/harness e confronto dos quatro critérios acumulados.
