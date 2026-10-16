@@ -89,3 +89,15 @@ recibo e invariantes aprovados fornecem a parte necessária para iniciarCF-024
 localmente; não exigem apagar esta pendência nem certificar publicação.
 [Matriz e decisão causal](../evidencias/revisao-CF-022-CF-023/README.md).
 CF-019 continua dona da investigação, com coordenação pertinente àCF-024.
+
+## Investigação dirigida RVA-03 — 15/10/2026
+
+Estado `em_revisao` preservado, aguardando avaliação independente. Reprodução
+causal em base8a83c35: pagamento120/recibo/débito únicos confirmados, React já
+fechado/sem loading, mas AnimatePresence conserva DOM/spinner porque o clock do
+harness desloca startTime para o futuro da timeline nativa. Controle Date-only
+preserva data/competência e remove o sintoma; correção somente do cenário de teste.
+Original histórico não tinha Fiber/WAAPI instrumentados: atribuição fortemente
+sustentada, sem alegar medição retroativa. Matriz4 e jornada original2 verificadas;
+sem alteração de produto ou publicação da investigação. Aceites R03/RV01/RV24 e
+pendências alheias preservados. [Diagnóstico, provas e limites](../evidencias/investigacao-CF019-RVA03/README.md).

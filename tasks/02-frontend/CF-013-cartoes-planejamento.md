@@ -138,3 +138,17 @@ RF15-04 corrigido localmente: datas civis persistidas de fechamento/vencimento e
 Resíduos do parecer cdf0060 tratados localmente: RF15-02 (ocultação imediata), RF15-04 (reatividade do dia local) e detalhes/retorno de foco CF014. Provas originais preservadas; RF15-01/RF15-03 mantêm aceites anteriores. Este registro não concede aprovação: CF010/012/013/014/015 continuam em_revisao e CF011 concluída. Zoom nativo pendente e RVA-03 inconclusivo, sem novos experimentos por ausência de condição técnica/hipótese nova.
 
 [Relatório, matriz residual, capturas e encaminhamento](../evidencias/saneamento-residual-RF15/README.md).
+
+## Investigação dirigida RVA-03 — 15/10/2026
+
+Estado `em_revisao` preservado, aguardando avaliação independente. Reprodução
+causal em base8a83c35: pagamento120/recibo/débito únicos confirmados, React já
+fechado/sem loading, mas AnimatePresence conserva DOM/spinner porque o clock do
+harness desloca startTime para o futuro da timeline nativa. Controle Date-only
+preserva data/competência e remove o sintoma; correção somente do cenário de teste.
+Original histórico não tinha Fiber/WAAPI instrumentados: atribuição fortemente
+sustentada, sem alegar medição retroativa. Matriz4 e jornada original2 verificadas;
+sem alteração de produto ou publicação da investigação. Aceites R03/RV01/RV24 e
+pendências alheias preservados. [Diagnóstico, provas e limites](../evidencias/investigacao-CF019-RVA03/README.md).
+
+CF-013 mantém aberto o critério de estado recuperável/snapshot até revisão deste diagnóstico; demais critérios não reabertos.
