@@ -8,6 +8,26 @@
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-017](../03-integridade/CF-017-migracoes.md)
 - Origem: T-010; investigação temporal
 
+## Revisão independente da investigação — 16/10/2026
+
+**Permanece em_revisao**, por saneamento atual do harness e das fixtures no
+critério4. [Parecer, matriz completa e contraprovas](../evidencias/revalidacao-CF022/README.md),
+candidato0bab205: critérios funcionais1–3 sustentados pelos aceites rastreáveis e
+provas conferidas. RJ-022-01 confirma distorção de animações pelo relógio completo;
+Date-only remove o mecanismo sem deslocar o dia. H24-01 confirma dependência da
+carga residual: contraprova fresca→residual→isolada resulta2→1006→2 leituras.
+Nenhuma causa dos timeouts históricos foi demonstrada e nenhuma correção de
+produto é indicada. Não condicionar saneamento à reprodução retroativa impossível.
+
+Próximo lote restrito: Date-only no browser.cjs de hábitos e isolamento entre
+métodos do scheduler, preservando assertions, prazo10s e caso501; validar
+diário/semanal/reload/SQL e ordens volume→callback/inversa. A revisão não implementou
+essas mudanças. Cumpridas as condições, registrar ocorrências antigas como
+inconclusivas não bloqueantes com gatilhos de reabertura, sem exigir novo timeout.
+CF029 conserva prontidão exclusivamente local/descartável e não foi executada.
+Demais aceites/pendências preservados. Checkbox4 abaixo reflete esta pendência
+atual de confiabilidade das provas, sem retirar os aceites funcionais anteriores.
+
 ## Investigação dirigida — 16/10/2026
 
 Estado `em_revisao` preservado. [Diagnóstico, matriz e provas](../evidencias/investigacao-CF022/README.md):
@@ -53,7 +73,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Mesmo dia não ganha registros/progresso duplicados; desfazer marcação desfaz efeito correspondente.
 - [x] Trocar TZ da JVM não desloca dia do hábito definido no contrato; virada semanal preserva meta semanal.
 - [x] Duas execuções/retry do job preservam invariantes de ofensiva e histórico.
-- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 

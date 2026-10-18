@@ -4,7 +4,17 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — RVA-03, 16/10/2026
+## Situação vigente — revisão CF-022, 16/10/2026
+
+**CF-022 permanece em_revisao**, exclusivamente pelo saneamento do relógio do
+harness de hábitos e isolamento das fixtures do scheduler (critério4). Critérios
+funcionais1–3 sustentados; nenhuma correção de produto indicada. RJ-022-01/H24-01
+mantêm causalidade histórica inconclusiva, sem exigir reprodução retroativa para
+fechamento. [Parecer independente, contraprovas e próximo lote restrito](evidencias/revalidacao-CF022/README.md).
+CF029 conserva prontidão exclusivamente local/descartável; não executada. Aceites
+RVA03/CF019/013/011/012/014 e pendências zoom200%/adoção real preservados.
+
+## Situação anterior — RVA-03, 16/10/2026
 
 **CF-019 e CF-013 concluídas.** Revisão independente do candidato18c7150 aprova
 o mecanismo causal e a correção Date-only do harness. RVA-03 encerrada no recorte
