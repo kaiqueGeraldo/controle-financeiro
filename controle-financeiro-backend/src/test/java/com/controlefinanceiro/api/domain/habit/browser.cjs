@@ -1,8 +1,30 @@
 const path = require('node:path');
 const fs = require('node:fs/promises');
+const { setCivilDateOnly } = require('./civil-date-clock.cjs');
 const [frontend, evidence, namespace, instant] = process.argv.slice(2);
 const { chromium, expect } = require(path.join(frontend, 'node_modules/@playwright/test'));
 const baseURL = 'http://127.0.0.1:3112';
+const observations = [];
+
+async function observePaint(page, button, label) {
+  await expect(button).toBeVisible();
+  await expect.poll(() => button.evaluate(element => {
+    const rect = element.getBoundingClientRect();
+    const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+    let opacity = 1;
+    for (let node = element; node; node = node.parentElement) opacity *= Number(getComputedStyle(node).opacity);
+    return opacity >= 0.99 && !!hit && (hit === element || element.contains(hit));
+  }), { message: 'Action must be painted and receive pointer input' }).toBe(true);
+  const clocks = await page.evaluate(() => ({
+    date: new Date().toISOString(), performance: performance.now(), timeline: document.timeline.currentTime,
+    native: [performance.now, setTimeout, setInterval, requestAnimationFrame].map(fn => fn.toString().includes('[native code]')),
+    animations: document.getAnimations().map(a => ({ currentTime: a.currentTime, startTime: a.startTime })),
+  }));
+  observations.push({ label, ...clocks });
+  await fs.writeFile(path.join(evidence, 'paint-clocks.json'), JSON.stringify(observations, null, 2));
+  expect(clocks.date).toBe('2027-01-05T02:59:59.000Z');
+  expect(clocks.native.every(Boolean)).toBe(true);
+}
 
 async function json(response) {
   expect(response.ok(), `HTTP ${response.status()} ${await response.text()}`).toBe(true);
@@ -22,10 +44,10 @@ async function json(response) {
   const results = [];
   try {
     for (const [key, timezoneId] of [['sp', 'America/Sao_Paulo'], ['kir', 'Pacific/Kiritimati']]) {
-      const context = await browser.newContext({ baseURL, timezoneId, locale: 'pt-BR', viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+      const context = await browser.newContext({ baseURL, timezoneId, locale: 'pt-BR', viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
       await context.tracing.start({ screenshots: true, snapshots: true });
       try {
-        const page = await context.newPage(); await page.clock.setFixedTime(new Date(instant));
+        const page = await context.newPage(); await setCivilDateOnly(page, new Date(instant));
         await page.goto('/auth?modo=cadastro');
         await page.locator('input[name="nome"]').fill('Pessoa Sintética CF022');
         await page.locator('input[name="email"]').fill(`${namespace}-${key}@example.invalid`);
@@ -57,7 +79,9 @@ async function json(response) {
           await modal.getByRole('button', { name: 'Criar Hábito' }).click();
           const created = await json(await createResponse); expect(created.frequency).toBe(frequency);
           if (frequency === 'WEEKLY_GOAL') expect(created.weeklyGoal).toBe(2);
+          await expect(modal).toHaveCount(0);
           const card = page.getByRole('button', { name: `Ver detalhes do hábito ${name}` });
+          await observePaint(page, card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' }), `${key}-${frequency}-created`);
           const markResponse = page.waitForResponse(r => new URL(r.url()).pathname.endsWith(`/habits/${created.id}/toggle`));
           const [, marked] = await Promise.all([
             card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' }).click(),
@@ -65,6 +89,7 @@ async function json(response) {
           ]);
           expect(marked.status()).toBe(200); expect(marked.request().postDataJSON()).toEqual({ date: '2027-01-04' });
           await page.reload(); await expect(card.getByRole('button', { name: 'Feito Hoje' })).toBeVisible();
+          await observePaint(page, card.getByRole('button', { name: 'Feito Hoje' }), `${key}-${frequency}-marked-reload`);
           let habits = await json(await page.request.get('/api/habits'));
           expect(habits.find(h => h.id === created.id).currentStreak).toBe(frequency === 'DAILY' ? 1 : 0);
           let goals = await json(await page.request.get('/api/goals')); expect(goals.find(g => g.id === goal.id).currentValue).toBe(1);
@@ -73,6 +98,8 @@ async function json(response) {
           const [, undone] = await Promise.all([card.getByRole('button', { name: 'Feito Hoje' }).click(), undoResponse]);
           expect(undone.status()).toBe(200);
           await page.reload(); await expect(card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' })).toBeVisible();
+          await observePaint(page, card.getByRole('button', { name: frequency === 'DAILY' ? 'Marcar Feito' : 'Avançar Progresso' }), `${key}-${frequency}-undone-reload`);
+          await page.screenshot({ path: path.join(evidence, `${key}-${frequency}-undone.png`), fullPage: true });
           habits = await json(await page.request.get('/api/habits'));
           const habit = habits.find(h => h.id === created.id);
           expect(habit.logs).toHaveLength(1); expect(habit.logs[0]).toMatchObject({ date: '2027-01-04', status: 'PENDING' });

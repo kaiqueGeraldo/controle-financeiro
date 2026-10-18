@@ -61,6 +61,13 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
                     Integer.class, "%" + namespace + "%")).isEqualTo(4);
             assertThat(sql.queryForObject("select count(*) from goal_history gh join goals g on g.id=gh.goal_id join users u on u.id=g.user_id where u.email like ?",
                     Integer.class, "%" + namespace + "%")).isZero();
-        } finally { next.descendants().forEach(ProcessHandle::destroyForcibly); next.destroyForcibly(); }
+        } finally {
+            next.descendants().forEach(ProcessHandle::destroyForcibly); next.destroyForcibly();
+            Files.writeString(evidence.resolve("sql-terminal.txt"),
+                    "habits=" + sql.queryForList("select frequency,current_streak,highest_streak,count(*) from habits group by frequency,current_streak,highest_streak")
+                    + "\nlogs=" + sql.queryForList("select log_date,status,goal_history_id,count(*) from habit_logs group by log_date,status,goal_history_id")
+                    + "\ngoals=" + sql.queryForList("select current_value,count(*) from goals group by current_value")
+                    + "\nhistory=" + sql.queryForObject("select count(*) from goal_history", Integer.class));
+        }
     }
 }
