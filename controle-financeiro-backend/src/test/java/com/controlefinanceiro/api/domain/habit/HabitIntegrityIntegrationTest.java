@@ -34,6 +34,10 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(properties = {"spring.flyway.enabled=true", "spring.jpa.hibernate.ddl-auto=validate"})
 @ContextConfiguration(initializers = HabitSchemaInitializer.class)
+// Worker transactions commit outside the test thread. Close their context after each
+// method and give its replacement a new schema; retain old schemas until container exit.
+@org.springframework.test.annotation.DirtiesContext(classMode = org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@org.junit.jupiter.api.parallel.Isolated("Owns a mutable Clock and scheduler context; methods must not share it concurrently")
 class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
     @Autowired HabitService service;
     @Autowired HabitCronService cron;
@@ -53,6 +57,10 @@ class HabitIntegrityIntegrationTest extends PostgresIntegrationTest {
     User user;
 
     @BeforeEach void setup() {
+        assertThat(sql.queryForObject("select count(*) from habits", Integer.class))
+                .as("Each method starts with an empty disposable habit dataset").isZero();
+        assertThat(sql.queryForObject("select count(*) from habit_logs", Integer.class)).isZero();
+        assertThat(sql.queryForObject("select count(*) from goal_history", Integer.class)).isZero();
         at("2027-01-04T03:05:00Z");
         user = new User();
         user.setNome("CF022 sintético");
