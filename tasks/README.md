@@ -4,7 +4,18 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — revisão CF-022, 16/10/2026
+## Situação vigente — saneamento CF-022, 17/10/2026
+
+**CF-022 permanece em_revisao. Critério4 implementado localmente, aguardando
+revalidação independente.** Date-only no harness de hábitos e schema/contexto por
+método saneados; regressões, quatro jornadas reais/reload/SQL,27 casos originais e
+contraprova2→1006→2 registrados com falhas/limites.
+[Candidato e encaminhamento preciso](evidencias/saneamento-CF022/README.md).
+Critérios1–3 e aceites anteriores preservados; timeouts históricos inconclusivos.
+CF029 conserva prontidão somente local/descartável, sem execução; zoom200% e adoção
+real continuam separados. Nenhuma publicação ou integração deste lote à main.
+
+## Situação anterior — revisão CF-022, 16/10/2026
 
 **CF-022 permanece em_revisao**, exclusivamente pelo saneamento do relógio do
 harness de hábitos e isolamento das fixtures do scheduler (critério4). Critérios

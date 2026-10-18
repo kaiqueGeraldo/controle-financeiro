@@ -8,6 +8,22 @@
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-017](../03-integridade/CF-017-migracoes.md)
 - Origem: T-010; investigação temporal
 
+## Saneamento dirigido — 17/10/2026
+
+**Critério4 implementado localmente, aguardando revalidação independente;
+estado em_revisao preservado.** [Delta, provas e encaminhamento](../evidencias/saneamento-CF022/README.md),
+base eb41301: Date-only no harness real de hábitos; schema/contexto por método
+na classe de integridade. Regressões antes/depois e ordens volume→callback/inversa,
+27 casos originais, quatro jornadas reais/reload/SQL e contraprova2→1006→2.
+Prazos/assertions originais preservados; falhas intermediárias e pré-compilação
+da home documentadas. Nenhuma alteração de produto ou aceite automático.
+
+Critérios1–3 conservam aceites. RJ-022-01/H24-01 históricos continuam com causa
+inconclusiva; não condicionam este saneamento à reconstrução dos timeouts antigos.
+O checkbox4 continua pendente de aceite independente do delta atual. CF029 conserva
+prontidão exclusivamente local/descartável; não iniciada. Demais aceites, zoom200%
+CF010/015 e adoção real CF017/P01/P02 preservados. Commits somente locais.
+
 ## Revisão independente da investigação — 16/10/2026
 
 **Permanece em_revisao**, por saneamento atual do harness e das fixtures no
@@ -73,7 +89,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Mesmo dia não ganha registros/progresso duplicados; desfazer marcação desfaz efeito correspondente.
 - [x] Trocar TZ da JVM não desloca dia do hábito definido no contrato; virada semanal preserva meta semanal.
 - [x] Duas execuções/retry do job preservam invariantes de ofensiva e histórico.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação. Saneamento implementado localmente em17/10; revalidação independente pendente.
 
 ## Fora de escopo
 

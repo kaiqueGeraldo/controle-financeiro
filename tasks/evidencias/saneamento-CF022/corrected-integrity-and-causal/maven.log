@@ -1,0 +1,571 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 16 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 3 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+01:17:44.942 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest]: HabitIntegrityIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:17:44.950 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:17:45.520 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+01:17:46.050 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+01:17:46.061 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-18 01:17:46.872 - INFO 27276 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-18 01:17:47.594 - INFO 27276 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-18 01:17:49.154 - INFO 27276 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-18 01:17:49.156 - INFO 27276 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-18 01:17:49.190 - INFO 27276 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-18 01:17:50.489 - INFO 27276 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-18 01:17:50.489 - INFO 27276 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-18 01:17:50.490 - INFO 27276 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-18 01:17:52.774 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-18 01:17:52.776 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-18 01:18:12.842 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-18 01:18:31.023 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 44.927 seconds (process running for 49.08)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:33.539 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:33.539 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:39.018 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:41.920 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 8.671 seconds (process running for 59.977)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:42.237 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:42.237 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:44.214 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:45.594 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.478 seconds (process running for 63.652)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:45.802 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:45.802 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:47.632 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:49.005 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.283 seconds (process running for 67.064)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:49.232 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:49.233 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:50.884 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:52.197 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.061 seconds (process running for 70.256)
+-2026-10-17 22:18:52.298 -ERROR 27276 --- [           main] c.c.api.service.HabitCronService         : CRON-HABITS: Falha no h�bito ffd8c00f-fcdf-4361-be33-534e72578e1a
+-
+java.lang.IllegalStateException: Meta semanal deve estar entre 1 e 7
+	at com.controlefinanceiro.api.domain.habit.HabitStreakCalculator.apply(HabitStreakCalculator.java:78) ~[classes/:na]
+	at com.controlefinanceiro.api.service.HabitCronService.processHabit(HabitCronService.java:71) ~[classes/:na]
+	at com.controlefinanceiro.api.service.HabitCronService.lambda$processDailyHabits$0(HabitCronService.java:38) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionOperations.lambda$executeWithoutResult$0(TransactionOperations.java:68) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.TransactionOperations.executeWithoutResult(TransactionOperations.java:67) ~[spring-tx-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.HabitCronService.processDailyHabits(HabitCronService.java:38) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.3.jar:7.0.3]
+	at net.javacrumbs.shedlock.core.DefaultLockingTaskExecutor.executeWithLock(DefaultLockingTaskExecutor.java:70) ~[shedlock-core-5.13.0.jar:na]
+	at net.javacrumbs.shedlock.spring.aop.MethodProxyScheduledLockAdvisor$LockingInterceptor.invoke(MethodProxyScheduledLockAdvisor.java:79) ~[shedlock-spring-5.13.0.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.HabitCronService$$SpringCGLIB$$0.processDailyHabits(<generated>) ~[classes/:na]
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:63) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:905) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.Assertions.catchThrowable(Assertions.java:1473) ~[assertj-core-3.27.6.jar:na]
+	at org.assertj.core.api.Assertions.assertThatThrownBy(Assertions.java:1316) ~[assertj-core-3.27.6.jar:na]
+	at com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.failureRollsBackOneHabitButCommitsOthersAndRetryIsStable(HabitIntegrityIntegrationTest.java:291) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:52.457 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:52.458 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:54.103 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:55.627 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.255 seconds (process running for 73.686)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:55.963 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:55.963 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:18:57.894 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:18:59.365 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.492 seconds (process running for 77.424)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:18:59.652 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:18:59.653 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:01.300 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:02.577 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.02 seconds (process running for 80.636)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:02.863 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:02.865 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:04.377 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:05.746 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.968 seconds (process running for 83.804)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:05.951 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:05.951 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:07.499 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:09.575 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.702 seconds (process running for 87.633)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:09.751 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:09.751 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:13.033 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:14.126 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 4.479 seconds (process running for 92.185)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:14.322 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:14.323 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:15.753 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:16.872 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.611 seconds (process running for 94.93)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:17.221 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:17.222 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:18.554 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:19.601 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.465 seconds (process running for 97.66)
+-2026-10-17 22:19:19.704 - WARN 27276 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-17 22:19:19.704 - WARN 27276 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF022 synthetic habit failure
+  Onde: PL/pgSQL function cf022_reject_4156d3d02f7d47b6a993ef89ec69f415() line 1 at RAISE
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:19.892 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:19.893 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:21.497 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:22.512 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.702 seconds (process running for 100.57)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:34.019 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:34.020 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:35.385 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:36.604 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.671 seconds (process running for 114.663)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:36.892 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:36.893 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:39.293 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:40.384 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.604 seconds (process running for 118.443)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:40.671 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:40.671 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:42.166 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:43.062 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.481 seconds (process running for 121.121)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:43.378 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:43.379 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:44.809 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:45.766 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.491 seconds (process running for 123.824)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:45.988 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:45.988 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:47.422 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:48.248 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.357 seconds (process running for 126.307)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:48.450 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:48.450 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:50.890 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:51.856 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 3.497 seconds (process running for 129.915)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:52.942 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:52.943 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:54.289 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:55.262 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.405 seconds (process running for 133.321)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:55.437 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:55.438 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:56.730 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:19:57.784 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.416 seconds (process running for 135.843)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:19:57.982 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:19:57.982 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:19:59.652 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:00.655 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.735 seconds (process running for 138.714)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:20:00.832 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:20:00.832 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:20:02.113 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:02.938 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.177 seconds (process running for 140.997)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:20:03.093 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:20:03.093 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:20:04.348 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:05.464 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.435 seconds (process running for 143.523)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:20:05.619 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:20:05.620 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:20:07.041 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:08.145 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.587 seconds (process running for 146.204)
+-
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:20:08.353 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Starting HabitIntegrityIntegrationTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:20:08.354 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : The following 1 profile is active: "test"
+-2026-10-17 22:20:09.694 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:10.639 - INFO 27276 --- [           main] c.c.a.d.h.HabitIntegrityIntegrationTest  : Started HabitIntegrityIntegrationTest in 2.375 seconds (process running for 148.698)
+-[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 146.4 s -- in com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest
+[INFO] Running com.controlefinanceiro.api.domain.habit.IndependentFixtureProbeTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-17 22:20:10.829 - INFO 27276 --- [           main] c.c.a.d.h.IndependentFixtureProbeTest    : Starting IndependentFixtureProbeTest using Java 21.0.12.1 with PID 27276 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.cf22s\controle-financeiro-backend)
+-2026-10-17 22:20:10.830 - INFO 27276 --- [           main] c.c.a.d.h.IndependentFixtureProbeTest    : The following 1 profile is active: "test"
+-2026-10-17 22:20:12.446 - WARN 27276 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-17 22:20:13.378 - INFO 27276 --- [           main] c.c.a.d.h.IndependentFixtureProbeTest    : Started IndependentFixtureProbeTest in 2.637 seconds (process running for 151.437)
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.61 s -- in com.controlefinanceiro.api.domain.habit.IndependentFixtureProbeTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 28, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:54 min
+[INFO] Finished at: 2026-10-18T01:20:31Z
+[INFO] ------------------------------------------------------------------------
