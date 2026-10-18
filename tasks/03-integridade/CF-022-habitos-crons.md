@@ -1,12 +1,33 @@
 # CF-022 — Validar hábitos e execução dos crons
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-006](../01-datas-integracao/CF-006-datas-backend.md), [CF-017](../03-integridade/CF-017-migracoes.md)
 - Origem: T-010; investigação temporal
+
+## Aceite independente do saneamento — 18/10/2026
+
+**CF-022 concluída. Critério 4 aceito**, preservados os aceites dos critérios 1–3.
+[Parecer, matriz, contraprovas e limites](../evidencias/revalidacao-saneamento-CF022/README.md),
+candidato `eb41301..5e2fae5`: Date-only confirmado no harness real; quatro jornadas
+com pintura/interação/reload/SQL; 27 casos originais e quatro ordens aprovados; mutação
+sem isolamento detecta 501 hábitos herdados. Schemas/conexões dos workers e
+fechamento de quatro contextos/pools/schedulers observados independentemente.
+
+RJ-022-01/H24-01 históricos permanecem inconclusivos e não bloqueantes: correção
+dos mecanismos atuais não atribui causa retroativa aos timeouts. Reabrir mediante
+falha de ação/calendário/SQL sob Date-only ou contaminação/timeout/retry incorreto
+com fixture nominal isolada, conforme gatilhos do parecer. Compilação fria do
+servidor dev e carga de produção não foram certificadas. Nenhuma exceção de regra,
+alteração de produto ou aumento de prazo foi necessário nesta revisão.
+
+CF-029 mantém prontidão exclusivamente local/descartável; não executada. Próxima
+etapa: publicar/integrar o lote aprovado e só depois iniciar CF-029 em nova branch,
+em execução posterior autorizada. Sem push/merge/deploy nesta revisão. As notas
+abaixo preservam os estados históricos e não substituem este aceite vigente.
 
 ## Saneamento dirigido — 17/10/2026
 
@@ -89,7 +110,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Mesmo dia não ganha registros/progresso duplicados; desfazer marcação desfaz efeito correspondente.
 - [x] Trocar TZ da JVM não desloca dia do hábito definido no contrato; virada semanal preserva meta semanal.
 - [x] Duas execuções/retry do job preservam invariantes de ofensiva e histórico.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação. Saneamento implementado localmente em17/10; revalidação independente pendente.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação. Saneamento aceito independentemente em 18/10, conforme parecer acima.
 
 ## Fora de escopo
 

@@ -4,7 +4,19 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — saneamento CF-022, 17/10/2026
+## Situação vigente — CF-022 concluída, 18/10/2026
+
+**CF-022 concluída após aceite independente do critério 4**, preservados os
+critérios 1–3. Date-only e isolamento de fixtures aceitos por contraprovas, 31 casos
+Java e quatro jornadas reais/reload/SQL. Timeouts históricos RJ-022-01/H24-01
+continuam inconclusivos não bloqueantes, com gatilhos de reabertura.
+[Parecer e próximo passo](evidencias/revalidacao-saneamento-CF022/README.md).
+CF-029 conserva prontidão exclusivamente local/descartável; não iniciada.
+Publicação/integração do lote aprovado ficam para etapa posterior, antes de nova
+branch para CF-029. Aceites RVA-03/CF-019/013/011/012/014 e pendências de zoom200%/adoção real
+preservados; nenhuma liberação de produção.
+
+## Situação anterior — saneamento CF-022, 17/10/2026
 
 **CF-022 permanece em_revisao. Critério4 implementado localmente, aguardando
 revalidação independente.** Date-only no harness de hábitos e schema/contexto por
