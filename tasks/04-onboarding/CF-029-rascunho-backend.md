@@ -1,6 +1,6 @@
 # CF-029 — Implementar rascunho autenticado e retomável
 
-- Estado: pronta (exclusivamente local/descartável; não executada)
+- Estado: em_revisao (implementação validada exclusivamente local/descartável; sem aceite independente)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -48,10 +48,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Salvar rascunho não altera conta, fatura, investimento ou saldo real.
-- [ ] Duas abas com versão antiga produzem conflito explícito, sem perder silenciosamente respostas.
-- [ ] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Salvar rascunho não altera conta, fatura, investimento ou saldo real.
+- [x] Duas abas com versão antiga produzem conflito explícito, sem perder silenciosamente respostas.
+- [x] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 
@@ -63,7 +63,25 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-029/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Iniciada em 18/10/2026 na branch local `codex/cf029-onboarding`, base integrada
+`dd554d188976144ccf00e00f9b20242196f70d90`. [Matriz e evidências](../evidencias/CF-029/README.md).
+Evidência das correções anteriores não equivale à conclusão desta tarefa.
+
+Entrega local em 19/10/2026: GET/PUT, SAVE/PAUSE/RESUME/DISCARD, versão string,
+schema V15, ownership, validação fechada/decimais exatos, referências em lote,
+propostas de confirmação protegidas e exclusão transacional. 176 regressões
+aprovadas; delta final validado por53/53 em São Paulo e53/53 na cópia restaurada
+em UTC+14. Três contraprovas causais detectadas e restauradas. Contagens são
+seleções/reexecuções, não somadas como casos únicos. Falhas anteriores preservadas.
+[Decisões/limites](../evidencias/CF-029/DECISOES.md) e
+[comandos/resultados](../evidencias/CF-029/EXECUCOES.md).
+
+Checkboxes refletem implementação/testes do executor, não aceite independente.
+Revisão dedicada deve confrontar SPEC-001 e intervalo completo desde dd554d1.
+Nenhum prepare/complete/recibo/UI implementado. Registro de evidência não possui
+produtor autoritativo nesta entrega; sua população, validação, trilha histórica,
+tokens/reconciliação e aplicação são CF-030. CF-030/031/032 conservam seus gates;
+CF-017/P01/P02 adoção real e CF-010/015 zoom200% permanecem separados.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

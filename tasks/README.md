@@ -4,7 +4,17 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF-022 concluída, 18/10/2026
+## Situação vigente — CF-029 em revisão local, 19/10/2026
+
+Lote aprovado CF-022 publicado e integrado por fast-forward em main, hash remoto
+conferido `dd554d188976144ccf00e00f9b20242196f70d90`. CF-029 implementada na branch
+`codex/cf029-onboarding`, **em_revisao**, com novos commits exclusivamente locais.
+[Matriz, testes, contraprovas e limites](evidencias/CF-029/README.md).
+Sem aceite independente, prepare/finalização/UI ou liberação de sucessoras.
+CF-030 depende do aceite CF-029; CF-031 conserva CF-015/030 e demais dependências;
+CF-032 conserva CF-031 e seus gates. Zoom200% e adoção real permanecem separados.
+
+## Situação anterior — CF-022 concluída, 18/10/2026
 
 **CF-022 concluída após aceite independente do critério 4**, preservados os
 critérios 1–3. Date-only e isolamento de fixtures aceitos por contraprovas, 31 casos
