@@ -7,7 +7,7 @@ import java.util.*;
 import static com.controlefinanceiro.api.domain.onboarding.DraftProblem.*;
 
 /** Incomplete/cross-field answers remain recoverable; these issues are not authorization to finalize. */
-final class DraftConsistency {
+public final class DraftConsistency {
     private DraftConsistency() {}
     static List<FieldError> issues(JsonNode payload) {
         List<FieldError> result=new ArrayList<>();
@@ -66,6 +66,33 @@ final class DraftConsistency {
                 pair(row.path("goal"),part.path("source"),aliases,pairs,"/reservationConfirmations/"+i,result);
         }
         return result;
+    }
+    /** Resolve CREATE types and LINK aliases once, after persisted references pass ownership checks. */
+    public static List<FieldError> reservationGoalIssues(JsonNode payload,Map<UUID,String> persistedGoalTypes) {
+        if(payload==null) return List.of(); // DISCARD has no snapshot to evaluate.
+        Map<UUID,String> temporaryGoalTypes=new HashMap<>();
+        for(JsonNode goal:payload.path("sections").path("goals").path("items")) {
+            String type=goal.has("ref")?goalType(goal.get("ref"),Map.of(),persistedGoalTypes):goal.path("type").asText("");
+            if(type!=null) temporaryGoalTypes.put(UUID.fromString(goal.get("tempId").asText()),type);
+        }
+        List<FieldError> result=new ArrayList<>();
+        var allocations=payload.path("sections").path("allocations").path("items");
+        for(int i=0;i<allocations.size();i++)
+            reservationGoal(allocations.get(i),"/sections/allocations/items/"+i,temporaryGoalTypes,persistedGoalTypes,result);
+        var confirmations=payload.path("reservationConfirmations");
+        for(int i=0;i<confirmations.size();i++)
+            if(confirmations.get(i).path("action").asText().equals("ASSIGN"))
+                reservationGoal(confirmations.get(i),"/reservationConfirmations/"+i,temporaryGoalTypes,persistedGoalTypes,result);
+        return result;
+    }
+    private static void reservationGoal(JsonNode row,String path,Map<UUID,String> temporary,Map<UUID,String> persisted,List<FieldError> result) {
+        if("NUMERIC".equals(goalType(row.path("goal"),temporary,persisted)))
+            result.add(issue(path+"/goal","GOAL_TYPE_MISMATCH"));
+    }
+    private static String goalType(JsonNode ref,Map<UUID,String> temporary,Map<UUID,String> persisted) {
+        if(ref.has("tempId")) return temporary.get(UUID.fromString(ref.get("tempId").asText()));
+        if(ref.has("id")) return persisted.get(UUID.fromString(ref.get("id").asText()));
+        return null; // Missing/pending references retain their existing issues.
     }
     private static void pair(JsonNode goal,JsonNode source,Map<String,String> aliases,Set<String> pairs,String p,List<FieldError> result) {
         if(goal.isMissingNode() || source.isMissingNode()) return;

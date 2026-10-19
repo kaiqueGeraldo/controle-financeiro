@@ -14,6 +14,7 @@ public class DraftReferences {
     public DraftReferences(NamedParameterJdbcTemplate jdbc) {this.jdbc=jdbc;}
     public List<DraftProblem.FieldError> validate(UUID owner, DraftValidator.Write write) {
         List<DraftProblem.FieldError> issues=new ArrayList<>();
+        Map<UUID,String> goalTypes=new HashMap<>();
         Map<String,Set<UUID>> byKind=new HashMap<>();
         for(var ref:write.references()) if(ref.id()!=null) byKind.computeIfAbsent(ref.kind(),k->new HashSet<>()).add(ref.id());
         for(var group:byKind.entrySet()) {
@@ -22,6 +23,7 @@ public class DraftReferences {
             jdbc.query("select id, "+typeColumn+" from "+TABLES.get(group.getKey())+" where user_id=:owner and id in (:ids)",
                     Map.of("owner",owner,"ids",group.getValue()),rs->{found.put(rs.getObject(1,UUID.class),rs.getString(2));});
             if(found.size()!=group.getValue().size()) throw new DraftProblem(404,"REFERENCE_NOT_FOUND");
+            if(group.getKey().equals("GOAL")) goalTypes.putAll(found);
             if(group.getKey().equals("CATEGORY")) {
                 for(var ref:write.references()) if(ref.kind().equals("CATEGORY")) {
                     String rowPath=ref.path().substring(0,ref.path().lastIndexOf('/'));
@@ -43,6 +45,7 @@ public class DraftReferences {
                 if(actual!=confirmation.revision()) throw new DraftProblem(409,"SOURCE_CHANGED");
             }
         }
+        issues.addAll(DraftConsistency.reservationGoalIssues(write.payload(),goalTypes));
         return issues;
     }
     public String mode(UUID owner) {
