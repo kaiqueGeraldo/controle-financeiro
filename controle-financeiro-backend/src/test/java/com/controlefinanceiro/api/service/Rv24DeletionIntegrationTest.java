@@ -122,7 +122,7 @@ class Rv24DeletionIntegrationTest extends Cf024ConcurrencyCacheIntegrationTest {
         }
         verify(emailService,times(1)).sendTemplatedEmail(eq(owner.getEmail()),anyString(),anyString(),anyString());
         assertThat(cache.get("unrelated-2026")).isNull(); // existing global deletion eviction is preserved.
-        Path evidence=Path.of("../tasks/evidencias/RV24-02");Files.createDirectories(evidence);
+        Path evidence=Path.of(System.getProperty("rv24.evidence","target/rv24-evidence"));Files.createDirectories(evidence);
         Files.writeString(evidence.resolve("fk-inventory.txt"),sql.queryForList("select conrelid::regclass::text as child, confrelid::regclass::text as parent, pg_get_constraintdef(oid) as definition from pg_constraint where contype='f' and connamespace=(select oid from pg_namespace where nspname=current_schema()) order by 1,2,3").toString());
         Files.writeString(evidence.resolve("representative-counts.txt"),"before="+before+"\nseeded="+afterSeed+"\nafter="+sizes()+"\nAll surviving application rows matched baseline exactly.\n");
     }

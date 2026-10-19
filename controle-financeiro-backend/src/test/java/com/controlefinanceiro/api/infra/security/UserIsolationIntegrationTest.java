@@ -231,8 +231,17 @@ class UserIsolationIntegrationTest extends PostgresIntegrationTest {
                         if (!credential.isEmpty()) request.header("Authorization",credential);
                         var response=mvc.perform(request).andExpect(status().isUnauthorized()).andReturn().getResponse();
                         var error=json.readTree(response.getContentAsString());
-                        assertThat(error.get("message").asText()).isEqualTo("Autenticação necessária para acessar este recurso.");
-                        assertThat(error.get("fields").size()).isZero(); requests++;
+                        if (pattern.equals("/onboarding") || pattern.startsWith("/onboarding/")) {
+                            // SPEC-001 defines a separate envelope; retain the same authentication oracle.
+                            assertThat(error.at("/error/code").asText()).isEqualTo("UNAUTHENTICATED");
+                            assertThat(error.at("/error/message").asText()).isEqualTo("Autenticação necessária para acessar este recurso.");
+                            assertThat(error.at("/error/fieldErrors").isArray()).isTrue();
+                            assertThat(error.at("/error/fieldErrors").size()).isZero();
+                        } else {
+                            assertThat(error.get("message").asText()).isEqualTo("Autenticação necessária para acessar este recurso.");
+                            assertThat(error.get("fields").size()).isZero();
+                        }
+                        requests++;
                     }
                 }
             }

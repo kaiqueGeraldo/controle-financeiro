@@ -1,0 +1,291 @@
+{
+  "contractVersion": 1,
+  "expectedVersion": "0",
+  "action": "SAVE",
+  "payload": {
+    "context": {
+      "currency": "BRL",
+      "baseDate": "2026-10-09",
+      "boundaryAcknowledged": true,
+      "cashOnlyAcknowledged": true
+    },
+    "currentStep": "REVIEW",
+    "sections": {
+      "accounts": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000001",
+            "action": "INITIALIZE_DEFAULT",
+            "ref": {
+              "kind": "ACCOUNT",
+              "id": "00000000-0000-4000-8000-000000000901"
+            },
+            "balance": {
+              "state": "KNOWN",
+              "value": "100.00"
+            },
+            "deficitAcknowledged": false
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000002",
+            "action": "CREATE",
+            "name": "Corrente sintética",
+            "type": "CHECKING",
+            "balance": {
+              "state": "KNOWN",
+              "value": "1000.00"
+            },
+            "deficitAcknowledged": false,
+            "distinctCashConfirmed": false
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000003",
+            "action": "CREATE",
+            "name": "Poupança sintética",
+            "type": "SAVINGS",
+            "balance": {
+              "state": "KNOWN",
+              "value": "200.00"
+            },
+            "deficitAcknowledged": false,
+            "distinctCashConfirmed": false
+          }
+        ]
+      },
+      "cards": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000031",
+            "action": "CREATE",
+            "name": "Cartão sintético",
+            "limit": {
+              "state": "KNOWN",
+              "value": "1000.00"
+            },
+            "closingDay": 20,
+            "dueDay": 28,
+            "opening": {
+              "currentCompetence": {
+                "year": 2026,
+                "month": 10
+              },
+              "currentOutstanding": "200.00",
+              "currentPrincipal": {
+                "state": "KNOWN",
+                "value": "194.00"
+              },
+              "currentCharges": {
+                "state": "KNOWN",
+                "value": "6.00"
+              },
+              "credit": "0.00",
+              "creditNotNettedAcknowledged": true,
+              "futureInstallments": [
+                {
+                  "tempId": "00000000-0000-4000-8000-000000000032",
+                  "competence": {
+                    "year": 2026,
+                    "month": 11
+                  },
+                  "amount": "50.00",
+                  "principal": {
+                    "state": "KNOWN",
+                    "value": "50.00"
+                  },
+                  "charges": {
+                    "state": "KNOWN",
+                    "value": "0.00"
+                  }
+                },
+                {
+                  "tempId": "00000000-0000-4000-8000-000000000033",
+                  "competence": {
+                    "year": 2026,
+                    "month": 12
+                  },
+                  "amount": "50.00",
+                  "principal": {
+                    "state": "KNOWN",
+                    "value": "50.00"
+                  },
+                  "charges": {
+                    "state": "KNOWN",
+                    "value": "0.00"
+                  }
+                },
+                {
+                  "tempId": "00000000-0000-4000-8000-000000000034",
+                  "competence": {
+                    "year": 2027,
+                    "month": 1
+                  },
+                  "amount": "50.00",
+                  "principal": {
+                    "state": "KNOWN",
+                    "value": "50.00"
+                  },
+                  "charges": {
+                    "state": "KNOWN",
+                    "value": "0.00"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "investments": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000021",
+            "action": "CREATE",
+            "name": "Renda fixa sintética",
+            "type": "FIXED_INCOME",
+            "positionMode": "MONETARY",
+            "quantity": {
+              "state": "NOT_APPLICABLE"
+            },
+            "cost": {
+              "state": "UNKNOWN"
+            },
+            "valuation": {
+              "state": "KNOWN",
+              "basis": "TOTAL",
+              "amount": "500.00",
+              "date": "2026-10-09",
+              "source": "USER_DECLARED"
+            },
+            "acquisitionDate": {
+              "state": "UNKNOWN"
+            },
+            "historicalSource": {
+              "state": "UNKNOWN"
+            }
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000022",
+            "action": "CREATE",
+            "name": "Ação sintética",
+            "type": "STOCK",
+            "positionMode": "UNIT",
+            "quantity": {
+              "state": "KNOWN",
+              "value": "3.00000000"
+            },
+            "cost": {
+              "state": "KNOWN",
+              "value": "0.60"
+            },
+            "valuation": {
+              "state": "KNOWN",
+              "basis": "TOTAL",
+              "amount": "1.00",
+              "date": "2026-10-09",
+              "source": "USER_DECLARED"
+            },
+            "acquisitionDate": {
+              "state": "UNKNOWN"
+            },
+            "historicalSource": {
+              "state": "UNKNOWN"
+            }
+          }
+        ]
+      },
+      "goals": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000041",
+            "action": "CREATE",
+            "title": "Viagem",
+            "type": "MONETARY",
+            "target": "600.00",
+            "deadline": "2027-06-30"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000042",
+            "action": "CREATE",
+            "title": "Reserva",
+            "type": "MONETARY",
+            "target": "100.00",
+            "deadline": "2026-09-30"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000043",
+            "action": "CREATE",
+            "title": "Leituras",
+            "type": "NUMERIC",
+            "target": "12.00000000",
+            "initialProgress": "4.00000000",
+            "unit": "livros",
+            "deadline": "2026-12-31"
+          }
+        ]
+      },
+      "allocations": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000051",
+            "goal": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000041"
+            },
+            "source": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000002"
+            },
+            "amount": "300.00"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000052",
+            "goal": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000041"
+            },
+            "source": {
+              "kind": "INVESTMENT",
+              "tempId": "00000000-0000-4000-8000-000000000021"
+            },
+            "amount": "200.00"
+          },
+          {
+            "tempId": "00000000-0000-4000-8000-000000000053",
+            "goal": {
+              "kind": "GOAL",
+              "tempId": "00000000-0000-4000-8000-000000000042"
+            },
+            "source": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000003"
+            },
+            "amount": "50.00"
+          }
+        ]
+      },
+      "forecasts": {
+        "answer": "PROVIDED",
+        "items": [
+          {
+            "tempId": "00000000-0000-4000-8000-000000000061",
+            "description": "Receita prevista sintética",
+            "direction": "INCOME",
+            "amount": "80.00",
+            "dueDate": "2026-11-05",
+            "account": {
+              "kind": "ACCOUNT",
+              "tempId": "00000000-0000-4000-8000-000000000002"
+            },
+            "category": {
+              "id": "00000000-0000-4000-8000-000000000902"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
