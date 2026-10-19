@@ -1,6 +1,6 @@
 # CF-029 — Implementar rascunho autenticado e retomável
 
-- Estado: em_revisao (implementação validada exclusivamente local/descartável; sem aceite independente)
+- Estado: em_revisao (revisão independente: RC029-01/P2, diagnóstico de reserva para meta numérica pendente)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -50,7 +50,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 - [x] Salvar rascunho não altera conta, fatura, investimento ou saldo real.
 - [x] Duas abas com versão antiga produzem conflito explícito, sem perder silenciosamente respostas.
-- [x] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo.
+- [ ] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo. (Isolamento/retomada verificados; diagnóstico semântico pendente em RC029-01.)
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
@@ -76,12 +76,32 @@ seleções/reexecuções, não somadas como casos únicos. Falhas anteriores pre
 [Decisões/limites](../evidencias/CF-029/DECISOES.md) e
 [comandos/resultados](../evidencias/CF-029/EXECUCOES.md).
 
-Checkboxes refletem implementação/testes do executor, não aceite independente.
-Revisão dedicada deve confrontar SPEC-001 e intervalo completo desde dd554d1.
+Checkboxes atualizados pelo parecer independente abaixo; a entrega do executor
+e suas contagens permanecem históricas. Intervalo completo desde dd554d1 revisado.
 Nenhum prepare/complete/recibo/UI implementado. Registro de evidência não possui
 produtor autoritativo nesta entrega; sua população, validação, trilha histórica,
 tokens/reconciliação e aplicação são CF-030. CF-030/031/032 conservam seus gates;
 CF-017/P01/P02 adoção real e CF-010/015 zoom200% permanecem separados.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Parecer independente — 19/10/2026
+
+**Não aprovada integralmente; em_revisao mantido.** Candidato5bac46e:
+[parecer, matriz e execuções](../evidencias/revisao-CF-029/README.md).
+RC029-01/P2: reserva vinculada por tempId a meta NUMERIC é salva e relida com
+issues vazias. Deve permanecer persistível com diagnóstico por campo, sem efeito
+financeiro; não transferir essa validação já possível no draft para CF030.
+
+Persistência, isolamento nos caminhos exercitados, conflitos/locks reais, ciclo
+de vida, precisão, V15/upgrade/validate e exclusão/rollback sustentados.53 controles
+originais passaram; probes independentes confirmaram o defeito e preservaram sua
+reprodução. Três contraprovas causais com restauração por hash. Controle adicional
+de fuso efetivo+14 passou; parâmetro JVM sozinho era insuficiente porque o startup
+redefine São Paulo. Erro de fixture do revisor preservado e corrigido separadamente.
+
+Próximo lote restrito: saneamento RC029-01 e revalidação independente, conforme
+[condição de encerramento](../evidencias/revisao-CF-029/ACHADOS.md).
+Nenhuma correção de produto nesta revisão. CF030/031/032 não liberadas/iniciadas;
+aceites anteriores, zoom200% e adoção real preservados. Sem publicação ou banco real.
 
