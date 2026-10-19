@@ -1,6 +1,6 @@
 # CF-029 — Implementar rascunho autenticado e retomável
 
-- Estado: em_revisao (revisão independente: RC029-01/P2, diagnóstico de reserva para meta numérica pendente)
+- Estado: em_revisao (RC029-01/P2 implementado localmente; aguardando revalidação independente dirigida)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -104,4 +104,19 @@ Próximo lote restrito: saneamento RC029-01 e revalidação independente, confor
 [condição de encerramento](../evidencias/revisao-CF-029/ACHADOS.md).
 Nenhuma correção de produto nesta revisão. CF030/031/032 não liberadas/iniciadas;
 aceites anteriores, zoom200% e adoção real preservados. Sem publicação ou banco real.
+
+## Saneamento local RC029-01 — 19/10/2026
+
+Diagnóstico de reserva para meta NUMERIC implementado em `DraftConsistency`, usando
+os tipos próprios já lidos em lote por `DraftReferences`. CREATE/tempId, LINK/alias,
+ID persistido e proposta ASSIGN recebem `GOAL_TYPE_MISMATCH` no campo `goal` do
+item afetado. Salvamento preserva respostas, valores e vínculos; GET recupera as
+mesmas issues persistidas. Correção/remoção reavalia no próximo SAVE/PAUSE/RESUME.
+
+[Provas antes/depois, regressões, contraprova e encaminhamento](../evidencias/saneamento-CF-029-RC029-01/README.md).
+O checkbox de diagnóstico permanece pendente de revalidação independente; este
+registro do executor não encerra RC029-01 nem autoaprova CF-029. Persistência,
+isolamento, concorrência, precisão, V15, exclusão e ausência de efeitos financeiros
+mantêm os resultados anteriores no recorte sustentado. CF030/031/032 continuam
+sem liberação; nenhum prepare, aplicação financeira ou UI foi implementado.
 
