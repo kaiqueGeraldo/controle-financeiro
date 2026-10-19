@@ -77,6 +77,8 @@ public class UserService {
         // Bulk statements follow the current FK graph, including unmapped legacy UUID links.
         // Every root is selected by owner; never follow a foreign reference to delete another root.
         for (String deletion : java.util.List.of(
+                "DELETE FROM onboarding_sessions WHERE user_id=:userId",
+                "DELETE FROM onboarding_reservation_records WHERE user_id=:userId",
                 "DELETE FROM habit_logs WHERE habit_id IN (SELECT id FROM habits WHERE user_id=:userId)",
                 "DELETE FROM habit_days WHERE habit_id IN (SELECT id FROM habits WHERE user_id=:userId)",
                 "DELETE FROM habits WHERE user_id=:userId",

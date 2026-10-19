@@ -61,6 +61,12 @@ public class RestSecurityErrorHandler implements AuthenticationEntryPoint, Acces
         response.setStatus(status);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        if (request.getRequestURI().equals("/onboarding") || request.getRequestURI().startsWith("/onboarding/")) {
+            jsonMapper.writeValue(response.getOutputStream(), java.util.Map.of("error", java.util.Map.of(
+                    "code", status == 401 ? "UNAUTHENTICATED" : "FORBIDDEN",
+                    "message", message, "fieldErrors", java.util.List.of())));
+            return;
+        }
         jsonMapper.writeValue(
                 response.getOutputStream(),
                 new StandardError(Instant.now(), status, error, message, request.getRequestURI())
