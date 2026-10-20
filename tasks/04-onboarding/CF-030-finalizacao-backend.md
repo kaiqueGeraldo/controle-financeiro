@@ -1,6 +1,6 @@
 # CF-030 — Finalizar onboarding com atomicidade e idempotência
 
-- Estado: em_revisao (implementada e validada exclusivamente local/descartável; aguardando revisão independente)
+- Estado: em_revisao (revisão independente concluída no candidato 89760e6; saneamento RC030-01/02 P2 e RC030-03 P3 pendente, exclusivamente local/descartável)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -65,4 +65,21 @@ permanecem locais. CF031/032 não iniciadas/liberadas; gate CF015/zoom e adoçã
 CF017/P01/P02 preservados. Nenhum aceite antecipado.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Revisão independente — 20/10/2026
+
+**Não aprovada no candidato `89760e64a73b6268d8cf34745cf41d6b00dcd781`.**
+[Parecer, matrizes, reproduções e limites](../evidencias/revisao-CF-030/README.md).
+Preservados os critérios sustentados de atomicidade, replay/recuperação,
+concorrência dos writers participantes, E01, reservas legadas, precisão e migração.
+195 casos distintos na seleção consolidada:191 passaram;4 assertions reproduzem
+3 achados (2P2/1P3). Contraprova remove guard apenas em cópia: reserva1200 sobre
+fonte1000; restauração por hash e controle positivo aprovados.
+
+Pendente: prioridade de encargos entre linhas/faturas na leitura/pagamento das
+aberturas (RC030-01), validação de vencimento calculado em INITIALIZE_EMPTY
+(RC030-02) e erro400 para versão contratual fora da faixa (RC030-03).
+Nenhum produto corrigido nesta revisão; probes vermelhos preservados.
+CF031/032 não liberadas; CF031 continua dependendo também do gate CF015.
+Zoom CF010/015 e adoção real CF017/P01/P02 permanecem separados e pendentes.
 

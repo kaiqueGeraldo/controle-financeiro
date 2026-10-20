@@ -4,7 +4,20 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF-030 em revisão local, 20/10/2026
+## Situação vigente — revisão independente CF-030, 20/10/2026
+
+**CF-030 não aprovada; permanece em_revisao por RC030-01/02 P2 e RC030-03 P3.**
+Candidato `89760e6`, base `5b8c4e0`; nenhuma correção de produto nesta revisão.
+Atomicidade, idempotência, revalidação/guard dos writers, E01, precisão e migração
+sustentados no escopo exercitado. Pendentes: prioridade de encargos, vencimento
+calculado fora do contrato em cartão existente e tratamento400 de versão inválida.
+195 casos distintos:191 passaram/4 assertions falharam por3 achados; contraprova
+de writer real detectada e controle restaurado aprovado.
+[Parecer independente e saneamento delimitado](evidencias/revisao-CF-030/README.md).
+CF029 e aceites anteriores preservados. CF031/032 não iniciadas/liberadas;
+CF015/zoom e adoção real CF017/P01/P02 conservam seus gates.
+
+## Situação anterior — CF-030 em revisão local, 20/10/2026
 
 **CF-030 implementada e validada localmente; em_revisao, sem aceite independente.**
 Lote aprovado CF029 publicado e integrado por fast-forward; main remota conferida
