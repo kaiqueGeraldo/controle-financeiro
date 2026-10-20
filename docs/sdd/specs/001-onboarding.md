@@ -355,6 +355,17 @@ existentes são posição capturada existingAsOf, nunca história reconstruída.
 Exibir separadamente “aberturas na data-base”/“existentes na revisão”; também NEW
 informa captura da carteira. Recibo conserva existingAsOf da revisão aceita.
 
+Precisão de transporte implementada na CF-030 (20/10/2026), para cumprir a revisão
+antes/depois já exigida nas seções2/3: Summary pode acrescentar
+`allocationChanges:[{tempId,goal:Ref,source:Ref,previousAmount:Money,amount:Money,delta:Money}]`
+somente para pares existentes selecionados, e
+`reservationChanges:[{reservationId,action,previous:LegacyReservation,proposed:LegacyReservation}]`
+quando há ASSIGN/CLOSE. `delta` é assinado; valores finais individuais conservam
+seus limites. As listas integram reviewHash e recibo; a CF-031 deverá apresentá-las.
+São dados de leitura, sem nova permissão ou regra financeira. Omitidas quando não
+aplicáveis (inclusive E01); nenhum recibo anterior é recalculado. Essa explicitação
+não altera DraftWrite, GET de issues persistidas nem os aceites da CF-029.
+
 Coverage lista `{dimension,complete,missingPaths}` para accounts/investments/cards/
 allocations. UNKNOWN/PARTIAL/defer/legado sem prova marcam false na dimensão afetada.
 Metrics: accountsSigned, investmentsValue, cardCredit, cardDebt, netWorth,

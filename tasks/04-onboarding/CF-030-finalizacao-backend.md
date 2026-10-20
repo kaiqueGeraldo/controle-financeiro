@@ -1,6 +1,6 @@
 # CF-030 — Finalizar onboarding com atomicidade e idempotência
 
-- Estado: pronta (exclusivamente local/descartável; não iniciada)
+- Estado: em_revisao (implementada e validada exclusivamente local/descartável; aguardando revisão independente)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -13,9 +13,10 @@
 Prontidão técnica em 19/10/2026: CF-018/019/020/024 concluídas e integradas;
 CF-029 aceita independentemente no escopo local/descartável.
 [Parecer e limites de dependência](../evidencias/revalidacao-CF-029-RC029-01/README.md).
-Antes de nova branch/implementação, publicar e integrar o lote aprovado em etapa
-autorizada conforme EXECUCAO.md. Esta revisão não iniciou CF-030 nem autorizou
-publicação, banco real ou adoção CF-017/P01/P02. Revalidar a base se houver alterações.
+O parecer de prontidão anterior não iniciou CF-030 nem autorizou publicação ou
+adoção real. Em etapa posterior explicitamente autorizada pelo usuário, o lote
+CF029 foi publicado/integrado e esta implementação partiu da main integrada.
+Banco real e adoção CF017/P01/P02 continuam fora do escopo.
 
 Reenvio ou falha no último item não pode duplicar patrimônio nem deixar metade da entrevista aplicada.
 
@@ -35,10 +36,12 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Falha injetada no último item faz rollback integral; rascunho pode ser corrigido.
-- [ ] Mesma chave/conteúdo após timeout retorna resultado anterior; chave com outro conteúdo falha sem duplicar.
-- [ ] Duas conexões finalizando simultaneamente deixam uma única carteira/posição/dívida; totais coincidem com oracle.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Falha injetada no último item faz rollback integral; rascunho pode ser corrigido.
+- [x] Mesma chave/conteúdo após timeout retorna resultado anterior; chave com outro conteúdo falha sem duplicar.
+- [x] Duas conexões finalizando simultaneamente deixam uma única carteira/posição/dívida; totais coincidem com oracle.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+Marcações registram validação local do executor; não substituem aceite independente.
 
 ## Fora de escopo
 
@@ -50,7 +53,16 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-030/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Iniciada em 19/10/2026, prosseguindo em 20/10/2026 na branch local
+`codex/cf030-aplicacao-onboarding`, base integrada `5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251`.
+Lote CF029 publicado/integrado por autorização explícita; novos commits CF030
+permanecem locais. [Matriz registrada antes da edição de produto](../evidencias/CF-030/MATRIZ.md).
+Validação corrigida504/504, quatro mutações detectadas por assertions e controle
+restaurado21/21; hashes dos400 fontes principal/cópia reconferidos. Falhas anteriores
+preservadas com investigação causal. [Entrega, decisões, comandos e limites](../evidencias/CF-030/README.md).
+[Roteiro da revisão independente](../evidencias/CF-030/REVISAO.md). Novos commits
+permanecem locais. CF031/032 não iniciadas/liberadas; gate CF015/zoom e adoção real
+CF017/P01/P02 preservados. Nenhum aceite antecipado.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

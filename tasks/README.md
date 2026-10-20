@@ -4,7 +4,20 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — aceite independente CF-029, 19/10/2026
+## Situação vigente — CF-030 em revisão local, 20/10/2026
+
+**CF-030 implementada e validada localmente; em_revisao, sem aceite independente.**
+Lote aprovado CF029 publicado e integrado por fast-forward; main remota conferida
+em `5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251`. Branch própria
+`codex/cf030-aplicacao-onboarding`, novos commits exclusivamente locais.
+Prepare/confirmação/cancelamento/recuperação, aberturas e reservas atômicas com V16;
+504 testes verdes, quatro mutações detectadas e controle restaurado21/21.
+[Entrega, falhas preservadas, limites e roteiro de revisão](evidencias/CF-030/README.md).
+CF029/RC029-01 e aceites anteriores preservados. CF031/032 não iniciadas/liberadas;
+CF031 conserva aceite CF030 e gate CF015. Zoom CF010/015 e adoção real CF017/P01/P02
+continuam pendentes. Nenhum deploy manual, ativação de writer ou banco real.
+
+## Situação anterior — aceite independente CF-029, 19/10/2026
 
 **RC029-01 encerrado; CF-029 concluída exclusivamente local/descartável.**
 Diagnóstico de incompatibilidade e contrato de issues persistidas/GET aceitos;
