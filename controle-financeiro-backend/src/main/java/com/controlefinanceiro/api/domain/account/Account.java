@@ -62,6 +62,12 @@ public class Account {
 
     // --- LÓGICA DE DOMÍNIO ---
 
+    public void open(BigDecimal amount,LocalDate date,Instant recordedAt,OpeningBalanceOrigin origin) {
+        if(amount!=null)amount=amount.setScale(2,java.math.RoundingMode.UNNECESSARY);
+        requireMoney(amount);
+        balance=amount;openingBalance=amount;openingDate=date;openingRecordedAt=recordedAt;openingOrigin=origin;
+    }
+
     public void credit(BigDecimal amount) {
         requireActive();
         requireMoney(amount);

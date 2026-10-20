@@ -13,6 +13,9 @@ import java.util.UUID;
  * and returns the committed snapshot, never a projection of the current ledger.
  */
 public interface FinancialIntents {
+    /** Reserve the shared identity namespace before preparing an operation. Enclosing transaction required. */
+    void lock(UUID key);
+    String ONBOARDING_COMPLETE = "ONBOARDING_COMPLETE";
     String TRANSACTION_CREATE = "TRANSACTION_CREATE";
     String INVESTMENT_OPERATION = "INVESTMENT_OPERATION";
 

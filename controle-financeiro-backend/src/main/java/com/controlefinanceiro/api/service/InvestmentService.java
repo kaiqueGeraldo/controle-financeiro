@@ -42,6 +42,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class InvestmentService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private InvestmentRepository investmentRepository;
     @Autowired private InvestTransactionRepository investTransactionRepository;
@@ -78,6 +79,7 @@ public class InvestmentService {
 
     @Transactional
     public InvestmentResponseDTO create(CreateInvestmentDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("SERVICE: Iniciando criação de ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getEmail());
 
         Investment investment = new Investment();
@@ -128,6 +130,7 @@ public class InvestmentService {
                 data.price(),data.fees()==null?BigDecimal.ZERO:data.fees(),data.date(),data.accountId(),data.amount());
         var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
         if(previous!=null) return previous;
+        inventoryGuard.writer(user.getId());
         var result=performOperationOnce(data,user);
         intents.complete(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,result);
         return result;
@@ -144,6 +147,8 @@ public class InvestmentService {
         Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
 
+        if (investment.getPositionMode().equals("MONETARY"))
+            throw new BusinessRuleException("Esta posição não possui unidades; use avaliação monetária ou um comando monetário compatível.");
         boolean monetaryRedemption = data.amount() != null;
         if (monetaryRedemption) {
             if (data.type() != InvestTransType.SELL || (investment.getType() != InvestType.FIXED_INCOME
@@ -292,11 +297,12 @@ public class InvestmentService {
 
     @Transactional
     public void updateBalance(UpdateBalanceDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
         requireMoney(data.newBalance(), false);
-        if (investment.getQuantity().signum() == 0 && data.newBalance().signum() > 0)
+        if (investment.getQuantity()!=null && investment.getQuantity().signum() == 0 && data.newBalance().signum() > 0)
             throw new BusinessRuleException("Posição sem quantidade não pode ter avaliação positiva.");
         if (data.date() == null || data.source() == null || data.source().isBlank()
                 || data.reason() == null || data.reason().isBlank() || data.reason().length() > 500 || data.source().length() > 255)
@@ -312,9 +318,10 @@ public class InvestmentService {
 
     @Transactional
     public void deleteInvestment(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         Investment investment = investmentRepository.findOwnedForAllocation(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
-        if (investment.getQuantity().signum() != 0 || (investment.getValuationAmount() != null
+        if ((investment.getQuantity()!=null && investment.getQuantity().signum() != 0) || (investment.getValuationAmount() != null
                 && investment.getValuationAmount().signum() != 0)
                 || allocationRepository.sumByInvestmentId(id).signum() != 0
                 || investTransactionRepository.existsByInvestmentId(id)) {
@@ -325,6 +332,7 @@ public class InvestmentService {
 
     @Transactional
     public void deleteTransaction(UUID transactionId, User user) {
+        inventoryGuard.writer(user.getId());
         InvestTransaction tx = investTransactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
         Investment inv = tx.getInvestment();

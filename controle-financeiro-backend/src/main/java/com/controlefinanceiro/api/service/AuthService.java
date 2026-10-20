@@ -43,6 +43,7 @@ public class AuthService {
     private EmailService emailService;
     @Autowired
     private Clock clock;
+    @Autowired private com.controlefinanceiro.api.service.onboarding.DefaultAccountIdentity defaultAccountIdentity;
 
     @Transactional
     public void register(RegisterRequestDTO data) {
@@ -175,7 +176,8 @@ public class AuthService {
         carteira.setColor("#10b981");
         carteira.setUser(user);
 
-        accountRepository.save(carteira);
+        accountRepository.saveAndFlush(carteira);
+        defaultAccountIdentity.record(user.getId(),carteira.getId(),clock.instant());
         log.info("Carteira física padrão gerada com sucesso para o usuário: {}", user.getId());
     }
 

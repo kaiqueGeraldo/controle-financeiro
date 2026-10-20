@@ -17,8 +17,10 @@ public class OnboardingErrors {
     public ResponseEntity<ErrorResponse> problem(DraftProblem e) {
         return ResponseEntity.status(e.status()).body(new ErrorResponse(new ErrorBody(e.code(),e.getMessage(),e.fields())));
     }
-    @ExceptionHandler({PessimisticLockingFailureException.class,jakarta.persistence.LockTimeoutException.class,jakarta.persistence.PessimisticLockException.class})
+    @ExceptionHandler({PessimisticLockingFailureException.class,org.springframework.dao.OptimisticLockingFailureException.class,jakarta.persistence.LockTimeoutException.class,jakarta.persistence.PessimisticLockException.class})
     public ResponseEntity<ErrorResponse> lock(Exception ignored) {return problem(new DraftProblem(409,"LOCK_CONFLICT"));}
+    @ExceptionHandler(com.controlefinanceiro.api.service.exception.BusinessRuleException.class)
+    public ResponseEntity<ErrorResponse> business(Exception ignored) {return problem(new DraftProblem(400,"BUSINESS_RULE"));}
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> unexpected(Exception ignored) {return problem(new DraftProblem(500,"INTERNAL_ERROR"));}
 }

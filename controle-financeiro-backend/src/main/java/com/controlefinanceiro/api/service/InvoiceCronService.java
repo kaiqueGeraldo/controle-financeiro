@@ -29,6 +29,7 @@ public class InvoiceCronService {
     @Autowired private EmailService emailService;
     @Autowired private TransactionTemplate transactionTemplate;
     @Autowired private Clock clock;
+    @Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Scheduled(cron = "0 5 0 * * ?", zone = "${app.temporal.product-zone}")
     @SchedulerLock(name = "processInvoiceClosingLock", lockAtLeastFor = "1m", lockAtMostFor = "10m")
@@ -48,6 +49,7 @@ public class InvoiceCronService {
 
                     // ISOLAMENTO DA TRANSAÇÃO: Apenas esta fatura vai à base de dados
                     ClosingNotice notice = transactionTemplate.execute(status -> {
+                        inventoryGuard.writer(invoice.getCard().getUser().getId());
                         cardRepository.findByIdForUpdate(invoice.getCard().getId()).orElseThrow();
                         Invoice current = invoiceRepository.findByIdForUpdate(invoice.getId()).orElseThrow();
                         if (current.getStatus() != InvoiceStatus.OPEN) return null;

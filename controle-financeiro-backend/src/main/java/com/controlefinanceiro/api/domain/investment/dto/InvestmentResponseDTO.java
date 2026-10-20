@@ -18,12 +18,17 @@ public record InvestmentResponseDTO(
         java.time.LocalDate valuationDate,
         String valuationSource,
         com.controlefinanceiro.api.domain.investment.ValuationBasis valuationBasis,
-        UUID goalId
+        UUID goalId,
+        String positionMode,
+        String institution,
+        java.time.LocalDate acquisitionDate,
+        String historicalSource
 ) {
     public InvestmentResponseDTO(Investment i) {
         this(i.getId(), i.getTicker(), i.getName(), i.getType(), i.getQuantity(),
                 i.getAveragePrice(), i.getCurrentPrice(), i.getTotalCost(), i.getValuationAmount(),
                 i.getValuationDate(), i.getValuationSource(), i.getValuationBasis(),
-                i.getGoal() != null ? i.getGoal().getId() : null);
+                i.getGoal() != null ? i.getGoal().getId() : null,
+                i.getPositionMode(),i.getInstitution(),i.getAcquisitionDate(),i.getHistoricalSource());
     }
 }

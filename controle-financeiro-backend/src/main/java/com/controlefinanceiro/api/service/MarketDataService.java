@@ -27,6 +27,7 @@ public class MarketDataService {
     private InvestmentRepository investmentRepository;
     @Autowired
     private Clock clock;
+    @Autowired private MarketPriceWriter priceWriter;
 
     @Value("${api.brapi.token}")
     private String brapiToken;
@@ -79,8 +80,7 @@ public class MarketDataService {
         List<Investment> investments = investmentRepository.findAllByTicker(ticker);
 
         for (Investment asset : investments) {
-            asset.evaluate(newPrice, LocalDate.now(clock), "BRAPI");
-            investmentRepository.save(asset);
+            priceWriter.update(asset.getUser().getId(),asset.getId(),newPrice);
         }
     }
 

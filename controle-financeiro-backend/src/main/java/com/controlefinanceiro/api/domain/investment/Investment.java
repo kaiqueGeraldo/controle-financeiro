@@ -25,8 +25,14 @@ public class Investment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column
     private String ticker;
+
+    @Column(nullable=false) private String positionMode = "UNIT";
+    private String institution;
+    private LocalDate acquisitionDate;
+    private String historicalSource;
+    private java.time.Instant openingRecordedAt;
 
     @Column(nullable = false)
     private String name;
@@ -35,10 +41,10 @@ public class Investment {
     @Column(nullable = false)
     private InvestType type;
 
-    @Column(nullable = false, precision = 20, scale = 8)
+    @Column(precision = 20, scale = 8)
     private BigDecimal quantity = BigDecimal.ZERO;
 
-    @Column(name = "average_price", nullable = false, precision = 38, scale = 8)
+    @Column(name = "average_price", precision = 38, scale = 8)
     private BigDecimal averagePrice = BigDecimal.ZERO;
 
     @Column(name = "total_cost", precision = 38, scale = 2)
@@ -85,13 +91,13 @@ public class Investment {
 
     // Legacy raw nulls remain stored; an empty current position has no exposure.
     public BigDecimal getTotalCost() {
-        return totalCost == null && quantity.signum() == 0 ? BigDecimal.ZERO.setScale(2) : totalCost;
+        return totalCost == null && quantity != null && quantity.signum() == 0 ? BigDecimal.ZERO.setScale(2) : totalCost;
     }
 
     // Helper para calcular custo total (lucro/prejuízo)
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
-        this.averagePrice = totalCost == null || quantity.signum() == 0
+        this.averagePrice = quantity == null || totalCost == null ? null : quantity.signum() == 0
                 ? BigDecimal.ZERO : totalCost.divide(quantity, 8, RoundingMode.HALF_UP);
     }
 
@@ -123,7 +129,7 @@ public class Investment {
         valuationReferenceQuantity = quantity;
         valuationDate = date;
         valuationSource = source;
-        currentPrice = quantity.signum() == 0 ? null : total.divide(quantity, 8, RoundingMode.HALF_UP);
+        currentPrice = quantity == null || quantity.signum() == 0 ? null : total.divide(quantity, 8, RoundingMode.HALF_UP);
     }
 
     public BigDecimal valueForQuantity(BigDecimal units) {

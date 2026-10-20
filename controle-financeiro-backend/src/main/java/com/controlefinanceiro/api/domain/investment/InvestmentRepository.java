@@ -30,6 +30,6 @@ public interface InvestmentRepository extends JpaRepository<Investment, UUID> {
     @Query("SELECT COALESCE(SUM(i.valuationAmount), 0) FROM Investment i WHERE i.user.id = :userId")
     BigDecimal sumTotalValueByUserId(@Param("userId") UUID userId);
 
-    @Query("SELECT DISTINCT i.ticker FROM Investment i WHERE i.type IN :types")
+    @Query("SELECT DISTINCT i.ticker FROM Investment i WHERE i.type IN :types AND i.ticker IS NOT NULL AND TRIM(i.ticker) <> '' AND i.positionMode = 'UNIT'")
     List<String> findDistinctTickersByTypes(@Param("types") List<InvestType> types);
 }

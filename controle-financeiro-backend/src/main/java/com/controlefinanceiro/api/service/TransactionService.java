@@ -62,6 +62,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class TransactionService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired
     private TransactionRepository repository;
@@ -91,6 +92,7 @@ public class TransactionService {
                 data.isPaid()==null||data.isPaid(),data.destinationAccountId(),positiveOrZero(data.fee()));
         var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.TRANSACTION_CREATE,fingerprint,TransactionResponseDTO.class);
         if(previous!=null) return previous;
+        inventoryGuard.writer(user.getId());
         var result=createOnce(data,user);
         intents.complete(data.operationId(),user.getId(),FinancialIntents.TRANSACTION_CREATE,fingerprint,result);
         return result;
@@ -132,6 +134,7 @@ public class TransactionService {
 
     @Transactional
     public TransactionResponseDTO update(UUID id, UpdateTransactionDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Atualizando transação ID {}", id);
 
         Transaction transaction = lockLedger(id, data.accountId(), user);
@@ -205,6 +208,7 @@ public class TransactionService {
         String fingerprint = commandFingerprint(id,"SETTLE",data.amount(),data.date(),data.time(),null);
         TransactionResponseDTO repeated = beginIntent(data.operationId(),id,"SETTLE",fingerprint,user);
         if (repeated != null) return repeated;
+        inventoryGuard.writer(user.getId());
         Transaction forecast = lockLedger(id,null,user);
 
         if (forecast.isSystemManaged()
@@ -251,6 +255,7 @@ public class TransactionService {
 
     @Transactional
     public void delete(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Solicitação de exclusão da transação ID {}", id);
 
         var candidate = repository.findOwnedSource(id, user.getId())
@@ -361,6 +366,7 @@ public class TransactionService {
         String fingerprint=commandFingerprint(id,"REVERSE",data.amount(),data.date(),data.time(),data.reason().trim());
         var repeated=beginIntent(data.operationId(),id,"REVERSE",fingerprint,user);
         if(repeated!=null) return repeated;
+        inventoryGuard.writer(user.getId());
         var original=lockLedger(id,null,user);
         if(original.isSystemManaged() || original.getOperationId()!=null || original.getOrigin()==TransactionOrigin.REVERSAL
                 || original.getOrigin()==TransactionOrigin.ACCOUNT_OPENING || !original.isRealized())
@@ -397,6 +403,7 @@ public class TransactionService {
         String fingerprint=commandFingerprint(id,"REALIZE_TRANSFER",null,data.date(),data.time(),data.reason().trim());
         var repeated=beginIntent(data.operationId(),id,"REALIZE_TRANSFER",fingerprint,user);
         if(repeated!=null) return repeated;
+        inventoryGuard.writer(user.getId());
         var selected=lockLedger(id,null,user);
         if(selected.getOrigin()!=TransactionOrigin.TRANSFER || selected.getOperationId()==null)
             throw new BusinessRuleException("Selecione uma transferência prevista.");

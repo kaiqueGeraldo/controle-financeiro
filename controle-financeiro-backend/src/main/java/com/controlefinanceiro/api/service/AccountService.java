@@ -24,6 +24,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class AccountService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private OwnedResourceOrder ownedOrder;
 
@@ -35,6 +36,7 @@ public class AccountService {
 
     @Transactional
     public AccountResponseDTO create(CreateAccountDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Criando nova conta para o usuário {}", user.getId());
 
         Account newAccount = new Account();
@@ -50,11 +52,7 @@ public class AccountService {
         if (openingDate.isAfter(now.toLocalDate())) {
             throw new BusinessRuleException("A data-base da abertura não pode estar no futuro.");
         }
-        newAccount.setBalance(initialBalance);
-        newAccount.setOpeningBalance(initialBalance);
-        newAccount.setOpeningDate(openingDate);
-        newAccount.setOpeningOrigin(OpeningBalanceOrigin.USER_PROVIDED);
-        newAccount.setOpeningRecordedAt(now.toInstant());
+        newAccount.open(initialBalance,openingDate,now.toInstant(),OpeningBalanceOrigin.USER_PROVIDED);
 
         Account savedAccount = repository.save(newAccount);
 
@@ -100,7 +98,9 @@ public class AccountService {
         });
     }
 
+    @Transactional
     public AccountResponseDTO update(UUID id, UpdateAccountDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Atualizando dados da conta ID {}", id);
         Account account = findById(id);
 
@@ -119,6 +119,7 @@ public class AccountService {
 
     @Transactional
     public void delete(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Solicitação de exclusão (arquivamento) da conta ID {}", id);
         Account account = repository.findOwnedForAllocation(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Conta não encontrada"));
@@ -140,6 +141,7 @@ public class AccountService {
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
+        inventoryGuard.writer(user.getId());
         ownedOrder.reorder(orderedIds, Account.class, "r.user.id", user.getId(), null, null,
                 "Conta não encontrada", Account::getId, Account::setOrderIndex);
     }

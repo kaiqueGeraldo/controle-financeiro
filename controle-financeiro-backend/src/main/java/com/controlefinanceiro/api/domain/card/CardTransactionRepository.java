@@ -12,6 +12,16 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CardTransactionRepository extends JpaRepository<CardTransaction, UUID> {
+    @Query(value="""
+        select i.card_id,
+          case when bool_and(t.origin='PURCHASE' or (t.origin='OPENING' and t.opening_principal is not null))
+            then sum(case when t.origin='OPENING' then least(t.opening_principal,t.amount-t.paid_amount-t.refunded_amount)
+                     else t.amount-t.paid_amount-t.refunded_amount end) else null end
+        from card_transactions t join invoices i on i.id=t.invoice_id
+        where i.card_id in (:cardIds) and t.amount>t.paid_amount+t.refunded_amount
+          and (t.origin<>'LEGACY_UNKNOWN' or i.status<>'PAID') group by i.card_id
+        """,nativeQuery=true)
+    List<Object[]> committedByCards(@Param("cardIds") List<UUID> cardIds);
     List<CardTransaction> findByInvoiceIdOrderByDateDescCreatedAtDesc(UUID invoiceId);
 
     List<CardTransaction> findAllByPurchaseId(UUID purchaseId);

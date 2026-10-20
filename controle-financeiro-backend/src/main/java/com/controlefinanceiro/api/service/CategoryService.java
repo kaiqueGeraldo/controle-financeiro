@@ -23,6 +23,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class CategoryService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired
     private CategoryRepository repository;
@@ -33,7 +34,9 @@ public class CategoryService {
     @Autowired
     private PlanItemRepository planItemRepository;
 
+    @Transactional
     public CategoryResponseDTO create(CreateCategoryDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Criando categoria: {}", data.name());
         Category category = new Category();
         category.setName(data.name());
@@ -46,7 +49,9 @@ public class CategoryService {
         return new CategoryResponseDTO(saved);
     }
 
+    @Transactional
     public CategoryResponseDTO update(UUID id, CreateCategoryDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         Category category = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
@@ -76,6 +81,7 @@ public class CategoryService {
 
     @Transactional
     public void delete(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         log.warn("Excluindo categoria ID {}", id);
         Category category = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));

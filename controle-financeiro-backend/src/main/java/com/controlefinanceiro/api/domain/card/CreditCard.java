@@ -31,7 +31,7 @@ public class CreditCard {
     private String color;
     private String brand;
 
-    @Column(name = "card_limit", nullable = false)
+    @Column(name = "card_limit")
     private BigDecimal limit;
 
     @Column(name = "credit_balance", nullable = false)

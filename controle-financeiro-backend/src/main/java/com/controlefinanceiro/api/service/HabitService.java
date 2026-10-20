@@ -21,6 +21,7 @@ import java.util.UUID;
 
 @Service
 public class HabitService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
     @Autowired private OwnedResourceOrder ownedOrder;
     @Autowired private HabitRepository habitRepository;
     @Autowired private HabitLogRepository habitLogRepository;
@@ -37,6 +38,7 @@ public class HabitService {
 
     @Transactional
     public HabitResponseDTO create(CreateHabitDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         Habit habit = new Habit();
         habit.setName(data.name());
         habit.setDescription(data.description());
@@ -50,6 +52,7 @@ public class HabitService {
 
     @Transactional
     public void toggleHabit(UUID habitId, ToggleHabitDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalDate today = now.toLocalDate();
         if (data.date() == null || data.date().isAfter(today)) {
@@ -152,6 +155,7 @@ public class HabitService {
 
     @Transactional
     public HabitResponseDTO update(UUID id, UpdateHabitDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         LocalDate today = LocalDate.now(clock);
         Habit habit = ownedHabitForUpdate(id, user);
         if (data.name() != null) habit.setName(data.name());
@@ -167,6 +171,7 @@ public class HabitService {
 
     @Transactional
     public void delete(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         habitRepository.delete(ownedHabitForUpdate(id, user));
     }
 

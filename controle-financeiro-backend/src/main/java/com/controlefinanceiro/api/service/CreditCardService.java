@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class CreditCardService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private OwnedResourceOrder ownedOrder;
     private static final BigDecimal MONEY_CEILING = new BigDecimal("1000000000000");
@@ -65,7 +66,9 @@ public class CreditCardService {
     @Autowired
     private Clock clock;
 
+    @Transactional
     public CreditCardResponseDTO createCard(CreateCardDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         if (!validMoney(data.limit(), false)) {
             throw new BusinessRuleException("Limite deve ser positivo, em centavos e ter até 12 dígitos inteiros.");
         }
@@ -87,6 +90,7 @@ public class CreditCardService {
 
     @Transactional
     public void recordOpeningPosition(CardOpeningPosition data, User user) {
+        inventoryGuard.writer(user.getId());
         CreditCard card = cardRepository.findOwnedForPayment(data.cardId(), user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
         if (cardOpeningBatchRepository.existsByCardId(card.getId())
@@ -149,6 +153,8 @@ public class CreditCardService {
         entry.setCategory(category);
         entry.setDescription(description);
         entry.setAmount(amount);
+        entry.setOpeningPrincipal(amount);
+        entry.setOpeningCharges(BigDecimal.ZERO);
         entry.setDate(baseDate);
         entry.setCreatedAt(LocalDateTime.now(clock));
         entry.captureTemporal(null, clock.instant(), entry.getCreatedAt());
@@ -164,6 +170,7 @@ public class CreditCardService {
 
     @Transactional
     public void deleteCard(UUID id, User user) {
+        inventoryGuard.writer(user.getId());
         log.warn("SERVICE: Iniciando exclusão do Cartão {} e suas dependências.", id);
 
         CreditCard card = cardRepository.findById(id)
@@ -203,6 +210,7 @@ public class CreditCardService {
 
     @Transactional
     public UUID createTransaction(CreateCardTransactionDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Nova compra no cartão ID {}: {} ({}x)", data.cardId(), data.amount(), data.totalInstallments());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalTime operationTime = DateUtil.getTimeOrDefault(data.time(), now.toLocalTime());
@@ -300,6 +308,7 @@ public class CreditCardService {
 
     @Transactional
     public CreditCardResponseDTO update(UUID id, UpdateCardDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         CreditCard card = cardRepository.findOwnedForPayment(id, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -320,6 +329,7 @@ public class CreditCardService {
 
     @Transactional
     public CardTransactionDTO updateTransaction(UUID transactionId, UpdateCardTransactionDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         CardTransaction tx = cardTransactionRepository.findById(transactionId).orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada"));
 
         if (!tx.getInvoice().getCard().getUser().getId().equals(user.getId())) {
@@ -356,16 +366,18 @@ public class CreditCardService {
                 .stream().map(i -> i.getCard().getId() + ":" + i.getYear() + ":" + i.getMonth())
                 .collect(Collectors.toSet());
 
+        Map<UUID,BigDecimal> principalByCard=new HashMap<>();
+        for(Object[] row:cardTransactionRepository.committedByCards(cardIds)) principalByCard.put((UUID)row[0],(BigDecimal)row[1]);
         return cards.stream().map(card -> {
             YearMonth target = CardCycle.forPurchase(today, card.getClosingDay(), card.getDueDay()).competence();
             YearMonth previous = target.equals(YearMonth.of(1, 1)) ? null : target.minusMonths(1);
             boolean carry = previous != null && rolledPeriods.contains(
                     card.getId() + ":" + previous.getYear() + ":" + previous.getMonthValue());
             BigDecimal invoiceValue = BigDecimal.ZERO;
-            BigDecimal committed = BigDecimal.ZERO;
+            BigDecimal committed = principalByCard.containsKey(card.getId())?principalByCard.get(card.getId()):BigDecimal.ZERO;
             for (Object[] row : balancesByCard.getOrDefault(card.getId(), List.of())) {
                 BigDecimal amount = (BigDecimal) row[4];
-                committed = committed.add(amount);
+
                 YearMonth competence = YearMonth.of((Integer) row[2], (Integer) row[1]);
                 if (competence.equals(target)
                         || (carry && competence.isBefore(target) && row[3] == InvoiceStatus.ROLLED)) {
@@ -384,7 +396,7 @@ public class CreditCardService {
                     card.getBrand(),
                     invoiceValue,
                     committed,
-                    card.getLimit().subtract(committed),
+                    card.getLimit()==null || committed==null?null:card.getLimit().subtract(committed),
                     card.getCreditBalance()
             );
         }).toList();
@@ -392,6 +404,7 @@ public class CreditCardService {
 
     @Transactional
     public InvoiceDetailsDTO getInvoiceDetails(UUID cardId, Integer month, Integer year, User user) {
+        inventoryGuard.writer(user.getId());
         CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -422,12 +435,14 @@ public class CreditCardService {
 
     @Transactional
     public void deleteTransaction(UUID transactionId, User user) {
+        inventoryGuard.writer(user.getId());
         refundPurchase(transactionId, null, LocalDate.now(clock), null, user);
     }
 
     @Transactional
     public void refundPurchase(UUID transactionId, BigDecimal requestedAmount, LocalDate refundDate,
                                UUID operationId, User user) {
+        inventoryGuard.writer(user.getId());
         UUID cardId = cardTransactionRepository.findCardIdByTransactionId(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Compra não encontrada"));
         CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
@@ -533,6 +548,7 @@ public class CreditCardService {
         if(data.operationId()!=null) entityManager.createNativeQuery(
                 "select 1 from pg_advisory_xact_lock(hashtextextended(cast(?1 as text), 0))")
                 .setParameter(1,"invoice-payment:"+data.operationId()).getSingleResult();
+        inventoryGuard.writer(user.getId());
         CreditCard card = cardRepository.findOwnedForPayment(cardId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cartão não encontrado"));
 
@@ -664,6 +680,7 @@ public class CreditCardService {
 
     @Transactional
     public void reorder(List<UUID> orderedIds, User user) {
+        inventoryGuard.writer(user.getId());
         ownedOrder.reorder(orderedIds, CreditCard.class, "r.user.id", user.getId(), null, null,
                 "Cartão não encontrado", CreditCard::getId, CreditCard::setOrderIndex);
     }

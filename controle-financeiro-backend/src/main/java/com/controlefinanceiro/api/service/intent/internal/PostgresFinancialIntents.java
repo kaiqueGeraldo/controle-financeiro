@@ -25,11 +25,21 @@ public class PostgresFinancialIntents implements FinancialIntents {
 
     @Transactional(propagation = Propagation.MANDATORY)
     @Override
+    public void lock(UUID key) {
+        entityManager.createNativeQuery("select set_config('lock_timeout',case when current_setting('lock_timeout')::interval=interval '0' or current_setting('lock_timeout')::interval>interval '5 seconds' then '5s' else current_setting('lock_timeout') end,true)").getSingleResult();
+        entityManager.createNativeQuery("select 1 from pg_advisory_xact_lock(hashtextextended(cast(?1 as text),0))")
+                .setParameter(1,"financial-intent:"+key).getSingleResult();
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    @Override
     public <T> T replay(UUID key, UUID ownerId, String kind, String fingerprint, Class<T> resultType) {
         if (key == null) return null;
         // Cross-kind reuse of a key is serialized too; no source is acquired before this lock.
-        entityManager.createNativeQuery("select 1 from pg_advisory_xact_lock(hashtextextended(cast(?1 as text),0))")
-                .setParameter(1,"financial-intent:"+key).getSingleResult();
+        lock(key);
+        if (!kind.equals(FinancialIntents.ONBOARDING_COMPLETE) && !entityManager.createNativeQuery(
+                "select operation_id from onboarding_preparations where operation_id=?1").setParameter(1,key).getResultList().isEmpty())
+            throw new OperationConflictException("Esta intenção já foi usada com outro conteúdo.");
         var previous=receipts.findById(key);
         if (previous.isEmpty()) return null;
         var receipt=previous.get();

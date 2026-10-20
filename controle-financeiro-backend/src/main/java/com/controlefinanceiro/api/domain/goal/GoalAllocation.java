@@ -35,4 +35,6 @@ public class GoalAllocation {
 
     @Version
     private Long version;
+
+    private UUID reservationId;
 }

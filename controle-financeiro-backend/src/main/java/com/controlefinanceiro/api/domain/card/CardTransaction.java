@@ -28,6 +28,9 @@ public class CardTransaction extends com.controlefinanceiro.api.domain.temporal.
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Column(precision=38,scale=2) private BigDecimal openingPrincipal;
+    @Column(precision=38,scale=2) private BigDecimal openingCharges;
+
     @Column(name = "paid_amount", nullable = false)
     private BigDecimal paidAmount = BigDecimal.ZERO;
 
@@ -63,4 +66,11 @@ public class CardTransaction extends com.controlefinanceiro.api.domain.temporal.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    public BigDecimal remainingPrincipal() {
+        BigDecimal remaining=amount.subtract(paidAmount).subtract(refundedAmount).max(BigDecimal.ZERO);
+        if(origin==CardTransactionOrigin.PURCHASE)return remaining;
+        if(origin==CardTransactionOrigin.OPENING && openingPrincipal!=null)return openingPrincipal.min(remaining);
+        return null;
+    }
 }

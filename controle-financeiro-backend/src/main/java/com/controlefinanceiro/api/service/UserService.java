@@ -25,6 +25,7 @@ import java.util.UUID;
 public class UserService {
 
     @Autowired private UserRepository repository;
+    @Autowired private FinancialInventoryGuard inventoryGuard;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private EntityManager entityManager;
     @Autowired private EmailService emailService;
@@ -65,6 +66,7 @@ public class UserService {
     @Transactional
     public void deleteAccount(User user) {
         UUID userId = user.getId();
+        inventoryGuard.snapshot(userId);
         String emailToNotify = user.getEmail();
         String nameToNotify = user.getNome();
 
@@ -77,6 +79,8 @@ public class UserService {
         // Bulk statements follow the current FK graph, including unmapped legacy UUID links.
         // Every root is selected by owner; never follow a foreign reference to delete another root.
         for (String deletion : java.util.List.of(
+                "DELETE FROM onboarding_default_accounts WHERE user_id=:userId",
+                "DELETE FROM onboarding_reservation_history WHERE user_id=:userId",
                 "DELETE FROM onboarding_sessions WHERE user_id=:userId",
                 "DELETE FROM onboarding_reservation_records WHERE user_id=:userId",
                 "DELETE FROM habit_logs WHERE habit_id IN (SELECT id FROM habits WHERE user_id=:userId)",

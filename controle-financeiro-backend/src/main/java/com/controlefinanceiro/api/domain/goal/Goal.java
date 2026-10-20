@@ -35,6 +35,8 @@ public class Goal {
 
     private String unit;
 
+    @Column(nullable=false) private boolean numericProgressKnown;
+
     @Column(nullable = false)
     private BigDecimal targetValue;
 

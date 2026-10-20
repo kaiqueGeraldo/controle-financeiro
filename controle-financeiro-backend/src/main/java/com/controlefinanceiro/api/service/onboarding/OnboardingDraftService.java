@@ -20,10 +20,11 @@ public class OnboardingDraftService {
     private final DraftReferences references;
     private final JsonMapper json;
     private final Clock clock;
-    public OnboardingDraftService(OnboardingSessionRepository sessions,EntityManager em,DraftReferences references,JsonMapper json,Clock clock) {
-        this.sessions=sessions;this.em=em;this.references=references;this.json=json;this.clock=clock;
+    private final OnboardingApplicationService application;
+    public OnboardingDraftService(OnboardingSessionRepository sessions,EntityManager em,DraftReferences references,JsonMapper json,Clock clock,OnboardingApplicationService application) {
+        this.sessions=sessions;this.em=em;this.references=references;this.json=json;this.clock=clock;this.application=application;
     }
-    @Transactional(readOnly=true)
+    @Transactional(readOnly=true,isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public SessionView get(UUID owner) {
         return view(owner,sessions.findByUserId(owner).orElse(null));
     }
@@ -38,6 +39,7 @@ public class OnboardingDraftService {
         long current=session==null?0:session.getVersion();
         if(current!=write.expectedVersion()) throw new DraftProblem(409,"VERSION_CONFLICT");
         if(session!=null && session.getStatus().equals("COMPLETED")) throw new DraftProblem(409,"ALREADY_COMPLETED");
+        if(session!=null && application.pending(session.getId())!=null) throw new DraftProblem(409,"INTENT_PENDING");
         if(current==Long.MAX_VALUE) throw new DraftProblem(409,"VERSION_CONFLICT");
         var issues=new java.util.ArrayList<>(write.issues());
         issues.addAll(references.validate(owner,write));
@@ -54,6 +56,6 @@ public class OnboardingDraftService {
     private SessionView view(UUID owner,OnboardingSession session) {
         if(session==null) return new SessionView(1,null,"0","NOT_STARTED",references.mode(owner),null,json.createArrayNode(),null,null,null);
         return new SessionView(1,session.getId(),Long.toString(session.getVersion()),session.getStatus(),references.mode(owner),
-                session.getPayload()==null?null:json.readTree(session.getPayload()),json.readTree(session.getIssues()),session.getUpdatedAt(),null,null);
+                session.getPayload()==null?null:json.readTree(session.getPayload()),json.readTree(session.getIssues()),session.getUpdatedAt(),application.pending(session.getId()),application.completed(owner,session.getId()));
     }
 }

@@ -41,6 +41,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class GoalService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private OwnedResourceOrder ownedOrder;
 
@@ -70,6 +71,7 @@ public class GoalService {
 
     @Transactional
     public GoalResponseDTO create(CreateGoalDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Criando nova meta: {}", data.title());
         Goal goal = new Goal();
         if(data.type()==GoalType.MONETARY)requireMoney(data.targetValue());
@@ -80,6 +82,7 @@ public class GoalService {
             throw new BusinessRuleException("Progresso monetário inicial exige destinação com fonte; progresso numérico não pode ser negativo.");
         }
         goal.setCurrentValue(initial);
+        goal.setNumericProgressKnown(data.type()==GoalType.NUMERIC);
         goal.setDeadline(data.deadline());
         goal.setCategory(data.category());
         goal.setIcon(data.icon());
@@ -130,6 +133,7 @@ public class GoalService {
 
     @Transactional
     public void addValue(UUID goalId, GoalDepositDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         log.info("Registrando progresso/destinação na meta ID: {}. Valor: {}", goalId, data.amount());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalDate today = now.toLocalDate();
@@ -245,6 +249,7 @@ public class GoalService {
 
     @Transactional
     public void setAllocation(UUID goalId, SetGoalAllocationDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
@@ -274,6 +279,7 @@ public class GoalService {
 
     @Transactional
     public void moveAllocation(UUID goalId, MoveGoalAllocationDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
@@ -347,7 +353,7 @@ public class GoalService {
         if (value == null) throw new BusinessRuleException("Avaliação da fonte indisponível.");
         BigDecimal allocated = account != null ? allocationRepository.sumByAccountId(account.getId())
                 : allocationRepository.sumByInvestmentId(investment.getId());
-        if (value.max(BigDecimal.ZERO).subtract(allocated).compareTo(increase) < 0) {
+        if (!ReservationCapacity.allows(value,allocated,increase,true)) {
             throw new BusinessRuleException("Disponível da fonte insuficiente para destinação.");
         }
     }
@@ -364,6 +370,7 @@ public class GoalService {
 
     @Transactional
     public GoalResponseDTO update(UUID id, UpdateGoalDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         Goal goal = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
         if (!goal.getUser().getId().equals(user.getId())) throw new ResourceNotFoundException("Meta não encontrada");
@@ -383,6 +390,7 @@ public class GoalService {
 
     @Transactional
     public void delete(UUID id, UUID targetAccountId, User user) {
+        inventoryGuard.writer(user.getId());
         LocalDate today = LocalDate.now(clock);
         Goal goal = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
@@ -403,6 +411,7 @@ public class GoalService {
 
     @Transactional
     public void deleteHistory(UUID historyId, UUID targetAccountId, User user) {
+        inventoryGuard.writer(user.getId());
         LocalDate today = LocalDate.now(clock);
         GoalHistory history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Registro não encontrado"));
@@ -440,6 +449,7 @@ public class GoalService {
 
     @Transactional
     public GoalItemResponseDTO addItem(UUID goalId, CreateGoalItemDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         Goal goal = repository.findById(goalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 
@@ -467,6 +477,7 @@ public class GoalService {
 
     @Transactional
     public GoalItemResponseDTO purchaseItem(UUID itemId, PurchaseGoalItemDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalDate today = now.toLocalDate();
         GoalItem item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
@@ -582,6 +593,7 @@ public class GoalService {
 
     @Transactional
     public void deleteItem(UUID itemId, User user) {
+        inventoryGuard.writer(user.getId());
         LocalDate today = LocalDate.now(clock);
         GoalItem item = itemRepository.findById(itemId).orElseThrow(() -> new ResourceNotFoundException("Item não encontrado"));
         Goal goal = item.getGoal();
@@ -599,6 +611,7 @@ public class GoalService {
 
     @Transactional
     public void refundItem(UUID itemId, User user) {
+        inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         GoalPurchase fact = purchaseRepository.findOwnedForRefund(itemId, user.getId()).orElse(null);
         if (fact != null) {
@@ -678,6 +691,7 @@ public class GoalService {
 
     @Transactional
     public void reorderItems(UUID goalId, java.util.List<UUID> itemIds, User user) {
+        inventoryGuard.writer(user.getId());
         Goal goal = repository.findById(goalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Meta não encontrada"));
 

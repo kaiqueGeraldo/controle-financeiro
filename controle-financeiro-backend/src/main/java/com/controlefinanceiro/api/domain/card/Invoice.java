@@ -33,6 +33,8 @@ public class Invoice {
     @Column(name = "due_date")
     private LocalDate dueDate;
 
+    private LocalDate dueDateOverride;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InvoiceStatus status;
@@ -40,4 +42,6 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id", nullable = false)
     private CreditCard card;
+
+    public LocalDate getDueDate() {return dueDateOverride==null?dueDate:dueDateOverride;}
 }

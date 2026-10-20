@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 /** Append-only economic corrections. Source locks match purchases: account, investment. */
 @Service @RequiredArgsConstructor
 public class InvestmentCorrectionService {
+    @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
     private final InvestmentRepository investments;
     private final InvestTransactionRepository operations;
     private final InvestmentCorrectionRepository corrections;
@@ -39,6 +40,7 @@ public class InvestmentCorrectionService {
 
     @Transactional
     public InvestmentCorrection correct(UUID id, CorrectInvestmentDTO data, User user) {
+        inventoryGuard.writer(user.getId());
         InvestTransaction original=operations.findById(id).orElseThrow(()->new ResourceNotFoundException("Operação não encontrada"));
         owned(original.getInvestment().getId(),user);
         if(original.getAccountId()==null || original.getSequenceNumber()==null)
