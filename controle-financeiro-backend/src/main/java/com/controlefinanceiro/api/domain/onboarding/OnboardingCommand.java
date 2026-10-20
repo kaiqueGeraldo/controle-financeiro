@@ -18,7 +18,7 @@ public record OnboardingCommand(UUID sessionId,long expectedVersion,UUID operati
         if(!action.equals("cancel")) fields.addAll(List.of("contractVersion","operationId"));
         if(action.equals("complete")) fields.addAll(List.of("contentHash","reviewHash","confirm"));
         if(!n.isObject() || !n.propertyNames().equals(fields)) throw invalid("","INVALID_COMMAND");
-        if(!action.equals("cancel") && (!n.path("contractVersion").isIntegralNumber() || n.path("contractVersion").intValue()!=1)) throw invalid("/contractVersion","INVALID_COMMAND");
+        if(!action.equals("cancel") && (!n.path("contractVersion").isIntegralNumber() || !n.path("contractVersion").canConvertToInt() || n.path("contractVersion").intValue()!=1)) throw invalid("/contractVersion","INVALID_COMMAND");
         String v=n.path("expectedVersion").asText();
         if(!n.path("expectedVersion").isTextual() || !v.matches("0|[1-9][0-9]{0,18}")) throw invalid("/expectedVersion","REVISION_INVALID");
         long revision;try {revision=Long.parseLong(v);}catch(NumberFormatException e){throw invalid("/expectedVersion","REVISION_INVALID");}
