@@ -52,6 +52,7 @@ class Cf020GoalAllocationTest {
         CategoryRepository categories = mock(CategoryRepository.class);
         TransactionRepository transactions = mock(TransactionRepository.class);
         GoalService service = new GoalService();
+        org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
         ReflectionTestUtils.setField(service, "repository", goals);
         ReflectionTestUtils.setField(service, "accountRepository", accounts);
         ReflectionTestUtils.setField(service, "categoryRepository", categories);

@@ -43,6 +43,7 @@ class InvestmentServiceTemporalTest {
         TransactionRepository transactionRepository = mock(TransactionRepository.class);
         CategoryRepository categoryRepository = mock(CategoryRepository.class);
         InvestmentService service = new InvestmentService();
+        org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
 
         User user = new User();
         user.setId(UUID.fromString("50000000-0000-0000-0000-000000000001"));

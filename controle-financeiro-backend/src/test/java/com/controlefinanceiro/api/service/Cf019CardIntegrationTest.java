@@ -48,6 +48,7 @@ class Cf019CardIntegrationTest extends PostgresIntegrationTest {
     @Autowired TransactionRepository bankTransactions;
     @Autowired CardTransactionRepository cardTransactions;
     @Autowired TransactionTemplate transactionTemplate;
+    @Autowired FinancialInventoryGuard inventoryGuard;
 
     @Test
     void finalInstallmentGetsTheRemainderAndEachInstallmentHasOneSuccessiveCompetence() {
@@ -375,7 +376,9 @@ class Cf019CardIntegrationTest extends PostgresIntegrationTest {
     void closingCronRetriesAfterRollbackAndNeverClosesOrNotifiesTwice() {
         Fixture fixture = fixture(20, 28);
         service.createTransaction(purchase(fixture, "100.00", LocalDate.of(2026, 9, 19), 1), fixture.owner());
-        Invoice invoice = invoices.findByCardIdAndMonthAndYear(fixture.card().getId(), 9, 2026).orElseThrow();
+        Invoice invoice = invoices.findByStatusWithCardAndUser(InvoiceStatus.OPEN).stream()
+                .filter(candidate -> candidate.getCard().getId().equals(fixture.card().getId()))
+                .findFirst().orElseThrow();
         InvoiceRepository limited = mock(InvoiceRepository.class, delegatesTo(invoices));
         doReturn(List.of(invoice)).when(limited).findByStatusWithCardAndUser(InvoiceStatus.OPEN);
         InvoiceCronService cron = new InvoiceCronService();
@@ -383,6 +386,7 @@ class Cf019CardIntegrationTest extends PostgresIntegrationTest {
         ReflectionTestUtils.setField(cron, "cardRepository", cards);
         ReflectionTestUtils.setField(cron, "transactionRepository", cardTransactions);
         ReflectionTestUtils.setField(cron, "transactionTemplate", transactionTemplate);
+        ReflectionTestUtils.setField(cron, "inventoryGuard", inventoryGuard);
         ReflectionTestUtils.setField(cron, "emailService", emailService);
         ReflectionTestUtils.setField(cron, "clock", Clock.fixed(
                 Instant.parse("2026-09-20T03:05:00Z"), ZoneId.of("America/Sao_Paulo")));

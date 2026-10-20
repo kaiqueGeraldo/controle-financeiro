@@ -43,6 +43,7 @@ class HabitServiceTemporalTest {
         GoalHistoryRepository historyRepository = mock(GoalHistoryRepository.class);
         GoalRepository goalRepository = mock(GoalRepository.class);
         HabitService service = new HabitService();
+        org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
         User user = new User();
         user.setId(UUID.fromString("60000000-0000-0000-0000-000000000001"));
         Goal goal = new Goal();

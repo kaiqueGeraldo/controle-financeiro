@@ -39,6 +39,7 @@ class TransactionServiceTemporalTest {
         CategoryRepository categoryRepository = mock(CategoryRepository.class);
         ApplicationEventPublisher eventPublisher = mock(ApplicationEventPublisher.class);
         TransactionService service = new TransactionService();
+        org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
         Clock clock = Clock.fixed(
                 Instant.parse("2026-09-08T15:00:00Z"),
                 ZoneId.of("America/Sao_Paulo")
