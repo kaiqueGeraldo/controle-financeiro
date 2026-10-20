@@ -63,7 +63,20 @@ class OnboardingReviewFinancialTest extends OnboardingApplicationSupport {
         sql.update("insert into credit_cards(id,name,card_limit,closing_day,due_day,user_id,credit_balance) values(?,'Review persisted boundary',1000,31,30,?,0)",card,user.getId());
         ObjectNode b=minimal();section(b,"cards",List.of(node("tempId",UUID.randomUUID().toString(),"action","INITIALIZE_EMPTY","ref",node("kind","CARD","id",card.toString()),
                 "opening",opening(9999,12,"100.00","0.00",List.of()))));
-        var p=prepare(b);var c=completeCommand(p);app.complete(user.getId(),c);
+        JsonNode p;
+        try {p=prepare(b);}
+        catch(DraftProblem rejection) {
+            // The contract requires rejection at prepare; no committed invoice is then available to inspect.
+            assertThat(rejection.status()).isEqualTo(400);
+            assertThat(rejection.fields()).extracting(DraftProblem.FieldError::code).contains("DATE_INVALID");
+            assertThat(sql.queryForObject("select count(*) from invoices where card_id=?",Integer.class,card)).isZero();
+            assertThat(sql.queryForObject("select count(*) from card_opening_batches where card_id=?",Integer.class,card)).isZero();
+            assertThat(sql.queryForObject("select count(*) from onboarding_preparations where user_id=?",Integer.class,user.getId())).isZero();
+            assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isZero();
+            assertThat(drafts.get(user.getId()).status()).isEqualTo("IN_PROGRESS");
+            return;
+        }
+        var c=completeCommand(p);app.complete(user.getId(),c);
         String persisted=sql.queryForObject("select due_date::text from invoices where card_id=?",String.class,card);
         System.out.println("RC030_CIVIL_OBSERVATION due_date="+persisted+" state="+app.recover(user.getId(),c.operationId()).path("state").asText());
         assertThat(sql.queryForObject("select extract(year from due_date)::integer from invoices where card_id=?",Integer.class,card))

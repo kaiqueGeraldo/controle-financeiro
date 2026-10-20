@@ -57,7 +57,7 @@ public final class OnboardingProjection {
         this.payload=payload;this.inventory=inventory;this.asOf=asOf;
         this.baseDate=LocalDate.parse(payload.at("/context/baseDate").asText());
         this.baseToken=baseToken(inventory,payload);
-        existing();selection();legacy();confirmations();reservationParts();newAllocations();summarizeSources();summarizeGoals();summarizeCards();
+        existing();selection();validateInitializedCardCycles();legacy();confirmations();reservationParts();newAllocations();summarizeSources();summarizeGoals();summarizeCards();
     }
     public JsonNode items(String section) {return payload.path("sections").path(section).path("items");}
     public static String baseToken(OnboardingInventory.Snapshot inventory,JsonNode payload) {
@@ -135,6 +135,18 @@ public final class OnboardingProjection {
         JsonNode v=item.path("valuation");if(!v.path("state").asText().equals("KNOWN")) return null;
         if(v.path("basis").asText().equals("TOTAL")) return decimal(v.get("amount"));
         Investment i=new Investment();i.setQuantity(fact(item.path("quantity")));i.evaluate(decimal(v.get("price")),LocalDate.parse(v.path("date").asText()),"USER_DECLARED");return i.getTotalValue();
+    }
+    private void validateInitializedCardCycles() {
+        int index=0;
+        for(JsonNode item:items("cards")) {
+            if(item.path("action").asText().equals("INITIALIZE_EMPTY")) {
+                JsonNode configuration=cards.get(key(item.path("ref")));
+                var issues=OnboardingFinalRules.openingIssues(item.path("opening"),configuration.path("closing_day").intValue(),
+                        configuration.path("due_day").intValue(),"/sections/cards/items/"+index+"/opening");
+                if(!issues.isEmpty())throw new DraftProblem(400,"BUSINESS_RULE",issues);
+            }
+            index++;
+        }
     }
     private void legacy() {
         for(JsonNode row:inventory.table("reservations")) {

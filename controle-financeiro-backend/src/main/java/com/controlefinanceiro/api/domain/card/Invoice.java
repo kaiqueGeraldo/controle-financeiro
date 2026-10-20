@@ -2,6 +2,8 @@ package com.controlefinanceiro.api.domain.card;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LocalDateJdbcType;
 
 import java.util.UUID;
 import java.time.LocalDate;
@@ -28,11 +30,14 @@ public class Invoice {
     private Integer year;
 
     @Column(name = "closing_date")
+    @JdbcType(LocalDateJdbcType.class)
     private LocalDate closingDate;
 
     @Column(name = "due_date")
+    @JdbcType(LocalDateJdbcType.class)
     private LocalDate dueDate;
 
+    @JdbcType(LocalDateJdbcType.class)
     private LocalDate dueDateOverride;
 
     @Enumerated(EnumType.STRING)

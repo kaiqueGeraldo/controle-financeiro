@@ -139,7 +139,7 @@ public class OnboardingOpenings {
         YearMonth month=YearMonth.of(competence.path("year").intValue(),competence.path("month").intValue());
         Invoice invoice=invoices.get(month);
         if(invoice==null) {
-            CardCycle cycle=CardCycle.forCompetence(month,close,due);JsonNode previous=existingInvoices.get(month);
+            CardCycle cycle=OnboardingFinalRules.openingCycle(month,close,due,"/sections/cards/items");JsonNode previous=existingInvoices.get(month);
             if(previous==null) {
                 invoice=new Invoice();invoice.setCard(card);invoice.setYear(month.getYear());invoice.setMonth(month.getMonthValue());invoice.setClosingDate(cycle.closingDate());invoice.setDueDate(cycle.dueDate());
                 invoice.setStatus(cycle.closingDate().isAfter(base)?InvoiceStatus.OPEN:InvoiceStatus.CLOSED);em.persist(invoice);
