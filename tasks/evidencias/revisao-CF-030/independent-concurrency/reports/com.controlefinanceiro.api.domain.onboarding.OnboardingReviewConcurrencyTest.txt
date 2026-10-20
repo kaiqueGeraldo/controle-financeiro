@@ -1,0 +1,174 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 35.87 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry -- Time elapsed: 0.925 s <<< ERROR!
+org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation 'mandatory'
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:394)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:628)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:365)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingOpenings$$SpringCGLIB$$0.apply(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:92)
+	Suppressed: org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+Misplaced or misused argument matcher detected here:
+
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:92)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:92)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:92)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:92)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(any());
+    verify(mock).someMethod(contains("foo"))
+
+This message may appear after an NullPointerException if the last matcher is returning an object 
+like any() but the stubbed method signature expect a primitive argument, in this case,
+use primitive alternatives.
+    when(mock.get(any())); // bad use, will raise NPE
+    when(mock.get(anyInt())); // correct usage use
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+Mocking methods declared on non-public parent classes is not supported.
+
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:123)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:110)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.afterTestMethod(MockitoResetTestExecutionListener.java:103)
+		at org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:488)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:320)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.realReservationWriterCannotSpendCapacityBetweenRevalidationAndApplication -- Time elapsed: 0.009 s <<< ERROR!
+org.mockito.exceptions.misusing.UnfinishedStubbingException: 
+
+Unfinished stubbing detected here:
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry(OnboardingReviewConcurrencyTest.java:91)
+
+E.g. thenReturn() may be missing.
+Examples of correct stubbing:
+    when(mock.isOk()).thenReturn(true);
+    when(mock.isOk()).thenThrow(exception);
+    doThrow(exception).when(mock).someVoidMethod();
+Hints:
+ 1. missing thenReturn()
+ 2. you are trying to stub a final method, which is not supported
+ 3. you are stubbing the behaviour of another mock inside before 'thenReturn' instruction is completed, possibly on another thread
+
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.setup(OnboardingApplicationSupport.java:37)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.deletionWaitsForApplicationThenDeletesTheWholeCommittedGraph -- Time elapsed: 0.129 s <<< ERROR!
+org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation 'mandatory'
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:394)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:628)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:365)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingOpenings$$SpringCGLIB$$0.apply(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.deletionWaitsForApplicationThenDeletesTheWholeCommittedGraph(OnboardingReviewConcurrencyTest.java:123)
+	Suppressed: org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+Misplaced or misused argument matcher detected here:
+
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(any());
+    verify(mock).someMethod(contains("foo"))
+
+This message may appear after an NullPointerException if the last matcher is returning an object 
+like any() but the stubbed method signature expect a primitive argument, in this case,
+use primitive alternatives.
+    when(mock.get(any())); // bad use, will raise NPE
+    when(mock.get(anyInt())); // correct usage use
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+Mocking methods declared on non-public parent classes is not supported.
+
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:123)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:110)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.afterTestMethod(MockitoResetTestExecutionListener.java:103)
+		at org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:488)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:320)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.replayWaitsForActualCommitAndAnotherOwnerCanCompleteMeanwhile -- Time elapsed: 0.008 s <<< ERROR!
+org.mockito.exceptions.misusing.UnfinishedStubbingException: 
+
+Unfinished stubbing detected here:
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:42)
+
+E.g. thenReturn() may be missing.
+Examples of correct stubbing:
+    when(mock.isOk()).thenReturn(true);
+    when(mock.isOk()).thenThrow(exception);
+    doThrow(exception).when(mock).someVoidMethod();
+Hints:
+ 1. missing thenReturn()
+ 2. you are trying to stub a final method, which is not supported
+ 3. you are stubbing the behaviour of another mock inside before 'thenReturn' instruction is completed, possibly on another thread
+
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.setup(OnboardingApplicationSupport.java:37)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.committedConfirmationWinsAgainstCancelDiscardAndDeletion -- Time elapsed: 0.124 s <<< ERROR!
+org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation 'mandatory'
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:394)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:628)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:365)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingOpenings$$SpringCGLIB$$0.apply(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.committedConfirmationWinsAgainstCancelDiscardAndDeletion(OnboardingReviewConcurrencyTest.java:110)
+	Suppressed: org.mockito.exceptions.misusing.InvalidUseOfMatchersException: 
+Misplaced or misused argument matcher detected here:
+
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+-> at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.pauseBefore(OnboardingReviewConcurrencyTest.java:43)
+
+You cannot use argument matchers outside of verification or stubbing.
+Examples of correct usage of argument matchers:
+    when(mock.get(anyInt())).thenReturn(null);
+    doThrow(new RuntimeException()).when(mock).someVoidMethod(any());
+    verify(mock).someMethod(contains("foo"))
+
+This message may appear after an NullPointerException if the last matcher is returning an object 
+like any() but the stubbed method signature expect a primitive argument, in this case,
+use primitive alternatives.
+    when(mock.get(any())); // bad use, will raise NPE
+    when(mock.get(anyInt())); // correct usage use
+
+Also, this error might show up because you use argument matchers with methods that cannot be mocked.
+Following methods *cannot* be stubbed/verified: final/private/equals()/hashCode().
+Mocking methods declared on non-public parent classes is not supported.
+
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:123)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.resetMocks(MockitoResetTestExecutionListener.java:110)
+		at org.springframework.test.context.bean.override.mockito.MockitoResetTestExecutionListener.afterTestMethod(MockitoResetTestExecutionListener.java:103)
+		at org.springframework.test.context.TestContextManager.afterTestMethod(TestContextManager.java:488)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterEach(SpringExtension.java:320)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+		at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

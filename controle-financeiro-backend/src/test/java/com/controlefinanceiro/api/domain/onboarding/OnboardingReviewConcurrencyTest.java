@@ -1,0 +1,181 @@
+package com.controlefinanceiro.api.domain.onboarding;
+
+import com.controlefinanceiro.api.domain.goal.dto.SetGoalAllocationDTO;
+import com.controlefinanceiro.api.domain.user.User;
+import com.controlefinanceiro.api.service.GoalService;
+import com.controlefinanceiro.api.service.exception.BusinessRuleException;
+import com.controlefinanceiro.api.service.onboarding.OnboardingOpenings;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.concurrent.*;
+import static com.controlefinanceiro.api.domain.onboarding.OnboardingJson.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doAnswer;
+
+/** Independent observer: delegates to the real adapter; barriers choose the exact
+ * revalidation/write window. No financial rule is mocked and no sleeps choose order. */
+class OnboardingReviewConcurrencyTest extends OnboardingApplicationSupport {
+    @MockitoSpyBean OnboardingOpenings openings;
+    @Autowired GoalService goals;
+    OnboardingOpenings observedAdapter() {
+        return org.springframework.test.util.AopTestUtils.getUltimateTargetObject(openings);
+    }
+
+    void section(ObjectNode b,String name,List<JsonNode> rows) {
+        ((ObjectNode)b.at("/payload/sections/"+name)).put("answer",rows.isEmpty()?"NONE":"PROVIDED").set("items",JSON.valueToTree(rows));
+    }
+    UUID existingGoal() {
+        UUID g=UUID.randomUUID();
+        sql.update("insert into goals(id,title,type,target_value,current_value,deadline,user_id,allocation_reconciled,version) values(?,'Review','MONETARY',1000,0,'2026-09-30',?,true,0)",g,user.getId());
+        return g;
+    }
+    JsonNode prepare600(UUID account) {
+        ObjectNode b=minimal();UUID g=UUID.randomUUID();
+        section(b,"goals",List.of(node("tempId",g.toString(),"action","CREATE","title","Review new","type","MONETARY","target","1000.00","deadline","2026-09-30")));
+        section(b,"allocations",List.of(node("tempId",UUID.randomUUID().toString(),"goal",node("kind","GOAL","tempId",g.toString()),"source",node("kind","ACCOUNT","id",account.toString()),"amount","600.00")));
+        return prepare(b);
+    }
+    void pauseBefore(UUID owner,CountDownLatch entered,CountDownLatch release) {
+        doAnswer(call->{if(owner.equals(call.getArgument(0))){entered.countDown();await(release);}return call.callRealMethod();})
+                .when(observedAdapter()).apply(eq(owner),any(),any(),any());
+    }
+    boolean blockedOrFinished(Future<?> competitor) {
+        long deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(10);
+        while(System.nanoTime()<deadline) {
+            if(competitor.isDone())return false;
+            if(Boolean.TRUE.equals(sql.queryForObject("select exists(select 1 from pg_stat_activity where datname=current_database() and cardinality(pg_blocking_pids(pid))>0)",Boolean.class)))return true;
+            Thread.onSpinWait();
+        }
+        throw new AssertionError("Competitor neither blocked nor finished");
+    }
+    @Test void realReservationWriterCannotSpendCapacityBetweenRevalidationAndApplication() throws Exception {
+        UUID account=account("1000.00"),otherGoal=existingGoal();var p=prepare600(account);var c=completeCommand(p);
+        CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);pauseBefore(user.getId(),entered,release);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var complete=pool.submit(()->app.complete(user.getId(),c));await(entered);
+            var writer=pool.submit(()->{try{goals.setAllocation(otherGoal,new SetGoalAllocationDTO(account,null,new BigDecimal("600.00")),user);return "COMMITTED";}catch(BusinessRuleException e){return "CAPACITY_REJECTED";}});
+            boolean blocked;
+            try {blocked=blockedOrFinished(writer);}finally{release.countDown();}
+            assertThat(complete.get(15,TimeUnit.SECONDS).path("status").asText()).isEqualTo("COMPLETED");
+            String outcome=writer.get(15,TimeUnit.SECONDS);
+            BigDecimal reserved=sql.queryForObject("select sum(a.amount) from goal_allocations a join goals g on g.id=a.goal_id where g.user_id=?",BigDecimal.class,user.getId());
+            assertThat(reserved).as("600 onboarding + competing 600 cannot reserve 1200 of source1000; writer="+outcome).isEqualByComparingTo("600.00");
+            assertThat(outcome).isEqualTo("CAPACITY_REJECTED");
+            assertThat(blocked).as("Actual writer must wait while frozen inventory is being applied").isTrue();
+        }
+    }
+    @Test void replayWaitsForActualCommitAndAnotherOwnerCanCompleteMeanwhile() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);
+        User other=new User();other.setNome("Review B");other.setEmail(UUID.randomUUID()+"@example.test");other.setSenha("synthetic");other=users.saveAndFlush(other);UUID otherId=other.getId();
+        var s=drafts.save(otherId,DraftValidator.parse(minimal().toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+        var otherP=app.prepare(otherId,new OnboardingCommand(s.sessionId(),1,UUID.randomUUID(),null,null));
+        CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);pauseBefore(user.getId(),entered,release);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->app.complete(user.getId(),c));await(entered);
+            var second=pool.submit(()->app.complete(user.getId(),c));
+            try {
+                assertThat(blockedOrFinished(second)).isTrue();
+                assertThat(app.recover(user.getId(),c.operationId()).path("state").asText()).isEqualTo("PREPARED");
+                assertThat(pool.submit(()->app.complete(otherId,completeCommand(otherP))).get(4,TimeUnit.SECONDS).path("status").asText()).isEqualTo("COMPLETED");
+            }finally{release.countDown();}
+            var receipt=first.get(15,TimeUnit.SECONDS);assertThat(second.get(15,TimeUnit.SECONDS)).isEqualTo(receipt);
+            assertThat(app.recover(user.getId(),c.operationId()).path("receipt")).isEqualTo(receipt);
+        }
+        assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isEqualTo(1);
+    }
+    @Test void actualWritesAreInvisibleAndRollbackAllowsSameIdentityRetry() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);CountDownLatch written=new CountDownLatch(1),release=new CountDownLatch(1);
+        doAnswer(call->{call.callRealMethod();written.countDown();await(release);throw new IllegalStateException("REVIEW_AFTER_ALL_FINANCIAL_ITEMS");})
+                .when(observedAdapter()).apply(eq(user.getId()),any(),any(),any());
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var completing=pool.submit(()->app.complete(user.getId(),c));await(written);
+            try {
+                assertThat(sql.queryForObject("select sum(balance) from accounts where user_id=?",BigDecimal.class,user.getId())).isEqualByComparingTo("0.00");
+                assertThat(sql.queryForObject("select count(*) from investments where user_id=?",Integer.class,user.getId())).isZero();
+                assertThat(sql.queryForObject("select count(*) from onboarding_application_items where session_id=?",Integer.class,c.sessionId())).isZero();
+                assertThat(app.recover(user.getId(),c.operationId()).path("state").asText()).isEqualTo("PREPARED");
+            }finally{release.countDown();}
+            assertThatThrownBy(()->completing.get(15,TimeUnit.SECONDS)).hasCauseInstanceOf(IllegalStateException.class);
+        }
+        assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isZero();
+        org.mockito.Mockito.doCallRealMethod().when(observedAdapter()).apply(eq(user.getId()),any(),any(),any());
+        var receipt=app.complete(user.getId(),c);amount(receipt.path("summary"),"netWorth","1451.00");
+        assertThat(sql.queryForObject("select sum(amount) from goal_allocations a join goals g on g.id=a.goal_id where g.user_id=?",BigDecimal.class,user.getId())).isEqualByComparingTo("550.00");
+    }
+    @Test void committedConfirmationWinsAgainstCancelAndDiscard() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);
+        pauseBefore(user.getId(),entered,release);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var complete=pool.submit(()->app.complete(user.getId(),c));await(entered);
+            var cancel=pool.submit(()->{try{app.cancel(user.getId(),c);return "CANCELLED";}catch(DraftProblem e){return e.code();}});
+            var discard=pool.submit(()->{try{drafts.save(user.getId(),DraftValidator.parse(node("contractVersion",1,"expectedVersion","1","action","DISCARD").toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)));return "DISCARDED";}catch(DraftProblem e){return e.code();}});
+            try{assertThat(blockedOrFinished(cancel)).isTrue();assertThat(blockedOrFinished(discard)).isTrue();}finally{release.countDown();}
+            assertThat(complete.get(15,TimeUnit.SECONDS).path("status").asText()).isEqualTo("COMPLETED");
+            assertThat(cancel.get(15,TimeUnit.SECONDS)).isEqualTo("ALREADY_COMPLETED");
+            assertThat(discard.get(15,TimeUnit.SECONDS)).isEqualTo("VERSION_CONFLICT");
+        }
+        assertThat(app.recover(user.getId(),c.operationId()).path("state").asText()).isEqualTo("COMPLETED");
+    }
+    @Test void deletionWaitsForApplicationThenDeletesTheWholeCommittedGraph() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);pauseBefore(user.getId(),entered,release);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var complete=pool.submit(()->app.complete(user.getId(),c));await(entered);
+            var deletion=pool.submit(()->userService.deleteAccount(user));
+            try{assertThat(blockedOrFinished(deletion)).isTrue();}finally{release.countDown();}
+            assertThat(complete.get(15,TimeUnit.SECONDS).path("status").asText()).isEqualTo("COMPLETED");deletion.get(15,TimeUnit.SECONDS);
+        }
+        assertThat(users.existsById(user.getId())).isFalse();
+        assertThat(sql.queryForObject("select count(*) from onboarding_application_items where session_id=?",Integer.class,c.sessionId())).isZero();
+        assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isZero();
+    }
+    @Test void committedCancellationWinsBeforeWaitingConfirmation() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);CountDownLatch cancelled=new CountDownLatch(1),release=new CountDownLatch(1);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var cancel=pool.submit(()->new org.springframework.transaction.support.TransactionTemplate(txManager).execute(s->{
+                var result=app.cancel(user.getId(),c);cancelled.countDown();await(release);return result;
+            }));await(cancelled);
+            var complete=pool.submit(()->{try{app.complete(user.getId(),c);return "COMPLETED";}catch(DraftProblem e){return e.code();}});
+            try{assertThat(blockedOrFinished(complete)).isTrue();}finally{release.countDown();}
+            assertThat(cancel.get(15,TimeUnit.SECONDS).path("state").asText()).isEqualTo("CANCELLED");
+            assertThat(complete.get(15,TimeUnit.SECONDS)).isEqualTo("INTENT_CANCELLED");
+        }
+        assertThat(app.cancel(user.getId(),c).path("state").asText()).isEqualTo("CANCELLED");
+        assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isZero();
+        assertThat(sql.queryForObject("select sum(balance) from accounts where user_id=?",BigDecimal.class,user.getId())).isEqualByComparingTo("0.00");
+    }
+    @Test void differentIdentityWaitsAndCannotReplaceTheWinningPreparation() throws Exception {
+        save(minimal());var first=command(UUID.randomUUID());var second=command(UUID.randomUUID());CountDownLatch prepared=new CountDownLatch(1),release=new CountDownLatch(1);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var winner=pool.submit(()->new org.springframework.transaction.support.TransactionTemplate(txManager).execute(s->{
+                var p=app.prepare(user.getId(),first);prepared.countDown();await(release);return p;
+            }));await(prepared);
+            var loser=pool.submit(()->{try{app.prepare(user.getId(),second);return "PREPARED";}catch(DraftProblem e){return e.code();}});
+            try{assertThat(blockedOrFinished(loser)).isTrue();}finally{release.countDown();}
+            assertThat(loser.get(15,TimeUnit.SECONDS)).isEqualTo("INTENT_PENDING");
+            var receipt=app.complete(user.getId(),completeCommand(winner.get(15,TimeUnit.SECONDS)));
+            assertThat(receipt.path("operationId").asText()).isEqualTo(first.operationId().toString());
+        }
+        assertThat(sql.queryForObject("select count(*) from onboarding_preparations where user_id=?",Integer.class,user.getId())).isEqualTo(1);
+    }
+    @Test void deletionCommittedBeforeWaitingConfirmationCannotResurrectAnyEffect() throws Exception {
+        var p=prepare(e01());var c=completeCommand(p);CountDownLatch deleted=new CountDownLatch(1),release=new CountDownLatch(1);
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var deletion=pool.submit(()->new org.springframework.transaction.support.TransactionTemplate(txManager).execute(s->{
+                userService.deleteAccount(user);deleted.countDown();await(release);return null;
+            }));await(deleted);
+            var complete=pool.submit(()->{try{app.complete(user.getId(),c);return "COMPLETED";}catch(DraftProblem e){return e.code();}});
+            try{assertThat(blockedOrFinished(complete)).isTrue();}finally{release.countDown();}
+            deletion.get(15,TimeUnit.SECONDS);
+            assertThat(complete.get(15,TimeUnit.SECONDS)).isIn("UNAUTHENTICATED","REFERENCE_NOT_FOUND");
+        }
+        assertThat(users.existsById(user.getId())).isFalse();
+        assertThat(sql.queryForObject("select count(*) from financial_intent_receipts where user_id=?",Integer.class,user.getId())).isZero();
+        assertThat(sql.queryForObject("select count(*) from accounts where user_id=?",Integer.class,user.getId())).isZero();
+    }
+}
