@@ -603,12 +603,10 @@ public class CreditCardService {
                 data.accountId(), data.amount(), data.date(), operationTime, data.description(), card, user,
                 DateUtil.optionalWallTime(data.time()), now.toInstant(), payment));
 
-        BigDecimal remaining = data.amount();
         Set<Invoice> affected = new HashSet<>();
-        for (CardTransaction tx : outstanding) {
-            if (remaining.signum() == 0) break;
-            BigDecimal allocated = tx.getAmount().subtract(tx.getPaidAmount())
-                    .subtract(tx.getRefundedAmount()).min(remaining);
+        for (CardPaymentDistribution.Slice slice : CardPaymentDistribution.plan(outstanding, data.amount())) {
+            CardTransaction tx = slice.transaction();
+            BigDecimal allocated = slice.amount();
             tx.setPaidAmount(tx.getPaidAmount().add(allocated));
             CardPaymentAllocation allocation = new CardPaymentAllocation();
             allocation.setPaymentId(payment.getId());
@@ -616,13 +614,17 @@ public class CreditCardService {
             allocation.setAmount(allocated);
             cardPaymentAllocationRepository.save(allocation);
             affected.add(tx.getInvoice());
-            remaining = remaining.subtract(allocated);
         }
         cardTransactionRepository.flush();
 
+        Map<UUID, BigDecimal> remainingByInvoice = new HashMap<>();
+        for (CardTransaction line : outstanding) {
+            remainingByInvoice.merge(line.getInvoice().getId(),
+                    line.getAmount().subtract(line.getPaidAmount()).subtract(line.getRefundedAmount()), BigDecimal::add);
+        }
         for (Invoice source : affected) {
             if (!source.getId().equals(invoice.getId())
-                    && cardTransactionRepository.sumOutstandingByInvoiceId(source.getId()).signum() == 0
+                    && remainingByInvoice.getOrDefault(source.getId(), BigDecimal.ZERO).signum() == 0
                     && source.getStatus() == InvoiceStatus.ROLLED) {
                 source.setStatus(InvoiceStatus.PAID);
                 planItemRepository.markAsPaidByCardAndMonth(cardId, source.getMonth(), source.getYear());
