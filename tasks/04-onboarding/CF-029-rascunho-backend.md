@@ -1,6 +1,6 @@
 # CF-029 — Implementar rascunho autenticado e retomável
 
-- Estado: em_revisao (RC029-01/P2 implementado localmente; aguardando revalidação independente dirigida)
+- Estado: concluida (aceite independente; exclusivamente no escopo local/descartável)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -50,7 +50,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 - [x] Salvar rascunho não altera conta, fatura, investimento ou saldo real.
 - [x] Duas abas com versão antiga produzem conflito explícito, sem perder silenciosamente respostas.
-- [ ] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo. (Isolamento/retomada verificados; diagnóstico semântico pendente em RC029-01.)
+- [x] A não acessa rascunho de B; dados sobrevivem a reload/novo login e erros apontam campo. (RC029-01 encerrado pela revalidação independente dirigida.)
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
@@ -87,6 +87,8 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 ## Parecer independente — 19/10/2026
 
+Registro histórico anterior ao saneamento e ao aceite final abaixo.
+
 **Não aprovada integralmente; em_revisao mantido.** Candidato5bac46e:
 [parecer, matriz e execuções](../evidencias/revisao-CF-029/README.md).
 RC029-01/P2: reserva vinculada por tempId a meta NUMERIC é salva e relida com
@@ -107,6 +109,8 @@ aceites anteriores, zoom200% e adoção real preservados. Sem publicação ou ba
 
 ## Saneamento local RC029-01 — 19/10/2026
 
+Registro histórico do executor, anterior à revalidação independente abaixo.
+
 Diagnóstico de reserva para meta NUMERIC implementado em `DraftConsistency`, usando
 os tipos próprios já lidos em lote por `DraftReferences`. CREATE/tempId, LINK/alias,
 ID persistido e proposta ASSIGN recebem `GOAL_TYPE_MISMATCH` no campo `goal` do
@@ -119,4 +123,21 @@ registro do executor não encerra RC029-01 nem autoaprova CF-029. Persistência,
 isolamento, concorrência, precisão, V15, exclusão e ausência de efeitos financeiros
 mantêm os resultados anteriores no recorte sustentado. CF030/031/032 continuam
 sem liberação; nenhum prepare, aplicação financeira ou UI foi implementado.
+
+## Aceite independente final RC029-01 — 19/10/2026
+
+**RC029-01 encerrado; CF-029 concluída no escopo local/descartável.**
+[Parecer, matriz, contrato do GET, provas e limites](../evidencias/revalidacao-CF-029-RC029-01/README.md).
+Candidato aa88ecc: 19 controles dirigidos/original e três probes independentes
+aprovados. Remoção isolada da regra produziu sete falhas causais em 13 controles;
+restauração por hash recuperou 13/13. Contagens sobrepostas não são somadas.
+
+Diagnóstico NUMERIC correto em reserva/ASSIGN por CREATE, alias e ID próprio,
+sem perda de payload ou efeito financeiro. GET recupera a avaliação persistida;
+próxima escrita reavalia referências. Demais aceites sustentados preservados,
+sem mudança de schema, locks, versão, precisão ou exclusão nesta revisão.
+CF-030 tecnicamente apta somente local/descartável, não iniciada; publicação e
+integração do lote aprovado exigem etapa autorizada antes de nova branch.
+CF-031/032 mantêm suas dependências. Zoom CF-010/015 e adoção real CF-017/P01/P02
+permanecem separados. Nenhum produto alterado, push, merge, deploy ou banco real.
 

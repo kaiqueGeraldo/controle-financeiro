@@ -1,6 +1,6 @@
 # CF-030 — Finalizar onboarding com atomicidade e idempotência
 
-- Estado: proposta
+- Estado: pronta (exclusivamente local/descartável; não iniciada)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -9,6 +9,13 @@
 - Origem: T-006; F-008, F-009
 
 ## Problema e resultado esperado
+
+Prontidão técnica em 19/10/2026: CF-018/019/020/024 concluídas e integradas;
+CF-029 aceita independentemente no escopo local/descartável.
+[Parecer e limites de dependência](../evidencias/revalidacao-CF-029-RC029-01/README.md).
+Antes de nova branch/implementação, publicar e integrar o lote aprovado em etapa
+autorizada conforme EXECUCAO.md. Esta revisão não iniciou CF-030 nem autorizou
+publicação, banco real ou adoção CF-017/P01/P02. Revalidar a base se houver alterações.
 
 Reenvio ou falha no último item não pode duplicar patrimônio nem deixar metade da entrevista aplicada.
 
