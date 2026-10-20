@@ -4,7 +4,19 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — revisão independente CF-030, 20/10/2026
+## Situação vigente — saneamento RC030 aguardando revalidação, 20/10/2026
+
+**CF030 permanece em_revisao; RC030-01/02/03 corrigidos e validados localmente,
+aguardando aceite independente.** Mesma branch, base251d6c7 e novos commits locais
+por achado. Encargos entre faturas, datas civis de INITIALIZE_EMPTY/binding e
+versão contratual400 saneados;134 casos distintos verdes, quatro contraprovas
+detectadas e controle restaurado54/54. Provas originais e falhas preservadas;
+um observador de rejeição antecipada foi ajustado com causa demonstrada.
+[Entrega e encaminhamento delimitado](evidencias/saneamento-CF-030-RC030/README.md).
+Demais aceites sustentados e CF029 preservados. CF031/032 não liberadas; gate
+CF015/zoom e adoção real CF017/P01/P02 permanecem. Sem push, merge ou banco real.
+
+## Situação anterior — revisão independente CF-030, 20/10/2026
 
 **CF-030 não aprovada; permanece em_revisao por RC030-01/02 P2 e RC030-03 P3.**
 Candidato `89760e6`, base `5b8c4e0`; nenhuma correção de produto nesta revisão.

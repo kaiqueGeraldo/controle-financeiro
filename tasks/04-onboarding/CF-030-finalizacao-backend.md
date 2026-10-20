@@ -1,6 +1,6 @@
 # CF-030 — Finalizar onboarding com atomicidade e idempotência
 
-- Estado: em_revisao (revisão independente concluída no candidato 89760e6; saneamento RC030-01/02 P2 e RC030-03 P3 pendente, exclusivamente local/descartável)
+- Estado: em_revisao (saneamento RC030-01/02 P2 e RC030-03 P3 implementado e validado localmente; aguardando revalidação independente, exclusivamente local/descartável)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -82,4 +82,18 @@ aberturas (RC030-01), validação de vencimento calculado em INITIALIZE_EMPTY
 Nenhum produto corrigido nesta revisão; probes vermelhos preservados.
 CF031/032 não liberadas; CF031 continua dependendo também do gate CF015.
 Zoom CF010/015 e adoção real CF017/P01/P02 permanecem separados e pendentes.
+
+## Saneamento dirigido — 20/10/2026
+
+Base251d6c70492e4ad57dc9ca1313dce17afab62464, mesma branch, commits locais por
+achado. Prioridade global dos encargos, ciclos de INITIALIZE_EMPTY e limite civil
+(incluindo binding de Invoice), e400 para versão fora de faixa corrigidos.
+[Causas, provas originais, falhas preservadas e revalidação](../evidencias/saneamento-CF-030-RC030/README.md).
+134 casos distintos verdes, quatro contraprovas detectadas, controle restaurado54/54
+e411 fontes principal/cópia conferidos. Um observador foi adaptado somente após
+demonstrar que a rejeição antecipada correta impedia sua consulta; original/hashes
+e assertion do ramo concluído preservados. Nenhum expected financeiro relaxado.
+Aceites sustentados, protocolo dos writers e V16 preservados; sem alteração de
+migração/dados reais. CF030 continua em_revisao, achados aguardam aceite independente.
+CF029/015 e gates de sucessoras/zoom/adoção real mantidos. Sem push/merge/deploy.
 

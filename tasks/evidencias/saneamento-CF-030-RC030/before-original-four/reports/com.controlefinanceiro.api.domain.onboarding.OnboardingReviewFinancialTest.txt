@@ -1,0 +1,34 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 31.05 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.oversizedContractVersionMustNotWrapToV1OnPrepare -- Time elapsed: 0.824 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[{"error":{"code":"INTERNAL_ERROR","message":"Revise os dados e o estado da entrevista.","fieldErrors":[]}}] 
+expected: 400
+ but was: 500
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.http(OnboardingApplicationSupport.java:56)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.oversizedContractVersionMustNotWrapToV1OnPrepare(OnboardingReviewFinancialTest.java:75)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializeEmptyMustRejectCalculatedDateOutsideCivilContractAtPrepare -- Time elapsed: 0.164 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializeEmptyMustRejectCalculatedDateOutsideCivilContractAtPrepare(OnboardingReviewFinancialTest.java:57)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializedInvoiceCannotPersistYear10000BehindACompletedReceipt -- Time elapsed: 0.263 s <<< FAILURE!
+java.lang.AssertionError: 
+[CivilDate years0001..9999 must survive persistence and successful completion] 
+Expecting actual:
+  10000
+to be less than or equal to:
+  9999 
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializedInvoiceCannotPersistYear10000BehindACompletedReceipt(OnboardingReviewFinancialTest.java:70)
+
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.identifiedChargesMustBePaidBeforeOlderPrincipalAcrossRolledInvoices -- Time elapsed: 0.619 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[FIN-03 charges10 precede rolled principal99; principal must remain189] 
+expected: 189.00
+ but was: 179.00
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.identifiedChargesMustBePaidBeforeOlderPrincipalAcrossRolledInvoices(OnboardingReviewFinancialTest.java:37)
+

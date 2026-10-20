@@ -1,0 +1,23 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 41.70 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest
+com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializedInvoiceCannotPersistYear10000BehindACompletedReceipt -- Time elapsed: 0.082 s <<< ERROR!
+com.controlefinanceiro.api.domain.onboarding.DraftProblem: Revise os dados e o estado da entrevista.
+	at com.controlefinanceiro.api.service.onboarding.OnboardingProjection.validateInitializedCardCycles(OnboardingProjection.java:146)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingProjection.<init>(OnboardingProjection.java:60)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingApplicationService.prepare(OnboardingApplicationService.java:51)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingApplicationService$$SpringCGLIB$$0.prepare(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.prepare(OnboardingApplicationSupport.java:53)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.initializedInvoiceCannotPersistYear10000BehindACompletedReceipt(OnboardingReviewFinancialTest.java:66)
+
