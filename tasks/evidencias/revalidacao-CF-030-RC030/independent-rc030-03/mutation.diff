@@ -1,0 +1,13 @@
+diff --git "a/C:\\Users\\Aluga.com\\.codex\\visualizations\\2026\\10\\20\\01a1598d-84a2-7cb3-8777-089eb30b441d\\cf030-revalidation-copy\\.rc030-audit\\independent-rc030-03\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\onboarding\\OnboardingCommand.java" "b/C:\\Users\\Aluga.com\\.codex\\visualizations\\2026\\10\\20\\01a1598d-84a2-7cb3-8777-089eb30b441d\\cf030-revalidation-copy\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\onboarding\\OnboardingCommand.java"
+index 842e56c..571c58c 100644
+--- "a/C:\\Users\\Aluga.com\\.codex\\visualizations\\2026\\10\\20\\01a1598d-84a2-7cb3-8777-089eb30b441d\\cf030-revalidation-copy\\.rc030-audit\\independent-rc030-03\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\onboarding\\OnboardingCommand.java"
++++ "b/C:\\Users\\Aluga.com\\.codex\\visualizations\\2026\\10\\20\\01a1598d-84a2-7cb3-8777-089eb30b441d\\cf030-revalidation-copy\\src\\main\\java\\com\\controlefinanceiro\\api\\domain\\onboarding\\OnboardingCommand.java"
+@@ -18,7 +18,7 @@ public record OnboardingCommand(UUID sessionId,long expectedVersion,UUID operati
+         if(!action.equals("cancel")) fields.addAll(List.of("contractVersion","operationId"));
+         if(action.equals("complete")) fields.addAll(List.of("contentHash","reviewHash","confirm"));
+         if(!n.isObject() || !n.propertyNames().equals(fields)) throw invalid("","INVALID_COMMAND");
+-        if(!action.equals("cancel") && (!n.path("contractVersion").isIntegralNumber() || !n.path("contractVersion").canConvertToInt() || n.path("contractVersion").intValue()!=1)) throw invalid("/contractVersion","INVALID_COMMAND");
++        if(!action.equals("cancel") && (!n.path("contractVersion").isIntegralNumber() || n.path("contractVersion").intValue()!=1)) throw invalid("/contractVersion","INVALID_COMMAND");
+         String v=n.path("expectedVersion").asText();
+         if(!n.path("expectedVersion").isTextual() || !v.matches("0|[1-9][0-9]{0,18}")) throw invalid("/expectedVersion","REVISION_INVALID");
+         long revision;try {revision=Long.parseLong(v);}catch(NumberFormatException e){throw invalid("/expectedVersion","REVISION_INVALID");}
