@@ -29,6 +29,11 @@ export function SidebarNavLinks() {
       link: "/contas",
     },
     {
+      icon: <ListTodo className="w-5 h-5" />,
+      text: "Configuração inicial",
+      link: "/onboarding",
+    },
+    {
       icon: <ScrollText className="w-5 h-5" />,
       text: "Extrato",
       link: "/extrato",

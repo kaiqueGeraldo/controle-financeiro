@@ -24,6 +24,7 @@ import { formatCurrency } from "@/utils/format";
 import { formatCalendarDate } from "@/utils/date";
 import { History, Landmark, Loader2, Plus } from "lucide-react";
 import { useMemo } from "react";
+import Link from "next/link";
 
 const getCardColorClass = (name: string) => {
   const n = name.toLowerCase();
@@ -316,6 +317,11 @@ export default function DashboardScreen() {
       <div className="flex justify-between items-center mb-2">
         <h1 className="text-2xl font-bold">Dashboard</h1>
       </div>
+
+      <aside className="rounded-xl border border-border-divider bg-bg-surface p-4 text-sm">
+        <p>Quer organizar seus saldos e compromissos iniciais? A entrevista é opcional e preserva os registros existentes.</p>
+        <Link href="/onboarding" className="mt-2 inline-block text-emerald-500 underline focus-visible:outline-2 focus-visible:outline-offset-2">Abrir configuração inicial</Link>
+      </aside>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 grid-flow-dense">
         {config.filter((item) => item.visible).map((item) => renderCard(item))}

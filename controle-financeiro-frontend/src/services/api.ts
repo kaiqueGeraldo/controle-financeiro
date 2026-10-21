@@ -1,4 +1,5 @@
 import { parseInvestmentResultJson } from "./investmentResultJson";
+import { parse as parseStrictJson } from "./vendor/lossless-json/parse";
 
 const URL_BASE = "/api";
 
@@ -13,6 +14,7 @@ export type ApiErrorKind =
   | "http";
 
 export type ApiProblem = {
+  code?: string;
   timestamp?: string;
   status?: number;
   error?: string;
@@ -21,7 +23,7 @@ export type ApiProblem = {
   fields?: Record<string, string[]>;
 };
 
-type ApiRequestOptions = RequestInit & { isBlob?: boolean; expectedContentType?: string; investmentSnapshot?: boolean };
+type ApiRequestOptions = RequestInit & { isBlob?: boolean; expectedContentType?: string; investmentSnapshot?: boolean; onboardingJson?: boolean };
 
 export type ApiResponse<T> = {
   status: number;
@@ -29,6 +31,7 @@ export type ApiResponse<T> = {
 };
 
 type ApiErrorOptions = {
+  code?: string;
   kind?: ApiErrorKind;
   fields?: Record<string, string[]>;
   retryable?: boolean;
@@ -36,6 +39,7 @@ type ApiErrorOptions = {
 };
 
 export class ApiError extends Error {
+  public readonly code?: string;
   public readonly status: number;
   public readonly kind: ApiErrorKind;
   public readonly fields: Record<string, string[]>;
@@ -45,6 +49,7 @@ export class ApiError extends Error {
   constructor(message: string, status: number, options: ApiErrorOptions = {}) {
     super(message);
     this.name = "ApiError";
+    this.code = options.code;
     this.status = status;
     this.kind = options.kind ?? "http";
     this.fields = options.fields ?? {};
@@ -63,6 +68,20 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function asProblem(value: unknown): ApiProblem {
   if (!isRecord(value)) return {};
+
+  // Onboarding v1 has an isolated error envelope; preserve JSON Pointer fields.
+  if (Object.hasOwn(value, "error") && isRecord(value.error) && !Array.isArray(value.error) &&
+      Object.hasOwn(value.error, "code") && typeof value.error.code === "string" &&
+      Object.hasOwn(value.error, "fieldErrors") && Array.isArray(value.error.fieldErrors)) {
+    const fields: Record<string, string[]> = {};
+    for (const issue of value.error.fieldErrors) {
+      if (isRecord(issue) && Object.hasOwn(issue, "path") && typeof issue.path === "string" &&
+          Object.hasOwn(issue, "message") && typeof issue.message === "string") {
+        fields[issue.path] = [...(fields[issue.path] ?? []), issue.message];
+      }
+    }
+    return { code: value.error.code, message: typeof value.error.message === "string" ? value.error.message : undefined, fields };
+  }
 
   const fields = isRecord(value.fields)
     ? Object.fromEntries(
@@ -95,12 +114,14 @@ async function readJsonLikeBody(
   strictJson = false,
   unsafeRequest = false,
   investmentSnapshot = false,
+  onboardingJson = false,
 ): Promise<unknown> {
   const body = await response.text();
   if (!body) return null;
 
   try {
-    return investmentSnapshot ? parseInvestmentResultJson(body) : JSON.parse(body) as unknown;
+    return onboardingJson ? parseStrictJson(body, undefined, { parseNumber: raw => Number(raw) })
+      : investmentSnapshot ? parseInvestmentResultJson(body) : JSON.parse(body) as unknown;
   } catch {
     if (strictJson) {
       throw new ApiError("A API retornou JSON inválido.", 502, {
@@ -145,7 +166,7 @@ export async function apiRequest<T = unknown>(
   endpoint: string,
   options: ApiRequestOptions,
 ): Promise<ApiResponse<T>> {
-  const { isBlob, expectedContentType, investmentSnapshot, ...fetchOptions } = options;
+  const { isBlob, expectedContentType, investmentSnapshot, onboardingJson, ...fetchOptions } = options;
   const unsafeRequest = isUnsafeMethod(fetchOptions.method);
 
   try {
@@ -160,7 +181,7 @@ export async function apiRequest<T = unknown>(
     }
 
     if (!response.ok) {
-      const problem = asProblem(await readJsonLikeBody(response));
+      const problem = asProblem(await readJsonLikeBody(response, false, unsafeRequest, false, onboardingJson));
       fetchOptions.signal?.throwIfAborted();
       const kind = errorKind(response.status);
 
@@ -182,6 +203,7 @@ export async function apiRequest<T = unknown>(
             : `Erro ${response.status}: ${response.statusText}`;
 
       throw new ApiError(problem.message ?? problem.error ?? defaultMessage, response.status, {
+        code: problem.code,
         kind,
         fields: problem.fields,
         retryable: kind === "conflict" || kind === "unavailable",
@@ -212,7 +234,7 @@ export async function apiRequest<T = unknown>(
 
     return {
       status: response.status,
-      data: (await readJsonLikeBody(response, true, unsafeRequest, investmentSnapshot)) as T,
+      data: (await readJsonLikeBody(response, true, unsafeRequest, investmentSnapshot, onboardingJson)) as T,
     };
   } catch (error: unknown) {
     if (isAbortError(error)) throw error;
