@@ -4,7 +4,19 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — saneamento RC030 aguardando revalidação, 20/10/2026
+## Situação vigente — CF030 aceita independentemente, 21/10/2026
+
+**CF030 concluida no escopo local/descartável; RC030-01/02/03 encerrados** no
+candidato c13aecd após revalidação independente.156 casos distintos aprovados,
+quatro contraprovas causais detectadas e controle restaurado76/76. Observador
+adaptado e binding civil de Invoice aceitos; datas históricas já deslocadas não
+são reparadas automaticamente. Nenhuma correção de produto na revalidação.
+[Parecer e limites](evidencias/revalidacao-CF-030-RC030/README.md).
+CF029 e demais aceites preservados. CF031/032 continuam propostas e não liberadas;
+CF015/zoom permanece exigido, assim como os gates de adoção real CF017/P01/P02.
+Próximo passo: resolver CF015 antes de liberar CF031. Sem push/merge/deploy.
+
+## Situação anterior — saneamento RC030 aguardando revalidação, 20/10/2026
 
 **CF030 permanece em_revisao; RC030-01/02/03 corrigidos e validados localmente,
 aguardando aceite independente.** Mesma branch, base251d6c7 e novos commits locais

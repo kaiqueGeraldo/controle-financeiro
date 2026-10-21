@@ -1,6 +1,6 @@
 # CF-030 — Finalizar onboarding com atomicidade e idempotência
 
-- Estado: em_revisao (saneamento RC030-01/02 P2 e RC030-03 P3 implementado e validado localmente; aguardando revalidação independente, exclusivamente local/descartável)
+- Estado: concluida (aceite independente do candidato c13aecd em 21/10/2026; RC030-01/02/03 encerrados, exclusivamente no escopo local/descartável)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -41,7 +41,8 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Duas conexões finalizando simultaneamente deixam uma única carteira/posição/dívida; totais coincidem com oracle.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
-Marcações registram validação local do executor; não substituem aceite independente.
+Marcações inicialmente registradas pelo executor; aceite independente consolidado
+na revalidação de 21/10/2026 abaixo, com limites preservados.
 
 ## Fora de escopo
 
@@ -96,4 +97,21 @@ e assertion do ramo concluído preservados. Nenhum expected financeiro relaxado.
 Aceites sustentados, protocolo dos writers e V16 preservados; sem alteração de
 migração/dados reais. CF030 continua em_revisao, achados aguardam aceite independente.
 CF029/015 e gates de sucessoras/zoom/adoção real mantidos. Sem push/merge/deploy.
+
+## Revalidação independente — 21/10/2026
+
+**Aprovada no candidato c13aecd032ca8a08276226e55a37864aa18b4873, escopo
+local/descartável. RC030-01/P2, RC030-02/P2 e RC030-03/P3 encerrados.**
+[Parecer, observador, binding, provas e limites](../evidencias/revalidacao-CF-030-RC030/README.md).
+156 casos distintos aprovados (76 dirigidos +80 regressões), quatro contraprovas
+causais detectadas e controle restaurado76/76. Observador adaptado aceito;
+binding civil aprovado com SQL/releitura/query/DTO em três fusos efetivos.
+Critérios anteriores de atomicidade, E01, reservas, precisão, ownership, guard,
+recibo/replay/recuperação e V16 preservados; nenhuma correção de produto na revisão.
+
+O binding não repara datas históricas já gravadas deslocadas. Não há certificação
+de adoção real, performance de produção ou todos os interleavings. CF029 permanece
+concluída; CF031/032 não liberadas: CF031 exige ainda CF015/zoom. CF017/P01/P02
+mantêm gates de adoção real. Próximo passo: resolver CF015 antes de liberar CF031.
+Commits exclusivamente locais; sem push, merge, deploy ou banco real.
 
