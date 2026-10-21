@@ -1,0 +1,15 @@
+warning: in the working copy of 'C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\src\services\onboarding\result.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\Aluga.com\AppData\Local\Temp\cf031-counterproof-415e83b26ba1449bac8a19d229de72c6\frontend\src\services\onboarding\result.ts', LF will be replaced by CRLF the next time Git touches it
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\src\\services\\onboarding\\result.ts" "b/C:\\Users\\Aluga.com\\AppData\\Local\\Temp\\cf031-counterproof-415e83b26ba1449bac8a19d229de72c6\\frontend\\src\\services\\onboarding\\result.ts"
+index 78e5c6a..bd9b377 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\src\\services\\onboarding\\result.ts"
++++ "b/C:\\Users\\Aluga.com\\AppData\\Local\\Temp\\cf031-counterproof-415e83b26ba1449bac8a19d229de72c6\\frontend\\src\\services\\onboarding\\result.ts"
+@@ -127,7 +127,7 @@ export function parseSummary(value: unknown): Summary {
+   // Structural checks above guard this boundary; equations reject coherent-looking corrupt totals.
+   const result = o as Summary;
+   const m = result.metrics; const account = known(m.accountsSigned), investment = known(m.investmentsValue), credit = known(m.cardCredit), debt = known(m.cardDebt);
+-  if (account !== null && investment !== null && credit !== null && debt !== null) equalAmount(m.netWorth, account + investment + credit - debt);
++  if (account !== null && investment !== null && credit !== null && debt !== null) void m.netWorth;
+   for (const [kind, metric] of [["ACCOUNT", "accountsSigned"], ["INVESTMENT", "investmentsValue"]] as const) {
+     const rows = result.bySource.filter(s => s.ref.kind === kind);
+     if (m[metric].state === "KNOWN") { expect(rows.every(s => s.value.state === "KNOWN")); equalAmount(m[metric], rows.reduce((n, s) => n + (s.value.state === "KNOWN" ? units(s.value.value) : BigInt(0)), BigInt(0))); }

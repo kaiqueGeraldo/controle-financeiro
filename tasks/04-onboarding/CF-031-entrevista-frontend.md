@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: pronta (somente implementação e revisão locais/descartáveis; DEC-ONB-03)
+- Estado: em_revisao (implementada e validada localmente; sem aceite independente; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -38,10 +38,12 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Perfil vazio e completo concluem por teclado/mobile; reload retoma exatamente respostas persistidas.
-- [ ] Trocar fonte invalida alocação incompatível e não permite dupla contagem na revisão.
-- [ ] 503/401/409 preservam rascunho e permitem recuperação; duplo clique/retry usa a mesma confirmação, sem falso sucesso.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Perfil vazio e completo concluem por teclado/mobile; reload retoma exatamente respostas persistidas. E01 usa seed de draft por PUT real, sem provar digitação ponta a ponta de todos os campos.
+- [x] Trocar fonte invalida alocação incompatível e não permite dupla contagem na revisão. Referências pendentes permanecem visíveis para correção; servidor valida a preparação e resumo distingue reservas de patrimônio.
+- [x] 503/401/409 preservam rascunho e permitem recuperação; duplo clique/retry usa a mesma confirmação, sem falso sucesso. Edição ainda não salva permanece somente em memória e não é prometida após expiração/reload.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+Marcações acima registram entrega e validação do executor, não aprovação independente.
 
 ## Fora de escopo
 
@@ -53,7 +55,21 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-031/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Implementada em21/10/2026 na branch local `codex/cf031-onboarding-frontend`, base
+integrada `6d819aa`. [Entrega e evidências](../evidencias/CF-031/README.md),
+[matriz](../evidencias/CF-031/MATRIZ.md) e
+[encaminhamento independente](../evidencias/CF-031/REVISAO.md).
+75 testes dirigidos,12 jornadas reais com SQL descartável e cinco contraprovas
+detectadas; lint/typecheck/build aprovados. Suíte ampla438/441, com as mesmas
+três falhas reproduzidas na base anterior. Capturas360/768/1440, teclado e
+privacidade registrados; zoom nativo200% continua pendente em CF010/015.
+
+Confirmação/recuperação pertencem ao trabalho3 desta tarefa. CF032 conserva uso
+diário/exportação e cenários ampliados, sem liberação automática. O único novo
+arquivo Java é harness de teste HTTP/SQL descartável, justificado pelo pedido
+explícito desta execução; nenhum código de produto backend alterado.
+Implementação permanece local, sem deploy manual ou banco real. Revisão
+independente ainda necessária; não concluir a tarefa por esta entrega.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

@@ -4,7 +4,20 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF030 aceita independentemente, 21/10/2026
+## Situação vigente — CF031 implementada, em revisão local, 21/10/2026
+
+CF030 aprovada e DEC-ONB-03 publicadas/integradas por fast-forward em main,
+hash remoto `6d819aaeeb59c39e6e3f5e96dc59c50d9a7c2b82`. CF031 implementada na
+branch `codex/cf031-onboarding-frontend`, com commits exclusivamente locais e
+estado **em_revisao**, sem autoaceite. Rascunho, entrevista, revisão,
+confirmação e recuperação por recibo entregues;75 testes dirigidos,12 jornadas
+reais/SQL e cinco contraprovas. Suíte ampla438/441; três falhas também na base.
+[Evidências, falhas e limites](evidencias/CF-031/README.md).
+CF010/015 seguem em_revisao por zoom nativo200%; reavaliar incluindo onboarding
+antes do uso. CF032 não liberada; adoção real CF017/P01/P02 e deploy mantêm
+gates próprios. Aceites e pareceres históricos abaixo preservados.
+
+## Situação anterior — CF030 aceita independentemente, 21/10/2026
 
 Atualização posterior autorizada em21/10: [DEC-ONB-03](../docs/sdd/decisoes/003-liberacao-local-CF-031.md)
 libera CF-031 exclusivamente para implementação/revisão locais após integração
