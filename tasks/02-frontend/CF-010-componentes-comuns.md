@@ -10,6 +10,11 @@
 
 ## Parecer independente vigente — 13/10/2026
 
+Decisão posterior de21/10/2026: [DEC-ONB-03](../../docs/sdd/decisoes/003-liberacao-local-CF-031.md)
+mantém esta tarefa em_revisao pelo zoom nativo200% e registra seu procedimento,
+evidência, limitação e responsáveis. Autoriza somente desenvolvimento/revisão
+locais CF-031; reavaliar zoom com as novas telas antes da liberação para uso.
+
 Estado `em_revisao`: RF15-02 encerrado; foco/scroll compartilhados e privacidade liberados nos recortes comprovados. Resta zoom nativo 200% no critério de reflow/alcance de ações. O P2 de ciclo visual de operação pertence ao consumidor CF014. Não bloqueia genericamente CF012.
 
 [Parecer, critérios completos, provas e encaminhamento restrito](../evidencias/revalidacao-residual-RF15/README.md). Supera os estados correntes das notas anteriores; preserva seu alcance histórico. Produto não alterado nesta revisão.

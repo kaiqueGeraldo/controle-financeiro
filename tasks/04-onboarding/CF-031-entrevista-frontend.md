@@ -1,12 +1,21 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: proposta
+- Estado: pronta (somente implementação e revisão locais/descartáveis; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-028](../04-onboarding/CF-028-contrato-onboarding.md), [CF-029](../04-onboarding/CF-029-rascunho-backend.md), [CF-030](../04-onboarding/CF-030-finalizacao-backend.md)
 - Origem: T-007; F-008
+
+## Liberação local condicionada — 21/10/2026
+
+[DEC-ONB-03](../../docs/sdd/decisoes/003-liberacao-local-CF-031.md), autorizada
+explicitamente pelo usuário, distingue desenvolvimento local do aceite integral
+CF-015. Aceites CF-028/029/030 e frontend consumidos na base00179d2; integração
+do lote aprovado precede nova branch. Zoom nativo200% segue pendente em CF-010/015,
+ambas em_revisao; incluir onboarding na reavaliação antes da liberação para uso.
+Sem liberação automática CF-032, adoção real CF-017/P01/P02 ou deploy.
 
 ## Problema e resultado esperado
 

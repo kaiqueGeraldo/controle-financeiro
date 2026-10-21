@@ -6,6 +6,13 @@ Estas são tarefas versionadas no repositório, abrangendo frontend e backend. C
 
 ## Situação vigente — CF030 aceita independentemente, 21/10/2026
 
+Atualização posterior autorizada em21/10: [DEC-ONB-03](../docs/sdd/decisoes/003-liberacao-local-CF-031.md)
+libera CF-031 exclusivamente para implementação/revisão locais após integração
+do lote aprovado CF030. CF010/015 continuam em_revisao por zoom nativo200%, sem
+aceite ou defeito presumido. Reavaliar incluindo onboarding antes do uso.
+CF032 não liberada; adoção real CF017/P01/P02 e deploy conservam gates próprios.
+O snapshot de aceite CF030 abaixo permanece histórico, inclusive o gate anterior.
+
 **CF030 concluida no escopo local/descartável; RC030-01/02/03 encerrados** no
 candidato c13aecd após revalidação independente.156 casos distintos aprovados,
 quatro contraprovas causais detectadas e controle restaurado76/76. Observador

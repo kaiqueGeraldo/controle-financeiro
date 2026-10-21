@@ -14,6 +14,7 @@ A planilha `Controle-Financeiro.xlsx` é referência funcional, não fonte de in
 - [Paridade com a planilha](paridade-planilha.md): capacidades existentes, parciais e futuras.
 - [Decisões de arquitetura](arquitetura.md): limites, alternativas, contratos e riscos.
 - [Especificação da entrevista inicial](specs/001-onboarding.md): jornada, dados iniciais e consistência.
+- [DEC-ONB-03 — liberação local condicionada CF-031](decisoes/003-liberacao-local-CF-031.md): desenvolvimento local autorizado; zoom e gates de uso preservados.
 - [Especificação de datas](specs/002-datas.md): datas civis, instantes e competências.
 - [Regras financeiras CF-016](specs/004-regras-financeiras.md): abertura, caixa, consumo, dívida, investimentos, destinações, precisão e estornos; contrato para implementação futura.
 - [Tarefas executáveis (O/S)](../../tasks/README.md): 36 arquivos individuais, dependências, modelos, testes e critérios de aceite.

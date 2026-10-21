@@ -10,6 +10,13 @@
 
 ## Parecer independente vigente — RVA-03, 16/10/2026
 
+Decisão posterior de21/10/2026: [DEC-ONB-03](../../docs/sdd/decisoes/003-liberacao-local-CF-031.md)
+autoriza desenvolvimento/revisão locais CF-031 pelos aceites existentes.
+CF-015 continua em_revisao; zoom nativo200% não foi aprovado nem convertido em
+defeito. Escopo, procedimento, evidência, limitação, momento e responsáveis da
+pendência estão na decisão. Reavaliar com onboarding antes da liberação para uso.
+Pareceres históricos e gates de CF-032/adoção real/deploy preservados.
+
 **CF-015 permanece em_revisao pela verificação faltante de zoom nativo200%.**
 RVA-03 encerrada com ressalva histórica explícita; CF019/013 concluídas após
 confronto de todos os critérios. CF011/012/014 e demais aceites preservados.
