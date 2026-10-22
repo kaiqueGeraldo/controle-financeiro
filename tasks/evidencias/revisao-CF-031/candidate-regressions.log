@@ -1,0 +1,71 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | tests/component/temporal-presentation.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/temporal-presentation.test.tsx > apresentação temporal > reclassifica prazo ao virar o dia e nunca atrasa meta concluída 88ms
+ ✓ tests/component/temporal-presentation.test.tsx > apresentação temporal > revalida o dia ao recuperar foco depois de uma aba suspensa 15ms
+ ✓ tests/component/temporal-presentation.test.tsx > apresentação temporal > mantém o dia civil na fatura e no histórico de investimento 198ms
+ × tests/component/temporal-presentation.test.tsx > apresentação temporal > data civil inválida recebe saída neutra no detalhe da transação 42ms
+   → useUser deve ser usado dentro de um UserProvider
+stdout | tests/component/habit-product-day.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ tests/component/habit-product-day.test.tsx > P05: lista, detalhe e payload usam dia 07 antes da meia-noite de Brasília 323ms
+ ✓ tests/component/habit-product-day.test.tsx > página aberta muda destaque, janela e payload juntos sem remapear logs 171ms
+ × tests/component/habit-product-day.test.tsx > revalida após suspensão em focus e limpa o timer 154ms
+   → expected 1 to be +0 // Object.is equality
+ × tests/component/habit-product-day.test.tsx > revalida após suspensão em visibilitychange e limpa o timer 84ms
+   → expected 1 to be +0 // Object.is equality
+ ✓ tests/component/habit-product-day.test.tsx > limite IANA respeita o dia de 23 horas de São Paulo em 2018 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/component/habit-product-day.test.tsx > revalida após suspensão em focus e limpa o timer
+ FAIL  tests/component/habit-product-day.test.tsx > revalida após suspensão em visibilitychange e limpa o timer
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/component/habit-product-day.test.tsx:65:30
+     63|   expect(onToggle).toHaveBeenCalledWith("synthetic-habit", "2026-09-09…
+     64|   unmount();
+     65|   expect(vi.getTimerCount()).toBe(0);
+       |                              ^
+     66| });
+     67|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/component/temporal-presentation.test.tsx > apresentação temporal > data civil inválida recebe saída neutra no detalhe da transação
+Error: useUser deve ser usado dentro de um UserProvider
+ ❯ useUserContext src/contexts/userContext.tsx:115:11
+    113|   const context = useContext(UserContext);
+    114|   if (!context) {
+    115|     throw new Error("useUser deve ser usado dentro de um UserProvider"…
+       |           ^
+    116|   }
+    117|   return context;
+ ❯ useUser src/hooks/useUser.ts:4:10
+ ❯ PrivacyBlur src/components/ui/privacyBlur.tsx:11:20
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 6 passed (9)
+   Start at  13:49:33
+   Duration  5.05s (transform 1.05s, setup 1.22s, import 3.08s, tests 1.09s, environment 2.56s)
+

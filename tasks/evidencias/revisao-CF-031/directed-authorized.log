@@ -1,0 +1,93 @@
+
+ RUN  v4.1.11 C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/controle-financeiro-frontend
+
+stdout | src/services/onboarding/flow.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+stdout | src/services/onboarding/contract.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > keeps responses and temporary references while navigating 6ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > saves and reloads only confirmed server responses 5ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > reconciles a lost save without another PUT 4ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > preserves local edits on 409 and presents remote for explicit comparison 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > same payload at the old version does not prove a lost save or pause committed 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > allows local overwrite only after comparison and uses the compared version 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > associates server issues to fields without replacing draft 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > ignores a late owner-A load after unmount while owner-B is loading 1ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > late save cannot alter reactivated form-B busy state or content 1ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > guards double activation and retries the same frozen confirmation 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > recovers COMPLETED without posting another financial operation 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > 404 recovery consults session and does not invent a new operation 1ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > retries uncertain preparation with exactly the first identity and content 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > requires cancellation before editing prepared snapshot 3ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > does not infer rollback when cancellation loses the race 2ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > does not prepare paused sessions and resumes explicitly 1ms
+ ✓ src/services/onboarding/flow.test.tsx > onboarding lifecycle > never stores sensitive payload in local or tab storage 2ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 1.005 without rounding 2ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 1000000000000.00 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 01.00 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money -0.00 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 1e2 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 1,00 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money  1.00 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > rejects malformed money 1 without rounding 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > preserves maximum, NG-01 quantity, negative account and explicit zero 1ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 2028-02-29 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 2027-02-29 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 0001-01-01 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 9999-12-31 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 0000-01-01 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 2026-02-30 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > validates civil calendar 2026-10-09T00:00:00Z 0ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > normalizes only declared decimals and preserves UNKNOWN, NA and missing leaves 3ms
+ ✓ src/services/onboarding/contract.test.tsx > SPEC-001 entry boundary > requires exactly one own reference identity 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > validates E01 hashes, identity, summary, receipt and operation 8ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E16-R28-01A aggregates/uncertainty 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E17-R28-01B aggregates/uncertainty 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E18-R28-02 aggregates/uncertainty 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E19-R28-02-PARTIAL aggregates/uncertainty 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E20-R28-02-ZERO aggregates/uncertainty 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > accepts independent E35-missing-origin-complete aggregates/uncertainty 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects invalid envelope/session null 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects invalid envelope/session {} 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects invalid envelope/session undefined 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects invalid envelope/session {"data":null} 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects invalid envelope/session {} 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects wrong total in summary 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects number in summary 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects missing own in summary 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects unknown zero in summary 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects partial no paths in summary 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects wrong range in summary 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects subtotal as full free value and invalid permission 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > detects unchanged hash over adulterated prepare and missing mapping 2ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects incompatible receipt operation 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects incompatible receipt summary 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects incompatible receipt mapping 2ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects incompatible receipt id 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > rejects incompatible receipt inherited status 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > renders different semantic states, including NA only where allowed 0ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > transports strings exactly through shared BFF client and rejects duplicate keys 6ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > preserves server JSON Pointer issues through shared error handling 1ms
+ ✓ src/services/onboarding/contract.test.tsx > authoritative reading, no false completion > canonicalizes array/object order without monetary Number 0ms
+stdout | src/screens/private/onboarding/screen.test.tsx
+[harness] layer=component timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1 fixedNow=2026-09-08T02:59:59.000Z
+
+ ✓ src/screens/private/onboarding/screen.test.tsx > has accessible context fields and keyboard save/next preserves answers 611ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > requires confirmation before removing a section and Escape returns focus 1385ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > keeps decimal strings exact through typing and save 684ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > does not post malformed decimals or replace them with zero 426ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > shows server field issue and moves focus to its correction 270ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > compares conflict snapshots and does not silently choose the server 731ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > keeps UNKNOWN separate from explicit known zero and monetary NA 501ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > does not expose sensitive values while privacy changes 145ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > does not show success after an invalid financial response and permits same retry 833ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > clears in-memory answers on session invalidation 19ms
+ ✓ src/screens/private/onboarding/screen.test.tsx > reopens persisted reservation declarations without inventing a new revision 79ms
+
+ Test Files  3 passed (3)
+      Tests  75 passed (75)
+   Start at  13:47:07
+   Duration  7.81s (transform 471ms, setup 824ms, import 1.29s, tests 5.77s, environment 1.98s)
+

@@ -1,0 +1,226 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 18 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+13:48:33.468 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:48:33.765 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+13:48:34.025 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+13:48:34.025 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-21 13:48:34.490 - INFO 58808 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-21 13:48:34.847 - INFO 58808 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-21 13:48:35.452 - INFO 58808 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-21 13:48:35.452 - INFO 58808 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-21 13:48:35.481 - INFO 58808 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-21 13:48:36.477 - INFO 58808 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-21 13:48:36.477 - INFO 58808 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-21 13:48:36.478 - INFO 58808 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-21 13:48:38.674 - INFO 58808 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : Starting OnboardingFrontendPostgresE2E using Java 21.0.12.1 with PID 58808 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-21 13:48:38.675 - INFO 58808 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-21 13:48:49.472 - WARN 58808 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-21 13:49:01.072 - INFO 58808 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : Started OnboardingFrontendPostgresE2E in 27.038 seconds (process running for 28.789)
+-2026-10-21 13:49:17.374 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid
+-2026-10-21 13:49:17.458 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid
+-2026-10-21 13:49:18.174 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 49f241ea-ff51-455f-ba83-1460f92b5807
+-2026-10-21 13:49:18.174 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 49f241ea-ff51-455f-ba83-1460f92b5807
+-2026-10-21 13:49:18.316 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid
+-2026-10-21 13:49:18.555 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid
+-2026-10-21 13:49:19.256 - INFO 58808 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:24.506 - INFO 58808 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:27.407 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:29.860 - INFO 58808 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:49:29.865 - INFO 58808 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:49:30.095 - INFO 58808 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 32ed9fb9-13dd-4e82-bcbd-063248c6bdf4
+-2026-10-21 13:49:30.095 - INFO 58808 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 32ed9fb9-13dd-4e82-bcbd-063248c6bdf4
+-2026-10-21 13:49:30.161 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:49:30.309 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:49:30.652 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:32.249 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:38.715 - INFO 58808 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:40.193 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:42.293 - INFO 58808 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:42.299 - INFO 58808 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:42.455 - INFO 58808 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ee453bc1-c7b4-44a3-b41d-a888a39e925a
+-2026-10-21 13:49:42.455 - INFO 58808 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ee453bc1-c7b4-44a3-b41d-a888a39e925a
+-2026-10-21 13:49:42.501 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:42.622 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:42.921 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:43.974 - INFO 58808 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:50.108 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:51.975 - INFO 58808 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:52.081 - INFO 58808 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid
+-2026-10-21 13:49:52.360 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:53.485 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:56.669 - INFO 58808 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid
+-2026-10-21 13:49:56.671 - INFO 58808 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid
+-2026-10-21 13:49:56.828 - INFO 58808 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: d5df0ca8-59d5-4eef-81c8-ebde4ba3c679
+-2026-10-21 13:49:56.828 - INFO 58808 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID d5df0ca8-59d5-4eef-81c8-ebde4ba3c679
+-2026-10-21 13:49:56.894 - INFO 58808 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid
+-2026-10-21 13:49:57.037 - INFO 58808 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid
+-2026-10-21 13:49:57.336 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:49:58.418 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-visual@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:50:50.369 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid
+-2026-10-21 13:50:50.371 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid
+-2026-10-21 13:50:50.472 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: f86ebf1c-b20f-4ce7-bf03-cae611bf8b8a
+-2026-10-21 13:50:50.472 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID f86ebf1c-b20f-4ce7-bf03-cae611bf8b8a
+-2026-10-21 13:50:50.517 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid
+-2026-10-21 13:50:50.591 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid
+-2026-10-21 13:50:50.817 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:50:53.437 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:50:54.878 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:50:56.202 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid
+-2026-10-21 13:50:56.206 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid
+-2026-10-21 13:50:56.383 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 232c2697-bbae-4114-b601-1458e67c5e31
+-2026-10-21 13:50:56.383 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 232c2697-bbae-4114-b601-1458e67c5e31
+-2026-10-21 13:50:56.429 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid
+-2026-10-21 13:50:56.551 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid
+-2026-10-21 13:50:56.833 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:50:58.259 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:08.213 - INFO 58808 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:09.961 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:12.136 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:12.140 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:12.325 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ac99789c-64c7-44aa-ab07-b4a8debd1711
+-2026-10-21 13:51:12.325 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ac99789c-64c7-44aa-ab07-b4a8debd1711
+-2026-10-21 13:51:12.368 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:12.513 - INFO 58808 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:12.847 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:13.929 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:20.637 - INFO 58808 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:23.082 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:23.213 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid
+-2026-10-21 13:51:23.480 - INFO 58808 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:24.764 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:28.607 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid
+-2026-10-21 13:51:28.610 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid
+-2026-10-21 13:51:28.832 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 3a7f8091-da26-4c56-9848-843a7adbf7ae
+-2026-10-21 13:51:28.833 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 3a7f8091-da26-4c56-9848-843a7adbf7ae
+-2026-10-21 13:51:28.894 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid
+-2026-10-21 13:51:29.058 - INFO 58808 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid
+-2026-10-21 13:51:29.454 - INFO 58808 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:51:30.807 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-tablet-768-utc-visual@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:15.736 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:52:15.815 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:52:16.012 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:16.658 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:30.061 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid
+-2026-10-21 13:52:30.064 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid
+-2026-10-21 13:52:30.172 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: fb4cb7bd-f49a-42d5-87e0-845bbefc4636
+-2026-10-21 13:52:30.172 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID fb4cb7bd-f49a-42d5-87e0-845bbefc4636
+-2026-10-21 13:52:30.197 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid
+-2026-10-21 13:52:30.277 - INFO 58808 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid
+-2026-10-21 13:52:30.462 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:33.362 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:42.291 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-empty@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:43.776 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid
+-2026-10-21 13:52:43.778 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid
+-2026-10-21 13:52:43.956 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: fc43c79f-5e55-40a2-8ca6-bc0162797cd6
+-2026-10-21 13:52:43.956 - INFO 58808 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID fc43c79f-5e55-40a2-8ca6-bc0162797cd6
+-2026-10-21 13:52:44.005 - INFO 58808 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid
+-2026-10-21 13:52:44.132 - INFO 58808 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid
+-2026-10-21 13:52:44.420 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:52:45.613 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:00.590 - INFO 58808 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:01.722 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:03.710 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid
+-2026-10-21 13:53:03.713 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid
+-2026-10-21 13:53:03.868 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 23495514-58a3-477d-a939-df69924a5948
+-2026-10-21 13:53:03.868 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 23495514-58a3-477d-a939-df69924a5948
+-2026-10-21 13:53:03.928 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid
+-2026-10-21 13:53:04.074 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid
+-2026-10-21 13:53:04.351 - INFO 58808 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:05.307 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-draft@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:20.490 - INFO 58808 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:53:20.591 - INFO 58808 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid
+-2026-10-21 13:53:20.779 - INFO 58808 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:53:21.557 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:54:07.279 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid
+-2026-10-21 13:54:07.282 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid
+-2026-10-21 13:54:07.385 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 131d5d11-30f5-4bbd-b690-0e45877b9aae
+-2026-10-21 13:54:07.385 - INFO 58808 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 131d5d11-30f5-4bbd-b690-0e45877b9aae
+-2026-10-21 13:54:07.413 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid
+-2026-10-21 13:54:07.492 - INFO 58808 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid
+-2026-10-21 13:54:07.667 - INFO 58808 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid | M�s: null | Conta: null
+-2026-10-21 13:54:08.867 - INFO 58808 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-d92a269c-desktop-1440-kiritimati-visual@example.invalid | M�s: null | Conta: null
+-[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 388.5 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+[ERROR] com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E.interviewPersistsAndAppliesExactlyOnce -- Time elapsed: 360.6 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[Playwright result; see C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\..\tasks\evidencias\revisao-CF-031\e2e\playwright.log] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E.interviewPersistsAndAppliesExactlyOnce(OnboardingFrontendPostgresE2E.java:42)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   OnboardingFrontendPostgresE2E.interviewPersistsAndAppliesExactlyOnce:42 [Playwright result; see C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\..\tasks\evidencias\revisao-CF-031\e2e\playwright.log] 
+expected: 0
+ but was: 1
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  06:32 min
+[INFO] Finished at: 2026-10-21T13:55:02-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
