@@ -30,7 +30,7 @@ class OnboardingFrontendPostgresE2E extends PostgresIntegrationTest {
         Path out=Path.of(System.getProperty("cf031.evidence",backend.resolve("../tasks/evidencias/CF-031/e2e-initial").normalize().toString())).toAbsolutePath();
         Files.createDirectories(out);
         assertThat(Files.exists(out.resolve("playwright.log"))).as("Do not overwrite earlier evidence").isFalse();
-        var command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","src/screens/private/onboarding/e2e/playwright.config.ts"));
+        var command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config",System.getProperty("cf031.config","src/screens/private/onboarding/e2e/playwright.config.ts")));
         String selected=System.getProperty("cf031.project");if(selected!=null)command.addAll(List.of("--project",selected));
         ProcessBuilder runner=new ProcessBuilder(command).directory(frontend.toFile()).redirectErrorStream(true).redirectOutput(out.resolve("playwright.log").toFile());
         runner.environment().put("BACKEND_API_URL","http://127.0.0.1:"+port);

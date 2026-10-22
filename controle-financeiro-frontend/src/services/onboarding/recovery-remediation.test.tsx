@@ -1,0 +1,30 @@
+import { readFileSync } from "node:fs";
+import { webcrypto } from "node:crypto";
+import { expect, it, vi } from "vitest";
+import { onboardingClient } from "./client";
+import { createOnboardingFlow } from "./flow";
+
+const fixture = JSON.parse(readFileSync("../tasks/evidencias/CF-028/examples.json", "utf8"));
+it("retains the frozen identity through invalid complete and operation GET, then replays the identical command", async () => {
+  vi.stubGlobal("crypto", webcrypto);
+  const prepared = structuredClone(fixture.prepareResponse.data);
+  const pending = { ...structuredClone(fixture.saveResponse.data), pendingIntent: prepared };
+  const badReceipt = structuredClone(fixture.completeResponse.data);
+  badReceipt.summary.metrics.freeAccountCash.value = badReceipt.summary.metrics.freeAccountCash.knownSubtotal = "999999.00";
+  const malformed = structuredClone(fixture.completeResponse.data);
+  malformed.summary.reservationChanges = [{ reservationId: "20000000-0000-4000-8000-000000000011", action: "CLOSE", previous: null, proposed: null }];
+  const operation = { contractVersion: 1, operationId: prepared.operationId, sessionId: prepared.sessionId, kind: "ONBOARDING_COMPLETE", state: "COMPLETED", prepared, receipt: malformed };
+  const fetcher = vi.fn();
+  for (const data of [pending, badReceipt, operation, fixture.completeResponse.data]) fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ data }), { status: 200 }));
+  vi.stubGlobal("fetch", fetcher);
+  const flow = createOnboardingFlow({ ...onboardingClient, choices: async () => [] }, "owner-A");
+  await flow.load(); await flow.confirm();
+  expect(flow.snapshot()).toMatchObject({ receipt: null, unknown: true, prepared: { operationId: prepared.operationId, contentHash: prepared.contentHash, reviewHash: prepared.reviewHash } });
+  await flow.recover();
+  expect(flow.snapshot().receipt).toBeNull(); expect(flow.snapshot().prepared?.operationId).toBe(prepared.operationId);
+  await flow.confirm(); expect(flow.snapshot().receipt?.operationId).toBe(prepared.operationId);
+  const posts = fetcher.mock.calls.filter(c => c[1].method === "POST");
+  expect(posts).toHaveLength(2); expect(posts[0][0]).toBe("/api/onboarding/complete"); expect(posts[1][1].body).toBe(posts[0][1].body);
+  expect(fetcher.mock.calls[2][0]).toBe(`/api/onboarding/operations/${prepared.operationId}`);
+  flow.invalidate();
+});

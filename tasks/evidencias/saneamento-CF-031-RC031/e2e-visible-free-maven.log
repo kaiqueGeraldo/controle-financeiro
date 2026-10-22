@@ -1,0 +1,125 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 18 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+09:39:56.124 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:39:57.657 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+09:39:58.685 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+09:39:58.699 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-22 09:40:00.385 - INFO 61244 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-22 09:40:01.922 - INFO 61244 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-22 09:40:17.599 - INFO 61244 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-22 09:40:17.608 - INFO 61244 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-22 09:40:17.678 - INFO 61244 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-22 09:40:21.852 - INFO 61244 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-22 09:40:21.853 - INFO 61244 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-22 09:40:21.857 - INFO 61244 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-22 09:40:28.638 - INFO 61244 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : Starting OnboardingFrontendPostgresE2E using Java 21.0.12.1 with PID 61244 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-backend)
+-2026-10-22 09:40:28.640 - INFO 61244 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-22 09:40:57.779 - WARN 61244 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-22 09:41:21.497 - INFO 61244 --- [           main] c.c.a.d.o.OnboardingFrontendPostgresE2E  : Started OnboardingFrontendPostgresE2E in 82.749 seconds (process running for 89.932)
+-2026-10-22 09:41:46.617 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid
+-2026-10-22 09:41:46.720 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid
+-2026-10-22 09:41:48.391 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 3846d80b-c60b-41e2-9ffb-2cc310391d69
+-2026-10-22 09:41:48.391 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 3846d80b-c60b-41e2-9ffb-2cc310391d69
+-2026-10-22 09:41:48.684 - INFO 61244 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid
+-2026-10-22 09:41:49.096 - INFO 61244 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid
+-2026-10-22 09:41:51.059 - INFO 61244 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:03.243 - INFO 61244 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:08.448 - INFO 61244 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-empty@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:13.144 - INFO 61244 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid
+-2026-10-22 09:42:13.152 - INFO 61244 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid
+-2026-10-22 09:42:13.513 - INFO 61244 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 2e52aab6-3557-418e-b8ec-9f41a3ccf761
+-2026-10-22 09:42:13.514 - INFO 61244 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 2e52aab6-3557-418e-b8ec-9f41a3ccf761
+-2026-10-22 09:42:13.643 - INFO 61244 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid
+-2026-10-22 09:42:13.929 - INFO 61244 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid
+-2026-10-22 09:42:14.847 - INFO 61244 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:18.742 - INFO 61244 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:32.157 - INFO 61244 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:35.239 - INFO 61244 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:38.318 - INFO 61244 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:41.859 - INFO 61244 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:46.154 - INFO 61244 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:49.020 - INFO 61244 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:52.809 - INFO 61244 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-full@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:42:56.238 - INFO 61244 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:42:56.248 - INFO 61244 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:42:56.704 - INFO 61244 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ef588710-9e78-4033-bd0b-43f5e8504f09
+-2026-10-22 09:42:56.704 - INFO 61244 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ef588710-9e78-4033-bd0b-43f5e8504f09
+-2026-10-22 09:42:56.798 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:42:57.076 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:42:58.100 - INFO 61244 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:01.331 - INFO 61244 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:11.771 - INFO 61244 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:14.719 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:43:14.947 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid
+-2026-10-22 09:43:15.432 - INFO 61244 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:17.143 - INFO 61244 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-draft@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:22.751 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid
+-2026-10-22 09:43:22.763 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid
+-2026-10-22 09:43:23.954 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 6ee5b04f-b37f-46ba-9626-8b533bd4ae59
+-2026-10-22 09:43:23.955 - INFO 61244 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 6ee5b04f-b37f-46ba-9626-8b533bd4ae59
+-2026-10-22 09:43:24.193 - INFO 61244 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid
+-2026-10-22 09:43:24.437 - INFO 61244 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid
+-2026-10-22 09:43:26.108 - INFO 61244 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid | M�s: null | Conta: null
+-2026-10-22 09:43:29.105 - INFO 61244 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf031-fc96656a-mobile-360-sp-visual@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 221.1 s -- in com.controlefinanceiro.api.domain.onboarding.OnboardingFrontendPostgresE2E
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:57 min
+[INFO] Finished at: 2026-10-22T09:43:37-03:00
+[INFO] ------------------------------------------------------------------------

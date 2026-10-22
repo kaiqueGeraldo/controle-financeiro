@@ -79,6 +79,23 @@ describe("RC031-02 complete LegacyReservation boundary", () => {
     const refs = r.attribution.evidenceRefs; delete (r.attribution as Partial<typeof r.attribution>).evidenceRefs; Object.setPrototypeOf(r.attribution, { evidenceRefs: refs });
     expect(() => parseSummary(summary)).toThrow();
   });
+  it.each(["CANDIDATES", "UNBOUNDED", "CLOSED"])("requires own variant members in %s too", variant => {
+    const summary = withChange(); const r = summary.reservationChanges[0].previous;
+    r.attribution = variant === "CANDIDATES" ? { state: variant, sources: [r.attribution.parts[0].source], evidenceRefs: [evidenceId] }
+      : variant === "UNBOUNDED" ? { state: variant, excluded: [] } : { state: variant, evidenceRefs: [evidenceId] };
+    if (variant === "CLOSED") r.nominal = amount("0.00");
+    expect(parseSummary(summary)).toBeTruthy();
+    const key = variant === "UNBOUNDED" ? "excluded" : "evidenceRefs";
+    const value = r.attribution[key]; delete r.attribution[key]; Object.setPrototypeOf(r.attribution, { [key]: value });
+    expect(() => parseSummary(summary)).toThrow();
+  });
+  it("validates nested exclusion evidence and does not reinterpret sources as an unbounded set", () => {
+    const summary = withChange(); const r = summary.reservationChanges[0].previous;
+    r.attribution = { state: "UNBOUNDED", excluded: [{ source: r.attribution.parts[0].source, evidenceRefs: [evidenceId] }] };
+    expect(parseSummary(summary)).toBeTruthy();
+    r.attribution.excluded[0].evidenceRefs = null; expect(() => parseSummary(summary)).toThrow();
+    r.attribution.excluded = []; r.attribution.sources = []; expect(() => parseSummary(summary)).toThrow();
+  });
   it("treats __proto__ as own JSON data without prototype mutation, and rejects missing goal.value", async () => {
     const receipt = structuredClone(e01.completeResponse.data); receipt.summary = withChange();
     const validGoal = receipt.summary.reservationChanges[0].previous.goal;

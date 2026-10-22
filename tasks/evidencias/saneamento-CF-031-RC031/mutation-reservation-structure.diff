@@ -1,0 +1,52 @@
+warning: in the working copy of 'C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\controle-financeiro-frontend\src\services\onboarding\result.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\Aluga.com\AppData\Local\Temp\rc031-remediation-counterproof-4b5ff580cb1c49edaeae11d2b730d0b0\frontend\src\services\onboarding\result.ts', LF will be replaced by CRLF the next time Git touches it
+diff --git "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\src\\services\\onboarding\\result.ts" "b/C:\\Users\\Aluga.com\\AppData\\Local\\Temp\\rc031-remediation-counterproof-4b5ff580cb1c49edaeae11d2b730d0b0\\frontend\\src\\services\\onboarding\\result.ts"
+index 77df449..e808c2c 100644
+--- "a/C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\src\\services\\onboarding\\result.ts"
++++ "b/C:\\Users\\Aluga.com\\AppData\\Local\\Temp\\rc031-remediation-counterproof-4b5ff580cb1c49edaeae11d2b730d0b0\\frontend\\src\\services\\onboarding\\result.ts"
+@@ -70,44 +70,8 @@ function evidenceRefs(value: unknown) { expect(strings(value, true).length > 0);
+ /** One read contract for both the inventory and the before/after snapshots. */
+ function legacyReservation(value: unknown) {
+   const r = record(value, ["reservationId", "revision", "goal", "nominal", "attribution"]);
+-  expect(uuid(r.reservationId) && revision(r.revision));
+-  const goal = record(r.goal, ["state"]);
+-  expect(goal.state === "KNOWN" || goal.state === "UNKNOWN");
+-  if (goal.state === "KNOWN") reference(record(goal, ["value"]).value, "GOAL");
+-  else expect(!Object.hasOwn(goal, "value"));
+-
+-  const nominal = summaryAmount(r.nominal), a = record(r.attribution, ["state"]);
+-  if (a.state === "CONFIRMED") {
+-    record(a, ["parts", "evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+-    const parts = list(a.parts); expect(parts.length > 0);
+-    const sources: string[] = [], amounts: SummaryAmount[] = [];
+-    for (const part of parts) {
+-      const p = record(part, ["source", "amount"]);
+-      sources.push(refKey(reference(p.source, "ACCOUNT INVESTMENT")));
+-      const amount = summaryAmount(p.amount);
+-      if (amount.knownSubtotal !== null) individual(amount.knownSubtotal);
+-      if (amount.state === "KNOWN") expect(units(amount.value!) > BigInt(0));
+-      amounts.push(amount);
+-    }
+-    identityUnique(sources); reconcileSum(nominal, amounts);
+-  } else if (a.state === "CANDIDATES") {
+-    record(a, ["sources", "evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+-    const refs = list(a.sources).map(x => refKey(reference(x, "ACCOUNT INVESTMENT")));
+-    expect(refs.length > 0); identityUnique(refs);
+-  } else if (a.state === "UNBOUNDED") {
+-    record(a, ["excluded"]); expect(!Object.hasOwn(a, "sources"));
+-    const refs = list(a.excluded).map(x => {
+-      const e = record(x, ["source", "evidenceRefs"]); evidenceRefs(e.evidenceRefs);
+-      return refKey(reference(e.source, "ACCOUNT INVESTMENT"));
+-    });
+-    identityUnique(refs);
+-  } else {
+-    expect(a.state === "CLOSED"); record(a, ["evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+-    expect(!Object.hasOwn(a, "parts") && nominal.state === "KNOWN" && nominal.value === "0.00");
+-  }
+-  return r;
++  expect(uuid(r.reservationId) && revision(r.revision)); summaryAmount(r.nominal); return r;
+ }
+-
+ function reservationReview(v: unknown) {
+   const o = record(v, ["reservations", "evidence", "decisions", "confirmations"]);
+   const reservationIds = list(o.reservations).map(value => String(legacyReservation(value).reservationId));
