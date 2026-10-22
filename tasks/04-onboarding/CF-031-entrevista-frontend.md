@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: em_revisao (revalidação independente: RC031-01 encerrado; RC031-02 residual/P2 em referências herdadas; DEC-ONB-03)
+- Estado: em_revisao (RC031-01 encerrado; residual RC031-02/P2 saneado localmente, aguardando revalidação independente; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -54,6 +54,33 @@ Importação de histórico, novos módulos de vida, billing ou número completo 
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Saneamento residual de identidade — 22/10/2026
+
+Residual RC031-02 corrigido localmente: validação e consumidores compartilham
+a escolha do único id/tempId próprio. O id herdado deixa de prevalecer sobre o
+tempId validado; duplicatas reais são recusadas e fontes distintas preservadas.
+Conferidos unicidade, comparação canônica, seleção, rótulos e dados de metas.
+Sem reimplementar parser, regras financeiras, recuperação ou protocolo/backend.
+[Causa, controles e limites](../evidencias/saneamento-CF-031-identidade/README.md).
+
+Os nove probes independentes intactos passaram após 7/9 na base; os dois
+residuais ficaram verdes. Suíte dirigida 160/160 (138 preservados + 22 novos),
+sete probes anteriores, seis casos temporais em três fusos e lint/tipos/build
+aprovados. Contraprova isolada: fallback herdado provoca seis falhas; controle
+149/149 restaurado e 210 fontes idênticos por hash. Sem somar subconjuntos.
+
+Reprodução em memória; JSON bruto não cria a herança alternativa. Sem ataque
+remoto, corrupção de banco ou duplicação financeira demonstrados. Leitura inválida
+e recuperação do mesmo recibo exercitadas em estado/parser, sem novo comando;
+nenhuma mudança de fluxo exige repetir as 12 jornadas reais anteriores.
+
+CF031 permanece em_revisao, sem autoencerrar RC031-02; próximo passo é revalidação
+independente dos dois probes e consumidores afetados. RC031-01 segue encerrado.
+Loading/sessão historicamente inconclusivos e não bloqueantes por si, sem nova
+investigação. CF032 sem liberação; DEC-ONB-03, zoom CF010/015 e adoção real
+CF017/P01/P02 preservados. Mesma branch, commits locais; README raiz, runtimes e
+provas anteriores preservados. Sem push, merge, deploy ou banco real.
 
 ### Revalidação independente do saneamento — 22/10/2026
 

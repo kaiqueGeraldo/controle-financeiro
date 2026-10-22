@@ -1,0 +1,109 @@
+import { readFileSync } from "node:fs";
+import { webcrypto } from "node:crypto";
+import { render, screen, within } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { RefField } from "@/screens/private/onboarding/Fields";
+import { FinancialReview } from "@/screens/private/onboarding/Review";
+import { onboardingClient } from "./client";
+import { createOnboardingFlow } from "./flow";
+import { refKey, type Ref } from "./model";
+import { canonicalString, parseSession, parseSummary } from "./result";
+import { parse } from "../vendor/lossless-json/parse";
+
+vi.mock("@/hooks/useUser", () => ({ useUser: () => ({ user: { id: "owner-A", privacyMode: false }, isLoading: false }) }));
+const fixture = JSON.parse(readFileSync("../tasks/evidencias/CF-028/examples.json", "utf8"));
+const a = "20000000-0000-4000-8000-000000000001", b = "20000000-0000-4000-8000-000000000002", alternate = "20000000-0000-4000-8000-000000000099";
+const amount = (value: string) => ({ state: "KNOWN", value, knownSubtotal: value, outsideIndividualRange: false, missingPaths: [] });
+const summary = () => structuredClone(fixture.completeResponse.data.summary);
+const wire = (value: unknown) => parse(JSON.stringify(value), undefined, { parseNumber: raw => Number(raw) });
+function withParts(first: object, second: object, variant = "CONFIRMED") {
+  const s = summary(), reservationId = "20000000-0000-4000-8000-000000000011";
+  const attribution = variant === "CONFIRMED" ? { state: variant, parts: [{ source: first, amount: amount("12.00") }, { source: second, amount: amount("12.00") }], evidenceRefs: [alternate] }
+    : variant === "CANDIDATES" ? { state: variant, sources: [first, second], evidenceRefs: [alternate] }
+    : { state: variant, excluded: [{ source: first, evidenceRefs: [alternate] }, { source: second, evidenceRefs: [alternate] }] };
+  const previous = { reservationId, revision: "1", goal: { state: "KNOWN", value: { ...s.byGoal[0].ref } }, nominal: amount("24.00"), attribution };
+  s.reservationChanges = [{ reservationId, action: "CLOSE", previous, proposed: { ...previous, revision: "2", nominal: amount("0.00"), attribution: { state: "CLOSED", evidenceRefs: [alternate] } } }];
+  return s;
+}
+beforeEach(() => vi.stubGlobal("crypto", webcrypto));
+
+describe("reference identity uses the validated own member", () => {
+  it.each(["id", "tempId"] as const)("accepts own %s and distinct valid sources", member => {
+    const first = { kind: "ACCOUNT", [member]: a }, second = { kind: "ACCOUNT", [member]: b };
+    expect(parseSummary(withParts(first, second))).toBeTruthy();
+    expect(refKey(first as Ref)).toBe(`ACCOUNT:${a}`); expect(refKey(second as Ref)).toBe(`ACCOUNT:${b}`);
+  });
+  it("ignores inherited tempId beside a valid own id", () => {
+    const ref = { kind: "ACCOUNT" as const, id: a }; Object.setPrototypeOf(ref, { tempId: b });
+    expect(refKey(ref)).toBe(`ACCOUNT:${a}`); expect(parseSummary(withParts(ref, { kind: "ACCOUNT", id: b }))).toBeTruthy();
+  });
+  it.each(["CONFIRMED", "CANDIDATES", "UNBOUNDED"])("rejects duplicate effective sources in %s despite inherited alternate ids", variant => {
+    const second = { kind: "ACCOUNT", tempId: a }; Object.setPrototypeOf(second, { id: alternate });
+    expect(() => parseSummary(withParts({ kind: "ACCOUNT", tempId: a }, second, variant))).toThrow();
+  });
+  it("accepts distinct own tempIds even when their inherited id is the same", () => {
+    const first = { kind: "ACCOUNT", tempId: a }, second = { kind: "ACCOUNT", tempId: b };
+    Object.setPrototypeOf(first, { id: alternate }); Object.setPrototypeOf(second, { id: alternate });
+    expect(parseSummary(withParts(first, second))).toBeTruthy();
+  });
+  it("does not impose global UUID uniqueness across persisted source kinds", () => {
+    expect(parseSummary(withParts({ kind: "ACCOUNT", id: a }, { kind: "INVESTMENT", id: a }))).toBeTruthy();
+    expect(refKey({ kind: "ACCOUNT", id: a })).not.toBe(refKey({ kind: "INVESTMENT", id: a }));
+  });
+  it.each([{}, { tempId: null }, { id: null }, { tempId: 3 }, { id: "bad" }, { id: a, tempId: b }, { id: a, tempId: null }])("rejects missing/invalid or two own identities %j", identity => {
+    expect(() => parseSummary(withParts({ kind: "ACCOUNT", ...identity }, { kind: "ACCOUNT", id: b }))).toThrow();
+  });
+  it("rejects an inherited-only required identity", () => {
+    const ref = { kind: "ACCOUNT" }; Object.setPrototypeOf(ref, { tempId: a });
+    expect(() => parseSummary(withParts(ref, { kind: "ACCOUNT", id: b }))).toThrow();
+  });
+  it("preserves valid JSON and own __proto__ metadata without creating inherited identity", () => {
+    const valid = withParts({ kind: "ACCOUNT", tempId: a }, { kind: "ACCOUNT", tempId: b });
+    Object.defineProperty(valid.reservationChanges[0].previous.attribution.parts[1].source, "__proto__", { value: { id: alternate }, enumerable: true });
+    const decoded = wire(valid) as typeof valid;
+    expect(Object.hasOwn(decoded.reservationChanges[0].previous.attribution.parts[1].source, "id")).toBe(false);
+    expect(parseSummary(decoded)).toBeTruthy();
+    const duplicate = withParts({ kind: "ACCOUNT", tempId: a }, { kind: "ACCOUNT", tempId: a });
+    expect(() => parseSummary(wire(duplicate))).toThrow();
+  });
+  it("keeps canonical comparisons independent of inherited alternates", () => {
+    const plain = [{ source: { kind: "ACCOUNT", tempId: a } }, { source: { kind: "ACCOUNT", tempId: b } }];
+    const inherited = structuredClone(plain); Object.setPrototypeOf(inherited[0].source, { id: alternate });
+    expect(canonicalString(inherited)).toBe(canonicalString(plain));
+  });
+  it("selects the own temporary reference in the editor", () => {
+    const draft = structuredClone(fixture.draft.payload), value = { ...draft.sections.accounts.items[0], kind: "ACCOUNT" };
+    // The field value is a Ref, not the account item itself.
+    const ref = { kind: "ACCOUNT", tempId: value.tempId }; Object.setPrototypeOf(ref, { id: alternate });
+    render(<RefField label="Fonte da reserva" path="/source" value={ref} onChange={() => {}} issues={[]} choices={[]} draft={draft} kinds={["ACCOUNT"]} />);
+    expect(screen.getByRole("combobox", { name: "Fonte da reserva" })).toHaveValue(`ACCOUNT:${ref.tempId}`);
+    expect(screen.queryByRole("option", { name: /Vínculo pendente/ })).toBeNull();
+  });
+  it("labels a parsed source by its own tempId rather than an inherited persisted id", () => {
+    const s = summary(); Object.setPrototypeOf(s.bySource[0].ref, { id: alternate });
+    const choices = [{ kind: "ACCOUNT" as const, id: fixture.existing.account.id, label: "Carteira correta" }, { kind: "ACCOUNT" as const, id: alternate, label: "Conta incorreta" }];
+    render(<FinancialReview summary={parseSummary(s)} draft={fixture.draft.payload} choices={choices} />);
+    expect(screen.getByRole("heading", { name: "Carteira correta", exact: true })).toBeVisible();
+    expect(screen.queryByRole("heading", { name: "Conta incorreta", exact: true })).toBeNull();
+  });
+  it("does not attach an inherited temporary goal to a persisted goal's deadline", () => {
+    const s = summary(), goal = s.byGoal.find((g: { type: string }) => g.type === "NUMERIC");
+    goal.ref = { kind: "GOAL", id: alternate };
+    const old = fixture.draft.payload.sections.goals.items.find((g: { deadline: string }) => g.deadline === "2026-09-30");
+    Object.setPrototypeOf(goal.ref, { tempId: old.tempId });
+    render(<FinancialReview summary={parseSummary(s)} draft={fixture.draft.payload} choices={[{ kind: "GOAL", id: alternate, label: "Meta numérica persistida", type: "NUMERIC" }]} />);
+    const section = screen.getByRole("heading", { name: "Meta numérica persistida — numérica" }).closest("section")!;
+    expect(within(section).queryByText(/Prazo original vencido/)).toBeNull();
+  });
+  it("rejects an in-memory duplicate before store success and can load the valid receipt without a new command", async () => {
+    const valid = { ...structuredClone(fixture.saveResponse.data), status: "COMPLETED", version: "2", pendingIntent: null, completedReceipt: structuredClone(fixture.completeResponse.data) };
+    const second = { kind: "ACCOUNT", tempId: a }; Object.setPrototypeOf(second, { id: alternate });
+    const invalid = structuredClone(valid); invalid.completedReceipt.summary = withParts({ kind: "ACCOUNT", tempId: a }, second);
+    let next = invalid;
+    const get = vi.fn(async () => parseSession(next)), complete = vi.fn(onboardingClient.complete), prepare = vi.fn(onboardingClient.prepare);
+    const flow = createOnboardingFlow({ ...onboardingClient, get, complete, prepare, choices: async () => [] }, "owner-A");
+    await flow.load(); expect(flow.snapshot().receipt).toBeNull(); expect(flow.snapshot().message).toContain("inválida");
+    next = valid; await flow.load(); expect(flow.snapshot().receipt?.operationId).toBe(valid.completedReceipt.operationId);
+    expect(complete).not.toHaveBeenCalled(); expect(prepare).not.toHaveBeenCalled(); flow.invalidate();
+  });
+});

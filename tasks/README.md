@@ -4,7 +4,23 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF031 revalidada com residual, 22/10/2026
+## Situação vigente — residual de identidade CF031 saneado localmente, 22/10/2026
+
+CF031 permanece **em_revisao**. RC031-01 encerrado; residual RC031-02/P2 corrigido
+localmente, aguardando revalidação independente. Validação e consumo usam o mesmo
+id/tempId próprio; duplicatas e fontes distintas conferidas nos consumidores.
+[Entrega, provas e limites](evidencias/saneamento-CF-031-identidade/README.md).
+Probes independentes intactos: 7/9 antes, 9/9 depois; 160 dirigidos aprovados,
+contraprova detectada com seis falhas e controle 149/149 restaurado por hash;
+lint/tipos/build e regressões pertinentes aprovados, sem somar subconjuntos.
+Reprodução em memória, sem ataque remoto/JSON bruto ou corrupção de banco
+demonstrados. Sem mudança de recuperação/protocolo nem nova rodada real E2E.
+Loading/sessão historicamente inconclusivos, não bloqueantes por si, preservados.
+CF032 sem liberação; DEC-ONB-03, zoom CF010/015 e adoção CF017/P01/P02 conservam
+gates. Mesma branch, commits locais, README raiz/runtimes/provas preservados;
+sem push, merge, deploy ou banco real. Próximo passo: revalidação independente.
+
+## Situação anterior — CF031 revalidada com residual, 22/10/2026
 
 CF031 permanece **em_revisao**. RC031-01 encerrado independentemente; RC031-02
 mantido/P2 por identidade herdada alternativa em referências, apesar dos dois
