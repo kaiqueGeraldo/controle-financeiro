@@ -48,12 +48,13 @@ export async function paint(page:Page,action:Locator,name:string){
  await page.screenshot({path:path.join(out,`${name}.png`),fullPage:true});
  await save(`${name}-paint`,await page.evaluate(()=>({zone:Intl.DateTimeFormat().resolvedOptions().timeZone,date:new Date().toISOString(),performance:performance.now(),timeline:document.timeline.currentTime,native:[performance.now,setTimeout,setInterval,requestAnimationFrame].map(f=>f.toString().includes("[native code]")),viewport:{width:innerWidth,height:innerHeight},overflow:document.documentElement.scrollWidth>innerWidth})));
 }
-export async function e01(page:Page,suffix:string,existingPerson?:SyntheticUser){
+export async function e01(page:Page,suffix:string,existingPerson?:SyntheticUser,stockIdentifier?:string){
  const person=existingPerson??await register(page,suffix);
  const accounts=rows(await json(page,"/accounts"));expect(accounts).toHaveLength(1);
  const categories=rows(await json(page,"/categories?type=INCOME"));expect(categories.length).toBeGreaterThan(0);
  const example=record(JSON.parse(await readFile(path.join(process.env.CF032_RUNTIME!,"e01.json"),"utf8")));
  const draft=JSON.parse(JSON.stringify(example.draft).replaceAll("00000000-0000-4000-8000-000000000901",String(accounts[0].id)).replaceAll("00000000-0000-4000-8000-000000000902",String(categories[0].id)));
+ if(stockIdentifier){const stock=rows(at(draft,"payload","sections","investments","items")).find(i=>i.type==="STOCK");expect(stock).toBeTruthy();stock!.identifier=stockIdentifier;}
  if(suffix.startsWith("temporal-")){
   const goals=rows(at(draft,"payload","sections","goals","items"));
   for(const [i,title,date] of [[0,"Prazo ontem","2026-10-21"],[1,"Prazo hoje",day],[2,"Prazo amanhã","2026-10-23"]] as const){goals[i].title=title;goals[i].deadline=date;}
@@ -89,7 +90,17 @@ export async function transaction(page:Page,accountId:string,type:"INCOME"|"EXPE
 }
 export async function paymentForm(page:Page,card:Row,accountId:string,amount:string){
  await page.goto("/cartoes");await page.getByRole("button",{name:`Ver fatura de ${card.name}, final ${card.last4Digits}`}).click();
- const invoice=page.getByRole("dialog",{name:`${card.name} •••• ${card.last4Digits}`});
+ // last4Digits is optional in SPEC-001; React renders null as no text in the title.
+ const invoice=page.getByRole("dialog",{name:`${card.name} •••• ${card.last4Digits??""}`.trim()});
+ // At22/10, the active cycle after closing20 is November. The oracle pays the
+ // October opening debt, so select that competence explicitly before submission.
+ await expect(invoice.getByText(/novembro de 2026/i,{exact:true})).toBeVisible();
+ const target=page.waitForResponse(r=>{
+  const url=new URL(r.url());return url.pathname===`/api/cards/${card.id}/invoice`&&url.searchParams.get("month")==="10"&&url.searchParams.get("year")==="2026";
+ });
+ await invoice.getByRole("button",{name:"Mês anterior da fatura"}).click();
+ const selected=await target;expect(selected.ok(),await selected.text()).toBe(true);expect(await selected.json()).toMatchObject({month:10,year:2026});
+ await expect(invoice.getByText(/outubro de 2026/i,{exact:true})).toBeVisible();
  await invoice.getByRole("button",{name:/^(Pagar|Adiantar)/}).click();
  const pay=page.getByRole("dialog",{name:`Pagar Fatura - ${card.name}`,exact:true});
  await pay.getByRole("button",{name:"Adiantamento",exact:true}).click();await pay.getByLabel("Valor do Pagamento").fill(amount);await pay.getByLabel("Pagar com").selectOption(accountId);
@@ -101,4 +112,4 @@ export async function download(page:Page,name:string){
  const r=await page.request.get(`${process.env.CF032_OBSERVER}/xlsx?file=${encodeURIComponent(name)}`);expect(r.ok(),await r.text()).toBe(true);return record(await r.json());
 }
 export async function login(page:Page,person:SyntheticUser){await page.goto("/auth");await page.locator('input[name="email"]').fill(person.email);await page.locator('input[name="senha"]').fill(person.password);await page.getByRole("button",{name:"Entrar",exact:true}).click();await expect(page).toHaveURL(/\/$/);}
-export async function logout(page:Page){await page.goto("/configuracoes");await page.getByText("Sair da Conta",{exact:true}).click();await expect(page).toHaveURL(/\/auth/);expect((await page.context().cookies()).some(c=>c.name==="token")).toBe(false);}
+export async function logout(page:Page){await page.goto("/configuracoes");await page.getByText("Sair da Conta",{exact:true}).click();await page.getByRole("dialog",{name:"Sair da Conta",exact:true}).getByRole("button",{name:"Sair",exact:true}).click();await expect(page).toHaveURL(/\/auth/);expect((await page.context().cookies()).some(c=>c.name==="token")).toBe(false);}

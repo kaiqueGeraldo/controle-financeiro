@@ -36,15 +36,22 @@ class FinancialJourneyPostgresE2E extends PostgresIntegrationTest {
     @Autowired JdbcTemplate sql;
     Path evidence;
     String namespace;
+    TimeZone startupZone;
+
+    @org.junit.jupiter.api.AfterEach void restoreRuntimeZone(){if(startupZone!=null)TimeZone.setDefault(startupZone);}
 
     @Test void independentFinancialJourneys() throws Exception {
+        // Application startup explicitly sets the JVM default to São Paulo.
+        // Set the effective test JVM zone after startup, as in the accepted
+        // temporal probes; the product Clock remains explicitly São Paulo.
+        startupZone=TimeZone.getDefault();TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Path runtime=Path.of(required("CF032_RUNTIME")).toAbsolutePath();
         evidence=Path.of(required("CF032_EVIDENCE")).toAbsolutePath();
         namespace="cf032-"+UUID.randomUUID().toString().substring(0,8);
         Files.createDirectories(evidence);
         assertThat(Files.exists(evidence.resolve("playwright.log"))).isFalse();
         var env=new LinkedHashMap<String,Object>();
-        env.put("springPort",port);env.put("jvmZone",TimeZone.getDefault().getID());
+        env.put("springPort",port);env.put("startupJvmZone",startupZone.getID());env.put("jvmZone",TimeZone.getDefault().getID());
         env.put("productInstant","2026-10-22T09:00:00Z");env.put("namespace",namespace);
         env.put("database",sql.queryForMap("select current_database() database,current_schema() schema,current_setting('TimeZone') timezone"));
         env.put("migrations",sql.queryForList("select version,description,checksum,success from flyway_schema_history where version is not null order by installed_rank"));
@@ -126,7 +133,10 @@ class FinancialJourneyPostgresE2E extends PostgresIntegrationTest {
         assertThat(sql.queryForObject("select count(*) from transactions where user_id=?",Integer.class,owner)).isZero();
         sql.update("delete from onboarding_default_accounts where user_id=?",owner);
         sql.update("update accounts set balance=1000,opening_balance=null,opening_date=null,opening_origin='UNKNOWN' where user_id=?",owner);
-        UUID goal=UUID.randomUUID(),reservation=UUID.randomUUID();
+        // The legacy goal's unresolved reservation uses its canonical goal ID.
+        // A second arbitrary record would represent an additional independent
+        // pending claim, not the same legacy reservation (identity, not name).
+        UUID goal=UUID.randomUUID(),reservation=goal;
         sql.update("insert into goals(id,title,type,target_value,current_value,deadline,user_id,allocation_reconciled,numeric_progress_known,version) values(?,'Legado sem origem','MONETARY',600,0,'2026-10-21',?,false,false,0)",goal,owner);
         String unknown="{\"state\":\"UNKNOWN\",\"value\":null,\"knownSubtotal\":null,\"outsideIndividualRange\":null,\"missingPaths\":[\"/legacy/nominal\"]}";
         String record="{\"reservationId\":\""+reservation+"\",\"revision\":\"0\",\"goal\":{\"state\":\"KNOWN\",\"value\":{\"kind\":\"GOAL\",\"id\":\""+goal+"\"}},\"nominal\":"+unknown+",\"attribution\":{\"state\":\"UNBOUNDED\",\"excluded\":[]}}";
