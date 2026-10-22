@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: em_revisao (RC031-01 encerrado; residual RC031-02/P2 saneado localmente, aguardando revalidação independente; DEC-ONB-03)
+- Estado: concluida (aceite independente local de 9d80d2e; RC031-01/02 encerrados; alcance da DEC-ONB-03, sem liberação para uso real)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -54,6 +54,21 @@ Importação de histórico, novos módulos de vida, billing ou número completo 
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Aceite independente do residual — 22/10/2026
+
+RC031-02 encerrado: identidade própria validada e consumida coerente nos cinco
+arquivos afetados. Nove probes intactos9/9 (sete já passavam; dois residuais),
+160 dirigidos,7 probes anteriores e4 controles adicionais aprovados. Contraprova
+reintroduz seis falhas; restauração149/149 e210 fontes idênticos. Lint/tipos/build
+e seis casos temporais em três fusos aprovados. [Parecer e limites](../evidencias/revalidacao-CF-031-identidade/README.md).
+
+RC031-01 e demais aceites preservados. Prova real anterior12/12+SQL reutilizada
+com justificativa pelo diff; nenhuma nova execução real alegada. Carregamento/sessão
+permanece historicamente inconclusivo e não bloqueante por si. Zoom CF010/015 e
+adoção real CF017/P01/P02 continuam pendentes. CF032 não executada: dependências
+funcionais satisfeitas nesta branch, sujeitas à integração/conferência da futura
+base e aos gates próprios, sem liberação automática. Sem produto/push/merge/deploy.
 
 ### Saneamento residual de identidade — 22/10/2026
 
