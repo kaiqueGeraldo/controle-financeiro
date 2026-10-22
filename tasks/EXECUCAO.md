@@ -43,6 +43,25 @@ Revisão independente significa outra execução e uma análise do contrato sem 
 
 ## Fechamento e concorrência de trabalho
 
+### Runtimes temporários e preservação
+
+Novas execuções devem receber um diretório próprio sob
+`../controle-financeiro-runtimes/<tarefa>/<execucao>/`, fora da raiz Git. Scripts
+novos devem aceitar esse caminho por parâmetro/configuração, sem presumir pastas
+`.cf*` na raiz. Evidências duráveis e scripts reproduzíveis ficam em
+`tasks/evidencias/`; caches, instalações e cópias de execução não devem ser
+versionados. Conferir permissões e isolamento antes de usar o diretório externo.
+
+Runtimes históricos não devem ser apagados pelo nome ou por estarem ignorados.
+Antes de limpar: conferir processos, referências, arquivos únicos, worktrees e
+links. Arquivar conteúdo necessário com manifesto SHA-256 e verificar a cópia ou
+movimentação antes de considerar remoção. Não atravessar junctions para apagar
+dependências compartilhadas. Relatórios históricos conservam seus caminhos
+originais; o registro de organização informa o destino recuperável.
+
+O arquivamento de 22/10/2026 está registrado em
+`evidencias/organizacao-ambiente-2026-10-22/README.md`.
+
 ### Integração de lotes aprovados
 
 Investigar/implementar em branch específica, submeter à revisão independente,
