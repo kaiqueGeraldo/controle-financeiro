@@ -4,7 +4,20 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — saneamento CF031 aguardando revalidação, 22/10/2026
+## Situação vigente — CF031 revalidada com residual, 22/10/2026
+
+CF031 permanece **em_revisao**. RC031-01 encerrado independentemente; RC031-02
+mantido/P2 por identidade herdada alternativa em referências, apesar dos dois
+probes originais corrigidos. Reprodução de parser em memória, sem inferir ataque
+por JSON bruto. [Parecer e provas](evidencias/revalidacao-CF-031-RC031/README.md).
+138 dirigidos,7 probes originais,12 jornadas/SQL e duas contraprovas aprovados;
+probes adicionais7/9 expõem o residual. Recuperação/efeito único sustentados.
+T01/T02 historicamente inconclusivas, não bloqueantes por si; reabertura delimitada.
+CF032 proposta, sem prontidão pelo aceite faltante da CF031; demais dependências
+concluídas preservadas. Zoom CF010/015 e adoção CF017/P01/P02 mantêm gates.
+Commits locais de provas/parecer/estado; sem produto, push, merge ou deploy.
+
+## Situação anterior — saneamento CF031 aguardando revalidação, 22/10/2026
 
 CF031 permanece **em_revisao**: RC031-01/02 corrigidos e validados localmente,
 sem encerramento independente. Probes originais7/7 após4/7,138 dirigidos,

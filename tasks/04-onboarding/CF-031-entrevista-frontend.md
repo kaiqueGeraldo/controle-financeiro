@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: em_revisao (RC031-01/02 saneados localmente; aguardando revalidação independente; DEC-ONB-03)
+- Estado: em_revisao (revalidação independente: RC031-01 encerrado; RC031-02 residual/P2 em referências herdadas; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -54,6 +54,24 @@ Importação de histórico, novos módulos de vida, billing ou número completo 
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Revalidação independente do saneamento — 22/10/2026
+
+RC031-01 encerrado: coerência dos livres e recuperação real sustentadas.
+Os casos originais RC031-02 foram corrigidos, mas o achado permanece aberto/P2:
+id herdado pode prevalecer sobre tempId próprio validado e contornar unicidade
+nas partes de reserva. Reprodução em objetos construídos; JSON bruto/__proto__
+não reproduz esse efeito, sem alegação de ataque remoto ou corrupção do banco.
+[Parecer e condição de encerramento](../evidencias/revalidacao-CF-031-RC031/README.md).
+
+138/138 dirigidos,7/7 probes originais intactos; controles adicionais7/9,
+duas assertions vermelhas do mesmo residual. Integração12/12+SQL12 (mobile4
+incluído), duas contraprovas detectadas/restauração127/127; lint/tipos/build/6
+temporais aprovados. Recuperação preserva identidade e único efeito, mostra950
+após reload. T01/T02 históricas permanecem inconclusivas e não bloqueantes por
+si; gatilhos/experimento discriminante registrados. Demais aceites preservados.
+CF032 continua proposta sem prontidão; zoom CF010/015 e uso real conservam gates.
+Nenhuma correção de produto nesta revisão; próximo passo é sanear apenas o residual.
 
 ### Saneamento dirigido — 22/10/2026
 
