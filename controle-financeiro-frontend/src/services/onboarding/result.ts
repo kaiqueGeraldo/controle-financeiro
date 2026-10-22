@@ -1,6 +1,6 @@
 import { ownRecord } from "../ownRecord";
 import { civilDate, decimal, parseInterview, revision, units, uuid } from "./input";
-import { metricLabels, refKey, sections, type Interview, type Obj, type Operation, type Prepared, type Receipt, type Ref, type Session, type Summary, type SummaryAmount } from "./model";
+import { metricLabels, ownReferenceIdentity, refKey, sections, type Interview, type Obj, type Operation, type Prepared, type Receipt, type Ref, type Session, type Summary, type SummaryAmount } from "./model";
 
 const invalid = () => new Error("Resposta da entrevista inválida. O resultado permanece pendente; consulte o servidor.");
 function expect(test: unknown): asserts test { if (!test) throw invalid(); }
@@ -14,8 +14,7 @@ function strings(v: unknown, ids = false): string[] { const values = list(v); ex
 function reference(v: unknown, kinds = "ACCOUNT INVESTMENT CARD GOAL"): Ref {
   const o = record(v, ["kind"]);
   expect(typeof o.kind === "string" && kinds.split(" ").includes(o.kind));
-  const hasId = Object.hasOwn(o, "id"), hasTempId = Object.hasOwn(o, "tempId");
-  expect(hasId !== hasTempId && uuid(o[hasId ? "id" : "tempId"]));
+  expect(uuid(ownReferenceIdentity(o)));
   return o as Ref;
 }
 function individual(v: unknown, signed = false, scale: 2 | 8 = 2): string { expect(decimal(v, scale, signed)); expect(v.split(".")[1]?.length === scale); return v; }
@@ -194,7 +193,7 @@ function canonical(value: unknown): unknown {
       for (const k of ["tempId", "reservationId", "dimension"]) if (Object.hasOwn(v, k)) return String(v[k]);
       if (Object.hasOwn(v, "kind") && Object.hasOwn(v, "id")) return `${v.kind}:${v.id}`;
       if (Object.hasOwn(v, "id")) return String(v.id);
-      for (const k of ["source", "ref"]) if (ownRecord(v[k], ["kind"])) return `${v[k].kind}:${v[k].id ?? v[k].tempId}`;
+      for (const k of ["source", "ref"]) if (ownRecord(v[k], ["kind"])) return `${v[k].kind}:${ownReferenceIdentity(v[k])}`;
       return JSON.stringify(v);
     };
     return rows.sort((a, b) => identity(a) < identity(b) ? -1 : identity(a) > identity(b) ? 1 : 0);

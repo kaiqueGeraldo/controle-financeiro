@@ -1,4 +1,5 @@
 import { localDateString } from "@/utils/date";
+import { ownRecord } from "../ownRecord";
 
 export type Json = null | string | number | boolean | Json[] | { [key: string]: Json };
 export type Obj = { [key: string]: Json };
@@ -58,7 +59,20 @@ export function emptyInterview(): Interview {
   return { context: { currency: "BRL", baseDate: localDateString(), browserZone: Intl.DateTimeFormat().resolvedOptions().timeZone, boundaryAcknowledged: false, cashOnlyAcknowledged: false }, currentStep: "CONTEXT",
     sections: { accounts: { answer: "UNANSWERED", items: [] }, cards: { answer: "UNANSWERED", items: [] }, investments: { answer: "UNANSWERED", items: [] }, goals: { answer: "UNANSWERED", items: [] }, allocations: { answer: "UNANSWERED", items: [] }, forecasts: { answer: "UNANSWERED", items: [] } } };
 }
-export const refKey = (r: Ref) => `${r.kind}:${r.id ?? r.tempId}`;
+/** Identity selection shared by validation and consumption. UUID validation stays
+ * at the DTO boundary; neither inheritance nor a second own member is a fallback. */
+export function ownReferenceIdentity(value: unknown): string | undefined {
+  if (!ownRecord(value, [])) return undefined;
+  const hasId = Object.hasOwn(value, "id"), hasTempId = Object.hasOwn(value, "tempId");
+  if (hasId === hasTempId) return undefined;
+  const identity = value[hasId ? "id" : "tempId"];
+  return typeof identity === "string" ? identity : undefined;
+}
+export function refKey(r: Ref): string {
+  const identity = ownReferenceIdentity(r);
+  if (!Object.hasOwn(r, "kind") || identity === undefined) throw new Error("Referência sem identidade própria.");
+  return `${r.kind}:${identity}`;
+}
 export function newItem(name: SectionName): Item {
   const tempId = crypto.randomUUID();
   switch (name) {

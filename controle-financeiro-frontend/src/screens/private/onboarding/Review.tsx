@@ -4,7 +4,7 @@ import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { formatCalendarDate, isCalendarDatePast } from "@/utils/date";
 import { formatExact } from "@/services/onboarding/input";
 import { ownRecord } from "@/services/ownRecord";
-import { metricLabels, refKey, sectionLabels, sections, type Choice, type Interview, type Json, type Ref, type Summary, type SummaryAmount } from "@/services/onboarding/model";
+import { metricLabels, ownReferenceIdentity, refKey, sectionLabels, sections, type Choice, type Interview, type Json, type Ref, type Summary, type SummaryAmount } from "@/services/onboarding/model";
 
 export function Amount({ value, numeric = false }: { value: SummaryAmount; numeric?: boolean }) {
   return <PrivacyBlur className="min-w-0 break-words"><span>
@@ -17,7 +17,8 @@ function referenceLabels(draft: Interview, choices: Choice[]): Map<string, strin
   const result = new Map(choices.map(c => [`${c.kind}:${c.id}`, c.label]));
   const kinds = { accounts: "ACCOUNT", cards: "CARD", investments: "INVESTMENT", goals: "GOAL" } as const;
   for (const section of ["accounts", "cards", "investments", "goals"] as const) for (const item of draft.sections[section].items) {
-    const kind = kinds[section]; const existing = ownRecord(item.ref, ["id"]) ? result.get(`${kind}:${item.ref.id}`) : undefined;
+    const kind = kinds[section]; const linkedId = ownRecord(item.ref, ["id"]) ? ownReferenceIdentity(item.ref) : undefined;
+    const existing = linkedId !== undefined ? result.get(`${kind}:${linkedId}`) : undefined;
     result.set(`${kind}:${item.tempId}`, typeof item.name === "string" ? item.name : typeof item.title === "string" ? item.title : existing ?? "Vínculo a corrigir");
   }
   return result;
@@ -40,7 +41,8 @@ export function FinancialReview({ summary, draft, choices }: { summary: Summary;
     })}
     {summary.byCard.map(c => <section key={refKey(c.ref)} className="space-y-2 rounded-xl border border-border-divider p-4"><h3 className="font-semibold">{label(c.ref)}</h3><dl className="grid gap-3 sm:grid-cols-2"><div><dt>Dívida corrente e futura</dt><dd><PrivacyBlur>{c.debt.state === "KNOWN" ? formatExact(c.debt.value) : "Desconhecida"}</PrivacyBlur></dd></div><div><dt>Crédito separado</dt><dd><PrivacyBlur>{c.credit.state === "KNOWN" ? formatExact(c.credit.value) : "Desconhecido"}</PrivacyBlur></dd></div><div><dt>Principal comprometido</dt><dd><Amount value={c.committed} /></dd></div><div><dt>Limite disponível (pode ser negativo)</dt><dd><Amount value={c.availableLimit} /></dd></div></dl></section>)}
     {summary.byGoal.map(g => {
-      const item = g.ref.tempId ? selectedGoals.get(g.ref.tempId) : undefined;
+      const identity = ownReferenceIdentity(g.ref);
+      const item = Object.hasOwn(g.ref, "tempId") && identity !== undefined ? selectedGoals.get(identity) : undefined;
       const overdue = item && typeof item.deadline === "string" && isCalendarDatePast(item.deadline);
       return <section key={refKey(g.ref)} className="space-y-2 rounded-xl border border-border-divider p-4"><h3 className="font-semibold">{label(g.ref)} — {g.type === "NUMERIC" ? "numérica" : "financeira"}</h3><dl><dt>Progresso {g.type === "NUMERIC" && typeof item?.unit === "string" ? `(${item.unit})` : "por reservas"}</dt><dd><Amount value={g.progress} numeric={g.type === "NUMERIC"} /></dd><dt>Cobertura financeira comprovada</dt><dd><Amount value={g.covered} /></dd></dl>{overdue && <p className="text-sm">Prazo original vencido. Se o progresso não atingir o alvo, a meta está atrasada.</p>}</section>;
     })}
@@ -63,8 +65,8 @@ function AnswerValue({ value, label, refLabels }: { value: Json | undefined; lab
   if (ownRecord(value, [])) {
     if (value.state === "UNKNOWN") return <p>{label}: desconhecido / indisponível</p>;
     if (value.state === "NOT_APPLICABLE") return <p>{label}: não se aplica</p>;
-    if (value.kind && (value.id || value.tempId)) return <p>{label}: {labelForRef(value as Ref, refLabels)}</p>;
-    if (typeof value.id === "string" && !value.kind) return <p>{label}: {refLabels.get(`CATEGORY:${value.id}`) ?? "Categoria vinculada"}</p>;
+    if (Object.hasOwn(value, "kind") && ownReferenceIdentity(value) !== undefined) return <p>{label}: {labelForRef(value as Ref, refLabels)}</p>;
+    if (Object.hasOwn(value, "id") && typeof value.id === "string" && !Object.hasOwn(value, "kind")) return <p>{label}: {refLabels.get(`CATEGORY:${value.id}`) ?? "Categoria vinculada"}</p>;
     return <div className="min-w-0 space-y-1"><p className="font-medium">{label}</p><dl className="ml-2 space-y-1 border-l border-border-divider pl-3">{Object.entries(value).filter(([key]) => Object.hasOwn(labels, key)).map(([key, v]) => <div key={key}><dt className="sr-only">{labels[key]}</dt><dd><AnswerValue value={v} label={labels[key]} refLabels={refLabels} /></dd></div>)}</dl></div>;
   }
   const str = typeof value === "boolean" ? value ? "Confirmado" : "Não confirmado" : typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? formatCalendarDate(value) : typeof value === "string" && /^-?\d+\.\d+$/.test(value) ? formatExact(value, false) : typeof value === "string" ? values[value] ?? value : String(value ?? "Não informado");

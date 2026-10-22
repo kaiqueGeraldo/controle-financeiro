@@ -2,7 +2,7 @@
 import { useId, type ReactNode } from "react";
 import { useUser } from "@/hooks/useUser";
 import { ownRecord } from "@/services/ownRecord";
-import { type Choice, type Interview, type Issue, type Json, type Obj, type Ref, refKey, sections } from "@/services/onboarding/model";
+import { type Choice, type Interview, type Issue, type Json, type Obj, type Ref, ownReferenceIdentity, refKey, sections } from "@/services/onboarding/model";
 
 export const controlClass = "w-full min-w-0 rounded-lg border border-border-divider bg-bg-surface px-3 py-2 text-text-main focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:opacity-60";
 export const buttonClass = "rounded-lg border border-border-divider px-4 py-2 text-text-main hover:bg-bg-surface-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:cursor-not-allowed disabled:opacity-50";
@@ -49,9 +49,9 @@ export function availableRefs({ draft, choices }: Pick<FieldsProps, "draft" | "c
   for (const name of sections) {
     const kind = kindsBySection[name]; if (!kind || !kinds.includes(kind)) continue;
     for (const item of draft.sections[name].items) {
-      if (ownRecord(item.ref, ["id"])) { if (item.action === "LINK" || String(item.action).startsWith("INITIALIZE")) aliases.add(`${kind}:${item.ref.id}`); }
+      const linkedId = ownRecord(item.ref, ["id"]) ? ownReferenceIdentity(item.ref) : undefined;
+      if (linkedId !== undefined && (item.action === "LINK" || String(item.action).startsWith("INITIALIZE"))) aliases.add(`${kind}:${linkedId}`);
       if (monetaryOnly && item.action === "CREATE" && item.type !== "MONETARY") continue;
-      const linkedId = ownRecord(item.ref, []) ? item.ref.id : undefined;
       const linked = linkedId ? byIdentity.get(`${kind}:${linkedId}`) : undefined;
       if (monetaryOnly && item.action === "LINK" && linked?.type !== "MONETARY") continue;
       proposed.push({ ref: { kind, tempId: item.tempId }, label: typeof item.name === "string" ? item.name : typeof item.title === "string" ? item.title : linkedId ? linked?.label ?? "Vínculo a corrigir" : "Novo registro sem nome" });
@@ -61,7 +61,8 @@ export function availableRefs({ draft, choices }: Pick<FieldsProps, "draft" | "c
 }
 export function RefField({ label, path, value, onChange, issues, choices, draft, kinds, persistent = false, monetaryOnly = false }: Omit<FieldProps, "type" | "options"> & FieldsProps & { kinds: string[]; persistent?: boolean; monetaryOnly?: boolean }) {
   const refs = persistent ? choices.filter(c => kinds.includes(c.kind) && c.kind !== "CATEGORY").map(c => ({ ref: { kind: c.kind as Ref["kind"], id: c.id }, label: c.label })) : availableRefs({ draft, choices }, kinds, monetaryOnly);
-  const current = ownRecord(value, ["kind"]) ? `${value.kind}:${value.id ?? value.tempId}` : "";
+  const identity = ownReferenceIdentity(value);
+  const current = ownRecord(value, ["kind"]) && identity !== undefined ? `${value.kind}:${identity}` : "";
   const options = refs.map(v => ({ value: refKey(v.ref), label: v.label }));
   if (current && !options.some(o => o.value === current)) options.unshift({ value: current, label: "Vínculo pendente ou removido — escolha outro" });
   return <Field label={label} path={path} issues={issues} options={options} value={current} onChange={v => { const found = refs.find(r => refKey(r.ref) === v); onChange(found ? { ...found.ref } : undefined); }} />;

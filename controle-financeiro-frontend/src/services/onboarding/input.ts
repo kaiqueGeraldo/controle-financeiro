@@ -1,5 +1,5 @@
 import { ownRecord } from "../ownRecord";
-import { type Interview, type Issue, type Obj, type Json, sections, steps } from "./model";
+import { type Interview, type Issue, type Obj, type Json, ownReferenceIdentity, sections, steps } from "./model";
 
 export const uuid = (v: unknown): v is string => typeof v === "string" && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/.test(v);
 export const revision = (v: unknown): v is string => typeof v === "string" && /^(0|[1-9]\d{0,18})$/.test(v) && BigInt(v) <= BigInt("9223372036854775807");
@@ -41,7 +41,7 @@ const fact = (value: Rule, na = false): Rule => variant("state", { KNOWN: obj({ 
 export function refRule(kinds: string, persistent = false): Rule {
   const base = obj({ kind: one(kinds), id, ...(!persistent ? { tempId: id } : {}) }, ["kind"]);
   return leaf(v => ownRecord(v, ["kind"]) && typeof v.kind === "string" && kinds.split(" ").includes(v.kind) &&
-    (persistent ? Object.hasOwn(v, "id") && uuid(v.id) && !Object.hasOwn(v, "tempId") : Object.hasOwn(v, "id") !== Object.hasOwn(v, "tempId") && (Object.hasOwn(v, "id") ? uuid(v.id) : uuid(v.tempId))) &&
+    (!persistent || Object.hasOwn(v, "id")) && uuid(ownReferenceIdentity(v)) &&
     Object.keys(v).every(k => base.kind === "object" && k in base.fields));
 }
 const competence = obj({ year: leaf(v => Number.isInteger(v) && Number(v) >= 1 && Number(v) <= 9999), month: leaf(v => Number.isInteger(v) && Number(v) >= 1 && Number(v) <= 12) }, ["year", "month"]);
