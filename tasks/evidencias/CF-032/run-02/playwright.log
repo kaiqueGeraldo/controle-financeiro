@@ -1,0 +1,369 @@
+[WebServer] (node:28268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 10 tests using 1 worker
+
+(node:49992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/10] tests\cf032\journeys.spec.ts:15:5 › A cadastro, rascunho, aplicação E01, recibo e releitura
+  1) tests\cf032\journeys.spec.ts:15:5 › A cadastro, rascunho, aplicação E01, recibo e releitura ───
+
+    Error: {"error":"BadSqlGrammarException","message":"PreparedStatementCallback; bad SQL grammar [select id::text,description,amount::text,date::text,time::text,status,origin,is_paid,operation_id::text,recorded_at::text from transactions where user_id=? order by date,id]"}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:24
+
+      22 | export async function sql(page:Page,email:string,name?:string):Promise<Row>{
+      23 |  const url=new URL("/snapshot",process.env.CF032_OBSERVER);url.searchParams.set("email",email);if(name)url.searchParams.set("name",name);
+    > 24 |  const r=await page.request.get(url.toString());expect(r.ok(),await r.text()).toBe(true);return record(await r.json());
+         |                                                                               ^
+      25 | }
+      26 | export async function paint(page:Page,action:Locator,name:string){
+      27 |  await expect(action).toBeVisible();await action.scrollIntoViewIfNeeded();
+        at sql (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:24:79)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:23:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-A-cadastro-rascun-b5e68-ação-E01-recibo-e-releitura\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-A-cadastro-rascun-b5e68-ação-E01-recibo-e-releitura\error-context.md
+
+
+(node:52992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/10] tests\cf032\journeys.spec.ts:80:5 › B uso diário pela UI, reconciliação, reload e logout/login
+  2) tests\cf032\journeys.spec.ts:80:5 › B uso diário pela UI, reconciliação, reload e logout/login 
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:03.491016600Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at daily (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:38:10)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:81:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\error-context.md
+
+
+(node:60576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/10] tests\cf032\journeys.spec.ts:89:5 › C relatório e XLSX real com datas, origens, estados e totais independentes
+  3) tests\cf032\journeys.spec.ts:89:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:05.509081100Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at daily (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:38:10)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:90:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\error-context.md
+
+
+(node:57940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/10] tests\cf032\journeys.spec.ts:112:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício
+  4) tests\cf032\journeys.spec.ts:112:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício 
+
+    Error: {"error":"BadSqlGrammarException","message":"PreparedStatementCallback; bad SQL grammar [select id::text,description,amount::text,date::text,time::text,status,origin,is_paid,operation_id::text,recorded_at::text from transactions where user_id=? order by date,id]"}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      111 |
+      112 | test("E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício",async({page})=>{
+    > 113 |  const person=await register(page,"legacy");const seeded=await page.request.post(`${process.env.CF032_OBSERVER}/legacy?email=${encodeURIComponent(person.email)}`);expect(seeded.ok(),await seeded.text()).toBe(true);
+          |                                                                                                                                                                                                            ^
+      114 |  const before=await sql(page,person.email,"E-before");const account=rows(before.accounts)[0];
+      115 |  await page.goto("/onboarding");await expect(page.getByRole("heading",{name:"Organize seu ponto de partida"})).toBeVisible();
+      116 |  const sections:Record<string,{answer:string;items:unknown[]}>=Object.fromEntries(["accounts","cards","investments","goals","allocations","forecasts"].map(k=>[k,{answer:"NONE",items:[]}]));
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:113:204
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-E-legado-conserva-96b1b-ento-sem-histórico-fictício\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-E-legado-conserva-96b1b-ento-sem-histórico-fictício\error-context.md
+
+
+(node:65772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/10] tests\cf032\journeys.spec.ts:129:5 › F contas a receber: baixas parciais, calendário e persistência
+  5) tests\cf032\journeys.spec.ts:129:5 › F contas a receber: baixas parciais, calendário e persistência 
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:09.234337500Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:130:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-F-contas-a-recebe-45dce-s-calendário-e-persistência\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-F-contas-a-recebe-45dce-s-calendário-e-persistência\error-context.md
+
+
+(node:3148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/10] tests\cf032\journeys.spec.ts:141:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único
+  6) tests\cf032\journeys.spec.ts:141:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único 
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:11.607424100Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:142:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\error-context.md
+
+
+(node:62268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[7/10] tests\cf032\journeys.spec.ts:160:5 › H dois usuários intercalados, ownership, exportação e troca de sessão
+  7) tests\cf032\journeys.spec.ts:160:5 › H dois usuários intercalados, ownership, exportação e troca de sessão 
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:14.876411500Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:14
+
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+      13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+    > 14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+         |                                                                                                                                                                                              ^
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+      17 |  await setCivilDateOnly(page,new Date("2026-10-22T09:00:00Z"));
+        at post (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:14:190)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:164:19
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\error-context.md
+
+
+(node:13348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/10] tests\cf032\journeys.spec.ts:178:90 › T0 prazo e hábito em America/Sao_Paulo
+  8) tests\cf032\journeys.spec.ts:178:90 › T0 prazo e hábito em America/Sao_Paulo ──────────────────
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:16.855160500Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:181:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T0-prazo-e-hábito-em-America-Sao-Paulo\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T0-prazo-e-hábito-em-America-Sao-Paulo\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T0-prazo-e-hábito-em-America-Sao-Paulo\error-context.md
+
+
+(node:68848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[9/10] tests\cf032\journeys.spec.ts:178:90 › T1 prazo e hábito em UTC
+  9) tests\cf032\journeys.spec.ts:178:90 › T1 prazo e hábito em UTC ────────────────────────────────
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:18.942868800Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:181:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T1-prazo-e-hábito-em-UTC\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T1-prazo-e-hábito-em-UTC\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T1-prazo-e-hábito-em-UTC\error-context.md
+
+
+(node:63928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/10] tests\cf032\journeys.spec.ts:178:90 › T2 prazo e hábito em Pacific/Kiritimati
+  10) tests\cf032\journeys.spec.ts:178:90 › T2 prazo e hábito em Pacific/Kiritimati ────────────────
+
+    Error: /accounts: 401 {"timestamp":"2026-10-22T22:44:20.900934100Z","status":401,"error":"Autenticação necessária","message":"Autenticação necessária para acessar este recurso.","path":"/accounts","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+       at support.ts:13
+
+      11 | export function rows(value:unknown):Row[]{if(!Array.isArray(value))throw new Error("Expected list");return value.map(record);}
+      12 | export function at(value:unknown,...keys:string[]):unknown{return keys.reduce<unknown>((v,k)=>record(v)[k],value);}
+    > 13 | export async function json(page:Page,url:string):Promise<unknown>{const r=await page.request.get(`/api${url}`);expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return r.json();}
+         |                                                                                                                                                                         ^
+      14 | export async function post(page:Page,url:string,data:unknown):Promise<unknown>{const r=await page.request.post(`/api${url}`,{data});expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);return (await r.text())?r.json():null;}
+      15 | export async function save(name:string,data:unknown){await writeFile(path.join(out,`${name}.json`),JSON.stringify(data,null,2));}
+      16 | export async function register(page:Page,suffix:string,alias:"A"|"B"="A"):Promise<SyntheticUser>{
+        at json (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:13:169)
+        at e01 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\support.ts:39:22)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:181:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T2-prazo-e-hábito-em-Pacific-Kiritimati\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T2-prazo-e-hábito-em-Pacific-Kiritimati\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-02\artifacts\journeys-T2-prazo-e-hábito-em-Pacific-Kiritimati\error-context.md
+
+
+  10 failed
+    tests\cf032\journeys.spec.ts:15:5 › A cadastro, rascunho, aplicação E01, recibo e releitura ────
+    tests\cf032\journeys.spec.ts:80:5 › B uso diário pela UI, reconciliação, reload e logout/login ─
+    tests\cf032\journeys.spec.ts:89:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+    tests\cf032\journeys.spec.ts:112:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício 
+    tests\cf032\journeys.spec.ts:129:5 › F contas a receber: baixas parciais, calendário e persistência 
+    tests\cf032\journeys.spec.ts:141:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único 
+    tests\cf032\journeys.spec.ts:160:5 › H dois usuários intercalados, ownership, exportação e troca de sessão 
+    tests\cf032\journeys.spec.ts:178:90 › T0 prazo e hábito em America/Sao_Paulo ───────────────────
+    tests\cf032\journeys.spec.ts:178:90 › T1 prazo e hábito em UTC ─────────────────────────────────
+    tests\cf032\journeys.spec.ts:178:90 › T2 prazo e hábito em Pacific/Kiritimati ──────────────────

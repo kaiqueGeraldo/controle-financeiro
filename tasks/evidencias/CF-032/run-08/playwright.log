@@ -1,0 +1,193 @@
+[WebServer] (node:22572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 13 tests using 1 worker
+
+(node:54756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/13] tests\cf032\journeys.spec.ts:24:5 › A cadastro, rascunho, aplicação E01, recibo e releitura
+[2/13] tests\cf032\journeys.spec.ts:95:5 › B uso diário pela UI, reconciliação, reload e logout/login
+[3/13] tests\cf032\journeys.spec.ts:104:5 › C relatório e XLSX real com datas, origens, estados e totais independentes
+  1) tests\cf032\journeys.spec.ts:104:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+
+    Error: Export must preserve the supplied wall-clock seconds; no precision exception is approved
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "22/10/2026",
+    -   "12:34:56",
+    +   "12:34",
+        "CF032 receita",
+      ]
+
+      117 |  const lines=extract as unknown[][];
+      118 |  // Keep the precision check red, while inspecting independent monetary columns.
+    > 119 |  expect.soft(lines.find(r=>r[2]==="CF032 receita")?.slice(0,3),"Export must preserve the supplied wall-clock seconds; no precision exception is approved").toEqual(["22/10/2026","12:34:56","CF032 receita"]);
+          |                                                                                                                                                            ^
+      120 |  expect(lines.filter(r=>r[2]==="CF032 receita")).toHaveLength(1);
+      121 |  expect(lines.find(r=>r[2]==="CF032 receita")?.[6]).toBe("250.1");
+      122 |  expect(lines.find(r=>r[2]==="CF032 despesa")?.[6]).toBe("40.2");
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:119:156
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\error-context.md
+
+
+(node:41168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/13] tests\cf032\journeys.spec.ts:134:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício
+[5/13] tests\cf032\journeys.spec.ts:151:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano
+  2) tests\cf032\journeys.spec.ts:151:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano 
+
+    Error: Unknown source reservation must prevent allocating even0.01 through a different goal
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 204
+
+      158 |  await save("E2-response",{status:attempt.status(),body:await attempt.text(),expected:"400 without new allocation; SPEC-001 §5/5.1 source risk survives a new goal ID"});
+      159 |  await page.goto("/metas");await paint(page,page.getByRole("button",{name:`Ver detalhes da meta ${goal.title}`}),"E2-source-capacity");
+    > 160 |  expect(attempt.status(),"Unknown source reservation must prevent allocating even0.01 through a different goal").toBe(400);
+          |                                                                                                                  ^
+      161 |  expect(rows(after.allocations)).toHaveLength(0);expect(after.accounts).toEqual(before.accounts);
+      162 | });
+      163 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:160:114
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-E2-fonte-legada-i-49133-ção-também-no-uso-cotidiano\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-E2-fonte-legada-i-49133-ção-também-no-uso-cotidiano\error-context.md
+
+
+(node:60940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/13] tests\cf032\journeys.spec.ts:164:5 › F contas a receber: baixas parciais, calendário e persistência
+[7/13] tests\cf032\journeys.spec.ts:176:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único
+[8/13] tests\cf032\journeys.spec.ts:198:5 › H dois usuários intercalados, ownership, exportação e troca de sessão
+[9/13] tests\cf032\journeys.spec.ts:221:5 › K limite disponível das telas concilia principal corrente e parcelas futuras
+  3) tests\cf032\journeys.spec.ts:221:5 › K limite disponível das telas concilia principal corrente e parcelas futuras 
+
+    Error: Global available must include all unpaid principal
+
+    expect(locator).toContainText(expected) failed
+
+    Locator: getByText('Disponível', { exact: true }).first().locator('..')
+    Expected substring: "656,00"
+    Received string:    "DisponívelR$ 950,00"
+
+    Call log:
+      - Global available must include all unpaid principal getByText('Disponível', { exact: true }).first().locator('..') with timeout 12000ms
+      - waiting for getByText('Disponível', { exact: true }).first().locator('..')
+        2 × locator resolved to <div class="min-w-0 [overflow-wrap:anywhere]">…</div>
+          - unexpected value "DisponívelR$ 950,00"
+      - Test ended.
+
+
+      226 |  const individual=page.getByRole("button",{name:`Ver fatura de ${card.name}, final ${card.last4Digits}`}).getByText("Disponível",{exact:true}).locator("..");
+      227 |  await paint(page,global,"K-available-limit");await save("K-api-versus-ui",{api:card,globalText:await global.innerText(),individualText:await individual.innerText(),expected:"1000−(194+3×50)=656; opening charges6 do not consume limit"});
+    > 228 |  expect.soft(global,"Global available must include all unpaid principal").toContainText("656,00");
+          |                                                                           ^
+      229 |  expect.soft(individual,"Card available must include all unpaid principal").toContainText("656,00");
+      230 | });
+      231 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:228:75
+
+    Error: Card available must include all unpaid principal
+
+    expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('button', { name: 'Ver fatura de Cartão sintético, final null' }).getByText('Disponível', { exact: true }).locator('..')
+    Expected substring: "656,00"
+    Received string:    "DisponívelR$ 950,00"
+
+    Call log:
+      - Card available must include all unpaid principal getByRole('button', { name: 'Ver fatura de Cartão sintético, final null' }).getByText('Disponível', { exact: true }).locator('..') with timeout 12000ms
+      - waiting for getByRole('button', { name: 'Ver fatura de Cartão sintético, final null' }).getByText('Disponível', { exact: true }).locator('..')
+        2 × locator resolved to <div class="text-right">…</div>
+          - unexpected value "DisponívelR$ 950,00"
+      - Test ended.
+
+
+      227 |  await paint(page,global,"K-available-limit");await save("K-api-versus-ui",{api:card,globalText:await global.innerText(),individualText:await individual.innerText(),expected:"1000−(194+3×50)=656; opening charges6 do not consume limit"});
+      228 |  expect.soft(global,"Global available must include all unpaid principal").toContainText("656,00");
+    > 229 |  expect.soft(individual,"Card available must include all unpaid principal").toContainText("656,00");
+          |                                                                             ^
+      230 | });
+      231 |
+      232 | test("L investimento válido sem identificador continua identificável pelo nome",async({page})=>{
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:229:77
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-K-limite-disponív-deedf-corrente-e-parcelas-futuras\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-K-limite-disponív-deedf-corrente-e-parcelas-futuras\error-context.md
+
+
+(node:54992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/13] tests\cf032\journeys.spec.ts:232:5 › L investimento válido sem identificador continua identificável pelo nome
+  4) tests\cf032\journeys.spec.ts:232:5 › L investimento válido sem identificador continua identificável pelo nome 
+
+    Error: SPEC-001 allows missing identifier; position name must still identify it
+
+    expect(locator).toBeVisible() failed
+
+    Locator: getByText('Ação sintética', { exact: true })
+    Expected: visible
+    Timeout: 12000ms
+    Error: element(s) not found
+
+    Call log:
+      - SPEC-001 allows missing identifier; position name must still identify it getByText('Ação sintética', { exact: true }) with timeout 12000ms
+      - waiting for getByText('Ação sintética', { exact: true })
+
+
+      236 |  await page.goto("/investimentos");await page.reload();await paint(page,page.getByRole("heading",{name:"Investimentos",exact:true}),"L-optional-identifier");
+      237 |  await save("L-api-versus-ui",{positions,body:await page.locator("body").innerText(),accessibleInvestmentNames:await page.getByRole("button",{name:/Ver detalhes do investimento/}).evaluateAll(elements=>elements.map(e=>e.getAttribute("aria-label")))});
+    > 238 |  await expect(page.getByText("Ação sintética",{exact:true}),"SPEC-001 allows missing identifier; position name must still identify it").toBeVisible();
+          |                                                                                                                                         ^
+      239 |  await expect(page.getByText("Renda fixa sintética",{exact:true})).toBeVisible();
+      240 | });
+      241 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:238:137
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-L-investimento-vá-26d2c-nua-identificável-pelo-nome\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-08\artifacts\journeys-L-investimento-vá-26d2c-nua-identificável-pelo-nome\error-context.md
+
+
+(node:27124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[11/13] tests\cf032\journeys.spec.ts:244:6 › Calendar America/Sao_Paulo › T0 prazo e hábito em America/Sao_Paulo
+[12/13] tests\cf032\journeys.spec.ts:244:6 › Calendar UTC › T1 prazo e hábito em UTC
+[13/13] tests\cf032\journeys.spec.ts:244:6 › Calendar Pacific/Kiritimati › T2 prazo e hábito em Pacific/Kiritimati
+  4 failed
+    tests\cf032\journeys.spec.ts:104:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+    tests\cf032\journeys.spec.ts:151:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano 
+    tests\cf032\journeys.spec.ts:221:5 › K limite disponível das telas concilia principal corrente e parcelas futuras 
+    tests\cf032\journeys.spec.ts:232:5 › L investimento válido sem identificador continua identificável pelo nome 
+  9 passed (1.5m)

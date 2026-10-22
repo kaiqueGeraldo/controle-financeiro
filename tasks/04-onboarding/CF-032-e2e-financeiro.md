@@ -1,6 +1,6 @@
 # CF-032 — Validar jornada financeira completa e uso diário
 
-- Estado: proposta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -28,10 +28,14 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Percurso usa Next BFF, Spring e PostgreSQL reais; só integrações externas são substituídas.
+- [x] Percurso usa Next BFF, Spring e PostgreSQL reais; só integrações externas são substituídas.
 - [ ] Reload/nova sessão recuperam o mesmo estado e relatório/exportação concilia; nenhum teste espera apenas toast.
 - [ ] Pelo menos um cenário com dois usuários confirma isolamento enquanto ambos usam o app; falhas mantêm invariantes.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+
+Critério 3 parcialmente comprovado: isolamento em H e efeito único sob falha/replay
+em G passaram; o aumento de reserva sem capacidade conhecida em E2 conserva uma
+violação financeira. O checkbox permanece pendente, sem reduzir o critério original.
 
 ## Fora de escopo
 
@@ -43,7 +47,26 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-032/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Entrega local de validação em 22/10/2026 na branch `codex/cf032-e2e-financeiro`,
+base integrada `331d3344c24dc60f5e1940989b9a35c0d5da1aa6`, **em_revisao sem sucesso
+integral**. Matriz/oracles anteriores aos testes: 13 jornadas distintas, 9 passaram/4
+falharam, 40 controles PostgreSQL aprovados, 6 unitários temporais em 3 fusos, quatro
+contraprovas causais detectadas e fontes restauradas por hash. Lint/typecheck/build
+e compilação/parsing pertinentes aprovados. Subconjuntos/reruns não são somados.
+
+Patrimônio/saldos/reservas reconciliados, downloads lidos por POI, reload/nova sessão,
+isolamento A/B e efeito único pós-commit comprovados no alcance executado. Pendentes:
+CF032-01/P2 (reserva por fonte incerta), 02/P2 (limite disponível da UI), 03/P2
+(nomes de posições sem identificador) e 04/P3/precisão (segundos no XLSX). Essas
+regressões continuam vermelhas, sem correção silenciosa de produto.
+
+[Entrega, comandos e falhas preservadas](../evidencias/CF-032/README.md) ·
+[Cobertura/reconciliação/limites](../evidencias/CF-032/RESULTADOS.md) ·
+[Achados e saneamento delimitado](../evidencias/CF-032/ACHADOS.md).
+README raiz preexistente preservado por SHA256 e fora dos commits; sem publicação,
+merge, deploy, banco real, autoaceite ou sucessoras. DEC-ONB-03, aceites anteriores,
+zoom 200% CF010/015 e adoção CF017/P01/P02 preservados. Próximo passo: revisão
+independente desta validação e saneamento dos pontos delimitados, conforme o parecer.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 

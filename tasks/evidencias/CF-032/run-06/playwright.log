@@ -1,0 +1,143 @@
+[WebServer] (node:41516) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 11 tests using 1 worker
+
+(node:32868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/11] tests\cf032\journeys.spec.ts:23:5 › A cadastro, rascunho, aplicação E01, recibo e releitura
+[2/11] tests\cf032\journeys.spec.ts:92:5 › B uso diário pela UI, reconciliação, reload e logout/login
+  1) tests\cf032\journeys.spec.ts:92:5 › B uso diário pela UI, reconciliação, reload e logout/login 
+
+    Error: {"timestamp":"2026-10-22T22:57:21.128936200Z","status":400,"error":"Regra de Negócio","message":"O pagamento excede o saldo devido de 90.00.","path":"/cards/17af053e-75fc-4544-9504-f7199a1c7cc8/pay","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      66 |  await financial(page,email,`${suffix}-purchase`,"1507.90","470.00");
+      67 |  const pay=await paymentForm(page,f.card,a,"200.00");const paid=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/cards/${f.card.id}/pay`&&r.request().method()==="POST");
+    > 68 |  await pay.getByRole("button",{name:"Confirmar Pagamento"}).click();const paidResponse=await paid;expect(paidResponse.ok(),await paidResponse.text()).toBe(true);await expect(pay).toHaveCount(0);
+         |                                                                                                                                                       ^
+      69 |  await financial(page,email,`${suffix}-payment`,"1307.90","270.00");
+      70 |  const stock=rows(await json(page,"/investments")).find(i=>i.type==="STOCK");expect(stock).toBeTruthy();
+      71 |  if(ui){
+        at daily (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:68:151)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:93:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\error-context.md
+
+
+(node:52812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/11] tests\cf032\journeys.spec.ts:101:5 › C relatório e XLSX real com datas, origens, estados e totais independentes
+  2) tests\cf032\journeys.spec.ts:101:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+
+    Error: {"timestamp":"2026-10-22T22:57:27.025715400Z","status":400,"error":"Regra de Negócio","message":"O pagamento excede o saldo devido de 90.00.","path":"/cards/fed96a08-8b06-49e5-ac61-889bf643aea0/pay","fields":{}}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      66 |  await financial(page,email,`${suffix}-purchase`,"1507.90","470.00");
+      67 |  const pay=await paymentForm(page,f.card,a,"200.00");const paid=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/cards/${f.card.id}/pay`&&r.request().method()==="POST");
+    > 68 |  await pay.getByRole("button",{name:"Confirmar Pagamento"}).click();const paidResponse=await paid;expect(paidResponse.ok(),await paidResponse.text()).toBe(true);await expect(pay).toHaveCount(0);
+         |                                                                                                                                                       ^
+      69 |  await financial(page,email,`${suffix}-payment`,"1307.90","270.00");
+      70 |  const stock=rows(await json(page,"/investments")).find(i=>i.type==="STOCK");expect(stock).toBeTruthy();
+      71 |  if(ui){
+        at daily (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:68:151)
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:102:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\error-context.md
+
+
+(node:48980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/11] tests\cf032\journeys.spec.ts:128:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício
+[5/11] tests\cf032\journeys.spec.ts:145:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano
+  3) tests\cf032\journeys.spec.ts:145:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano 
+
+    Error: Unknown source reservation must prevent allocating even0.01 through a different goal
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 204
+
+      152 |  await save("E2-response",{status:attempt.status(),body:await attempt.text(),expected:"400 without new allocation; SPEC-001 §5/5.1 source risk survives a new goal ID"});
+      153 |  await page.goto("/metas");await paint(page,page.getByRole("button",{name:`Ver detalhes da meta ${goal.title}`}),"E2-source-capacity");
+    > 154 |  expect(attempt.status(),"Unknown source reservation must prevent allocating even0.01 through a different goal").toBe(400);
+          |                                                                                                                  ^
+      155 |  expect(rows(after.allocations)).toHaveLength(0);expect(after.accounts).toEqual(before.accounts);
+      156 | });
+      157 |
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:154:114
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-E2-fonte-legada-i-49133-ção-também-no-uso-cotidiano\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-E2-fonte-legada-i-49133-ção-também-no-uso-cotidiano\error-context.md
+
+
+(node:1892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/11] tests\cf032\journeys.spec.ts:158:5 › F contas a receber: baixas parciais, calendário e persistência
+[7/11] tests\cf032\journeys.spec.ts:170:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único
+  4) tests\cf032\journeys.spec.ts:170:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      173 |  let resolveLost!:()=>void;const committedAndLost=new Promise<void>(resolve=>{resolveLost=resolve;});
+      174 |  await page.route(`**/api/cards/${f.card.id}/pay`,async route=>{
+    > 175 |   requests++;body=route.request().postDataJSON();const response=await route.fetch();expect(response.status()).toBe(200);receipt=await response.json();
+          |                                                                                                               ^
+      176 |   const committed=await financial(page,f.person.email,"G-committed-before-response-loss","1100.00","150.00");expect(rows(committed.payments)).toHaveLength(1);
+      177 |   await route.abort("failed");resolveLost();
+      178 |  });
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\20261022-03\frontend\tests\cf032\journeys.spec.ts:175:111
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\CF-032\run-06\artifacts\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\error-context.md
+
+
+(node:60444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/11] tests\cf032\journeys.spec.ts:190:5 › H dois usuários intercalados, ownership, exportação e troca de sessão
+[9/11] tests\cf032\journeys.spec.ts:215:6 › Calendar America/Sao_Paulo › T0 prazo e hábito em America/Sao_Paulo
+[10/11] tests\cf032\journeys.spec.ts:215:6 › Calendar UTC › T1 prazo e hábito em UTC
+[11/11] tests\cf032\journeys.spec.ts:215:6 › Calendar Pacific/Kiritimati › T2 prazo e hábito em Pacific/Kiritimati
+  4 failed
+    tests\cf032\journeys.spec.ts:92:5 › B uso diário pela UI, reconciliação, reload e logout/login ─
+    tests\cf032\journeys.spec.ts:101:5 › C relatório e XLSX real com datas, origens, estados e totais independentes 
+    tests\cf032\journeys.spec.ts:145:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano 
+    tests\cf032\journeys.spec.ts:170:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único 
+  7 passed (1.0m)

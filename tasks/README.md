@@ -4,7 +4,24 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF031 aceita independentemente no escopo local, 22/10/2026
+## Situação vigente — CF032 validada localmente com pendências, 22/10/2026
+
+CF032 **em_revisao**, sem sucesso integral ou autoaceite. Matriz real navegador→
+Next BFF→Spring→PostgreSQL: 13 cenários distintos, 9 passaram/4 falharam. Uso diário,
+reload/nova sessão, contas a receber, hábito/prazo, isolamento e pagamento com
+resposta perdida/efeito único comprovados; relatórios/exports monetários conciliam.
+Três P2 (capacidade de fonte incerta, limite UI, identificação sem ticker) e
+precisão horária P3/pendente conservam regressões vermelhas. [Entrega e próximos
+passos delimitados](evidencias/CF-032/README.md).
+
+40 controles PostgreSQL, 6 unitários em 3 fusos e quatro contraprovas causais com
+restauração por hash; lint/tipos/build aprovados. Contagens sobrepostas não somadas.
+Nenhuma fonte de produto alterada. Commits exclusivamente locais na branch própria,
+README raiz e provas anteriores preservados. Revisão independente e saneamento
+delimitado seguintes; sem CF033+, push/merge/deploy/banco real. Aceites CF029/030/031,
+DEC-ONB-03, zoom CF010/015 e adoção CF017/P01/P02 permanecem nos seus alcances.
+
+## Situação anterior — CF031 aceita independentemente no escopo local, 22/10/2026
 
 CF031 **concluida** no alcance da DEC-ONB-03. RC031-02 encerrado após revalidação
 da identidade própria; RC031-01 e demais aceites preservados. [Parecer e provas](evidencias/revalidacao-CF-031-identidade/README.md).

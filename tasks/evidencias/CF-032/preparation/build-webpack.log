@@ -1,0 +1,21 @@
+▲ Next.js 16.1.6 (webpack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 28.1s
+  Running TypeScript ...
+Failed to compile.
+
+.next/types/app/api/[...path]/route.ts:14:13
+Type error: Type 'OmitWithTag<typeof import("C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-032/20261022-02/frontend/src/app/api/[...path]/route"), "GET" | "HEAD" | "OPTIONS" | ... 13 more ... | "maxDuration", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'proxyRequest' is incompatible with index signature.
+    Type '(request: NextRequest, context: RouteContext) => Promise<NextResponse<unknown>>' is not assignable to type 'never'.
+
+  12 |
+  13 | // Check that the entry is a valid entry
+> 14 | checkFields<Diff<{
+     |             ^
+  15 |   GET?: Function
+  16 |   HEAD?: Function
+  17 |   OPTIONS?: Function
+Next.js build worker exited with code: 1 and signal: null

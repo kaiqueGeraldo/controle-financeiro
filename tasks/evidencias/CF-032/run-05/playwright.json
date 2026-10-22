@@ -1,0 +1,589 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tests/cf032/playwright.config.ts"
+    ],
+    "configFile": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\playwright.config.ts",
+    "rootDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-032/20261022-03/frontend/tests/cf032",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/CF-032/run-05/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-032/20261022-03/frontend/tests/cf032",
+        "testIgnore": [],
+        "testMatch": [
+          "journeys.spec.ts"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\playwright.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3142",
+      "cwd": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend",
+      "url": "http://127.0.0.1:3142/auth",
+      "reuseExistingServer": false,
+      "timeout": 60000
+    }
+  },
+  "suites": [
+    {
+      "title": "journeys.spec.ts",
+      "file": "journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "A cadastro, rascunho, aplicação E01, recibo e releitura",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5143,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:49:02.776Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-27448f46106be28502d0",
+          "file": "journeys.spec.ts",
+          "line": 15,
+          "column": 5
+        },
+        {
+          "title": "B uso diário pela UI, reconciliação, reload e logout/login",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 120098,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                        "column": 63,
+                        "line": 93
+                      },
+                      "message": "Error: locator.click: Test timeout of 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Cartão sintético •••• null' }).getByRole('button', { name: /^(Pagar|Adiantar)/ })\u001b[22m\n\n\n   at support.ts:93\n\n  91 |  await page.goto(\"/cartoes\");await page.getByRole(\"button\",{name:`Ver fatura de ${card.name}, final ${card.last4Digits}`}).click();\n  92 |  const invoice=page.getByRole(\"dialog\",{name:`${card.name} •••• ${card.last4Digits}`});\n> 93 |  await invoice.getByRole(\"button\",{name:/^(Pagar|Adiantar)/}).click();\n     |                                                               ^\n  94 |  const pay=page.getByRole(\"dialog\",{name:`Pagar Fatura - ${card.name}`,exact:true});\n  95 |  await pay.getByRole(\"button\",{name:\"Adiantamento\",exact:true}).click();await pay.getByLabel(\"Valor do Pagamento\").fill(amount);await pay.getByLabel(\"Pagar com\").selectOption(accountId);\n  96 |  return pay;\n    at paymentForm (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts:93:63)\n    at daily (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:59:12)\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:84:10"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:49:08.074Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-B-uso-diário-pela-fb015-iação-reload-e-logout-login\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-8b2855344e18676297a4",
+          "file": "journeys.spec.ts",
+          "line": 83,
+          "column": 5
+        },
+        {
+          "title": "C relatório e XLSX real com datas, origens, estados e totais independentes",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 120197,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                        "column": 63,
+                        "line": 93
+                      },
+                      "message": "Error: locator.click: Test timeout of 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Cartão sintético •••• null' }).getByRole('button', { name: /^(Pagar|Adiantar)/ })\u001b[22m\n\n\n   at support.ts:93\n\n  91 |  await page.goto(\"/cartoes\");await page.getByRole(\"button\",{name:`Ver fatura de ${card.name}, final ${card.last4Digits}`}).click();\n  92 |  const invoice=page.getByRole(\"dialog\",{name:`${card.name} •••• ${card.last4Digits}`});\n> 93 |  await invoice.getByRole(\"button\",{name:/^(Pagar|Adiantar)/}).click();\n     |                                                               ^\n  94 |  const pay=page.getByRole(\"dialog\",{name:`Pagar Fatura - ${card.name}`,exact:true});\n  95 |  await pay.getByRole(\"button\",{name:\"Adiantamento\",exact:true}).click();await pay.getByLabel(\"Valor do Pagamento\").fill(amount);await pay.getByLabel(\"Pagar com\").selectOption(accountId);\n  96 |  return pay;\n    at paymentForm (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts:93:63)\n    at daily (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:59:12)\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:93:10"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:51:08.570Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-C-relatório-e-XLS-0b17b-ados-e-totais-independentes\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-511fde6d982847ad1eaf",
+          "file": "journeys.spec.ts",
+          "line": 92,
+          "column": 5
+        },
+        {
+          "title": "E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3451,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 0\u001b[39m\n\u001b[31m+ Received  + 6\u001b[39m\n\n\u001b[33m@@ -3,6 +3,12 @@\u001b[39m\n\u001b[2m      \"attribution\": \"{\\\"reservationId\\\":\\\"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/legacy/nominal\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[22m\n\u001b[2m      \"evidence\": \"[]\",\u001b[22m\n\u001b[2m      \"id\": \"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\",\u001b[22m\n\u001b[2m      \"revision\": 0,\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"attribution\": \"{\\\"reservationId\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/existing/goals/a133c834-0521-4201-ade3-a477d69941dc/progress\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[39m\n\u001b[31m+     \"evidence\": \"[]\",\u001b[39m\n\u001b[31m+     \"id\": \"a133c834-0521-4201-ade3-a477d69941dc\",\u001b[39m\n\u001b[31m+     \"revision\": 0,\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 0\u001b[39m\n\u001b[31m+ Received  + 6\u001b[39m\n\n\u001b[33m@@ -3,6 +3,12 @@\u001b[39m\n\u001b[2m      \"attribution\": \"{\\\"reservationId\\\":\\\"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/legacy/nominal\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[22m\n\u001b[2m      \"evidence\": \"[]\",\u001b[22m\n\u001b[2m      \"id\": \"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\",\u001b[22m\n\u001b[2m      \"revision\": 0,\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"attribution\": \"{\\\"reservationId\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/existing/goals/a133c834-0521-4201-ade3-a477d69941dc/progress\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[39m\n\u001b[31m+     \"evidence\": \"[]\",\u001b[39m\n\u001b[31m+     \"id\": \"a133c834-0521-4201-ade3-a477d69941dc\",\u001b[39m\n\u001b[31m+     \"revision\": 0,\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:130:134",
+                    "location": {
+                      "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts",
+                      "column": 134,
+                      "line": 130
+                    },
+                    "snippet": "  128 |  await paint(page,page.getByRole(\"heading\",{name:\"Confira antes de registrar\"}),\"E-legacy-unknown\");\n  129 |  await page.getByRole(\"button\",{name:\"Confirmar informações e registrar posições\"}).click();await expect(page.getByRole(\"heading\",{name:\"Entrevista concluída\",exact:true})).toBeVisible();await page.reload();\n> 130 |  const after=await sql(page,person.email,\"E-after\");expect(after.accounts).toEqual(before.accounts);expect(after.legacyReservations).toEqual(before.legacyReservations);expect(rows(after.transactions)).toHaveLength(0);expect(rows(after.investments)).toHaveLength(0);expect(rows(after.allocations)).toHaveLength(0);\n      |                                                                                                                                      ^\n  131 |  await save(\"E-receipt\",at(await json(page,\"/onboarding\"),\"data\",\"completedReceipt\"));\n  132 | });\n  133 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts",
+                        "column": 134,
+                        "line": 130
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 0\u001b[39m\n\u001b[31m+ Received  + 6\u001b[39m\n\n\u001b[33m@@ -3,6 +3,12 @@\u001b[39m\n\u001b[2m      \"attribution\": \"{\\\"reservationId\\\":\\\"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/legacy/nominal\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[22m\n\u001b[2m      \"evidence\": \"[]\",\u001b[22m\n\u001b[2m      \"id\": \"5834c2ca-db2c-4e03-bdbc-2f6fb6b3f214\",\u001b[22m\n\u001b[2m      \"revision\": 0,\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"attribution\": \"{\\\"reservationId\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\",\\\"revision\\\":\\\"0\\\",\\\"goal\\\":{\\\"state\\\":\\\"KNOWN\\\",\\\"value\\\":{\\\"kind\\\":\\\"GOAL\\\",\\\"id\\\":\\\"a133c834-0521-4201-ade3-a477d69941dc\\\"}},\\\"nominal\\\":{\\\"state\\\":\\\"UNKNOWN\\\",\\\"value\\\":null,\\\"knownSubtotal\\\":null,\\\"outsideIndividualRange\\\":null,\\\"missingPaths\\\":[\\\"/existing/goals/a133c834-0521-4201-ade3-a477d69941dc/progress\\\"]},\\\"attribution\\\":{\\\"state\\\":\\\"UNBOUNDED\\\",\\\"excluded\\\":[]}}\",\u001b[39m\n\u001b[31m+     \"evidence\": \"[]\",\u001b[39m\n\u001b[31m+     \"id\": \"a133c834-0521-4201-ade3-a477d69941dc\",\u001b[39m\n\u001b[31m+     \"revision\": 0,\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  128 |  await paint(page,page.getByRole(\"heading\",{name:\"Confira antes de registrar\"}),\"E-legacy-unknown\");\n  129 |  await page.getByRole(\"button\",{name:\"Confirmar informações e registrar posições\"}).click();await expect(page.getByRole(\"heading\",{name:\"Entrevista concluída\",exact:true})).toBeVisible();await page.reload();\n> 130 |  const after=await sql(page,person.email,\"E-after\");expect(after.accounts).toEqual(before.accounts);expect(after.legacyReservations).toEqual(before.legacyReservations);expect(rows(after.transactions)).toHaveLength(0);expect(rows(after.investments)).toHaveLength(0);expect(rows(after.allocations)).toHaveLength(0);\n      |                                                                                                                                      ^\n  131 |  await save(\"E-receipt\",at(await json(page,\"/onboarding\"),\"data\",\"completedReceipt\"));\n  132 | });\n  133 |\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:130:134"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:53:09.637Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-E-legado-conserva-96b1b-ento-sem-histórico-fictício\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-E-legado-conserva-96b1b-ento-sem-histórico-fictício\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts",
+                    "column": 134,
+                    "line": 130
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-bc35a60990150a3d9a0c",
+          "file": "journeys.spec.ts",
+          "line": 117,
+          "column": 5
+        },
+        {
+          "title": "F contas a receber: baixas parciais, calendário e persistência",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7872,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:53:14.033Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-60fe21bab1494adf053d",
+          "file": "journeys.spec.ts",
+          "line": 134,
+          "column": 5
+        },
+        {
+          "title": "G resposta perdida após commit SQL, recuperação e replay de efeito único",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 120086,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                        "column": 63,
+                        "line": 93
+                      },
+                      "message": "Error: locator.click: Test timeout of 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Cartão sintético •••• null' }).getByRole('button', { name: /^(Pagar|Adiantar)/ })\u001b[22m\n\n\n   at support.ts:93\n\n  91 |  await page.goto(\"/cartoes\");await page.getByRole(\"button\",{name:`Ver fatura de ${card.name}, final ${card.last4Digits}`}).click();\n  92 |  const invoice=page.getByRole(\"dialog\",{name:`${card.name} •••• ${card.last4Digits}`});\n> 93 |  await invoice.getByRole(\"button\",{name:/^(Pagar|Adiantar)/}).click();\n     |                                                               ^\n  94 |  const pay=page.getByRole(\"dialog\",{name:`Pagar Fatura - ${card.name}`,exact:true});\n  95 |  await pay.getByRole(\"button\",{name:\"Adiantamento\",exact:true}).click();await pay.getByLabel(\"Valor do Pagamento\").fill(amount);await pay.getByLabel(\"Pagar com\").selectOption(accountId);\n  96 |  return pay;\n    at paymentForm (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts:93:63)\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:147:43"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:53:22.070Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-G-resposta-perdid-1b824-ão-e-replay-de-efeito-único\\error-context.md"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-2451f7d52fdbf6782f24",
+          "file": "journeys.spec.ts",
+          "line": 146,
+          "column": 5
+        },
+        {
+          "title": "H dois usuários intercalados, ownership, exportação e troca de sessão",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 16887,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/auth/\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:3142/configuracoes\"\u001b[39m\nTimeout: 12000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 12000ms\u001b[22m\n\u001b[2m    27 × locator resolved to <html lang=\"pt-br\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:3142/configuracoes\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/auth/\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:3142/configuracoes\"\u001b[39m\nTimeout: 12000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 12000ms\u001b[22m\n\u001b[2m    27 × locator resolved to <html lang=\"pt-br\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:3142/configuracoes\"\u001b[22m\n\n    at logout (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts:104:153)\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:183:3",
+                    "location": {
+                      "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                      "column": 153,
+                      "line": 104
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39msupport.ts:104\n\n  102 | }\n  103 | export async function login(page:Page,person:SyntheticUser){await page.goto(\"/auth\");await page.locator('input[name=\"email\"]').fill(person.email);await page.locator('input[name=\"senha\"]').fill(person.password);await page.getByRole(\"button\",{name:\"Entrar\",exact:true}).click();await expect(page).toHaveURL(/\\/$/);}\n> 104 | export async function logout(page:Page){await page.goto(\"/configuracoes\");await page.getByText(\"Sair da Conta\",{exact:true}).click();await expect(page).toHaveURL(/\\/auth/);expect((await page.context().cookies()).some(c=>c.name===\"token\")).toBe(false);}\n      |                                                                                                                                                         ^\n  105 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                        "column": 153,
+                        "line": 104
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/auth/\u001b[39m\nReceived string:  \u001b[31m\"http://127.0.0.1:3142/configuracoes\"\u001b[39m\nTimeout: 12000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 12000ms\u001b[22m\n\u001b[2m    27 × locator resolved to <html lang=\"pt-br\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://127.0.0.1:3142/configuracoes\"\u001b[22m\n\n\n   at support.ts:104\n\n  102 | }\n  103 | export async function login(page:Page,person:SyntheticUser){await page.goto(\"/auth\");await page.locator('input[name=\"email\"]').fill(person.email);await page.locator('input[name=\"senha\"]').fill(person.password);await page.getByRole(\"button\",{name:\"Entrar\",exact:true}).click();await expect(page).toHaveURL(/\\/$/);}\n> 104 | export async function logout(page:Page){await page.goto(\"/configuracoes\");await page.getByText(\"Sair da Conta\",{exact:true}).click();await expect(page).toHaveURL(/\\/auth/);expect((await page.context().cookies()).some(c=>c.name===\"token\")).toBe(false);}\n      |                                                                                                                                                         ^\n  105 |\n    at logout (C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts:104:153)\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\journeys.spec.ts:183:3"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:55:22.537Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\\test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\\test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\CF-032\\run-05\\artifacts\\journeys-H-dois-usuários-i-8405b-xportação-e-troca-de-sessão\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\20261022-03\\frontend\\tests\\cf032\\support.ts",
+                    "column": 153,
+                    "line": 104
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-c17b6fbce631bac37137",
+          "file": "journeys.spec.ts",
+          "line": 165,
+          "column": 5
+        },
+        {
+          "title": "T0 prazo e hábito em America/Sao_Paulo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:55:39.890Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-9f92d029eb3cff8a4f90",
+          "file": "journeys.spec.ts",
+          "line": 188,
+          "column": 90
+        },
+        {
+          "title": "T1 prazo e hábito em UTC",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2341,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:55:42.534Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-cd63c621467f7d732d50",
+          "file": "journeys.spec.ts",
+          "line": 188,
+          "column": 90
+        },
+        {
+          "title": "T2 prazo e hábito em Pacific/Kiritimati",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2982,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-22T22:55:44.882Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-da6b6a2037986ec46b7e",
+          "file": "journeys.spec.ts",
+          "line": 188,
+          "column": 90
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-22T22:49:00.555Z",
+    "duration": 407839.291,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}
