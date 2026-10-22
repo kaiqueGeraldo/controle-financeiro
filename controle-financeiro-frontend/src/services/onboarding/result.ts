@@ -42,6 +42,23 @@ function known(v: SummaryAmount): bigint | null { return v.state === "KNOWN" && 
 function equalAmount(v: SummaryAmount, expected: bigint | null) { if (expected !== null) expect(known(v) === expected); }
 function identityUnique(values: string[]) { expect(new Set(values).size === values.length); }
 
+/** Verify only components of this received snapshot, never today's balances.
+ * A partial component contributes its known subtotal, not an invented total. */
+function reconcileSum(total: SummaryAmount, components: SummaryAmount[]) {
+  let subtotal = BigInt(0), hasKnown = false, hasMissing = false;
+  for (const component of components) {
+    expect(component.state !== "NOT_APPLICABLE");
+    if (component.knownSubtotal !== null) {
+      subtotal += units(component.knownSubtotal);
+      hasKnown = true;
+    }
+    if (component.state !== "KNOWN") hasMissing = true;
+  }
+  const state = !hasMissing ? "KNOWN" : hasKnown ? "PARTIAL" : "UNKNOWN";
+  expect(total.state === state);
+  if (state !== "UNKNOWN") expect(total.knownSubtotal !== null && units(total.knownSubtotal) === subtotal);
+}
+
 function reservationReview(v: unknown) {
   const o = record(v, ["reservations", "evidence", "decisions", "confirmations"]);
   const reservationIds: string[] = [];
@@ -100,7 +117,7 @@ export function parseSummary(value: unknown): Summary {
     const s = record(v, ["ref", "value", "reserved", "free", "newAllocationCapacity"]); reference(s.ref, "ACCOUNT INVESTMENT");
     const val = fact(s.value, reference(s.ref).kind === "ACCOUNT"); const reserved = summaryAmount(s.reserved); const free = summaryAmount(s.free, true); const capacity = summaryAmount(s.newAllocationCapacity);
     if (val.state === "KNOWN" && reserved.state === "KNOWN") equalAmount(free, units(String(val.value)) - units(reserved.value!));
-    if (reserved.state !== "KNOWN") expect(free.state === "UNKNOWN");
+    if (val.state !== "KNOWN" || reserved.state !== "KNOWN") expect(free.state === "UNKNOWN");
     expect(capacity.outsideIndividualRange !== true);
     return s;
   });
@@ -131,6 +148,9 @@ export function parseSummary(value: unknown): Summary {
   for (const [kind, metric] of [["ACCOUNT", "accountsSigned"], ["INVESTMENT", "investmentsValue"]] as const) {
     const rows = result.bySource.filter(s => s.ref.kind === kind);
     if (m[metric].state === "KNOWN") { expect(rows.every(s => s.value.state === "KNOWN")); equalAmount(m[metric], rows.reduce((n, s) => n + (s.value.state === "KNOWN" ? units(s.value.value) : BigInt(0)), BigInt(0))); }
+    // Uncertain attribution can make nominal reserved totals differ from a sum
+    // of reserved rows (§5.1). Free totals, however, always sum source frees.
+    reconcileSum(m[kind === "ACCOUNT" ? "freeAccountCash" : "unallocatedInvestments"], rows.map(s => s.free));
   }
   for (const [field, metric] of [["debt", "cardDebt"], ["credit", "cardCredit"]] as const) if (m[metric].state === "KNOWN") {
     expect(result.byCard.every(c => c[field].state === "KNOWN")); equalAmount(m[metric], result.byCard.reduce((n, c) => n + (c[field].state === "KNOWN" ? units(c[field].value) : BigInt(0)), BigInt(0)));
