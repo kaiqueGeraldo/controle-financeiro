@@ -1,5 +1,5 @@
 import { ownRecord } from "../ownRecord";
-import { check, civilDate, decimal, parseInterview, refRule, revision, units, uuid } from "./input";
+import { civilDate, decimal, parseInterview, revision, units, uuid } from "./input";
 import { metricLabels, refKey, sections, type Interview, type Obj, type Operation, type Prepared, type Receipt, type Ref, type Session, type Summary, type SummaryAmount } from "./model";
 
 const invalid = () => new Error("Resposta da entrevista inválida. O resultado permanece pendente; consulte o servidor.");
@@ -11,7 +11,13 @@ const hash = (v: unknown): v is string => string(v) && /^[0-9a-f]{64}$/.test(v);
 const token = (v: unknown): v is string => string(v) && v.length > 0;
 const instant = (v: unknown): v is string => string(v) && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$/.test(v) && Number.isFinite(Date.parse(v));
 function strings(v: unknown, ids = false): string[] { const values = list(v); expect(values.every(ids ? uuid : string)); expect(new Set(values).size === values.length); return values as string[]; }
-function reference(v: unknown, kinds = "ACCOUNT INVESTMENT CARD GOAL"): Ref { expect(check(refRule(kinds), v).length === 0); return v as Ref; }
+function reference(v: unknown, kinds = "ACCOUNT INVESTMENT CARD GOAL"): Ref {
+  const o = record(v, ["kind"]);
+  expect(typeof o.kind === "string" && kinds.split(" ").includes(o.kind));
+  const hasId = Object.hasOwn(o, "id"), hasTempId = Object.hasOwn(o, "tempId");
+  expect(hasId !== hasTempId && uuid(o[hasId ? "id" : "tempId"]));
+  return o as Ref;
+}
 function individual(v: unknown, signed = false, scale: 2 | 8 = 2): string { expect(decimal(v, scale, signed)); expect(v.split(".")[1]?.length === scale); return v; }
 function aggregate(v: unknown, scale: 2 | 8, signed: boolean): string {
   expect(string(v) && new RegExp(`^${signed ? "-?" : ""}(0|[1-9]\\d*)\\.\\d{${scale}}$`).test(v) && !(v.startsWith("-") && !/[1-9]/.test(v)));
@@ -59,29 +65,52 @@ function reconcileSum(total: SummaryAmount, components: SummaryAmount[]) {
   if (state !== "UNKNOWN") expect(total.knownSubtotal !== null && units(total.knownSubtotal) === subtotal);
 }
 
+function evidenceRefs(value: unknown) { expect(strings(value, true).length > 0); }
+
+/** One read contract for both the inventory and the before/after snapshots. */
+function legacyReservation(value: unknown) {
+  const r = record(value, ["reservationId", "revision", "goal", "nominal", "attribution"]);
+  expect(uuid(r.reservationId) && revision(r.revision));
+  const goal = record(r.goal, ["state"]);
+  expect(goal.state === "KNOWN" || goal.state === "UNKNOWN");
+  if (goal.state === "KNOWN") reference(record(goal, ["value"]).value, "GOAL");
+  else expect(!Object.hasOwn(goal, "value"));
+
+  const nominal = summaryAmount(r.nominal), a = record(r.attribution, ["state"]);
+  if (a.state === "CONFIRMED") {
+    record(a, ["parts", "evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+    const parts = list(a.parts); expect(parts.length > 0);
+    const sources: string[] = [], amounts: SummaryAmount[] = [];
+    for (const part of parts) {
+      const p = record(part, ["source", "amount"]);
+      sources.push(refKey(reference(p.source, "ACCOUNT INVESTMENT")));
+      const amount = summaryAmount(p.amount);
+      if (amount.knownSubtotal !== null) individual(amount.knownSubtotal);
+      if (amount.state === "KNOWN") expect(units(amount.value!) > BigInt(0));
+      amounts.push(amount);
+    }
+    identityUnique(sources); reconcileSum(nominal, amounts);
+  } else if (a.state === "CANDIDATES") {
+    record(a, ["sources", "evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+    const refs = list(a.sources).map(x => refKey(reference(x, "ACCOUNT INVESTMENT")));
+    expect(refs.length > 0); identityUnique(refs);
+  } else if (a.state === "UNBOUNDED") {
+    record(a, ["excluded"]); expect(!Object.hasOwn(a, "sources"));
+    const refs = list(a.excluded).map(x => {
+      const e = record(x, ["source", "evidenceRefs"]); evidenceRefs(e.evidenceRefs);
+      return refKey(reference(e.source, "ACCOUNT INVESTMENT"));
+    });
+    identityUnique(refs);
+  } else {
+    expect(a.state === "CLOSED"); record(a, ["evidenceRefs"]); evidenceRefs(a.evidenceRefs);
+    expect(!Object.hasOwn(a, "parts") && nominal.state === "KNOWN" && nominal.value === "0.00");
+  }
+  return r;
+}
+
 function reservationReview(v: unknown) {
   const o = record(v, ["reservations", "evidence", "decisions", "confirmations"]);
-  const reservationIds: string[] = [];
-  for (const value of list(o.reservations)) {
-    const r = record(value, ["reservationId", "revision", "goal", "nominal", "attribution"]);
-    expect(uuid(r.reservationId) && revision(r.revision)); reservationIds.push(r.reservationId);
-    const goal = record(r.goal, ["state"]);
-    expect(goal.state === "KNOWN" || goal.state === "UNKNOWN");
-    if (goal.state === "KNOWN") reference(goal.value, "GOAL"); else expect(!Object.hasOwn(goal, "value"));
-    const nominal = summaryAmount(r.nominal); const a = record(r.attribution, ["state"]);
-    if (a.state === "CONFIRMED") {
-      const parts = list(a.parts); expect(parts.length > 0); const sources: string[] = [];
-      for (const part of parts) {
-        const p = record(part, ["source", "amount"]); sources.push(refKey(reference(p.source, "ACCOUNT INVESTMENT")));
-        const amount = summaryAmount(p.amount); if (amount.knownSubtotal !== null) { individual(amount.knownSubtotal); expect(units(amount.knownSubtotal) >= BigInt(0)); }
-      }
-      identityUnique(sources); strings(a.evidenceRefs, true);
-    } else if (a.state === "CANDIDATES") {
-      const refs = list(a.sources).map(x => refKey(reference(x, "ACCOUNT INVESTMENT"))); expect(refs.length > 0); identityUnique(refs); strings(a.evidenceRefs, true);
-    } else if (a.state === "UNBOUNDED") {
-      const refs = list(a.excluded).map(x => { const e = record(x, ["source", "evidenceRefs"]); strings(e.evidenceRefs, true); return refKey(reference(e.source, "ACCOUNT INVESTMENT")); }); identityUnique(refs);
-    } else { expect(a.state === "CLOSED"); strings(a.evidenceRefs, true); expect(nominal.state === "KNOWN" && nominal.value === "0.00"); }
-  }
+  const reservationIds = list(o.reservations).map(value => String(legacyReservation(value).reservationId));
   identityUnique(reservationIds);
   const reservationSet = new Set(reservationIds);
   const evidenceIds: string[] = [];
@@ -139,7 +168,7 @@ export function parseSummary(value: unknown): Summary {
   }
   if (Object.hasOwn(o, "reservationChanges")) for (const value of list(o.reservationChanges)) {
     const c = record(value, ["reservationId", "action", "previous", "proposed"]); expect(uuid(c.reservationId) && ["ASSIGN", "CLOSE"].includes(String(c.action)));
-    for (const v of [c.previous, c.proposed]) { const r = record(v, ["reservationId", "revision", "goal", "nominal", "attribution"]); expect(r.reservationId === c.reservationId && revision(r.revision)); summaryAmount(r.nominal); }
+    for (const v of [c.previous, c.proposed]) expect(legacyReservation(v).reservationId === c.reservationId);
   }
   // Structural checks above guard this boundary; equations reject coherent-looking corrupt totals.
   const result = o as Summary;
