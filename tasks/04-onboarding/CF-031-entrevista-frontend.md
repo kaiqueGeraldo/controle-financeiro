@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: em_revisao (implementada e validada localmente; sem aceite independente; DEC-ONB-03)
+- Estado: em_revisao (revisão independente não aprovada: RC031-01/02 P2; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -54,6 +54,27 @@ Importação de histórico, novos módulos de vida, billing ou número completo 
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Parecer independente — 22/10/2026
+
+**Não aprovada; manter em_revisao.** Candidato `0f0b619`, base `6d819aa`:
+[parecer, matriz, achados e reproduções](../evidencias/revisao-CF-031/README.md).
+RC031-01/P2: recibo recuperado aceita caixa livre incoerente; comprovado também
+no navegador após commit real. RC031-02/P2: leitura de reservas aceita membros
+herdados e estruturas antes/depois inválidas. Nenhuma correção de produto.
+
+75 dirigidos e6 temporais aprovados; cinco contraprovas detectadas/restauradas;
+lint/tipos/build aprovados. Duas rodadas reais11/12 com falhas preservadas de
+loading/sessão; seleção dirigida mobile4/4 com Java1/1 e quatro checkpoints SQL.
+Não declarar12/12 integralmente reproduzido. Três falhas amplas reproduzidas na
+base/candidato: uma de fixture, duas inconclusivas quanto ao timer exato, sem
+bloqueio adicional pelos critérios individualizados no parecer.
+
+Sanear os doisP2 e revalidar recuperação/consumidores; investigar dirigidamente
+as ocorrências reais sem aumentar timeouts. Critérios sustentados preservados.
+CF032 continua proposta/não liberada; zoom nativo200% CF010/015 e adoção real
+CF017/P01/P02 permanecem separados. Checkboxes e entrega abaixo são histórico
+do executor, não aceite independente. Commits somente locais, sem publicação.
 
 Implementada em21/10/2026 na branch local `codex/cf031-onboarding-frontend`, base
 integrada `6d819aa`. [Entrega e evidências](../evidencias/CF-031/README.md),

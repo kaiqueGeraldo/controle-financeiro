@@ -4,7 +4,19 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF031 implementada, em revisão local, 21/10/2026
+## Situação vigente — CF031 não aprovada independentemente, 22/10/2026
+
+CF031 permanece **em_revisao** por RC031-01/02 P2: caixa livre incoerente aceito
+na recuperação do recibo e validação incompleta de reservas. Produto preservado.
+[Parecer, matriz e saneamento delimitado](evidencias/revisao-CF-031/README.md).
+75 dirigidos/6 temporais verdes, cinco contraprovas restauradas, lint/tipos/build
+aprovados. Duas rodadas reais11/12 com falhas preservadas; seleção mobile4/4 e
+quatro checkpoints SQL aprovados, sem transformar reexecução em12/12 integral.
+CF032 proposta/não liberada: demais dependências concluídas preservadas, aceite
+CF031 faltante. Zoom CF010/015 e adoção real CF017/P01/P02 permanecem separados.
+Sem correção de produto, push, merge, deploy ou banco real.
+
+## Situação anterior — CF031 implementada, em revisão local, 21/10/2026
 
 CF030 aprovada e DEC-ONB-03 publicadas/integradas por fast-forward em main,
 hash remoto `6d819aaeeb59c39e6e3f5e96dc59c50d9a7c2b82`. CF031 implementada na
