@@ -1,6 +1,6 @@
 # CF-031 — Construir entrevista inicial e revisão final
 
-- Estado: em_revisao (revisão independente não aprovada: RC031-01/02 P2; DEC-ONB-03)
+- Estado: em_revisao (RC031-01/02 saneados localmente; aguardando revalidação independente; DEC-ONB-03)
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -54,6 +54,22 @@ Importação de histórico, novos módulos de vida, billing ou número completo 
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Saneamento dirigido — 22/10/2026
+
+RC031-01/02 corrigidos localmente, sem autoaceite. Coerência dos livres pelo
+próprio snapshot e validação integral de reservas/variantes/membros próprios
+na fronteira compartilhada. Provas originais4/7 antes e7/7 depois;138 testes
+dirigidos,12 jornadas reais/12 checkpoints SQL, duas contraprovas detectadas e
+controle127/127 restaurado. Lint/tipos/build aprovados.
+[Causas, evidências e encaminhamento](../evidencias/saneamento-CF-031-RC031/README.md).
+
+T01/T02 investigadas com requests/DOM e experimentos de catálogo/perfil; origem
+histórica permanece inconclusiva, sem nova correção de sessão ou causalidade
+atribuída a timer. Duas rodadas antigas11/12 preservadas; a passagem nova não
+as encerra retroativamente. Três falhas amplas anteriores não foram reabertas.
+Mesmo escopo local/descartável e mesma branch; sem push/merge/deploy/banco real.
+CF032 sem liberação automática, CF010/015 por zoom e CF017/P01/P02 preservados.
 
 ### Parecer independente — 22/10/2026
 

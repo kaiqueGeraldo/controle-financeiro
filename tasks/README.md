@@ -4,7 +4,18 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF031 não aprovada independentemente, 22/10/2026
+## Situação vigente — saneamento CF031 aguardando revalidação, 22/10/2026
+
+CF031 permanece **em_revisao**: RC031-01/02 corrigidos e validados localmente,
+sem encerramento independente. Probes originais7/7 após4/7,138 dirigidos,
+12 jornadas reais/SQL e duas contraprovas detectadas/restauradas127/127;
+lint/tipos/build aprovados. [Entrega e limites](evidencias/saneamento-CF-031-RC031/README.md).
+T01/T02 investigadas separadamente, origem histórica inconclusiva; falhas11/12
+anteriores preservadas, sem correção de sessão presumida por nova passagem verde.
+CF032 não liberada; zoom CF010/015 e adoção real CF017/P01/P02 conservam gates.
+Mesma branch e commits locais, sem push, merge, deploy ou banco real.
+
+## Situação anterior — CF031 não aprovada independentemente, 22/10/2026
 
 CF031 permanece **em_revisao** por RC031-01/02 P2: caixa livre incoerente aceito
 na recuperação do recibo e validação incompleta de reservas. Produto preservado.
