@@ -1,6 +1,6 @@
 # CF-032 — Validar jornada financeira completa e uso diário
 
-- Estado: em_revisao
+- Estado: concluida
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: xhigh
@@ -29,14 +29,14 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 ## Aceite e testes adversariais
 
 - [x] Percurso usa Next BFF, Spring e PostgreSQL reais; só integrações externas são substituídas.
-- [ ] Reload/nova sessão recuperam o mesmo estado e relatório/exportação concilia; nenhum teste espera apenas toast.
-- [ ] Pelo menos um cenário com dois usuários confirma isolamento enquanto ambos usam o app; falhas mantêm invariantes.
+- [x] Reload/nova sessão recuperam o mesmo estado e relatório/exportação concilia; nenhum teste espera apenas toast.
+- [x] Pelo menos um cenário com dois usuários confirma isolamento enquanto ambos usam o app; falhas mantêm invariantes.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
-Critério 3: isolamento em H e efeito único sob falha/replay em G permanecem
-sustentados. O aumento indevido de E2 foi saneado localmente em 23/10/2026;
-critérios 2/3 aguardam revalidação independente dos quatro achados e consumidores.
-Os checkboxes continuam pendentes, sem reduzir o critério original nem autoaceite.
+Critérios2/3 aceitos independentemente em23/10/2026 no escopo local: B/C e
+relatórios/exportações reconciliados; H isolado, G e replay com efeito único,
+E2 sem persistência indevida. Critérios1/4 preservados, sem reduzir o contrato.
+CF032-01/02/03/04 encerrados pelo parecer abaixo; gates de uso permanecem.
 
 ## Fora de escopo
 
@@ -47,6 +47,21 @@ Suite monolítica dependente da ordem, E2E fictício com respostas financeiras p
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+### Revalidação independente — 23/10/2026
+
+**Concluida no escopo local**, candidato864a3c7/basef521523. Quatro achados
+encerrados; CLOSE/ASSIGN certificam inventário gravado com histórico preservado,
+rollback e concorrência dirigidos; replay não exige nova autorização. Critérios2/3
+aceitos pela jornada/reconciliação/isolamento, além do saneamento dos defeitos.
+95 controles backend,5 probes novos,54 componentes,14 jornadas pretendidas eRV6
+aprovados; rodada ampla preserva R2 histórico incompatível com nomes corrigidos.
+Contraprova nova de certificação detectada/restaurada; lint/tipos/build aprovados.
+[Parecer, matriz, execuções, falhas e limites](../evidencias/revalidacao-CF-032/README.md).
+
+Sem correção de produto/sucessoras/publicação. README e runtimes preservados.
+Zoom nativo200%, adoção CF017/P01/P02, desempenho e DEC-ONB-03 mantêm seus gates.
+CF033/034 continuam propostas, sem liberação automática do projeto.
 
 ### Saneamento local — 23/10/2026
 

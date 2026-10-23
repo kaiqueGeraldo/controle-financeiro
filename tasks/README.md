@@ -4,7 +4,22 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF032 saneada localmente, aguardando revalidação, 23/10/2026
+## Situação vigente — CF032 aceita independentemente no escopo local, 23/10/2026
+
+CF032 **concluida no escopo local** sobre864a3c7. CF032-01/02/03/04 encerrados;
+critérios2/3 atendidos,1/4 preservados. CLOSE/ASSIGN certificam inventário gravado,
+mantêm histórico e atomicidade; concorrência e replay dirigidos aprovados.
+[Parecer independente, provas e limites](evidencias/revalidacao-CF-032/README.md).
+
+95 controles backend,5 probes novos,54 componentes,14 jornadas pretendidas eRV6
+aprovados; falhas intermediárias e R2 histórico preservados, sem somar sobreposições.
+Contraprova nova do produtor detectada/restaurada; quatro anteriores reconferidas;
+lint/tipagem/build aprovados. README raiz e runtimes preservados, sem produto/push/
+merge/deploy/banco real. CF033/034 permanecem propostas, não iniciadas. Zoom nativo
+200%, adoção CF017/P01/P02, desempenho e alcance DEC-ONB-03 continuam pendentes/
+condicionados. Próximo passo: integração autorizada e conferência da base futura.
+
+## Situação anterior — CF032 saneada localmente, aguardando revalidação, 23/10/2026
 
 CF032 **em_revisao**. Os quatro achados foram saneados localmente com provas
 originais preservadas: capacidade/evidências no backend, limite autoritativo na UI,
