@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E" time="179.924" tests="1" errors="0" skipped="0" failures="1">
+  <testcase name="independentFinancialJourneys" classname="com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E" time="153.372">
+    <failure message="[Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\revalidacao-CF-032\integrated-02\playwright.log] &#xA;expected: 0&#xA; but was: 1" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+[Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\revalidacao-CF-032\integrated-02\playwright.log] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E.independentFinancialJourneys(FinancialJourneyPostgresE2E.java:102)
+]]></failure>
+    <system-out><![CDATA[16:26:05.907 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:26:06.113 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+16:26:06.415 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+16:26:06.415 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 16:26:06.748 - INFO 40236 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-23 16:26:06.970 - INFO 40236 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-23 16:26:07.313 - INFO 40236 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-23 16:26:07.313 - INFO 40236 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-23 16:26:07.329 - INFO 40236 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-23 16:26:07.934 - INFO 40236 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-23 16:26:07.934 - INFO 40236 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-23 16:26:07.935 - INFO 40236 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-23 16:26:09.645 - INFO 40236 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Starting FinancialJourneyPostgresE2E using Java 21.0.12.1 with PID 40236 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\revalidacao-20261023-01\backend)
+-2026-10-23 16:26:09.646 - INFO 40236 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : The following 1 profile is active: "test"
+-2026-10-23 16:26:21.159 - WARN 40236 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 16:26:32.204 - INFO 40236 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Started FinancialJourneyPostgresE2E in 25.789 seconds (process running for 27.136)
+-2026-10-23 16:26:35.858 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-a@example.invalid
+-2026-10-23 16:26:35.877 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-a@example.invalid
+-2026-10-23 16:26:36.487 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 90fadaa4-bfb3-4207-9f4e-9d863adba0bf
+-2026-10-23 16:26:36.488 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 90fadaa4-bfb3-4207-9f4e-9d863adba0bf
+-2026-10-23 16:26:36.571 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-a@example.invalid
+-2026-10-23 16:26:36.799 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-a@example.invalid
+-2026-10-23 16:26:37.119 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-a@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:37.779 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-a@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:38.830 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-a@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:39.552 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-a@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:41.107 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-a@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:42.294 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:26:42.296 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:26:42.440 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 56738879-32d4-4ec7-91ae-3a6be8bdbf9f
+-2026-10-23 16:26:42.440 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 56738879-32d4-4ec7-91ae-3a6be8bdbf9f
+-2026-10-23 16:26:42.458 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:26:42.605 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:26:42.686 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:43.642 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:44.709 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:44.741 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:45.794 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Valor: 250.10 | Tipo: INCOME
+-2026-10-23 16:26:45.810 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=250.10, ContaID=09dce37e-3744-4174-ba01-f20a30871558
+-2026-10-23 16:26:45.842 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 09dce37e-3744-4174-ba01-f20a30871558. Novo saldo: 1250.10
+-2026-10-23 16:26:45.854 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transação salva com sucesso: ID be59a281-1156-40cf-9a4f-b84e74e4f2e5
+-2026-10-23 16:26:45.900 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:45.925 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:46.065 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:46.094 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:47.134 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Valor: 40.20 | Tipo: EXPENSE
+-2026-10-23 16:26:47.142 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=40.20, ContaID=09dce37e-3744-4174-ba01-f20a30871558
+-2026-10-23 16:26:47.146 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 09dce37e-3744-4174-ba01-f20a30871558. Novo saldo: 1209.90
+-2026-10-23 16:26:47.149 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 9fcb450f-ee21-450a-bf3c-50f727a0cc75
+-2026-10-23 16:26:47.194 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:47.211 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:47.281 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:47.306 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:48.428 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Valor: 100.00 | Tipo: TRANSFER
+-2026-10-23 16:26:48.443 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=100.00, ContaID=09dce37e-3744-4174-ba01-f20a30871558
+-2026-10-23 16:26:48.524 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:26:48.542 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:48.747 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:49.735 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: Nova Compra no Cartão 91157731-bb1f-4c62-94e3-8139573b0d15. Valor: 120. Parcelas: 3
+-2026-10-23 16:26:49.742 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Nova compra no cartão ID 91157731-bb1f-4c62-94e3-8139573b0d15: 120 (3x)
+-2026-10-23 16:26:49.832 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 16:26:49.868 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:50.817 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:53.319 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 91157731-bb1f-4c62-94e3-8139573b0d15. Valor: 200. É adiantamento? true
+-2026-10-23 16:26:53.319 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:26:53.349 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 16:26:53.436 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:54.875 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:57.149 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID a2694243-faaf-463e-ac7e-7a4ddbf3cb26. Qtd: 2, Preço: 10
+-2026-10-23 16:26:57.156 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID a2694243-faaf-463e-ac7e-7a4ddbf3cb26
+-2026-10-23 16:26:57.184 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-23 16:26:57.378 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:59.368 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.GoalController        : API: Depósito na Meta f1439c4c-99b3-487f-b6d2-ea1a563d4b7f. Valor: 100. Conta Origem: 09dce37e-3744-4174-ba01-f20a30871558
+-2026-10-23 16:26:59.372 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: f1439c4c-99b3-487f-b6d2-ea1a563d4b7f. Valor: 100
+-2026-10-23 16:26:59.395 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 600.00
+-2026-10-23 16:26:59.440 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:26:59.871 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:00.540 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:01.156 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:27:01.991 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:27:02.144 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-b@example.invalid
+-2026-10-23 16:27:02.212 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:02.510 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:02.544 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-b@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:03.955 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:03.958 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:04.121 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 8e0100a0-2b47-4ecc-a72d-6fa717e37707
+-2026-10-23 16:27:04.121 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 8e0100a0-2b47-4ecc-a72d-6fa717e37707
+-2026-10-23 16:27:04.136 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:04.272 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:04.341 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:05.244 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:06.163 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Valor: 250.1 | Tipo: INCOME
+-2026-10-23 16:27:06.172 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=250.1, ContaID=a9ea5c31-9225-4abf-8e79-1b47af4be015
+-2026-10-23 16:27:06.177 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta a9ea5c31-9225-4abf-8e79-1b47af4be015. Novo saldo: 1250.10
+-2026-10-23 16:27:06.182 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 2a72d107-799f-4394-985f-891304419dda
+-2026-10-23 16:27:06.220 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Valor: 40.2 | Tipo: EXPENSE
+-2026-10-23 16:27:06.232 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=40.2, ContaID=a9ea5c31-9225-4abf-8e79-1b47af4be015
+-2026-10-23 16:27:06.237 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta a9ea5c31-9225-4abf-8e79-1b47af4be015. Novo saldo: 1209.90
+-2026-10-23 16:27:06.243 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 4d5d139d-7c4a-4da9-a18c-e87b1849fd80
+-2026-10-23 16:27:06.266 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Valor: 100 | Tipo: TRANSFER
+-2026-10-23 16:27:06.276 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=100, ContaID=a9ea5c31-9225-4abf-8e79-1b47af4be015
+-2026-10-23 16:27:06.390 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.CreditCardController  : API: Nova Compra no Cartão 5c99b802-0b7f-474a-978b-a7e179d30e32. Valor: 120. Parcelas: 3
+-2026-10-23 16:27:06.392 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Nova compra no cartão ID 5c99b802-0b7f-474a-978b-a7e179d30e32: 120 (3x)
+-2026-10-23 16:27:06.435 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 16:27:06.637 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:09.014 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 5c99b802-0b7f-474a-978b-a7e179d30e32. Valor: 200. É adiantamento? true
+-2026-10-23 16:27:09.015 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:27:09.036 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 16:27:09.143 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:10.512 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID f445896c-0869-4e8b-9631-997209da64b9. Qtd: 2, Preço: 10
+-2026-10-23 16:27:10.517 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID f445896c-0869-4e8b-9631-997209da64b9
+-2026-10-23 16:27:10.538 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-23 16:27:10.940 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:12.232 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:12.250 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:12.425 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:12.428 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-4c89f0bf-c@example.invalid
+-2026-10-23 16:27:15.379 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-legacy@example.invalid
+-2026-10-23 16:27:15.382 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-legacy@example.invalid
+-2026-10-23 16:27:15.509 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 64d95bc5-c045-462b-a316-b951f1913d8d
+-2026-10-23 16:27:15.509 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 64d95bc5-c045-462b-a316-b951f1913d8d
+-2026-10-23 16:27:15.519 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-legacy@example.invalid
+-2026-10-23 16:27:15.663 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-legacy@example.invalid
+-2026-10-23 16:27:15.740 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:16.473 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:16.753 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:17.656 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:18.706 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid
+-2026-10-23 16:27:18.709 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid
+-2026-10-23 16:27:18.873 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 1fa8b1b4-a77f-4268-b537-72b9006d8c90
+-2026-10-23 16:27:18.873 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 1fa8b1b4-a77f-4268-b537-72b9006d8c90
+-2026-10-23 16:27:18.899 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid
+-2026-10-23 16:27:19.015 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid
+-2026-10-23 16:27:19.110 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:19.655 - INFO 40236 --- [-auto-1-exec-10] c.c.api.controller.GoalController        : API: Criar Meta 'Nova destinação na fonte incerta' para usuário cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid
+-2026-10-23 16:27:19.660 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.GoalService              : Criando nova meta: Nova destinação na fonte incerta
+-2026-10-23 16:27:19.770 - WARN 40236 --- [o-auto-1-exec-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Negócio - Capacidade da fonte não comprovada: há reservas pendentes de reconciliação. [URI: /goals/2da9a3b5-b927-4647-a0ee-f33f937149a5/allocations]
+-2026-10-23 16:27:19.946 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-legacy-capacity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:21.158 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:21.171 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:21.341 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 916bced5-38bd-4d22-92a7-96b1ac5217d8
+-2026-10-23 16:27:21.341 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 916bced5-38bd-4d22-92a7-96b1ac5217d8
+-2026-10-23 16:27:21.361 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:21.525 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:21.617 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:22.518 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:23.357 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:23.466 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:23.493 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:23.709 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:25.158 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para BAIXAR transação 13227106-10e1-44c6-99ef-0409d4324a98. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Valor: 30.00
+-2026-10-23 16:27:25.199 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:25.349 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:25.365 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:25.381 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:25.521 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:25.539 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:25.727 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:27.280 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para BAIXAR transação 13227106-10e1-44c6-99ef-0409d4324a98. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Valor: 50.00
+-2026-10-23 16:27:27.347 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:27.514 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:27.532 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:27.554 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 11 | Conta: null
+-2026-10-23 16:27:27.767 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:27.795 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:27.928 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:27.931 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-4c89f0bf-receivable@example.invalid
+-2026-10-23 16:27:29.359 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-lost@example.invalid
+-2026-10-23 16:27:29.361 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid
+-2026-10-23 16:27:29.521 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: fb868ee8-c2b0-4bdb-8184-4bac88bdc2c1
+-2026-10-23 16:27:29.521 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID fb868ee8-c2b0-4bdb-8184-4bac88bdc2c1
+-2026-10-23 16:27:29.542 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-lost@example.invalid
+-2026-10-23 16:27:29.681 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-lost@example.invalid
+-2026-10-23 16:27:29.736 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:30.602 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:31.491 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:34.176 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 2e6eeb87-b08a-48e8-8c3e-0e595dfc3995. Valor: 200. É adiantamento? true
+-2026-10-23 16:27:34.176 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:27:34.188 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 16:27:34.294 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:35.553 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:37.378 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 2e6eeb87-b08a-48e8-8c3e-0e595dfc3995. Valor: 200. É adiantamento? true
+-2026-10-23 16:27:37.378 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:27:37.408 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 2e6eeb87-b08a-48e8-8c3e-0e595dfc3995. Valor: 201. É adiantamento? true
+-2026-10-23 16:27:37.408 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:27:37.513 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-lost@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:38.580 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:38.582 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:38.724 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: dd845135-7646-4558-b2e7-2668c06da214
+-2026-10-23 16:27:38.724 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID dd845135-7646-4558-b2e7-2668c06da214
+-2026-10-23 16:27:38.744 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:38.883 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:38.966 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:40.326 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:40.329 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:40.497 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: a0974f03-0bd8-4547-912f-0deafe9ea5c8
+-2026-10-23 16:27:40.497 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID a0974f03-0bd8-4547-912f-0deafe9ea5c8
+-2026-10-23 16:27:40.523 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:40.674 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:40.748 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:41.183 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO A'. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:41.187 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AccountService           : Criando nova conta para o usuário dd845135-7646-4558-b2e7-2668c06da214
+-2026-10-23 16:27:41.224 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO B'. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:41.228 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AccountService           : Criando nova conta para o usuário a0974f03-0bd8-4547-912f-0deafe9ea5c8
+-2026-10-23 16:27:41.495 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:41.517 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:42.725 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Valor: 10.00 | Tipo: INCOME
+-2026-10-23 16:27:42.734 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=10.00, ContaID=95432b83-fa88-4fb5-a063-902dd3616054
+-2026-10-23 16:27:42.739 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 95432b83-fa88-4fb5-a063-902dd3616054. Novo saldo: 1010.00
+-2026-10-23 16:27:42.744 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 8ca74165-8e1f-44d7-8e3e-5eaa32d47ec7
+-2026-10-23 16:27:42.810 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:42.830 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:42.988 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:43.012 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:44.200 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Valor: 20.00 | Tipo: EXPENSE
+-2026-10-23 16:27:44.210 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=20.00, ContaID=a5240f4a-adbb-47de-8b9a-51ee4dc4d579
+-2026-10-23 16:27:44.214 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta a5240f4a-adbb-47de-8b9a-51ee4dc4d579. Novo saldo: 2280.00
+-2026-10-23 16:27:44.219 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 6a2989d6-396a-40bc-a006-e671c02546f6
+-2026-10-23 16:27:44.288 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:44.309 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:44.339 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.CreditCardController  : API: Criar Cartão 'CARTÃO EXCLUSIVO B'. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:44.343 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.CreditCardService        : Criando cartão 'CARTÃO EXCLUSIVO B' (Final 4242)
+-2026-10-23 16:27:44.376 - WARN 40236 --- [o-auto-1-exec-4] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Cartão não encontrado [URI: /cards/ca1ce1f7-c6a8-4d15-a624-015023a221a4/invoice]
+-2026-10-23 16:27:44.454 - WARN 40236 --- [-auto-1-exec-10] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Intenção ainda não localizada. [URI: /financial-intents/77285d47-88a5-422b-8a2b-ea6d833a0457]
+-2026-10-23 16:27:44.485 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.AccountController     : API: Atualizar Conta a5240f4a-adbb-47de-8b9a-51ee4dc4d579
+-2026-10-23 16:27:44.488 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Atualizando dados da conta ID a5240f4a-adbb-47de-8b9a-51ee4dc4d579
+-2026-10-23 16:27:44.491 -ERROR 40236 --- [o-auto-1-exec-7] c.c.api.service.AccountService           : Acesso negado: Usuário dd845135-7646-4558-b2e7-2668c06da214 tentou alterar conta a5240f4a-adbb-47de-8b9a-51ee4dc4d579
+-2026-10-23 16:27:44.493 - WARN 40236 --- [o-auto-1-exec-7] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta não encontrada [URI: /accounts/a5240f4a-adbb-47de-8b9a-51ee4dc4d579]
+-2026-10-23 16:27:44.513 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Valor: 1 | Tipo: TRANSFER
+-2026-10-23 16:27:44.519 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=1, ContaID=95432b83-fa88-4fb5-a063-902dd3616054
+-2026-10-23 16:27:44.523 - WARN 40236 --- [o-auto-1-exec-3] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta de origem ou destino não encontrada [URI: /transactions]
+-2026-10-23 16:27:44.699 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:44.814 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:45.038 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:45.103 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:45.290 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:45.293 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:45.888 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:27:45.914 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:46.093 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:46.095 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:46.696 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:47.476 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:27:48.257 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:48.378 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:48.466 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:48.699 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:49.275 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-b-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:49.951 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:27:50.622 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:50.773 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-owners@example.invalid
+-2026-10-23 16:27:50.833 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-owners@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:52.004 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-card-limit@example.invalid
+-2026-10-23 16:27:52.008 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-card-limit@example.invalid
+-2026-10-23 16:27:52.193 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: e9fe8290-6349-47ca-81fb-e0f2be947bf2
+-2026-10-23 16:27:52.194 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID e9fe8290-6349-47ca-81fb-e0f2be947bf2
+-2026-10-23 16:27:52.208 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-card-limit@example.invalid
+-2026-10-23 16:27:52.363 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-card-limit@example.invalid
+-2026-10-23 16:27:52.461 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:53.383 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:54.518 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:55.771 - INFO 40236 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid
+-2026-10-23 16:27:55.774 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid
+-2026-10-23 16:27:55.924 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: c6c9600a-03f2-4ca6-a526-9808cac6ed0d
+-2026-10-23 16:27:55.925 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID c6c9600a-03f2-4ca6-a526-9808cac6ed0d
+-2026-10-23 16:27:55.943 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid
+-2026-10-23 16:27:56.080 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid
+-2026-10-23 16:27:56.141 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:56.988 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:57.892 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:27:59.029 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid
+-2026-10-23 16:27:59.033 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid
+-2026-10-23 16:27:59.198 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 05147b22-4eb1-469a-b0f9-dc299549f3a3
+-2026-10-23 16:27:59.198 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 05147b22-4eb1-469a-b0f9-dc299549f3a3
+-2026-10-23 16:27:59.212 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid
+-2026-10-23 16:27:59.335 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid
+-2026-10-23 16:27:59.410 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:00.278 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:01.240 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:01.647 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:01.938 - WARN 40236 --- [o-auto-1-exec-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Negócio - Dia do hábito deve ser hoje ou passado [URI: /habits/6275851a-c804-4486-9ffd-d81a1ed3e19b/toggle]
+-2026-10-23 16:28:01.958 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:02.227 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-0@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:03.373 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid
+-2026-10-23 16:28:03.376 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid
+-2026-10-23 16:28:03.512 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: d6477d4b-9b3c-44cf-8eef-46fe6d4aaa5b
+-2026-10-23 16:28:03.512 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID d6477d4b-9b3c-44cf-8eef-46fe6d4aaa5b
+-2026-10-23 16:28:03.536 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid
+-2026-10-23 16:28:03.664 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid
+-2026-10-23 16:28:03.742 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:04.596 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:05.580 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:06.042 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:06.328 - WARN 40236 --- [o-auto-1-exec-4] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Negócio - Dia do hábito deve ser hoje ou passado [URI: /habits/a65ef584-ce9f-4787-aec9-9c8c3627004c/toggle]
+-2026-10-23 16:28:06.372 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:06.665 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-1@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:07.877 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid
+-2026-10-23 16:28:07.881 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid
+-2026-10-23 16:28:08.032 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 0589a340-ae0a-401c-a756-2c7f970b33c4
+-2026-10-23 16:28:08.032 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 0589a340-ae0a-401c-a756-2c7f970b33c4
+-2026-10-23 16:28:08.043 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid
+-2026-10-23 16:28:08.172 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid
+-2026-10-23 16:28:08.248 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:09.121 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:10.007 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:10.540 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:10.919 - WARN 40236 --- [o-auto-1-exec-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Negócio - Dia do hábito deve ser hoje ou passado [URI: /habits/cd945b04-a5c2-4be3-b842-d9e74488ab8c/toggle]
+-2026-10-23 16:28:10.956 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:11.214 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-temporal-2@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:12.524 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-review-known@example.invalid
+-2026-10-23 16:28:12.527 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-review-known@example.invalid
+-2026-10-23 16:28:12.655 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 7c893836-4395-4f2d-b8c3-3f5aa964aa03
+-2026-10-23 16:28:12.655 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 7c893836-4395-4f2d-b8c3-3f5aa964aa03
+-2026-10-23 16:28:12.675 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-review-known@example.invalid
+-2026-10-23 16:28:12.826 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-review-known@example.invalid
+-2026-10-23 16:28:12.915 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:13.761 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:14.558 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.GoalController        : API: Criar Meta 'Reserva independente conhecida' para usuário cf003-a-cf032-4c89f0bf-review-known@example.invalid
+-2026-10-23 16:28:14.561 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.GoalService              : Criando nova meta: Reserva independente conhecida
+-2026-10-23 16:28:14.797 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:15.587 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:28:16.163 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid
+-2026-10-23 16:28:16.165 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid
+-2026-10-23 16:28:16.309 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 3a275eae-2da1-44f6-8263-46ca2c0e6c2c
+-2026-10-23 16:28:16.309 - INFO 40236 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 3a275eae-2da1-44f6-8263-46ca2c0e6c2c
+-2026-10-23 16:28:16.330 - INFO 40236 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid
+-2026-10-23 16:28:16.484 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid
+-2026-10-23 16:28:16.549 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:17.273 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:17.285 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:18.481 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Valor: 1.00 | Tipo: EXPENSE
+-2026-10-23 16:28:18.490 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=1.00, ContaID=f7219249-4dc3-40bc-9c14-0a54a44c61da
+-2026-10-23 16:28:18.493 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta f7219249-4dc3-40bc-9c14-0a54a44c61da. Novo saldo: 999.00
+-2026-10-23 16:28:18.497 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 5b0d93a3-d586-475b-8d4f-2877c530036e
+-2026-10-23 16:28:18.552 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:18.567 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:19.474 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:19.477 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:19.667 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 3d7a7c5a-f6ad-4928-b191-d0f0057b1b25
+-2026-10-23 16:28:19.667 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 3d7a7c5a-f6ad-4928-b191-d0f0057b1b25
+-2026-10-23 16:28:19.690 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:19.831 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:19.887 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:20.721 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:21.551 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:22.377 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:28:22.944 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:23.047 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-review-session@example.invalid
+-2026-10-23 16:28:23.131 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:23.318 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:23.909 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:37.114 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:37.116 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:37.202 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 34f39aec-c51b-4314-83d0-2b58afe5861b
+-2026-10-23 16:28:37.202 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 34f39aec-c51b-4314-83d0-2b58afe5861b
+-2026-10-23 16:28:37.227 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:37.312 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:37.370 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:37.677 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:38.141 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 16:28:38.144 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=1.23, ContaID=71fcabfd-ac0e-43ef-9407-d85078ce5c69
+-2026-10-23 16:28:38.146 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 71fcabfd-ac0e-43ef-9407-d85078ce5c69. Novo saldo: 1001.23
+-2026-10-23 16:28:38.149 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transação salva com sucesso: ID e4254d12-3e41-4eb6-85a8-b738dbeffb81
+-2026-10-23 16:28:38.172 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:38.262 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:38.281 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:38.379 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:38.382 - INFO 40236 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-4c89f0bf-review-time-api@example.invalid
+-2026-10-23 16:28:39.334 - INFO 40236 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:39.335 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:39.525 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 11eb5c64-cfcb-4ed0-b5c8-136f7d8cab5c
+-2026-10-23 16:28:39.525 - INFO 40236 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 11eb5c64-cfcb-4ed0-b5c8-136f7d8cab5c
+-2026-10-23 16:28:39.549 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:39.721 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:39.786 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:40.716 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:41.739 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:42.560 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 16:28:43.100 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:43.240 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid
+-2026-10-23 16:28:43.311 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:43.501 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:44.090 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:44.464 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:46.103 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid
+-2026-10-23 16:28:46.105 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid
+-2026-10-23 16:28:46.245 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 7c6b0b64-c6ba-4ba3-9fbd-e6e0a0781d62
+-2026-10-23 16:28:46.245 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 7c6b0b64-c6ba-4ba3-9fbd-e6e0a0781d62
+-2026-10-23 16:28:46.258 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid
+-2026-10-23 16:28:46.389 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid
+-2026-10-23 16:28:46.463 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:47.234 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:47.991 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:48.361 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:48.850 - INFO 40236 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:49.355 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:51.210 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:52.389 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 78e1fb20-aefd-4c91-a158-06ed1c04931d. Qtd: 1, Preço: 1
+-2026-10-23 16:28:52.395 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 78e1fb20-aefd-4c91-a158-06ed1c04931d
+-2026-10-23 16:28:52.411 - INFO 40236 --- [o-auto-1-exec-3] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-23 16:28:52.530 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-identity@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:53.510 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:53.512 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:53.669 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: b2d7163b-d351-4063-9d3b-c159805fd88c
+-2026-10-23 16:28:53.669 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID b2d7163b-d351-4063-9d3b-c159805fd88c
+-2026-10-23 16:28:53.680 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:53.834 - INFO 40236 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:53.906 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:54.713 - INFO 40236 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:55.621 - INFO 40236 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 16:28:55.630 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=1.23, ContaID=87051516-c0ed-47f9-91e4-530d742e3a64
+-2026-10-23 16:28:55.633 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 87051516-c0ed-47f9-91e4-530d742e3a64. Novo saldo: 1001.23
+-2026-10-23 16:28:55.637 - INFO 40236 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 7d234f5b-65c8-4d47-8f72-cb7c142d51ea
+-2026-10-23 16:28:55.664 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 16:28:55.671 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=1.23, ContaID=87051516-c0ed-47f9-91e4-530d742e3a64
+-2026-10-23 16:28:55.675 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Saldo atualizado na conta 87051516-c0ed-47f9-91e4-530d742e3a64. Novo saldo: 1002.46
+-2026-10-23 16:28:55.678 - INFO 40236 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Transação salva com sucesso: ID db856d04-4292-417f-9f0d-6aeeabbf7416
+-2026-10-23 16:28:55.712 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 16:28:55.718 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=1.23, ContaID=87051516-c0ed-47f9-91e4-530d742e3a64
+-2026-10-23 16:28:55.722 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 87051516-c0ed-47f9-91e4-530d742e3a64. Novo saldo: 1003.69
+-2026-10-23 16:28:55.726 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transação salva com sucesso: ID aed5faa3-5612-4dca-8dba-5f6cc0fee27e
+-2026-10-23 16:28:55.758 - INFO 40236 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:55.947 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 16:28:55.972 - INFO 40236 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:56.136 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:56.139 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-4c89f0bf-remediation-time-borders@example.invalid
+-2026-10-23 16:28:57.425 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid
+-2026-10-23 16:28:57.428 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid
+-2026-10-23 16:28:57.584 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 95f62204-b7e6-423c-8892-e910b2f9940b
+-2026-10-23 16:28:57.584 - INFO 40236 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 95f62204-b7e6-423c-8892-e910b2f9940b
+-2026-10-23 16:28:57.608 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid
+-2026-10-23 16:28:57.769 - INFO 40236 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid
+-2026-10-23 16:28:57.851 - INFO 40236 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:58.662 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:59.607 - INFO 40236 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:28:59.797 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:29:02.458 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 5c4548e7-cb55-4b15-b780-c414cda10ae0. Valor: 200. É adiantamento? true
+-2026-10-23 16:29:02.458 - INFO 40236 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 16:29:02.467 - INFO 40236 --- [o-auto-1-exec-9] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 16:29:02.534 - INFO 40236 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-2026-10-23 16:29:04.130 - INFO 40236 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-4c89f0bf-remediation-card-refresh@example.invalid | Mês: null | Conta: null
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="2.125" tests="20" errors="0" skipped="0" failures="0">
+  <testcase name="knownConfirmedReservationAndItsMaterializedPairAreCountedOnlyOnce" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.418" />
+  <testcase name="exhaustiveCandidatesBlockOnlyCertifiedSources" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.08" />
+  <testcase name="knownCapacityAcceptsExactLimitAndRejectsAdditionalCent(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.051">
+    <system-out><![CDATA[2026-10-23 23:07:42.590 - INFO 45300 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 17c1c5c2-8488-4af7-9d0b-7736f417c7ca. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="knownCapacityAcceptsExactLimitAndRejectsAdditionalCent(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.061">
+    <system-out><![CDATA[2026-10-23 23:07:42.654 - INFO 45300 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 1d4817fc-aea5-4cfd-b501-541b0dcd7ec8. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="confirmedAssignmentAllowsOnlyItsRemainingCapacityAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.238" />
+  <testcase name="unknownBlocksSetAndDepositOnAccountAndInvestmentWithoutPartialWrites(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.075">
+    <system-out><![CDATA[2026-10-23 23:07:42.951 - INFO 45300 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: d758ef53-fcee-4b46-8e9c-0b2e6bdce7a3. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="unknownBlocksSetAndDepositOnAccountAndInvestmentWithoutPartialWrites(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.056">
+    <system-out><![CDATA[2026-10-23 23:07:43.026 - INFO 45300 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 978076e2-721d-489b-9b96-0fc6fba0ae47. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="confirmedUnknownAmountBlocksOnlyItsProvenSource" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.07" />
+  <testcase name="closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.144" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.047" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.049" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[3]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.049" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[4]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.045" />
+  <testcase name="resolvingOneActualReservationDoesNotClearTheOtherPending" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.151" />
+  <testcase name="knownReductionAndReleaseRemainAllowedButMoveIntoUnknownDestinationRollsBack" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.11" />
+  <testcase name="anUnmaterializedLegacyFlagStillBlocksNewReservations" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.042" />
+  <testcase name="exclusionRequiresCurrentMatchingEvidenceAndEveryOtherPendingReservationStillBlocks(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.088" />
+  <testcase name="exclusionRequiresCurrentMatchingEvidenceAndEveryOtherPendingReservationStillBlocks(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.061" />
+  <testcase name="voluntaryInvestmentBuyCannotConsumeCashWithUnknownReservations" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.039">
+    <system-out><![CDATA[2026-10-23 23:07:43.955 - INFO 45300 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID ab76780e-12ed-4769-9832-3681e47fc665
+-]]></system-out>
+  </testcase>
+  <testcase name="completedInvestmentReplayKeepsOriginalEffectEvenWhenCapacityLaterBecomesUnknown" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.174">
+    <system-out><![CDATA[2026-10-23 23:07:43.993 - INFO 45300 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 00fb35f9-6b4f-4237-83b9-eb2978951f1d
+-2026-10-23 23:07:44.012 - INFO 45300 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-23 23:07:44.128 - INFO 45300 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 00fb35f9-6b4f-4237-83b9-eb2978951f1d
+-]]></system-out>
+  </testcase>
+</testsuite>

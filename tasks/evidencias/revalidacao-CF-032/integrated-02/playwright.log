@@ -1,0 +1,69 @@
+[WebServer] (node:15652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 20 tests using 1 worker
+
+(node:35260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/20] tests\cf032\journeys.spec.ts:24:5 › A cadastro, rascunho, aplicação E01, recibo e releitura
+[2/20] tests\cf032\journeys.spec.ts:95:5 › B uso diário pela UI, reconciliação, reload e logout/login
+[3/20] tests\cf032\journeys.spec.ts:104:5 › C relatório e XLSX real com datas, origens, estados e totais independentes
+[4/20] tests\cf032\journeys.spec.ts:134:5 › E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício
+[5/20] tests\cf032\journeys.spec.ts:151:5 › E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano
+[6/20] tests\cf032\journeys.spec.ts:164:5 › F contas a receber: baixas parciais, calendário e persistência
+[7/20] tests\cf032\journeys.spec.ts:176:5 › G resposta perdida após commit SQL, recuperação e replay de efeito único
+[8/20] tests\cf032\journeys.spec.ts:198:5 › H dois usuários intercalados, ownership, exportação e troca de sessão
+[9/20] tests\cf032\journeys.spec.ts:221:5 › K limite disponível das telas concilia principal corrente e parcelas futuras
+[10/20] tests\cf032\journeys.spec.ts:232:5 › L investimento válido sem identificador continua identificável pelo nome
+[11/20] tests\cf032\journeys.spec.ts:244:6 › Calendar America/Sao_Paulo › T0 prazo e hábito em America/Sao_Paulo
+[12/20] tests\cf032\journeys.spec.ts:244:6 › Calendar UTC › T1 prazo e hábito em UTC
+[13/20] tests\cf032\journeys.spec.ts:244:6 › Calendar Pacific/Kiritimati › T2 prazo e hábito em Pacific/Kiritimati
+[14/20] tests\cf032\journeys.spec.ts:262:5 › R1 controle positivo de reserva conhecida e débito real com legado incerto
+[15/20] tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker
+  1) tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('button', { name: 'Ver detalhes do investimento null', exact: true })
+    Expected: 2
+    Received: 0
+    Timeout:  12000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('button', { name: 'Ver detalhes do investimento null', exact: true }) with timeout 12000ms
+      - waiting for getByRole('button', { name: 'Ver detalhes do investimento null', exact: true })
+        27 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      293 |   await page.goto("/investimentos");
+      294 |   const buttons=page.getByRole("button",{name:"Ver detalhes do investimento null",exact:true});
+    > 295 |   await expect(buttons).toHaveCount(2);
+          |                         ^
+      296 |   const history=page.waitForResponse(r=>/\/api\/investments\/[^/]+\/history$/.test(new URL(r.url()).pathname));
+      297 |   await buttons.nth(index).click();const response=await history;
+      298 |   expect(response.status()).toBe(200);
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\revalidacao-20261023-01\frontend\tests\cf032\journeys.spec.ts:295:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\revalidacao-CF-032\integrated-02\artifacts\journeys-R2-nova-sessão-do-6f819-as-duas-posições-sem-ticker\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\revalidacao-CF-032\integrated-02\artifacts\journeys-R2-nova-sessão-do-6f819-as-duas-posições-sem-ticker\error-context.md
+
+
+(node:57476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[16/20] tests\cf032\journeys.spec.ts:310:5 › R3 horário original, resposta API, releitura e XLSX
+[17/20] tests\cf032\remediation.probes.ts:10:7 › S2 R2 observer adapted to legitimate names, same 656 and two UUIDs
+[18/20] tests\cf032\remediation.probes.ts:36:7 › S3 same-type tickerless positions, ticker control, long name, operation and reload
+[19/20] tests\cf032\remediation.probes.ts:96:7 › S4 XLSX preserves seconds, zero seconds and missing time with civil dates
+[20/20] tests\cf032\remediation.probes.ts:116:7 › S5 available limit refreshes after real payment and survives reload
+  1 failed
+    tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker 
+  19 passed (2.5m)
