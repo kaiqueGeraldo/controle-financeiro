@@ -43,7 +43,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
           >
             <div className="flex shrink-0 items-start justify-between gap-4 px-4 pb-3 pt-4 sm:px-6 sm:pt-6">
               {title && (
-                <h2 id={titleId} className="pr-2 text-xl font-bold text-text-main sm:text-2xl">
+                <h2 id={titleId} className="min-w-0 pr-2 text-xl font-bold text-text-main sm:text-2xl [overflow-wrap:anywhere]">
                   {title}
                 </h2>
               )}

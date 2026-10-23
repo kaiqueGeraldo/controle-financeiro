@@ -2,6 +2,7 @@ import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
 import { Investment, InvestType } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { investmentLabel } from "@/utils/investmentLabel";
 import { motion } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight, Bitcoin, Building2, Landmark, Wallet } from "lucide-react";
 import React from "react";
@@ -48,6 +49,7 @@ interface InvestmentItemProps {
 }
 
 export function InvestmentItem({ asset, totalPortfolioValue, onClick }: InvestmentItemProps) {
+  const label = investmentLabel(asset);
   const { user } = useUser();
   const saldoAtual = asset.valuationAmount ?? null;
   const custoTotal = asset.totalCost ?? null;
@@ -64,7 +66,7 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
         role="button"
         tabIndex={user?.privacyMode ? -1 : 0}
         aria-disabled={user?.privacyMode || undefined}
-        aria-label={`Ver detalhes do investimento ${asset.ticker}`}
+        aria-label={`Ver detalhes do investimento ${label}`}
         onKeyDown={(event) => {
           if (!user?.privacyMode && event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) {
             event.preventDefault();
@@ -75,16 +77,16 @@ export function InvestmentItem({ asset, totalPortfolioValue, onClick }: Investme
       >
         {/* Topo */}
         <div className="flex justify-between items-start mb-4">
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center min-w-0">
             <motion.div 
                 layoutId={`icon-${asset.id}`} 
-                className={`w-10 h-10 rounded-xl flex items-center justify-center border ${getAssetColor(asset.type)}`}
+                className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center border ${getAssetColor(asset.type)}`}
             >
               {React.cloneElement(getAssetIcon(asset.type) as React.ReactElement<{size?: number}>, { size: 20 })}
             </motion.div>
-            <div>
-              <motion.h3 layoutId={`ticker-${asset.id}`} className="font-bold text-base text-text-main group-hover:text-emerald-400 transition-colors">
-                {asset.ticker}
+            <div className="min-w-0">
+              <motion.h3 layoutId={`ticker-${asset.id}`} title={label} className="font-bold text-base text-text-main group-hover:text-emerald-400 transition-colors [overflow-wrap:anywhere]">
+                {label}
               </motion.h3>
               <BadgeTipo tipo={asset.type} />
             </div>

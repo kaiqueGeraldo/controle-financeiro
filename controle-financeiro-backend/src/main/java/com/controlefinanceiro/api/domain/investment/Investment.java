@@ -118,6 +118,11 @@ public class Investment {
         valuationSource = source;
     }
 
+    public String displayName() {
+        if(ticker!=null && !ticker.isBlank())return ticker.trim();
+        return name!=null && !name.isBlank()?name.trim():"Investimento sem identificação";
+    }
+
     public void resizeValuation() {
         valuationAmount = valueForQuantity(quantity);
     }

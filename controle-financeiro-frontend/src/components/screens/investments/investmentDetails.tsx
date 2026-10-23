@@ -1,6 +1,7 @@
 import { normalizeInvestmentHistory } from "@/services/temporal";
 import { Investment, InvestTransaction } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { investmentLabel } from "@/utils/investmentLabel";
 import { formatCalendarDate } from "@/utils/date";
 import { AnimatePresence, motion } from "framer-motion";
 import { History, Loader2, Plus, RefreshCw, Trash2, X } from "lucide-react";
@@ -58,7 +59,7 @@ export function InvestmentDetails({
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label={`Detalhes do investimento ${asset.ticker}`}
+            aria-label={`Detalhes do investimento ${investmentLabel(asset)}`}
             tabIndex={-1}
             className="w-full max-w-lg bg-bg-surface border border-border-divider rounded-3xl overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col z-10"
           >
@@ -97,15 +98,16 @@ export function InvestmentDetails({
                     { size: 32 },
                   )}
                 </motion.div>
-                <div>
+                <div className="min-w-0">
                   <BadgeTipo tipo={asset.type} />
                   <motion.h3
                     layoutId={`ticker-${asset.id}`}
-                    className="text-3xl font-bold text-text-main leading-tight mt-1"
+                    title={investmentLabel(asset)}
+                    className="text-3xl font-bold text-text-main leading-tight mt-1 [overflow-wrap:anywhere]"
                   >
-                    {asset.ticker}
+                    {investmentLabel(asset)}
                   </motion.h3>
-                  <p className="text-text-muted text-sm">{asset.name}</p>
+                  {asset.ticker && <p className="text-text-muted text-sm [overflow-wrap:anywhere]">{asset.name}</p>}
                 </div>
               </div>
 

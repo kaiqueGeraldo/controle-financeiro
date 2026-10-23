@@ -7,6 +7,7 @@ import { investmentService } from "@/services/investmentService";
 import { ApiError } from "@/services/api";
 import { Investment, InvestTransType } from "@/types";
 import { formatCurrency } from "@/utils/format";
+import { investmentLabel } from "@/utils/investmentLabel";
 import { localDateString } from "@/utils/date";
 import {
   Calendar,
@@ -173,7 +174,7 @@ export function OperationModal({
           date: date,
           accountId: accountId,
           fees: Number(fees || 0),
-        }, send, `${asset.ticker} — ${activeTab}`);
+        }, send, `${investmentLabel(asset)} — ${activeTab}`);
         if (success !== "confirmed") {
           if (execution.sessionCurrent() && (success === "unknown" || success === "rejected")) await onReconcile?.();
           return;
@@ -309,7 +310,7 @@ export function OperationModal({
     <Modal
       isOpen={isOpen}
       onClose={close}
-      title={`${asset.ticker} - Operação`}
+      title={`${investmentLabel(asset)} - Operação`}
     >
       <div className="space-y-5 mt-1">
         <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}

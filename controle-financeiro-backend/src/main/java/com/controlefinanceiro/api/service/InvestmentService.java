@@ -217,7 +217,7 @@ public class InvestmentService {
         account.debit(totalCost);
         accountRepository.save(account);
         Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE,
-                "Aporte: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
+                "Aporte: " + investment.displayName(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
                 TransactionOrigin.INVESTMENT_BUY);
         BigDecimal newQuantity = investment.getQuantity().add(data.quantity());
         BigDecimal newCost = currentCost.add(totalCost);
@@ -258,7 +258,7 @@ public class InvestmentService {
             account.credit(netValue);
             accountRepository.save(account);
             bankTx = createBankTransaction(account, netValue, TransactionType.INCOME,
-                    "Resgate: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now,
+                    "Resgate: " + investment.displayName(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now,
                     TransactionOrigin.INVESTMENT_SELL);
         }
         investment.setQuantityAndCost(newQuantity,
@@ -276,14 +276,14 @@ public class InvestmentService {
             accountRepository.save(account);
         }
         Transaction income = createBankTransaction(account, gross, TransactionType.INCOME,
-                "Proventos: " + investment.getTicker(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now,
+                "Proventos: " + investment.displayName(), user, DefaultCategory.RESGATE_INVESTIMENTO.getName(), data.date(), now,
                 TransactionOrigin.INVESTMENT_DIVIDEND);
         income.setCashAmount(net);
         transactionRepository.save(income);
         UUID withholdingId = null;
         if (fees.signum() > 0) {
             Transaction withholding = createBankTransaction(account, fees, TransactionType.EXPENSE,
-                    "Retenção de proventos: " + investment.getTicker(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
+                    "Retenção de proventos: " + investment.displayName(), user, DefaultCategory.APORTE_INVESTIMENTO.getName(), data.date(), now,
                     TransactionOrigin.INVESTMENT_FEE);
             withholding.setCashAmount(BigDecimal.ZERO);
             transactionRepository.save(withholding);

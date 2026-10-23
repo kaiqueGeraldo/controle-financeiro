@@ -227,7 +227,7 @@ export interface InvestTransaction {
 
 export interface Investment {
   id: string;
-  ticker: string;
+  ticker: string | null;
   name: string;
   type: InvestType;
   quantity: number;
