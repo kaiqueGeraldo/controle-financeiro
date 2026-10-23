@@ -4,7 +4,22 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF032 validada localmente com pendências, 22/10/2026
+## Situação vigente — CF032 revisada independentemente, 23/10/2026
+
+CF032 permanece **em_revisao**. Critérios1/4 sustentados e2/3 pendentes;
+CF032-01/02/03 confirmados P2, CF032-04 confirmado P3: XLSX armazena texto12:34,
+enquanto entrada/API/SQL preservam12:34:56. Seleção dos investimentos conserva
+UUIDs distintos; defeito demonstrado é identificação visual/acessível.
+[Parecer, matriz e saneamento delimitado](evidencias/revisao-CF-032/README.md).
+
+Nova execução dirigida8 cenários:4 aprovados/4 falhas originais;3 probes adicionais,
+9 controles de reservas, reconciliação Decimal/OOXML, lint/tipos/build e temporais.
+Sem somar reruns/subconjuntos ao histórico13/9/4. Produto, README raiz e runtimes
+históricos preservados. Próximo passo: saneamento delimitado e revalidação;
+CF033/034 não iniciadas, sem push/merge/deploy/banco real. DEC-ONB-03, zoom nativo200%
+CF010/015, adoção CF017/P01/P02 e aceites anteriores mantêm seus alcances.
+
+## Situação anterior — CF032 validada localmente com pendências, 22/10/2026
 
 CF032 **em_revisao**, sem sucesso integral ou autoaceite. Matriz real navegador→
 Next BFF→Spring→PostgreSQL: 13 cenários distintos, 9 passaram/4 falharam. Uso diário,

@@ -47,6 +47,17 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Revisão independente de23/10/2026 sobre123e5a5: **em_revisao**, critérios1/4
+sustentados,2/3 pendentes. CF032-01/02/03 confirmados P2; CF032-04 confirmado P3
+por truncagem textual na exportação, com segundos preservados em API/SQL.
+R1 comprova permissões legítimas; R2 confirma limite incorreto após nova sessão
+e seleção distinta das posições sem ticker; R3 isola a precisão do arquivo.
+Reprodução dirigida8 cenários4/4,9 controles de reserva aprovados, cálculos
+independentes e inspeção OOXML; nenhuma correção de produto ou sucessora iniciada.
+[Parecer e matriz independentes](../evidencias/revisao-CF-032/README.md).
+Próximo passo: saneamento delimitado por causa e revalidação dos probes intactos;
+aceites anteriores e gates de zoom/adoção/desempenho preservados.
+
 Entrega local de validação em 22/10/2026 na branch `codex/cf032-e2e-financeiro`,
 base integrada `331d3344c24dc60f5e1940989b9a35c0d5da1aa6`, **em_revisao sem sucesso
 integral**. Matriz/oracles anteriores aos testes: 13 jornadas distintas, 9 passaram/4
