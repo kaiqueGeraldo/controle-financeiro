@@ -1099,7 +1099,7 @@ public class TransactionService {
             Page<Transaction> pageData;
 
             DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
+            DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm:ss");
 
             do {
                 pageData = month == null && type == null && accountId == null
