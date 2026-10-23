@@ -7,12 +7,14 @@ import {
 } from "lucide-react";
 
 interface CardsSummaryProps {
+  loading?: boolean;
   totalLimit: number | null;
   totalInvoice: number | null;
   available: number | null;
 }
 
 export function CardsSummary({
+  loading = false,
   totalLimit,
   totalInvoice,
   available,
@@ -26,7 +28,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Limite Global</p>
           <PrivacyBlur className={`text-xl font-bold`}>
-            {totalLimit === null ? "Total fora da faixa" : formatCurrency(totalLimit)}
+            {loading ? "Carregando..." : totalLimit === null ? "Total fora da faixa" : formatCurrency(totalLimit)}
           </PrivacyBlur>
         </div>
       </div>
@@ -38,7 +40,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Faturas Abertas</p>
           <PrivacyBlur className="text-xl font-bold">
-            {totalInvoice === null ? "Total fora da faixa" : formatCurrency(totalInvoice)}
+            {loading ? "Carregando..." : totalInvoice === null ? "Total fora da faixa" : formatCurrency(totalInvoice)}
           </PrivacyBlur>
         </div>
       </div>
@@ -50,7 +52,7 @@ export function CardsSummary({
         <div className="min-w-0 [overflow-wrap:anywhere]">
           <p className="text-xs text-text-muted uppercase font-bold">Disponível</p>
           <PrivacyBlur className="text-xl font-bold">
-            {available === null ? "Indisponível" : formatCurrency(available)}
+            {loading ? "Carregando..." : available === null ? "Indisponível" : formatCurrency(available)}
           </PrivacyBlur>
         </div>
       </div>

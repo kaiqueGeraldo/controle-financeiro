@@ -114,6 +114,7 @@ export default function CartoesScreen({ referenceDay }: { referenceDay?: string 
         {error ? <DataLoadError onRetry={() => refreshAll().catch(() => undefined)} /> : <>
         {/* RESUMO */}
         <CardsSummary
+          loading={isLoading}
           totalLimit={summary.totalLimit}
           totalInvoice={summary.totalInvoice}
           available={summary.available}

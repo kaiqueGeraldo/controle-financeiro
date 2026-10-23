@@ -8,6 +8,7 @@ import { useFinanceData } from "./useFinanceData";
 import { shiftMonth } from "@/utils/date";
 import { useUser } from "./useUser";
 import { monetaryAggregate } from "@/utils/monetaryAggregate";
+import { cardLimitMetrics } from "@/utils/cardLimitMetrics";
 import { completeReads, reconcileFinancialViews, ReconciliationCancelledError } from "@/utils/financialReconciliation";
 import {
   isAbortError,
@@ -267,14 +268,15 @@ export function useCards() {
 
   // --- CÁLCULOS ---
   const summary = useMemo(() => {
+    if(isLoading || error)return {totalLimit:null,totalInvoice:null,available:null};
     const totalLimit = monetaryAggregate(cards.map(c => c.limit));
     const totalInvoice = monetaryAggregate(cards.map(c => c.currentInvoiceValue));
     return {
       totalLimit,
       totalInvoice,
-      available: totalLimit === null || totalInvoice === null ? null : monetaryAggregate([totalLimit,-totalInvoice]),
+      available: monetaryAggregate(cards.map(card => cardLimitMetrics(card).available ?? NaN)),
     };
-  }, [cards]);
+  }, [cards,isLoading,error]);
 
   return {
     userId,

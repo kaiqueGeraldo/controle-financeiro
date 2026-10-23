@@ -10,6 +10,8 @@ export interface CreditCard {
   color: string;
   brand: "MASTERCARD" | "VISA";
   currentInvoiceValue: number;
+  committedLimit?: number | null;
+  availableLimit?: number | null;
   creditBalance?: number;
 }
 

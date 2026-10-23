@@ -1,6 +1,7 @@
 import { PrivacyBlur } from "@/components/ui/privacyBlur";
 import { useUser } from "@/hooks/useUser";
 import { CreditCard } from "@/services/cardService";
+import { cardLimitMetrics } from "@/utils/cardLimitMetrics";
 import { motion } from "framer-motion";
 import { Wifi } from "lucide-react";
 import Image from "next/image";
@@ -51,10 +52,7 @@ interface CreditCardItemProps {
 export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
   const { user } = useUser();
   const styles = getCardStyle(card.name, card.color || "#333");
-  const percentual = Math.min(
-    (card.currentInvoiceValue / card.limit) * 100,
-    100,
-  );
+  const { available, percentage: percentual } = cardLimitMetrics(card);
 
   return (
     <motion.button
@@ -128,7 +126,7 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
               Disponível
             </p>
             <PrivacyBlur className="text-xs font-medium text-emerald-500">
-              {(card.limit - card.currentInvoiceValue).toLocaleString("PT-BR", {
+              {available === null ? "Indisponível" : available.toLocaleString("PT-BR", {
                 style: "currency",
                 currency: "BRL",
               })}
@@ -137,11 +135,14 @@ export function CreditCardItem({ card, onClick }: CreditCardItemProps) {
         </div>
 
         {/* Barra de Limite */}
-        <div className="h-1.5 w-full bg-bg-surface-hover rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-bg-surface-hover rounded-full overflow-hidden"
+          role="meter" aria-label="Limite comprometido" aria-valuemin={0} aria-valuemax={100}
+          aria-valuenow={user?.privacyMode ? undefined : percentual ?? undefined}
+          aria-valuetext={user?.privacyMode ? "Valor oculto" : percentual === null ? "Indisponível" : undefined}>
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${percentual}%` }}
-            className={`h-full rounded-full ${percentual > 90 ? "bg-rose-500" : "bg-emerald-500"}`}
+            animate={{ width: `${user?.privacyMode ? 0 : percentual ?? 0}%` }}
+            className={`h-full rounded-full ${percentual !== null && percentual > 90 ? "bg-rose-500" : "bg-emerald-500"}`}
           />
         </div>
       </motion.div>
