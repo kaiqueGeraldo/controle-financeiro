@@ -1,0 +1,23 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 28.95 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest
+com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest.closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit -- Time elapsed: 0.639 s <<< ERROR!
+com.controlefinanceiro.api.domain.onboarding.DraftProblem: Revise os dados e o estado da entrevista.
+	at com.controlefinanceiro.api.service.onboarding.DraftReferences.validate(DraftReferences.java:44)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingDraftService.save(OnboardingDraftService.java:45)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingDraftService$$SpringCGLIB$$0.save(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.save(OnboardingApplicationSupport.java:50)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.prepare(OnboardingApplicationSupport.java:53)
+	at com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest.closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit(DailyReservationCapacityTest.java:193)
+

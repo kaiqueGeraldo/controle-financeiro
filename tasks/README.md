@@ -4,7 +4,23 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF032 revisada independentemente, 23/10/2026
+## Situação vigente — CF032 saneada localmente, aguardando revalidação, 23/10/2026
+
+CF032 **em_revisao**. Os quatro achados foram saneados localmente com provas
+originais preservadas: capacidade/evidências no backend, limite autoritativo na UI,
+nome quando ticker falta e segundos no XLSX. Critérios 1/4 sustentados; 2/3 seguem
+pendentes de aceite independente. [Entrega e limites](evidencias/saneamento-CF-032/README.md).
+
+Seleção integrada 13/13 mais S5 dirigido aprovado; 95 controles backend incluindo
+replay e capacidade após declaração, 54 componentes (19 novos incluídos), quatro mutações causais
+detectadas e restauração por hash. Reconciliação financeira, isolamento/replay,
+nova sessão e leitura real de XLSX preservados; subconjuntos não são somados como
+casos novos. Commits locais por achado; README raiz e históricos preservados.
+Sem CF033/034, publicação, merge, deploy ou banco real. DEC-ONB-03, zoom nativo 200%,
+adoção CF017/P01/P02 e desempenho mantêm os gates. Próximo passo: revalidação
+independente dos achados e dos critérios 2/3, sem autoencerramento.
+
+## Situação anterior — CF032 revisada independentemente, 23/10/2026
 
 CF032 permanece **em_revisao**. Critérios1/4 sustentados e2/3 pendentes;
 CF032-01/02/03 confirmados P2, CF032-04 confirmado P3: XLSX armazena texto12:34,

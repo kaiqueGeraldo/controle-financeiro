@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E" time="119.325" tests="1" errors="0" skipped="0" failures="1">
+  <testcase name="independentFinancialJourneys" classname="com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E" time="93.845">
+    <failure message="[Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\saneamento-CF-032\before-01\playwright.log] &#xA;expected: 0&#xA; but was: 1" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+[Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\saneamento-CF-032\before-01\playwright.log] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E.independentFinancialJourneys(FinancialJourneyPostgresE2E.java:102)
+]]></failure>
+    <system-out><![CDATA[04:25:02.389 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+04:25:03.518 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+04:25:03.793 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+04:25:03.793 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 04:25:04.217 - INFO 24544 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-23 04:25:04.558 - INFO 24544 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-23 04:25:05.024 - INFO 24544 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-23 04:25:05.024 - INFO 24544 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-23 04:25:05.051 - INFO 24544 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-23 04:25:05.818 - INFO 24544 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-23 04:25:05.818 - INFO 24544 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-23 04:25:05.819 - INFO 24544 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-23 04:25:07.344 - INFO 24544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Starting FinancialJourneyPostgresE2E using Java 21.0.12.1 with PID 24544 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\saneamento-20261023-before\backend)
+-2026-10-23 04:25:07.344 - INFO 24544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : The following 1 profile is active: "test"
+-2026-10-23 04:25:20.060 - WARN 24544 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 04:25:27.548 - INFO 24544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Started FinancialJourneyPostgresE2E in 23.739 seconds (process running for 26.405)
+-2026-10-23 04:25:31.391 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:31.425 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:31.839 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 1f88acb8-a5bd-47f1-b8b5-615e6d11d6fc
+-2026-10-23 04:25:31.840 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 1f88acb8-a5bd-47f1-b8b5-615e6d11d6fc
+-2026-10-23 04:25:31.891 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:32.051 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:32.268 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:33.384 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:34.584 - INFO 24544 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Valor: 250.1 | Tipo: INCOME
+-2026-10-23 04:25:34.620 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=250.1, ContaID=b7714eea-58ed-43f6-950e-1066d7160b4e
+-2026-10-23 04:25:34.644 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta b7714eea-58ed-43f6-950e-1066d7160b4e. Novo saldo: 1250.10
+-2026-10-23 04:25:34.658 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 7e98e874-653c-4831-8497-b4844434a7a5
+-2026-10-23 04:25:34.700 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Valor: 40.2 | Tipo: EXPENSE
+-2026-10-23 04:25:34.722 - INFO 24544 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=40.2, ContaID=b7714eea-58ed-43f6-950e-1066d7160b4e
+-2026-10-23 04:25:34.729 - INFO 24544 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Saldo atualizado na conta b7714eea-58ed-43f6-950e-1066d7160b4e. Novo saldo: 1209.90
+-2026-10-23 04:25:34.737 - INFO 24544 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 12b763b3-0641-40f7-95bf-ce714a2822f6
+-2026-10-23 04:25:34.783 - INFO 24544 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Valor: 100 | Tipo: TRANSFER
+-2026-10-23 04:25:34.798 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=100, ContaID=b7714eea-58ed-43f6-950e-1066d7160b4e
+-2026-10-23 04:25:34.957 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Nova Compra no Cartão 099cdef2-418e-4aa8-898c-a7dbb082dd5a. Valor: 120. Parcelas: 3
+-2026-10-23 04:25:34.964 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cartão ID 099cdef2-418e-4aa8-898c-a7dbb082dd5a: 120 (3x)
+-2026-10-23 04:25:35.095 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 04:25:35.287 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:37.590 - INFO 24544 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cartão 099cdef2-418e-4aa8-898c-a7dbb082dd5a. Valor: 200. É adiantamento? true
+-2026-10-23 04:25:37.591 - INFO 24544 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 04:25:37.625 - INFO 24544 --- [-auto-1-exec-10] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 04:25:37.737 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:39.114 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 15f571c3-43f1-4504-8ccd-f9cd749bb920. Qtd: 2, Preço: 10
+-2026-10-23 04:25:39.120 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 15f571c3-43f1-4504-8ccd-f9cd749bb920
+-2026-10-23 04:25:39.130 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-23 04:25:39.485 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:40.579 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 04:25:40.609 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:40.733 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:40.736 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-7d8cf5be-c@example.invalid
+-2026-10-23 04:25:43.924 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid
+-2026-10-23 04:25:43.928 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid
+-2026-10-23 04:25:44.076 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 4c9fa97e-7fec-40ad-b947-9bc02f0f7058
+-2026-10-23 04:25:44.076 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 4c9fa97e-7fec-40ad-b947-9bc02f0f7058
+-2026-10-23 04:25:44.090 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid
+-2026-10-23 04:25:44.200 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid
+-2026-10-23 04:25:44.289 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:44.891 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Criar Meta 'Nova destinação na fonte incerta' para usuário cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid
+-2026-10-23 04:25:44.895 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.service.GoalService              : Criando nova meta: Nova destinação na fonte incerta
+-2026-10-23 04:25:45.102 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-legacy-capacity@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:47.124 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-card-limit@example.invalid
+-2026-10-23 04:25:47.129 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-card-limit@example.invalid
+-2026-10-23 04:25:47.286 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 45d0ecc9-81c4-4f3e-bca2-ad47b4e4c9cc
+-2026-10-23 04:25:47.287 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 45d0ecc9-81c4-4f3e-bca2-ad47b4e4c9cc
+-2026-10-23 04:25:47.307 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-card-limit@example.invalid
+-2026-10-23 04:25:47.407 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-card-limit@example.invalid
+-2026-10-23 04:25:47.877 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:48.874 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:25:50.573 - INFO 24544 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-card-limit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:16.255 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid
+-2026-10-23 04:26:16.257 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid
+-2026-10-23 04:26:16.363 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 70ce91b9-a17f-4b1d-9509-60a8adb60bbd
+-2026-10-23 04:26:16.363 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 70ce91b9-a17f-4b1d-9509-60a8adb60bbd
+-2026-10-23 04:26:16.373 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid
+-2026-10-23 04:26:16.449 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid
+-2026-10-23 04:26:16.511 - INFO 24544 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:16.839 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:17.382 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-optional-identifier@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:30.728 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-review-known@example.invalid
+-2026-10-23 04:26:30.730 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-review-known@example.invalid
+-2026-10-23 04:26:30.833 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 16c6de54-ad9d-478f-9a35-f256a44c1cfd
+-2026-10-23 04:26:30.833 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 16c6de54-ad9d-478f-9a35-f256a44c1cfd
+-2026-10-23 04:26:30.857 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-review-known@example.invalid
+-2026-10-23 04:26:30.935 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-review-known@example.invalid
+-2026-10-23 04:26:30.994 - INFO 24544 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:31.324 - INFO 24544 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:32.017 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.controller.GoalController        : API: Criar Meta 'Reserva independente conhecida' para usuário cf003-a-cf032-7d8cf5be-review-known@example.invalid
+-2026-10-23 04:26:32.020 - INFO 24544 --- [o-auto-1-exec-5] c.c.api.service.GoalService              : Criando nova meta: Reserva independente conhecida
+-2026-10-23 04:26:32.261 - INFO 24544 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-known@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:32.791 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 04:26:33.390 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid
+-2026-10-23 04:26:33.394 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid
+-2026-10-23 04:26:33.566 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 65aeca01-5c16-404e-8bad-c451869030e0
+-2026-10-23 04:26:33.566 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 65aeca01-5c16-404e-8bad-c451869030e0
+-2026-10-23 04:26:33.591 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid
+-2026-10-23 04:26:33.745 - INFO 24544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid
+-2026-10-23 04:26:33.829 - INFO 24544 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:34.445 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 04:26:34.462 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:35.652 - INFO 24544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Valor: 1.00 | Tipo: EXPENSE
+-2026-10-23 04:26:35.662 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transação: Tipo=EXPENSE, Valor=1.00, ContaID=fe031f42-d887-47f4-a128-5357a7417c65
+-2026-10-23 04:26:35.667 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta fe031f42-d887-47f4-a128-5357a7417c65. Novo saldo: 999.00
+-2026-10-23 04:26:35.672 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transação salva com sucesso: ID a9a5d33c-11bf-45ff-9004-0337ab7df879
+-2026-10-23 04:26:35.730 - INFO 24544 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 04:26:35.754 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-unknown-debit@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:36.667 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:36.669 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:36.842 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: e69796d2-c5f2-47d9-8236-d3f03dafb21a
+-2026-10-23 04:26:36.842 - INFO 24544 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID e69796d2-c5f2-47d9-8236-d3f03dafb21a
+-2026-10-23 04:26:36.864 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:37.004 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:37.089 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:38.180 - INFO 24544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:39.575 - INFO 24544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:40.279 - INFO 24544 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 04:26:40.955 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:41.076 - INFO 24544 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-review-session@example.invalid
+-2026-10-23 04:26:41.145 - INFO 24544 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:41.318 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:53.873 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:54.103 - INFO 24544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-session@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:55.525 - INFO 24544 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-2026-10-23 04:26:55.527 - INFO 24544 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-2026-10-23 04:26:55.699 - INFO 24544 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira física padrão gerada com sucesso para o usuário: 78ae7c12-04a6-4080-b4ed-8f010b40f6c2
+-2026-10-23 04:26:55.700 - INFO 24544 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usuário registrado com sucesso: ID 78ae7c12-04a6-4080-b4ed-8f010b40f6c2
+-2026-10-23 04:26:55.715 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-2026-10-23 04:26:55.886 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-2026-10-23 04:26:56.004 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:57.111 - INFO 24544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:58.429 - INFO 24544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 04:26:58.440 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=1.23, ContaID=022140da-82d0-4453-a82f-3c6f0ede3142
+-2026-10-23 04:26:58.444 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 022140da-82d0-4453-a82f-3c6f0ede3142. Novo saldo: 1001.23
+-2026-10-23 04:26:58.449 - INFO 24544 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 36a67bd3-ae8d-46e2-a6fb-6513b47874db
+-2026-10-23 04:26:58.493 - INFO 24544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 04:26:58.770 - INFO 24544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Mês: 10 | Conta: null
+-2026-10-23 04:26:58.818 - INFO 24544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisição para LISTAR transações filtradas. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid | Mês: null | Conta: null
+-2026-10-23 04:26:59.027 - INFO 24544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usuário: cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-2026-10-23 04:26:59.033 - INFO 24544 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usuário cf003-a-cf032-7d8cf5be-review-time-api@example.invalid
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>

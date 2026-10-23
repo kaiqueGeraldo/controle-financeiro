@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="28.949" tests="1" errors="1" skipped="0" failures="0">
+  <testcase name="closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.639">
+    <error message="Revise os dados e o estado da entrevista." type="com.controlefinanceiro.api.domain.onboarding.DraftProblem"><![CDATA[com.controlefinanceiro.api.domain.onboarding.DraftProblem: Revise os dados e o estado da entrevista.
+	at com.controlefinanceiro.api.service.onboarding.DraftReferences.validate(DraftReferences.java:44)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingDraftService.save(OnboardingDraftService.java:45)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.onboarding.OnboardingDraftService$$SpringCGLIB$$0.save(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.save(OnboardingApplicationSupport.java:50)
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport.prepare(OnboardingApplicationSupport.java:53)
+	at com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest.closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit(DailyReservationCapacityTest.java:193)
+]]></error>
+    <system-out><![CDATA[15:47:39.807 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport]: OnboardingApplicationSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:47:39.813 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:47:41.415 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest
+15:47:41.615 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+15:47:41.628 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 15:47:42.234 - INFO 44608 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-23 15:47:42.718 - INFO 44608 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-23 15:47:43.513 - INFO 44608 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-23 15:47:43.528 - INFO 44608 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-23 15:47:43.553 - INFO 44608 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-23 15:47:44.477 - INFO 44608 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-23 15:47:44.477 - INFO 44608 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-23 15:47:44.478 - INFO 44608 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-23 15:47:46.125 - INFO 44608 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : Starting DailyReservationCapacityTest using Java 21.0.12.1 with PID 44608 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\saneamento-20261023-final\backend)
+-2026-10-23 15:47:46.126 - INFO 44608 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : The following 1 profile is active: "test"
+-2026-10-23 15:47:56.752 - WARN 44608 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 15:48:07.802 - INFO 44608 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : Started DailyReservationCapacityTest in 26.16 seconds (process running for 29.277)
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>

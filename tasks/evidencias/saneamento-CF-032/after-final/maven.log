@@ -1,0 +1,396 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 18 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+15:12:57.559 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:12:57.763 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+15:12:58.071 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+15:12:58.071 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 15:12:58.437 - INFO 45644 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-23 15:12:58.692 - INFO 45644 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-23 15:12:59.108 - INFO 45644 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-23 15:12:59.108 - INFO 45644 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-23 15:12:59.133 - INFO 45644 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-23 15:13:00.205 - INFO 45644 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-23 15:13:00.206 - INFO 45644 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-23 15:13:00.207 - INFO 45644 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-23 15:13:02.226 - INFO 45644 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Starting FinancialJourneyPostgresE2E using Java 21.0.12.1 with PID 45644 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\saneamento-20261023-final\backend)
+-2026-10-23 15:13:02.227 - INFO 45644 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-23 15:13:15.539 - WARN 45644 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 15:13:26.094 - INFO 45644 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Started FinancialJourneyPostgresE2E in 28.012 seconds (process running for 29.501)
+-2026-10-23 15:13:30.322 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:30.368 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:31.080 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ade8f81e-1729-4409-a0a1-20ff2ee5c8ab
+-2026-10-23 15:13:31.080 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ade8f81e-1729-4409-a0a1-20ff2ee5c8ab
+-2026-10-23 15:13:31.184 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:31.417 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:31.737 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:32.834 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:34.317 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:34.335 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:35.445 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | Valor: 250.10 | Tipo: INCOME
+-2026-10-23 15:13:35.465 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.10, ContaID=348a72c6-1100-4d9e-84aa-163ad8f6fe7b
+-2026-10-23 15:13:35.517 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 348a72c6-1100-4d9e-84aa-163ad8f6fe7b. Novo saldo: 1250.10
+-2026-10-23 15:13:35.540 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d8f1fc9c-c1d3-4283-b8f6-97ccc13a34d5
+-2026-10-23 15:13:35.600 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:35.764 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:35.806 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:37.040 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | Valor: 40.20 | Tipo: EXPENSE
+-2026-10-23 15:13:37.047 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40.20, ContaID=348a72c6-1100-4d9e-84aa-163ad8f6fe7b
+-2026-10-23 15:13:37.052 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 348a72c6-1100-4d9e-84aa-163ad8f6fe7b. Novo saldo: 1209.90
+-2026-10-23 15:13:37.056 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 18451385-7524-4a05-9590-92e187abd35e
+-2026-10-23 15:13:37.136 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:37.173 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:37.271 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:37.308 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:38.458 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | Valor: 100.00 | Tipo: TRANSFER
+-2026-10-23 15:13:38.467 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=100.00, ContaID=348a72c6-1100-4d9e-84aa-163ad8f6fe7b
+-2026-10-23 15:13:38.556 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:38.564 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:38.835 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:39.554 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 9ff12671-718b-4937-af4d-e104e46d3a76. Valor: 120. Parcelas: 3
+-2026-10-23 15:13:39.558 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 9ff12671-718b-4937-af4d-e104e46d3a76: 120 (3x)
+-2026-10-23 15:13:39.638 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 15:13:39.675 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:40.648 - INFO 45644 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:42.965 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 9ff12671-718b-4937-af4d-e104e46d3a76. Valor: 200. � adiantamento? true
+-2026-10-23 15:13:42.966 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-23 15:13:42.989 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-10-23 15:13:43.065 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:44.505 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:46.697 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID e0de21a8-ed3e-4b8d-a4fc-517df5efaa88. Qtd: 2, Pre�o: 10
+-2026-10-23 15:13:46.707 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID e0de21a8-ed3e-4b8d-a4fc-517df5efaa88
+-2026-10-23 15:13:46.745 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-23 15:13:46.962 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:48.442 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.GoalController        : API: Dep�sito na Meta 52eae6f8-cee8-4e9f-a52b-2a588a0f8206. Valor: 100. Conta Origem: 348a72c6-1100-4d9e-84aa-163ad8f6fe7b
+-2026-10-23 15:13:48.445 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 52eae6f8-cee8-4e9f-a52b-2a588a0f8206. Valor: 100
+-2026-10-23 15:13:48.472 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 600.00
+-2026-10-23 15:13:48.510 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:48.960 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:49.504 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:50.262 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 15:13:50.828 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:50.906 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-b@example.invalid
+-2026-10-23 15:13:50.953 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:51.204 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:13:51.226 - INFO 45644 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-b@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:52.346 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:13:52.349 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:13:52.505 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: b7d41a80-7252-45e2-b286-bdd915de69fa
+-2026-10-23 15:13:52.505 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID b7d41a80-7252-45e2-b286-bdd915de69fa
+-2026-10-23 15:13:52.522 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:13:52.656 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:13:52.730 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:53.643 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:54.643 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | Valor: 250.1 | Tipo: INCOME
+-2026-10-23 15:13:54.654 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.1, ContaID=0f7467d0-f5cd-4624-aa8d-5f7e5866e674
+-2026-10-23 15:13:54.657 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 0f7467d0-f5cd-4624-aa8d-5f7e5866e674. Novo saldo: 1250.10
+-2026-10-23 15:13:54.662 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 7755b065-dcd3-45b6-b1bd-4062008761d7
+-2026-10-23 15:13:54.686 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | Valor: 40.2 | Tipo: EXPENSE
+-2026-10-23 15:13:54.693 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40.2, ContaID=0f7467d0-f5cd-4624-aa8d-5f7e5866e674
+-2026-10-23 15:13:54.696 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta 0f7467d0-f5cd-4624-aa8d-5f7e5866e674. Novo saldo: 1209.90
+-2026-10-23 15:13:54.700 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5db077ad-15f9-49b8-8247-91bdbf7c8ddd
+-2026-10-23 15:13:54.734 - INFO 45644 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | Valor: 100 | Tipo: TRANSFER
+-2026-10-23 15:13:54.745 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=100, ContaID=0f7467d0-f5cd-4624-aa8d-5f7e5866e674
+-2026-10-23 15:13:54.857 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o 7ed00335-75ea-4482-8866-36280a0be84e. Valor: 120. Parcelas: 3
+-2026-10-23 15:13:54.860 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Nova compra no cart�o ID 7ed00335-75ea-4482-8866-36280a0be84e: 120 (3x)
+-2026-10-23 15:13:54.896 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 15:13:55.091 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:57.224 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 7ed00335-75ea-4482-8866-36280a0be84e. Valor: 200. � adiantamento? true
+-2026-10-23 15:13:57.225 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-23 15:13:57.235 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-10-23 15:13:57.297 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:13:58.674 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID c85761d1-27ef-426c-ab93-3399b3c7a755. Qtd: 2, Pre�o: 10
+-2026-10-23 15:13:58.681 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID c85761d1-27ef-426c-ab93-3399b3c7a755
+-2026-10-23 15:13:58.696 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-23 15:13:58.990 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:00.207 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:00.226 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:00.436 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:14:00.439 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf032-3ea9bc37-c@example.invalid
+-2026-10-23 15:14:03.693 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-legacy@example.invalid
+-2026-10-23 15:14:03.696 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-legacy@example.invalid
+-2026-10-23 15:14:03.837 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: e3930133-709f-45db-8176-637236f0013c
+-2026-10-23 15:14:03.837 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID e3930133-709f-45db-8176-637236f0013c
+-2026-10-23 15:14:03.846 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-legacy@example.invalid
+-2026-10-23 15:14:03.950 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-legacy@example.invalid
+-2026-10-23 15:14:04.019 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:04.844 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:05.113 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:05.963 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:07.021 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid
+-2026-10-23 15:14:07.025 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid
+-2026-10-23 15:14:07.215 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 8adb28b8-a596-4a60-a7b6-7dcaf4bbdcc5
+-2026-10-23 15:14:07.215 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 8adb28b8-a596-4a60-a7b6-7dcaf4bbdcc5
+-2026-10-23 15:14:07.239 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid
+-2026-10-23 15:14:07.380 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid
+-2026-10-23 15:14:07.444 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:07.977 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.GoalController        : API: Criar Meta 'Nova destina��o na fonte incerta' para usu�rio cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid
+-2026-10-23 15:14:07.982 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.GoalService              : Criando nova meta: Nova destina��o na fonte incerta
+-2026-10-23 15:14:08.082 - WARN 45644 --- [o-auto-1-exec-7] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 400: Regra de Neg�cio - Capacidade da fonte n�o comprovada: h� reservas pendentes de reconcilia��o. [URI: /goals/5c61968a-8a4b-4a76-b9c2-023d5e7cc372/allocations]
+-2026-10-23 15:14:08.285 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-legacy-capacity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:09.627 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-lost@example.invalid
+-2026-10-23 15:14:09.630 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid
+-2026-10-23 15:14:09.783 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 4fb27ca6-f23d-485e-8b78-b58d7d05e7ad
+-2026-10-23 15:14:09.783 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 4fb27ca6-f23d-485e-8b78-b58d7d05e7ad
+-2026-10-23 15:14:09.804 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-lost@example.invalid
+-2026-10-23 15:14:09.937 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-lost@example.invalid
+-2026-10-23 15:14:10.020 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:10.800 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:11.793 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:14.149 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 13aeba5d-919e-4850-82ba-0d629fb607d9. Valor: 200. � adiantamento? true
+-2026-10-23 15:14:14.149 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-23 15:14:14.159 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-10-23 15:14:14.239 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:15.492 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:16.792 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 13aeba5d-919e-4850-82ba-0d629fb607d9. Valor: 200. � adiantamento? true
+-2026-10-23 15:14:16.792 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-23 15:14:16.824 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o 13aeba5d-919e-4850-82ba-0d629fb607d9. Valor: 201. � adiantamento? true
+-2026-10-23 15:14:16.824 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-23 15:14:16.952 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-lost@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:18.075 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:18.090 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:18.262 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: c26287be-666b-4154-b0c7-83e74c7eef3d
+-2026-10-23 15:14:18.262 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID c26287be-666b-4154-b0c7-83e74c7eef3d
+-2026-10-23 15:14:18.273 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:18.385 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:18.466 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:19.772 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:19.776 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:19.954 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 017c9af5-f7d4-4cf5-b972-34f9ffabfbf4
+-2026-10-23 15:14:19.955 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 017c9af5-f7d4-4cf5-b972-34f9ffabfbf4
+-2026-10-23 15:14:19.973 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:20.118 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:20.212 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:20.622 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO A'. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:20.625 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AccountService           : Criando nova conta para o usu�rio c26287be-666b-4154-b0c7-83e74c7eef3d
+-2026-10-23 15:14:20.688 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO B'. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:20.691 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 017c9af5-f7d4-4cf5-b972-34f9ffabfbf4
+-2026-10-23 15:14:21.008 - INFO 45644 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:21.022 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:21.919 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | Valor: 10.00 | Tipo: INCOME
+-2026-10-23 15:14:21.925 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=10.00, ContaID=4b80baee-18b0-4d36-9c91-5ee98302b1b7
+-2026-10-23 15:14:21.927 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 4b80baee-18b0-4d36-9c91-5ee98302b1b7. Novo saldo: 1010.00
+-2026-10-23 15:14:21.930 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 56f61fea-406e-427e-9754-aad4737bf437
+-2026-10-23 15:14:21.997 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:22.013 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:22.160 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:22.186 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:23.119 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | Valor: 20.00 | Tipo: EXPENSE
+-2026-10-23 15:14:23.123 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=20.00, ContaID=4aac3f74-18b6-4e54-aa8b-2800c7d0a507
+-2026-10-23 15:14:23.125 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 4aac3f74-18b6-4e54-aa8b-2800c7d0a507. Novo saldo: 2280.00
+-2026-10-23 15:14:23.128 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID f4f499eb-c692-4b0a-98af-03135bd2fc77
+-2026-10-23 15:14:23.187 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:23.201 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:23.220 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'CART�O EXCLUSIVO B'. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:23.223 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'CART�O EXCLUSIVO B' (Final 4242)
+-2026-10-23 15:14:23.262 - WARN 45644 --- [o-auto-1-exec-9] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Cart�o n�o encontrado [URI: /cards/70b80f78-67aa-4246-b678-5bfababf280f/invoice]
+-2026-10-23 15:14:23.323 - WARN 45644 --- [o-auto-1-exec-6] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Inten��o ainda n�o localizada. [URI: /financial-intents/901e18cc-9578-4e39-a0f9-7b7620f7bc0e]
+-2026-10-23 15:14:23.356 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.controller.AccountController     : API: Atualizar Conta 4aac3f74-18b6-4e54-aa8b-2800c7d0a507
+-2026-10-23 15:14:23.358 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.AccountService           : Atualizando dados da conta ID 4aac3f74-18b6-4e54-aa8b-2800c7d0a507
+-2026-10-23 15:14:23.359 -ERROR 45644 --- [o-auto-1-exec-2] c.c.api.service.AccountService           : Acesso negado: Usu�rio c26287be-666b-4154-b0c7-83e74c7eef3d tentou alterar conta 4aac3f74-18b6-4e54-aa8b-2800c7d0a507
+-2026-10-23 15:14:23.361 - WARN 45644 --- [o-auto-1-exec-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta n�o encontrada [URI: /accounts/4aac3f74-18b6-4e54-aa8b-2800c7d0a507]
+-2026-10-23 15:14:23.383 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | Valor: 1 | Tipo: TRANSFER
+-2026-10-23 15:14:23.388 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=1, ContaID=4b80baee-18b0-4d36-9c91-5ee98302b1b7
+-2026-10-23 15:14:23.391 - WARN 45644 --- [o-auto-1-exec-1] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta de origem ou destino n�o encontrada [URI: /transactions]
+-2026-10-23 15:14:23.630 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:23.669 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:24.014 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:24.053 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:24.232 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:24.233 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:24.871 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:24.891 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:25.049 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:25.051 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:25.718 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:26.426 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 15:14:27.148 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:27.283 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:27.382 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:27.715 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:28.280 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:28.914 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 15:14:29.485 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:29.627 - INFO 45644 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-owners@example.invalid
+-2026-10-23 15:14:29.690 - INFO 45644 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-owners@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:30.802 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-card-limit@example.invalid
+-2026-10-23 15:14:30.806 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-card-limit@example.invalid
+-2026-10-23 15:14:30.985 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 75146ded-9508-48a1-8c3d-76fe9fef5f8b
+-2026-10-23 15:14:30.985 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 75146ded-9508-48a1-8c3d-76fe9fef5f8b
+-2026-10-23 15:14:30.997 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-card-limit@example.invalid
+-2026-10-23 15:14:31.143 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-card-limit@example.invalid
+-2026-10-23 15:14:31.219 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:32.189 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:33.278 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:34.497 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid
+-2026-10-23 15:14:34.499 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid
+-2026-10-23 15:14:34.664 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: f59a5bc3-f5a1-4f5e-b8c5-569e2f3d94a7
+-2026-10-23 15:14:34.664 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID f59a5bc3-f5a1-4f5e-b8c5-569e2f3d94a7
+-2026-10-23 15:14:34.684 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid
+-2026-10-23 15:14:34.817 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid
+-2026-10-23 15:14:34.894 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:35.747 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:36.860 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-optional-identifier@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:38.089 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-review-known@example.invalid
+-2026-10-23 15:14:38.092 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-review-known@example.invalid
+-2026-10-23 15:14:38.253 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 17bb44cd-4e16-4ff3-823a-fd7258e70665
+-2026-10-23 15:14:38.253 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 17bb44cd-4e16-4ff3-823a-fd7258e70665
+-2026-10-23 15:14:38.275 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-review-known@example.invalid
+-2026-10-23 15:14:38.411 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-review-known@example.invalid
+-2026-10-23 15:14:38.501 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:39.436 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:40.307 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.controller.GoalController        : API: Criar Meta 'Reserva independente conhecida' para usu�rio cf003-a-cf032-3ea9bc37-review-known@example.invalid
+-2026-10-23 15:14:40.310 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.GoalService              : Criando nova meta: Reserva independente conhecida
+-2026-10-23 15:14:40.592 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:41.180 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 15:14:41.817 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid
+-2026-10-23 15:14:41.819 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid
+-2026-10-23 15:14:42.009 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 57bdc5d7-693b-4e76-9c53-a9a4399b18bf
+-2026-10-23 15:14:42.009 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 57bdc5d7-693b-4e76-9c53-a9a4399b18bf
+-2026-10-23 15:14:42.028 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid
+-2026-10-23 15:14:42.160 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid
+-2026-10-23 15:14:42.239 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:42.927 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:42.945 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:43.862 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | Valor: 1.00 | Tipo: EXPENSE
+-2026-10-23 15:14:43.868 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=1.00, ContaID=87f8dddf-4480-4acd-b58a-3a32f705247e
+-2026-10-23 15:14:43.871 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Saldo atualizado na conta 87f8dddf-4480-4acd-b58a-3a32f705247e. Novo saldo: 999.00
+-2026-10-23 15:14:43.876 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID e95e864b-de13-416f-8444-6b984d4fbb93
+-2026-10-23 15:14:43.934 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:43.951 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:45.025 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:45.028 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:45.178 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: be1238ee-b171-47a1-b728-a27b10b4edba
+-2026-10-23 15:14:45.178 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID be1238ee-b171-47a1-b728-a27b10b4edba
+-2026-10-23 15:14:45.196 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:45.318 - INFO 45644 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:45.390 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:46.222 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:47.022 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 15:14:47.033 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1.23, ContaID=fba19e92-92c9-4b32-858c-67423b167959
+-2026-10-23 15:14:47.038 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta fba19e92-92c9-4b32-858c-67423b167959. Novo saldo: 1001.23
+-2026-10-23 15:14:47.044 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID d282e8fd-715a-4bad-95a1-d1fc7532ed72
+-2026-10-23 15:14:47.102 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:47.252 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:14:47.273 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:47.416 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:47.418 - INFO 45644 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf032-3ea9bc37-review-time-api@example.invalid
+-2026-10-23 15:14:48.508 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:48.511 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:48.661 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 8fca9764-75ad-431e-976c-7ddf3ffb925a
+-2026-10-23 15:14:48.661 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 8fca9764-75ad-431e-976c-7ddf3ffb925a
+-2026-10-23 15:14:48.682 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:48.820 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:48.919 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:49.770 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:50.527 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:51.206 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 15:14:51.721 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:51.794 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid
+-2026-10-23 15:14:51.828 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:52.017 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:52.523 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:52.804 - INFO 45644 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:53.997 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid
+-2026-10-23 15:14:54.000 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid
+-2026-10-23 15:14:54.192 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 59b049a1-be6f-4960-8578-def01d9dc198
+-2026-10-23 15:14:54.192 - INFO 45644 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 59b049a1-be6f-4960-8578-def01d9dc198
+-2026-10-23 15:14:54.212 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid
+-2026-10-23 15:14:54.364 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid
+-2026-10-23 15:14:54.430 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:55.243 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:56.157 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:56.623 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:57.163 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:57.625 - INFO 45644 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:14:59.134 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:15:00.288 - INFO 45644 --- [-auto-1-exec-10] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 139c91e1-8704-4a6a-ad84-33d8bef23341. Qtd: 1, Pre�o: 1
+-2026-10-23 15:15:00.299 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 139c91e1-8704-4a6a-ad84-33d8bef23341
+-2026-10-23 15:15:00.324 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-23 15:15:00.490 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-identity@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:15:01.448 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-2026-10-23 15:15:01.449 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-2026-10-23 15:15:01.555 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: b1062b86-0489-46b7-8247-659c80152517
+-2026-10-23 15:15:01.555 - INFO 45644 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID b1062b86-0489-46b7-8247-659c80152517
+-2026-10-23 15:15:01.565 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-2026-10-23 15:15:01.716 - INFO 45644 --- [o-auto-1-exec-1] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-2026-10-23 15:15:01.795 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:15:02.689 - INFO 45644 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:15:03.374 - INFO 45644 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 15:15:03.383 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1.23, ContaID=e82ae37f-f6df-47aa-95e3-0203fe2eb113
+-2026-10-23 15:15:03.388 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Saldo atualizado na conta e82ae37f-f6df-47aa-95e3-0203fe2eb113. Novo saldo: 1001.23
+-2026-10-23 15:15:03.394 - INFO 45644 --- [-auto-1-exec-10] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 5c95714b-058d-4c14-8945-6825775596ac
+-2026-10-23 15:15:03.423 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 15:15:03.430 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1.23, ContaID=e82ae37f-f6df-47aa-95e3-0203fe2eb113
+-2026-10-23 15:15:03.435 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Saldo atualizado na conta e82ae37f-f6df-47aa-95e3-0203fe2eb113. Novo saldo: 1002.46
+-2026-10-23 15:15:03.439 - INFO 45644 --- [o-auto-1-exec-7] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 43db7968-0b2e-488f-bdf9-064478d77549
+-2026-10-23 15:15:03.483 - INFO 45644 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | Valor: 1.23 | Tipo: INCOME
+-2026-10-23 15:15:03.493 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=1.23, ContaID=e82ae37f-f6df-47aa-95e3-0203fe2eb113
+-2026-10-23 15:15:03.497 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Saldo atualizado na conta e82ae37f-f6df-47aa-95e3-0203fe2eb113. Novo saldo: 1003.69
+-2026-10-23 15:15:03.502 - INFO 45644 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID ed55f21b-c7fb-46f5-b2fc-a0cb231c2ce2
+-2026-10-23 15:15:03.546 - INFO 45644 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:15:03.704 - INFO 45644 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 15:15:03.719 - INFO 45644 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid | M�s: null | Conta: null
+-2026-10-23 15:15:03.896 - INFO 45644 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-2026-10-23 15:15:03.899 - INFO 45644 --- [o-auto-1-exec-5] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf032-3ea9bc37-remediation-time-borders@example.invalid
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 128.0 s -- in com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:12 min
+[INFO] Finished at: 2026-10-23T15:15:06Z
+[INFO] ------------------------------------------------------------------------

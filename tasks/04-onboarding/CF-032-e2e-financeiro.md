@@ -33,9 +33,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [ ] Pelo menos um cenário com dois usuários confirma isolamento enquanto ambos usam o app; falhas mantêm invariantes.
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
-Critério 3 parcialmente comprovado: isolamento em H e efeito único sob falha/replay
-em G passaram; o aumento de reserva sem capacidade conhecida em E2 conserva uma
-violação financeira. O checkbox permanece pendente, sem reduzir o critério original.
+Critério 3: isolamento em H e efeito único sob falha/replay em G permanecem
+sustentados. O aumento indevido de E2 foi saneado localmente em 23/10/2026;
+critérios 2/3 aguardam revalidação independente dos quatro achados e consumidores.
+Os checkboxes continuam pendentes, sem reduzir o critério original nem autoaceite.
 
 ## Fora de escopo
 
@@ -47,6 +48,27 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+### Saneamento local — 23/10/2026
+
+CF032-01/02/03/04 **saneados localmente, aguardando revalidação independente**.
+CF-032 permanece em_revisao: critérios 1/4 sustentados; 2/3 ainda sem aceite.
+Capacidade por fonte incorpora pendências/evidências sob guard transacional;
+cartão consome métricas autoritativas; nomes substituem ticker ausente sem mudar
+UUID; XLSX conserva HH:mm:ss textual. Provas originais preservadas por hash.
+
+Antes: quatro falhas originais reproduzidas. Depois: 13 selecionados mais S5
+dirigido aprovados, sem alegar nova matriz histórica completa; 95 controles backend
+(incluem replay e capacidade após CLOSE/ASSIGN), 54 de componentes (19 novos incluídos),
+quatro contraprovas causais detectadas/restauradas e checks pertinentes aprovados.
+Reconciliação B/C, UNKNOWN/PARTIAL, G/H, nova sessão e bytes do XLSX preservados.
+[Causas, provas, comandos, custos e limites](../evidencias/saneamento-CF-032/README.md).
+
+README raiz mantém o hash histórico fora dos commits; runtimes anteriores intactos.
+Sem sucessoras, push, merge, deploy, banco real ou aprovação de zoom/adoção/carga.
+Próximo passo: revalidação independente dos quatro achados e dos critérios 2/3.
+
+### Revisão anterior — 23/10/2026
+
 Revisão independente de23/10/2026 sobre123e5a5: **em_revisao**, critérios1/4
 sustentados,2/3 pendentes. CF032-01/02/03 confirmados P2; CF032-04 confirmado P3
 por truncagem textual na exportação, com segundos preservados em API/SQL.
@@ -57,6 +79,8 @@ independentes e inspeção OOXML; nenhuma correção de produto ou sucessora ini
 [Parecer e matriz independentes](../evidencias/revisao-CF-032/README.md).
 Próximo passo: saneamento delimitado por causa e revalidação dos probes intactos;
 aceites anteriores e gates de zoom/adoção/desempenho preservados.
+
+### Entrega inicial — 22/10/2026
 
 Entrega local de validação em 22/10/2026 na branch `codex/cf032-e2e-financeiro`,
 base integrada `331d3344c24dc60f5e1940989b9a35c0d5da1aa6`, **em_revisao sem sucesso

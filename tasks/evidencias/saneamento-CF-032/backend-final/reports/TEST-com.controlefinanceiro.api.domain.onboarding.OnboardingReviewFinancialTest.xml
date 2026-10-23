@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.429" tests="5" errors="0" skipped="0" failures="0">
+  <testcase name="oversizedContractVersionMustNotWrapToV1OnPrepare" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.036" />
+  <testcase name="initializeEmptyMustRejectCalculatedDateOutsideCivilContractAtPrepare" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.056" />
+  <testcase name="initializedInvoiceCannotPersistYear10000BehindACompletedReceipt" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.065" />
+  <testcase name="identifiedChargesMustBePaidBeforeOlderPrincipalAcrossRolledInvoices" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.19">
+    <system-out><![CDATA[2026-10-23 12:11:10.789 - INFO 59740 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 12:11:10.804 - INFO 59740 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Review charges
+-2026-10-23 12:11:10.850 - INFO 59740 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 12:11:10.862 - INFO 59740 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Review charges
+-]]></system-out>
+  </testcase>
+  <testcase name="maximumTotalWithTinyQuantitySurvivesDatabaseReplayAndRecovery" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest" time="0.072" />
+</testsuite>

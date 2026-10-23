@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="4.78" tests="15" errors="0" skipped="0" failures="0">
+  <testcase name="purchaseOnEffectiveClosingDayMovesToNextCycleAcrossLeapFebruary" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.139">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 01:39:47.282 - INFO 48352 --- [           main] c.c.a.service.Cf019CardIntegrationTest   : Starting Cf019CardIntegrationTest using Java 21.0.12.1 with PID 48352 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\saneamento-20261023-after\backend)
+-2026-10-23 01:39:47.283 - INFO 48352 --- [           main] c.c.a.service.Cf019CardIntegrationTest   : The following 1 profile is active: "test"
+-2026-10-23 01:39:48.094 - WARN 48352 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 01:39:49.720 - INFO 48352 --- [           main] c.c.a.service.Cf019CardIntegrationTest   : Started Cf019CardIntegrationTest in 2.48 seconds (process running for 50.153)
+-2026-10-23 01:39:49.755 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 6e980143-5d9a-4312-adf2-1156e024664c: 1.00 (1x)
+-2026-10-23 01:39:49.794 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:49.802 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 6e980143-5d9a-4312-adf2-1156e024664c: 2.00 (1x)
+-2026-10-23 01:39:49.820 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:49.824 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 6e980143-5d9a-4312-adf2-1156e024664c: 3.00 (1x)
+-2026-10-23 01:39:49.844 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="simultaneousPartialRetryWithTheSameOperationIdDebitsOnce" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.12">
+    <system-out><![CDATA[2026-10-23 01:39:49.896 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 80729245-f054-4b75-960c-309d48ac6d1e: 200.00 (1x)
+-2026-10-23 01:39:49.909 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:49.913 - INFO 48352 --- [pool-3-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:49.915 - INFO 48352 --- [pool-3-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:49.936 - INFO 48352 --- [pool-3-thread-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-]]></system-out>
+  </testcase>
+  <testcase name="prepaymentAndFinalPaymentDoNotCreateNegativeCardPurchases" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.122">
+    <system-out><![CDATA[2026-10-23 01:39:50.008 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID d5addf62-9457-4d59-a2c3-3f2f0de831cf: 200.00 (1x)
+-2026-10-23 01:39:50.022 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.025 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:50.047 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:50.071 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:50.083 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-]]></system-out>
+  </testcase>
+  <testcase name="nextInvoiceIncludesRolledBalanceOnlyAfterThePreviousOneWasRolled" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.182">
+    <system-out><![CDATA[2026-10-23 01:39:50.130 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID eca86611-791a-48e6-af38-68333ce6e921: 200.00 (1x)
+-2026-10-23 01:39:50.144 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.149 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID eca86611-791a-48e6-af38-68333ce6e921: 50.00 (1x)
+-2026-10-23 01:39:50.162 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.167 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:50.179 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:50.241 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:50.253 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-]]></system-out>
+  </testcase>
+  <testcase name="refundReducesUnpaidPrincipalThenCreatesCardCreditForThePaidPart" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.161">
+    <system-out><![CDATA[2026-10-23 01:39:50.313 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 2e259ded-9c8b-4d11-97ad-6bd44ddc0abd: 120.00 (1x)
+-2026-10-23 01:39:50.326 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.328 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:50.340 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:50.440 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 2e259ded-9c8b-4d11-97ad-6bd44ddc0abd: 60.00 (1x)
+-2026-10-23 01:39:50.452 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="closingCronRetriesAfterRollbackAndNeverClosesOrNotifiesTwice" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.381">
+    <system-out><![CDATA[2026-10-23 01:39:50.475 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID a986c0fd-4fea-4d53-833b-dee4db876dff: 100.00 (1x)
+-2026-10-23 01:39:50.490 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.754 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-23 01:39:50.764 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cartão Cartão sintético (Mês 9/2026)
+-2026-10-23 01:39:50.770 - WARN 48352 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-23 01:39:50.771 - WARN 48352 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE
+-2026-10-23 01:39:50.773 -ERROR 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Erro ao tentar fechar a fatura ID 1c331eb6-7fb9-4760-a731-b87169cbb62d
+-
+org.springframework.orm.jpa.JpaSystemException: could not execute statement [ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE] [update invoices set card_id=?,closing_date=?,due_date=?,due_date_override=?,month=?,status=?,year=? where id=?]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:223) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:557) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:794) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:757) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:149) ~[spring-tx-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.InvoiceCronService.processInvoiceClosing(InvoiceCronService.java:51) ~[classes/:na]
+	at com.controlefinanceiro.api.service.Cf019CardIntegrationTest.closingCronRetriesAfterRollbackAndNeverClosesOrNotifiesTwice(Cf019CardIntegrationTest.java:406) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+Caused by: org.hibernate.exception.GenericJDBCException: could not execute statement [ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE] [update invoices set card_id=?,closing_date=?,due_date=?,due_date_override=?,month=?,status=?,year=? where id=?]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:39) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:184) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:66) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.doStaticUpdate(UpdateCoordinatorStandard.java:776) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.performUpdate(UpdateCoordinatorStandard.java:313) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.update(UpdateCoordinatorStandard.java:231) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.action.internal.EntityUpdateAction.execute(EntityUpdateAction.java:161) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:381) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1489) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:481) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2116) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2038) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:410) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:166) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:248) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:553) ~[spring-orm-7.0.3.jar:7.0.3]
+	... 86 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: CF019 synthetic close failure
+  Onde: PL/pgSQL function cf019_reject_close() line 4 at RAISE
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2846) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2531) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:429) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:526) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:436) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.9.jar:42.7.9]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:181) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	... 108 common frames omitted
+
+2026-10-23 01:39:50.791 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verificação concluída com sucesso.
+-2026-10-23 01:39:50.810 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-23 01:39:50.817 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A fechar fatura do cartão Cartão sintético (Mês 9/2026)
+-2026-10-23 01:39:50.827 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verificação concluída com sucesso.
+-2026-10-23 01:39:50.827 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: A verificar fecho de faturas...
+-2026-10-23 01:39:50.834 - INFO 48352 --- [           main] c.c.api.service.InvoiceCronService       : CRON-INVOICE: Verificação concluída com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="finalInstallmentGetsTheRemainderAndEachInstallmentHasOneSuccessiveCompetence" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.068">
+    <system-out><![CDATA[2026-10-23 01:39:50.858 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 31742f7c-afd2-48a5-953f-df15fa402929: 100.00 (3x)
+-2026-10-23 01:39:50.903 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="purchaseAndCategoryMutationRejectOtherOwnerWithoutChangingDebt" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.106">
+    <system-out><![CDATA[2026-10-23 01:39:50.937 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 607dbe40-4cca-472f-80c7-0f3b1ecb54d1: 25.00 (1x)
+-2026-10-23 01:39:50.954 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:50.961 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 607dbe40-4cca-472f-80c7-0f3b1ecb54d1: 10.00 (1x)
+-2026-10-23 01:39:50.984 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.003 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:51.010 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-]]></system-out>
+  </testcase>
+  <testcase name="partialRefundOfInstallmentsReducesLastOutstandingPrincipalFirst" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.142">
+    <system-out><![CDATA[2026-10-23 01:39:51.039 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID f1da8875-3136-4f22-9da1-4672ce2670ce: 90.00 (3x)
+-2026-10-23 01:39:51.084 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="openingDebtCountsCurrentInstallmentOnceAndNeverCreatesPaidHistory" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.162">
+    <system-out><![CDATA[2026-10-23 01:39:51.272 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.283 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-]]></system-out>
+  </testcase>
+  <testcase name="legacyPaidInvoiceDoesNotBecomeOutstandingDebtAndUnknownClosingIsNotInvented" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.065">
+    <system-out><![CDATA[2026-10-23 01:39:51.343 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 223e525f-ae20-448d-84cc-92fb6b30c797: 70.00 (1x)
+-2026-10-23 01:39:51.357 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="partialThenFullPaymentSettlesTheSameDebtOnceWithoutCreatingExpense" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.157">
+    <system-out><![CDATA[2026-10-23 01:39:51.412 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 64520d54-8ca1-4452-a7c9-1674915d4778: 200.00 (1x)
+-2026-10-23 01:39:51.424 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:51.428 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.440 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:51.482 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.492 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.509 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-]]></system-out>
+  </testcase>
+  <testcase name="differentIntentsAllowEqualPaymentsAndRetryValidatesTheWholeCommand" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.174">
+    <system-out><![CDATA[2026-10-23 01:39:51.574 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID e27305ba-e235-4685-b12d-7cd0a5c7989e: 300.00 (1x)
+-2026-10-23 01:39:51.587 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:51.590 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.603 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:51.629 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.642 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:51.664 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.680 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.687 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.693 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.703 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-]]></system-out>
+  </testcase>
+  <testcase name="paymentRollsBackDebitAndAllocationsWhenTheLastWriteFails" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.072">
+    <system-out><![CDATA[2026-10-23 01:39:51.747 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID 01aeb6b7-9699-4b19-b5c1-c365c8071954: 100.00 (1x)
+-2026-10-23 01:39:51.763 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:51.770 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-23 01:39:51.781 - INFO 48352 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão Cartão sintético
+-2026-10-23 01:39:51.791 - WARN 48352 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-23 01:39:51.791 - WARN 48352 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF019 synthetic allocation failure
+  Onde: PL/pgSQL function cf019_reject_allocation() line 5 at RAISE
+-]]></system-out>
+  </testcase>
+  <testcase name="nominalDay31ClampsInShortMonthWithoutDriftingTheFollowingInstallment" classname="com.controlefinanceiro.api.service.Cf019CardIntegrationTest" time="0.095">
+    <system-out><![CDATA[2026-10-23 01:39:51.818 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID d7997021-2fc6-43b0-b262-870c75dc1b3c: 0.03 (3x)
+-2026-10-23 01:39:51.858 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-23 01:39:51.865 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID d7997021-2fc6-43b0-b262-870c75dc1b3c: 0.01 (2x)
+-2026-10-23 01:39:51.871 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID d7997021-2fc6-43b0-b262-870c75dc1b3c: 1.005 (1x)
+-2026-10-23 01:39:51.878 - INFO 48352 --- [           main] c.c.api.service.CreditCardService        : Nova compra no cartão ID d7997021-2fc6-43b0-b262-870c75dc1b3c: 1000000000000.00 (1x)
+-]]></system-out>
+  </testcase>
+</testsuite>
