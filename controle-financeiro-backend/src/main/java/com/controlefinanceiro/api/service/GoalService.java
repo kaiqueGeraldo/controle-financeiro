@@ -34,7 +34,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -44,6 +43,7 @@ public class GoalService {
     @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private OwnedResourceOrder ownedOrder;
+    @Autowired private SourceReservationService sourceReservations;
 
     @Autowired
     private GoalRepository repository;
@@ -133,7 +133,8 @@ public class GoalService {
 
     @Transactional
     public void addValue(UUID goalId, GoalDepositDTO data, User user) {
-        inventoryGuard.writer(user.getId());
+        if(data.accountId()!=null || data.investmentId()!=null)inventoryGuard.snapshot(user.getId());
+        else inventoryGuard.writer(user.getId());
         log.info("Registrando progresso/destinação na meta ID: {}. Valor: {}", goalId, data.amount());
         ZonedDateTime now = ZonedDateTime.now(clock);
         LocalDate today = now.toLocalDate();
@@ -161,23 +162,13 @@ public class GoalService {
                 Account account = accountRepository.findOwnedForAllocation(data.accountId(), user.getId())
                         .orElseThrow(() -> new ResourceNotFoundException("Conta de origem não encontrada"));
                 account.requireActive();
-                BigDecimal allocated = allocationRepository.sumByAccountId(account.getId());
-                if (account.getBalance().max(BigDecimal.ZERO).subtract(allocated).compareTo(data.amount()) < 0) {
-                    throw new BusinessRuleException("Disponível da conta insuficiente para destinação.");
-                }
+                sourceReservations.requireCapacity(user.getId(),account.getId(),null,data.amount());
                 allocation = allocationRepository.findByGoalIdAndAccountId(goalId, account.getId())
                         .orElseGet(() -> newAllocation(goal, account, null));
             } else {
                 Investment investment = investmentRepository.findOwnedForAllocation(data.investmentId(), user.getId())
                         .orElseThrow(() -> new ResourceNotFoundException("Investimento de origem não encontrado"));
-                BigDecimal value = investment.getTotalValue();
-                if (value == null) {
-                    throw new BusinessRuleException("Avaliação do investimento indisponível para nova destinação.");
-                }
-                BigDecimal allocated = allocationRepository.sumByInvestmentId(investment.getId());
-                if (value.max(BigDecimal.ZERO).subtract(allocated).compareTo(data.amount()) < 0) {
-                    throw new BusinessRuleException("Disponível do investimento insuficiente para destinação.");
-                }
+                sourceReservations.requireCapacity(user.getId(),null,investment.getId(),data.amount());
                 allocation = allocationRepository.findByGoalIdAndInvestmentId(goalId, investment.getId())
                         .orElseGet(() -> newAllocation(goal, null, investment));
             }
@@ -226,22 +217,15 @@ public class GoalService {
             throw new ResourceNotFoundException("Meta não encontrada");
         }
         List<GoalAllocation> all = allocationRepository.findAllOwnedWithSources(user.getId());
-        Map<UUID, BigDecimal> byAccount = new HashMap<>();
-        Map<UUID, BigDecimal> byInvestment = new HashMap<>();
-        for (GoalAllocation allocation : all) {
-            if (allocation.getAccount() != null) {
-                byAccount.merge(allocation.getAccount().getId(), allocation.getAmount(), BigDecimal::add);
-            } else {
-                byInvestment.merge(allocation.getInvestment().getId(), allocation.getAmount(), BigDecimal::add);
-            }
-        }
+        var capacities=sourceReservations.inspect(user.getId());
         return all.stream().filter(a -> a.getGoal().getId().equals(goalId)).map(a -> {
             UUID accountId = a.getAccount() == null ? null : a.getAccount().getId();
             UUID investmentId = a.getInvestment() == null ? null : a.getInvestment().getId();
             BigDecimal value = accountId != null ? a.getAccount().getBalance() : a.getInvestment().getTotalValue();
-            BigDecimal total = accountId != null ? byAccount.get(accountId) : byInvestment.get(investmentId);
-            BigDecimal free = value == null ? null : value.subtract(total).max(BigDecimal.ZERO);
-            BigDecimal deficit = value == null ? null : total.subtract(value.max(BigDecimal.ZERO)).max(BigDecimal.ZERO);
+            var capacity=capacities.get(accountId!=null?"ACCOUNT:"+accountId:"INVESTMENT:"+investmentId);
+            BigDecimal total = capacity==null || !capacity.known()?null:capacity.reserved();
+            BigDecimal free = value == null || total==null ? null : value.subtract(total).max(BigDecimal.ZERO);
+            BigDecimal deficit = value == null || total==null ? null : total.subtract(value.max(BigDecimal.ZERO)).max(BigDecimal.ZERO);
             return new GoalAllocationResponseDTO(a.getId(), accountId, investmentId,
                     a.getAmount(), value, total, free, deficit);
         }).toList();
@@ -249,7 +233,10 @@ public class GoalService {
 
     @Transactional
     public void setAllocation(UUID goalId, SetGoalAllocationDTO data, User user) {
-        inventoryGuard.writer(user.getId());
+        // Positive targets can increase capacity; stabilize the evidence inventory
+        // before any source lock. Explicit release-to-zero retains the shared guard.
+        if(data.amount()!=null && data.amount().signum()>0)inventoryGuard.snapshot(user.getId());
+        else inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
@@ -266,7 +253,7 @@ public class GoalService {
         BigDecimal previous = allocation == null ? BigDecimal.ZERO : allocation.getAmount();
         BigDecimal delta = data.amount().subtract(previous);
         if (delta.signum() == 0) return;
-        if (delta.signum() > 0) ensureCapacity(account, investment, delta);
+        if (delta.signum() > 0) ensureCapacity(account, investment, delta,user);
         requireMoney(goal.getCurrentValue().add(delta));
         if (allocation == null) allocation = newAllocation(goal, account, investment);
         allocation.setAmount(data.amount());
@@ -279,7 +266,7 @@ public class GoalService {
 
     @Transactional
     public void moveAllocation(UUID goalId, MoveGoalAllocationDTO data, User user) {
-        inventoryGuard.writer(user.getId());
+        inventoryGuard.snapshot(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());
@@ -309,7 +296,7 @@ public class GoalService {
         }
         Account destinationAccount = data.accountId() == null ? null : accountRepository.findById(data.accountId()).orElseThrow();
         Investment destinationInvestment = data.investmentId() == null ? null : investmentRepository.findById(data.investmentId()).orElseThrow();
-        ensureCapacity(destinationAccount, destinationInvestment, data.amount());
+        ensureCapacity(destinationAccount, destinationInvestment, data.amount(),user);
         GoalAllocation destination = destinationAccount != null
                 ? allocationRepository.findByGoalIdAndAccountId(goalId, destinationAccount.getId()).orElseGet(
                         () -> newAllocation(goal, destinationAccount, null))
@@ -347,15 +334,10 @@ public class GoalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Investimento não encontrado"));
     }
 
-    private void ensureCapacity(Account account, Investment investment, BigDecimal increase) {
+    private void ensureCapacity(Account account, Investment investment, BigDecimal increase,User user) {
         if (account != null) account.requireActive();
-        BigDecimal value = account != null ? account.getBalance() : investment.getTotalValue();
-        if (value == null) throw new BusinessRuleException("Avaliação da fonte indisponível.");
-        BigDecimal allocated = account != null ? allocationRepository.sumByAccountId(account.getId())
-                : allocationRepository.sumByInvestmentId(investment.getId());
-        if (!ReservationCapacity.allows(value,allocated,increase,true)) {
-            throw new BusinessRuleException("Disponível da fonte insuficiente para destinação.");
-        }
+        sourceReservations.requireCapacity(user.getId(),account==null?null:account.getId(),
+                investment==null?null:investment.getId(),increase);
     }
 
     private void recordAllocationChange(Goal goal, UUID allocationId, BigDecimal delta, String note, ZonedDateTime now) {

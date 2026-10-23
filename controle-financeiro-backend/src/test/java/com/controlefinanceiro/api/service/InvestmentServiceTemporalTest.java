@@ -43,6 +43,8 @@ class InvestmentServiceTemporalTest {
         TransactionRepository transactionRepository = mock(TransactionRepository.class);
         CategoryRepository categoryRepository = mock(CategoryRepository.class);
         InvestmentService service = new InvestmentService();
+        // Capacity has PostgreSQL coverage; this existing unit observes civil time.
+        ReflectionTestUtils.setField(service,"sourceReservations",mock(SourceReservationService.class));
         org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
 
         User user = new User();

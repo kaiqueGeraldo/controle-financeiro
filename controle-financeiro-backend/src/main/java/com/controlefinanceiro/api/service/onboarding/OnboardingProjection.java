@@ -37,6 +37,7 @@ public final class OnboardingProjection {
     public final Map<String,String> aliases=new HashMap<>();
     public final List<JsonNode> mappingPreview=new ArrayList<>();
     public final List<JsonNode> evidence=new ArrayList<>();
+    private final Map<String,List<JsonNode>> evidenceById=new HashMap<>();
     public final JsonNode payload; public final OnboardingInventory.Snapshot inventory;
     public final Instant asOf; public final LocalDate baseDate; public final String baseToken;
     private final Map<String,JsonNode> allocationRows=new HashMap<>();
@@ -53,11 +54,32 @@ public final class OnboardingProjection {
         this(payload,inventory,asOf,200000);
     }
     public OnboardingProjection(JsonNode payload,OnboardingInventory.Snapshot inventory,Instant asOf,long maxRelations) {
+        this(payload,inventory,asOf,maxRelations,true);
+    }
+    private OnboardingProjection(JsonNode payload,OnboardingInventory.Snapshot inventory,Instant asOf,long maxRelations,boolean interview) {
         this.maxRelations=maxRelations;
         this.payload=payload;this.inventory=inventory;this.asOf=asOf;
-        this.baseDate=LocalDate.parse(payload.at("/context/baseDate").asText());
+        this.baseDate=interview?LocalDate.parse(payload.at("/context/baseDate").asText()):null;
         this.baseToken=baseToken(inventory,payload);
-        existing();selection();validateInitializedCardCycles();legacy();confirmations();reservationParts();newAllocations();summarizeSources();summarizeGoals();summarizeCards();
+        existing();
+        if(interview){selection();validateInitializedCardCycles();}
+        legacy();
+        if(interview)confirmations();
+        reservationParts();
+        if(interview){newAllocations();summarizeSources();summarizeGoals();summarizeCards();}
+    }
+    public record SourceReservation(BigDecimal value,BigDecimal reserved,boolean active,Set<String> blocking) {
+        public boolean known() {return blocking.isEmpty();}
+    }
+    /** Same domain evidence/incidence rules as review, without a saved interview,
+     * selection, commands, financial reports or invented calendar. One inventory
+     * projection per command/batch, never one planner per source. */
+    public static Map<String,SourceReservation> sourceReservations(OnboardingInventory.Snapshot inventory,long maxRelations) {
+        var projection=new OnboardingProjection(object(),inventory,null,maxRelations,false);
+        Map<String,SourceReservation> result=new HashMap<>();
+        projection.sources.forEach((key,source)->result.put(key,new SourceReservation(
+                source.value,total(source),!source.archived,Set.copyOf(source.blocking))));
+        return Map.copyOf(result);
     }
     public JsonNode items(String section) {return payload.path("sections").path(section).path("items");}
     public static String baseToken(OnboardingInventory.Snapshot inventory,JsonNode payload) {
@@ -201,7 +223,7 @@ public final class OnboardingProjection {
         if(!refs.isArray() || refs.isEmpty()) return false;
         for(JsonNode id:refs) {
             boolean match=false;
-            for(JsonNode e:evidence) if(e.path("id").asText().equals(id.asText()) && e.path("reservationId").asText().equals(r.path("reservationId").asText())
+            for(JsonNode e:evidenceById.getOrDefault(id.asText(),List.of())) if(e.path("reservationId").asText().equals(r.path("reservationId").asText())
                     && e.path("claim").asText().equals(claim) && (e.path("inventoryToken").asText().equals(baseToken) || domainLink(r,e,claim))
                     && Set.of("DOMAIN_RECORD","CURRENT_DECLARATION").contains(e.path("basis").asText())
                     && canonical(e.path("sources")).equals(canonical(JSON.valueToTree(expectedSources)))) match=true;
@@ -216,6 +238,7 @@ public final class OnboardingProjection {
                 && r.at("/attribution/parts/0/amount/state").asText().equals("UNKNOWN");
     }
     private void reservationParts() {
+        for(JsonNode e:evidence)evidenceById.computeIfAbsent(e.path("id").asText(),key->new ArrayList<>()).add(e);
         for(JsonNode r:reservations.values()) {
             JsonNode a=r.path("attribution");String state=a.path("state").asText(),id=r.path("reservationId").asText();
             List<JsonNode> refs=new ArrayList<>();List<String> affected=new ArrayList<>();

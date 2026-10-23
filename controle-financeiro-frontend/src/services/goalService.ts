@@ -11,7 +11,7 @@ import {
 
 export interface GoalAllocation {
   id: string; accountId: string | null; investmentId: string | null;
-  amount: number; sourceValue: number | null; sourceTotalAllocated: number;
+  amount: number; sourceValue: number | null; sourceTotalAllocated: number | null;
   sourceFree: number | null; sourceDeficit: number | null;
 }
 export interface GoalPurchase {

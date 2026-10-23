@@ -42,6 +42,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class InvestmentService {
+    @Autowired private SourceReservationService sourceReservations;
     @org.springframework.beans.factory.annotation.Autowired private FinancialInventoryGuard inventoryGuard;
 
     @Autowired private InvestmentRepository investmentRepository;
@@ -130,7 +131,8 @@ public class InvestmentService {
                 data.price(),data.fees()==null?BigDecimal.ZERO:data.fees(),data.date(),data.accountId(),data.amount());
         var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
         if(previous!=null) return previous;
-        inventoryGuard.writer(user.getId());
+        if(data.type()==InvestTransType.BUY)inventoryGuard.snapshot(user.getId());
+        else inventoryGuard.writer(user.getId());
         var result=performOperationOnce(data,user);
         intents.complete(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,result);
         return result;
@@ -211,10 +213,7 @@ public class InvestmentService {
         BigDecimal currentCost = investment.getTotalCost() == null ? BigDecimal.ZERO : investment.getTotalCost();
         BigDecimal totalCost = gross.add(fees);
         requireMoney(totalCost, true);
-        BigDecimal free = account.getBalance().subtract(allocationRepository.sumByAccountId(account.getId()));
-        if (free.compareTo(totalCost) < 0) {
-            throw new BusinessRuleException("Disponível livre da conta insuficiente para investimento.");
-        }
+        sourceReservations.requireCapacity(user.getId(),account.getId(),null,totalCost);
         account.debit(totalCost);
         accountRepository.save(account);
         Transaction bankTx = createBankTransaction(account, totalCost, TransactionType.EXPENSE,

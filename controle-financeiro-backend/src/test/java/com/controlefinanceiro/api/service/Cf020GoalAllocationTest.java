@@ -52,6 +52,9 @@ class Cf020GoalAllocationTest {
         CategoryRepository categories = mock(CategoryRepository.class);
         TransactionRepository transactions = mock(TransactionRepository.class);
         GoalService service = new GoalService();
+        // This unit observes cash/history effects; capacity authorization is real
+        // PostgreSQL coverage in DailyReservationCapacityTest and CF032 E2.
+        ReflectionTestUtils.setField(service,"sourceReservations",mock(SourceReservationService.class));
         org.springframework.test.util.ReflectionTestUtils.setField(service,"inventoryGuard",org.mockito.Mockito.mock(FinancialInventoryGuard.class));
         ReflectionTestUtils.setField(service, "repository", goals);
         ReflectionTestUtils.setField(service, "accountRepository", accounts);
