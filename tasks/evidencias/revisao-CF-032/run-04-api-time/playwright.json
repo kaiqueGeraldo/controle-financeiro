@@ -1,0 +1,164 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tests/cf032/playwright.config.ts",
+      "--grep",
+      "R3 horário"
+    ],
+    "configFile": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\playwright.config.ts",
+    "rootDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-032/revisao-20261023-01/frontend/tests/cf032",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revisao-CF-032/run-04-api-time/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-032/revisao-20261023-01/frontend/tests/cf032",
+        "testIgnore": [],
+        "testMatch": [
+          "journeys.spec.ts"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\revisao-CF-032\\run-04-api-time\\playwright.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3142",
+      "cwd": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend",
+      "url": "http://127.0.0.1:3142/auth",
+      "reuseExistingServer": false,
+      "timeout": 60000
+    }
+  },
+  "suites": [
+    {
+      "title": "journeys.spec.ts",
+      "file": "journeys.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "R3 horário original, resposta API, releitura e XLSX",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5615,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"12:34\u001b[7m:56\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"12:34\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"12:34\u001b[7m:56\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"12:34\"\u001b[39m\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\journeys.spec.ts:323:26",
+                    "location": {
+                      "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\journeys.spec.ts",
+                      "column": 26,
+                      "line": 323
+                    },
+                    "snippet": "  321 |  const book=await download(page,\"R3-time.xlsx\");\n  322 |  const lineExport=(book[\"Extrato Financeiro\"] as unknown[][]).find(row=>row[2]===input.description);\n> 323 |  expect(lineExport?.[1]).toBe(\"12:34:56\");\n      |                          ^\n  324 | });\n  325 |\n  326 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\journeys.spec.ts",
+                        "column": 26,
+                        "line": 323
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"12:34\u001b[7m:56\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"12:34\"\u001b[39m\n\n  321 |  const book=await download(page,\"R3-time.xlsx\");\n  322 |  const lineExport=(book[\"Extrato Financeiro\"] as unknown[][]).find(row=>row[2]===input.description);\n> 323 |  expect(lineExport?.[1]).toBe(\"12:34:56\");\n      |                          ^\n  324 | });\n  325 |\n  326 |\n    at C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\journeys.spec.ts:323:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-23T04:05:12.532Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\revisao-CF-032\\run-04-api-time\\artifacts\\journeys-R3-horário-original-resposta-API-releitura-e-XLSX\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\revisao-CF-032\\run-04-api-time\\artifacts\\journeys-R3-horário-original-resposta-API-releitura-e-XLSX\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-032\\revisao-20261023-01\\frontend\\tests\\cf032\\journeys.spec.ts",
+                    "column": 26,
+                    "line": 323
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "aa09586c1d16412a1f00-078679e018f9644b2290",
+          "file": "journeys.spec.ts",
+          "line": 310,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-23T04:05:10.668Z",
+    "duration": 8190.143,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

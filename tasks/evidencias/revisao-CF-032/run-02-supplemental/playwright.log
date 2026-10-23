@@ -1,0 +1,47 @@
+[WebServer] (node:68536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 2 tests using 1 worker
+
+(node:65992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] tests\cf032\journeys.spec.ts:262:5 › R1 controle positivo de reserva conhecida e débito real com legado incerto
+[2/2] tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker
+  1) tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByText('Disponível', { exact: true }).first().locator('..')
+    Expected substring: "656,00"
+    Received string:    "DisponívelR$ 950,00"
+    Timeout: 12000ms
+
+    Call log:
+      - Expect "soft toContainText" getByText('Disponível', { exact: true }).first().locator('..') with timeout 12000ms
+      - waiting for getByText('Disponível', { exact: true }).first().locator('..')
+        27 × locator resolved to <div class="min-w-0 [overflow-wrap:anywhere]">…</div>
+           - unexpected value "DisponívelR$ 950,00"
+
+
+      286 |  await paint(page,available,"R2-card-session");
+      287 |  await save("R2-card-session",{card,visible:await available.innerText()});
+    > 288 |  await expect.soft(available).toContainText("656,00");
+          |                               ^
+      289 |  const positions=rows(await json(page,"/investments"));
+      290 |  expect(positions).toHaveLength(2);expect(positions.every(p=>p.ticker===null)).toBe(true);
+      291 |  const visits:unknown[]=[];
+        at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\revisao-20261023-01\frontend\tests\cf032\journeys.spec.ts:288:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\..\..\controle-financeiro\tasks\evidencias\revisao-CF-032\run-02-supplemental\artifacts\journeys-R2-nova-sessão-do-6f819-as-duas-posições-sem-ticker\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\..\..\controle-financeiro\tasks\evidencias\revisao-CF-032\run-02-supplemental\artifacts\journeys-R2-nova-sessão-do-6f819-as-duas-posições-sem-ticker\error-context.md
+
+
+  1 failed
+    tests\cf032\journeys.spec.ts:281:5 › R2 nova sessão do cartão e seleção das duas posições sem ticker 
+  1 passed (26.6s)

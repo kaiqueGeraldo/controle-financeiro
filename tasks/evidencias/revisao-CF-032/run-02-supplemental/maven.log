@@ -1,0 +1,146 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 18 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+03:58:10.578 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+03:58:10.877 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+03:58:11.402 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+03:58:11.404 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-23 03:58:11.908 - INFO 23544 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-23 03:58:12.245 - INFO 23544 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-23 03:58:12.881 - INFO 23544 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-23 03:58:12.884 - INFO 23544 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-23 03:58:12.915 - INFO 23544 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-23 03:58:14.012 - INFO 23544 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-23 03:58:14.012 - INFO 23544 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-23 03:58:14.013 - INFO 23544 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-23 03:58:15.957 - INFO 23544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Starting FinancialJourneyPostgresE2E using Java 21.0.12.1 with PID 23544 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\revisao-20261023-01\backend)
+-2026-10-23 03:58:15.958 - INFO 23544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+-2026-10-23 03:58:25.679 - WARN 23544 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-23 03:58:33.296 - INFO 23544 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Started FinancialJourneyPostgresE2E in 21.88 seconds (process running for 24.01)
+-2026-10-23 03:58:37.116 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-8da41fca-review-known@example.invalid
+-2026-10-23 03:58:37.148 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-8da41fca-review-known@example.invalid
+-2026-10-23 03:58:37.559 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 5f245518-7366-4955-a2dd-715fe49e9e07
+-2026-10-23 03:58:37.559 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 5f245518-7366-4955-a2dd-715fe49e9e07
+-2026-10-23 03:58:37.611 - INFO 23544 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-8da41fca-review-known@example.invalid
+-2026-10-23 03:58:37.777 - INFO 23544 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-8da41fca-review-known@example.invalid
+-2026-10-23 03:58:38.012 - INFO 23544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:39.043 - INFO 23544 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:40.183 - INFO 23544 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Criar Meta 'Reserva independente conhecida' para usu�rio cf003-a-cf032-8da41fca-review-known@example.invalid
+-2026-10-23 03:58:40.196 - INFO 23544 --- [o-auto-1-exec-9] c.c.api.service.GoalService              : Criando nova meta: Reserva independente conhecida
+-2026-10-23 03:58:40.505 - INFO 23544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-known@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:41.183 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 03:58:41.663 - INFO 23544 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid
+-2026-10-23 03:58:41.666 - INFO 23544 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid
+-2026-10-23 03:58:41.784 - INFO 23544 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 92be491c-d0fb-427f-85d5-075124d15506
+-2026-10-23 03:58:41.784 - INFO 23544 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 92be491c-d0fb-427f-85d5-075124d15506
+-2026-10-23 03:58:41.810 - INFO 23544 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid
+-2026-10-23 03:58:41.894 - INFO 23544 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid
+-2026-10-23 03:58:41.964 - INFO 23544 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:42.194 - INFO 23544 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 03:58:42.241 - INFO 23544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:43.187 - INFO 23544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | Valor: 1.00 | Tipo: EXPENSE
+-2026-10-23 03:58:43.200 - INFO 23544 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=1.00, ContaID=ca91a7ae-d454-4d3d-991d-c63f4d6ed341
+-2026-10-23 03:58:43.208 - INFO 23544 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta ca91a7ae-d454-4d3d-991d-c63f4d6ed341. Novo saldo: 999.00
+-2026-10-23 03:58:43.218 - INFO 23544 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 43700c39-c4e9-4f1c-9d4b-016c230d44e1
+-2026-10-23 03:58:43.259 - INFO 23544 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | M�s: 10 | Conta: null
+-2026-10-23 03:58:43.284 - INFO 23544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-unknown-debit@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:44.075 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:44.077 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:44.196 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 93800d02-ccbf-4940-8cf7-21f2ea78e955
+-2026-10-23 03:58:44.196 - INFO 23544 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 93800d02-ccbf-4940-8cf7-21f2ea78e955
+-2026-10-23 03:58:44.213 - INFO 23544 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:44.310 - INFO 23544 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:44.374 - INFO 23544 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:44.771 - INFO 23544 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:45.850 - INFO 23544 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:46.440 - INFO 23544 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-23 03:58:47.034 - INFO 23544 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:47.165 - INFO 23544 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-8da41fca-review-session@example.invalid
+-2026-10-23 03:58:47.239 - INFO 23544 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:47.473 - INFO 23544 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:58:59.844 - INFO 23544 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-2026-10-23 03:59:00.009 - INFO 23544 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-8da41fca-review-session@example.invalid | M�s: null | Conta: null
+-[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 50.46 s <<< FAILURE! -- in com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+[ERROR] com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E.independentFinancialJourneys -- Time elapsed: 27.46 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\revisao-CF-032\run-02-supplemental\playwright.log] 
+expected: 0
+ but was: 1
+	at com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E.independentFinancialJourneys(FinancialJourneyPostgresE2E.java:102)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   FinancialJourneyPostgresE2E.independentFinancialJourneys:102 [Browser assertions; failures preserved at C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\tasks\evidencias\revisao-CF-032\run-02-supplemental\playwright.log] 
+expected: 0
+ but was: 1
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  55.162 s
+[INFO] Finished at: 2026-10-23T03:59:01Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-032\revisao-20261023-01\backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
