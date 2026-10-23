@@ -23,7 +23,8 @@ import static com.controlefinanceiro.api.domain.onboarding.OnboardingJson.*;
 @Component
 public class OnboardingOpenings {
     private final EntityManager em;private final JdbcTemplate jdbc;
-    public OnboardingOpenings(EntityManager em,JdbcTemplate jdbc) {this.em=em;this.jdbc=jdbc;}
+    private final OnboardingInventory inventory;
+    public OnboardingOpenings(EntityManager em,JdbcTemplate jdbc,OnboardingInventory inventory) {this.em=em;this.jdbc=jdbc;this.inventory=inventory;}
     @Transactional(propagation=Propagation.MANDATORY)
     public List<JsonNode> apply(UUID owner,UUID session,OnboardingProjection p,Instant now) {
         User user=em.getReference(User.class,owner);
@@ -97,7 +98,26 @@ public class OnboardingOpenings {
         }
         em.flush();
         for(JsonNode item:mapping)jdbc.update("insert into onboarding_application_items(session_id,temp_id,kind,resource_id,action) values(?,?,?,?,?)",session,UUID.fromString(item.path("tempId").asText()),item.path("kind").asText(),UUID.fromString(item.path("id").asText()),item.path("action").asText());
+        bindNewDeclarationsToCommittedInventory(owner,p,ids,now);
         return mapping;
+    }
+    /** Only this transaction's newly validated declarations certify its resulting
+     * inventory. Never refresh old evidence: later changes must still invalidate it.
+     * The enclosing complete holds the exclusive owner guard through commit. */
+    private void bindNewDeclarationsToCommittedInventory(UUID owner,OnboardingProjection p,Map<String,UUID> ids,Instant now) {
+        if(p.declarations.isEmpty())return;
+        String token=OnboardingProjection.baseToken(inventory.load(owner),object());
+        List<Object[]> updates=new ArrayList<>();
+        for(var declaration:p.declarations) {
+            var evidence=(tools.jackson.databind.node.ObjectNode)resolveReferences(declaration.evidence(),p,ids);
+            evidence.put("inventoryToken",token);
+            evidence.put("validatedAt",now.toString());
+            updates.add(new Object[]{JSON.valueToTree(List.of(evidence)).toString(),owner,
+                    UUID.fromString(declaration.command().path("reservationId").asText()),
+                    Long.parseLong(declaration.result().path("revision").asText())});
+        }
+        for(int changed:jdbc.batchUpdate("update onboarding_reservation_records set evidence=? where user_id=? and id=? and revision=?",updates))
+            if(changed==0)throw new IllegalStateException("New reservation declaration changed before final evidence binding");
     }
     private void cards(User user,OnboardingProjection p,Map<String,UUID> ids,List<JsonNode> mapping,Instant now) {
         Map<String,Map<YearMonth,JsonNode>> invoiceRows=new HashMap<>();

@@ -184,4 +184,34 @@ class DailyReservationCapacityTest extends OnboardingApplicationSupport {
         assertThat(sql.queryForObject("select count(*) from invest_transactions where investment_id=?",Long.class,asset)).isEqualTo(1L);
         assertThat(sql.queryForObject("select revision from onboarding_reservation_records where id=?",Long.class,reservation)).isZero();
     }
+
+    @Test void closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit() {
+        UUID source=account("1000.00"),legacy=goal(),target=goal();
+        sql.update("update goals set allocation_reconciled=false,current_value=100 where id=?",legacy);
+        JsonNode reservation=node("reservationId",legacy.toString(),"revision","0","goal",node("state","KNOWN","value",node("kind","GOAL","id",legacy.toString())),
+                "nominal",unknown("/legacy/nominal").json(),"attribution",node("state","UNBOUNDED","excluded",List.of()));
+        sql.update("insert into onboarding_reservation_records(id,user_id,revision,attribution,evidence,recorded_at) values(?,?,0,?,'[]',now())",legacy,user.getId(),reservation.toString());
+        var write=minimal();((tools.jackson.databind.node.ObjectNode)write.path("payload")).set("reservationConfirmations",JSON.valueToTree(List.of(node(
+                "reservationId",legacy.toString(),"expectedRevision","0","action","CLOSE","currentSituationConfirmed",true))));
+        var prepared=prepare(write);app.complete(user.getId(),completeCommand(prepared));
+        assertThat(sql.queryForObject("select allocation_reconciled from goals where id=?",Boolean.class,legacy)).isTrue();
+        set(target,source,false,"1000.00");
+        assertThat(reserved()).isEqualByComparingTo("1000.00");
+        assertThat(sql.queryForObject("select balance from accounts where id=?",BigDecimal.class,source)).isEqualByComparingTo("1000.00");
+    }
+
+    @Test void confirmedAssignmentAllowsOnlyItsRemainingCapacityAfterCommit() {
+        UUID source=account("1000.00"),legacy=goal(),target=goal();
+        sql.update("update goals set allocation_reconciled=false,current_value=100 where id=?",legacy);
+        JsonNode reservation=node("reservationId",legacy.toString(),"revision","0","goal",node("state","KNOWN","value",node("kind","GOAL","id",legacy.toString())),
+                "nominal",unknown("/legacy/nominal").json(),"attribution",node("state","UNBOUNDED","excluded",List.of()));
+        sql.update("insert into onboarding_reservation_records(id,user_id,revision,attribution,evidence,recorded_at) values(?,?,0,?,'[]',now())",legacy,user.getId(),reservation.toString());
+        var write=minimal();((tools.jackson.databind.node.ObjectNode)write.path("payload")).set("reservationConfirmations",JSON.valueToTree(List.of(node(
+                "reservationId",legacy.toString(),"expectedRevision","0","action","ASSIGN","currentSituationConfirmed",true,
+                "goal",node("kind","GOAL","id",legacy.toString()),"parts",List.of(node("source",ref(source,false),"amount","400.00"))))));
+        var prepared=prepare(write);app.complete(user.getId(),completeCommand(prepared));
+        assertThat(goals.listAllocations(legacy,user).getFirst().sourceFree()).isEqualByComparingTo("600.00");
+        set(target,source,false,"600.00");assertThat(reserved()).isEqualByComparingTo("1000.00");
+        assertThat(sql.queryForObject("select balance from accounts where id=?",BigDecimal.class,source)).isEqualByComparingTo("1000.00");
+    }
 }
