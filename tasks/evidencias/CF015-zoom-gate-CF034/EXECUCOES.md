@@ -13,6 +13,11 @@ como nova execução.
 2. Backup recuperável do README em `%TEMP%/cf015-zoom-gate-cf034-20261024/README.preexisting.md`;
    cópia e original com hash histórico idêntico. Não foi necessário stash ou
    restauração: README tem o mesmo blob versionado nas bases atravessadas.
+   Na conferência final, o caminho de TEMP registrado depois não era acessível.
+   Criada/conferida cópia durável em
+   `C:/Users/Aluga.com/.codex/visualizations/2026/10/24/01a16dee-0621-7691-b4f6-3e07d2c7308f/preservacao/README.preexisting.md`,
+   com o README ainda igual ao hash inicial. A referência final está corrigida
+   em estado-inicial.json, conservando a ocorrência; original nunca removido.
 3. `git fetch origin`: primeira tentativa recusada por `.git/FETCH_HEAD:
    Permission denied`; repetição com permissão apropriada, **exit 0**. Não houve
    rejeição de revisão automática de aprovação.

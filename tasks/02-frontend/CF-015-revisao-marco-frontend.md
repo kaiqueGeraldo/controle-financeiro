@@ -8,6 +8,16 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Análise dirigida de zoom e dependência — 24/10/2026
+
+[Provas e matriz CF015→CF034](../evidencias/CF015-zoom-gate-CF034/README.md),
+base integrada `e1a01b6`. Observação nativa interrompida pela ferramenta por URL
+não confirmada, antes de captura/input; nenhum ensaio de produto ou aceite de
+zoom200%. CF010/015 em_revisao, aceites anteriores preservados; não há defeito
+de produto inferido. DEC-ONB-03 permanece específica CF031. PROP-CF034-01 propõe
+continuidade futura apenas local de infraestrutura CI; pendente de decisão,
+sem liberação CF034, aprovação do marco ou uso/produção.
+
 ## Parecer independente vigente — RVA-03, 16/10/2026
 
 Decisão posterior de21/10/2026: [DEC-ONB-03](../../docs/sdd/decisoes/003-liberacao-local-CF-031.md)

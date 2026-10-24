@@ -8,6 +8,15 @@
 - Depende de: [CF-025](../03-integridade/CF-025-consultas-desempenho.md), [CF-027](../03-integridade/CF-027-fronteiras-backend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md)
 - Origem: T-009, T-011; todos os riscos críticos
 
+## Publicação e integração autorizadas — 24/10/2026
+
+Sete commits aprovados até `e1a01b6` publicados na branch CF033 e integrados por
+fast-forward; main remota `e1a01b62e0766c92120c3cefc2bc4b4fc316ce58`.
+[Provas da integração e análise sucessora delimitada](../evidencias/CF015-zoom-gate-CF034/README.md).
+Aceite local CF033/CF033-01 preservado, sem ampliar liberação para uso/produção.
+Novos commits da análise CF015→CF034 permanecem locais; CF034 não iniciada.
+Notas abaixo descrevem as execuções anteriores e conservam seus limites.
+
 ## Problema e resultado esperado
 
 Revisão final deve procurar defeitos e lacunas nos testes usando os requisitos, sem aceitar a conclusão do implementador como evidência suficiente.

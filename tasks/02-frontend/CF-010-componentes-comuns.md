@@ -8,6 +8,15 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
+## Análise de capacidade — 24/10/2026
+
+[CF015-zoom-gate-CF034](../evidencias/CF015-zoom-gate-CF034/README.md), base
+integrada `e1a01b6`: a ferramenta aceitou vínculo inicial Chrome, mas interrompeu
+a observação por não confirmar URL com segurança. Nenhuma captura/input/zoom
+ou ensaio de produto; AC-UI-001/aceite1 continua sem prova nativa200%.
+Estado em_revisao e demais aceites preservados. Matriz futura inclui onboarding
+conforme DEC-ONB-03. Proposta de continuidade CF034 pendente, sem mudar gate.
+
 ## Parecer independente vigente — 13/10/2026
 
 Decisão posterior de21/10/2026: [DEC-ONB-03](../../docs/sdd/decisoes/003-liberacao-local-CF-031.md)

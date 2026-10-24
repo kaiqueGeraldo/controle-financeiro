@@ -4,7 +4,25 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF033-01 encerrado por revalidação independente, 24/10/2026
+## Situação vigente — lote CF033 integrado; análise de zoom/gate, 24/10/2026
+
+Lote aprovado até `e1a01b6` publicado na branch CF033 e integrado por fast-forward
+na main remota, hash `e1a01b62e0766c92120c3cefc2bc4b4fc316ce58`.
+Nova branch local `codex/cf015-zoom-gate-cf034`, da mesma base; novos commits
+somente locais. [Provas, matriz e proposta pendente](evidencias/CF015-zoom-gate-CF034/README.md).
+
+Zoom nativo 200% continua sem evidência: vínculo inicial Chrome aceito, mas a
+observação foi interrompida por impossibilidade de confirmar URL com segurança,
+antes de captura/input. Sem aprovação ou defeito de zoom; CF010/015 em_revisao.
+CF034 permanece proposta/não iniciada, com a dependência CF015 preservada.
+PROP-CF034-01 propõe liberação futura restrita de infraestrutura/testes locais
+de CI, ainda sem decisão do usuário; DEC-ONB-03 não é autorização geral.
+README raiz, runtimes, adoção real CF017/P01/P02 e limites de produção preservados;
+sem produto/deploy manual/banco real. `verify -DskipTests` histórico é pacote,
+não nova suíte ou êxito de CI. Próximo passo: decisão sobre o recorte proposto;
+zoom só retoma com capacidade de URL/captura/input nativos comprovada.
+
+## Situação anterior — CF033-01 encerrado por revalidação independente, 24/10/2026
 
 CF033-01/P2 encerrado no candidato d059bc9, intervalo8de766f..d059bc9. DEC-10 e
 capacidade preservadas: progresso antes de liberar BUY, transições local/global
