@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.825" tests="7" errors="0" skipped="0" failures="0">
+  <testcase name="buyAndReservationOfSameSourceRevalidateAfterRowWait" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.219">
+    <system-out><![CDATA[2026-10-24 05:26:33.628 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário df9604ea-9652-43de-9d84-64353d0575f6@example.test
+-2026-10-24 05:26:33.630 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1c7ae83d-0b3a-4e87-8001-c028a5103b4f
+-2026-10-24 05:26:33.710 - INFO 46404 --- [     virtual-87] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 1c7ae83d-0b3a-4e87-8001-c028a5103b4f
+-2026-10-24 05:26:33.742 - INFO 46404 --- [     virtual-87] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="newLegacyDependencyCannotAppearDuringLocalAuthorization" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.144">
+    <system-out><![CDATA[2026-10-24 05:26:33.845 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário bbf09974-6466-416a-84e2-19966a743702@example.test
+-2026-10-24 05:26:33.845 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 773684c2-a2d8-4049-bb39-6cbbd5ab67d2
+-2026-10-24 05:26:33.859 - INFO 46404 --- [     virtual-96] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 773684c2-a2d8-4049-bb39-6cbbd5ab67d2
+-2026-10-24 05:26:33.874 - INFO 46404 --- [     virtual-96] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:26:33.904 - INFO 46404 --- [     virtual-97] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário bbf09974-6466-416a-84e2-19966a743702@example.test
+-2026-10-24 05:26:33.905 - INFO 46404 --- [     virtual-97] c.c.api.service.InvestmentService        : SERVICE: Vinculando ativo 'CF033' à Meta ID e4760035-9fc9-4899-a6f8-3bdab69b5660
+-2026-10-24 05:26:33.908 - INFO 46404 --- [     virtual-97] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cbfece3d-6b35-4752-9777-696e6177de14
+-2026-10-24 05:26:33.927 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 773684c2-a2d8-4049-bb39-6cbbd5ab67d2
+-]]></system-out>
+  </testcase>
+  <testcase name="authorizationWaitingForNewDependencySeesItAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.092">
+    <system-out><![CDATA[2026-10-24 05:26:33.985 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário 6e191d11-569a-44a7-8197-19dcc9b39601@example.test
+-2026-10-24 05:26:33.985 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 52fbbaff-e2b6-423f-ae7b-f32018df9c77
+-2026-10-24 05:26:33.996 - INFO 46404 --- [     virtual-98] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário 6e191d11-569a-44a7-8197-19dcc9b39601@example.test
+-2026-10-24 05:26:33.997 - INFO 46404 --- [     virtual-98] c.c.api.service.InvestmentService        : SERVICE: Vinculando ativo 'CF033' à Meta ID ed6d5fbe-8934-49ae-89e0-52ac87475acf
+-2026-10-24 05:26:34.000 - INFO 46404 --- [     virtual-98] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c48cd3d0-fc87-4e10-bee2-2bb59ed89988
+-2026-10-24 05:26:34.023 - INFO 46404 --- [     virtual-99] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 52fbbaff-e2b6-423f-ae7b-f32018df9c77
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[1]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.072">
+    <system-out><![CDATA[2026-10-24 05:26:34.114 - INFO 46404 --- [    virtual-101] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=9ac2cc45-3cf4-4ccc-b9dc-281713f2b021
+-2026-10-24 05:26:34.117 - INFO 46404 --- [    virtual-101] c.c.api.service.TransactionService       : Saldo atualizado na conta 9ac2cc45-3cf4-4ccc-b9dc-281713f2b021. Novo saldo: 1025.00
+-2026-10-24 05:26:34.123 - INFO 46404 --- [    virtual-101] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 3b0c6298-a8d0-4615-9aa3-fe31bc95280a
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[2]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.055">
+    <system-out><![CDATA[2026-10-24 05:26:34.163 - INFO 46404 --- [    virtual-103] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: d5db94ba-2a93-4fe4-bd02-905440185f3c. Valor: 600.00
+-2026-10-24 05:26:34.173 - INFO 46404 --- [    virtual-103] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 600.00
+-2026-10-24 05:26:34.176 - INFO 46404 --- [    virtual-104] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=565b4ccb-9cfe-48c0-bd77-d12ae3672346
+-2026-10-24 05:26:34.179 - INFO 46404 --- [    virtual-104] c.c.api.service.TransactionService       : Saldo atualizado na conta 565b4ccb-9cfe-48c0-bd77-d12ae3672346. Novo saldo: 1025.00
+-2026-10-24 05:26:34.184 - INFO 46404 --- [    virtual-104] c.c.api.service.TransactionService       : Transação salva com sucesso: ID a1cebf17-7b47-4594-bbfe-89128b864dde
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[3]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.1">
+    <system-out><![CDATA[2026-10-24 05:26:34.277 - INFO 46404 --- [    virtual-106] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=83c36e97-6c8d-4cd0-8515-161315bd04a2
+-2026-10-24 05:26:34.280 - INFO 46404 --- [    virtual-106] c.c.api.service.TransactionService       : Saldo atualizado na conta 83c36e97-6c8d-4cd0-8515-161315bd04a2. Novo saldo: 25.00
+-2026-10-24 05:26:34.286 - INFO 46404 --- [    virtual-106] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 65a3bc08-b650-42e0-a6af-ae48262a19c3
+-]]></system-out>
+  </testcase>
+  <testcase name="globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.1">
+    <system-out><![CDATA[2026-10-24 05:26:34.311 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário 99f76967-e513-4596-add0-201bc1327902@example.test
+-2026-10-24 05:26:34.311 - INFO 46404 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 4286f184-81e2-4712-802c-db8b26be6529
+-2026-10-24 05:26:34.338 - INFO 46404 --- [    virtual-107] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 4286f184-81e2-4712-802c-db8b26be6529
+-2026-10-24 05:26:34.359 - INFO 46404 --- [    virtual-107] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:26:34.382 - INFO 46404 --- [    virtual-108] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=3ad80827-14a2-4614-86a2-f545ca3f2239
+-2026-10-24 05:26:34.384 - INFO 46404 --- [    virtual-108] c.c.api.service.TransactionService       : Saldo atualizado na conta 3ad80827-14a2-4614-86a2-f545ca3f2239. Novo saldo: 25.00
+-2026-10-24 05:26:34.389 - INFO 46404 --- [    virtual-108] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 0dd74392-d60c-4edf-89e1-c4dd81e73215
+-]]></system-out>
+  </testcase>
+</testsuite>

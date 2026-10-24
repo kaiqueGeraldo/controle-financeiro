@@ -4,7 +4,23 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF033 revisada com ressalva de concorrência, 24/10/2026
+## Situação vigente — CF033-01 saneado localmente, aguardando revalidação, 24/10/2026
+
+CF033 conserva conclusão como revisão independente executada; CF033-01/P2 está
+saneado localmente, **sem autoencerramento ou aceite irrestrito do candidato**.
+Mesma branch `codex/cf033-revisao-integrada`, entrada8de766f; gate transacional de
+dependências preserva progresso sem legado e proteção global quando o inventário
+certificado relaciona as fontes. DEC-10 não foi alterada. [Entrega e limites](evidencias/saneamento-CF033-01/README.md).
+
+Probe original vermelho→verde sem modificar assertion/timeout;43 controles do
+delta e229 regressões aprovados, com sobreposição. Duas contraprovas finais
+detectaram bloqueio antigo e reservas1200/1000; restauração por hash/controles2/2.
+Falhas intermediárias preservadas, Maven verify/JAR local aprovado sem clean.
+README raiz/runtimes e provas históricas preservados; somente commits locais.
+Zoom200%, adoção CF017/P01/P02, DEC-ONB-03 e produção conservam limites; CF034+
+não iniciadas. Próximo passo: revalidação independente dirigida do delta.
+
+## Situação anterior — CF033 revisada com ressalva de concorrência, 24/10/2026
 
 CF032 publicada/integrada por fast-forward; main remota conferida em
 `bfb6c61d6b68e1da112eabf420634bb5b5e9127b`. CF033 executada na branch própria

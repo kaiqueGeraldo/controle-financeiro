@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest" time="4.743" tests="4" errors="0" skipped="0" failures="0">
+  <testcase name="dividendRefundKeepsNetCashAndGrossManagerialDecomposition" classname="com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest" time="0.149">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 05:29:42.622 - INFO 30100 --- [           main] .c.a.s.MilestoneInvestmentCorrectionTest : Starting MilestoneInvestmentCorrectionTest using Java 21.0.12.1 with PID 30100 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\saneamento-20261024-01\backend)
+-2026-10-24 05:29:42.622 - INFO 30100 --- [           main] .c.a.s.MilestoneInvestmentCorrectionTest : The following 1 profile is active: "test"
+-2026-10-24 05:29:44.065 - WARN 30100 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 05:29:45.122 - INFO 30100 --- [           main] .c.a.s.MilestoneInvestmentCorrectionTest : Started MilestoneInvestmentCorrectionTest in 2.523 seconds (process running for 104.451)
+-2026-10-24 05:29:45.141 - INFO 30100 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 156776e1-bd79-43d6-83f9-1d363e355e81
+-2026-10-24 05:29:45.146 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CORR' (STOCK) para usuário 8c83e6d6-b596-4aee-90c5-28743afab12d@example.invalid
+-2026-10-24 05:29:45.147 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 440ebac6-1cd8-441a-a069-9f1d76064354
+-2026-10-24 05:29:45.153 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de DIVIDEND no ativo ID 440ebac6-1cd8-441a-a069-9f1d76064354
+-2026-10-24 05:29:45.168 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="e18CancellationPreservesOriginalAndOnlyExplicitFeesReturn" classname="com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest" time="0.191">
+    <system-out><![CDATA[2026-10-24 05:29:45.278 - INFO 30100 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 7bb632ac-a55e-49ff-b271-5d896687e869
+-2026-10-24 05:29:45.283 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CORR' (STOCK) para usuário cddb7f01-a498-4ef8-95da-7c1b619560a0@example.invalid
+-2026-10-24 05:29:45.283 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 83b01800-0e1f-4f2a-ba77-60e060c31667
+-2026-10-24 05:29:45.292 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 83b01800-0e1f-4f2a-ba77-60e060c31667
+-2026-10-24 05:29:45.299 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:45.378 - INFO 30100 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário d08fcec1-cfa6-4ec6-b1d8-e1fa9b0f17f4
+-2026-10-24 05:29:45.381 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CORR' (STOCK) para usuário f2086506-5def-4358-a625-017c916ff591@example.invalid
+-2026-10-24 05:29:45.382 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 61fbfcda-5be6-4703-98c0-32e675547288
+-2026-10-24 05:29:45.390 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 61fbfcda-5be6-4703-98c0-32e675547288
+-2026-10-24 05:29:45.397 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="simultaneousRetriesCommitOneCompensation" classname="com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest" time="0.089">
+    <system-out><![CDATA[2026-10-24 05:29:45.467 - INFO 30100 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 5f96c7bf-fe0a-439b-a931-18aa58fb845b
+-2026-10-24 05:29:45.471 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CORR' (STOCK) para usuário 180c8a30-646a-4b89-86b3-e4ee1e30cb70@example.invalid
+-2026-10-24 05:29:45.472 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c6f36e90-a2b9-49f5-8479-3b96a9b4bf69
+-2026-10-24 05:29:45.479 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID c6f36e90-a2b9-49f5-8479-3b96a9b4bf69
+-2026-10-24 05:29:45.486 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="correctionRecalculatesDependentSalesWithoutRewritingTheirOriginalCosts" classname="com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest" time="0.15">
+    <system-out><![CDATA[2026-10-24 05:29:45.559 - INFO 30100 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 4f0787bf-dbd7-4e84-93c8-4a67189a5ced
+-2026-10-24 05:29:45.564 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CORR' (STOCK) para usuário c5656af7-8c38-413e-8ac5-4896d2352e4e@example.invalid
+-2026-10-24 05:29:45.564 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d19b751d-9b39-4d7d-a227-a746aea30d2f
+-2026-10-24 05:29:45.571 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID d19b751d-9b39-4d7d-a227-a746aea30d2f
+-2026-10-24 05:29:45.578 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:45.588 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID d19b751d-9b39-4d7d-a227-a746aea30d2f
+-2026-10-24 05:29:45.590 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:45.592 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+</testsuite>

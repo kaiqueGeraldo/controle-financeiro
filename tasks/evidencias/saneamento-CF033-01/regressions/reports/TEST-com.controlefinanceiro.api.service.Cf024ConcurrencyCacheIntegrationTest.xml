@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="7.123" tests="30" errors="0" skipped="0" failures="0">
+  <testcase name="accountDeletionCannotClearCachesBeforeCommitAndReceiptCleanupIsAtomic" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.17">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 05:22:31.440 - INFO 1984 --- [           main] a.s.Cf024ConcurrencyCacheIntegrationTest : Starting Cf024ConcurrencyCacheIntegrationTest using Java 21.0.12.1 with PID 1984 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\saneamento-20261024-01\backend)
+-2026-10-24 05:22:31.440 - INFO 1984 --- [           main] a.s.Cf024ConcurrencyCacheIntegrationTest : The following 1 profile is active: "test"
+-2026-10-24 05:22:32.923 - WARN 1984 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 05:22:34.243 - INFO 1984 --- [           main] a.s.Cf024ConcurrencyCacheIntegrationTest : Started Cf024ConcurrencyCacheIntegrationTest in 2.882 seconds (process running for 106.658)
+-2026-10-24 05:22:34.260 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9bd6f2ad-1936-4658-a526-505e0f941bdb
+-2026-10-24 05:22:34.264 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9bd6f2ad-1936-4658-a526-505e0f941bdb
+-2026-10-24 05:22:34.267 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 9d44ee7f-b12c-4999-8d5b-47966a430380@example.invalid
+-2026-10-24 05:22:34.268 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: ee90a027-fa8a-4b3c-91c6-5927bef1d018
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.112">
+    <system-out><![CDATA[2026-10-24 05:22:34.437 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 2f9093bc-7257-479e-a7ac-defbf3f3f9e4
+-2026-10-24 05:22:34.440 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 2f9093bc-7257-479e-a7ac-defbf3f3f9e4
+-2026-10-24 05:22:34.442 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 8be49875-8563-401c-a038-b12c72a30378@example.invalid
+-2026-10-24 05:22:34.443 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 2ffaee0c-b38c-430c-9bf4-91c1ba173ea1
+-2026-10-24 05:22:34.466 - INFO 1984 --- [pool-5-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:34.483 - INFO 1984 --- [pool-5-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-2026-10-24 05:22:34.492 - INFO 1984 --- [pool-5-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=1f2a50f7-7752-448e-be6f-700f8c80b867
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.117">
+    <system-out><![CDATA[2026-10-24 05:22:34.547 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 67bccac9-8b26-4bf7-8976-55a898819c90
+-2026-10-24 05:22:34.551 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 67bccac9-8b26-4bf7-8976-55a898819c90
+-2026-10-24 05:22:34.554 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 0d74cc58-b648-41ac-a897-ad0e4df75e27@example.invalid
+-2026-10-24 05:22:34.554 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 6699bf2e-7896-478e-9c68-bea20d8730eb
+-2026-10-24 05:22:34.585 - INFO 1984 --- [pool-6-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:34.595 - INFO 1984 --- [pool-6-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-2026-10-24 05:22:34.604 - INFO 1984 --- [pool-6-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 6699bf2e-7896-478e-9c68-bea20d8730eb
+-2026-10-24 05:22:34.644 - INFO 1984 --- [pool-6-thread-2] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[3]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.11">
+    <system-out><![CDATA[2026-10-24 05:22:34.669 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário e49029f5-38cd-4563-aca7-5fa996616f58
+-2026-10-24 05:22:34.676 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário e49029f5-38cd-4563-aca7-5fa996616f58
+-2026-10-24 05:22:34.680 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 7bfe5fec-32d1-46c9-b042-be08b156d6dd@example.invalid
+-2026-10-24 05:22:34.680 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0ae3bf29-63bf-41b5-83d0-e2be76e9b6a2
+-2026-10-24 05:22:34.717 - INFO 1984 --- [pool-7-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:34.727 - INFO 1984 --- [pool-7-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-2026-10-24 05:22:34.732 - INFO 1984 --- [pool-7-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 0ae3bf29-63bf-41b5-83d0-e2be76e9b6a2
+-2026-10-24 05:22:34.753 - INFO 1984 --- [pool-7-thread-2] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:34.758 - INFO 1984 --- [pool-7-thread-2] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[4]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.069">
+    <system-out><![CDATA[2026-10-24 05:22:34.778 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 3c225183-b14a-4756-8879-580f4ed77c6b
+-2026-10-24 05:22:34.781 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 3c225183-b14a-4756-8879-580f4ed77c6b
+-2026-10-24 05:22:34.784 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário f7fe8c45-d032-4e4e-a479-654a91137ac0@example.invalid
+-2026-10-24 05:22:34.785 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d07be5e8-5e33-4d3a-bd61-331a7ea6a0fd
+-2026-10-24 05:22:34.808 - INFO 1984 --- [pool-8-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=28e7fb56-c454-48d7-b54e-8fc81beddfa4
+-2026-10-24 05:22:34.815 - INFO 1984 --- [pool-8-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID d07be5e8-5e33-4d3a-bd61-331a7ea6a0fd
+-2026-10-24 05:22:34.829 - INFO 1984 --- [pool-8-thread-2] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[5]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.074">
+    <system-out><![CDATA[2026-10-24 05:22:34.846 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 7a11f38d-d768-4793-a08d-8bbcf22d3d6c
+-2026-10-24 05:22:34.849 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 7a11f38d-d768-4793-a08d-8bbcf22d3d6c
+-2026-10-24 05:22:34.853 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário af4a710b-7b91-414e-8878-f2230404986e@example.invalid
+-2026-10-24 05:22:34.853 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d22cc4ac-97f8-4ba0-b2d6-d16287bc6fd1
+-2026-10-24 05:22:34.881 - INFO 1984 --- [pool-9-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=591da489-c0e1-46fe-ac2a-daf64cc11afa
+-2026-10-24 05:22:34.886 - INFO 1984 --- [pool-9-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID d22cc4ac-97f8-4ba0-b2d6-d16287bc6fd1
+-2026-10-24 05:22:34.898 - INFO 1984 --- [pool-9-thread-2] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:34.901 - INFO 1984 --- [pool-9-thread-2] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="differentWritersShareTheSameAccountWithoutLostMoney(String, String, String, String)[6]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.089">
+    <system-out><![CDATA[2026-10-24 05:22:34.922 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário db970005-a37f-49a7-8023-749069c52d90
+-2026-10-24 05:22:34.927 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário db970005-a37f-49a7-8023-749069c52d90
+-2026-10-24 05:22:34.931 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário cf723bee-e9bf-411d-b868-db91152711de@example.invalid
+-2026-10-24 05:22:34.931 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 2bde0165-3ed1-411c-8c33-5b4296226c72
+-2026-10-24 05:22:34.965 - INFO 1984 --- [ool-10-thread-1] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 2bde0165-3ed1-411c-8c33-5b4296226c72
+-2026-10-24 05:22:34.971 - INFO 1984 --- [ool-10-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 2bde0165-3ed1-411c-8c33-5b4296226c72
+-2026-10-24 05:22:34.980 - INFO 1984 --- [ool-10-thread-1] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:34.990 - INFO 1984 --- [ool-10-thread-2] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:34.993 - INFO 1984 --- [ool-10-thread-2] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="nonTransactionalEventCannotInvalidateConfirmedData" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.047">
+    <system-out><![CDATA[2026-10-24 05:22:35.014 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário e6da23ec-743a-4d4b-9b76-49688590976d
+-2026-10-24 05:22:35.018 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário e6da23ec-743a-4d4b-9b76-49688590976d
+-2026-10-24 05:22:35.022 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 7338ee04-36d0-4883-8c21-4e16ae483990@example.invalid
+-2026-10-24 05:22:35.023 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0c74133a-b4d2-4b77-ad1e-b7c1020fdd31
+-]]></system-out>
+  </testcase>
+  <testcase name="oppositeTransfersAcquireAccountsInOneOrder" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.067">
+    <system-out><![CDATA[2026-10-24 05:22:35.062 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário cb4d3456-1184-4da3-9f56-1eca6036048c
+-2026-10-24 05:22:35.066 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário cb4d3456-1184-4da3-9f56-1eca6036048c
+-2026-10-24 05:22:35.068 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 18c356d4-c5d4-4e8a-b4b0-21e7c977847c@example.invalid
+-2026-10-24 05:22:35.069 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: e82938d4-d734-43c6-a3f6-20804233bd38
+-2026-10-24 05:22:35.096 - INFO 1984 --- [ool-11-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=438078be-3350-4fe6-a64c-a12a681d208d
+-2026-10-24 05:22:35.102 - INFO 1984 --- [ool-11-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=200, ContaID=2e606c1e-3072-4d22-8071-a01f9b4a52f7
+-]]></system-out>
+  </testcase>
+  <testcase name="repeatedIdentifiedHttpCommandHasOneEffect(String)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.151">
+    <system-out><![CDATA[2026-10-24 05:22:35.132 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 10d8d264-a9f3-468e-97ed-aff9979547d0
+-2026-10-24 05:22:35.136 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 10d8d264-a9f3-468e-97ed-aff9979547d0
+-2026-10-24 05:22:35.139 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 4d2e380e-e0e8-45dd-be64-6f1d46aafe9f@example.invalid
+-2026-10-24 05:22:35.139 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d044b23d-f4b0-4b7d-88ed-0cef696a0933
+-2026-10-24 05:22:35.174 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID d044b23d-f4b0-4b7d-88ed-0cef696a0933. Qtd: 2, Preço: 100
+-2026-10-24 05:22:35.195 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID d044b23d-f4b0-4b7d-88ed-0cef696a0933
+-2026-10-24 05:22:35.205 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:35.231 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID d044b23d-f4b0-4b7d-88ed-0cef696a0933. Qtd: 2, Preço: 100
+-2026-10-24 05:22:35.264 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID d044b23d-f4b0-4b7d-88ed-0cef696a0933. Qtd: 3, Preço: 100
+-]]></system-out>
+  </testcase>
+  <testcase name="repeatedIdentifiedHttpCommandHasOneEffect(String)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.169">
+    <system-out><![CDATA[2026-10-24 05:22:35.287 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário ef62e8e0-7b91-4b7a-b4a9-9802850ed500
+-2026-10-24 05:22:35.294 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário ef62e8e0-7b91-4b7a-b4a9-9802850ed500
+-2026-10-24 05:22:35.298 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 863fb997-c414-43c0-994c-2f7a3e3c9183@example.invalid
+-2026-10-24 05:22:35.299 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7d29701e-b6fa-46ed-bb26-5d4742e896a1
+-2026-10-24 05:22:35.343 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 863fb997-c414-43c0-994c-2f7a3e3c9183@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:35.365 - INFO 1984 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=9257682c-de9b-409f-9552-0418cd0474aa
+-2026-10-24 05:22:35.394 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 863fb997-c414-43c0-994c-2f7a3e3c9183@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:35.438 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 863fb997-c414-43c0-994c-2f7a3e3c9183@example.invalid | Valor: 400 | Tipo: TRANSFER
+-]]></system-out>
+  </testcase>
+  <testcase name="twoSalesCannotSellMoreThanThePosition" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.082">
+    <system-out><![CDATA[2026-10-24 05:22:35.456 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 73582b85-c9f6-451c-8703-e28c130d4a86
+-2026-10-24 05:22:35.461 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 73582b85-c9f6-451c-8703-e28c130d4a86
+-2026-10-24 05:22:35.466 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 3f9a9e5f-4a56-4075-bb1d-3d697a561ce4@example.invalid
+-2026-10-24 05:22:35.466 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 8c2dc164-5b3e-465e-a2be-653e033a36d9
+-2026-10-24 05:22:35.494 - INFO 1984 --- [ool-12-thread-1] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 8c2dc164-5b3e-465e-a2be-653e033a36d9
+-2026-10-24 05:22:35.502 - INFO 1984 --- [ool-12-thread-2] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 8c2dc164-5b3e-465e-a2be-653e033a36d9
+-2026-10-24 05:22:35.506 - INFO 1984 --- [ool-12-thread-1] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:35.509 - INFO 1984 --- [ool-12-thread-1] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:35.520 - INFO 1984 --- [ool-12-thread-2] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-]]></system-out>
+  </testcase>
+  <testcase name="concurrentIdentifiedHttpCommandsReturnTheSamePersistedResult(String)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.156">
+    <system-out><![CDATA[2026-10-24 05:22:35.540 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 84c5f949-4233-4b4e-985d-c594705dadfb
+-2026-10-24 05:22:35.545 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 84c5f949-4233-4b4e-985d-c594705dadfb
+-2026-10-24 05:22:35.549 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 3881b257-28e4-4a08-bb6c-afc4f257183e@example.invalid
+-2026-10-24 05:22:35.550 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 7475f4a4-edda-479c-9757-f4711fd200c4
+-2026-10-24 05:22:35.590 - INFO 1984 --- [ool-13-thread-1] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 7475f4a4-edda-479c-9757-f4711fd200c4. Qtd: 2, Preço: 100
+-2026-10-24 05:22:35.604 - INFO 1984 --- [ool-13-thread-1] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 7475f4a4-edda-479c-9757-f4711fd200c4
+-2026-10-24 05:22:35.611 - INFO 1984 --- [ool-13-thread-2] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 7475f4a4-edda-479c-9757-f4711fd200c4. Qtd: 2, Preço: 100
+-2026-10-24 05:22:35.623 - INFO 1984 --- [ool-13-thread-1] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:35.659 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 7475f4a4-edda-479c-9757-f4711fd200c4
+-2026-10-24 05:22:35.662 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:35.665 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:35.679 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 7475f4a4-edda-479c-9757-f4711fd200c4. Qtd: 2, Preço: 100
+-]]></system-out>
+  </testcase>
+  <testcase name="concurrentIdentifiedHttpCommandsReturnTheSamePersistedResult(String)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.093">
+    <system-out><![CDATA[2026-10-24 05:22:35.695 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário dadb0672-81b0-45df-b72a-cc10de703f44
+-2026-10-24 05:22:35.700 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário dadb0672-81b0-45df-b72a-cc10de703f44
+-2026-10-24 05:22:35.705 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 6a0a1367-c4d4-435e-a7a8-51057ecdfb15@example.invalid
+-2026-10-24 05:22:35.705 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: cde20479-ed16-45d9-bbb3-9c19ce89985b
+-2026-10-24 05:22:35.738 - INFO 1984 --- [ool-14-thread-1] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 6a0a1367-c4d4-435e-a7a8-51057ecdfb15@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:35.744 - INFO 1984 --- [ool-14-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=d115034c-2ac7-48c2-a105-aef9e72f854f
+-2026-10-24 05:22:35.752 - INFO 1984 --- [ool-14-thread-2] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 6a0a1367-c4d4-435e-a7a8-51057ecdfb15@example.invalid | Valor: 300 | Tipo: TRANSFER
+-]]></system-out>
+  </testcase>
+  <testcase name="canonicalDecimalsAndDefaultsReplayButCrossKindReuseConflicts" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.1">
+    <system-out><![CDATA[2026-10-24 05:22:35.790 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário f9b5928c-b5a0-45b8-a594-9c11172ee296
+-2026-10-24 05:22:35.794 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário f9b5928c-b5a0-45b8-a594-9c11172ee296
+-2026-10-24 05:22:35.799 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário d9ac33e6-2c06-47e0-8610-cd0c0cf4bc5f@example.invalid
+-2026-10-24 05:22:35.799 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a48299b0-46ea-4c43-90f1-ffb062685d93
+-2026-10-24 05:22:35.829 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID a48299b0-46ea-4c43-90f1-ffb062685d93. Qtd: 2, Preço: 100
+-2026-10-24 05:22:35.838 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID a48299b0-46ea-4c43-90f1-ffb062685d93
+-2026-10-24 05:22:35.849 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:35.866 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID a48299b0-46ea-4c43-90f1-ffb062685d93. Qtd: 2.00000000, Preço: 100
+-2026-10-24 05:22:35.875 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: d9ac33e6-2c06-47e0-8610-cd0c0cf4bc5f@example.invalid | Valor: 300 | Tipo: TRANSFER
+-]]></system-out>
+  </testcase>
+  <testcase name="samePaymentIntentHasOneEffectAndOneRecoverableReceipt(boolean)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.1">
+    <system-out><![CDATA[2026-10-24 05:22:35.893 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9e2f5f9a-f46c-4756-a9b6-0033bdaf761f
+-2026-10-24 05:22:35.897 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9e2f5f9a-f46c-4756-a9b6-0033bdaf761f
+-2026-10-24 05:22:35.901 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário a288ba21-c5a3-489f-b02f-8cbc99a28d4b@example.invalid
+-2026-10-24 05:22:35.901 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d6b94d9c-c3d7-46bb-b28e-3f1f02c543fb
+-2026-10-24 05:22:35.929 - INFO 1984 --- [ool-15-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:35.935 - INFO 1984 --- [ool-15-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:35.947 - INFO 1984 --- [ool-15-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-]]></system-out>
+  </testcase>
+  <testcase name="samePaymentIntentHasOneEffectAndOneRecoverableReceipt(boolean)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.076">
+    <system-out><![CDATA[2026-10-24 05:22:35.993 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário a27e3234-d05e-49aa-bba5-9c9bf51de3cb
+-2026-10-24 05:22:35.997 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário a27e3234-d05e-49aa-bba5-9c9bf51de3cb
+-2026-10-24 05:22:36.000 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário aa4c77e4-60dc-4c21-96b4-0b890ad8ddb6@example.invalid
+-2026-10-24 05:22:36.000 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: c146975f-be9a-4151-8211-b32244e27e45
+-2026-10-24 05:22:36.021 - INFO 1984 --- [ool-16-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.026 - INFO 1984 --- [ool-16-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.034 - INFO 1984 --- [ool-16-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-]]></system-out>
+  </testcase>
+  <testcase name="unrelatedAccountCanCommitWhileTheFirstSourceIsHeld" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.056">
+    <system-out><![CDATA[2026-10-24 05:22:36.071 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 0146c87d-eb6c-4af2-bd1b-f02ac018361f
+-2026-10-24 05:22:36.074 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 0146c87d-eb6c-4af2-bd1b-f02ac018361f
+-2026-10-24 05:22:36.076 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 514a0001-5a78-437b-835a-7c1dc6431c4d@example.invalid
+-2026-10-24 05:22:36.076 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 27adb027-2736-4492-b729-f4c62e1b3a6b
+-2026-10-24 05:22:36.100 - INFO 1984 --- [ool-17-thread-1] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 27adb027-2736-4492-b729-f4c62e1b3a6b
+-2026-10-24 05:22:36.104 - INFO 1984 --- [ool-17-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25, ContaID=221d2872-9133-4b44-acdc-66bdac625101
+-2026-10-24 05:22:36.105 - INFO 1984 --- [ool-17-thread-2] c.c.api.service.TransactionService       : Saldo atualizado na conta 221d2872-9133-4b44-acdc-66bdac625101. Novo saldo: 25.00
+-2026-10-24 05:22:36.108 - INFO 1984 --- [ool-17-thread-2] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 323bf4bb-8c9d-4da7-9de4-f19df1e19802
+-2026-10-24 05:22:36.115 - INFO 1984 --- [ool-17-thread-1] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="rollbackDoesNotInvalidateAndCommitInvalidatesOnlyTheOwnerYear(String)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.096">
+    <system-out><![CDATA[2026-10-24 05:22:36.128 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 835e848d-5bc2-43c2-bdc0-1c439234f378
+-2026-10-24 05:22:36.131 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 835e848d-5bc2-43c2-bdc0-1c439234f378
+-2026-10-24 05:22:36.133 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 9eb86022-511e-42e5-8eef-462583068164@example.invalid
+-2026-10-24 05:22:36.133 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3a2c629d-62d8-4537-8671-448a8f7ec546
+-2026-10-24 05:22:36.152 - INFO 1984 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.161 - INFO 1984 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-2026-10-24 05:22:36.186 - INFO 1984 --- [           main] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.195 - INFO 1984 --- [           main] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-]]></system-out>
+  </testcase>
+  <testcase name="rollbackDoesNotInvalidateAndCommitInvalidatesOnlyTheOwnerYear(String)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.093">
+    <system-out><![CDATA[2026-10-24 05:22:36.232 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 846879dc-67cd-4c72-ad25-a4a6cc911a1c
+-2026-10-24 05:22:36.238 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 846879dc-67cd-4c72-ad25-a4a6cc911a1c
+-2026-10-24 05:22:36.243 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 99fb92f5-a62c-4913-9550-3db053efb33e@example.invalid
+-2026-10-24 05:22:36.244 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: d8f4b6cf-4cdf-40cf-808e-d61776420d90
+-2026-10-24 05:22:36.281 - INFO 1984 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=c7b7b590-6a11-4b20-8a84-956b755ee229
+-2026-10-24 05:22:36.301 - INFO 1984 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=c7b7b590-6a11-4b20-8a84-956b755ee229
+-]]></system-out>
+  </testcase>
+  <testcase name="rollbackDoesNotInvalidateAndCommitInvalidatesOnlyTheOwnerYear(String)[3]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.066">
+    <system-out><![CDATA[2026-10-24 05:22:36.319 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 2e96a859-d04c-4ddf-b858-d8602ad00af7
+-2026-10-24 05:22:36.321 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 2e96a859-d04c-4ddf-b858-d8602ad00af7
+-2026-10-24 05:22:36.325 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 5439c5e5-bd1e-4492-9d1b-79e20d367f11@example.invalid
+-2026-10-24 05:22:36.326 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3edbd5b5-1027-41d6-b8e2-cf19e2ecc374
+-2026-10-24 05:22:36.348 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 3edbd5b5-1027-41d6-b8e2-cf19e2ecc374
+-2026-10-24 05:22:36.357 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:36.363 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 3edbd5b5-1027-41d6-b8e2-cf19e2ecc374
+-2026-10-24 05:22:36.370 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="rollbackDoesNotInvalidateAndCommitInvalidatesOnlyTheOwnerYear(String)[4]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.079">
+    <system-out><![CDATA[2026-10-24 05:22:36.390 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b202dd24-0380-47e6-91a2-e0d75f080598
+-2026-10-24 05:22:36.394 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b202dd24-0380-47e6-91a2-e0d75f080598
+-2026-10-24 05:22:36.399 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 32b41b1b-9ab9-42c2-915c-1a12e3dbb5ed@example.invalid
+-2026-10-24 05:22:36.400 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0fa44824-2449-4cc3-a803-1064b34635e1
+-2026-10-24 05:22:36.428 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 0fa44824-2449-4cc3-a803-1064b34635e1
+-2026-10-24 05:22:36.433 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:36.437 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:36.444 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 0fa44824-2449-4cc3-a803-1064b34635e1
+-2026-10-24 05:22:36.448 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:22:36.453 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="differentCardsDebitTheSameAccountExactlyTwice" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.106">
+    <system-out><![CDATA[2026-10-24 05:22:36.467 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário ce52f54f-06ea-456c-8b35-6b84d2ad4993
+-2026-10-24 05:22:36.469 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário ce52f54f-06ea-456c-8b35-6b84d2ad4993
+-2026-10-24 05:22:36.473 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 5b2a20aa-1815-4326-b471-0c4badba520a@example.invalid
+-2026-10-24 05:22:36.473 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 38d61be1-960f-46ee-9675-7923c96bd07a
+-2026-10-24 05:22:36.505 - INFO 1984 --- [ool-18-thread-1] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.513 - INFO 1984 --- [ool-18-thread-1] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-2026-10-24 05:22:36.517 - INFO 1984 --- [ool-18-thread-2] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cartão para pagamento da fatura.
+-2026-10-24 05:22:36.527 - INFO 1984 --- [ool-18-thread-2] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando débito bancário para pagamento do cartão CF024
+-]]></system-out>
+  </testcase>
+  <testcase name="twoTransfersCannotSpendTheSameAvailableMoney" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.046">
+    <system-out><![CDATA[2026-10-24 05:22:36.572 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 0d590517-8041-4694-a409-a4a9b1fe6e69
+-2026-10-24 05:22:36.573 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 0d590517-8041-4694-a409-a4a9b1fe6e69
+-2026-10-24 05:22:36.576 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 459fd30c-294a-43ba-9b81-d839e1ff7d62@example.invalid
+-2026-10-24 05:22:36.576 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a5c7f029-dc4b-48e0-aa3c-34836ab758e3
+-2026-10-24 05:22:36.598 - INFO 1984 --- [ool-19-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=700, ContaID=e17670bf-00c1-4d63-9040-5fbcd778a711
+-2026-10-24 05:22:36.602 - INFO 1984 --- [ool-19-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=700, ContaID=e17670bf-00c1-4d63-9040-5fbcd778a711
+-]]></system-out>
+  </testcase>
+  <testcase name="annualNoteInvalidationAlsoWaitsForCommit" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.034">
+    <system-out><![CDATA[2026-10-24 05:22:36.619 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 97140534-3bf8-40b9-a4f0-eeb64264eb5a
+-2026-10-24 05:22:36.622 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 97140534-3bf8-40b9-a4f0-eeb64264eb5a
+-2026-10-24 05:22:36.625 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário f421282a-67ca-4990-9ae7-b1e6d783024d@example.invalid
+-2026-10-24 05:22:36.625 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 528e2ec0-def7-43ba-a1b0-b07b76678f2a
+-]]></system-out>
+  </testcase>
+  <testcase name="realPostgresDeadlockRollsBackTheLoserAndReturns409" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="1.066">
+    <system-out><![CDATA[2026-10-24 05:22:36.656 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário c3ae79d5-bae0-45e7-bd0c-bf1a1eee5588
+-2026-10-24 05:22:36.659 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário c3ae79d5-bae0-45e7-bd0c-bf1a1eee5588
+-2026-10-24 05:22:36.663 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário cf7eaab8-02af-4708-896c-2c0b7c5d7af5@example.invalid
+-2026-10-24 05:22:36.663 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 56da5764-0c1c-4fbb-8898-20ad163f449c
+-2026-10-24 05:22:36.693 - INFO 1984 --- [ool-20-thread-2] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf7eaab8-02af-4708-896c-2c0b7c5d7af5@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:36.694 - INFO 1984 --- [ool-20-thread-1] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: cf7eaab8-02af-4708-896c-2c0b7c5d7af5@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:36.698 - INFO 1984 --- [ool-20-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=9054f874-e8f8-435a-b7b4-7689d374bfd7
+-2026-10-24 05:22:36.699 - INFO 1984 --- [ool-20-thread-1] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=3c4303ea-1fab-4d44-a4d6-177cc7fa2532
+-2026-10-24 05:22:37.704 - WARN 1984 --- [ool-20-thread-2] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 40P01
+-2026-10-24 05:22:37.704 - WARN 1984 --- [ool-20-thread-2] org.hibernate.orm.jdbc.error             : ERROR: deadlock detected
+  Detalhe: Process 110 waits for ShareLock on transaction 3976; blocked by process 109.
+Process 109 waits for ShareLock on transaction 3977; blocked by process 110.
+  Dica: See server log for query details.
+  Onde: while locking tuple (0,82) in relation "accounts"
+-2026-10-24 05:22:37.707 - WARN 1984 --- [ool-20-thread-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 409: Conflito de concorrência [URI: /transactions]
+-]]></system-out>
+  </testcase>
+  <testcase name="receiptOwnerIsolationAndCredentialFailurePreserveMoney" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.042">
+    <system-out><![CDATA[2026-10-24 05:22:37.720 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b9a404f7-9a52-43b6-a030-4a01cc4f1999
+-2026-10-24 05:22:37.723 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b9a404f7-9a52-43b6-a030-4a01cc4f1999
+-2026-10-24 05:22:37.725 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 229569fa-f81e-4004-80e1-a852fc79824e@example.invalid
+-2026-10-24 05:22:37.726 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b402ef3f-03d8-44ba-bb54-0ad7c8031d0c
+-2026-10-24 05:22:37.739 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID b402ef3f-03d8-44ba-bb54-0ad7c8031d0c. Qtd: 2, Preço: 100
+-2026-10-24 05:22:37.744 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID b402ef3f-03d8-44ba-bb54-0ad7c8031d0c
+-2026-10-24 05:22:37.748 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:37.757 - WARN 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Intenção ainda não localizada. [URI: /financial-intents/f380edd3-cdab-424c-b802-b40f767148f0]
+-2026-10-24 05:22:37.760 - WARN 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Intenção ainda não localizada. [URI: /financial-intents/f21e2074-4d08-4ee3-bff9-aed215527a05]
+-2026-10-24 05:22:37.760 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID b402ef3f-03d8-44ba-bb54-0ad7c8031d0c. Qtd: 2, Preço: 100
+-]]></system-out>
+  </testcase>
+  <testcase name="failureWhileSavingReceiptRollsBackLedgerPositionAndCache(String)[1]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.081">
+    <system-out><![CDATA[2026-10-24 05:22:37.771 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário abd8798b-130c-41d4-9c50-e1247caae9c0
+-2026-10-24 05:22:37.774 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário abd8798b-130c-41d4-9c50-e1247caae9c0
+-2026-10-24 05:22:37.776 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário f363eb7d-ab22-4437-ade2-10152a42fcc8@example.invalid
+-2026-10-24 05:22:37.776 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 1b19c7fc-8b91-443f-9f6d-731ccddf28c3
+-2026-10-24 05:22:37.794 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 1b19c7fc-8b91-443f-9f6d-731ccddf28c3. Qtd: 2, Preço: 100
+-2026-10-24 05:22:37.799 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 1b19c7fc-8b91-443f-9f6d-731ccddf28c3
+-2026-10-24 05:22:37.804 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:22:37.807 - WARN 1984 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-24 05:22:37.807 - WARN 1984 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE
+-2026-10-24 05:22:37.809 -ERROR 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API CRITICAL 500: Erro inesperado em /investments/operation 
+-
+org.springframework.orm.jpa.JpaSystemException: could not execute statement [ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE] [insert into cf024_6df7fa81945b4757a6418abe6fe54d3e.financial_intent_receipts (fingerprint,kind,recorded_at,result_json,user_id,id) values (?,?,?,?,?,?)]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:223) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.3.jar:7.0.3]
+	at jdk.proxy2/jdk.proxy2.$Proxy263.saveAndFlush(Unknown Source) ~[na:na]
+	at com.controlefinanceiro.api.service.intent.internal.PostgresFinancialIntents.complete(PostgresFinancialIntents.java:56) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.intent.internal.PostgresFinancialIntents$$SpringCGLIB$$0.complete(<generated>) ~[classes/:na]
+	at com.controlefinanceiro.api.service.InvestmentService.performOperation(InvestmentService.java:138) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.InvestmentService$$SpringCGLIB$$0.performOperation(<generated>) ~[classes/:na]
+	at com.controlefinanceiro.api.controller.InvestmentController.performOperation(InvestmentController.java:70) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.15.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72) ~[spring-test-7.0.3.jar:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.15.jar:6.1]
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:235) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:132) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:86) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at com.controlefinanceiro.api.infra.security.SecurityFilter.doFilterInternal(SecurityFilter.java:48) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:199) ~[spring-test-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest.postCommand(Cf024ConcurrencyCacheIntegrationTest.java:355) ~[test-classes/:na]
+	at com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest.failureWhileSavingReceiptRollsBackLedgerPositionAndCache(Cf024ConcurrencyCacheIntegrationTest.java:334) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestTemplateMethod(TimeoutExtension.java:94) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.execute(NodeTestTask.java:268) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.execute(NodeTestTask.java:246) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.execute(TemplateExecutor.java:96) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.lambda$executeForProvider$1(TemplateExecutor.java:59) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.Optional.ifPresent(Optional.java:178) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.lambda$executeForProvider$0(TemplateExecutor.java:59) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.executeForProvider(TemplateExecutor.java:57) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.execute(TemplateExecutor.java:46) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:112) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:40) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+Caused by: org.hibernate.exception.GenericJDBCException: could not execute statement [ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE] [insert into cf024_6df7fa81945b4757a6418abe6fe54d3e.financial_intent_receipts (fingerprint,kind,recorded_at,result_json,user_id,id) values (?,?,?,?,?,?)]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:39) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:184) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:66) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:180) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:120) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:93) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:381) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1489) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.flush(SessionImpl.java:1477) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.3.jar:7.0.3]
+	at jdk.proxy2/jdk.proxy2.$Proxy234.flush(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.flush(SimpleJpaRepository.java:709) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush(SimpleJpaRepository.java:676) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.3.jar:7.0.3]
+	... 247 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2846) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2531) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:429) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:526) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:436) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.9.jar:42.7.9]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:181) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	... 288 common frames omitted
+
+2026-10-24 05:22:37.819 - WARN 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Intenção ainda não localizada. [URI: /financial-intents/257d5221-acc8-4226-8bf8-3f8cd9db3c0b]
+-2026-10-24 05:22:37.824 - INFO 1984 --- [           main] c.c.api.controller.InvestmentController  : API: Operação de BUY no ativo ID 1b19c7fc-8b91-443f-9f6d-731ccddf28c3. Qtd: 2, Preço: 100
+-2026-10-24 05:22:37.828 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 1b19c7fc-8b91-443f-9f6d-731ccddf28c3
+-2026-10-24 05:22:37.833 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="failureWhileSavingReceiptRollsBackLedgerPositionAndCache(String)[2]" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.073">
+    <system-out><![CDATA[2026-10-24 05:22:37.846 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9378679a-250f-4b2f-aac4-aa883dc8f154
+-2026-10-24 05:22:37.848 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário 9378679a-250f-4b2f-aac4-aa883dc8f154
+-2026-10-24 05:22:37.851 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 7e0f9c7e-d2a4-45b7-a94e-290394598ddb@example.invalid
+-2026-10-24 05:22:37.851 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: b8d28a66-a756-46ff-aeb3-aeb431d42cf4
+-2026-10-24 05:22:37.870 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 7e0f9c7e-d2a4-45b7-a94e-290394598ddb@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:37.873 - INFO 1984 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=89f3e269-8e75-4b42-a919-7c19298de2dc
+-2026-10-24 05:22:37.882 - WARN 1984 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: P0001
+-2026-10-24 05:22:37.882 - WARN 1984 --- [           main] org.hibernate.orm.jdbc.error             : ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE
+-2026-10-24 05:22:37.883 -ERROR 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API CRITICAL 500: Erro inesperado em /transactions 
+-
+org.springframework.orm.jpa.JpaSystemException: could not execute statement [ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE] [insert into cf024_6df7fa81945b4757a6418abe6fe54d3e.financial_intent_receipts (fingerprint,kind,recorded_at,result_json,user_id,id) values (?,?,?,?,?,?)]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:223) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:199) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:556) ~[spring-orm-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.3.jar:7.0.3]
+	at jdk.proxy2/jdk.proxy2.$Proxy263.saveAndFlush(Unknown Source) ~[na:na]
+	at com.controlefinanceiro.api.service.intent.internal.PostgresFinancialIntents.complete(PostgresFinancialIntents.java:56) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.intent.internal.PostgresFinancialIntents$$SpringCGLIB$$0.complete(<generated>) ~[classes/:na]
+	at com.controlefinanceiro.api.service.TransactionService.create(TransactionService.java:97) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.TransactionService$$SpringCGLIB$$0.create(<generated>) ~[classes/:na]
+	at com.controlefinanceiro.api.controller.TransactionController.create(TransactionController.java:40) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.15.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72) ~[spring-test-7.0.3.jar:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.15.jar:6.1]
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:235) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:132) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:86) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at com.controlefinanceiro.api.infra.security.SecurityFilter.doFilterInternal(SecurityFilter.java:48) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.0.2.jar:7.0.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.setup.MockMvcFilterDecorator.doFilter(MockMvcFilterDecorator.java:160) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:127) ~[spring-test-7.0.3.jar:7.0.3]
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:199) ~[spring-test-7.0.3.jar:7.0.3]
+	at com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest.postCommand(Cf024ConcurrencyCacheIntegrationTest.java:355) ~[test-classes/:na]
+	at com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest.failureWhileSavingReceiptRollsBackLedgerPositionAndCache(Cf024ConcurrencyCacheIntegrationTest.java:334) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestTemplateMethod(TimeoutExtension.java:94) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.execute(NodeTestTask.java:268) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.execute(NodeTestTask.java:246) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.execute(TemplateExecutor.java:96) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.lambda$executeForProvider$1(TemplateExecutor.java:59) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.Optional.ifPresent(Optional.java:178) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.lambda$executeForProvider$0(TemplateExecutor.java:59) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.executeForProvider(TemplateExecutor.java:57) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TemplateExecutor.execute(TemplateExecutor.java:46) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:112) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.jupiter.engine.descriptor.TestTemplateTestDescriptor.execute(TestTemplateTestDescriptor.java:40) ~[junit-jupiter-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.2.jar:6.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.4.jar:3.5.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.4.jar:3.5.4]
+Caused by: org.hibernate.exception.GenericJDBCException: could not execute statement [ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE] [insert into cf024_6df7fa81945b4757a6418abe6fe54d3e.financial_intent_receipts (fingerprint,kind,recorded_at,result_json,user_id,id) values (?,?,?,?,?,?)]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:39) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:184) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:145) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:53) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:66) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:180) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:120) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:93) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:108) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:381) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1489) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at org.hibernate.internal.SessionImpl.flush(SessionImpl.java:1477) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:317) ~[spring-orm-7.0.3.jar:7.0.3]
+	at jdk.proxy2/jdk.proxy2.$Proxy234.flush(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.flush(SimpleJpaRepository.java:709) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush(SimpleJpaRepository.java:676) ~[spring-data-jpa-4.0.2.jar:4.0.2]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.0.2.jar:4.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.3.jar:7.0.3]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.3.jar:7.0.3]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.3.jar:7.0.3]
+	... 247 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERROR: CF024 synthetic receipt failure
+  Onde: PL/pgSQL function cf024_fail_receipt() line 1 at RAISE
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2846) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2531) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:429) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:526) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:436) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.9.jar:42.7.9]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.9.jar:42.7.9]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:181) ~[hibernate-core-7.2.1.Final.jar:7.2.1.Final]
+	... 288 common frames omitted
+
+2026-10-24 05:22:37.896 - WARN 1984 --- [           main] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Intenção ainda não localizada. [URI: /financial-intents/c100444b-1c03-4d3c-a237-f03db27859cc]
+-2026-10-24 05:22:37.899 - INFO 1984 --- [           main] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 7e0f9c7e-d2a4-45b7-a94e-290394598ddb@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:37.904 - INFO 1984 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=89f3e269-8e75-4b42-a919-7c19298de2dc
+-]]></system-out>
+  </testcase>
+  <testcase name="realPostgresLockTimeoutReturnsRecoverable409WithoutWriting" classname="com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest" time="0.542">
+    <system-out><![CDATA[2026-10-24 05:22:37.919 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b9cbd53d-f167-42be-979b-14cf33ef887f
+-2026-10-24 05:22:37.923 - INFO 1984 --- [           main] c.c.api.service.AccountService           : Criando nova conta para o usuário b9cbd53d-f167-42be-979b-14cf33ef887f
+-2026-10-24 05:22:37.925 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF024' (STOCK) para usuário 2ae37574-311a-40da-97e1-daf19d7e6768@example.invalid
+-2026-10-24 05:22:37.925 - INFO 1984 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: a70f3835-2955-4e8f-9c99-c0715c188079
+-2026-10-24 05:22:37.947 - INFO 1984 --- [ool-21-thread-2] c.c.a.controller.TransactionController   : API: Requisição para CRIAR transação. Usuário: 2ae37574-311a-40da-97e1-daf19d7e6768@example.invalid | Valor: 300 | Tipo: TRANSFER
+-2026-10-24 05:22:37.951 - INFO 1984 --- [ool-21-thread-2] c.c.api.service.TransactionService       : Criando transação: Tipo=TRANSFER, Valor=300, ContaID=cb577291-f692-4f55-b122-32387c8f724e
+-2026-10-24 05:22:38.453 - WARN 1984 --- [ool-21-thread-2] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 0, SQLState: 55P03
+-2026-10-24 05:22:38.453 - WARN 1984 --- [ool-21-thread-2] org.hibernate.orm.jdbc.error             : ERROR: canceling statement due to lock timeout
+  Onde: while locking tuple (1,6) in relation "accounts"
+-2026-10-24 05:22:38.454 - WARN 1984 --- [ool-21-thread-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 409: Conflito de concorrência [URI: /transactions]
+-]]></system-out>
+  </testcase>
+</testsuite>

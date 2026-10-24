@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="6.156" tests="7" errors="0" skipped="0" failures="0">
+  <testcase name="buyAndReservationOfSameSourceRevalidateAfterRowWait" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.668">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 04:34:53.593 - INFO 45752 --- [           main] c.c.a.d.o.Cf033CapacityProtocolTest      : Starting Cf033CapacityProtocolTest using Java 21.0.12.1 with PID 45752 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\saneamento-20261024-01\backend)
+-2026-10-24 04:34:53.593 - INFO 45752 --- [           main] c.c.a.d.o.Cf033CapacityProtocolTest      : The following 1 profile is active: "test"
+-2026-10-24 04:34:56.352 - WARN 45752 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 04:34:58.373 - INFO 45752 --- [           main] c.c.a.d.o.Cf033CapacityProtocolTest      : Started Cf033CapacityProtocolTest in 4.925 seconds (process running for 38.255)
+-2026-10-24 04:34:58.405 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário f7175864-5f98-4039-bb31-5f57e407902b@example.test
+-2026-10-24 04:34:58.409 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 397bb07a-d1f6-4338-8692-9a4fcb1479cb
+-2026-10-24 04:34:58.471 - INFO 45752 --- [     virtual-87] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 397bb07a-d1f6-4338-8692-9a4fcb1479cb
+-2026-10-24 04:34:58.840 - INFO 45752 --- [     virtual-87] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="newLegacyDependencyCannotAppearDuringLocalAuthorization" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.117">
+    <system-out><![CDATA[2026-10-24 04:34:59.072 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário df8d4d4e-4a12-4226-a4ef-ad4d0cf9d770@example.test
+-2026-10-24 04:34:59.073 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 0ee5310b-2a87-4e33-96a6-3d5891131a37
+-2026-10-24 04:34:59.083 - INFO 45752 --- [     virtual-99] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 0ee5310b-2a87-4e33-96a6-3d5891131a37
+-2026-10-24 04:34:59.095 - INFO 45752 --- [     virtual-99] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 04:34:59.112 - INFO 45752 --- [    virtual-100] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário df8d4d4e-4a12-4226-a4ef-ad4d0cf9d770@example.test
+-2026-10-24 04:34:59.113 - INFO 45752 --- [    virtual-100] c.c.api.service.InvestmentService        : SERVICE: Vinculando ativo 'CF033' à Meta ID 16d1d664-9e75-4b8a-869b-bb1d1ecf42ef
+-2026-10-24 04:34:59.115 - INFO 45752 --- [    virtual-100] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 8b6f8030-f0d8-488c-b6b8-29b6250327a0
+-2026-10-24 04:34:59.131 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 0ee5310b-2a87-4e33-96a6-3d5891131a37
+-]]></system-out>
+  </testcase>
+  <testcase name="authorizationWaitingForNewDependencySeesItAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.076">
+    <system-out><![CDATA[2026-10-24 04:34:59.181 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário 5e9e9313-d66d-4ab9-84b5-d3a1da7fb097@example.test
+-2026-10-24 04:34:59.182 - INFO 45752 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 6ef89b42-a3d5-4e14-8d0b-f9a6ecb689ec
+-2026-10-24 04:34:59.191 - INFO 45752 --- [    virtual-101] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CF033' (STOCK) para usuário 5e9e9313-d66d-4ab9-84b5-d3a1da7fb097@example.test
+-2026-10-24 04:34:59.192 - INFO 45752 --- [    virtual-101] c.c.api.service.InvestmentService        : SERVICE: Vinculando ativo 'CF033' à Meta ID 01877fab-7d9d-4d28-acc6-5bda4f758c77
+-2026-10-24 04:34:59.195 - INFO 45752 --- [    virtual-101] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 12588ca7-9dff-4659-ba74-dd0bc7a7e225
+-2026-10-24 04:34:59.212 - INFO 45752 --- [    virtual-102] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 6ef89b42-a3d5-4e14-8d0b-f9a6ecb689ec
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[1]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.093">
+    <system-out><![CDATA[2026-10-24 04:34:59.374 - INFO 45752 --- [    virtual-104] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=0cdf6e74-0525-45a0-8c58-8479525f2eb5
+-2026-10-24 04:34:59.377 - INFO 45752 --- [    virtual-104] c.c.api.service.TransactionService       : Saldo atualizado na conta 0cdf6e74-0525-45a0-8c58-8479525f2eb5. Novo saldo: 1025.00
+-2026-10-24 04:34:59.384 - INFO 45752 --- [    virtual-104] c.c.api.service.TransactionService       : Transação salva com sucesso: ID c0b697ef-4f88-4e55-8622-b2a63d5ed915
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[2]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.044">
+    <system-out><![CDATA[2026-10-24 04:34:59.414 - INFO 45752 --- [    virtual-105] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 600a7af2-8909-40bd-8ba8-ca324a950a3d. Valor: 600.00
+-2026-10-24 04:34:59.423 - INFO 45752 --- [    virtual-105] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 600.00
+-2026-10-24 04:34:59.426 - INFO 45752 --- [    virtual-106] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=ed8a9651-2f44-4e8d-a488-74181935d990
+-2026-10-24 04:34:59.428 - INFO 45752 --- [    virtual-106] c.c.api.service.TransactionService       : Saldo atualizado na conta ed8a9651-2f44-4e8d-a488-74181935d990. Novo saldo: 1025.00
+-2026-10-24 04:34:59.432 - INFO 45752 --- [    virtual-106] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 1880dd31-e598-4523-9c1a-95d161cf263b
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceReservationAllowsIndependentAccountBeforeItsCommit(String)[3]" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.081">
+    <system-out><![CDATA[2026-10-24 04:34:59.508 - INFO 45752 --- [    virtual-108] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=44bf9097-cd3c-41a6-8ac0-0c6397439889
+-2026-10-24 04:34:59.511 - INFO 45752 --- [    virtual-108] c.c.api.service.TransactionService       : Saldo atualizado na conta 44bf9097-cd3c-41a6-8ac0-0c6397439889. Novo saldo: 25.00
+-2026-10-24 04:34:59.514 - INFO 45752 --- [    virtual-108] c.c.api.service.TransactionService       : Transação salva com sucesso: ID d7c5554b-779a-4f42-866b-485e6ad38a43
+-]]></system-out>
+  </testcase>
+  <testcase name="globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow" classname="com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest" time="0.06">
+    <system-out><![CDATA[2026-10-24 04:34:59.568 - INFO 45752 --- [    virtual-110] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=25.00, ContaID=e0c59066-b014-4846-9729-b0c7fa58afc7
+-2026-10-24 04:34:59.572 - INFO 45752 --- [    virtual-110] c.c.api.service.TransactionService       : Saldo atualizado na conta e0c59066-b014-4846-9729-b0c7fa58afc7. Novo saldo: 25.00
+-2026-10-24 04:34:59.578 - INFO 45752 --- [    virtual-110] c.c.api.service.TransactionService       : Transação salva com sucesso: ID ca30b073-fd1c-4cba-8ab2-aaeb5c60616f
+-]]></system-out>
+  </testcase>
+</testsuite>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest" time="30.481" tests="1" errors="0" skipped="0" failures="1">
+  <testcase name="realReservationWriterCannotSpendCapacityBetweenRevalidationAndApplication" classname="com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest" time="1.216">
+    <failure message="[600 onboarding + competing 600 cannot reserve 1200 of source1000; writer=COMMITTED] &#xA;expected: 600.00&#xA; but was: 1200.00" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+[600 onboarding + competing 600 cannot reserve 1200 of source1000; writer=COMMITTED] 
+expected: 600.00
+ but was: 1200.00
+	at com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.realReservationWriterCannotSpendCapacityBetweenRevalidationAndApplication(OnboardingReviewConcurrencyTest.java:68)
+]]></failure>
+    <system-out><![CDATA[07:38:42.907 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport]: OnboardingApplicationSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+07:38:42.911 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+07:38:44.915 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest
+07:38:45.167 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+07:38:45.167 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 07:38:45.674 - INFO 61684 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-24 07:38:45.974 - INFO 61684 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-24 07:38:46.703 - INFO 61684 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-24 07:38:46.704 - INFO 61684 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-24 07:38:46.729 - INFO 61684 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-24 07:38:47.674 - INFO 61684 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-24 07:38:47.674 - INFO 61684 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-24 07:38:47.675 - INFO 61684 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-24 07:38:49.268 - INFO 61684 --- [           main] .c.a.d.o.OnboardingReviewConcurrencyTest : Starting OnboardingReviewConcurrencyTest using Java 21.0.12.1 with PID 61684 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\saneamento-20261024-01\backend)
+-2026-10-24 07:38:49.269 - INFO 61684 --- [           main] .c.a.d.o.OnboardingReviewConcurrencyTest : The following 1 profile is active: "test"
+-2026-10-24 07:39:01.015 - WARN 61684 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 07:39:11.814 - INFO 61684 --- [           main] .c.a.d.o.OnboardingReviewConcurrencyTest : Started OnboardingReviewConcurrencyTest in 26.625 seconds (process running for 30.191)
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>

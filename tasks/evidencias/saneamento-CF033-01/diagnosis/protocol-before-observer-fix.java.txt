@@ -1,0 +1,182 @@
+package com.controlefinanceiro.api.domain.onboarding;
+
+import com.controlefinanceiro.api.domain.goal.dto.*;
+import com.controlefinanceiro.api.domain.investment.*;
+import com.controlefinanceiro.api.domain.investment.dto.*;
+import com.controlefinanceiro.api.domain.transaction.TransactionType;
+import com.controlefinanceiro.api.domain.transaction.dto.CreateTransactionDTO;
+import com.controlefinanceiro.api.service.*;
+import com.controlefinanceiro.api.service.exception.BusinessRuleException;
+import com.controlefinanceiro.api.service.onboarding.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.support.TransactionTemplate;
+import java.math.BigDecimal;
+import java.nio.file.*;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import static org.assertj.core.api.Assertions.*;
+
+/** Independent SQL oracles; product transactions/connections and latch interleavings.
+ * A future must finish BEFORE releasing the held transaction to prove progress. */
+class Cf033CapacityProtocolTest extends OnboardingApplicationSupport {
+    @Autowired InvestmentService investments;
+    @Autowired GoalService goals;
+    @Autowired TransactionService transactions;
+    @Autowired OnboardingInventory inventories;
+    static final LocalDate DAY=LocalDate.of(2026,10,19);
+    UUID goal() {
+        UUID id=UUID.randomUUID();
+        sql.update("insert into goals(id,title,type,target_value,current_value,deadline,user_id,allocation_reconciled,version) values(?,'CF033 reserve','MONETARY',2000,0,'2027-10-23',?,true,0)",id,user.getId());
+        return id;
+    }
+    CreateInvestmentDTO position(UUID goal) {
+        return new CreateInvestmentDTO("CF033","Synthetic",InvestType.STOCK,goal,new BigDecimal("10"),
+                new BigDecimal("1000.00"),new BigDecimal("1000.00"),DAY,"SYNTHETIC");
+    }
+    InvestmentOperationDTO buy(UUID investment,UUID account,String quantity) {
+        return new InvestmentOperationDTO(investment,InvestTransType.BUY,new BigDecimal(quantity),
+                new BigDecimal("100.00"),BigDecimal.ZERO,DAY,account);
+    }
+    void income(UUID account) {
+        transactions.create(new CreateTransactionDTO("CF033 independent",new BigDecimal("25.00"),DAY,null,
+                TransactionType.INCOME,account,null,true),user);
+    }
+    BigDecimal balance(UUID source) {return sql.queryForObject("select balance from accounts where id=?",BigDecimal.class,source);}
+    BigDecimal reserved(UUID source) {return sql.queryForObject("select coalesce(sum(amount),0) from goal_allocations where account_id=?",BigDecimal.class,source);}
+    boolean blocked(int pid) {return Boolean.TRUE.equals(sql.queryForObject("select cardinality(pg_blocking_pids(?))>0",Boolean.class,pid));}
+    boolean blockedOrDone(Future<?> future,int pid) {
+        long end=System.nanoTime()+TimeUnit.SECONDS.toNanos(10);
+        while(!future.isDone() && !blocked(pid) && System.nanoTime()<end)Thread.onSpinWait();
+        assertThat(future.isDone() || blocked(pid)).as("completion or PostgreSQL blocker").isTrue();
+        return blocked(pid);
+    }
+    void evidence(String name,Map<String,Object> values) throws Exception {
+        String out=System.getenv("CF032_EVIDENCE");
+        if(out!=null)Files.writeString(Path.of(out,name+".json"),OnboardingJson.JSON.writeValueAsString(values),StandardOpenOption.CREATE_NEW);
+    }
+    @ParameterizedTest @ValueSource(strings={"set","deposit","move"})
+    void sourceReservationAllowsIndependentAccountBeforeItsCommit(String writer) throws Exception {
+        UUID source=account("1000.00"),other=account("1000.00"),g=goal();
+        UUID allocation=null;
+        if(writer.equals("move")) {
+            goals.setAllocation(g,new SetGoalAllocationDTO(source,null,new BigDecimal("600.00")),user);
+            allocation=sql.queryForObject("select id from goal_allocations where goal_id=?",UUID.class,g);
+        }
+        UUID pair=allocation;var entered=new CountDownLatch(1);var release=new CountDownLatch(1);
+        Map<String,Object> seen=new LinkedHashMap<>();
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{
+                switch(writer) {
+                    case "set" -> goals.setAllocation(g,new SetGoalAllocationDTO(source,null,new BigDecimal("600.00")),user);
+                    case "deposit" -> goals.addValue(g,new GoalDepositDTO(source,new BigDecimal("600.00"),null,null,null,null),user);
+                    case "move" -> goals.moveAllocation(g,new MoveGoalAllocationDTO(pair,other,null,new BigDecimal("100.00")),user);
+                    default -> throw new AssertionError(writer);
+                }
+                long heldFrom=System.nanoTime();
+                seen.put("holderLocks",sql.queryForList("select locktype,mode,granted from pg_locks where pid=pg_backend_pid() and locktype='advisory'"));
+                entered.countDown();await(release);seen.put("observedHeldNanosLowerBound",System.nanoTime()-heldFrom);
+            }));
+            try {
+                await(entered);
+                // move holds both sources; a third account is required for independence.
+                UUID independent=writer.equals("move")?account("0.00"):other;
+                pool.submit(()->income(independent)).get(4,TimeUnit.SECONDS);
+                assertThat(balance(independent)).isEqualByComparingTo(writer.equals("move")?"25.00":"1025.00");
+                assertThat(first.isDone()).isFalse();
+                seen.put("independentCommittedBeforeRelease",true);
+            } finally {release.countDown();}
+            first.get(15,TimeUnit.SECONDS);
+        }
+        assertThat(reserved(source)).isEqualByComparingTo(writer.equals("move")?"500.00":"600.00");
+        if(writer.equals("move"))assertThat(reserved(other)).isEqualByComparingTo("100.00");
+        seen.put("sourceReserved",reserved(source));evidence("progress-"+writer,seen);
+    }
+    @Test void buyAndReservationOfSameSourceRevalidateAfterRowWait() throws Exception {
+        UUID source=account("1000.00"),g=goal(),i=investments.create(position(null),user).id();
+        var entered=new CountDownLatch(1);var release=new CountDownLatch(1);var waiterEntered=new CountDownLatch(1);
+        var holderPid=new AtomicInteger();var waiterPid=new AtomicInteger();Map<String,Object> seen=new LinkedHashMap<>();
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{
+                holderPid.set(sql.queryForObject("select pg_backend_pid()",Integer.class));
+                investments.performOperation(buy(i,source,"6"),user);entered.countDown();await(release);
+            }));
+            await(entered);
+            var next=pool.submit(()->{
+                try {new TransactionTemplate(txManager).executeWithoutResult(s->{
+                    waiterPid.set(sql.queryForObject("select pg_backend_pid()",Integer.class));waiterEntered.countDown();
+                    goals.setAllocation(g,new SetGoalAllocationDTO(source,null,new BigDecimal("600.00")),user);
+                });return "COMMITTED";}catch(BusinessRuleException e){return "CAPACITY_REJECTED";}
+            });
+            try {
+                await(waiterEntered);assertThat(blockedOrDone(next,waiterPid.get())).isTrue();
+                seen.put("waiter",sql.queryForMap("select pid,wait_event_type,wait_event,pg_blocking_pids(pid)::text as blockers,query from pg_stat_activity where pid=?",waiterPid.get()));
+                seen.put("locks",sql.queryForList("select pid,locktype,mode,granted from pg_locks where pid in (?,?) order by pid,locktype",holderPid.get(),waiterPid.get()));
+            } finally {release.countDown();}
+            first.get(15,TimeUnit.SECONDS);assertThat(next.get(15,TimeUnit.SECONDS)).isEqualTo("CAPACITY_REJECTED");
+        }
+        assertThat(balance(source)).isEqualByComparingTo("400.00");assertThat(reserved(source)).isEqualByComparingTo("0.00");
+        seen.put("balance",balance(source));seen.put("reserved",reserved(source));evidence("same-source",seen);
+    }
+    @Test void newLegacyDependencyCannotAppearDuringLocalAuthorization() throws Exception {
+        UUID source=account("1000.00"),g=goal(),i=investments.create(position(null),user).id();
+        var entered=new CountDownLatch(1);var release=new CountDownLatch(1);var waiterEntered=new CountDownLatch(1);var pid=new AtomicInteger();
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{
+                investments.performOperation(buy(i,source,"2"),user);entered.countDown();await(release);
+            }));await(entered);
+            var create=pool.submit(()->new TransactionTemplate(txManager).execute(s->{
+                pid.set(sql.queryForObject("select pg_backend_pid()",Integer.class));waiterEntered.countDown();return investments.create(position(g),user);
+            }));
+            try {await(waiterEntered);assertThat(blockedOrDone(create,pid.get())).isTrue();}
+            finally {release.countDown();}
+            first.get(15,TimeUnit.SECONDS);assertThat(create.get(15,TimeUnit.SECONDS).id()).isNotNull();
+        }
+        assertThatThrownBy(()->investments.performOperation(buy(i,source,"1"),user)).isInstanceOf(BusinessRuleException.class);
+        assertThat(balance(source)).isEqualByComparingTo("800.00");
+    }
+    @Test void authorizationWaitingForNewDependencySeesItAfterCommit() throws Exception {
+        UUID source=account("1000.00"),g=goal(),i=investments.create(position(null),user).id();
+        var entered=new CountDownLatch(1);var release=new CountDownLatch(1);var waiterEntered=new CountDownLatch(1);var pid=new AtomicInteger();
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{
+                investments.create(position(g),user);entered.countDown();await(release);
+            }));await(entered);
+            var buy=pool.submit(()->{
+                try {new TransactionTemplate(txManager).executeWithoutResult(s->{pid.set(sql.queryForObject("select pg_backend_pid()",Integer.class));waiterEntered.countDown();investments.performOperation(buy(i,source,"2"),user);});return "COMMITTED";}
+                catch(BusinessRuleException e){return "DEPENDENCY_REJECTED";}
+            });
+            try {await(waiterEntered);assertThat(blockedOrDone(buy,pid.get())).isTrue();}
+            finally {release.countDown();}
+            first.get(15,TimeUnit.SECONDS);assertThat(buy.get(15,TimeUnit.SECONDS)).isEqualTo("DEPENDENCY_REJECTED");
+        }
+        assertThat(balance(source)).isEqualByComparingTo("1000.00");
+    }
+    @Test void globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow() throws Exception {
+        UUID source=account("1000.00"),other=account("0.00");
+        UUID investment=investments.create(position(null),user).id();
+        UUID reservation=UUID.randomUUID();
+        // A persisted CLOSED declaration is also inventory-scoped: absence of an
+        // active reservation does not authorize dropping its token protection.
+        String base=new TransactionTemplate(txManager).execute(s->{guard.snapshot(user.getId());return OnboardingProjection.baseToken(inventories.load(user.getId()),OnboardingJson.object());});
+        UUID proof=UUID.randomUUID();
+        var record=OnboardingJson.node("reservationId",reservation.toString(),"revision","0","goal",OnboardingJson.node("state","UNKNOWN"),
+                "nominal",SummaryAmount.known(BigDecimal.ZERO).json(),"attribution",OnboardingJson.node("state","CLOSED","evidenceRefs",List.of(proof.toString())));
+        var evidence=List.of(OnboardingJson.node("id",proof.toString(),"revision","0","basis","CURRENT_DECLARATION","reservationId",reservation.toString(),
+                "claim","CLOSURE","sources",List.of(),"inventoryToken",base,"validatedAt","2026-10-19T15:00:00Z"));
+        sql.update("insert into onboarding_reservation_records(id,user_id,revision,attribution,evidence,recorded_at) values(?,?,0,?,?,now())",reservation,user.getId(),record.toString(),OnboardingJson.JSON.writeValueAsString(evidence));
+        var entered=new CountDownLatch(1);var release=new CountDownLatch(1);var waiterEntered=new CountDownLatch(1);var pid=new AtomicInteger();
+        try(var pool=Executors.newVirtualThreadPerTaskExecutor()) {
+            var first=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{investments.performOperation(buy(investment,source,"2"),user);entered.countDown();await(release);}));await(entered);
+            var writer=pool.submit(()->new TransactionTemplate(txManager).executeWithoutResult(s->{pid.set(sql.queryForObject("select pg_backend_pid()",Integer.class));waiterEntered.countDown();income(other);}));
+            try {await(waiterEntered);assertThat(blockedOrDone(writer,pid.get())).isTrue();}
+            finally {release.countDown();}
+            first.get(15,TimeUnit.SECONDS);writer.get(15,TimeUnit.SECONDS);
+        }
+        assertThat(balance(source)).isEqualByComparingTo("800.00");assertThat(balance(other)).isEqualByComparingTo("25.00");assertThat(reserved(source)).isEqualByComparingTo("0.00");
+    }
+}

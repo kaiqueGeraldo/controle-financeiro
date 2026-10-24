@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 30.00 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest
+com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest.unrelatedAccountProgressIsNotBlockedByAnotherSourcesBuy -- Time elapsed: 0.973 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[DEC10: another account of the same owner must progress while BUY holds its own source; observed PostgreSQL blockers={pid=63, wait_event_type=Lock, wait_event=advisory, blockers={62}, query=select 1 from pg_advisory_xact_lock_shared(hashtextextended(cast($1 as text),0))}] 
+expected: false
+ but was: true
+	at com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest.unrelatedAccountProgressIsNotBlockedByAnotherSourcesBuy(Cf033ProgressIndependenceProbeTest.java:82)
+

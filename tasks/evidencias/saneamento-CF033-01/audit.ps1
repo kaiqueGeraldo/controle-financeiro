@@ -28,7 +28,8 @@ $results=foreach($phase in Get-ChildItem $PSScriptRoot -Directory){
   $tests+=[int]$xml.testsuite.tests;$failures+=[int]$xml.testsuite.failures
   $errors+=[int]$xml.testsuite.errors;$skips+=[int]$xml.testsuite.skipped
  }
- [ordered]@{phase=$phase.Name;tests=$tests;failures=$failures;errors=$errors;skips=$skips;exitCode=$run.exitCode;selection=$run.tests}
+ $selection=if($run.package){'Maven verify -DskipTests; packaging only'}else{$run.tests}
+ [pscustomobject][ordered]@{phase=$phase.Name;tests=$tests;failures=$failures;errors=$errors;skips=$skips;exitCode=$run.exitCode;selection=$selection}
 }
 $results | ConvertTo-Json -Depth 5 | Set-Content "$PSScriptRoot/results.json"
 $sources | ConvertTo-Json -Depth 5 | Set-Content "$PSScriptRoot/final-sources.json"

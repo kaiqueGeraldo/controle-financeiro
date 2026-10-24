@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.676" tests="11" errors="0" skipped="0" failures="0">
+  <testcase name="valuationDropKeepsReservationButPreventsAdditionalAllocation" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.08">
+    <system-out><![CDATA[2026-10-24 05:29:29.716 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.720 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'DROP' (STOCK) para usuário 0ec841fb-90ce-4738-b68d-1cffde866e8f@example.test
+-2026-10-24 05:29:29.721 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 56d32aae-6d7d-4132-b48f-599d58079857
+-2026-10-24 05:29:29.727 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 6cb09b84-b2b4-4b6d-8bfd-927b60bf32c1. Valor: 200.00
+-2026-10-24 05:29:29.739 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 200.00
+-2026-10-24 05:29:29.758 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 6cb09b84-b2b4-4b6d-8bfd-927b60bf32c1. Valor: 0.01
+-2026-10-24 05:29:29.764 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 56d32aae-6d7d-4132-b48f-599d58079857
+-2026-10-24 05:29:29.768 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-]]></system-out>
+  </testcase>
+  <testcase name="simultaneousGoalsCannotBothReserveTheSameAccountCapacity" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.048">
+    <system-out><![CDATA[2026-10-24 05:29:29.783 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.786 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.796 - INFO 30100 --- [pool-4-thread-1] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 3ea9096f-45dc-43fd-9abf-7263a5c4bdde. Valor: 600.00
+-2026-10-24 05:29:29.803 - INFO 30100 --- [pool-4-thread-2] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: e0ff0dd0-4fc9-419d-98fb-4f0fafc06f35. Valor: 600.00
+-2026-10-24 05:29:29.805 - INFO 30100 --- [pool-4-thread-1] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 600.00
+-]]></system-out>
+  </testcase>
+  <testcase name="sourceOwnershipAndUnknownValuationDenyAllocationWithoutMutatingAccounts" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.041">
+    <system-out><![CDATA[2026-10-24 05:29:29.831 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.841 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: cfe6c453-2bae-46b4-9474-d7ea14eac0cb. Valor: 1.00
+-2026-10-24 05:29:29.847 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.852 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'UNKNOWN' (STOCK) para usuário 64030389-a785-4491-bdfe-90f0a2dbed38@example.test
+-2026-10-24 05:29:29.853 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 944ad3e7-f20d-4bc9-b1a9-73b25cfd1dbf
+-2026-10-24 05:29:29.859 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: b751c5a2-82e5-436f-9f27-037692e8f527. Valor: 1.00
+-]]></system-out>
+  </testcase>
+  <testcase name="twoGoalsShareOneAccountWithoutCreatingWealthOrExpense" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.071">
+    <system-out><![CDATA[2026-10-24 05:29:29.870 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.874 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.878 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 24245b80-e3d6-4747-8fe4-a391c2c550f4. Valor: 300.00
+-2026-10-24 05:29:29.882 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 300.00
+-2026-10-24 05:29:29.888 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: e896504a-05eb-46fc-8d8f-5b0dd1ffc0d6. Valor: 700.00
+-2026-10-24 05:29:29.892 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 700.00
+-2026-10-24 05:29:29.902 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 24245b80-e3d6-4747-8fe4-a391c2c550f4. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="initialNumericProgressAndInvestmentAllocationHaveNoPastCashTransaction" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.047">
+    <system-out><![CDATA[2026-10-24 05:29:29.944 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Livros
+-2026-10-24 05:29:29.947 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:29.950 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'FIX1' (FIXED_INCOME) para usuário 2241e38a-721a-47bd-a166-13137a50c839@example.test
+-2026-10-24 05:29:29.950 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: bc3a1d9c-1830-4e41-a3e3-04c5910da909
+-2026-10-24 05:29:29.954 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 801f6530-37a7-4466-a9db-cd6e4bfbf3a4. Valor: 200.00
+-2026-10-24 05:29:29.959 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 200.00
+-]]></system-out>
+  </testcase>
+  <testcase name="fractionalPriceRoundsGrossOnceAndLastSaleRemovesResidualCost" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.067">
+    <system-out><![CDATA[2026-10-24 05:29:29.993 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'ROUND' (STOCK) para usuário 0f4b877e-5307-45b6-a7b9-2ae4d9b01a87@example.test
+-2026-10-24 05:29:29.993 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: ace68d88-99bf-473c-92fc-a2d6ade765ed
+-2026-10-24 05:29:29.998 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID ace68d88-99bf-473c-92fc-a2d6ade765ed
+-2026-10-24 05:29:30.003 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:30.014 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'THIRDS' (STOCK) para usuário 0f4b877e-5307-45b6-a7b9-2ae4d9b01a87@example.test
+-2026-10-24 05:29:30.014 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 3e7523a3-4f17-419f-af64-a5426791ad49
+-2026-10-24 05:29:30.016 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 3e7523a3-4f17-419f-af64-a5426791ad49
+-2026-10-24 05:29:30.019 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:30.021 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:30.028 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 3e7523a3-4f17-419f-af64-a5426791ad49
+-2026-10-24 05:29:30.030 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:30.032 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:30.038 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID 3e7523a3-4f17-419f-af64-a5426791ad49
+-2026-10-24 05:29:30.039 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:30.043 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="deletedChecklistPreservesCashAndCanBeRefundedOnceFromItsRecordedOrigin" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.072">
+    <system-out><![CDATA[2026-10-24 05:29:30.058 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:30.063 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 883aa30b-e023-4538-ab0c-b6fa704d3b92. Valor: 300.00
+-2026-10-24 05:29:30.067 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 300.00
+-]]></system-out>
+  </testcase>
+  <testcase name="costAndValuationRemainSeparateAcrossBuyPartialSaleAndDividend" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.046">
+    <system-out><![CDATA[2026-10-24 05:29:30.136 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'SINT3' (STOCK) para usuário 23de8d0a-d4c5-40fe-a2f1-c656bc49f619@example.test
+-2026-10-24 05:29:30.136 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: de6bc7f7-f187-49b4-90ff-f6deda5b5426
+-2026-10-24 05:29:30.141 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID de6bc7f7-f187-49b4-90ff-f6deda5b5426
+-2026-10-24 05:29:30.145 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:30.156 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID de6bc7f7-f187-49b4-90ff-f6deda5b5426
+-2026-10-24 05:29:30.158 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:30.160 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 05:29:30.168 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de DIVIDEND no ativo ID de6bc7f7-f187-49b4-90ff-f6deda5b5426
+-2026-10-24 05:29:30.173 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="partialReleaseAndAtomicMoveChangeSourcesWithoutMovingMoney" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.084">
+    <system-out><![CDATA[2026-10-24 05:29:30.180 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:30.182 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'MOVE' (FIXED_INCOME) para usuário 270dc3a4-12f5-46f2-91ae-3dd3f161e5b9@example.test
+-2026-10-24 05:29:30.182 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: 93ae18db-0421-4fe1-bf1a-eee3c2cf9819
+-2026-10-24 05:29:30.187 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 566cb1d9-8555-4808-b3f4-158b4fdd7c67. Valor: 300.00
+-2026-10-24 05:29:30.191 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 300.00
+-]]></system-out>
+  </testcase>
+  <testcase name="fixedIncomePartialRedemptionRemovesProportionalCostWithoutRecordingAllProceedsAsIncome" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.025">
+    <system-out><![CDATA[2026-10-24 05:29:30.265 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Iniciando criação de ativo 'CDB' (FIXED_INCOME) para usuário 13343ff6-9b59-4967-bf91-23f439404e94@example.test
+-2026-10-24 05:29:30.265 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Ativo criado com sucesso. ID: aa71c8ba-5e7f-4ed3-a5f3-0102536d000e
+-2026-10-24 05:29:30.268 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de SELL no ativo ID aa71c8ba-5e7f-4ed3-a5f3-0102536d000e
+-2026-10-24 05:29:30.271 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Executando lógica de VENDA.
+-2026-10-24 05:29:30.273 - INFO 30100 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-]]></system-out>
+  </testcase>
+  <testcase name="explicitChecklistRefundCreditsOnceAndDoesNotRecreateReservation" classname="com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest" time="0.07">
+    <system-out><![CDATA[2026-10-24 05:29:30.289 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Criando nova meta: Meta sintética
+-2026-10-24 05:29:30.297 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 427fecbe-bc23-4a80-9734-5de2cd9ca18c. Valor: 300.00
+-2026-10-24 05:29:30.302 - INFO 30100 --- [           main] c.c.api.service.GoalService              : Aporte na meta concluído com sucesso. Novo saldo da meta: 300.00
+-]]></system-out>
+  </testcase>
+</testsuite>

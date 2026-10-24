@@ -50,6 +50,18 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Atualização dirigida de24/10/2026: **CF033-01 saneado localmente, aguardando
+revalidação independente; achado sem autoencerramento**. A tarefa permanece
+concluida como execução de revisão, sem aprovação irrestrita do candidato.
+DEC-10 preservada pelo protocolo de dependências/capacidade por fonte, com
+proteção global para inventário certificado/legado. Probe original intacto
+vermelho→verde;43 dirigidos e229 regressões aprovados (sobrepostos), duas
+contraprovas finais detectadas/restauradas e controles2/2; Maven verify/JAR local
+sem clean. [Reconciliação, provas, falhas, custos e encaminhamento](../evidencias/saneamento-CF033-01/README.md).
+Mesma branch, commits locais, README/runtimes preservados. Aceites anteriores,
+zoom nativo200%, adoção CF017/P01/P02 e DEC-ONB-03 conservam seus alcances;
+CF034+ não iniciadas. Próximo passo: revalidação independente dirigida.
+
 Iniciada em 23/10/2026 sobre a base integrada/publicada `bfb6c61`, na branch
 `codex/cf033-revisao-integrada`. Dependências CF025/027/032 aceitas no alcance
 local e integradas; escopo, matriz normativa anterior à execução e gates em

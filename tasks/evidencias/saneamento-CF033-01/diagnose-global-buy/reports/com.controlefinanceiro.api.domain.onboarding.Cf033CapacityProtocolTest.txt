@@ -1,0 +1,43 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 29.09 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest
+com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow -- Time elapsed: 0.713 s <<< ERROR!
+java.util.concurrent.ExecutionException: com.controlefinanceiro.api.service.exception.BusinessRuleException: Capacidade da fonte não comprovada: há reservas pendentes de reconciliação.
+	at java.base/java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:205)
+	at com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.entered(Cf033CapacityProtocolTest.java:61)
+	at com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow(Cf033CapacityProtocolTest.java:180)
+Caused by: com.controlefinanceiro.api.service.exception.BusinessRuleException: Capacidade da fonte não comprovada: há reservas pendentes de reconciliação.
+	at com.controlefinanceiro.api.service.SourceReservationService.requireCapacity(SourceReservationService.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.SourceReservationService$$SpringCGLIB$$0.requireCapacity(<generated>)
+	at com.controlefinanceiro.api.service.InvestmentService.processBuy(InvestmentService.java:217)
+	at com.controlefinanceiro.api.service.InvestmentService.performOperationOnce(InvestmentService.java:190)
+	at com.controlefinanceiro.api.service.InvestmentService.performOperation(InvestmentService.java:137)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.controlefinanceiro.api.service.InvestmentService$$SpringCGLIB$$0.performOperation(<generated>)
+	at com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.lambda$globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow$17(Cf033CapacityProtocolTest.java:180)
+	at org.springframework.transaction.support.TransactionOperations.lambda$executeWithoutResult$0(TransactionOperations.java:68)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.springframework.transaction.support.TransactionOperations.executeWithoutResult(TransactionOperations.java:67)
+	at com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.lambda$globalCertificateKeepsOtherSourceWriterOutsideAuthorizationWindow$18(Cf033CapacityProtocolTest.java:180)
+
