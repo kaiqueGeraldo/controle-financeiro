@@ -80,7 +80,8 @@ public class InvestmentService {
 
     @Transactional
     public InvestmentResponseDTO create(CreateInvestmentDTO data, User user) {
-        inventoryGuard.writer(user.getId());
+        if(data.goalId()!=null)inventoryGuard.structure(user.getId());
+        else inventoryGuard.writer(user.getId());
         log.info("SERVICE: Iniciando criação de ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getEmail());
 
         Investment investment = new Investment();
@@ -131,7 +132,7 @@ public class InvestmentService {
                 data.price(),data.fees()==null?BigDecimal.ZERO:data.fees(),data.date(),data.accountId(),data.amount());
         var previous=intents.replay(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,InvestTransactionResponseDTO.class);
         if(previous!=null) return previous;
-        if(data.type()==InvestTransType.BUY)inventoryGuard.snapshot(user.getId());
+        if(data.type()==InvestTransType.BUY)inventoryGuard.capacity(user.getId());
         else inventoryGuard.writer(user.getId());
         var result=performOperationOnce(data,user);
         intents.complete(data.operationId(),user.getId(),FinancialIntents.INVESTMENT_OPERATION,fingerprint,result);

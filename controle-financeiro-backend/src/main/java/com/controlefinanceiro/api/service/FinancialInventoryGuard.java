@@ -1,14 +1,16 @@
 package com.controlefinanceiro.api.service;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
-/** Intent lock precedes this guard; all source/aggregate locks follow it.
- * Shared writers keep their existing source concurrency. Onboarding captures/applies
- * an entire owner inventory exclusively. No process-local lock or external effects. */
+/** Intent -> dependency gate -> inventory -> sources. All locks last until commit.
+ * The dependency gate prevents a new global reservation from appearing while a
+ * command uses source-local capacity. Existing inventory certificates still need
+ * the exclusive inventory lock; their meaning/token is deliberately unchanged. */
 @Component
 public class FinancialInventoryGuard {
     private final EntityManager em;
@@ -16,11 +18,39 @@ public class FinancialInventoryGuard {
     @Transactional(propagation=Propagation.MANDATORY)
     public void writer(UUID owner) { lock(owner,true); }
     @Transactional(propagation=Propagation.MANDATORY)
-    public void snapshot(UUID owner) { lock(owner,false); }
+    public void snapshot(UUID owner) {
+        advisory("financial-dependencies:"+owner,false);
+        lock(owner,false);
+    }
+    @Transactional(propagation=Propagation.MANDATORY)
+    public void structure(UUID owner) {
+        advisory("financial-dependencies:"+owner,false);
+        lock(owner,true);
+    }
+    @Transactional(propagation=Propagation.MANDATORY)
+    public void capacity(UUID owner) {
+        advisory("financial-dependencies:"+owner,true);
+        lock(owner,!hasInventoryDependencies(owner));
+    }
+    @Transactional(propagation=Propagation.MANDATORY)
+    public boolean hasInventoryDependencies(UUID owner) {
+        // This predicate is also reread during BUY, after replay metadata becomes
+        // dirty. Do not flush that future effect before validating the certificate
+        // for the current inventory (the inventory loader also reads without flush).
+        return (Boolean)em.createNativeQuery("""
+            select exists(select 1 from onboarding_reservation_records where user_id=?1)
+              or exists(select 1 from goals where user_id=?1 and type='MONETARY' and not allocation_reconciled)
+              or exists(select 1 from investments i where i.user_id=?1 and i.goal_id is not null
+                and not exists(select 1 from goal_allocations a where a.investment_id=i.id and a.goal_id=i.goal_id))
+            """).setParameter(1,owner).setFlushMode(FlushModeType.COMMIT).getSingleResult();
+    }
     private void lock(UUID owner,boolean shared) {
+        advisory("financial-inventory:"+owner,shared);
+    }
+    private void advisory(String key,boolean shared) {
         em.createNativeQuery("select set_config('lock_timeout',case when current_setting('lock_timeout')::interval=interval '0' or current_setting('lock_timeout')::interval>interval '5 seconds' then '5s' else current_setting('lock_timeout') end,true)").getSingleResult();
         em.createNativeQuery("select 1 from pg_advisory_xact_lock"+(shared?"_shared":"")+
                 "(hashtextextended(cast(?1 as text),0))")
-                .setParameter(1,"financial-inventory:"+owner).getSingleResult();
+                .setParameter(1,key).getSingleResult();
     }
 }

@@ -133,7 +133,7 @@ public class GoalService {
 
     @Transactional
     public void addValue(UUID goalId, GoalDepositDTO data, User user) {
-        if(data.accountId()!=null || data.investmentId()!=null)inventoryGuard.snapshot(user.getId());
+        if(data.accountId()!=null || data.investmentId()!=null)inventoryGuard.capacity(user.getId());
         else inventoryGuard.writer(user.getId());
         log.info("Registrando progresso/destinação na meta ID: {}. Valor: {}", goalId, data.amount());
         ZonedDateTime now = ZonedDateTime.now(clock);
@@ -233,9 +233,8 @@ public class GoalService {
 
     @Transactional
     public void setAllocation(UUID goalId, SetGoalAllocationDTO data, User user) {
-        // Positive targets can increase capacity; stabilize the evidence inventory
-        // before any source lock. Explicit release-to-zero retains the shared guard.
-        if(data.amount()!=null && data.amount().signum()>0)inventoryGuard.snapshot(user.getId());
+        // Choose source-local or global authorization before taking any source lock.
+        if(data.amount()!=null && data.amount().signum()>0)inventoryGuard.capacity(user.getId());
         else inventoryGuard.writer(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
@@ -266,7 +265,7 @@ public class GoalService {
 
     @Transactional
     public void moveAllocation(UUID goalId, MoveGoalAllocationDTO data, User user) {
-        inventoryGuard.snapshot(user.getId());
+        inventoryGuard.capacity(user.getId());
         ZonedDateTime now = ZonedDateTime.now(clock);
         Goal goal = ownedMonetaryGoal(goalId, user);
         requireMoney(data.amount());

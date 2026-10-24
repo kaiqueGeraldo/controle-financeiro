@@ -76,7 +76,9 @@ class OnboardingCapacityCostTest extends OnboardingApplicationSupport {
         List<Object[]> rows=new ArrayList<>();for(int i=0;i<1000;i++)rows.add(new Object[]{UUID.randomUUID(),"Existing "+i,new BigDecimal("1.00"),user.getId()});
         sql.batchUpdate("insert into accounts(id,name,type,balance,user_id,is_archived,version) values(?,?,'CHECKING',?,?,false,0)",rows);
         save(minimal());STATEMENTS.clear();long started=System.nanoTime(),heapBefore=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();var p=app.prepare(user.getId(),command(UUID.randomUUID()));long queries=selects(),nanos=System.nanoTime()-started,heapAfter=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
-        assertThat(p.at("/summary/bySource").size()).isEqualTo(1000);amount(p.path("summary"),"netWorth","1000.00");assertThat(queries).isEqualTo(25);
+        // CF033-01 adds exactly two SELECTs for the dependency gate (timeout +
+        // advisory lock); the original 25-query inventory/session budget is intact.
+        assertThat(p.at("/summary/bySource").size()).isEqualTo(1000);amount(p.path("summary"),"netWorth","1000.00");assertThat(queries).isEqualTo(27);
         System.out.println("CF030_LEGACY_COST "+node("sources",1000,"selectsIncludingSessionRead",queries,"prepareNanos",nanos,"preparedBytes",p.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8).length,"heapBefore",heapBefore,"heapAfter",heapAfter));
     }
 }
