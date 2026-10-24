@@ -45,7 +45,7 @@ class IncrementalMilestoneReviewTest {
                 s.execute("insert into invest_transactions(id,type,date,quantity,price,total_value,fees,investment_id) values ('61000000-0000-0000-0000-000000000001','BUY','2026-09-07 23:30:45.123456',3,0.33,1,0,'60000000-0000-0000-0000-000000000001')");
             }
             if(start>=8)s.execute("update investments set replay_quantity=quantity,replay_cost=total_cost");
-            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(13-start);
+            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(16-start);
             if(start>=5){
                 assertThat(scalar(s,"select reporting_known_from::text from investments where ticker='KNOWN'")).isNull();
                 assertThat(scalar(s,"select concat(replay_quantity,':',replay_cost,':',valuation_amount) from investments where ticker='KNOWN'")).isEqualTo("3.00000000:1.00:1.00");

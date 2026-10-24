@@ -26,12 +26,15 @@ jobs:
       CF034_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
           cache-dependency-path: controle-financeiro-frontend/package-lock.json
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
@@ -69,12 +72,15 @@ jobs:
       CF034_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-expanded
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
           cache-dependency-path: controle-financeiro-frontend/package-lock.json
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'

@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import java.util.UUID;
+import java.sql.DriverManager;
 
 public final class PostgresTestContainerInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -21,10 +22,23 @@ public final class PostgresTestContainerInitializer
         startPostgres();
         DisposablePostgresGuard.requireDisposable(POSTGRES.getJdbcUrl(), DATABASE_NAME);
 
+        // Each cached Spring context owns its DDL. Evicting one create-drop
+        // context must not remove tables belonging to another live context.
+        String schema = "cf_context_" + UUID.randomUUID().toString().replace("-", "");
+        try (var connection = DriverManager.getConnection(POSTGRES.getJdbcUrl(),
+                POSTGRES.getUsername(), POSTGRES.getPassword());
+             var statement = connection.createStatement()) {
+            statement.execute("CREATE SCHEMA " + schema);
+        } catch (Exception exception) {
+            throw new IllegalStateException("Nao foi possivel isolar o contexto descartavel", exception);
+        }
+
         TestPropertyValues.of(
                 "spring.datasource.url=" + POSTGRES.getJdbcUrl(),
                 "spring.datasource.username=" + POSTGRES.getUsername(),
-                "spring.datasource.password=" + POSTGRES.getPassword()
+                "spring.datasource.password=" + POSTGRES.getPassword(),
+                "spring.datasource.hikari.schema=" + schema,
+                "spring.jpa.properties.hibernate.default_schema=" + schema
         ).applyTo(applicationContext.getEnvironment());
     }
 

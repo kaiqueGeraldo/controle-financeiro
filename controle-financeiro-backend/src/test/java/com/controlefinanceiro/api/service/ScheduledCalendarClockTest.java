@@ -185,6 +185,7 @@ class ScheduledCalendarClockTest {
         ReflectionTestUtils.setField(service, "cardRepository", cardRepository);
         when(cardRepository.findByIdForUpdate(invoice.getCard().getId())).thenReturn(Optional.of(invoice.getCard()));
         when(invoiceRepository.findByIdForUpdate(invoice.getId())).thenReturn(Optional.of(invoice));
+        ReflectionTestUtils.setField(service, "inventoryGuard", mock(FinancialInventoryGuard.class));
         ReflectionTestUtils.setField(service, "transactionRepository", transactionRepository);
         ReflectionTestUtils.setField(service, "emailService", emailService);
         ReflectionTestUtils.setField(service, "transactionTemplate", transactionTemplate);
@@ -192,6 +193,7 @@ class ScheduledCalendarClockTest {
 
     private static Invoice invoice(int year, int month, int closingDay, int dueDay) {
         User user = new User();
+        user.setId(UUID.randomUUID());
         user.setNome("Usuário sintético");
         user.setEmail("cron@example.test");
 
