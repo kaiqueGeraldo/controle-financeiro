@@ -4,7 +4,17 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — lote CF033 integrado; análise de zoom/gate, 24/10/2026
+## Situação vigente — recorte local CF034 autorizado, 24/10/2026
+
+[DEC-CI-04](../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova PROP-CF034-01/A.
+CF034 pronta exclusivamente para preparação/implementação/revisão locais de CI;
+dependência de aceite integral CF015 preservada. CF010/015 em_revisao por zoom
+nativo200% não validado; sem nova investigação, dispensa ou defeito presumido.
+Publicação autorizada apenas da análise `0f787eb`/`79ce089` e decisão documental;
+implementação futura permanece local. Adoção real CF017/P01/P02, uso e sucessoras
+mantêm gates; sem deploy manual, banco real ou notificações reais.
+
+## Situação anterior — lote CF033 integrado; análise de zoom/gate, 24/10/2026
 
 Lote aprovado até `e1a01b6` publicado na branch CF033 e integrado por fast-forward
 na main remota, hash `e1a01b62e0766c92120c3cefc2bc4b4fc316ce58`.

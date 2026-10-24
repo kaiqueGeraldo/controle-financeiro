@@ -1,5 +1,9 @@
 # Gate CF015 → CF034 — snapshot de 24/10/2026
 
+Atualização posterior: [DEC-CI-04](../../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)
+autoriza agora o recorte local proposto. A matriz abaixo conserva a decisão da
+análise anterior; aceite integral, zoom e uso permanecem condicionados.
+
 Base integrada/publicada: `e1a01b6`. Arquivos individuais são canônicos; este
 snapshot não concede prontidão nem substitui seus estados.
 

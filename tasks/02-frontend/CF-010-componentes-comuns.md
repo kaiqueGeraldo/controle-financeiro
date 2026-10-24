@@ -10,6 +10,9 @@
 
 ## Análise de capacidade — 24/10/2026
 
+Decisão posterior: [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)
+libera somente CI local CF034, sem aceite desta tarefa ou zoom200%.
+
 [CF015-zoom-gate-CF034](../evidencias/CF015-zoom-gate-CF034/README.md), base
 integrada `e1a01b6`: a ferramenta aceitou vínculo inicial Chrome, mas interrompeu
 a observação por não confirmar URL com segurança. Nenhuma captura/input/zoom

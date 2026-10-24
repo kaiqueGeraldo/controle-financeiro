@@ -1,6 +1,6 @@
 # CF-034 — Consolidar gates de CI reproduzíveis
 
-- Estado: proposta
+- Estado: pronta
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -8,7 +8,18 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
-## Análise da dependência — 24/10/2026 (sem execução)
+## Liberação exclusivamente local — 24/10/2026
+
+[DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova expressamente
+PROP-CF034-01/A: infraestrutura e provas locais de CI, sem aceite integral ou uso.
+Estado pronta somente nesse recorte; CF015 continua em_revisao por zoom nativo200%.
+Scripts compartilhados `.github/scripts/` e adaptadores/testes do harness são
+extensão delimitada para evitar comandos divergentes entre local e CI.
+Implementação local deve terminar em_revisao e passar por revisão independente.
+Resultados de runner remoto e pacote publicado não são inferidos de execução local.
+CF010/015, CF017/P01/P02 e sucessoras conservam os gates; DEC-ONB-03 não foi ampliada.
+
+## Análise anterior da dependência — 24/10/2026 (sem execução)
 
 [Matriz e PROP-CF034-01 pendente](../evidencias/CF015-zoom-gate-CF034/README.md),
 base `e1a01b6` integrada/publicada. CF026/032/033 conservam aceites locais; CF015

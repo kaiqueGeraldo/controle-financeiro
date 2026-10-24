@@ -1,5 +1,9 @@
 # CF015 — Zoom nativo e gate CF034
 
+Decisão posterior: [DEC-CI-04](../../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)
+aprova expressamente PROP-CF034-01/A para execução local CF034. Este relatório
+conserva o alcance histórico da análise; zoom/aceite integral/uso não aprovados.
+
 24/10/2026, America/Sao_Paulo. **CF033 publicada/integrada; zoom nativo 200%
 continua sem verificação por bloqueio da ferramenta; PROP-CF034-01 pendente.**
 CF010/015 permanecem `em_revisao`; CF034 `proposta`, não iniciada. Nenhuma alteração

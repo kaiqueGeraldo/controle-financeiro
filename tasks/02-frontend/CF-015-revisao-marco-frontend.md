@@ -10,6 +10,10 @@
 
 ## Análise dirigida de zoom e dependência — 24/10/2026
 
+Decisão posterior: [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)
+libera exclusivamente CI local CF034; mantém este marco em_revisao e seu aceite
+integral de zoom pendente, sem estender retroativamente DEC-ONB-03.
+
 [Provas e matriz CF015→CF034](../evidencias/CF015-zoom-gate-CF034/README.md),
 base integrada `e1a01b6`. Observação nativa interrompida pela ferramenta por URL
 não confirmada, antes de captura/input; nenhum ensaio de produto ou aceite de

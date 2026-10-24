@@ -1,5 +1,10 @@
 # PROP-CF034-01 — Continuidade local condicionada
 
+Decisão posterior de24/10/2026: usuário aprovou expressamente o recorte A em
+[DEC-CI-04](../../../docs/sdd/decisoes/004-liberacao-local-CF-034.md). B/C continuam
+condicionados. O texto abaixo preserva o estado histórico da proposta na análise;
+não é autorização retroativa daquela execução nem aprovação de zoom/uso.
+
 **Proposta pendente de decisão do usuário, 24/10/2026. Não vigente.**
 Base: `e1a01b6`, branch `codex/cf015-zoom-gate-cf034`.
 Origem: pedido desta análise; CF015→CF034; AC-UI-001/013/014/015;
