@@ -8,6 +8,9 @@ import { TransactionDetails } from "@/components/screens/extract/transactionDeta
 import { BrowserTodayProvider } from "@/contexts/browserTodayContext";
 import type { Goal, Investment, Transaction } from "@/types";
 
+// This suite tests temporal presentation with privacy disabled, not session loading.
+vi.mock("@/hooks/useUser", () => ({ useUser: () => ({ user: { privacyMode: false } }) }));
+
 vi.mock("framer-motion", async () => {
   const { createElement } = await import("react");
   const motionProps = new Set([
