@@ -1,5 +1,17 @@
 # CF-033 — Revisão adversarial integrada
 
+## Parecer vigente do saneamento — 24/10/2026
+
+CF033-01/P2 encerrado por revalidação independente de8de766f..d059bc9. Candidato
+d059bc9 aceito no alcance local deste saneamento: DEC-10, capacidade, transições
+local/global e garantias afetadas sustentadas. CF033 continua concluída como
+revisão executada; sem aprovação irrestrita de publicação/uso/produção.
+[Parecer A–E, novas provas e limites](../revalidacao-CF033-01/README.md).
+Zoom nativo200%, adoção CF017/P01/P02, alcance DEC-ONB-03 e produção preservados;
+CF034+ não iniciadas. O parecer original abaixo conserva sua base e provas.
+
+## Parecer original — base bfb6c61
+
 **Revisão independente concluída em24/10/2026, com ressalva CF033-01/P2 aberta.
 Candidato sem aprovação irrestrita; sem liberação de uso/produção ou sucessoras.**
 Os quatro critérios da execução da revisão estão sustentados por provas ou

@@ -4,7 +4,24 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF033-01 saneado localmente, aguardando revalidação, 24/10/2026
+## Situação vigente — CF033-01 encerrado por revalidação independente, 24/10/2026
+
+CF033-01/P2 encerrado no candidato d059bc9, intervalo8de766f..d059bc9. DEC-10 e
+capacidade preservadas: progresso antes de liberar BUY, transições local/global
+com criação/remoção/commit/rollback, proteção de certificados e reservas600/1000.
+49 controles e24 finais, sobreposição8; três mutações distintas detectadas por
+assertions e restauração SHA256. [Parecer independente A–E](evidencias/revalidacao-CF033-01/README.md).
+
+CF033 permanece concluída como revisão; candidato aceito neste saneamento local,
+sem aprovação irrestrita de publicação/uso/produção. Sem novo achado confirmado.
+Produto, README raiz e runtimes históricos preservados; commits exclusivamente
+locais. Zoom200%, adoção real CF017/P01/P02, produção e alcance da DEC-ONB-03
+continuam. CF034 permanece proposta/não iniciada; suas dependências CF026/032/033
+estão sustentadas nos respectivos recortes, CF015 ainda em_revisao por zoom.
+Próximo passo: decisão separada sobre publicação do lote local e prova de zoom
+para o parecer CF015; nenhuma sucessora autorizada por esta revisão.
+
+## Situação anterior — CF033-01 saneado localmente, aguardando revalidação, 24/10/2026
 
 CF033 conserva conclusão como revisão independente executada; CF033-01/P2 está
 saneado localmente, **sem autoencerramento ou aceite irrestrito do candidato**.

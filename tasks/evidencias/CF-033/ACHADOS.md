@@ -1,5 +1,12 @@
 # Achados e saneamento delimitado
 
+Estado vigente em24/10/2026: **CF033-01/P2 encerrado por aceite independente** do
+delta8de766f..d059bc9. Progresso, capacidade e transições local/global sustentados
+simultaneamente; sem residual confirmado. [Parecer e provas](../revalidacao-CF033-01/README.md).
+Os detalhes abaixo são a reprodução histórica da base bfb6c61, preservada; não
+descrevem o comportamento atual do candidato. Não houve correção de produto
+durante a revalidação e não foram removidos gates externos ou de sucessoras.
+
 Base `bfb6c61`. Revisão iniciada em23/10 e concluída em24/10/2026.
 Nenhuma correção de produto nesta revisão. CF-032 conserva sua conclusão local.
 

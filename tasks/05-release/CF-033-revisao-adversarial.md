@@ -35,10 +35,11 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 - [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 Os checkboxes encerram **a execução da revisão independente**, não aprovam
-irrestritamente o candidato. CF033-01/P2 permanece aberto: guard exclusivo de
-BUY serializa outra conta do mesmo owner, em conflito com a garantia irrestrita
-DEC-10/teste histórico. Prova causal/locks e condição de encerramento registradas;
-aceite irrestrito desse recorte bloqueado. P0/P1 não confirmados no alcance.
+irrestritamente o candidato. CF033-01/P2 foi aberto no parecer original e
+**encerrado por revalidação independente de8de766f..d059bc9**: progresso entre
+fontes independentes e proteção de dependências/capacidade sustentados juntos.
+Provas vermelhas históricas preservadas. P0/P1 e novos resíduos não confirmados
+no alcance. Zoom, adoção real e limites de produção continuam com gates próprios.
 
 ## Fora de escopo
 
@@ -49,6 +50,20 @@ Aprovar por contagem de testes, alterar expected para aceitar resultado atual ou
 A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o esforço adicional se concentra em ambiguidades e riscos. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+Revalidação independente de24/10/2026: **CF033-01/P2 encerrado**, candidato
+d059bc9 aceito neste saneamento local.49 controles e24 finais restaurados (8
+sobrepostos); seis interleavings novos de criação/remoção/commit/rollback e três
+mutações distintas detectadas sem erros ambientais. Original e históricos
+preservados;430 fontes restauradas por hash,627 arquivos históricos conferidos
+sem divergência. Sem correção de produto, push, merge, deploy ou banco real.
+[Parecer A–E, matriz e execução](../evidencias/revalidacao-CF033-01/README.md).
+CF033 continua concluída como marco de revisão, sem aprovação irrestrita de
+publicação. CF034 proposta/não iniciada; CF015 ainda em_revisao por zoom nativo,
+DEC-ONB-03 não dispensa essa dependência. Próximo passo: decisão de publicação
+do lote local e prova de zoom/parecer CF015 em trabalho próprio autorizado.
+
+Notas anteriores preservadas abaixo, superadas somente no achado revalidado.
 
 Atualização dirigida de24/10/2026: **CF033-01 saneado localmente, aguardando
 revalidação independente; achado sem autoencerramento**. A tarefa permanece
