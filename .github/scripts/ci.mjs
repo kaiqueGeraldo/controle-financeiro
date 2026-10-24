@@ -1,0 +1,110 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawn,execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {hash,sourceFor,writeJson} from './source.mjs';
+
+export function requireCounts(counts,label){
+  if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
+  return counts;
+}
+export async function sequence(stages,run){for(const stage of stages)await run(stage);}
+export function junitCounts(directory){
+  const counts={tests:0,failures:0,errors:0,skipped:0};
+  for(const file of fs.readdirSync(directory).filter(p=>p.startsWith('TEST-')&&p.endsWith('.xml'))){
+    const text=fs.readFileSync(path.join(directory,file),'utf8');
+    const suite=text.match(/<testsuite\b[^>]*>/)?.[0];if(!suite)throw new Error(`Missing testsuite: ${file}`);
+    for(const key of Object.keys(counts)){const v=suite.match(new RegExp(`\\b${key}="(\\d+)"`));if(!v)throw new Error(`Missing ${key}: ${file}`);counts[key]+=Number(v[1]);}
+  }return counts;
+}
+const safe=text=>text.replace(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,'[REDACTED_JWT]').replace(/Cf003-[AB]-Senha-2026/g,'[SYNTHETIC_PASSWORD]').replace(/(password|secret|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/gi,'$1=[REDACTED]');
+
+async function main(){
+  const [stage='all',rootArg,outArg]=process.argv.slice(2);
+  if(!['all','frontend','backend','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|frontend|backend|e2e|package> <isolated-root> <new-output-dir>');
+  const root=path.resolve(rootArg),out=path.resolve(outArg);
+  if(fs.existsSync(out))throw new Error('Never reuse an evidence directory');
+  fs.mkdirSync(out,{recursive:true});
+  const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
+  const report={source:{commit:source.commit,digest:source.digest,originalTreeChanges:source.originalTreeChanges},node:process.version,platform:process.platform,stage,started:new Date().toISOString(),steps:[],status:'running'};
+  const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1'};
+  for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
+  const npmCandidates=[path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')];
+  if(process.platform!=='win32'){try{npmCandidates.push(fs.realpathSync(execFileSync('which',['npm'],{encoding:'utf8'}).trim()));}catch{}}
+  const npm=npmCandidates.find(p=>fs.existsSync(p));if(!npm)throw new Error('npm CLI unavailable');
+  async function command(name,executable,args,cwd){
+    const start=Date.now();const entry={name,command:[executable,...args],started:new Date().toISOString(),exit:null};report.steps.push(entry);
+    const log=fs.createWriteStream(path.join(out,`${name}.log`));
+    await new Promise((resolve,reject)=>{
+      const child=spawn(executable,args,{cwd,env,shell:false,windowsHide:true});
+      for(const stream of [child.stdout,child.stderr])stream.on('data',data=>log.write(safe(data.toString())));
+      child.once('error',error=>{entry.error=safe(error.message);log.end();reject(error);});
+      child.once('close',code=>{entry.exit=code;entry.durationMs=Date.now()-start;log.end(()=>code===0?resolve():reject(new Error(`${name} failed (${code}); see ${name}.log`)));});
+    });
+    console.log(`${name}: passed`);
+  }
+  const runNpm=(name,args)=>command(name,process.execPath,[npm,...args],front);
+  const maven=(name,args)=>process.platform==='win32'?command(name,process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd','--batch-mode',...args],back):command(name,'sh',['./mvnw','--batch-mode',...args],back);
+  function invalidate(names){for(const name of names){const marker=path.join(root,`.ci-${name}.json`);if(fs.existsSync(marker))fs.unlinkSync(marker);}}
+  async function frontend(){
+    invalidate(['frontend','backend','e2e']);
+    await runNpm('install',['ci','--no-audit','--no-fund']);
+    await runNpm('lint',['run','lint','--','--max-warnings=0']);
+    await runNpm('typecheck',['run','typecheck']);
+    await runNpm('unit',['test']);
+    const tests=[...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# tests (\d+)/g)].map(m=>Number(m[1]));
+    if(tests.length!==3||tests.some(n=>n===0))throw new Error('Three nonempty timezone runs required');
+    if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
+    report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
+    await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${path.join(out,'components.json')}`]);
+    const vitest=JSON.parse(fs.readFileSync(path.join(out,'components.json')));
+    report.components=requireCounts({tests:vitest.numTotalTests,failures:vitest.numFailedTests,errors:vitest.numRuntimeErrorTestSuites??0,skipped:(vitest.numPendingTests??0)+(vitest.numTodoTests??0)},'components');
+    await runNpm('build',['run','build']);
+    writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});
+  }
+  async function backend(){
+    invalidate(['backend','e2e']);
+    const reports=path.join(out,'surefire');
+    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true',`-Dsurefire.reportsDirectory=${reports}`,'verify']);}
+    finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
+    report.backend=requireCounts(junitCounts(reports),'backend');
+    const jars=fs.readdirSync(path.join(back,'target')).filter(f=>f.endsWith('.jar'));
+    if(jars.length!==1)throw new Error('Verify must produce exactly one executable JAR');
+    writeJson(path.join(root,'.ci-backend.json'),{source:source.digest,status:'passed',counts:report.backend,jar:jars[0],jarSha256:hash(fs.readFileSync(path.join(back,'target',jars[0])))});
+  }
+  function prerequisite(name){const record=JSON.parse(fs.readFileSync(path.join(root,`.ci-${name}.json`)));if(record.status!=='passed'||record.source!==source.digest)throw new Error(`Missing current ${name} gate`);}
+  async function e2e(){
+    invalidate(['e2e']);
+    prerequisite('frontend');prerequisite('backend');
+    await runNpm('browser-install',['run','test:e2e:install']);
+    const runtime=path.join(out,'e2e-runtime');fs.mkdirSync(runtime);fs.symlinkSync(front,path.join(runtime,'frontend'),process.platform==='win32'?'junction':'dir');
+    fs.copyFileSync(path.join(root,'tasks/evidencias/CF-028/examples.json'),path.join(runtime,'e01.json'));
+    const evidence=path.join(out,'browser');fs.mkdirSync(evidence);
+    Object.assign(env,{CF032_RUNTIME:runtime,CF032_REPO:root,CF032_EVIDENCE:evidence,CF032_HEAD:source.commit,CF032_GREP:process.env.CF034_SUITE==='expanded'?'':'^(A |B |G |H |K |L )'});
+    try{await maven('e2e',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-Dtest=FinancialJourneyPostgresE2E','-Dsurefire.failIfNoSpecifiedTests=true',`-Dsurefire.reportsDirectory=${path.join(out,'e2e-surefire')}`,'test']);}
+    finally{if(fs.existsSync(path.join(out,'e2e-surefire')))report.e2eJava=junitCounts(path.join(out,'e2e-surefire'));}
+    report.e2eJava=requireCounts(junitCounts(path.join(out,'e2e-surefire')),'E2E Java');
+    const playwright=JSON.parse(fs.readFileSync(path.join(evidence,'playwright.json')));
+    report.browser=requireCounts({tests:playwright.stats.expected,failures:playwright.stats.unexpected,errors:playwright.errors?.length??0,skipped:playwright.stats.skipped},'browser');
+    if(playwright.stats.flaky)throw new Error('Flaky E2E is not approval');
+    writeJson(path.join(root,'.ci-e2e.json'),{source:source.digest,status:'passed',counts:report.browser});
+  }
+  async function packageArtifact(){
+    for(const name of ['frontend','backend','e2e'])prerequisite(name);
+    sourceFor(root);
+    const jars=fs.readdirSync(path.join(back,'target')).filter(f=>f.endsWith('.jar'));
+    if(jars.length!==1)throw new Error('Exactly one executable package required');
+    const jar=path.join(back,'target',jars[0]),bytes=fs.readFileSync(jar),artifact=path.join(out,jars[0]);
+    const verified=JSON.parse(fs.readFileSync(path.join(root,'.ci-backend.json')));
+    if(verified.jar!==jars[0]||verified.jarSha256!==hash(bytes))throw new Error('Package changed after the verified build');
+    fs.copyFileSync(jar,artifact);
+    report.artifact={file:jars[0],sha256:hash(bytes),bytes:bytes.length,commit:source.commit,sourceDigest:source.digest,reproducibleBinary:'not claimed',publication:'local artifact only'};
+    writeJson(path.join(out,'package-manifest.json'),{...report.artifact,originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
+  }
+  try{
+    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>({frontend,backend,e2e,package:packageArtifact})[name]());
+    report.status='passed';
+  }catch(error){report.status='failed';report.error=safe(error.message);process.exitCode=1;console.error(report.error);}
+  finally{report.finished=new Date().toISOString();writeJson(path.join(out,'result.json'),report);}
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(error=>{console.error(safe(error.message));process.exitCode=1;});
