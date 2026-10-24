@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="44.862" tests="20" errors="0" skipped="0" failures="0">
+  <testcase name="knownConfirmedReservationAndItsMaterializedPairAreCountedOnlyOnce" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="1.366">
+    <system-out><![CDATA[00:05:17.626 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport]: OnboardingApplicationSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:05:17.634 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:05:18.063 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest
+00:05:18.463 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+00:05:18.476 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 00:05:19.509 - INFO 13340 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-24 00:05:20.244 - INFO 13340 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-24 00:05:21.497 - INFO 13340 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-24 00:05:21.500 - INFO 13340 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-24 00:05:21.536 - INFO 13340 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-24 00:05:23.095 - INFO 13340 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-24 00:05:23.096 - INFO 13340 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-24 00:05:23.098 - INFO 13340 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-24 00:05:26.309 - INFO 13340 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : Starting DailyReservationCapacityTest using Java 21.0.12.1 with PID 13340 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\revisao-20261023-01\backend)
+-2026-10-24 00:05:26.309 - INFO 13340 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : The following 1 profile is active: "test"
+-2026-10-24 00:05:42.413 - WARN 13340 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 00:05:58.057 - INFO 13340 --- [           main] c.c.a.d.o.DailyReservationCapacityTest   : Started DailyReservationCapacityTest in 39.538 seconds (process running for 42.668)
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+  <testcase name="exhaustiveCandidatesBlockOnlyCertifiedSources" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.148" />
+  <testcase name="knownCapacityAcceptsExactLimitAndRejectsAdditionalCent(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.104">
+    <system-out><![CDATA[2026-10-24 00:05:59.830 - INFO 13340 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: e232797c-a5c6-40aa-907b-bdb9880213d3. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="knownCapacityAcceptsExactLimitAndRejectsAdditionalCent(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.112">
+    <system-out><![CDATA[2026-10-24 00:05:59.937 - INFO 13340 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 09b1d25a-14bc-44af-a876-803a7e2f9b60. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="confirmedAssignmentAllowsOnlyItsRemainingCapacityAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.407" />
+  <testcase name="unknownBlocksSetAndDepositOnAccountAndInvestmentWithoutPartialWrites(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.091">
+    <system-out><![CDATA[2026-10-24 00:06:00.440 - INFO 13340 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: e4d7047b-d3fb-402f-a928-06fae26d785c. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="unknownBlocksSetAndDepositOnAccountAndInvestmentWithoutPartialWrites(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.079">
+    <system-out><![CDATA[2026-10-24 00:06:00.528 - INFO 13340 --- [           main] c.c.api.service.GoalService              : Registrando progresso/destinação na meta ID: 1389579b-00db-48d0-9b17-4486b1ae45bb. Valor: 0.01
+-]]></system-out>
+  </testcase>
+  <testcase name="confirmedUnknownAmountBlocksOnlyItsProvenSource" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.109" />
+  <testcase name="closingTheLastLegacyReservationAllowsKnownCapacityImmediatelyAfterCommit" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.213" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.06" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.058" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[3]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.066" />
+  <testcase name="unprovenExclusionNeverCreatesIndependentCapacity(String)[4]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.064" />
+  <testcase name="resolvingOneActualReservationDoesNotClearTheOtherPending" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.19" />
+  <testcase name="knownReductionAndReleaseRemainAllowedButMoveIntoUnknownDestinationRollsBack" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.121" />
+  <testcase name="anUnmaterializedLegacyFlagStillBlocksNewReservations" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.034" />
+  <testcase name="exclusionRequiresCurrentMatchingEvidenceAndEveryOtherPendingReservationStillBlocks(boolean)[1]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.071" />
+  <testcase name="exclusionRequiresCurrentMatchingEvidenceAndEveryOtherPendingReservationStillBlocks(boolean)[2]" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.072" />
+  <testcase name="voluntaryInvestmentBuyCannotConsumeCashWithUnknownReservations" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.047">
+    <system-out><![CDATA[2026-10-24 00:06:01.685 - INFO 13340 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID ae955957-60c2-4c7f-84c0-7b0e1ebe0ace
+-]]></system-out>
+  </testcase>
+  <testcase name="completedInvestmentReplayKeepsOriginalEffectEvenWhenCapacityLaterBecomesUnknown" classname="com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest" time="0.214">
+    <system-out><![CDATA[2026-10-24 00:06:01.730 - INFO 13340 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 325767ad-d63d-4f91-bb05-2a756af73a72
+-2026-10-24 00:06:01.750 - INFO 13340 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Operação finalizada com sucesso.
+-2026-10-24 00:06:01.895 - INFO 13340 --- [           main] c.c.api.service.InvestmentService        : SERVICE: Processando operação de BUY no ativo ID 325767ad-d63d-4f91-bb05-2a756af73a72
+-]]></system-out>
+  </testcase>
+</testsuite>

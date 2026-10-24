@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest" time="32.033" tests="1" errors="0" skipped="0" failures="1">
+  <testcase name="replayAfterNewMovementReturnsOriginalIdentityAndConflictingContentDoesNotWrite" classname="com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest" time="1.206">
+    <failure message="&#xA;expected: TransactionResponseDTO[id=7d10b5e6-cb0a-4fa7-af28-00bb08fd2fcb, description=CF033 centavos, amount=0.07, date=2026-10-19, dueDate=null, settledAt=2026-10-19T15:00:00.123456789Z, isPaid=true, type=INCOME, createdAt=2026-10-19T23:59:58, accountId=1f6e5c88-a981-4078-bce7-c87816dfd32d, accountName=Synthetic, categoryId=c0486021-3a05-4c41-9003-0f274077008b, categoryName=CF033 synthetic, categoryColor=null, isSystemManaged=false, status=SETTLED, origin=USER, operationId=null, transferDirection=null, counterpartyAccountId=null, reversalOfId=null, settlementOfId=null, correctionOfId=null, time=23:59:58, timeOrigin=USER_INPUT, recordedAt=2026-10-19T15:00:00.123456Z, legacyCreatedAtRaw=2026-10-19T23:59:58, realizationOfId=null, reason=null, settledAmount=0, reversedAmount=0, remainingAmount=0.07, cashAmount=0.07, cashDelta=0.07]&#xA; but was: TransactionResponseDTO[id=72be6bdb-3757-49e4-93ef-5cdf66e9b3ce, description=CF033 centavos, amount=0.07, date=2026-10-19, dueDate=null, settledAt=2026-10-19T15:00:00.123456789Z, isPaid=true, type=INCOME, createdAt=2026-10-19T23:59:58, accountId=1f6e5c88-a981-4078-bce7-c87816dfd32d, accountName=Synthetic, categoryId=c0486021-3a05-4c41-9003-0f274077008b, categoryName=CF033 synthetic, categoryColor=null, isSystemManaged=false, status=SETTLED, origin=USER, operationId=null, transferDirection=null, counterpartyAccountId=null, reversalOfId=null, settlementOfId=null, correctionOfId=null, time=23:59:58, timeOrigin=USER_INPUT, recordedAt=2026-10-19T15:00:00.123456Z, legacyCreatedAtRaw=2026-10-19T23:59:58, realizationOfId=null, reason=null, settledAmount=0, reversedAmount=0, remainingAmount=0.07, cashAmount=0.07, cashDelta=0.07]" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+
+expected: TransactionResponseDTO[id=7d10b5e6-cb0a-4fa7-af28-00bb08fd2fcb, description=CF033 centavos, amount=0.07, date=2026-10-19, dueDate=null, settledAt=2026-10-19T15:00:00.123456789Z, isPaid=true, type=INCOME, createdAt=2026-10-19T23:59:58, accountId=1f6e5c88-a981-4078-bce7-c87816dfd32d, accountName=Synthetic, categoryId=c0486021-3a05-4c41-9003-0f274077008b, categoryName=CF033 synthetic, categoryColor=null, isSystemManaged=false, status=SETTLED, origin=USER, operationId=null, transferDirection=null, counterpartyAccountId=null, reversalOfId=null, settlementOfId=null, correctionOfId=null, time=23:59:58, timeOrigin=USER_INPUT, recordedAt=2026-10-19T15:00:00.123456Z, legacyCreatedAtRaw=2026-10-19T23:59:58, realizationOfId=null, reason=null, settledAmount=0, reversedAmount=0, remainingAmount=0.07, cashAmount=0.07, cashDelta=0.07]
+ but was: TransactionResponseDTO[id=72be6bdb-3757-49e4-93ef-5cdf66e9b3ce, description=CF033 centavos, amount=0.07, date=2026-10-19, dueDate=null, settledAt=2026-10-19T15:00:00.123456789Z, isPaid=true, type=INCOME, createdAt=2026-10-19T23:59:58, accountId=1f6e5c88-a981-4078-bce7-c87816dfd32d, accountName=Synthetic, categoryId=c0486021-3a05-4c41-9003-0f274077008b, categoryName=CF033 synthetic, categoryColor=null, isSystemManaged=false, status=SETTLED, origin=USER, operationId=null, transferDirection=null, counterpartyAccountId=null, reversalOfId=null, settlementOfId=null, correctionOfId=null, time=23:59:58, timeOrigin=USER_INPUT, recordedAt=2026-10-19T15:00:00.123456Z, legacyCreatedAtRaw=2026-10-19T23:59:58, realizationOfId=null, reason=null, settledAmount=0, reversedAmount=0, remainingAmount=0.07, cashAmount=0.07, cashDelta=0.07]
+	at com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest.replayAfterNewMovementReturnsOriginalIdentityAndConflictingContentDoesNotWrite(Cf033AdversarialIntegrationTest.java:143)
+]]></failure>
+    <system-out><![CDATA[00:12:06.528 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationSupport]: OnboardingApplicationSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:12:06.549 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:12:08.498 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest
+00:12:08.692 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+00:12:08.695 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-24 00:12:09.250 - INFO 32784 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-24 00:12:09.693 - INFO 32784 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-24 00:12:10.439 - INFO 32784 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-24 00:12:10.441 - INFO 32784 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-24 00:12:10.459 - INFO 32784 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-24 00:12:11.442 - INFO 32784 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-24 00:12:11.443 - INFO 32784 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-24 00:12:11.443 - INFO 32784 --- [           main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+-2026-10-24 00:12:13.110 - INFO 32784 --- [           main] .c.a.d.o.Cf033AdversarialIntegrationTest : Starting Cf033AdversarialIntegrationTest using Java 21.0.12.1 with PID 32784 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\CF-033\mutacoes-20261023-01\backend)
+-2026-10-24 00:12:13.112 - INFO 32784 --- [           main] .c.a.d.o.Cf033AdversarialIntegrationTest : The following 1 profile is active: "test"
+-2026-10-24 00:12:25.292 - WARN 32784 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-24 00:12:37.005 - INFO 32784 --- [           main] .c.a.d.o.Cf033AdversarialIntegrationTest : Started Cf033AdversarialIntegrationTest in 28.296 seconds (process running for 31.81)
+-2026-10-24 00:12:37.755 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=0.07, ContaID=1f6e5c88-a981-4078-bce7-c87816dfd32d
+-2026-10-24 00:12:37.982 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 1f6e5c88-a981-4078-bce7-c87816dfd32d. Novo saldo: 0.07
+-2026-10-24 00:12:38.000 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 7d10b5e6-cb0a-4fa7-af28-00bb08fd2fcb
+-2026-10-24 00:12:38.115 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=0.11, ContaID=1f6e5c88-a981-4078-bce7-c87816dfd32d
+-2026-10-24 00:12:38.120 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 1f6e5c88-a981-4078-bce7-c87816dfd32d. Novo saldo: 0.18
+-2026-10-24 00:12:38.125 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Transação salva com sucesso: ID c473a84c-23e9-455c-9696-b67616badbec
+-2026-10-24 00:12:38.196 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Criando transação: Tipo=INCOME, Valor=0.07, ContaID=1f6e5c88-a981-4078-bce7-c87816dfd32d
+-2026-10-24 00:12:38.200 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Saldo atualizado na conta 1f6e5c88-a981-4078-bce7-c87816dfd32d. Novo saldo: 0.25
+-2026-10-24 00:12:38.205 - INFO 32784 --- [           main] c.c.api.service.TransactionService       : Transação salva com sucesso: ID 72be6bdb-3757-49e4-93ef-5cdf66e9b3ce
+-]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+</testsuite>

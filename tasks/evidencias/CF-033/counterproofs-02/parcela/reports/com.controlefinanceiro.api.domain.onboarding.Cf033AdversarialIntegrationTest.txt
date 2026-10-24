@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 33.67 s <<< FAILURE! -- in com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest
+com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest.finalRemainderAndCompetencesCrossTheYearWithoutPartialInvalidPurchase -- Time elapsed: 0.920 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  [{"amount"="0.03", "installment"=1, "month"=12, "year"=2026},
+    {"amount"="0.01", "installment"=2, "month"=1, "year"=2027},
+    {"amount"="0.01", "installment"=3, "month"=2, "year"=2027}]
+to contain exactly (and in same order):
+  [{"amount"="0.01", "installment"=1, "month"=12, "year"=2026},
+    {"amount"="0.01", "installment"=2, "month"=1, "year"=2027},
+    {"amount"="0.03", "installment"=3, "month"=2, "year"=2027}]
+but some elements were not found:
+  [{"amount"="0.01", "installment"=1, "month"=12, "year"=2026},
+    {"amount"="0.03", "installment"=3, "month"=2, "year"=2027}]
+and others were not expected:
+  [{"amount"="0.03", "installment"=1, "month"=12, "year"=2026},
+    {"amount"="0.01", "installment"=3, "month"=2, "year"=2027}]
+
+	at com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest.finalRemainderAndCompetencesCrossTheYearWithoutPartialInvalidPurchase(Cf033AdversarialIntegrationTest.java:112)
+
