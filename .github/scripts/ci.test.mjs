@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {sequence,requireCounts,junitCounts} from './ci.mjs';
+import {sequence,requireCounts,junitCounts,requireReportedClasses} from './ci.mjs';
 import {snapshot,sourceFor} from './source.mjs';
 
 test('a failed required gate prevents E2E and packaging',async()=>{
@@ -21,6 +21,8 @@ test('report collection counts real suites and rejects missing totals',()=>{
     fs.writeFileSync(path.join(directory,'TEST-one.xml'),'<testsuite tests="3" failures="1" errors="0" skipped="0"></testsuite>');
     fs.writeFileSync(path.join(directory,'TEST-two.xml'),'<testsuite tests="2" failures="0" errors="0" skipped="1"></testsuite>');
     assert.deepEqual(junitCounts(directory),{tests:5,failures:1,errors:0,skipped:1});
+    requireReportedClasses(directory,['one','two']);
+    assert.throws(()=>requireReportedClasses(directory,['one','mandatory-missing']),/mandatory-missing/);
     fs.writeFileSync(path.join(directory,'TEST-bad.xml'),'<testsuite tests="1"/>');
     assert.throws(()=>junitCounts(directory),/Missing failures/);
   }finally{for(const file of fs.readdirSync(directory))fs.unlinkSync(path.join(directory,file));fs.rmdirSync(directory);}

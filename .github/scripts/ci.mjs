@@ -3,6 +3,7 @@ import path from 'node:path';
 import {spawn,execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {hash,sourceFor,writeJson} from './source.mjs';
+import {backendSelection} from './suites.mjs';
 
 export function requireCounts(counts,label){
   if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
@@ -16,6 +17,11 @@ export function junitCounts(directory){
     const suite=text.match(/<testsuite\b[^>]*>/)?.[0];if(!suite)throw new Error(`Missing testsuite: ${file}`);
     for(const key of Object.keys(counts)){const v=suite.match(new RegExp(`\\b${key}="(\\d+)"`));if(!v)throw new Error(`Missing ${key}: ${file}`);counts[key]+=Number(v[1]);}
   }return counts;
+}
+export function requireReportedClasses(directory,required){
+  const reported=fs.readdirSync(directory).filter(f=>f.startsWith('TEST-')&&f.endsWith('.xml')).map(f=>f.slice(5,-4));
+  const missing=required.filter(name=>!reported.some(r=>r===name||r.startsWith(name+'$')));
+  if(missing.length)throw new Error(`Mandatory classes have no report: ${missing.join(',')}`);
 }
 const safe=text=>text.replace(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,'[REDACTED_JWT]').replace(/Cf003-[AB]-Senha-2026/g,'[SYNTHETIC_PASSWORD]').replace(/(password|secret|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/gi,'$1=[REDACTED]');
 
@@ -33,7 +39,8 @@ async function main(){
   if(process.platform!=='win32'){try{npmCandidates.push(fs.realpathSync(execFileSync('which',['npm'],{encoding:'utf8'}).trim()));}catch{}}
   const npm=npmCandidates.find(p=>fs.existsSync(p));if(!npm)throw new Error('npm CLI unavailable');
   async function command(name,executable,args,cwd){
-    const start=Date.now();const entry={name,command:[executable,...args],started:new Date().toISOString(),exit:null};report.steps.push(entry);
+    const display=value=>value.replaceAll(out,'${EVIDENCE_ROOT}').replaceAll(root,'${SOURCE_ROOT}');
+    const start=Date.now();const entry={name,command:[path.basename(executable),...args.map(display)],cwd:path.relative(root,cwd),started:new Date().toISOString(),exit:null};report.steps.push(entry);
     const log=fs.createWriteStream(path.join(out,`${name}.log`));
     await new Promise((resolve,reject)=>{
       const child=spawn(executable,args,{cwd,env,shell:false,windowsHide:true});
@@ -60,14 +67,18 @@ async function main(){
     const vitest=JSON.parse(fs.readFileSync(path.join(out,'components.json')));
     report.components=requireCounts({tests:vitest.numTotalTests,failures:vitest.numFailedTests,errors:vitest.numRuntimeErrorTestSuites??0,skipped:(vitest.numPendingTests??0)+(vitest.numTodoTests??0)},'components');
     await runNpm('build',['run','build']);
+    await runNpm('browser-install',['run','test:e2e:install']);
     writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});
   }
   async function backend(){
     invalidate(['backend','e2e']);
     const reports=path.join(out,'surefire');
-    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true',`-Dsurefire.reportsDirectory=${reports}`,'verify']);}
+    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke');
+    writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
+    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,'verify']);}
     finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
     report.backend=requireCounts(junitCounts(reports),'backend');
+    requireReportedClasses(reports,selection.selected);
     const jars=fs.readdirSync(path.join(back,'target')).filter(f=>f.endsWith('.jar'));
     if(jars.length!==1)throw new Error('Verify must produce exactly one executable JAR');
     writeJson(path.join(root,'.ci-backend.json'),{source:source.digest,status:'passed',counts:report.backend,jar:jars[0],jarSha256:hash(fs.readFileSync(path.join(back,'target',jars[0])))});
@@ -76,17 +87,17 @@ async function main(){
   async function e2e(){
     invalidate(['e2e']);
     prerequisite('frontend');prerequisite('backend');
-    await runNpm('browser-install',['run','test:e2e:install']);
     const runtime=path.join(out,'e2e-runtime');fs.mkdirSync(runtime);fs.symlinkSync(front,path.join(runtime,'frontend'),process.platform==='win32'?'junction':'dir');
     fs.copyFileSync(path.join(root,'tasks/evidencias/CF-028/examples.json'),path.join(runtime,'e01.json'));
     const evidence=path.join(out,'browser');fs.mkdirSync(evidence);
-    Object.assign(env,{CF032_RUNTIME:runtime,CF032_REPO:root,CF032_EVIDENCE:evidence,CF032_HEAD:source.commit,CF032_GREP:process.env.CF034_SUITE==='expanded'?'':'^(A |B |G |H |K |L )'});
-    try{await maven('e2e',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-Dtest=FinancialJourneyPostgresE2E','-Dsurefire.failIfNoSpecifiedTests=true',`-Dsurefire.reportsDirectory=${path.join(out,'e2e-surefire')}`,'test']);}
+    Object.assign(env,{CF032_RUNTIME:runtime,CF032_REPO:root,CF032_EVIDENCE:evidence,CF032_HEAD:source.commit,CF032_GREP:process.env.CF034_SUITE==='expanded'?'':'A cadastro|B uso diário|G resposta perdida|H dois usuários|K limite disponível|L investimento válido'});
+    try{await maven('e2e',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-Dtest=FinancialJourneyPostgresE2E','-Dsurefire.failIfNoSpecifiedTests=true',`-Dcf034.reportsDirectory=${path.join(out,'e2e-surefire')}`,'test']);}
     finally{if(fs.existsSync(path.join(out,'e2e-surefire')))report.e2eJava=junitCounts(path.join(out,'e2e-surefire'));}
     report.e2eJava=requireCounts(junitCounts(path.join(out,'e2e-surefire')),'E2E Java');
     const playwright=JSON.parse(fs.readFileSync(path.join(evidence,'playwright.json')));
     report.browser=requireCounts({tests:playwright.stats.expected,failures:playwright.stats.unexpected,errors:playwright.errors?.length??0,skipped:playwright.stats.skipped},'browser');
     if(playwright.stats.flaky)throw new Error('Flaky E2E is not approval');
+    if(process.env.CF034_SUITE!=='expanded'&&report.browser.tests!==6)throw new Error('All six mandatory browser journeys must run');
     writeJson(path.join(root,'.ci-e2e.json'),{source:source.digest,status:'passed',counts:report.browser});
   }
   async function packageArtifact(){

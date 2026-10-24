@@ -33,6 +33,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<maven.compiler.release>21</maven.compiler.release>
+		<cf034.reportsDirectory>${project.build.directory}/surefire-reports</cf034.reportsDirectory>
 	</properties>
 
 	<dependencies>
@@ -151,6 +152,15 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<reportsDirectory>${cf034.reportsDirectory}</reportsDirectory>
+					<failIfNoTests>true</failIfNoTests>
+					<rerunFailingTestsCount>0</rerunFailingTestsCount>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
