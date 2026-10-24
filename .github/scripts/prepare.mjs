@@ -9,7 +9,8 @@ const allowed=path.resolve(repo,'../controle-financeiro-runtimes/CF-034')+path.s
 if(!destination.startsWith(allowed)||fs.existsSync(destination))throw new Error('Choose a NEW execution under ../controle-financeiro-runtimes/CF-034/');
 fs.mkdirSync(destination,{recursive:true});
 const list=execFileSync('git',['-c','core.quotepath=false','ls-files','--cached','--others','--exclude-standard','-z'],{encoding:'utf8'}).split('\0').filter(Boolean);
-const selected=list.filter(p=>fs.existsSync(p)).filter(p=>p.startsWith('.github/')||p.startsWith('controle-financeiro-backend/')||p.startsWith('controle-financeiro-frontend/')||p==='tasks/evidencias/CF-028/examples.json');
+const fixtures=new Set(['tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json']);
+const selected=list.filter(p=>fs.existsSync(p)).filter(p=>p.startsWith('.github/')||p.startsWith('controle-financeiro-backend/')||p.startsWith('controle-financeiro-frontend/')||fixtures.has(p));
 for(const file of selected){
   if(/(^|\/)(node_modules|target|\.next|\.git)(\/|$)|(^|\/)\.env(?:\.|$)/.test(file))throw new Error(`Forbidden export input: ${file}`);
   const target=path.join(destination,'checkout',file);
