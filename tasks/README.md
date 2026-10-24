@@ -4,7 +4,26 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF032 aceita independentemente no escopo local, 23/10/2026
+## Situação vigente — CF033 revisada com ressalva de concorrência, 24/10/2026
+
+CF032 publicada/integrada por fast-forward; main remota conferida em
+`bfb6c61d6b68e1da112eabf420634bb5b5e9127b`. CF033 executada na branch própria
+`codex/cf033-revisao-integrada`, **concluida como revisão independente com ressalva**,
+sem aprovação irrestrita do candidato. CF033-01/P2 aberto: guard exclusivo de BUY
+bloqueia writer em outra conta do mesmo owner; contrato histórico DEC-10 exigia
+progresso independente. PIDs/advisory locks e progresso de outro owner confirmados,
+sem perda financeira demonstrada. CF032 conserva seu aceite local e limites.
+[Parecer, matriz e próximo saneamento delimitado](evidencias/CF-033/README.md).
+
+7 provas backend novas aprovadas,3 jornadas reais, quatro contraprovas causais
+detectadas/restauradas. Seleção74:73 aprovações/1 timeout investigado; probe causal
+1 assertion falha/zero erros, preservado vermelho. Build/lint novo/tipagem aprovados;
+falhas de fixtures/observador preservadas, sem somar reruns. Produto/README/runtimes
+preservados; commits CF033 locais. Zoom nativo200%, adoção real CF017/P01/P02,
+limitações de produção e alcance DEC-ONB-03 continuam. CF034+ não iniciadas; sem
+deploy ou banco real. Próximo passo: decisão/saneamento restrito de CF033-01.
+
+## Situação anterior — CF032 aceita independentemente no escopo local, 23/10/2026
 
 CF032 **concluida no escopo local** sobre864a3c7. CF032-01/02/03/04 encerrados;
 critérios2/3 atendidos,1/4 preservados. CLOSE/ASSIGN certificam inventário gravado,
