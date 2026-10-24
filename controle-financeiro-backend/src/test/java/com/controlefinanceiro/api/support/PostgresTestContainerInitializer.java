@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 public final class PostgresTestContainerInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
+    private static final String INITIALIZED = PostgresTestContainerInitializer.class.getName() + ".initialized";
+
     private static final String DATABASE_NAME = "cf_test_" + UUID.randomUUID().toString().replace("-", "");
     private static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")
             .withDatabaseName(DATABASE_NAME)
@@ -19,6 +21,11 @@ public final class PostgresTestContainerInitializer
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
+        // Specialized initializers call this explicitly, while Spring also
+        // inherits it from the base test. Preserve their later schema override.
+        if (applicationContext.getBeanFactory().containsSingleton(INITIALIZED)) {
+            return;
+        }
         startPostgres();
         DisposablePostgresGuard.requireDisposable(POSTGRES.getJdbcUrl(), DATABASE_NAME);
 
@@ -40,6 +47,7 @@ public final class PostgresTestContainerInitializer
                 "spring.datasource.hikari.schema=" + schema,
                 "spring.jpa.properties.hibernate.default_schema=" + schema
         ).applyTo(applicationContext.getEnvironment());
+        applicationContext.getBeanFactory().registerSingleton(INITIALIZED, new Object());
     }
 
     private static synchronized void startPostgres() {
