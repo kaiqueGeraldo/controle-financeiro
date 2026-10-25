@@ -8,6 +8,19 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Publicação controlada e validação remota — 25/10/2026
+
+Etapa operacional autorizada, entrada `4d20fb0`; revisão de configuração das
+integrações Railway/Vercel incluída por pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).
+Aceite local DEC-CI-04/RCI034-01/R1 preservado, estado integral **em_revisao**.
+Main observada272001f, sem proteção/checks. Railway produção acompanha main sem
+Wait for CI; API/PG offline, ambientes de PR desativados. Vercel Production Ready
+em272001f, main com autoassign e previews de branches sem Deployment Checks.
+Bloqueio versionado apenas da branch CF034 prepara publicação/CI por PR sem deploy.
+Integração na main aguarda separação explícita dos gatilhos de produção, conforme
+limites do pedido; configuração sozinha não comprova gates remotos.
+Nenhum checkbox integral alterado, banco real/deploy ou sucessora autorizados.
+
 ## Liberação exclusivamente local — 24/10/2026
 
 Revalidação independente de25/10, candidato `ea00a06`, intervalo `418a648..ea00a06`:
