@@ -23,7 +23,6 @@ jobs:
     timeout-minutes: 45
     env:
       CF034_SUITE: smoke
-      CF034_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,6 +38,8 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+      - name: Set canonical external runtime path
+        run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required" >> "$GITHUB_ENV"
       - name: Verify gate failure propagation and report contracts
         run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
       - name: Lint, types, tests, build, PostgreSQL, integrated E2E, package
@@ -70,7 +71,6 @@ jobs:
     timeout-minutes: 45
     env:
       CF034_SUITE: expanded
-      CF034_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-expanded
     steps:
       - uses: actions/checkout@v4
         with:
@@ -86,6 +86,8 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+      - name: Set canonical external runtime path
+        run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-expanded" >> "$GITHUB_ENV"
       - name: Full browser matrix, including the three accepted timezone cases
         run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
       - name: Collect diagnosis

@@ -42,7 +42,7 @@ if(process.argv[2]==='initial'){
 }else if(process.argv[2]==='final'){
   const before=JSON.parse(fs.readFileSync(beforeFile));
   const changes=before.files.filter(f=>!fs.existsSync(f.path)||sha(f.path)!==f.sha256).map(f=>({path:f.path,before:f.sha256,after:fs.existsSync(f.path)?sha(f.path):null}));
-  const allowed=new Set(['tasks/README.md','tasks/05-release/CF-034-gates-ci.md','.github/scripts/ci.mjs','.github/scripts/publish-evidence.mjs']);
+  const allowed=new Set(['tasks/README.md','tasks/05-release/CF-034-gates-ci.md','.github/scripts/ci.mjs','.github/scripts/publish-evidence.mjs','.github/workflows/ci.yml']);
   const unexpected=changes.filter(f=>!allowed.has(f.path));
   writeJson(path.join(here,'preservation-final.json'),{at:new Date().toISOString(),checked:before.files.length,changes,unexpected,readme:sha('README.md'),head:git('rev-parse','HEAD'),status:git('status','--short'),staged:git('diff','--cached','--name-status')});
   assert.deepEqual(unexpected,[]);

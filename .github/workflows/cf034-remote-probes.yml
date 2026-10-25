@@ -12,8 +12,6 @@ jobs:
   contracts:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env:
-      PROBE_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-contracts
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Set canonical external runtime path
+        run: echo "PROBE_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-contracts" >> "$GITHUB_ENV"
       - name: Existing gate and sanitization contracts
         run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
       - name: Induce and detect synthetic violations
@@ -39,8 +39,6 @@ jobs:
     needs: contracts
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env:
-      CANCEL_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-cancel
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,6 +47,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Set canonical external runtime path
+        run: echo "CANCEL_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-cancel" >> "$GITHUB_ENV"
       - name: Start bounded synthetic processes and isolated PostgreSQL
         run: node .github/scripts/remote-probes.mjs start-cancellation "$CANCEL_OUT"
       - uses: actions/upload-artifact@v4
