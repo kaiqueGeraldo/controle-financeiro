@@ -1,0 +1,2837 @@
+[
+  {
+    "file": "controle-financeiro-frontend/tests/component/annual-summary-note-reload.test.tsx",
+    "cases": [
+      {
+        "title": "CF-014: nota anual nota confirmada pelo serviço reaparece após desmontar e recarregar o resumo",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/async-state.test.tsx",
+    "cases": [
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário refresh antigo de A/setembro não substitui B/outubro mesmo se o cliente ignorar abort",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário refresh de fatura pode ser repetido depois de erro real",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário resposta tardia do usuário A não aparece depois do login do usuário B",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário R09: evento de alteração financeira invalida o saldo das contas",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário CF-012: falha de leitura não zera saldo silenciosamente e a recarga limpa o erro",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-008: resposta mais recente e isolamento por usuário CF-012: extrato com erro não vira página vazia e retry requisita a primeira página",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-009: mutações otimistas concorrentes R03: resultado success de sessão anterior A não atua após A/logout/A",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-009: mutações otimistas concorrentes R03: resultado failure de sessão anterior A não atua após A/logout/A",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-009: mutações otimistas concorrentes R03: desmontagem invalida callbacks da mutação pendente",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-009: mutações otimistas concorrentes duas chamadas da mesma chave no mesmo tick compartilham uma requisição e a falha propaga",
+        "status": "passed"
+      },
+      {
+        "title": "AC-UI-009: mutações otimistas concorrentes rollback tardio de M1 restaura só seu item e preserva M2 válida",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/auth-screen.test.tsx",
+    "cases": [
+      {
+        "title": "AuthScreen [timezone=America/Sao_Paulo viewport=jsdom seed=cf001-v1] bloqueia cadastro vazio, identifica cada campo e não chama a API",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/auth-settings-accessibility.test.tsx",
+    "cases": [
+      {
+        "title": "CF-011: autenticação e configurações acessíveis login vazio identifica a senha e não envia credenciais incompletas",
+        "status": "passed"
+      },
+      {
+        "title": "CF-011: autenticação e configurações acessíveis recuperação usa provedor falso e mantém erro remoto distinguível da entrada inválida",
+        "status": "passed"
+      },
+      {
+        "title": "CF-011: autenticação e configurações acessíveis logout limpa a sessão local mesmo quando o provedor remoto falha",
+        "status": "passed"
+      },
+      {
+        "title": "CF-011: autenticação e configurações acessíveis switches têm nome acessível, funcionam por teclado e falha não inventa preferência salva",
+        "status": "passed"
+      },
+      {
+        "title": "CF-011: autenticação e configurações acessíveis preferência confirmada reaparece depois de recarregar os dados do usuário",
+        "status": "passed"
+      },
+      {
+        "title": "CF-011: autenticação e configurações acessíveis ações de configuração podem ser acionadas por teclado e exportação falha sem criar download",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/bff-contract.test.tsx",
+    "cases": [
+      {
+        "title": "contrato do BFF [AC-UI-006/007] 204 permanece sem corpo e sem content-type inventado",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] RVR24-01: POST repassa tokens decimais sem parsing",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] RVR24-01: GET repassa tokens decimais sem parsing",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] R04: request já cancelado não dispara escrita no backend",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] arquivo binário preserva bytes, tipo e nome",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] conexão recusada é 503 recuperável",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] status e problema JSON do backend atravessam o proxy sem reclassificação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato do BFF [AC-UI-006/007] timeout upstream é 504 e cancelamento do cliente não vira 500",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cards-planning-audit.test.tsx",
+    "cases": [
+      {
+        "title": "CF-013: cartões, faturas e planejamento o cartão inteiro é uma ação de detalhe alcançável por teclado",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento apresenta fatura OPEN com status e ação coerentes",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento apresenta fatura CLOSED com status e ação coerentes",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento apresenta fatura PAID com status e ação coerentes",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento pagamento parcial aguarda a releitura antes de fechar o formulário",
+        "status": "passed"
+      },
+      {
+        "title": "CF-013: cartões, faturas e planejamento falha de resultado desconhecido conserva o pagamento e orienta a reconciliação",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-annual-races.test.tsx",
+    "cases": [
+      {
+        "title": "CF015-R01: voltar ao ano em cache invalida a resposta do ano abandonado",
+        "status": "passed"
+      },
+      {
+        "title": "CF015-R04: texto digitado durante gravação não aparece confirmado sem persistir",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-chart-race.test.tsx",
+    "cases": [
+      {
+        "title": "CF015-R02: 6M em cache permanece selecionado após resposta tardia de 1Y",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-financial-consumers.test.tsx",
+    "cases": [
+      {
+        "title": "R03: falha de accounts impede reconciliação e recuperação atualiza providers reais",
+        "status": "passed"
+      },
+      {
+        "title": "R03: falha de dashboard impede reconciliação e recuperação atualiza providers reais",
+        "status": "passed"
+      },
+      {
+        "title": "R03: falha de planning impede reconciliação e recuperação atualiza providers reais",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-invoice-focus.test.tsx",
+    "cases": [
+      {
+        "title": "CF015-R08: abrir detalhe da fatura por teclado leva foco para o diálogo",
+        "status": "passed"
+      },
+      {
+        "title": "R08: Tab fica no diálogo superior, Escape fecha só o filho e foco retorna",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-payment-reconciliation.test.tsx",
+    "cases": [
+      {
+        "title": "CF015-R03: pagamento confirmado com releitura 503 não fecha como reconciliado",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-profile-draft.test.tsx",
+    "cases": [
+      {
+        "title": "CF015-R07: releitura do mesmo usuário preserva nome que está sendo editado",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-reconciliation-lifecycle.test.tsx",
+    "cases": [
+      {
+        "title": "R03/RV01: supersession failure-first preserves pending payment and read-only recovery",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: supersession success-first preserves pending payment and read-only recovery",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: supersession late-success preserves pending payment and read-only recovery",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: supersession late-error preserves pending payment and read-only recovery",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: session cancels even a batch whose reads all succeed",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: unmount cancels even a batch whose reads all succeed",
+        "status": "passed"
+      },
+      {
+        "title": "R03/RV01: current batch preserves the actual read failure",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-recovery-expanded.test.tsx",
+    "cases": [
+      {
+        "title": "R03: duplo envio faz um POST; falha de releitura recupera só com GETs",
+        "status": "passed"
+      },
+      {
+        "title": "R03: resultado desconhecido continua protegido após remontagem e atualização",
+        "status": "passed"
+      },
+      {
+        "title": "R03: recusa HTTP permite corrigir a entrada sem confirmação falsa",
+        "status": "passed"
+      },
+      {
+        "title": "R05: tela e hook reais distinguem 503 inicial, retry e vazio confirmado",
+        "status": "passed"
+      },
+      {
+        "title": "R05: erro ao trocar mês não mostra fatura zerada; nova leitura recupera",
+        "status": "passed"
+      },
+      {
+        "title": "R01/R04: refetch conserva rascunho, falha não salva e sucesso sobrevive nova leitura",
+        "status": "passed"
+      },
+      {
+        "title": "R01: erro antigo após A-B-A e resposta após troca de sessão são ignorados",
+        "status": "passed"
+      },
+      {
+        "title": "R02: erro abandonado não afeta cache e resultado tardio não atravessa sessão",
+        "status": "passed"
+      },
+      {
+        "title": "R07: troca de identidade e cancelar/reabrir inicializam o formulário correto",
+        "status": "passed"
+      },
+      {
+        "title": "R01/R04: confirmação antiga não fecha nem substitui nota de outra entidade",
+        "status": "passed"
+      },
+      {
+        "title": "R01/R02: desmontagem cancela as duas leituras e ignora entrega posterior",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf015-revalidation-overlap.test.tsx",
+    "cases": [
+      {
+        "title": "R03 revalidação: refresh concorrente não transforma releitura recusada em reconciliação concluída",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf021-reporting.test.tsx",
+    "cases": [
+      {
+        "title": "CF-021: apresentação de posições faturas fora da faixa não apresentam total monetário truncado",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições período sem cobertura não apresenta observado zero como total completo",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições período vazio coberto apresenta zero conhecido",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições subtotal acima da faixa preserva centavos sem conversão para Number",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições consolidação de investimento usa custo persistido e avaliação, sem recompor pelo preço médio",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições custo 400 e avaliação 500 são linhas distintas; destinação não entra no total",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições cotação ausente não vira zero nem custo como avaliação",
+        "status": "passed"
+      },
+      {
+        "title": "CF-021: apresentação de posições subtotal do dashboard informa dívida excluída e avaliação incompleta",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf023-auth-boundary.test.tsx",
+    "cases": [
+      {
+        "title": "CF023: cookie acompanha duração de 24h do JWT e logout elimina credencial",
+        "status": "passed"
+      },
+      {
+        "title": "CF023: BFF relê cookie por requisição, não usa Bearer fornecido pelo navegador",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf023-session-invalidation.test.tsx",
+    "cases": [
+      {
+        "title": "CF023: expiração limpa perfil e invalida resposta pendente sem ressuscitar A",
+        "status": "passed"
+      },
+      {
+        "title": "CF023: outra aba invalida A, depois relê B com a credencial atual",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf026-contracts.test.tsx",
+    "cases": [
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração null usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração {} usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração 42 usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração \"texto\" usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração [null,42,\"BALANCE\"] usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação configuração {json inválido usa defaults sem quebrar abertura ou salvamento",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=false",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação preserva ordem, visibilidade e span válidos, inclusive JSON duplamente codificado=true",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação campos malformados e IDs desconhecidos não escapam para o payload",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação rejeição de salvar não fecha modal nem refaz leitura como sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: preferências desconhecidas respeitam o contrato de apresentação atualização de preferências recebida substitui a configuração e IDs duplicados não criam cartões extras",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas troca de senha com rejeição null",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas troca de senha com rejeição {\"message\":42}",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas troca de senha com rejeição {}",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas aporte preserva mensagem e reconferência de conflito: 'Erro ao realizar operação.'",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas aporte preserva mensagem e reconferência de conflito: 'Reserva indisponível'",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: erro desconhecido não quebra o tratamento de falhas aporte preserva mensagem e reconferência de conflito: 'Erro legado'",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: progresso numérico mantém protocolo no DTO, texto JSX e callbacks de sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: reorder genérico preserva IDs e o efeito de falha/retry",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: cleanup impede success antigo de liberar lock da mesma chave na nova geração",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: cleanup impede failure antigo de liberar lock da mesma chave na nova geração",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: cleanup no unmount descarta success tardio e toast",
+        "status": "passed"
+      },
+      {
+        "title": "CF-026: cleanup no unmount descarta failure tardio e toast",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf032-card-limits.test.tsx",
+    "cases": [
+      {
+        "title": "future principal, not current invoice, defines summary; refresh reads new authoritative metrics",
+        "status": "passed"
+      },
+      {
+        "title": "a multi-card aggregate uses available metrics, including negative capacity and credit",
+        "status": "passed"
+      },
+      {
+        "title": "loading and failed reads do not manufacture available zero",
+        "status": "passed"
+      },
+      {
+        "title": "missing or invalid available undefined stays unavailable in card and aggregate",
+        "status": "passed"
+      },
+      {
+        "title": "missing or invalid available null stays unavailable in card and aggregate",
+        "status": "passed"
+      },
+      {
+        "title": "missing or invalid available NaN stays unavailable in card and aggregate",
+        "status": "passed"
+      },
+      {
+        "title": "missing or invalid available Infinity stays unavailable in card and aggregate",
+        "status": "passed"
+      },
+      {
+        "title": "missing or invalid available 0.001 stays unavailable in card and aggregate",
+        "status": "passed"
+      },
+      {
+        "title": "limit 0, principal 0 and available 0 render without invoice arithmetic",
+        "status": "passed"
+      },
+      {
+        "title": "limit 100, principal 120 and available -20 render without invoice arithmetic",
+        "status": "passed"
+      },
+      {
+        "title": "limit 1000, principal 344 and available 656 render without invoice arithmetic",
+        "status": "passed"
+      },
+      {
+        "title": "privacy hides the authoritative amount and usage bar",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/cf032-investment-identity.test.tsx",
+    "cases": [
+      {
+        "title": "two same-type positions without ticker keep meaningful distinct names and UUID selection",
+        "status": "passed"
+      },
+      {
+        "title": "label ABCD3 / Nome descritivo remains complete and accessible",
+        "status": "passed"
+      },
+      {
+        "title": "label null / Nome sem ticker remains complete and accessible",
+        "status": "passed"
+      },
+      {
+        "title": "label     / Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo Nome longo  remains complete and accessible",
+        "status": "passed"
+      },
+      {
+        "title": "label null /  remains complete and accessible",
+        "status": "passed"
+      },
+      {
+        "title": "detail uses the same fallback and preserves the UUID in operations",
+        "status": "passed"
+      },
+      {
+        "title": "privacy keeps descriptive identity but prevents access to financial detail",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/common-components.test.tsx",
+    "cases": [
+      {
+        "title": "componentes compartilhados: modal mantém diálogo longo acessível, fecha por Escape e retorna foco ao gatilho",
+        "status": "passed"
+      },
+      {
+        "title": "componentes compartilhados: modal impede Tab de escapar do diálogo enquanto está aberto",
+        "status": "passed"
+      },
+      {
+        "title": "componentes compartilhados: campo com erro associa a mensagem de erro ao campo e sinaliza a invalidez",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/dashboard-accounts-extract.test.tsx",
+    "cases": [
+      {
+        "title": "CF-012: estados de leitura nas telas financeiras falha de contas não se passa por patrimônio zero e retry chama a fonte",
+        "status": "passed"
+      },
+      {
+        "title": "CF-012: estados de leitura nas telas financeiras falha de extrato não se passa por saldo do período vazio e retry é acionável",
+        "status": "passed"
+      },
+      {
+        "title": "CF-012: estados de leitura nas telas financeiras dashboard aguarda e bloqueia cartões de saldo quando uma fonte falha",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/decimal-independent.test.tsx",
+    "cases": [
+      {
+        "title": "independent literal 1 * 0.01499999 => 0.01",
+        "status": "passed"
+      },
+      {
+        "title": "independent literal 1 * 0.015 => 0.02",
+        "status": "passed"
+      },
+      {
+        "title": "independent literal 1 * 0.01500001 => 0.02",
+        "status": "passed"
+      },
+      {
+        "title": "independent literal 0.33333333 * 3 => 1",
+        "status": "passed"
+      },
+      {
+        "title": "independent literal 1e-8 * 999999999999 => 10000",
+        "status": "passed"
+      },
+      {
+        "title": "BUY preserves gross before monetary fee",
+        "status": "passed"
+      },
+      {
+        "title": "SELL preserves gross before monetary fee",
+        "status": "passed"
+      },
+      {
+        "title": "DIVIDEND preserves gross before monetary fee",
+        "status": "passed"
+      },
+      {
+        "title": "INTEREST preserves gross before monetary fee",
+        "status": "passed"
+      },
+      {
+        "title": "SELL permits fee equal to positive gross",
+        "status": "passed"
+      },
+      {
+        "title": "DIVIDEND permits fee equal to positive gross",
+        "status": "passed"
+      },
+      {
+        "title": "INTEREST permits fee equal to positive gross",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 authoritative monetary amount with derived fields 100000000",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 authoritative monetary amount with derived fields 1e-8",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude 5e-324 rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude 1.7976931348623157e+308 rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude Infinity rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude NaN rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude -1 rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "invalid/excess precision magnitude 1e-9 rejects through controlled error",
+        "status": "passed"
+      },
+      {
+        "title": "maximum permitted product operands cannot confirm a small claimed gross",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 accepts maximum monetary gross but rejects one cent above ceiling",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 out-of-range gross preserves intent via POST",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 out-of-range gross preserves intent via retry",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 out-of-range gross preserves intent via GET",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/directed-temporal-review.test.tsx",
+    "cases": [
+      {
+        "title": "RD58-01: seletor anual inicia pelo navegador (SPEC-002 DEC-01)",
+        "status": "passed"
+      },
+      {
+        "title": "controle: seleção explícita do ano fica estável na virada",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-02: histórico legado de meta explicita fuso desconhecido (CT-10/E11)",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/financial-result-review.test.tsx",
+    "cases": [
+      {
+        "title": "RVR24-01: inconsistent gross cannot confirm via POST",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-01: inconsistent gross cannot confirm via retry",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-01: inconsistent gross cannot confirm via GET",
+        "status": "passed"
+      },
+      {
+        "title": "legitimate decimal rounding and unknown historical cost remain acceptable",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/goals-investments-habits-annual-audit.test.tsx",
+    "cases": [
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual V-ERROR: metas e investimentos não apresentam coleções vazias como sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual V-ERROR: resumo anual conserva erro recuperável, sem alegar ano vazio",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual AC-UI-012: posição atual não é rotulada como fechamento de ano passado",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual posição somente do ano corrente deixa explícito que não é fechamento anual",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual falha ao salvar nota conserva o editor e o texto para nova tentativa",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual AC-TIME-001: histórico de investimento mostra data civil sem deslocar o dia",
+        "status": "passed"
+      },
+      {
+        "title": "CF-014: metas, investimentos, hábitos e resumo anual hábitos diário e semanal usam o dia do produto e contam apenas logs da semana",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/habit-product-day.test.tsx",
+    "cases": [
+      {
+        "title": "P05: lista, detalhe e payload usam dia 07 antes da meia-noite de Brasília",
+        "status": "passed"
+      },
+      {
+        "title": "página aberta muda destaque, janela e payload juntos sem remapear logs",
+        "status": "passed"
+      },
+      {
+        "title": "revalida após suspensão em focus e limpa o timer",
+        "status": "passed"
+      },
+      {
+        "title": "revalida após suspensão em visibilitychange e limpa o timer",
+        "status": "passed"
+      },
+      {
+        "title": "limite IANA respeita o dia de 23 horas de São Paulo em 2018",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/habits-rollback-review.test.tsx",
+    "cases": [
+      {
+        "title": "R14: rollback de uma data preserva outra confirmação do mesmo hábito (log prévio=false)",
+        "status": "passed"
+      },
+      {
+        "title": "R14: rollback de uma data preserva outra confirmação do mesmo hábito (log prévio=true)",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/harness-credential-clock.test.tsx",
+    "cases": [
+      {
+        "title": "P04: Next usa authNow controlado depois da antiga expiração e distingue JWT válido/expirado",
+        "status": "passed"
+      },
+      {
+        "title": "preload recusa fora do harness: {\"NODE_ENV\":\"production\"}",
+        "status": "passed"
+      },
+      {
+        "title": "preload recusa fora do harness: {\"CF_E2E_SERVER_CLOCK\":\"0\"}",
+        "status": "passed"
+      },
+      {
+        "title": "preload recusa fora do harness: {\"BACKEND_API_URL\":\"https://example.test\"}",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/http-contract.test.tsx",
+    "cases": [
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R04: 401 tardio de leitura cancelada não expira a sessão atual",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] 401 privado solicita autenticação; 403 preserva a sessão e informa proibição",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] 400 conserva erros por campo e 409 sinaliza reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] 204 não tenta desserializar corpo ausente",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] download com erro JSON não entrega blob e sucesso preserva bytes e tipo",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] AbortError permanece cancelamento e indisponibilidade não vira falso 500",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] 503 preserva falha recuperável e paginação usa nomes do contrato",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] payload JSON inesperado em download é rejeitado mesmo com HTTP 200",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] JSON malformado em sucesso é falha de contrato, não dado vazio",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: escrita com HTTP 500 exige reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: escrita com HTTP 501 exige reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: escrita com HTTP 502 exige reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: escrita com HTTP 503 exige reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: escrita com HTTP 504 exige reconciliação",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: JSON inválido após escrita não prova que a operação foi desfeita",
+        "status": "passed"
+      },
+      {
+        "title": "contrato HTTP do cliente [AC-UI-004/005/006/007] R05: HTML com HTTP 200 não pode ser salvo como XLSX",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/middleware-expiry-review.test.tsx",
+    "cases": [
+      {
+        "title": "R15: expiração da rota na fronteira do instante (-1 segundo)",
+        "status": "passed"
+      },
+      {
+        "title": "R15: expiração da rota na fronteira do instante (0 segundo)",
+        "status": "passed"
+      },
+      {
+        "title": "R15: expiração da rota na fronteira do instante (1 segundo)",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/milestone-payment-intent.test.tsx",
+    "cases": [
+      {
+        "title": "unknown outcome survives reopen and retries the exact stored command only after explicit recovery",
+        "status": "passed"
+      },
+      {
+        "title": "a located receipt reconciles the screen without a second payment request",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/milestone-transaction-command.test.tsx",
+    "cases": [
+      {
+        "title": "lost settlement freezes its command across reopen and explicit retry preserves every field",
+        "status": "passed"
+      },
+      {
+        "title": "confirmed reversal with failed reads only refreshes and never sends a second mutation",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/own-properties.test.tsx",
+    "cases": [
+      {
+        "title": "required investment member id cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member type cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member date cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member dateOrigin cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member quantity cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member price cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member totalValue cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member fees cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member costDelta cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "required investment member realizedResult cannot be inherited",
+        "status": "passed"
+      },
+      {
+        "title": "own valid members on null/custom prototypes and shadowed method names remain valid",
+        "status": "passed"
+      },
+      {
+        "title": "envelope data must be own, independently of snapshot validity",
+        "status": "passed"
+      },
+      {
+        "title": "receipt member operationId must be own",
+        "status": "passed"
+      },
+      {
+        "title": "receipt member kind must be own",
+        "status": "passed"
+      },
+      {
+        "title": "receipt member result must be own",
+        "status": "passed"
+      },
+      {
+        "title": "direct inherited snapshot via POST keeps identity, valid recovery then completes",
+        "status": "passed"
+      },
+      {
+        "title": "direct inherited snapshot via retry keeps identity, valid recovery then completes",
+        "status": "passed"
+      },
+      {
+        "title": "transaction and transfer snapshots also require their own conditional members",
+        "status": "passed"
+      },
+      {
+        "title": "__proto__ value {\"mark\":true} stays a data member",
+        "status": "passed"
+      },
+      {
+        "title": "__proto__ value null stays a data member",
+        "status": "passed"
+      },
+      {
+        "title": "__proto__ value 7 stays a data member",
+        "status": "passed"
+      },
+      {
+        "title": "__proto__ value \"text\" stays a data member",
+        "status": "passed"
+      },
+      {
+        "title": "nested objects, escaped special keys and arrays preserve exact decimal tokens",
+        "status": "passed"
+      },
+      {
+        "title": "duplicate-key replacement also defines a data property instead of invoking a setter",
+        "status": "passed"
+      },
+      {
+        "title": "actual modal suppresses success and close for inherited JSON, then valid recovery completes",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/parser-independent.test.tsx",
+    "cases": [
+      {
+        "title": "JSON object members must not be promoted into the prototype",
+        "status": "passed"
+      },
+      {
+        "title": "inherited-only financial fields cannot confirm via POST",
+        "status": "passed"
+      },
+      {
+        "title": "inherited-only financial fields cannot confirm via retry",
+        "status": "passed"
+      },
+      {
+        "title": "inherited-only financial fields cannot confirm via GET",
+        "status": "passed"
+      },
+      {
+        "title": "strings, escaped keys, arrays, booleans and null preserve their JSON meanings",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"quantity\":01}",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"quantity\":+1}",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"quantity\":1.}",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"quantity\":1e}",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"quantity\":NaN}",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: [1,]",
+        "status": "passed"
+      },
+      {
+        "title": "malformed JSON is rejected: {\"x\":\"\\q\"}",
+        "status": "passed"
+      },
+      {
+        "title": "out-of-domain decimal work is bounded: 1e1025",
+        "status": "passed"
+      },
+      {
+        "title": "out-of-domain decimal work is bounded: 1e-1025",
+        "status": "passed"
+      },
+      {
+        "title": "out-of-domain decimal work is bounded: 1e99999999999999999999",
+        "status": "passed"
+      },
+      {
+        "title": "out-of-domain decimal work is bounded: 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/planning-edit.test.tsx",
+    "cases": [
+      {
+        "title": "P03: consumidor envia PUT tipado, só campos editáveis e mantém data literal",
+        "status": "passed"
+      },
+      {
+        "title": "falha de edição mantém formulário, entrada e erro visível sem sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "item gerenciado por fatura não oferece edição",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/precision-boundary.test.tsx",
+    "cases": [
+      {
+        "title": "raw maximum is accepted only when parsed without destructive conversion",
+        "status": "passed"
+      },
+      {
+        "title": "valid authoritative redemption must complete through POST",
+        "status": "passed"
+      },
+      {
+        "title": "valid authoritative redemption must complete through retry",
+        "status": "passed"
+      },
+      {
+        "title": "valid authoritative redemption must complete through GET",
+        "status": "passed"
+      },
+      {
+        "title": "different but legal raw quantity must not confirm same command via POST",
+        "status": "passed"
+      },
+      {
+        "title": "different but legal raw quantity must not confirm same command via GET",
+        "status": "passed"
+      },
+      {
+        "title": "valid raw money at inclusive ceiling retains cents and authoritative amount",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/precision-decimals.test.tsx",
+    "cases": [
+      {
+        "title": "exact legal quantity 999999999999.99999998 reaches the validator intact",
+        "status": "passed"
+      },
+      {
+        "title": "exact legal quantity 999999999999.99999999 reaches the validator intact",
+        "status": "passed"
+      },
+      {
+        "title": "exact legal quantity 0.00000001 reaches the validator intact",
+        "status": "passed"
+      },
+      {
+        "title": "exact legal quantity 1E-8 reaches the validator intact",
+        "status": "passed"
+      },
+      {
+        "title": "quantity outside precision/range 1000000000000.00000000 is not normalized",
+        "status": "passed"
+      },
+      {
+        "title": "quantity outside precision/range 999999999999.999999999 is not normalized",
+        "status": "passed"
+      },
+      {
+        "title": "quantity outside precision/range 0.000000001 is not normalized",
+        "status": "passed"
+      },
+      {
+        "title": "quantity outside precision/range 0 is not normalized",
+        "status": "passed"
+      },
+      {
+        "title": "quantity outside precision/range -1 is not normalized",
+        "status": "passed"
+      },
+      {
+        "title": "money boundary 999999999999.98 is exact",
+        "status": "passed"
+      },
+      {
+        "title": "money boundary 999999999999.99 is exact",
+        "status": "passed"
+      },
+      {
+        "title": "invalid monetary token 1000000000000.00 is rejected",
+        "status": "passed"
+      },
+      {
+        "title": "invalid monetary token 999999999999.99001 is rejected",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 descriptive price may exceed the input-price ceiling without becoming authoritative",
+        "status": "passed"
+      },
+      {
+        "title": "exact fees, negative realized snapshot and null are preserved",
+        "status": "passed"
+      },
+      {
+        "title": "HALF_UP uses exact price 1.00500000",
+        "status": "passed"
+      },
+      {
+        "title": "HALF_UP uses exact price 1.00400000",
+        "status": "passed"
+      },
+      {
+        "title": "numeric-looking JSON strings and forged numeric objects do not become financial numbers",
+        "status": "passed"
+      },
+      {
+        "title": "other API responses keep numeric types; parse failures remain reconcilable",
+        "status": "passed"
+      },
+      {
+        "title": "legacy persisted command keeps UUID and payload through bad POST/GET then exact recovery",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rd58-annual-year.test.tsx",
+    "cases": [
+      {
+        "title": "RD58-01 UTC 2027-01-01T01:00:00Z: initial query, manual selection, refresh and reopening",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-01 Pacific/Kiritimati 2026-12-31T12:00:00Z: initial query, manual selection, refresh and reopening",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-01 America/Los_Angeles 2027-01-01T04:00:00Z: initial query, manual selection, refresh and reopening",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-01 America/Sao_Paulo 2027-01-01T04:00:00Z: initial query, manual selection, refresh and reopening",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-01 UTC 2026-06-15T12:00:00Z: initial query, manual selection, refresh and reopening",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rd58-history.test.tsx",
+    "cases": [
+      {
+        "title": "RD58 independent HTTP client parsing and reload in UTC",
+        "status": "passed"
+      },
+      {
+        "title": "RD58 independent HTTP client parsing and reload in Pacific/Kiritimati",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-02 presentation and reopen in UTC",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-02 presentation and reopen in America/Sao_Paulo",
+        "status": "passed"
+      },
+      {
+        "title": "RD58-02 presentation and reopen in Pacific/Kiritimati",
+        "status": "passed"
+      },
+      {
+        "title": "offset alone does not prove provenance; raw/null and precision are preserved",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/revalidation-payment-scope.test.tsx",
+    "cases": [
+      {
+        "title": "switching owner never recovers the previous owner's command; successful reconciliation clears only its scope",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-causal.test.tsx",
+    "cases": [
+      {
+        "title": "RF15-04: datas civis da API 2027/1",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: datas civis da API 2027/2",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: datas civis da API 2028/2",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: datas civis da API 2027/12",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: prazo civil/saldo 2027-02-05T23:59:59 120 CLOSED",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: prazo civil/saldo 2027-02-06T00:00:00 100 CLOSED",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: prazo civil/saldo 2027-02-06T00:00:00 0 OPEN",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: prazo civil/saldo 2027-02-06T00:00:00 0 PAID",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: ausente/inválida não afirma data nem atraso; competência atualiza",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-02: máscara preserva geometria mas remove valor da árvore acessível e alterna",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-03: foco, controle com Escape próprio, aninhamento e cleanup",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-privacy-detail.test.tsx",
+    "cases": [
+      {
+        "title": "RF15-02: lista/detalhe não anunciam valor, caixa, bruto ou restante no modo privado",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-residual-calendar.test.tsx",
+    "cases": [
+      {
+        "title": "RF15-04: atualização por focus sem mudar período nem datas",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: atualização por visibilitychange sem mudar período nem datas",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: atualização por timer sem mudar período nem datas",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: paga continua desabilitada depois da virada",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-04: calendário compartilha um timer e remove callbacks ao desmontar",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-residual-dialogs.test.tsx",
+    "cases": [
+      {
+        "title": "CF014: dois Escape consecutivos cancelam rascunho e fecham sem callback obsoleto",
+        "status": "passed"
+      },
+      {
+        "title": "CF014: Escape durante gravação não descarta nem fecha",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-residual-investment.test.tsx",
+    "cases": [
+      {
+        "title": "CF014: releitura não remonta detalhe sobre a operação nem perde Aportar",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-residual-privacy.test.tsx",
+    "cases": [
+      {
+        "title": "RF15-02: proteção imediata, troca e liberação (text-text-main text-3xl)",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-02: proteção imediata, troca e liberação (text-blue-500)",
+        "status": "passed"
+      },
+      {
+        "title": "RF15-02: proteção imediata, troca e liberação (gap-2 items-center)",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rf15-review-lifecycle.test.tsx",
+    "cases": [
+      {
+        "title": "CF014: close A and reopen B rejects callbacks from the previous operation instance",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-ceiling.test.tsx",
+    "cases": [
+      {
+        "title": "FIN-06 unit price 999999.99999998 produces gross 999999999999.98, accepted=true",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 unit price 999999.99999999 produces gross 999999999999.99, accepted=true",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 unit price 1000000 produces gross 1000000000000, accepted=false",
+        "status": "passed"
+      },
+      {
+        "title": "compare rounded monetary result, execution price 333333333333.3316",
+        "status": "passed"
+      },
+      {
+        "title": "compare rounded monetary result, execution price 333333333333.33167",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 999999999999.98 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 999999999999.99 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 1000000000000.00 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 999999999999 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 999999999999.99001 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 1e2 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 000999999999999.99 is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 amount 1.00\n is parsed without Number rounding",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 quantity range is not inferred from a small gross",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 price range is not inferred from a small gross",
+        "status": "passed"
+      },
+      {
+        "title": "fee 999999999999.98 respects its own money bounds and nonnegative net",
+        "status": "passed"
+      },
+      {
+        "title": "fee 999999999999.99 respects its own money bounds and nonnegative net",
+        "status": "passed"
+      },
+      {
+        "title": "fee 1000000000000 respects its own money bounds and nonnegative net",
+        "status": "passed"
+      },
+      {
+        "title": "fee -0.01 respects its own money bounds and nonnegative net",
+        "status": "passed"
+      },
+      {
+        "title": "fee 0.001 respects its own money bounds and nonnegative net",
+        "status": "passed"
+      },
+      {
+        "title": "BUY gross plus fee can reach but cannot exceed the money ceiling",
+        "status": "passed"
+      },
+      {
+        "title": "known snapshot costDelta is money, without recalculating history",
+        "status": "passed"
+      },
+      {
+        "title": "known snapshot realizedResult is money, without recalculating history",
+        "status": "passed"
+      },
+      {
+        "title": "above-ceiling POST preserves the valid original command until valid recovery",
+        "status": "passed"
+      },
+      {
+        "title": "above-ceiling retry preserves the valid original command until valid recovery",
+        "status": "passed"
+      },
+      {
+        "title": "above-ceiling GET preserves the valid original command until valid recovery",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-creation-intent.test.tsx",
+    "cases": [
+      {
+        "title": "original causal expectation: unknown result prevents a second creation; identity is persisted before POST",
+        "status": "passed"
+      },
+      {
+        "title": "closing, reopening and remount preserve exact retry body, even if draft was changed",
+        "status": "passed"
+      },
+      {
+        "title": "GET 404 does not unlock a new intention",
+        "status": "passed"
+      },
+      {
+        "title": "GET 503 does not unlock a new intention",
+        "status": "passed"
+      },
+      {
+        "title": "authenticated receipt confirms without POST; later equal legitimate intention gets a new identity",
+        "status": "passed"
+      },
+      {
+        "title": "owner switch suppresses late success and leaves A intent untouched; B never retries it",
+        "status": "passed"
+      },
+      {
+        "title": "storage unavailable prevents POST; corrupted saved payload cannot be silently discarded",
+        "status": "passed"
+      },
+      {
+        "title": "definitive initial rejection permits correcting the draft with a new identity",
+        "status": "passed"
+      },
+      {
+        "title": "unmount during POST suppresses late success and preserves the durable intention",
+        "status": "passed"
+      },
+      {
+        "title": "receipt for a different kind or identity cannot unlock creation",
+        "status": "passed"
+      },
+      {
+        "title": "an array is not a receipt result object and must not confirm unknown money",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-gross.test.tsx",
+    "cases": [
+      {
+        "title": "FIN-06 execution 1 x 1.005 has gross 1.01 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 1 x 1.004 has gross 1 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 0.125 x 10.04 has gross 1.26 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 0.1 x 0.2 has gross 0.02 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 1e-8 x 1000000 has gross 0.01 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 3 x 0.335 has gross 1.01 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "FIN-06 execution 999999999999 x 0.01 has gross 9999999999.99 before fees",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 202 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 198 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 999 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 200.001 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 0 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total -200 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total Infinity cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total NaN cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total null cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total undefined cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "invalid or non-gross total 200 cannot confirm",
+        "status": "passed"
+      },
+      {
+        "title": "fees are separate from gross, without reconstructing historical cost or current valuation",
+        "status": "passed"
+      },
+      {
+        "title": "NG-01 monetary gross is authoritative despite rounded or zero descriptive price",
+        "status": "passed"
+      },
+      {
+        "title": "excess execution precision is not silently rounded",
+        "status": "passed"
+      },
+      {
+        "title": "bad POST, retry and GET retain exact intent; valid GET recovers without another POST",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-independent-review.test.tsx",
+    "cases": [
+      {
+        "title": "review: empty result is not a valid financial receipt",
+        "status": "passed"
+      },
+      {
+        "title": "review: removal failure preserves the original identity",
+        "status": "passed"
+      },
+      {
+        "title": "review: invalid investment POST result 'null' cannot confirm unknown money",
+        "status": "passed"
+      },
+      {
+        "title": "review: invalid investment POST result 'array' cannot confirm unknown money",
+        "status": "passed"
+      },
+      {
+        "title": "review: late investment response after unmount cannot run reconciliation callback",
+        "status": "passed"
+      },
+      {
+        "title": "review: late investment response after owner-switch cannot run reconciliation callback",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-investment-probe.test.tsx",
+    "cases": [
+      {
+        "title": "RV24-01: investment unknown outcome blocks a new submission",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-original-contract.test.tsx",
+    "cases": [
+      {
+        "title": "RV24-01: unknown creation must be reconciled before an unkeyed second send",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rv24-residual.test.tsx",
+    "cases": [
+      {
+        "title": "transaction invalid result +0 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 1 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 2 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 3 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 4 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 5 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 6 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 7 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 8 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 9 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 10 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 11 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "transaction invalid result 12 remains recoverable on POST, retry and GET",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing id cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing type cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing date cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing dateOrigin cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing quantity cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing price cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing totalValue cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing fees cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing costDelta cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "investment missing realizedResult cannot confirm and valid retry keeps identity",
+        "status": "passed"
+      },
+      {
+        "title": "valid result reaching removeItem keeps intent when storage removal fails",
+        "status": "passed"
+      },
+      {
+        "title": "transfer ledger pair identity differs from intent; pending and monetary redemption remain valid",
+        "status": "passed"
+      },
+      {
+        "title": "late 'success' after 'unmount' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'error' after 'unmount' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'success' after 'A-B' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'error' after 'A-B' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'success' after 'A-B-A' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'error' after 'A-B-A' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'success' after 'expired' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "late 'error' after 'expired' leaves intent and no consumer callbacks",
+        "status": "passed"
+      },
+      {
+        "title": "active unknown investment execution still reconciles",
+        "status": "passed"
+      },
+      {
+        "title": "active rejected investment execution still reconciles",
+        "status": "passed"
+      },
+      {
+        "title": "late recover error from A cannot affect new A session and valid recovery is retained",
+        "status": "passed"
+      },
+      {
+        "title": "late retry error from A cannot affect new A session and valid recovery is retained",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rvr24-review-cleanup.test.tsx",
+    "cases": [
+      {
+        "title": "RVR24 review: StrictMode and repeated visual cycles release both session subscriptions",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/rvr24-visual-instance.test.tsx",
+    "cases": [
+      {
+        "title": "RVR24-02 visual: late receipt B",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt ABA",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt reopen",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt normal",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt unmount",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt owner",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt ownerABA",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late receipt expired",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: unknown A survives; late recover resolves receipt without closing B",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: unknown A survives; late retry resolves receipt without closing B",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: late error preserves unknown A and authenticated recovery from B",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: B draft/loading survive late valuation A success",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: B draft/loading survive late valuation A error",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: valuation session boundary owner",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: valuation session boundary ownerABA",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: valuation session boundary unmount",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: valuation session boundary expired",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: refetch with same entity preserves draft and normal completion",
+        "status": "passed"
+      },
+      {
+        "title": "RVR24-02 visual: reconciliation A cannot release loading or replace B intention",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/sidebar-accessibility.test.tsx",
+    "cases": [
+      {
+        "title": "componentes compartilhados: navegação móvel expõe gatilhos nomeados para abrir e fechar o menu pelo teclado",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/temporal-compatibility.test.tsx",
+    "cases": [
+      {
+        "title": "P02: extrato não apresenta hora legada sem proveniência como informada",
+        "status": "passed"
+      },
+      {
+        "title": "P02: detalhe preserva bruto desconhecido e editar não preenche hora artificial",
+        "status": "passed"
+      },
+      {
+        "title": "P01: nenhuma inferência pelo bruto 2026-09-07T00:00:00",
+        "status": "passed"
+      },
+      {
+        "title": "P01: nenhuma inferência pelo bruto 2026-09-07T23:30:45.123456",
+        "status": "passed"
+      },
+      {
+        "title": "P01: origem explícita conserva civil válida; inválido não vira hoje",
+        "status": "passed"
+      },
+      {
+        "title": "P02: meia-noite explícita é conhecida; auditoria sem offset não é instante",
+        "status": "passed"
+      },
+      {
+        "title": "P02: edição distingue omissão de remoção explícita, remover=false",
+        "status": "passed"
+      },
+      {
+        "title": "P02: edição distingue omissão de remoção explícita, remover=true",
+        "status": "passed"
+      },
+      {
+        "title": "P02: ordem usa hora conhecida e ID, independentemente do bruto",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/temporal-forms.test.tsx",
+    "cases": [
+      {
+        "title": "defaults e payloads de data civil nos formulários abre os quatro formulários às 23h59 com o dia do navegador, não o UTC",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R11: refresh de contas/ativo não apaga data editada no formulário aberto",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários preserva o campo aberto na virada e submete exatamente a data digitada",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários AC-UI-006: 503 mantém dados do formulário e não sinaliza sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R12: conflito de investimento não dispara callback de sucesso",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R13: dois submits de transaction no mesmo tick enviam uma operação",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R13: dois submits de card no mesmo tick enviam uma operação",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R13: dois submits de payment no mesmo tick enviam uma operação",
+        "status": "passed"
+      },
+      {
+        "title": "defaults e payloads de data civil nos formulários R13: dois submits de investment no mesmo tick enviam uma operação",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/temporal-navigation.test.tsx",
+    "cases": [
+      {
+        "title": "navegação por competência cartões avançam janeiro/31 para fevereiro/01 e depois março/01",
+        "status": "passed"
+      },
+      {
+        "title": "navegação por competência extrato avança janeiro/31 para fevereiro/01 sem mutação acumulada",
+        "status": "passed"
+      },
+      {
+        "title": "navegação por competência R10: falha ao carregar página seguinte permite repetir a mesma página",
+        "status": "passed"
+      },
+      {
+        "title": "navegação por competência CF-021: resumo global do filtro não varia ao buscar a página seguinte",
+        "status": "passed"
+      },
+      {
+        "title": "navegação por competência extrato ordena grupos de datas civis sem convertê-los em instantes",
+        "status": "passed"
+      },
+      {
+        "title": "navegação por competência planejamento avança janeiro/31 para fevereiro/01",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/temporal-presentation.test.tsx",
+    "cases": [
+      {
+        "title": "apresentação temporal reclassifica prazo ao virar o dia e nunca atrasa meta concluída",
+        "status": "passed"
+      },
+      {
+        "title": "apresentação temporal revalida o dia ao recuperar foco depois de uma aba suspensa",
+        "status": "passed"
+      },
+      {
+        "title": "apresentação temporal mantém o dia civil na fatura e no histórico de investimento",
+        "status": "passed"
+      },
+      {
+        "title": "apresentação temporal data civil inválida recebe saída neutra no detalhe da transação",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/tests/component/user-session-review.test.tsx",
+    "cases": [
+      {
+        "title": "R02: HTTP 403 ao reler perfil preserva sessão e permite recuperação",
+        "status": "passed"
+      },
+      {
+        "title": "R02: HTTP 500 ao reler perfil preserva sessão e permite recuperação",
+        "status": "passed"
+      },
+      {
+        "title": "R02: HTTP 503 ao reler perfil preserva sessão e permite recuperação",
+        "status": "passed"
+      },
+      {
+        "title": "R02: somente 401 limpa o perfil e emite uma expiração",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/coherence-remediation.test.tsx",
+    "cases": [
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects adulterated freeAccountCash in GET after reload",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects adulterated unallocatedInvestments in GET after reload",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects a wrong partial free subtotal without promoting UNKNOWN to zero",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects incoherent free knowledge KNOWN",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects incoherent free knowledge PARTIAL",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects incoherent free knowledge UNKNOWN",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot refuses known free when the source value is unknown",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot accepts all normative wide, negative, partial, unknown, zero and numeric-NA controls",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-01 exact consistency of the received snapshot rejects false completion in the real HTTP client/store, then reloads the valid historical receipt",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/contract.test.tsx",
+    "cases": [
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 1.005 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 1000000000000.00 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 01.00 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money -0.00 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 1e2 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 1,00 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money  1.00 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary rejects malformed money 1 without rounding",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary preserves maximum, NG-01 quantity, negative account and explicit zero",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 2028-02-29",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 2027-02-29",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 0001-01-01",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 9999-12-31",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 0000-01-01",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 2026-02-30",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary validates civil calendar 2026-10-09T00:00:00Z",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary normalizes only declared decimals and preserves UNKNOWN, NA and missing leaves",
+        "status": "passed"
+      },
+      {
+        "title": "SPEC-001 entry boundary requires exactly one own reference identity",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion validates E01 hashes, identity, summary, receipt and operation",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E16-R28-01A aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E17-R28-01B aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E18-R28-02 aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E19-R28-02-PARTIAL aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E20-R28-02-ZERO aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion accepts independent E35-missing-origin-complete aggregates/uncertainty",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects invalid envelope/session null",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects invalid envelope/session {}",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects invalid envelope/session undefined",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects invalid envelope/session {\"data\":null}",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects invalid envelope/session {}",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects wrong total in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects number in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects missing own in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects unknown zero in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects partial no paths in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects wrong range in summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects subtotal as full free value and invalid permission",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion detects unchanged hash over adulterated prepare and missing mapping",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects incompatible receipt operation",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects incompatible receipt summary",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects incompatible receipt mapping",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects incompatible receipt id",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion rejects incompatible receipt inherited status",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion renders different semantic states, including NA only where allowed",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion transports strings exactly through shared BFF client and rejects duplicate keys",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion preserves server JSON Pointer issues through shared error handling",
+        "status": "passed"
+      },
+      {
+        "title": "authoritative reading, no false completion canonicalizes array/object order without monetary Number",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/flow.test.tsx",
+    "cases": [
+      {
+        "title": "onboarding lifecycle keeps responses and temporary references while navigating",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle saves and reloads only confirmed server responses",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle reconciles a lost save without another PUT",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle preserves local edits on 409 and presents remote for explicit comparison",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle same payload at the old version does not prove a lost save or pause committed",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle allows local overwrite only after comparison and uses the compared version",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle associates server issues to fields without replacing draft",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle ignores a late owner-A load after unmount while owner-B is loading",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle late save cannot alter reactivated form-B busy state or content",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle guards double activation and retries the same frozen confirmation",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle recovers COMPLETED without posting another financial operation",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle 404 recovery consults session and does not invent a new operation",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle retries uncertain preparation with exactly the first identity and content",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle requires cancellation before editing prepared snapshot",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle does not infer rollback when cancellation loses the race",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle does not prepare paused sessions and resumes explicitly",
+        "status": "passed"
+      },
+      {
+        "title": "onboarding lifecycle never stores sensitive payload in local or tab storage",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/identity-remediation.test.tsx",
+    "cases": [
+      {
+        "title": "reference identity uses the validated own member accepts own id and distinct valid sources",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member accepts own tempId and distinct valid sources",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member ignores inherited tempId beside a valid own id",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects duplicate effective sources in CONFIRMED despite inherited alternate ids",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects duplicate effective sources in CANDIDATES despite inherited alternate ids",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects duplicate effective sources in UNBOUNDED despite inherited alternate ids",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member accepts distinct own tempIds even when their inherited id is the same",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member does not impose global UUID uniqueness across persisted source kinds",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"tempId\":null}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"id\":null}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"tempId\":3}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"id\":\"bad\"}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"id\":\"20000000-0000-4000-8000-000000000001\",\"tempId\":\"20000000-0000-4000-8000-000000000002\"}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects missing/invalid or two own identities {\"id\":\"20000000-0000-4000-8000-000000000001\",\"tempId\":null}",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects an inherited-only required identity",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member preserves valid JSON and own __proto__ metadata without creating inherited identity",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member keeps canonical comparisons independent of inherited alternates",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member selects the own temporary reference in the editor",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member labels a parsed source by its own tempId rather than an inherited persisted id",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member does not attach an inherited temporary goal to a persisted goal's deadline",
+        "status": "passed"
+      },
+      {
+        "title": "reference identity uses the validated own member rejects an in-memory duplicate before store success and can load the valid receipt without a new command",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/recovery-remediation.test.tsx",
+    "cases": [
+      {
+        "title": "retains the frozen identity through invalid complete and operation GET, then replays the identical command",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/services/onboarding/reservation-remediation.test.tsx",
+    "cases": [
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects null goal and attribution in previous",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects null goal and attribution in proposed",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects non-string reference discriminator null",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects non-string reference discriminator undefined",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects non-string reference discriminator 3",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects non-string reference discriminator {}",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects absent required member goal.value",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects absent required member attribution.parts",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects absent required member attribution.evidenceRefs",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member reservationId, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member revision, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member goal, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member goal.state, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member goal.value, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member goal.value.kind, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member goal.value.tempId, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member nominal, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member nominal.state, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member nominal.value, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.state, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.parts, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.evidenceRefs, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.parts.0.source, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.parts.0.source.kind, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.parts.0.source.tempId, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own member attribution.parts.0.amount, not a prototype fallback",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member goal",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member goal.value",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member nominal",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member attribution",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member attribution.parts",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member attribution.evidenceRefs",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member attribution.parts.0.source",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects required null member attribution.parts.0.amount",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects invalid confirmed allocation zero",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects invalid confirmed allocation over-individual-limit",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects invalid confirmed allocation wrong-nominal",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects invalid confirmed allocation unknown-nominal-with-known-parts",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant CONFIRMED and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant PARTIAL and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant UNKNOWN and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant CANDIDATES and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant UNBOUNDED and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts valid variant CLOSED and allowed extra response metadata",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary validates the same structure in reservationReview, including inherited variant members",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own variant members in CANDIDATES too",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own variant members in UNBOUNDED too",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary requires own variant members in CLOSED too",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary validates nested exclusion evidence and does not reinterpret sources as an unbounded set",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary treats __proto__ as own JSON data without prototype mutation, and rejects missing goal.value",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary accepts own fields on null-prototype objects and extra __proto__ JSON data",
+        "status": "passed"
+      },
+      {
+        "title": "RC031-02 complete LegacyReservation boundary rejects malformed network receipt in the client/store and recovers the valid original without another command",
+        "status": "passed"
+      }
+    ]
+  },
+  {
+    "file": "controle-financeiro-frontend/src/screens/private/onboarding/screen.test.tsx",
+    "cases": [
+      {
+        "title": "has accessible context fields and keyboard save/next preserves answers",
+        "status": "passed"
+      },
+      {
+        "title": "requires confirmation before removing a section and Escape returns focus",
+        "status": "passed"
+      },
+      {
+        "title": "keeps decimal strings exact through typing and save",
+        "status": "passed"
+      },
+      {
+        "title": "does not post malformed decimals or replace them with zero",
+        "status": "passed"
+      },
+      {
+        "title": "shows server field issue and moves focus to its correction",
+        "status": "passed"
+      },
+      {
+        "title": "compares conflict snapshots and does not silently choose the server",
+        "status": "passed"
+      },
+      {
+        "title": "keeps UNKNOWN separate from explicit known zero and monetary NA",
+        "status": "passed"
+      },
+      {
+        "title": "does not expose sensitive values while privacy changes",
+        "status": "passed"
+      },
+      {
+        "title": "does not show success after an invalid financial response and permits same retry",
+        "status": "passed"
+      },
+      {
+        "title": "clears in-memory answers on session invalidation",
+        "status": "passed"
+      },
+      {
+        "title": "reopens persisted reservation declarations without inventing a new revision",
+        "status": "passed"
+      }
+    ]
+  }
+]
