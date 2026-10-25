@@ -1,10 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {spawn,execFileSync} from 'node:child_process';
+import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {hash,sourceFor,writeJson} from './source.mjs';
 import {backendSelection} from './suites.mjs';
 import {sanitizeText} from './sanitize.mjs';
+import {spawnOwned} from './owned-process.mjs';
+import {cancellation} from './cancellation.mjs';
 
 export function requireCounts(counts,label){
   if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
@@ -32,6 +34,7 @@ async function main(){
   const root=path.resolve(rootArg),out=path.resolve(outArg);
   if(fs.existsSync(out))throw new Error('Never reuse an evidence directory');
   fs.mkdirSync(out,{recursive:true});
+  const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
   const report={source:{commit:source.commit,digest:source.digest,originalTreeChanges:source.originalTreeChanges},node:process.version,platform:process.platform,stage,started:new Date().toISOString(),steps:[],status:'running'};
   const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1'};
@@ -40,16 +43,19 @@ async function main(){
   if(process.platform!=='win32'){try{npmCandidates.push(fs.realpathSync(execFileSync('which',['npm'],{encoding:'utf8'}).trim()));}catch{}}
   const npm=npmCandidates.find(p=>fs.existsSync(p));if(!npm)throw new Error('npm CLI unavailable');
   async function command(name,executable,args,cwd){
+    control.check();
     const display=value=>value.replaceAll(out,'${EVIDENCE_ROOT}').replaceAll(root,'${SOURCE_ROOT}');
     const start=Date.now();const entry={name,command:[path.basename(executable),...args.map(display)],cwd:path.relative(root,cwd),started:new Date().toISOString(),exit:null};report.steps.push(entry);
     const log=fs.createWriteStream(path.join(out,`${name}.log`));
     await new Promise((resolve,reject)=>{
-      const child=spawn(executable,args,{cwd,env,shell:false,windowsHide:true});
+      const child=spawnOwned(executable,args,{cwd,env,shell:false,windowsHide:true});control.attach(child);
+      entry.ownerPid=child.pid;entry.ownership=process.platform==='win32'?'Windows Job Object; private owner pipe':'POSIX process group; remote validation pending';
       // Complete raw originals stay private. Redaction per chunk is unsafe.
       for(const stream of [child.stdout,child.stderr])stream.on('data',data=>log.write(data));
       child.once('error',error=>{entry.error=safe(error.message);log.end();reject(error);});
-      child.once('close',code=>{entry.exit=code;entry.durationMs=Date.now()-start;log.end(()=>code===0?resolve():reject(new Error(`${name} failed (${code}); see ${name}.log`)));});
+      child.once('close',code=>{control.detach(child);entry.exit=code;entry.durationMs=Date.now()-start;log.end(()=>code===0?resolve():reject(new Error(`${name} failed (${code}); see ${name}.log`)));});
     });
+    control.check();
     console.log(`${name}: passed`);
   }
   const runNpm=(name,args)=>command(name,process.execPath,[npm,...args],front);
@@ -115,9 +121,17 @@ async function main(){
     writeJson(path.join(out,'package-manifest.json'),{...report.artifact,originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
   }
   try{
-    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>({frontend,backend,e2e,package:packageArtifact})[name]());
+    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,e2e,package:packageArtifact})[name]();control.check();});
     report.status='passed';
-  }catch(error){report.status='failed';report.error=safe(error.message);process.exitCode=1;console.error(report.error);}
-  finally{report.finished=new Date().toISOString();writeJson(path.join(out,'result.json'),report);}
+  }catch(error){
+    report.status=control.cancelled?'cancelled':'failed';report.error=control.cancelled?'Execution cancelled; subsequent gates blocked':safe(error.message);process.exitCode=control.cancelled?130:1;
+    if(control.cancelled){
+      invalidate(['frontend','backend','e2e']);delete report.artifact;
+      const manifest=path.join(out,'package-manifest.json');
+      if(fs.existsSync(manifest))fs.renameSync(manifest,path.join(out,'unapproved-package-manifest.json'));
+    }
+    console.error(report.error);
+  }
+  finally{control.close();report.runId=control.runId;report.finished=new Date().toISOString();writeJson(path.join(out,'result.json'),report);}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(error=>{console.error(safe(error.message));process.exitCode=1;});
