@@ -10,6 +10,15 @@
 
 ## Liberação exclusivamente local — 24/10/2026
 
+Saneamento residual RCI034-01/R1, entrada418a648:
+[correção delimitada e provas](../evidencias/saneamento-RCI034-01-R1/README.md).
+JSON escapado com prefixo tratado; aspa incompleta de atribuição bloqueia coleta.
+Estado em_revisao; R1 saneado localmente aguardando revalidação, sem autoaceite.
+RCI034-L01 conserva aceite Windows/processos; Job Object/UUID não foram alterados
+nem reabertos. Limites Ctrl+C/Actions/Linux/containers e demais gates preservados.
+Nenhum pacote novo; JAR histórico continua a5ad7a6. Sem publicação/CI remota/deploy,
+banco real, aceite integral ou liberação de sucessoras.
+
 Revalidação independente dirigida de25/10, candidato `91ee02d`:
 [parecer, matriz e provas](../evidencias/revalidacao-CF-034-saneamento/README.md).
 **Sem aceite local completo; estado em_revisao preservado.** RCI034-01 parcialmente

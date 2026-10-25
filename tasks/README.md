@@ -4,7 +4,18 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — revalidação dirigida CF034, 25/10/2026
+## Situação vigente — saneamento residual CF034, 25/10/2026
+
+[RCI034-01/R1 saneado localmente](evidencias/saneamento-RCI034-01-R1/README.md),
+entrada418a648: JSON escapado com prefixo é visitado; atribuição com aspa
+incompleta bloqueia coleta. Probes originais antes/depois,12 controles Node,
+coletores reais, mutação/restauração e regressões ordinárias registrados.
+CF034 em_revisao; residual aguarda revalidação independente, sem autoencerramento.
+Aceite RCI034-L01 Windows/processos preservado, sem mudança de Job Object/UUID.
+Ctrl+C, Actions/Linux, containers, remoto/matriz ampliada, zoom e adoção continuam
+pendentes. JAR permanece a5ad7a6; sem pacote novo, publicação ou sucessoras.
+
+## Situação anterior — revalidação dirigida CF034, 25/10/2026
 
 [Parecer independente do saneamento](evidencias/revalidacao-CF-034-saneamento/README.md),
 candidato `91ee02d`, intervalo `8d58207..91ee02d`: **recorte local ainda não aceito**.

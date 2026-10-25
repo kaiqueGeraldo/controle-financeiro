@@ -1,0 +1,783 @@
+{
+  "at": "2026-10-25T18:53:10.446Z",
+  "root": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\r104",
+  "head": "418a648ba06786f2d0d78a0ed03baf4df0dd1d6d",
+  "node": "v24.18.0",
+  "steps": [
+    {
+      "name": "original-cases-after",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "originalProbeSha256": "c3727905fb8a4d4c406091d303bd6782e162a9538841856b221b9bf668fe13da",
+      "originalLoopSha256": "59179ad7c3ebf99e1fede9a08d527fb46ef7100c0c0d315412402c6f1ff58b1c",
+      "adapterSha256": "cfdc2adf344d158e37a82620a5274647c164675a11e32e336a0ae1a53cc16ee9",
+      "cases": [
+        {
+          "name": "original",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+          "publicExists": true,
+          "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\":\"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "case-escapes-multiple",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "04c2485ab8d6286b94296da2350c20134a71ae8c6c7b227ae901725eb8af40c4",
+          "publicExists": true,
+          "output": "prefix {\"Pass\\u0077ord\" : \"[REDACTED]\", \"password\":\"[REDACTED]\"}\nAUTHORIZATION = [REDACTED]\nCookie: [REDACTED]\ndiagnostic=keep\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-structured",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "3e24e66cd73b70d051308acc65475259af9c3ae2207bec471eff3fcee3f2aa47",
+          "publicExists": true,
+          "output": "{\n  \"status\": \"failed\",\n  \"count\": 3,\n  \"diagnostic\": \"keep\",\n  \"details\": [\n    {\n      \"password\": \"[REDACTED]\"\n    }\n  ],\n  \"message\": \"{\\n  \\\"password\\\": \\\"[REDACTED]\\\"\\n}\\n\"\n}\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-message-in-log",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "1929b80a42f3f1705da7bd158fb246186e8e5e2791bb3ece0d723d5a8911e39b",
+          "publicExists": true,
+          "output": "INFO {\"status\":\"failed\",\"count\":3,\"diagnostic\":\"keep\",\"message\":\"{\\n  \\\"password\\\": \\\"[REDACTED]\\\"\\n}\\n\"}\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "unterminated-text-quote",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "3a370be15368062fce70903f19dd65338f13ba0d9dc21b11ac9724862b0bf505",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "unterminated-json-log",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "4f71d72ab31cc733ddcac5c0932c354ceacecec2258f473d31e3f88150069eae",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "invalid-json-file",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "50b1b732a6b57987acdd46554eda6b636d9f8b9058e654ee4df41c6736672394",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "harmless-malformed",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "130400829f7d96a17c180770f9819ad3bf0b9278a277d806ffe708395601f309",
+          "publicExists": true,
+          "output": "unclosed { diagnostic=keep\nstatus=failed\ncount=3\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        }
+      ]
+    },
+    {
+      "name": "real-nested-collection",
+      "gate": {
+        "exit": 1,
+        "stdout": "install: passed\n",
+        "stderr": "lint failed (23); see lint.log\n"
+      },
+      "collector": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "durable": {
+        "exit": 0,
+        "stdout": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\r104\\durable-nested\\runs\\runner\n",
+        "stderr": ""
+      },
+      "rawSha256": "93247123435684aa1069edd687e505358b5257eae042a4563f2467d4ed9b44f1",
+      "brutePreserved": true,
+      "consoleProtected": true,
+      "sanitizedSha256": "de1ce4b3cc2a37e76360749118bcb426c87b38e794e63e8c5bed76eeae3ff4c2",
+      "durableSha256": "de1ce4b3cc2a37e76360749118bcb426c87b38e794e63e8c5bed76eeae3ff4c2",
+      "originalContract": {
+        "command": {
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        "originalSha256": "2235876142a1f0b83693807ddcf390c1e38d39f29d1771a8a798b69ffff2a99e",
+        "relocatedSha256": "fc174becf75420077b615f34375ebe44c0de4ef61df4fa8822b8d1b9e6dfc1ac",
+        "assertionUnchanged": true
+      },
+      "publicSet": [
+        "collection.json",
+        "lint.log",
+        "result.json"
+      ],
+      "manifest": {
+        "status": "sanitized",
+        "gateResult": "present; inspect gate status",
+        "policy": "allowlist; originals retained locally; no arbitrary-secret guarantee",
+        "files": [
+          {
+            "input": "result.json",
+            "rawLocalSha256": "e6fd2bb6c78df7d56f8e372feb854ed7fa509e5b7abafc5ef18443b769ac8192",
+            "publicFile": "result.json",
+            "sanitizedSha256": "e6fd2bb6c78df7d56f8e372feb854ed7fa509e5b7abafc5ef18443b769ac8192"
+          },
+          {
+            "input": "lint.log",
+            "rawLocalSha256": "93247123435684aa1069edd687e505358b5257eae042a4563f2467d4ed9b44f1",
+            "publicFile": "lint.log",
+            "sanitizedSha256": "de1ce4b3cc2a37e76360749118bcb426c87b38e794e63e8c5bed76eeae3ff4c2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "real-quote-collection",
+      "gate": {
+        "exit": 1,
+        "stdout": "install: passed\n",
+        "stderr": "lint failed (23); see lint.log\n"
+      },
+      "collector": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+      },
+      "durable": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Durable evidence collection failed; no completed collection released. Raw originals retained locally.\n"
+      },
+      "rawSha256": "748ada3a424c395be6057e5743d6c947b388f2b562c374541541df8e2384149a",
+      "brutePreserved": true,
+      "consoleProtected": true
+    },
+    {
+      "name": "mutant",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "originalProbeSha256": "c3727905fb8a4d4c406091d303bd6782e162a9538841856b221b9bf668fe13da",
+      "originalLoopSha256": "59179ad7c3ebf99e1fede9a08d527fb46ef7100c0c0d315412402c6f1ff58b1c",
+      "adapterSha256": "cfdc2adf344d158e37a82620a5274647c164675a11e32e336a0ae1a53cc16ee9",
+      "cases": [
+        {
+          "name": "original",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+          "publicExists": true,
+          "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\": \"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "case-escapes-multiple",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "04c2485ab8d6286b94296da2350c20134a71ae8c6c7b227ae901725eb8af40c4",
+          "publicExists": true,
+          "output": "prefix {\"Pass\\u0077ord\": \"[REDACTED]\", \"password\": \"[REDACTED]\"}\nAUTHORIZATION = [REDACTED]\nCookie: [REDACTED]\ndiagnostic=keep\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-structured",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "3e24e66cd73b70d051308acc65475259af9c3ae2207bec471eff3fcee3f2aa47",
+          "publicExists": true,
+          "output": "{\n  \"status\": \"failed\",\n  \"count\": 3,\n  \"diagnostic\": \"keep\",\n  \"details\": [\n    {\n      \"password\": \"[REDACTED]\"\n    }\n  ],\n  \"message\": \"{\\\"password\\\": \\\"[REDACTED]\\\"}\"\n}\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-message-in-log",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "1929b80a42f3f1705da7bd158fb246186e8e5e2791bb3ece0d723d5a8911e39b",
+          "publicExists": true,
+          "output": "INFO {\"status\":\"failed\",\"count\":3,\"diagnostic\":\"keep\",\"message\":\"{\\\"password\\\":\\\"SENTINEL_NESTED_MESSAGE\\\"}\"}\n",
+          "residualSentinel": true,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": false
+        },
+        {
+          "name": "unterminated-text-quote",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "3a370be15368062fce70903f19dd65338f13ba0d9dc21b11ac9724862b0bf505",
+          "publicExists": true,
+          "output": "password=[REDACTED] SENTINEL_UNCLOSED\ndiagnostic=keep\n",
+          "residualSentinel": true,
+          "expectedReject": true,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": false
+        },
+        {
+          "name": "unterminated-json-log",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "4f71d72ab31cc733ddcac5c0932c354ceacecec2258f473d31e3f88150069eae",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "invalid-json-file",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "50b1b732a6b57987acdd46554eda6b636d9f8b9058e654ee4df41c6736672394",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "harmless-malformed",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "130400829f7d96a17c180770f9819ad3bf0b9278a277d806ffe708395601f309",
+          "publicExists": true,
+          "output": "unclosed { diagnostic=keep\nstatus=failed\ncount=3\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        }
+      ]
+    },
+    {
+      "name": "mutation-contract",
+      "command": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "node:internal/modules/run_main:107\r\n    triggerUncaughtException(\r\n    ^\r\n\r\nAssertionError [ERR_ASSERTION]: public log must not retain password in a nested JSON message\r\n    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-034/r104/mutant-contract.mjs:1:250\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\r\n    at async node:internal/modules/esm/loader:643:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\r\n  generatedMessage: false,\r\n  code: 'ERR_ASSERTION',\r\n  actual: false,\r\n  expected: true,\r\n  operator: '==',\r\n  diff: 'simple'\r\n}\r\n\r\nNode.js v24.18.0\r\n"
+      },
+      "originalSha256": "2235876142a1f0b83693807ddcf390c1e38d39f29d1771a8a798b69ffff2a99e",
+      "relocatedSha256": "3f7160e4fdf1a2a28152ccb303d5286e93157169b6e6b1fe0a3c3808c6fb62a0",
+      "assertionUnchanged": true,
+      "mutantSha256": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "fixedSha256": "1589f580bdf02b6e5b5daed48816c8ce841cad09bb7b9cca8aaaaf38737f14fa"
+    },
+    {
+      "name": "restored",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "originalProbeSha256": "c3727905fb8a4d4c406091d303bd6782e162a9538841856b221b9bf668fe13da",
+      "originalLoopSha256": "59179ad7c3ebf99e1fede9a08d527fb46ef7100c0c0d315412402c6f1ff58b1c",
+      "adapterSha256": "cfdc2adf344d158e37a82620a5274647c164675a11e32e336a0ae1a53cc16ee9",
+      "cases": [
+        {
+          "name": "original",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+          "publicExists": true,
+          "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\":\"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "case-escapes-multiple",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "04c2485ab8d6286b94296da2350c20134a71ae8c6c7b227ae901725eb8af40c4",
+          "publicExists": true,
+          "output": "prefix {\"Pass\\u0077ord\" : \"[REDACTED]\", \"password\":\"[REDACTED]\"}\nAUTHORIZATION = [REDACTED]\nCookie: [REDACTED]\ndiagnostic=keep\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-structured",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "3e24e66cd73b70d051308acc65475259af9c3ae2207bec471eff3fcee3f2aa47",
+          "publicExists": true,
+          "output": "{\n  \"status\": \"failed\",\n  \"count\": 3,\n  \"diagnostic\": \"keep\",\n  \"details\": [\n    {\n      \"password\": \"[REDACTED]\"\n    }\n  ],\n  \"message\": \"{\\n  \\\"password\\\": \\\"[REDACTED]\\\"\\n}\\n\"\n}\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "nested-message-in-log",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "1929b80a42f3f1705da7bd158fb246186e8e5e2791bb3ece0d723d5a8911e39b",
+          "publicExists": true,
+          "output": "INFO {\"status\":\"failed\",\"count\":3,\"diagnostic\":\"keep\",\"message\":\"{\\n  \\\"password\\\": \\\"[REDACTED]\\\"\\n}\\n\"}\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        },
+        {
+          "name": "unterminated-text-quote",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "3a370be15368062fce70903f19dd65338f13ba0d9dc21b11ac9724862b0bf505",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "unterminated-json-log",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "4f71d72ab31cc733ddcac5c0932c354ceacecec2258f473d31e3f88150069eae",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "invalid-json-file",
+          "command": {
+            "exit": 1,
+            "stdout": "",
+            "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+          },
+          "rawSha256": "50b1b732a6b57987acdd46554eda6b636d9f8b9058e654ee4df41c6736672394",
+          "publicExists": false,
+          "output": null,
+          "residualSentinel": false,
+          "expectedReject": true,
+          "contractSatisfied": true
+        },
+        {
+          "name": "harmless-malformed",
+          "command": {
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "rawSha256": "130400829f7d96a17c180770f9819ad3bf0b9278a277d806ffe708395601f309",
+          "publicExists": true,
+          "output": "unclosed { diagnostic=keep\nstatus=failed\ncount=3\n",
+          "residualSentinel": false,
+          "expectedReject": false,
+          "idempotent": true,
+          "reuse": {
+            "exit": 1,
+            "oldPublicUnchanged": true,
+            "notEligibleForWorkflowUpload": true
+          },
+          "contractSatisfied": true
+        }
+      ]
+    },
+    {
+      "name": "restoration",
+      "before": "1589f580bdf02b6e5b5daed48816c8ce841cad09bb7b9cca8aaaaf38737f14fa",
+      "after": "1589f580bdf02b6e5b5daed48816c8ce841cad09bb7b9cca8aaaaf38737f14fa",
+      "equal": true
+    },
+    {
+      "name": "ordinary-regressions",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sourceSha256": "8f5050ecf1d2c2c687af83b1d0e33e8de718325aa7496ac6027f72427fd3c25a",
+      "cases": {
+        "child-failure": {
+          "exit": 1,
+          "stdout": "install: passed\n",
+          "stderr": "lint failed (23); see lint.log\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "1448fed3c0c25db6cd7bff2be496da123871f8739860550409400de2466fffb3",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T18:53:28.720Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:28.721Z",
+                "exit": 0,
+                "ownerPid": 58788,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3456
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:32.177Z",
+                "exit": 23,
+                "ownerPid": 34576,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3011
+              }
+            ],
+            "status": "failed",
+            "error": "lint failed (23); see lint.log",
+            "runId": "c8e9dd01-e72e-4de3-bf81-c07c9050ae4d",
+            "finished": "2026-10-25T18:53:35.189Z"
+          }
+        },
+        "missing-report": {
+          "exit": 1,
+          "stdout": "install: passed\nlint: passed\ntypecheck: passed\nunit: passed\ncomponents: passed\n",
+          "stderr": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\r104\\missing-report-output\\components.json'\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "28f972471adf97eed318cd2a8c5a7b1bb47ce3b853ba72b9c9d58a5476abdaa1",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T18:53:35.303Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:35.304Z",
+                "exit": 0,
+                "ownerPid": 63368,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3882
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:39.187Z",
+                "exit": 0,
+                "ownerPid": 34612,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3049
+              },
+              {
+                "name": "typecheck",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "typecheck"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:42.236Z",
+                "exit": 0,
+                "ownerPid": 59344,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 4287
+              },
+              {
+                "name": "unit",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "test"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:46.524Z",
+                "exit": 0,
+                "ownerPid": 48240,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3965
+              },
+              {
+                "name": "components",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "test:component",
+                  "--",
+                  "--reporter=json",
+                  "--outputFile=${EVIDENCE_ROOT}\\components.json"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T18:53:50.491Z",
+                "exit": 0,
+                "ownerPid": 65628,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3557
+              }
+            ],
+            "status": "failed",
+            "unit": {
+              "timezones": 3,
+              "tests": 3
+            },
+            "error": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\r104\\missing-report-output\\components.json'",
+            "runId": "e9d6501d-e350-4ae1-9012-81668ea2ff0d",
+            "finished": "2026-10-25T18:53:54.050Z"
+          }
+        }
+      }
+    },
+    {
+      "name": "jar-tamper",
+      "command": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Package changed after the verified build\n"
+      },
+      "report": {
+        "source": {
+          "commit": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+          "digest": "191e8beb19382553d50946a4b97b83825f878d4c13cff689ca6e49bbc6d6f787",
+          "originalTreeChanges": [
+            "M README.md",
+            " M tasks/05-release/CF-034-gates-ci.md",
+            "?? tasks/evidencias/CF-034/"
+          ]
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "package",
+        "started": "2026-10-25T18:53:57.690Z",
+        "steps": [],
+        "status": "failed",
+        "error": "Package changed after the verified build",
+        "runId": "f8208fae-dfdd-4bef-9bec-4e210e95e848",
+        "finished": "2026-10-25T18:53:59.213Z"
+      },
+      "originalSha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+      "mutantSha256": "f6da5392cc57369ff98646b6ef7dd5541264c4920a5d6cad1f35191698267e7b",
+      "meaning": "copy of historical a5ad7a6 JAR, no new build"
+    },
+    {
+      "name": "jar-restored",
+      "sha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8"
+    }
+  ]
+}
