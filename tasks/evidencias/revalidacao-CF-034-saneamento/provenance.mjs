@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
+import {hash,sourceFor,writeJson} from '../../../.github/scripts/source.mjs';
+const root=path.resolve(process.argv[2]);assert(root.startsWith(path.resolve('../controle-financeiro-runtimes/CF-034')+path.sep));assert(!fs.existsSync(root));fs.mkdirSync(root);
+const old=path.resolve('../controle-financeiro-runtimes/CF-034/11'),source=sourceFor(path.join(old,'checkout'));
+const file=path.join(old,'evidence-01/package-manifest.json'),bytes=fs.readFileSync(file),manifest=JSON.parse(bytes);
+assert.equal(source.commit,'a5ad7a64794abca1cc852b11cc1bf79a156dafde');assert.equal(source.files.length,810);
+assert.equal(hash(fs.readFileSync(path.join(old,'evidence-01/api-0.0.1.jar'))),'28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8');
+fs.writeFileSync(path.join(root,'package-manifest.json'),bytes);
+const command=spawnSync(process.execPath,['.github/scripts/publish-evidence.mjs',root],{encoding:'utf8',windowsHide:true});assert.equal(command.status,0);
+const published=fs.readFileSync(path.join(root,'public/package-manifest.json'));assert.deepEqual(JSON.parse(published),manifest);assert.equal(hash(fs.readFileSync(file)),hash(bytes));
+const collection=JSON.parse(fs.readFileSync(path.join(root,'public/collection.json'))),entry=collection.files.find(f=>f.input==='package-manifest.json');assert.equal(entry.rawLocalSha256,hash(bytes));assert.equal(entry.sanitizedSha256,hash(published));assert.match(collection.gateResult,/missing; incomplete/);
+const candidateScripts=fs.readdirSync('.github/scripts').filter(f=>fs.statSync(path.join('.github/scripts',f)).isFile()).map(f=>({file:'.github/scripts/'+f,sha256:hash(fs.readFileSync(path.join('.github/scripts',f)))}));
+const result={sourceCommit:source.commit,sourceDigest:source.digest,sourceInputsChecked:source.files.length,jarSha256:manifest.sha256,rawManifestSha256:hash(bytes),sanitizedManifestSha256:hash(published),manifestSemanticallyUnchanged:true,originalManifestPreserved:true,collection,command:{exit:command.status,stdout:command.stdout,stderr:command.stderr},candidateScripts,meaning:'new collection-only probe over an untouched historical manifest; no new compilation/package approval or recertification by new scripts',historical57:'unchanged limitation, not inputs/results of package11'};
+writeJson(path.join(import.meta.dirname,'provenance.json'),result);console.log('Historical artifact identity and new manifest collection boundary verified separately.');

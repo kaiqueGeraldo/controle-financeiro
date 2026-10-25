@@ -1,0 +1,562 @@
+{
+  "at": "2026-10-25T17:59:08.199Z",
+  "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\v01\\proofs-execution",
+  "head": "91ee02d78472747e3fcee0e454b1c25881718314",
+  "node": "v24.18.0",
+  "platform": "win32",
+  "tests": [
+    {
+      "name": "original-sanitization-after",
+      "exit": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+      "publicSha256": "2e3418db6fa722ab5c555acec426f18c3b71a9e23b7f3a90134a30481367662c",
+      "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\": \"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n"
+    },
+    {
+      "name": "sanitization-mutation",
+      "originalAlgorithmRestoresThreeLeaks": true,
+      "before": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "mutated": "64564847a39aa641e4119570a69783d8a9588350f7bb8a0037db8b4592d50edd",
+      "restored": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "controlPassed": true
+    },
+    {
+      "name": "original-failure-regressions",
+      "exit": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "cases": {
+        "child-failure": {
+          "exit": 1,
+          "stdout": "install: passed\n",
+          "stderr": "lint failed (23); see lint.log\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "1448fed3c0c25db6cd7bff2be496da123871f8739860550409400de2466fffb3",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T17:59:08.687Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:08.689Z",
+                "exit": 0,
+                "ownerPid": 24820,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 28798
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:37.486Z",
+                "exit": 23,
+                "ownerPid": 23272,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3129
+              }
+            ],
+            "status": "failed",
+            "error": "lint failed (23); see lint.log",
+            "runId": "cd903187-a2e5-463f-bcb5-0fb562c9dfa8",
+            "finished": "2026-10-25T17:59:40.616Z"
+          }
+        },
+        "missing-report": {
+          "exit": 1,
+          "stdout": "install: passed\nlint: passed\ntypecheck: passed\nunit: passed\ncomponents: passed\n",
+          "stderr": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\v01\\proofs-execution\\missing-report-output\\components.json'\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "28f972471adf97eed318cd2a8c5a7b1bb47ce3b853ba72b9c9d58a5476abdaa1",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T17:59:40.702Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:40.703Z",
+                "exit": 0,
+                "ownerPid": 7932,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3388
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:44.092Z",
+                "exit": 0,
+                "ownerPid": 17364,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3059
+              },
+              {
+                "name": "typecheck",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "typecheck"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:47.150Z",
+                "exit": 0,
+                "ownerPid": 66772,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 2953
+              },
+              {
+                "name": "unit",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "test"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:50.103Z",
+                "exit": 0,
+                "ownerPid": 20380,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3095
+              },
+              {
+                "name": "components",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "test:component",
+                  "--",
+                  "--reporter=json",
+                  "--outputFile=${EVIDENCE_ROOT}\\components.json"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T17:59:53.201Z",
+                "exit": 0,
+                "ownerPid": 7544,
+                "ownership": "Windows Job Object; private owner pipe",
+                "durationMs": 3033
+              }
+            ],
+            "status": "failed",
+            "unit": {
+              "timezones": 3,
+              "tests": 3
+            },
+            "error": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\v01\\proofs-execution\\missing-report-output\\components.json'",
+            "runId": "34b9f467-eaca-4b66-83db-d6107d3cb391",
+            "finished": "2026-10-25T17:59:56.235Z"
+          }
+        }
+      }
+    },
+    {
+      "name": "jar-tamper",
+      "exit": 1,
+      "signal": null,
+      "stdout": "",
+      "stderr": "Package changed after the verified build\n",
+      "report": {
+        "source": {
+          "commit": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+          "digest": "191e8beb19382553d50946a4b97b83825f878d4c13cff689ca6e49bbc6d6f787",
+          "originalTreeChanges": [
+            "M README.md",
+            " M tasks/05-release/CF-034-gates-ci.md",
+            "?? tasks/evidencias/CF-034/"
+          ]
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "package",
+        "started": "2026-10-25T17:59:57.266Z",
+        "steps": [],
+        "status": "failed",
+        "error": "Package changed after the verified build",
+        "runId": "aa318a0e-53f9-4519-a2f1-0495cb3369b5",
+        "finished": "2026-10-25T17:59:57.973Z"
+      },
+      "originalSha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+      "mutatedSha256": "f6da5392cc57369ff98646b6ef7dd5541264c4920a5d6cad1f35191698267e7b",
+      "meaning": "historical package/receipts copied; no new compilation"
+    },
+    {
+      "name": "already-exited-and-argument-transport",
+      "exit": 17,
+      "argumentsPreserved": true,
+      "repeatedStopSafe": true
+    },
+    {
+      "name": "active-child-grandchild",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "c396765c3e2ebc96cd393948869110939b6995a1b3eef8416b4c9df192b9bad3",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T18:00:01.103Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:01.104Z",
+            "exit": 0,
+            "ownerPid": 60484,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 3384
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:04.488Z",
+            "exit": 130,
+            "ownerPid": 25432,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 3721
+          }
+        ],
+        "status": "cancelled",
+        "error": "Execution cancelled; subsequent gates blocked",
+        "runId": "ea2244a2-4681-4046-ac7f-eeafaf35628b",
+        "finished": "2026-10-25T18:00:08.209Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "Execution cancelled; subsequent gates blocked\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 25692,
+          "ppid": 64272,
+          "start": 1792951205200
+        },
+        {
+          "role": "grand",
+          "pid": 66348,
+          "ppid": 25692,
+          "start": 1792951205240,
+          "port": 55388
+        }
+      ],
+      "observed": [
+        {
+          "exit": 0,
+          "pid": 25692,
+          "wait": 0
+        },
+        {
+          "exit": 0,
+          "pid": 66348,
+          "wait": 0
+        }
+      ],
+      "elapsedMs": 2441,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": true,
+      "mutate": false,
+      "early": false
+    },
+    {
+      "name": "during-startup",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "c4bdd75ee94c4677aa033dc892ce58e83c83f815b9a2d96e6fdde5e549538a7f",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T18:00:08.430Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:08.431Z",
+            "exit": 130,
+            "ownerPid": 31376,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 2741
+          }
+        ],
+        "status": "cancelled",
+        "error": "Execution cancelled; subsequent gates blocked",
+        "runId": "9f125f64-b0e1-49e7-ad10-4f13c2b95e7a",
+        "finished": "2026-10-25T18:00:11.173Z"
+      },
+      "stdout": "",
+      "stderr": "Execution cancelled; subsequent gates blocked\n",
+      "identities": [],
+      "elapsedMs": 2752,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": false,
+      "mutate": false,
+      "early": true
+    },
+    {
+      "name": "cancel-mutant",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "45ce4edbe2895f2008e1f288916d799abec53bd495bc148d49af9f57954051ce",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T18:00:11.367Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:11.368Z",
+            "exit": 0,
+            "ownerPid": 50308,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 3441
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:14.809Z",
+            "exit": 130,
+            "ownerPid": 13936,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 20771
+          }
+        ],
+        "status": "cancelled",
+        "error": "Execution cancelled; subsequent gates blocked",
+        "runId": "ac4e5681-9680-4e98-aa28-0e5ea3d3f789",
+        "finished": "2026-10-25T18:00:35.581Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "Execution cancelled; subsequent gates blocked\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 5704,
+          "ppid": 54848,
+          "start": 1792951215503
+        },
+        {
+          "role": "grand",
+          "pid": 40120,
+          "ppid": 5704,
+          "start": 1792951215534,
+          "port": 55391
+        }
+      ],
+      "observed": [
+        {
+          "exit": 259,
+          "pid": 5704,
+          "wait": 258
+        },
+        {
+          "exit": 259,
+          "pid": 40120,
+          "wait": 258
+        }
+      ],
+      "elapsedMs": 19593,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": false,
+      "mutate": true,
+      "early": false
+    },
+    {
+      "name": "cancel-restored",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "7d2301a38545f290724056cd56b31d273ec3a3a0e7cc7a719f8e5138a917671b",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T18:00:35.785Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:35.786Z",
+            "exit": 0,
+            "ownerPid": 58692,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 3408
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T18:00:39.194Z",
+            "exit": 130,
+            "ownerPid": 22640,
+            "ownership": "Windows Job Object; private owner pipe",
+            "durationMs": 3676
+          }
+        ],
+        "status": "cancelled",
+        "error": "Execution cancelled; subsequent gates blocked",
+        "runId": "08c68c63-f482-416a-8913-24d481a6f52a",
+        "finished": "2026-10-25T18:00:42.870Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "Execution cancelled; subsequent gates blocked\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 66832,
+          "ppid": 13504,
+          "start": 1792951239924
+        },
+        {
+          "role": "grand",
+          "pid": 10892,
+          "ppid": 66832,
+          "start": 1792951239962,
+          "port": 50202
+        }
+      ],
+      "observed": [
+        {
+          "exit": 0,
+          "pid": 66832,
+          "wait": 0
+        },
+        {
+          "exit": 0,
+          "pid": 10892,
+          "wait": 0
+        }
+      ],
+      "elapsedMs": 2409,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": true,
+      "mutate": false,
+      "early": false
+    }
+  ]
+}
