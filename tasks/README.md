@@ -4,14 +4,18 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — recorte local CF034 autorizado, 24/10/2026
+## Situação vigente — CF034 em revisão local, 24/10/2026
 
 [DEC-CI-04](../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova PROP-CF034-01/A.
-CF034 pronta exclusivamente para preparação/implementação/revisão locais de CI;
-dependência de aceite integral CF015 preservada. CF010/015 em_revisao por zoom
+CF034 em_revisao exclusivamente no recorte local de CI, candidato a5ad7a6.
+[Entrega, matriz e contraprovas](evidencias/CF-034/README.md): lint/tipagem,
+18 temporais, 620 componentes, 889 backend/PostgreSQL e seis jornadas reais
+aprovados; JAR local rastreável e falhas preservadas. CI remota, matriz ampliada,
+imagem/pacote publicado e revisão independente pendentes; aceite integral não dado.
+Dependência de aceite integral CF015 preservada. CF010/015 em_revisao por zoom
 nativo200% não validado; sem nova investigação, dispensa ou defeito presumido.
 Publicação autorizada apenas da análise `0f787eb`/`79ce089` e decisão documental;
-implementação futura permanece local. Adoção real CF017/P01/P02, uso e sucessoras
+implementação da CF034 permanece local. Adoção real CF017/P01/P02, uso e sucessoras
 mantêm gates; sem deploy manual, banco real ou notificações reais.
 
 ## Situação anterior — lote CF033 integrado; análise de zoom/gate, 24/10/2026

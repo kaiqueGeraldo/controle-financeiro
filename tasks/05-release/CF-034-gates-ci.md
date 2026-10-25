@@ -1,6 +1,6 @@
 # CF-034 — Consolidar gates de CI reproduzíveis
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -12,7 +12,7 @@
 
 [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova expressamente
 PROP-CF034-01/A: infraestrutura e provas locais de CI, sem aceite integral ou uso.
-Estado pronta somente nesse recorte; CF015 continua em_revisao por zoom nativo200%.
+Entrega local em_revisao nesse recorte; CF015 continua em_revisao por zoom nativo200%.
 Scripts compartilhados `.github/scripts/` e adaptadores/testes do harness são
 extensão delimitada para evitar comandos divergentes entre local e CI.
 Implementação local deve terminar em_revisao e passar por revisão independente.
@@ -69,7 +69,18 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-034/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Entrega local executada em 24/10/2026, candidato a5ad7a6, sob DEC-CI-04.
+[Relatório e matriz](../evidencias/CF-034/README.md): lint/tipagem, 18 testes
+temporais, 620 componentes, 889 testes backend/PostgreSQL, wrapper E2E e seis
+jornadas reais aprovados, sem skips/retry. Verify e JAR vinculados a 810 inputs;
+contraprovas de lint, data e adulteração de pacote falham e restauram por SHA.
+Falhas intermediárias preservadas. README/runtimes históricos mantidos.
+
+Implementação somente local, aguardando revisão independente. Runner remoto,
+matriz ampliada, upload/pacote remoto e imagem Dockerfile histórica ainda pendentes;
+nenhum checkbox integral autoaprovado. Zoom CF010/015, adoção CF017/P01/P02 e
+sucessoras mantêm condições. Usar o [template](../templates/EVIDENCIA.md) nas
+revisões seguintes; evidências anteriores não são testes do pacote desta rodada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
