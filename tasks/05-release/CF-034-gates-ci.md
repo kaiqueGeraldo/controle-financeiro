@@ -10,6 +10,21 @@
 
 ## Liberação exclusivamente local — 24/10/2026
 
+Revalidação independente dirigida de25/10, candidato `91ee02d`:
+[parecer, matriz e provas](../evidencias/revalidacao-CF-034-saneamento/README.md).
+**Sem aceite local completo; estado em_revisao preservado.** RCI034-01 parcialmente
+saneado, mas residual RCI034-01/R1/P2 publica senha em mensagem JSON escapada com
+prefixo e sufixo de atribuição textual com aspa incompleta. RCI034-L01 sustentado
+no mecanismo Windows/processos: UUID e morte abrupta encerram filho/descendente;
+próximo gate bloqueado, diagnóstico preservado e controle sintético alheio intacto.
+Não encerrar irrestritamente recursos externos: Ctrl+C nativo, Actions/Linux e
+containers após cancelamento continuam sem prova. Gates ordinários e aceites
+anteriores não afetados preservados; oito testes e contraprovas dirigidas,
+sem novas suítes financeiras ou pacote. JAR histórico continua a5ad7a6.
+Próximo passo é saneamento separado de RCI034-01/R1 e revalidação da publicação;
+nenhuma implementação corrigida, publicação/CI remota/deploy/banco real executados.
+Nenhum checkbox integral, dependência ou gate das sucessoras foi liberado.
+
 Saneamento dirigido posterior,25/10, entrada8d58207:
 [entrega e provas](../evidencias/saneamento-CF-034/README.md).
 RCI034-01 e RCI034-L01 corrigidos/comprovados no alcance descrito pelo executor,

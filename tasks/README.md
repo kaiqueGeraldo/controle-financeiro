@@ -4,7 +4,25 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — revisão independente CF034, 25/10/2026
+## Situação vigente — revalidação dirigida CF034, 25/10/2026
+
+[Parecer independente do saneamento](evidencias/revalidacao-CF-034-saneamento/README.md),
+candidato `91ee02d`, intervalo `8d58207..91ee02d`: **recorte local ainda não aceito**.
+RCI034-01 protege os formatos originais, mas permanece aberto por RCI034-01/R1/P2:
+senha em JSON escapado de mensagem com prefixo e atribuição textual com aspa
+incompleta ainda chegam ao material publicável. Nenhuma correção nesta revisão.
+RCI034-L01 tem aceite delimitado a processos Windows: UUID e morte abrupta
+encerram filho/descendente, preservam processo sintético alheio e bloqueiam avanço.
+Ctrl+C nativo, Actions/Linux e descarte de containers após cancelamento não
+recebem certificação. Oito testes e contraprovas dirigidas sustentam regressões;
+aceites anteriores não afetados preservados, sem repetir suítes financeiras.
+JAR continua atribuído a a5ad7a6, sem pacote novo nem atribuição aos scripts atuais.
+CF034 permanece em_revisao; próximo passo é saneamento separado do residual e
+revalidação das fronteiras de publicação. Remoto/matriz ampliada, zoom nativo200%,
+CF010/015 em_revisao, adoção CF017/P01/P02 e gates das sucessoras permanecem.
+README raiz e runtimes históricos preservados; commits somente locais.
+
+## Situação anterior — revisão e saneamento CF034, 25/10/2026
 
 Saneamento posterior exclusivamente local de RCI034-01/RCI034-L01, entrada8d58207:
 [correções, provas e limites](evidencias/saneamento-CF-034/README.md).
