@@ -6,6 +6,15 @@ Estas são tarefas versionadas no repositório, abrangendo frontend e backend. C
 
 ## Situação vigente — revisão independente CF034, 25/10/2026
 
+Saneamento posterior exclusivamente local de RCI034-01/RCI034-L01, entrada8d58207:
+[correções, provas e limites](evidencias/saneamento-CF-034/README.md).
+Política compartilhada de sanitização/coleta bloqueada em falha e cancelamento
+Windows por UUID/Job Object, com contraprovas/restauração e regressões dirigidas.
+CF034 continua em_revisao; aguardando revalidação independente, sem autoencerramento
+dos achados. Cadeia histórica do JAR a5ad7a6 preservada, sem pacote novo. Actions/
+Linux, matriz ampliada, artifacts/imagem remotos, zoom e adoção mantêm pendências.
+Sem publicação, merge, CI remota, banco ou deploy; DEC-CI-04 inalterada.
+
 CF034 permanece **em_revisao**, sem aceite local completo da DEC-CI-04.
 [Parecer independente](evidencias/revisao-CF-034/README.md), candidato64603a3:
 RCI034-01/P2 confirma sanitização insuficiente de JSON/Bearer/cookie; RCI034-L01

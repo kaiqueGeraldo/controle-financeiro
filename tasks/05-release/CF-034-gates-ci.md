@@ -10,6 +10,16 @@
 
 ## Liberação exclusivamente local — 24/10/2026
 
+Saneamento dirigido posterior,25/10, entrada8d58207:
+[entrega e provas](../evidencias/saneamento-CF-034/README.md).
+RCI034-01 e RCI034-L01 corrigidos/comprovados no alcance descrito pelo executor,
+aguardando revalidação independente, **sem autoencerramento/aceite local completo**.
+Sanitização estruturada/textual compartilhada, coleta obrigatória e cancelamento
+Windows com UUID/Job Object. Brutos/históricos preservados; nenhum pacote novo.
+Prova sintética de processo/porta não certifica cancelamento do daemon Docker,
+Ctrl+C nativo ou Actions/Linux. Critérios e DEC-CI-04 preservados, estado em_revisao;
+nenhum checkbox integral ou gate de publicação/zoom/adoção foi liberado.
+
 Revisão independente de25/10, candidato64603a3:
 [parecer A–G e matriz](../evidencias/revisao-CF-034/README.md).
 **Recorte local ainda não aceito; estado em_revisao mantido.** RCI034-01/P2:
