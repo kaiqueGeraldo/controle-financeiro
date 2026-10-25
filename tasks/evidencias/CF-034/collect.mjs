@@ -1,24 +1,25 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {hash,writeJson} from '../../../.github/scripts/source.mjs';
+import {sanitizeFile} from '../../../.github/scripts/sanitize.mjs';
+import {randomUUID} from 'node:crypto';
 
 // Durable, deliberately narrow collection. Raw process properties, HTTP bodies,
 // browser state/traces, SQL/dumps and the executable JAR stay in the runtime.
+try {
 const [runtimeArg,label]=process.argv.slice(2);
 if(!runtimeArg||!label||!/^[a-z0-9-]+$/.test(label))throw new Error('runtime and safe label required');
-const runtime=path.resolve(runtimeArg),destination=path.join(import.meta.dirname,'runs',label);
-if(fs.existsSync(destination))throw new Error('Never replace a collected execution');
+const runtime=path.resolve(runtimeArg),finalDestination=path.join(import.meta.dirname,'runs',label);
+if(fs.existsSync(finalDestination))throw new Error('Never replace a collected execution');
+const destination=path.join(runtime,'.durable-pending-'+label+'-'+randomUUID());
 fs.mkdirSync(destination,{recursive:true});
-const safe=text=>text.replaceAll(runtime,'${RUNTIME_ROOT}')
-  .replace(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,'[REDACTED_JWT]')
-  .replace(/Cf003-[AB]-Senha-2026/g,'[SYNTHETIC_PASSWORD]')
-  .replace(/(password|secret|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/gi,'$1=[REDACTED]');
 const files=[];
 function copy(relative,local=relative){
   const input=path.join(runtime,relative);if(!fs.existsSync(input))return;
   const bytes=fs.readFileSync(input),output=path.join(destination,local);
   fs.mkdirSync(path.dirname(output),{recursive:true});
-  fs.writeFileSync(output,safe(bytes.toString('utf8')));
+  if(!fs.lstatSync(input).isFile()||!fs.realpathSync(input).startsWith(fs.realpathSync(runtime)+path.sep))throw new Error('Unsafe evidence path');
+  fs.writeFileSync(output,sanitizeFile(bytes.toString('utf8'),local).replaceAll(runtime,'${RUNTIME_ROOT}'));
   files.push({runtimePath:relative,runtimeSha256:hash(bytes),collectedPath:local,collectedSha256:hash(fs.readFileSync(output))});
 }
 for(const name of ['result.json','backend-selection.json','package-manifest.json','counterproof.json','control.json',
@@ -64,4 +65,14 @@ if(fs.existsSync(browser)){
 }
 if(fs.existsSync(path.join(runtime,'gate/result.json'))){copy('gate/result.json');for(const f of ['lint.log','unit.log'])copy('gate/'+f);}
 writeJson(path.join(destination,'collection.json'),{label,runtime,at:new Date().toISOString(),policy:'explicit allowlist; raw diagnostics retained externally',files});
-console.log(destination);
+// Case names and other summary strings cross the same publication boundary.
+function sanitizeSummaries(directory){for(const e of fs.readdirSync(directory,{withFileTypes:true})){
+  const file=path.join(directory,e.name);if(e.isDirectory())sanitizeSummaries(file);
+  else if(e.name.endsWith('.json')&&!files.some(f=>path.join(destination,f.collectedPath)===file))fs.writeFileSync(file,sanitizeFile(fs.readFileSync(file,'utf8'),file));
+}}
+sanitizeSummaries(destination);fs.mkdirSync(path.dirname(finalDestination),{recursive:true});fs.renameSync(destination,finalDestination);
+console.log(finalDestination);
+} catch {
+  console.error('Durable evidence collection failed; no completed collection released. Raw originals retained locally.');
+  process.exitCode=1;
+}

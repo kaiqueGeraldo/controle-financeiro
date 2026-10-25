@@ -4,6 +4,7 @@ import {spawn,execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {hash,sourceFor,writeJson} from './source.mjs';
 import {backendSelection} from './suites.mjs';
+import {sanitizeText} from './sanitize.mjs';
 
 export function requireCounts(counts,label){
   if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
@@ -23,7 +24,7 @@ export function requireReportedClasses(directory,required){
   const missing=required.filter(name=>!reported.some(r=>r===name||r.startsWith(name+'$')));
   if(missing.length)throw new Error(`Mandatory classes have no report: ${missing.join(',')}`);
 }
-const safe=text=>text.replace(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,'[REDACTED_JWT]').replace(/Cf003-[AB]-Senha-2026/g,'[SYNTHETIC_PASSWORD]').replace(/(password|secret|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/gi,'$1=[REDACTED]');
+const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withheld: sanitization failed';}};
 
 async function main(){
   const [stage='all',rootArg,outArg]=process.argv.slice(2);
@@ -44,7 +45,8 @@ async function main(){
     const log=fs.createWriteStream(path.join(out,`${name}.log`));
     await new Promise((resolve,reject)=>{
       const child=spawn(executable,args,{cwd,env,shell:false,windowsHide:true});
-      for(const stream of [child.stdout,child.stderr])stream.on('data',data=>log.write(safe(data.toString())));
+      // Complete raw originals stay private. Redaction per chunk is unsafe.
+      for(const stream of [child.stdout,child.stderr])stream.on('data',data=>log.write(data));
       child.once('error',error=>{entry.error=safe(error.message);log.end();reject(error);});
       child.once('close',code=>{entry.exit=code;entry.durationMs=Date.now()-start;log.end(()=>code===0?resolve():reject(new Error(`${name} failed (${code}); see ${name}.log`)));});
     });

@@ -40,14 +40,15 @@ jobs:
           java-version: '21'
           cache: maven
       - name: Verify gate failure propagation and report contracts
-        run: node --test .github/scripts/ci.test.mjs
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
       - name: Lint, types, tests, build, PostgreSQL, integrated E2E, package
         run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
       - name: Collect sanitized diagnosis even on failure
+        id: collect
         if: always()
         run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.collect.outcome == 'success'
         with:
           name: diagnosis-${{ github.sha }}
           path: ${{ env.CF034_OUT }}/public/
@@ -58,7 +59,7 @@ jobs:
           name: tested-package-${{ github.sha }}
           path: |
             ${{ env.CF034_OUT }}/*.jar
-            ${{ env.CF034_OUT }}/package-manifest.json
+            ${{ env.CF034_OUT }}/public/package-manifest.json
           if-no-files-found: error
           retention-days: 7
 
@@ -88,10 +89,11 @@ jobs:
       - name: Full browser matrix, including the three accepted timezone cases
         run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
       - name: Collect diagnosis
+        id: collect
         if: always()
         run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.collect.outcome == 'success'
         with:
           name: expanded-diagnosis-${{ github.sha }}
           path: ${{ env.CF034_OUT }}/public/

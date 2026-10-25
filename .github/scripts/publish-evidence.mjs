@@ -1,12 +1,30 @@
 import fs from 'node:fs';
 import path from 'node:path';
-const root=path.resolve(process.argv[2]);
-const output=path.join(root,'public');fs.mkdirSync(output,{recursive:true});
-const sanitize=text=>text.replace(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,'[REDACTED_JWT]').replace(/Cf003-[AB]-Senha-2026/g,'[SYNTHETIC_PASSWORD]').replace(/(password|secret|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/gi,'$1=[REDACTED]');
-// Explicit allowlist: never publish raw Surefire properties, HTTP state, traces,
-// browser profiles, .env files, dependency caches, SQL dumps or authentication data.
-for(const file of ['result.json','lint.log','typecheck.log','unit.log','components.log','build.log','backend.log','e2e.log']){
-  const input=path.join(root,file);if(fs.existsSync(input))fs.writeFileSync(path.join(output,file),sanitize(fs.readFileSync(input,'utf8')));
+import {randomUUID} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import {sanitizeFile} from './sanitize.mjs';
+import {hash,writeJson} from './source.mjs';
+
+// No XML properties, HTTP state, traces, profiles, .env, SQL or raw fallback.
+export const publicFiles=['result.json','package-manifest.json','lint.log','typecheck.log','unit.log','components.log','build.log','backend.log','e2e.log','browser/playwright.log'];
+export function collectPublic(rootArg){
+  const root=path.resolve(rootArg),output=path.join(root,'public');
+  if(fs.existsSync(output))throw new Error('Never reuse a publication directory');
+  fs.mkdirSync(root,{recursive:true});
+  const pending=path.join(root,'.public-pending-'+randomUUID());fs.mkdirSync(pending);
+  const files=[];
+  for(const file of publicFiles){
+    const input=path.join(root,file);if(!fs.existsSync(input))continue;
+    if(!fs.lstatSync(input).isFile()||!fs.realpathSync(input).startsWith(fs.realpathSync(root)+path.sep))throw new Error('Unsafe evidence path');
+    const bytes=fs.readFileSync(input),representation=sanitizeFile(bytes.toString('utf8'),file),name=path.basename(file);
+    fs.writeFileSync(path.join(pending,name),representation);
+    files.push({input:file,rawLocalSha256:hash(bytes),publicFile:name,sanitizedSha256:hash(Buffer.from(representation))});
+  }
+  writeJson(path.join(pending,'collection.json'),{status:'sanitized',gateResult:files.some(f=>f.input==='result.json')?'present; inspect gate status':'missing; incomplete; no approval inferred',policy:'allowlist; originals retained locally; no arbitrary-secret guarantee',files});
+  // Failed transformation leaves only a private pending directory, never public/.
+  fs.renameSync(pending,output);return files;
 }
-const browser=path.join(root,'browser/playwright.log');if(fs.existsSync(browser))fs.writeFileSync(path.join(output,'playwright.log'),sanitize(fs.readFileSync(browser,'utf8')));
-if(!fs.existsSync(path.join(output,'result.json')))fs.writeFileSync(path.join(output,'collection.json'),JSON.stringify({status:'gate did not produce a result; no approval inferred'})+'\n');
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+  try{if(!process.argv[2])throw new Error('Evidence root required');collectPublic(process.argv[2]);}
+  catch{console.error('Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.');process.exitCode=1;}
+}
