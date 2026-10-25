@@ -1,0 +1,74 @@
+name: CF034 synthetic remote probes
+
+on:
+  push:
+    branches: [codex/cf034-ci-local]
+    paths: ['.github/**', 'controle-financeiro-frontend/vercel.json']
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PROBE_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-contracts
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Existing gate and sanitization contracts
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
+      - name: Induce and detect synthetic violations
+        run: node .github/scripts/remote-probes.mjs contracts "$PROBE_OUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cf034-contracts-${{ github.run_id }}
+          path: |
+            ${{ env.PROBE_OUT }}/public/
+            ${{ env.PROBE_OUT }}/sentinels/public/
+          if-no-files-found: error
+          retention-days: 7
+
+  cancellation:
+    needs: contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CANCEL_OUT: ${{ github.workspace }}/../controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-cancel
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Start bounded synthetic processes and isolated PostgreSQL
+        run: node .github/scripts/remote-probes.mjs start-cancellation "$CANCEL_OUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cf034-cancellation-ready-${{ github.run_id }}
+          path: ${{ env.CANCEL_OUT }}/ready.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Await external supported cancellation
+        run: node .github/scripts/remote-probes.mjs hold-cancellation "$CANCEL_OUT"
+      - name: Downstream step must be blocked
+        run: exit 1
+      - name: Observe cleanup before runner disposal
+        id: cleanup
+        if: always()
+        run: node .github/scripts/remote-probes.mjs cleanup-cancellation "$CANCEL_OUT"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.cleanup.outcome != 'skipped'
+        with:
+          name: cf034-cancellation-cleanup-${{ github.run_id }}
+          path: ${{ env.CANCEL_OUT }}/public/
+          if-no-files-found: error
+          retention-days: 7

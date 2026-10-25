@@ -6,7 +6,7 @@ import {sanitizeFile} from './sanitize.mjs';
 import {hash,writeJson} from './source.mjs';
 
 // No XML properties, HTTP state, traces, profiles, .env, SQL or raw fallback.
-export const publicFiles=['result.json','package-manifest.json','lint.log','typecheck.log','unit.log','components.log','build.log','backend.log','e2e.log','browser/playwright.log'];
+export const publicFiles=['result.json','package-manifest.json','lint.log','typecheck.log','unit.log','components.log','build.log','maven-version.log','backend.log','e2e.log','browser/playwright.log'];
 export function collectPublic(rootArg){
   const root=path.resolve(rootArg),output=path.join(root,'public');
   if(fs.existsSync(output))throw new Error('Never reuse a publication directory');

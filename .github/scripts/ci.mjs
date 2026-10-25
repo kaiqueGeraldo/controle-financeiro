@@ -37,6 +37,8 @@ async function main(){
   const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
   const report={source:{commit:source.commit,digest:source.digest,originalTreeChanges:source.originalTreeChanges},node:process.version,platform:process.platform,stage,started:new Date().toISOString(),steps:[],status:'running'};
+  const ci=process.env.GITHUB_ACTIONS==='true'?{repository:process.env.GITHUB_REPOSITORY,workflow:process.env.GITHUB_WORKFLOW,runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,job:process.env.GITHUB_JOB,event:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,headRef:process.env.GITHUB_HEAD_REF,baseRef:process.env.GITHUB_BASE_REF,checkoutSha:source.commit,runnerOS:process.env.RUNNER_OS,runnerArch:process.env.RUNNER_ARCH}:null;
+  report.ci=ci;
   const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1'};
   for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
   const npmCandidates=[path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')];
@@ -80,6 +82,7 @@ async function main(){
   }
   async function backend(){
     invalidate(['backend','e2e']);
+    await maven('maven-version',['--version']);
     const reports=path.join(out,'surefire');
     const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke');
     writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
@@ -117,8 +120,8 @@ async function main(){
     const verified=JSON.parse(fs.readFileSync(path.join(root,'.ci-backend.json')));
     if(verified.jar!==jars[0]||verified.jarSha256!==hash(bytes))throw new Error('Package changed after the verified build');
     fs.copyFileSync(jar,artifact);
-    report.artifact={file:jars[0],sha256:hash(bytes),bytes:bytes.length,commit:source.commit,sourceDigest:source.digest,reproducibleBinary:'not claimed',publication:'local artifact only'};
-    writeJson(path.join(out,'package-manifest.json'),{...report.artifact,originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
+    report.artifact={file:jars[0],sha256:hash(bytes),bytes:bytes.length,commit:source.commit,sourceDigest:source.digest,reproducibleBinary:'not claimed',publication:'gate artifact; platform upload tracked separately'};
+    writeJson(path.join(out,'package-manifest.json'),{...report.artifact,ci,toolchain:{node:process.version,mavenJava:'see sanitized maven-version.log from this run'},originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
   }
   try{
     await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,e2e,package:packageArtifact})[name]();control.check();});
