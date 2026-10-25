@@ -4,7 +4,22 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CF034 em revisão local, 24/10/2026
+## Situação vigente — revisão independente CF034, 25/10/2026
+
+CF034 permanece **em_revisao**, sem aceite local completo da DEC-CI-04.
+[Parecer independente](evidencias/revisao-CF-034/README.md), candidato64603a3:
+RCI034-01/P2 confirma sanitização insuficiente de JSON/Bearer/cookie; RCI034-L01
+delimita a lacuna de encerramento por cancelamento local, sem inferir falha remota.
+Comandos/gates ordinários, seis jornadas reais e rastreabilidade do JAR da11
+preservam sustentação:810 inputs, fonte a5ad7a6, inputs relevantes equivalentes
+a64603a3 documental. Não é pacote compilado do HEAD nem reprodução binária.
+Sem correções de implementação; probes e parecer em commits exclusivamente locais.
+Próximo passo: saneamento separado da coleta e contrato/prova de cancelamento,
+seguido de revalidação dirigida; publicação/CI remota exigem etapa autorizada própria.
+CF010/015 em_revisao por zoom200%, adoção CF017/P01/P02, desempenho em produção,
+DEC-ONB-03 e sucessoras conservam seus limites. README raiz e runtimes preservados.
+
+## Situação anterior — CF034 em revisão local, 24/10/2026
 
 [DEC-CI-04](../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova PROP-CF034-01/A.
 CF034 em_revisao exclusivamente no recorte local de CI, candidato a5ad7a6.

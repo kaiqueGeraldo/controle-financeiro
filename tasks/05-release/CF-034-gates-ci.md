@@ -10,6 +10,18 @@
 
 ## Liberação exclusivamente local — 24/10/2026
 
+Revisão independente de25/10, candidato64603a3:
+[parecer A–G e matriz](../evidencias/revisao-CF-034/README.md).
+**Recorte local ainda não aceito; estado em_revisao mantido.** RCI034-01/P2:
+coleta permite senha JSON, Bearer opaco e cookie em log publicável. RCI034-L01:
+cancelamento local precisa de contrato/prova delimitados; aborto do pai Windows
+não comprova cleanup da árvore nem permite inferir comportamento Actions.
+Gates/falhas ordinárias, isolamento/E2E smoke e cadeia independente do JAR da11
+estão sustentados nos limites do parecer; fonte a5ad7a6 e810 inputs equivalentes
+a64603a3 relevante, sem atribuir nova compilação ao HEAD documental.
+Nenhum checkbox integral aprovado. Sanear/revalidar esses pontos antes de decidir
+publicação e execução remota controlada em etapa separada; sem sucessoras.
+
 [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova expressamente
 PROP-CF034-01/A: infraestrutura e provas locais de CI, sem aceite integral ou uso.
 Entrega local em_revisao nesse recorte; CF015 continua em_revisao por zoom nativo200%.
