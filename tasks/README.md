@@ -4,7 +4,24 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — saneamento residual CF034, 25/10/2026
+## Situação vigente — aceite independente local CF034, 25/10/2026
+
+[Revalidação independente de RCI034-01/R1](evidencias/revalidacao-RCI034-01-R1/README.md),
+candidato `ea00a06`, intervalo `418a648..ea00a06`: **R1 encerrado e recorte local
+da CF034 aprovado sob DEC-CI-04**. JSON escapado perde a senha; aspa incompleta
+bloqueia a coleta. Oito casos originais, coletores reais, 27 casos complementares,
+limites e contraprova causal com restauração sustentam o aceite; 12 testes Node
+passaram. Aceite Windows/processos de RCI034-L01 e demais aceites históricos
+não afetados preservados, sem repetir cancelamento integral ou suítes financeiras.
+CF034 permanece **em_revisao integral**: Ctrl+C nativo, Actions/Linux, containers
+após aborto, CI/matriz ampliada/artifacts remotos, zoom nativo 200%/CF010/015,
+adoção CF017/P01/P02 e gates das sucessoras continuam pendentes. JAR histórico
+continua a5ad7a6; não houve pacote novo, publicação, deploy ou banco real.
+Próximo passo: preparar etapa separada de publicação revisada e execução remota
+controlada, sujeita à autorização específica; nenhuma sucessora iniciada.
+README raiz e runtimes preservados; revisão registrada somente em commits locais.
+
+## Situação anterior — saneamento residual CF034, 25/10/2026
 
 [RCI034-01/R1 saneado localmente](evidencias/saneamento-RCI034-01-R1/README.md),
 entrada418a648: JSON escapado com prefixo é visitado; atribuição com aspa

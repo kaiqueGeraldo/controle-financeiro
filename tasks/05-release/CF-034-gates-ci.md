@@ -10,6 +10,21 @@
 
 ## Liberação exclusivamente local — 24/10/2026
 
+Revalidação independente de25/10, candidato `ea00a06`, intervalo `418a648..ea00a06`:
+[parecer, matriz, provas e limites](../evidencias/revalidacao-RCI034-01-R1/README.md).
+**RCI034-01/R1 encerrado; recorte local aprovado sob DEC-CI-04.** JSON escapado
+com prefixo é sanitizado; aspa incompleta bloqueia ambos os coletores sem fallback.
+Provas originais, contraprova causal/restauração, fronteiras de limites e arquivos
+publicáveis efetivos sustentam o aceite. RCI034-L01 Windows/processos preservado,
+assim como gates ordinários, isolamento/E2E smoke e proveniência históricos não
+afetados. Não se atribuem testes financeiros ou compilação novos ao JAR a5ad7a6.
+Estado integral **em_revisao**: Ctrl+C nativo, Actions/Linux, containers após aborto,
+CI remota/matriz ampliada/artifacts, zoom nativo200%/CF010/015, adoção CF017/P01/P02
+e limites de produção continuam pendentes. Nenhum checkbox integral concluído.
+Próximo passo é preparar publicação revisada/execução remota controlada em etapa
+separada, sujeita à autorização específica. Sem publicação, deploy, banco real,
+pacote novo ou sucessoras nesta revisão; implementação e históricos preservados.
+
 Saneamento residual RCI034-01/R1, entrada418a648:
 [correção delimitada e provas](../evidencias/saneamento-RCI034-01-R1/README.md).
 JSON escapado com prefixo tratado; aspa incompleta de atribuição bloqueia coleta.
