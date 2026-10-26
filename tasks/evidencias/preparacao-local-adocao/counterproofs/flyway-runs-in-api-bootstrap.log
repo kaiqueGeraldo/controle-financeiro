@@ -1,0 +1,91 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.AdoptionRuntimeTest
+19:32:40.715 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+19:32:40.726 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+19:32:40.742 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+19:32:41.227 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+19:32:42.035 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+19:32:42.038 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+19:32:42.073 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+19:32:42.256 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+19:32:42.793 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: c42f8959d45c3526f302be193cada04807ea37fabf8fa711688ac8c4237a151d
+19:32:43.479 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT1.2224752S
+19:32:43.493 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+19:32:43.494 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+19:32:43.495 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+19:32:43.498 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+19:32:43.618 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: 8853dec4a0faeb20b72c04a20c49470a262f0b775ea840b640756aaed982a911
+19:32:45.910 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT2.411945S
+19:32:45.911 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:63388/cf_test_cf017_9f7390171c024a55a3572a2d9688504e?loggerLevel=OFF)
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=8853dec4a0faeb20b72c04a20c49470a262f0b775ea840b640756aaed982a911
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+ADOPTION_PROCESS mode=image pid=19408 log=target\adoption-processes\fa799573-bbbb-46d2-9a7c-482d2ca4c89c.log
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 47.52 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.AdoptionRuntimeTest
+[ERROR] com.controlefinanceiro.api.migration.AdoptionRuntimeTest.emptyOrIncompatibleSchemaCannotStartOrMigrate(Path) -- Time elapsed: 46.98 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting value to be true but was false
+	at com.controlefinanceiro.api.migration.AdoptionRuntimeTest.emptyOrIncompatibleSchemaCannotStartOrMigrate(AdoptionRuntimeTest.java:81)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   AdoptionRuntimeTest.emptyOrIncompatibleSchemaCannotStartOrMigrate:81 
+Expecting value to be true but was false
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  55.455 s
+[INFO] Finished at: 2026-10-26T19:33:28Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\p04\counterproofs\flyway-runs-in-api-bootstrap-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

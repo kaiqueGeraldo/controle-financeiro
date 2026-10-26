@@ -1,0 +1,39 @@
+{
+  "build": {
+    "command": [
+      "C:\\WINDOWS\\system32\\cmd.exe",
+      "/d",
+      "/c",
+      "mvnw.cmd",
+      "--batch-mode",
+      "-Dmaven.jar.forceCreation=true",
+      "compile",
+      "jar:jar",
+      "spring-boot:repackage"
+    ],
+    "log": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p04\\counterproofs\\writer-passes-maintenance-compile.log"
+  },
+  "imageBuild": {
+    "command": [
+      "docker",
+      "build",
+      "--pull=false",
+      "--network=none",
+      "--build-arg",
+      "JAVA_RUNTIME=eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b",
+      "--build-arg",
+      "INPUT_COMMIT=counterproof-writer-passes-maintenance",
+      "--build-arg",
+      "JAR_SHA256=0dbb866cdfab1d56861a5d3687f1b398e453979fa95f95d6940676bc0995f8e2",
+      "--iidfile",
+      "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p04\\counterproofs\\writer-passes-maintenance-image-id.txt",
+      "-f",
+      "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p04\\checkout\\controle-financeiro-backend\\Dockerfile.release",
+      "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p04\\counterproofs\\writer-passes-maintenance-image"
+    ],
+    "log": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p04\\counterproofs\\writer-passes-maintenance-image-build.log"
+  },
+  "image": "sha256:1ca6cd5633401c1e0d45a9b27241d38fd78f0dea22f0f41c67932145d66d935f",
+  "jarSha256": "0dbb866cdfab1d56861a5d3687f1b398e453979fa95f95d6940676bc0995f8e2",
+  "testsRunDuringPackaging": 0
+}

@@ -4,7 +4,20 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — revisão independente de prontidão, 26/10/2026
+## Preparação local autorizada — 26/10/2026
+
+Lote separado em `codex/preparacao-local-adocao`, base46b85ee, **em_revisao**:
+[resultados, matriz e proveniência](evidencias/preparacao-local-adocao/README.md).
+Implementação local de ferramentas PG16/17, perfil adoption, controle de ingresso/
+jobs, probes mínimos, bloqueio de preview e pacote rastreável. JAR/imagem e provas
+registrados, com gate de startup aberto por estouros de40s em Windows e Linux;
+causa inconclusiva. Revisão independente pendente, sem autoaceite.
+Não executa adoção real nem CF035/036 integralmente. Aceite local CF034 e provas
+remotas anteriores preservados; matriz ampliada, zoom nativo200% e limites de
+cancelamento continuam pendentes. CF017/P01/P02 e CF034 permanecem em_revisao;
+CF035/036 propostas. Nenhum banco/configuração remotos, push, CI ou deploy.
+
+## Situação anterior — revisão independente de prontidão, 26/10/2026
 
 [Parecer e plano CF-034/CF-017](evidencias/revisao-prontidao-CF034-CF017/README.md),
 base integrada `fb986456a37a48afcafef204f165d15354294d26`. PR #1 integrada;

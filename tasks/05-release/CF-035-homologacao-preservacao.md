@@ -44,6 +44,11 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Preparação correlata de26/10/2026: [lote exclusivamente local/descartável](../evidencias/preparacao-local-adocao/README.md),
+em_revisao e com startup estável ainda não certificado.
+Não inicia a CF035 integralmente, não certifica backup real ou homologação HTTPS
+remota e não altera o estado proposta nem os checkboxes desta tarefa.
+
 Ainda não executada. Usar `tasks/evidencias/CF-035/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

@@ -43,6 +43,11 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Preparação correlata de26/10/2026: [lote local de pacote e controles](../evidencias/preparacao-local-adocao/README.md),
+em_revisao e com startup estável ainda não certificado.
+Nenhuma publicação/configuração/deploy executados. CF036 permanece proposta;
+pacote local testado não é aceite de produção nem liberação dos critérios acima.
+
 Ainda não executada. Usar `tasks/evidencias/CF-036/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.

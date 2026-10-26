@@ -1,5 +1,20 @@
 # Plano condicionado de adoção e publicação
 
+## Delta de preparação local — 26/10/2026
+
+O usuário autorizou o lote local posterior, entrada46b85ee:
+[resultados, matriz e proveniência](../preparacao-local-adocao/README.md) e
+[contrato operacional preparado](../preparacao-local-adocao/OPERACAO-LOCAL.md).
+Os passos1/2 recebem implementação/ensaios descartáveis nessa entrega, em_revisao,
+com provas finais registradas e gate de startup estável aberto por estouros de40s
+em Windows e Linux. Revisão independente pendente; nenhum gate real foi atendido.
+As alternativas A–D, janela, baseline explícita e autorizações separadas abaixo
+continuam válidas. Para o passo11, selecionar adoption e manter writers/jobs false;
+readiness503 é esperada e não deve promover esse processo restrito. O passo14 exige
+parada/drenagem e reinício explícito; deploy fechado não congela uma réplica antiga.
+Previews existentes e configuração externa update continuam pendências remotas.
+O texto seguinte preserva o plano original da revisão, sem alegar execução real.
+
 **Somente preparação. Nenhuma etapa operacional abaixo foi executada.**
 Alvos conhecidos: Railway projeto19974952-914d-4072-9140-e62e5ed23c31,
 production73f7324a-a15f-4940-b2dc-d5bcb5510441, API f4ad9689-58ed-4112-8bb2-2cfe4af24483,

@@ -5,6 +5,14 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Preparação local correlata — 26/10/2026
+
+[Resultados, matriz e limites do lote autorizado](../evidencias/preparacao-local-adocao/README.md).
+Ferramentas PG17, inicialização/controle de writers/jobs e saúde são preparação
+sintética, sem virada temporal, backfill, baseline ou migration reais. Nenhum
+checkbox abaixo é encerrado por esse trabalho; estado em_revisao preservado.
+Revisão independente e diagnóstico do startup acima de40s permanecem pendentes.
+
 ## Plano de adoção condicionado — 26/10/2026
 
 [Cenários A–D, janela e ações autorizáveis](../evidencias/revisao-prontidao-CF034-CF017/PLANO-ADOCAO.md),

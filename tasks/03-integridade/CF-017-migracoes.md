@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Preparação exclusivamente local após revisão — 26/10/2026
+
+[Lote local delimitado e resultados](../evidencias/preparacao-local-adocao/README.md), entrada
+46b85ee: suporte explícito16/17, marcador de snapshot com major efetiva e teste dos
+clientes reais; perfil adoption separa migrations de bootstrap e mantém validate.
+Migrations V1–V16, comparador rigoroso e provas independentes preservados. Evidência
+local não conclui inventário/backup/restore/proveniência/writers do alvo real.
+Estado em_revisao mantido; provas locais registradas e revisão independente
+pendente. Startup estável não certificado: estouros de40s em Windows e Linux.
+
 ## Plano de adoção após revisão CF034 — 26/10/2026
 
 [Revisão de prontidão e procedimento A–D](../evidencias/revisao-prontidao-CF034-CF017/PLANO-ADOCAO.md),

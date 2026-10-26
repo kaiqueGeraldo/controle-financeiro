@@ -1,5 +1,24 @@
 # Runbook CF-017: verificação local e gates de adoção
 
+## Delta local de26/10/2026 — cadeia atual V1–V16
+
+Preparação posterior à revisão CF034/017 em_revisao:
+[resultados, suporte16/17 e matriz](../preparacao-local-adocao/README.md) e
+[procedimento operacional local](../preparacao-local-adocao/OPERACAO-LOCAL.md).
+O CLI passa a identificar a major e aceita apenas16/17. Snapshot COMPLETE informa
+a major efetiva; o marcador16 conserva o formato histórico. Não normaliza diferenças
+entre majors nem remove constraints para aprovar equivalência. Usar psql/pg_dump/
+pg_restore da major do servidor e destinos novos da mesma major; demais majors são
+erro, exit3, sem autorização para prosseguir. As provas locais não certificam
+startup estável: houve estouros de40s também em Linux. Resultados e falhas precisam
+ser confrontados na revisão independente antes de qualquer uso real.
+
+A cadeia atual é V1–V16, com baseline1 somente no legado compatível; o corpo abaixo
+registra a cadeia V1–V14 da data do aceite anterior. Não editar migrations antigas.
+API preparada usa adoption: Flywayfalse, SQL initnever, Hibernatevalidate,
+writers/jobsfalse e guard antes de refresh. Migration job e GO continuam separados.
+O delta não modifica o aceite histórico nem satisfaz inventário/restore/adoção reais.
+
 Revisado em 15/10/2026, delta documental sobre `ef08950`, cadeia **V1–V14**.
 Este documento não autoriza banco real. Ensaios anteriores de A/B usaram PostgreSQL
 Testcontainers descartável; o delta atual não os repete. [Matriz e representação canônica](../saneamento-CF-017/MATRIZ.md),

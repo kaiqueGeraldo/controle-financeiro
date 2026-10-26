@@ -8,6 +8,17 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Preparação local de adoção/pacote — 26/10/2026
+
+Lote autorizado a partir46b85ee, em_revisao na branch
+`codex/preparacao-local-adocao`: [resultados e limites](../evidencias/preparacao-local-adocao/README.md).
+Acrescenta controles operacionais e ensaios locais em pacote próprio. Não atribui
+seus resultados ao JAR c3860ec0 da main, não executa Actions/expanded/deploy e não
+encerra critério integral. Aceite DEC-CI-04 e evidências remotas anteriores mantidos.
+Entrega em_revisao, sujeita a revisão independente e gates preservados. Os17
+contratos da imagem passaram numa rodada; estouros de40s em processos Windows e
+Linux posteriores mantêm o gate de startup aberto, sem aumento de timeout/retry.
+
 ## Revisão independente da validação remota — 26/10/2026
 
 [Parecer, matriz por critério e plano de adoção](../evidencias/revisao-prontidao-CF034-CF017/README.md),
