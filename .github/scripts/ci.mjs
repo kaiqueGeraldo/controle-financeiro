@@ -53,13 +53,13 @@ async function main(){
   const npmCandidates=[path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js'),path.resolve(path.dirname(process.execPath),'../lib/node_modules/npm/bin/npm-cli.js')];
   if(process.platform!=='win32'){try{npmCandidates.push(fs.realpathSync(execFileSync('which',['npm'],{encoding:'utf8'}).trim()));}catch{}}
   const npm=npmCandidates.find(p=>fs.existsSync(p));if(!npm)throw new Error('npm CLI unavailable');
-  async function command(name,executable,args,cwd){
+  async function command(name,executable,args,cwd,extraEnv={}){
     control.check();
     const display=value=>value.replaceAll(out,'${EVIDENCE_ROOT}').replaceAll(root,'${SOURCE_ROOT}');
-    const start=Date.now();const entry={name,command:[path.basename(executable),...args.map(display)],cwd:path.relative(root,cwd),started:new Date().toISOString(),exit:null};report.steps.push(entry);
+    const start=Date.now();const entry={name,command:[path.basename(executable),...args.map(display)],cwd:path.relative(root,cwd),environment:extraEnv,started:new Date().toISOString(),exit:null};report.steps.push(entry);
     const log=fs.createWriteStream(path.join(out,`${name}.log`));
     await new Promise((resolve,reject)=>{
-      const child=spawnOwned(executable,args,{cwd,env,shell:false,windowsHide:true});control.attach(child);
+      const child=spawnOwned(executable,args,{cwd,env:{...env,...extraEnv},shell:false,windowsHide:true});control.attach(child);
       entry.ownerPid=child.pid;entry.ownership=process.platform==='win32'?'Windows Job Object; private owner pipe':'POSIX process group; remote validation pending';
       // Complete raw originals stay private. Redaction per chunk is unsafe.
       for(const stream of [child.stdout,child.stderr])stream.on('data',data=>log.write(data));
@@ -69,7 +69,7 @@ async function main(){
     control.check();
     console.log(`${name}: passed`);
   }
-  const runNpm=(name,args)=>command(name,process.execPath,[npm,...args],front);
+  const runNpm=(name,args,extraEnv)=>command(name,process.execPath,[npm,...args],front,extraEnv);
   const maven=(name,args)=>process.platform==='win32'?command(name,process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd','--batch-mode',...args],back):command(name,'sh',['./mvnw','--batch-mode',...args],back);
   function invalidate(names){for(const name of names){const marker=path.join(root,`.ci-${name}.json`);if(fs.existsSync(marker))fs.unlinkSync(marker);}}
   async function frontend(){
@@ -83,7 +83,9 @@ async function main(){
     if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
     report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
     const componentFile=path.join(out,'components.json');
-    try{await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${componentFile}`]);}
+    // These civil-midnight fixtures require the browser's São Paulo timezone.
+    // The separate temporal unit gate still runs all three declared timezones.
+    try{await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${componentFile}`],{TZ:'America/Sao_Paulo',CF_TEST_TIMEZONE:'America/Sao_Paulo'});}
     finally{
       if(fs.existsSync(componentFile)){
         const summary=componentSummary(JSON.parse(fs.readFileSync(componentFile)),root);

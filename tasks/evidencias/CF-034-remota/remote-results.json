@@ -221,7 +221,7 @@
         }
       }
     ],
-    "vercel": "authenticated deployment list inspected after branch pushes; latest production remains FkfL25jbyrt6FdD5Di5wqoLH9iHm at272001f, latest entry24/10; no branch CF034 deployment observed"
+    "vercel": "Rechecked26/10 after PR and pushes: deployment list latest production FkfL25jbyrt6FdD5Di5wqoLH9iHm at272001f from24/10; no CF034 deployment"
   },
   "limits": [
     "no real DB connection or migration",
@@ -262,6 +262,74 @@
         "expiresAt": "2026-11-02T12:08:11Z"
       },
       "next": "verbose and JSON reporters with reporter-specific output file; same tests and gates"
+    },
+    {
+      "id": 40321049200,
+      "attempt": 1,
+      "head": "c679140ff6f5f3692eb6b688e225543a173a1820",
+      "conclusion": "failure",
+      "failed": "components; verbose diagnostic rejected shared collector; upload correctly blocked",
+      "package": false
+    },
+    {
+      "id": 40321673862,
+      "attempt": 1,
+      "head": "09520622daf6c9d994d0903859fdf07e9d66b3ff",
+      "checkout": "5aa2474ebff50d35eb4d06a8da899735788f154b",
+      "conclusion": "failure",
+      "contracts": {
+        "tests": 13,
+        "failed": 0,
+        "skipped": 0
+      },
+      "components": {
+        "tests": 620,
+        "passed": 614,
+        "failed": 6,
+        "errors": 0,
+        "skipped": 0
+      },
+      "classification": "harness environment: civil-midnight fixtures need Sao Paulo; no TZ set on UTC runner",
+      "reproduction": "timezone-comparison.json: same 13 tests UTC 6 failures, Sao Paulo 0 failures",
+      "diagnosis": {
+        "id": 12649661157,
+        "sha256": "dc5a5c0e91f21bc8a326aa37f52badf5d78b8353224dc08d66b04b102f811522",
+        "files": 6,
+        "hashChecks": 5,
+        "sentinels": 0,
+        "expiresAt": "2026-11-02T12:21:09Z"
+      },
+      "package": false
+    }
+  ],
+  "repeatProbes": [
+    {
+      "id": 40321040770,
+      "head": "c679140ff6f5f3692eb6b688e225543a173a1820",
+      "contracts": "success",
+      "cancellation": "intentional after ready",
+      "downstream": "skipped",
+      "cleanup": "success",
+      "upload": "success",
+      "cleanupArtifact": {
+        "id": 12648849233,
+        "sha256": "769cf03fd9001bb3244c505459b93ee253a77732d257847bba318a7663726d8b",
+        "downloaded": true
+      }
+    },
+    {
+      "id": 40321669267,
+      "head": "09520622daf6c9d994d0903859fdf07e9d66b3ff",
+      "contracts": "success",
+      "cancellation": "intentional after ready",
+      "downstream": "skipped",
+      "cleanup": "success",
+      "upload": "success",
+      "cleanupArtifact": {
+        "id": 12648339816,
+        "sha256": "12d65eecd8f6b27b8fcc5499381c6640bfe65fdf8a7ad3a2a3ecb81a8cf6fe4d",
+        "downloaded": false
+      }
     }
   ]
 }

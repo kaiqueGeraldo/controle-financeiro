@@ -29,6 +29,20 @@ suportado após ready, próxima etapa pulada, cleanup/upload aprovados. Cleanup
 `769cf03fd9001bb3244c505459b93ee253a77732d257847bba318a7663726d8b`,
 2 arquivos/1 hash conferido e zero sentinelas; observação anterior ao descarte.
 
+CI40321673862/0952062, checkout5aa2474: diagnóstico seguro funcionou. Componentes
+620 executados,614 aprovados,6 falhas,0 erros/skips. Os seis casos estão em
+temporal-forms e temporal-presentation, com fixtures fixadas em02:59Z que esperam
+23:59 de São Paulo. Harness de componente anunciava São Paulo sem definir TZ
+do processo em Linux/UTC. [Comparação dirigida](timezone-comparison.json), em
+checkout novo0952062 no Windows/Node24: mesmos13 testes/mesmos hashes, UTC exit1
+com6 falhas; São Paulo exit0 com13 aprovados. Causa classificada como ambiente do
+harness. Correção passa TZ/CF_TEST_TIMEZONE só ao subprocesso de componentes e
+registra esses overrides no comando; suíte temporal de3fusos, assertions, casos,
+timeouts e retries preservados. Diagnosis12649661157 baixado/conferido,6 arquivos/
+5 hashes, zero sentinelas, SHA256
+`dc5a5c0e91f21bc8a326aa37f52badf5d78b8353224dc08d66b04b102f811522`.
+Build/backend/E2E/pacote ainda bloqueados até execução corrigida; sem novo JAR.
+
 Branch publicada emef76aee, corrigida em `5593e4e8269070d5e0269ef26c8451c0bb910c55`.
 Main permanece272001f, sem integração. [Registro estruturado](remote-results.json).
 
