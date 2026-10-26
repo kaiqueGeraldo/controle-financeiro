@@ -1,4 +1,55 @@
-# Resultado da rodada remota — publicação parcial
+# Resultado da rodada remota — smoke aprovado, integração pendente
+
+## Situação em 26/10/2026
+
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) aberta, sem
+merge. [Run40327234898](https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40327234898),
+tentativa1, job required121586970910, head c926aaa27e3b3280e18aaee729a61342ac9cdde2,
+checkout e2ce3ade53d203037c2df068a7aa267c1bae00df: **aprovado**.
+
+| Gate | Resultado efetivo |
+|---|---|
+| Contratos de CI/coleta | 13 aprovados, zero falhas/skips |
+| Lint/tipos/build | Todos exit0; instalação limpa de dependências |
+| Datas | 18 testes, três fusos declarados |
+| Componentes | 620, zero falhas/erros/skips; subprocesso em São Paulo |
+| Backend/PostgreSQL | 891 casos/95 classes; zero falhas/erros/skips; verify sem skipTests |
+| E2E | Wrapper Java1 e seis jornadas A/B/G/H/K/L; zero falhas/skips/flaky |
+| Pacote/coleta/upload | Aprovados; dois ZIPs baixados e conferidos |
+| Expanded | Pulado por condição; não executado nem aprovado |
+
+Ubuntu24.04.5/image20261012.334.1, Node24.21.0/npm11.19.0, Maven3.9.12,
+Temurin21.0.12.1, PostgreSQL16-alpine descartável. Sem secrets de produção.
+[Contagens por classe](backend-counts-40327234898.json) somam891 e coincidem
+com result.json, produzido a partir dos XMLs privados pelo gate.
+
+JAR api-0.0.1.jar,86.225.965 bytes, SHA256
+`4ae18379f6d21c709a76c6e7ac0c1c1ff81201574037ddab1352464c04c35554`.
+[Cadeia conferida](package-chain-40327234898.json): hash dos bytes baixados igual
+ao manifesto, ao recibo do verify e ao resultado; três gates da mesma fonte;
+820 inputs conferidos contra o merge Git, árvore igual à branch, POM/lockfile e
+comandos registrados. mvnw.cmd exige CRLF por atributo Git versionado; o verificador
+inicial comparou somente blob LF e recusou esse arquivo. Correção do verificador
+respeita exclusivamente esse atributo comprovado, sem normalização arbitrária.
+Não é promessa de build binário reproduzível nem imagem Docker validada.
+
+Diagnosis12652925409:12 arquivos/11 hashes, ZIP
+`d9ba6ad6807fa57bcdcee836f5b54b75fb3843938516351ec01aa6cb772ba90a`.
+Package12651589112: JAR e manifesto, ZIP
+`4058c3df4871fb4951d29e49085f61a5d7d1d65ff55f5648d3890c3fb217b222`.
+Zero sentinelas no download; retenção7dias, expiração02/11/2026 às13:11:05–06Z.
+Logs de apresentação Actions completos continuam privados: coletor os recusou,
+sem fallback. Isso é distinto dos artifacts sanitizados aprovados e inspecionados.
+
+Railway/Vercel: [revisão atualizada](INTEGRACOES.md). Confirmados URL HTTPS do
+backend, alias do frontend e JDBC privado; encontrado DDL_AUTO=update divergente
+do contrato validate. Valores ocultados novamente, nenhuma configuração salva.
+Sem requisição à aplicação/banco real, migração, deploy, promoção ou sucessoras.
+Main272001f preservada; [decisão de separação necessária](SEPARACAO-MAIN-PROPOSTA.md).
+CF034 integral permanece em_revisao, com aceite local preservado. Commits posteriores
+documentais não recebem automaticamente a proveniência deste JAR.
+
+## Histórico de execução e correções
 
 Atualização de 26/10: após autorização explícita do usuário, a
 [PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) foi criada,
@@ -104,14 +155,14 @@ somente hashes/motivos `logs/*.withheld.json` foram versionados. Sem fallback
 bruto e sem mudar o sanitizador aceito para acomodar o renderer Actions. Esse
 canal é distinto dos artifacts sanitizados cujo upload/download foi comprovado.
 
-## Bloqueios e limites atuais
+## Bloqueios da rodada inicial e limites preservados
 
-**PR não enviada:** conector GitHub retornou403. A revisão automática de
+**Bloqueio inicial de envio da PR, superado após confirmação:** conector GitHub retornou403. A revisão automática de
 aprovação rejeitou o envio pelo navegador por considerar ausente aprovação
 confiável para o texto específico e seus efeitos externos. [Proposta exata](PR-PROPOSTA.md)
 preparada e confirmação solicitada; sem ampliar permissões ou envio indireto.
 
-**Gates reais de produto não executados nesta rodada:** lint/tipagem/datas/
+**Gates de produto ainda pendentes na primeira rodada de25/10:** lint/tipagem/datas/
 componentes, Maven/PostgreSQL de domínio, E2E, build e novo JAR permanecem
 pendentes. CI novo não está na default branch para dispatch. Não mudar evento
 para contornar a recusa da PR nem integrar main só para habilitar CI.

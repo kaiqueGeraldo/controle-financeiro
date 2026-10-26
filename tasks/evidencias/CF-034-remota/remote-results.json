@@ -1,6 +1,6 @@
 {
   "date": "2026-10-26",
-  "candidate": "887894825393859de9652c287594ac58fbcb0833",
+  "candidate": "c926aaa27e3b3280e18aaee729a61342ac9cdde2",
   "branch": "codex/cf034-ci-local",
   "mainObserved": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
   "publication": {
@@ -106,8 +106,6 @@
     "notTheSameChannelAsUploadedArtifacts": true
   },
   "gatesNotExecuted": [
-    "product E2E journeys",
-    "new application JAR",
     "expanded historical matrix"
   ],
   "pullRequest": {
@@ -118,16 +116,22 @@
     "noPermissionExpansion": true,
     "url": "https://github.com/kaiqueGeraldo/controle-financeiro/pull/1",
     "number": 1,
-    "head": "36391eeb84d6a1b15c79bbdb3882c5f0415e6535",
+    "head": "c926aaa27e3b3280e18aaee729a61342ac9cdde2",
     "base": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
     "merged": false,
-    "lastObservedHead": "887894825393859de9652c287594ac58fbcb0833"
+    "lastObservedHead": "c926aaa27e3b3280e18aaee729a61342ac9cdde2"
   },
   "package": {
-    "newPackage": false,
+    "newPackage": true,
     "historicalJarSource": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
     "historicalJarSha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
-    "syntheticTamperProbeIsNotApplicationPackage": true
+    "syntheticTamperProbeIsNotApplicationPackage": true,
+    "newPackageSource": "e2ce3ade53d203037c2df068a7aa267c1bae00df",
+    "newPackageHead": "c926aaa27e3b3280e18aaee729a61342ac9cdde2",
+    "newPackageSha256": "4ae18379f6d21c709a76c6e7ac0c1c1ff81201574037ddab1352464c04c35554",
+    "artifactId": 12651589112,
+    "chain": "package-chain-40327234898.json",
+    "laterDocumentaryCommitsDoNotInheritJarProvenance": true
   },
   "cf034": {
     "localAcceptance": "preserved under DEC-CI-04",
@@ -348,6 +352,78 @@
         "expiresAt": "2026-11-02T12:37:28Z"
       },
       "package": false
+    },
+    {
+      "id": 40327234898,
+      "url": "https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40327234898",
+      "attempt": 1,
+      "jobId": 121586970910,
+      "head": "c926aaa27e3b3280e18aaee729a61342ac9cdde2",
+      "checkout": "e2ce3ade53d203037c2df068a7aa267c1bae00df",
+      "conclusion": "success",
+      "contracts": {
+        "tests": 13,
+        "failures": 0,
+        "skipped": 0
+      },
+      "counts": {
+        "unit": {
+          "timezones": 3,
+          "tests": 18
+        },
+        "components": {
+          "tests": 620,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "backend": {
+          "tests": 891,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "e2eJava": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "browser": {
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "backendClasses": 95,
+      "expanded": "skipped by condition; not approved",
+      "sourceFilesChecked": 820,
+      "sourceDigest": "c0c3acbedd8dbdae6da298c26d4df8da186c3318a40ad425d2ebc0553c52967f",
+      "toolchain": {
+        "runner": "Ubuntu24.04.5",
+        "image": "ubuntu-24.04/20261012.334.1",
+        "node": "24.21.0",
+        "npm": "11.19.0",
+        "maven": "3.9.12",
+        "java": "Temurin21.0.12.1",
+        "postgres": "16-alpine disposable"
+      },
+      "diagnosis": {
+        "id": 12652925409,
+        "sha256": "d9ba6ad6807fa57bcdcee836f5b54b75fb3843938516351ec01aa6cb772ba90a",
+        "files": 12,
+        "collectionHashChecks": 11,
+        "expiresAt": "2026-11-02T13:11:05Z"
+      },
+      "package": {
+        "id": 12651589112,
+        "zipSha256": "4058c3df4871fb4951d29e49085f61a5d7d1d65ff55f5648d3890c3fb217b222",
+        "jarSha256": "4ae18379f6d21c709a76c6e7ac0c1c1ff81201574037ddab1352464c04c35554",
+        "bytes": 86225965,
+        "expiresAt": "2026-11-02T13:11:06Z"
+      },
+      "chain": "package-chain-40327234898.json"
     }
   ],
   "repeatProbes": [
@@ -394,11 +470,18 @@
       }
     }
   ],
-  "candidateMeaning": "last remotely executed candidate; following commits require their own checks",
+  "candidateMeaning": "latest source candidate with downloaded package verified; documentary commits require applicable final checks",
   "platformVerification": {
     "backendUrl": "verified by authenticated Vercel UI after owner completed MFA; HTTPS root matches Railway hostname; value hidden again",
     "changes": "none",
     "applicationRequests": 0,
-    "realDatabaseConnections": 0
-  }
+    "realDatabaseConnections": 0,
+    "frontUrl": "matches deployed Vercel production alias",
+    "datasourceNetwork": "private Railway hostname; no DB connection made",
+    "ddlAuto": "update; external override differs from source validate; unchanged",
+    "productionReady": false,
+    "connector": "Vercel get_project/list_deployments successful on26/10; prior403 superseded",
+    "evidence": "platform-after-pr.json"
+  },
+  "status": "remote smoke passed; integration awaiting explicit separation of main autodeploy"
 }

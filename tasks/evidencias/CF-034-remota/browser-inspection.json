@@ -13,7 +13,20 @@
     "resourceLimits": "UI plan ceiling 8 vCPU / 8 GB; no explicit limits in service serialized config; no usage measurement",
     "serverless": false,
     "restartPolicy": "On Failure",
-    "maxRestartRetries": 10
+    "maxRestartRetries": 10,
+    "variableReview": {
+      "at": "2026-10-26T13:10:56.560Z",
+      "method": "authenticated UI; only routing/DDL values inspected, hidden again; no settings saved",
+      "frontUrlMatchesVercelProductionAlias": true,
+      "ddlAuto": "update",
+      "ddlAssessment": "overrides source validate; review before any authorized release; no schema operation performed",
+      "datasource": {
+        "jdbcPostgres": true,
+        "privateRailwayNetwork": true,
+        "publicProxyUsedByApp": false
+      },
+      "credentialValuesRead": false
+    }
   },
   "vercel": {
     "projectId": "prj_OdfwpJWp3wv8ZgfpcjVEBscrj03r",
@@ -62,9 +75,15 @@
   },
   "limitations": [
     "No request sent to the deployed application or real database",
-    "No production performance, credential correctness or actual CORS value certified; upstream URL now verified against Railway service hostname",
-    "Vercel connector HTTP 403 persisted; existing browser session provided settings access",
+    "No production performance, credential correctness or runtime CORS behavior certified; configured upstream and frontend origins inspected",
+    "Initial Vercel connector403 superseded on26/10; both project and deployment list now respond; initial browser settings review preserved",
     "No settings altered; no service restarted; no deploy or migration triggered"
   ],
-  "followupAt": "2026-10-26T12:47:32.520Z"
+  "followupAt": "2026-10-26T12:47:32.520Z",
+  "connectorFollowup": {
+    "at": "2026-10-26T13:30:53.985Z",
+    "vercel": "get_project and list_deployments now succeed; initial403 superseded, no scope expansion performed",
+    "latestProduction": "dpl_FkfL25jbyrt6FdD5Di5wqoLH9iHm/272001f",
+    "evidence": "platform-after-pr.json"
+  }
 }

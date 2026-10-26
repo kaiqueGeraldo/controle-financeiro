@@ -4,20 +4,22 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — publicação parcial e provas sintéticas CF034, 25/10/2026
+## Situação vigente — CI remoto obrigatório aprovado, 26/10/2026
 
-Etapa operacional autorizada sobre4d20fb0, com revisão Railway/Vercel. [Matriz,
-inspeções e limites](evidencias/CF-034-remota/README.md). Aceite local preservado;
-CF034 integral em_revisao. Main remota272001f sem proteção/checks; Railway API/PG
-offline, produção ligada à main sem Wait for CI; Vercel ativa/Ready em272001f,
-previews de branches e nenhum Deployment Check. Bloqueio versionado somente da
-branch CF034 prepara CI sem deploy; main aguarda separação explícita dos gatilhos.
-Branch publicada até5593e4e; contratos Linux12/12, artifacts baixados/conferidos e
-cancelamento/cleanup sintético comprovados. Primeiro upload falhou por path,
-correção dirigida aprovada na segunda execução; workflow cancelado não é suíte
-de produto aprovada. PR não enviada após403 e recusa automática do navegador;
-texto preparado/aguardando confirmação. Gates de produto/JAR novo pendentes.
-Sem banco real, infraestrutura de produção alterada, pacote novo ou sucessoras.
+Etapa operacional autorizada sobre4d20fb0, com revisão Railway/Vercel.
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) aberta,
+candidato c926aaa/checkout e2ce3ad, run40327234898 aprovado:13 contratos,
+18 temporais,620 componentes,891 testes backend/PostgreSQL, wrapper Java e seis
+jornadas E2E, sem falhas/skips. Expanded pulado por condição, sem aprovação.
+[Pacote novo, hashes, falhas e limites](evidencias/CF-034-remota/RESULTADOS.md).
+JAR baixado e vinculado a820 inputs do merge testado; não é o JAR histórico a5ad7a6.
+
+Aceite local preservado; CF034 integral em_revisao. Main272001f sem integração;
+Railway API/PG offline, Vercel produção Ready em272001f. URLs conferidas e JDBC
+privado; variável DDL_AUTO=update diverge do contrato validate e precisa de revisão
+antes de release. Nenhuma configuração ou banco real alterado, deploy ou sucessora.
+[Separação preparada dos autodeploys de main](evidencias/CF-034-remota/SEPARACAO-MAIN-PROPOSTA.md)
+aguarda decisão explícita antes da integração. A branch CF034 permanece sem deploy.
 
 ## Situação anterior — aceite independente local CF034, 25/10/2026
 

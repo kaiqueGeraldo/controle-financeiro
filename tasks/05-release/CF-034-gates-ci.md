@@ -8,31 +8,34 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
-## Publicação controlada e validação remota — 25/10/2026
+## Publicação controlada e validação remota — 26/10/2026
 
-Atualização26/10: [PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1)
-enviada após aprovação explícita. CI40320025985 no checkout59b07fd falhou em
-componentes após contratos12/12, lint/tipos e18 temporais aprovados. Pacote
-corretamente bloqueado; diagnóstico baixado e conferido. Correção apenas de
-reporter do harness prepara detalhe sanitizado para investigar a causa; nenhuma
-assertion, tempo ou gate relaxado. Main e limites de produção preservados.
+Etapa operacional autorizada, entrada4d20fb0; revisão Railway/Vercel incluída por
+pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) criada após
+aprovação explícita. Candidato c926aaa, checkout e2ce3ad, run40327234898 aprovado:
+13 contratos,18 temporais em3 fusos,620 componentes,891 casos backend/PostgreSQL
+em95 classes, wrapper Java e6 jornadas E2E; zero falhas/erros/skips no smoke.
+Expanded pulado por condição, não executado nem aprovado.
 
-Etapa operacional autorizada, entrada `4d20fb0`; revisão de configuração das
-integrações Railway/Vercel incluída por pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).
-Aceite local DEC-CI-04/RCI034-01/R1 preservado, estado integral **em_revisao**.
-Main observada272001f, sem proteção/checks. Railway produção acompanha main sem
-Wait for CI; API/PG offline, ambientes de PR desativados. Vercel Production Ready
-em272001f, main com autoassign e previews de branches sem Deployment Checks.
-Bloqueio versionado apenas da branch CF034 prepara publicação/CI por PR sem deploy.
-Integração na main aguarda separação explícita dos gatilhos de produção, conforme
-limites do pedido; configuração sozinha não comprova gates remotos. Branch publicada
-até5593e4e: contratos Linux12/12 e artifacts baixados/conferidos; cancelamento
-suportado bloqueou próxima etapa, encerrou árvore e removeu PG isolado antes do
-descarte da VM. Falha inicial de path/upload preservada/corrigida. PR ainda não
-enviada após403 e recusa automática do navegador; proposta preparada/aguardando
-confirmação. Gates de produto e JAR novo não executados nesta etapa; nenhuma
-aprovação integral inferida das contraprovas ou do workflow cancelado.
-Nenhum checkbox integral alterado, banco real/deploy ou sucessora autorizados.
+JAR novo baixado: SHA256
+4ae18379f6d21c709a76c6e7ac0c1c1ff81201574037ddab1352464c04c35554;
+[cadeia de820 inputs e manifesto](../evidencias/CF-034-remota/package-chain-40327234898.json).
+Contraprovas de falha/upload/coleta e cancelamento/cleanup Linux preservadas;
+limite de observação anterior ao descarte da VM. Falhas reais e correções dirigidas
+de paths, diagnóstico, fuso e schema do pool documentadas, sem relaxar assertions,
+timeouts, retries ou seleção anterior. Nenhuma regra de produto alterada.
+
+Main272001f sem integração. Railway API/PG offline, main com autodeploy e Wait for
+CI off; Vercel produção Ready272001f, sem Deployment Checks. URL do backend,
+alias do frontend e JDBC privado conferidos; DDL_AUTO=update diverge do contrato
+validate e deve ser revisto antes de release. Nenhuma configuração de produção
+ou banco real alterado. [Separação dos gatilhos preparada, não aplicada](../evidencias/CF-034-remota/SEPARACAO-MAIN-PROPOSTA.md).
+
+Aceite local DEC-CI-04/RCI034-01/R1 preservado; estado integral **em_revisao**.
+Nenhum checkbox integral, garantia de produção, zoom/Ctrl+C nativo, adoção
+CF017/P01/P02 ou sucessora liberados. Commits documentais posteriores exigem seus
+checks aplicáveis; não recebem automaticamente a proveniência deste JAR.
 
 ## Liberação exclusivamente local — 24/10/2026
 

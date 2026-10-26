@@ -4,10 +4,16 @@
 expresso de revisão das integrações Railway/Vercel. Aceite local DEC-CI-04 e
 RCI034-01/R1 preservados; CF-034 integral continua **em_revisao**.
 
-**Resultado atual: publicação parcial, sem integração.** Branch publicada até5593e4e;
-[contratos Linux, artifacts baixados, cancelamento/cleanup e limites](RESULTADOS.md).
-PR ainda não enviada após403 e recusa automática do navegador; proposta preparada
-aguarda confirmação. Gates de produto e JAR novo ainda não executados nesta etapa.
+**Atualização de 26/10: CI obrigatório aprovado; integração pendente.**
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) criada após
+autorização explícita. Candidato c926aaa, checkout de merge e2ce3ad,
+[run40327234898](https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40327234898):
+13 contratos, 18 temporais em três fusos, 620 componentes, 891 testes backend,
+wrapper Java e seis jornadas E2E aprovados, sem skips/falhas/flaky no smoke.
+Matriz expanded pulada por condição, sem aprovação. [Resultados e falhas preservadas](RESULTADOS.md).
+JAR novo baixado, SHA256 conferido com manifesto e 820 inputs Git verificados:
+[cadeia](package-chain-40327234898.json), [contagens das 95 classes](backend-counts-40327234898.json).
+Main272001f preservada. [Separação proposta, ainda não aplicada](SEPARACAO-MAIN-PROPOSTA.md).
 
 ## Entrada, lote e preparação
 
@@ -38,7 +44,9 @@ seguintes; validador real recusou relatório obrigatório ausente; gate real de
 pacote recusou bytes sintéticos adulterados, restaurados por SHA256; coletor real
 removeu sentinelas e recusou aspa incompleta. Não são novas suítes financeiras.
 Ambos YAMLs parseados e escopo exato da regra Vercel conferido.
-Runtimes novos `CF-034/rem-preflight-01` e `rem-preflight-02`; nenhuma limpeza.
+Preparação inicial em `CF-034/rem-preflight-01` e `rem-preflight-02`; rodadas
+seguintes usam novos rem-preflight-03…05, rem-components-01, rem-pool-01…04 e
+rem-download-01…04. Nenhum runtime histórico limpo ou sobrescrito.
 
 Falha de preparação preservada neste registro: primeira tentativa de inventário
 leu saída Git com quoted paths e não encontrou um caminho Unicode. Classificação:
@@ -86,4 +94,5 @@ persiste credenciais, não usa pull_request_target, secrets ou environments reai
 Nenhum banco real, deploy manual, promoção, secret ou infraestrutura de produção
 alterado. Nenhuma sucessora iniciada. Sem aceite integral, Ctrl+C nativo, zoom200%,
 adoção real CF017/P01/P02 ou garantia de produção. O JAR histórico continua
-exclusivamente do candidato a5ad7a6; nenhum pacote novo foi produzido na preparação.
+exclusivamente do candidato a5ad7a6. O novo JAR de c926aaa/e2ce3ad possui cadeia
+própria no run40327234898 e não é atribuído automaticamente a commits posteriores.
