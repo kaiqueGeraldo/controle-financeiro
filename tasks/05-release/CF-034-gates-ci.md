@@ -10,6 +10,13 @@
 
 ## Publicação controlada e validação remota — 25/10/2026
 
+Atualização26/10: [PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1)
+enviada após aprovação explícita. CI40320025985 no checkout59b07fd falhou em
+componentes após contratos12/12, lint/tipos e18 temporais aprovados. Pacote
+corretamente bloqueado; diagnóstico baixado e conferido. Correção apenas de
+reporter do harness prepara detalhe sanitizado para investigar a causa; nenhuma
+assertion, tempo ou gate relaxado. Main e limites de produção preservados.
+
 Etapa operacional autorizada, entrada `4d20fb0`; revisão de configuração das
 integrações Railway/Vercel incluída por pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).
 Aceite local DEC-CI-04/RCI034-01/R1 preservado, estado integral **em_revisao**.

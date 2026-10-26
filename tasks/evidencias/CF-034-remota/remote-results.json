@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-25",
+  "date": "2026-10-26",
   "candidate": "5593e4e8269070d5e0269ef26c8451c0bb910c55",
   "branch": "codex/cf034-ci-local",
   "mainObserved": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
@@ -106,10 +106,6 @@
     "notTheSameChannelAsUploadedArtifacts": true
   },
   "gatesNotExecuted": [
-    "product lint",
-    "product typecheck",
-    "product temporal suite",
-    "product component suite",
     "backend/Maven/PostgreSQL domain suite",
     "product E2E journeys",
     "product build",
@@ -117,11 +113,16 @@
     "expanded historical matrix"
   ],
   "pullRequest": {
-    "created": false,
+    "created": true,
     "connector": "403 Resource not accessible by integration",
-    "browser": "automatic approval review rejected PR submission; explicit approval for prepared text requested asynchronously",
+    "browser": "created after explicit approval of exact PR payload; prior automatic review rejection superseded",
     "proposal": "PR-PROPOSTA.md",
-    "noPermissionExpansion": true
+    "noPermissionExpansion": true,
+    "url": "https://github.com/kaiqueGeraldo/controle-financeiro/pull/1",
+    "number": 1,
+    "head": "36391eeb84d6a1b15c79bbdb3882c5f0415e6535",
+    "base": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+    "merged": false
   },
   "package": {
     "newPackage": false,
@@ -230,5 +231,37 @@
     "no native Windows Ctrl+C certification",
     "native zoom200%, CF017/P01/P02 adoption and production guarantees unchanged",
     "no successor task started"
+  ],
+  "productRuns": [
+    {
+      "id": 40320025985,
+      "attempt": 1,
+      "head": "36391eeb84d6a1b15c79bbdb3882c5f0415e6535",
+      "checkout": "59b07fdb9b64d43be7a8383ba7badd7b93217d16",
+      "conclusion": "failure",
+      "passed": [
+        "contracts 12/12 zero skips",
+        "install",
+        "lint",
+        "typecheck",
+        "temporal 18 tests in 3 zones"
+      ],
+      "failed": "components; exit 1; JSON-only reporter hid diagnostics from allowlisted log",
+      "blocked": [
+        "build",
+        "backend",
+        "E2E",
+        "package"
+      ],
+      "diagnosis": {
+        "id": 12648232881,
+        "sha256": "226c64991f16bab336818bb4274953b5036313a26ad9ec4f0aebacd032232f1d",
+        "files": 6,
+        "hashChecks": 5,
+        "sentinels": 0,
+        "expiresAt": "2026-11-02T12:08:11Z"
+      },
+      "next": "verbose and JSON reporters with reporter-specific output file; same tests and gates"
+    }
   ]
 }

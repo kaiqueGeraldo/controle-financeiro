@@ -1,5 +1,19 @@
 # Resultado da rodada remota — publicação parcial
 
+Atualização de 26/10: após autorização explícita do usuário, a
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) foi criada,
+base main272001f, head36391ee, checkout de teste59b07fd.
+[CI40320025985](https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40320025985)
+passou contratos12/12, install, lint, tipos e18 testes temporais; falhou em
+componentes, bloqueando build/backend/E2E/pacote. Diagnosis12648232881 baixado:
+ZIP SHA256 `226c64991f16bab336818bb4274953b5036313a26ad9ec4f0aebacd032232f1d`,
+6 arquivos,5 hashes conferidos, zero sentinelas; expira02/11/2026 às12:08:11Z.
+O reporter exclusivamente JSON deixou o detalhe privado no runner. Correção
+delimitada no comando do harness adiciona verbose ao log sanitizado e mantém JSON
+privado, sem mudar testes, assertions, timeout, retries ou allowlist de publicação.
+Nova execução é necessária para diagnóstico causal. Nenhum pacote novo aprovado.
+O relato de PR pendente abaixo descreve o bloqueio anterior, agora superado.
+
 Branch publicada emef76aee, corrigida em `5593e4e8269070d5e0269ef26c8451c0bb910c55`.
 Main permanece272001f, sem integração. [Registro estruturado](remote-results.json).
 

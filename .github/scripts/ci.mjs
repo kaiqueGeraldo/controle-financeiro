@@ -73,7 +73,7 @@ async function main(){
     if(tests.length!==3||tests.some(n=>n===0))throw new Error('Three nonempty timezone runs required');
     if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
     report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
-    await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${path.join(out,'components.json')}`]);
+    await runNpm('components',['run','test:component','--','--reporter=verbose','--reporter=json',`--outputFile.json=${path.join(out,'components.json')}`]);
     const vitest=JSON.parse(fs.readFileSync(path.join(out,'components.json')));
     report.components=requireCounts({tests:vitest.numTotalTests,failures:vitest.numFailedTests,errors:vitest.numRuntimeErrorTestSuites??0,skipped:(vitest.numPendingTests??0)+(vitest.numTodoTests??0)},'components');
     await runNpm('build',['run','build']);
