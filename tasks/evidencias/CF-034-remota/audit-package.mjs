@@ -5,7 +5,8 @@ import {execFileSync,spawnSync} from 'node:child_process';
 import {hash,writeJson} from '../../../.github/scripts/source.mjs';
 import {backendSelection} from '../../../.github/scripts/suites.mjs';
 
-const [diagnosisFile,packageFile,head,base,runId,output]=process.argv.slice(2);
+const [diagnosisFile,packageFile,head,base,runId,output,expectedRef='refs/pull/1/merge']=process.argv.slice(2);
+assert(['refs/pull/1/merge','refs/heads/main'].includes(expectedRef),'only PR #1 and its main integration are supported');
 assert(output,'diagnosis inspection, package inspection, head, base, run ID, output required');
 for(const sha of [head,base])assert.match(sha,/^[a-f0-9]{40}$/);
 const diagnosis=JSON.parse(fs.readFileSync(diagnosisFile)),archive=JSON.parse(fs.readFileSync(packageFile));
@@ -18,7 +19,7 @@ assert.equal(result.status,'passed');assert.equal(result.stage,'all');
 assert.deepEqual(result.source.originalTreeChanges,[]);
 assert.equal(result.source.commit,checkout);assert.equal(manifest.ci.checkoutSha,checkout);
 assert.equal(manifest.ci.runId,String(runId));assert.deepEqual(manifest.ci,result.ci);
-assert.equal(manifest.ci.ref,'refs/pull/1/merge');
+assert.equal(manifest.ci.ref,expectedRef);
 for(const name of ['install','lint','typecheck','unit','components','build','browser-install','maven-version','backend','e2e'])
   assert.equal(result.steps.find(step=>step.name===name)?.exit,0,`${name} did not succeed`);
 assert.equal(result.unit.timezones,3);assert(result.unit.tests>0);
@@ -75,7 +76,7 @@ for(const file of manifest.sourceFiles){
 assert.equal(manifest.dependencies.pomSha256,hashes.get('controle-financeiro-backend/pom.xml'));
 assert.equal(manifest.dependencies.lockSha256,hashes.get('controle-financeiro-frontend/package-lock.json'));
 writeJson(output,{at:new Date().toISOString(),status:'verified',runId,attempt:manifest.ci.attempt,head,base,checkout,
-  identicalMergeAndHeadTree:true,sourceFilesChecked:files.length,sourceDigest:manifest.sourceDigest,checkoutConversions,
+  ref:expectedRef,identicalMergeAndHeadTree:true,sourceFilesChecked:files.length,sourceDigest:manifest.sourceDigest,checkoutConversions,
   package:{file:manifest.file,bytes:manifest.bytes,sha256:manifest.sha256,zipSha256:archive.zipSha256},
   diagnosisZipSha256:diagnosis.zipSha256,counts:{unit:result.unit,components:result.components,backend:result.backend,e2eJava:result.e2eJava,browser:result.browser},
   selectedBackendClasses:result.selection.selected.length,toolchain:manifest.toolchain,

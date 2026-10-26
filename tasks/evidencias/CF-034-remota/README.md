@@ -1,5 +1,11 @@
 # CF-034 — publicação controlada e validação remota
 
+**Atualização operacional de 26/10:** separação e integração autorizadas pelo
+usuário. Autodeploy Railway desativado e confirmado; main=false preparado na
+Vercel. Revalidação do novo candidato e integração ainda pendentes neste commit.
+[Execução e limites](SEPARACAO-MAIN-EXECUCAO.md). As referências anteriores abaixo
+preservam o estado observado em cada rodada.
+
 25/10/2026. Etapa operacional autorizada pelo usuário, estendida por pedido
 expresso de revisão das integrações Railway/Vercel. Aceite local DEC-CI-04 e
 RCI034-01/R1 preservados; CF-034 integral continua **em_revisao**.
