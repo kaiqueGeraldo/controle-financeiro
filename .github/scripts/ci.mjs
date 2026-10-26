@@ -26,6 +26,15 @@ export function requireReportedClasses(directory,required){
   const missing=required.filter(name=>!reported.some(r=>r===name||r.startsWith(name+'$')));
   if(missing.length)throw new Error(`Mandatory classes have no report: ${missing.join(',')}`);
 }
+export function componentSummary(vitest,root){
+  return {
+    counts:{tests:vitest.numTotalTests,failures:vitest.numFailedTests,errors:vitest.numRuntimeErrorTestSuites??0,skipped:(vitest.numPendingTests??0)+(vitest.numTodoTests??0)},
+    failedFiles:(vitest.testResults??[]).filter(result=>result.status==='failed').map(result=>({
+      file:path.relative(root,result.name),
+      tests:(result.assertionResults??[]).filter(assertion=>assertion.status==='failed').map(assertion=>assertion.fullName),
+    })),
+  };
+}
 const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withheld: sanitization failed';}};
 
 async function main(){
@@ -73,9 +82,17 @@ async function main(){
     if(tests.length!==3||tests.some(n=>n===0))throw new Error('Three nonempty timezone runs required');
     if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
     report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
-    await runNpm('components',['run','test:component','--','--reporter=verbose','--reporter=json',`--outputFile.json=${path.join(out,'components.json')}`]);
-    const vitest=JSON.parse(fs.readFileSync(path.join(out,'components.json')));
-    report.components=requireCounts({tests:vitest.numTotalTests,failures:vitest.numFailedTests,errors:vitest.numRuntimeErrorTestSuites??0,skipped:(vitest.numPendingTests??0)+(vitest.numTodoTests??0)},'components');
+    const componentFile=path.join(out,'components.json');
+    try{await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${componentFile}`]);}
+    finally{
+      if(fs.existsSync(componentFile)){
+        const summary=componentSummary(JSON.parse(fs.readFileSync(componentFile)),root);
+        report.components=summary.counts;report.componentFailures=summary.failedFiles;
+        // Only counts and committed test identifiers; raw assertion messages/DOM stay private.
+        console.log(safe(JSON.stringify({components:summary})));
+      }
+    }
+    requireCounts(report.components,'components');
     await runNpm('build',['run','build']);
     await runNpm('browser-install',['run','test:e2e:install']);
     writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});

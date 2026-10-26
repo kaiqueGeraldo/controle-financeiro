@@ -14,6 +14,21 @@ privado, sem mudar testes, assertions, timeout, retries ou allowlist de publica�
 Nova execução é necessária para diagnóstico causal. Nenhum pacote novo aprovado.
 O relato de PR pendente abaixo descreve o bloqueio anterior, agora superado.
 
+CI40321049200/c679140 reproduziu exit1 de componentes. Saída verbose foi
+recusada pela coleta compartilhada, portanto nenhum diagnóstico bruto foi
+publicado. A mudança é substituída por projeção do JSON: somente contagens,
+arquivos e nomes dos casos reprovados no result.json e console sanitizado;
+mensagens de assertions/DOM ficam privadas. Novo contrato prova essa exclusão:
+13/13 contratos locais, zero skips. Primeira execução local sob sandbox recusou
+rename no TEMP do sistema; repetição em runtime externo isolado passou12/12
+antes desta extensão; nenhuma alteração no sanitizador para contornar o ambiente.
+
+Push c679140 também acionou probes40321040770: contracts aprovado, cancelamento
+suportado após ready, próxima etapa pulada, cleanup/upload aprovados. Cleanup
+12648849233 baixado com SHA256
+`769cf03fd9001bb3244c505459b93ee253a77732d257847bba318a7663726d8b`,
+2 arquivos/1 hash conferido e zero sentinelas; observação anterior ao descarte.
+
 Branch publicada emef76aee, corrigida em `5593e4e8269070d5e0269ef26c8451c0bb910c55`.
 Main permanece272001f, sem integração. [Registro estruturado](remote-results.json).
 
