@@ -1,0 +1,1091 @@
+{
+  "observedAt": "2026-10-26T23:15:38.393Z",
+  "method": "read-only connected control planes; current UI observations separately recorded",
+  "railway": {
+    "environment": {
+      "project": {
+        "id": "19974952-914d-4072-9140-e62e5ed23c31",
+        "name": "controle-financeiro",
+        "workspaceName": "kaiquegeraldo's Projects"
+      },
+      "environment": {
+        "id": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "name": "production",
+        "isEphemeral": false
+      },
+      "staged": null,
+      "region": null,
+      "services": [
+        {
+          "id": "79d2ee56-cfd0-47bc-8744-e932cf49ba69",
+          "name": "Postgres",
+          "state": "live",
+          "source": {
+            "image": "ghcr.io/railwayapp-templates/postgres-ssl:17",
+            "repo": null,
+            "branch": null
+          },
+          "regions": [
+            "us-east4-eqdc4a"
+          ],
+          "numReplicas": 1,
+          "cronSchedule": null,
+          "volumeMounts": [
+            {
+              "volumeId": "1fe34e12-e948-4c99-8448-7cfbf871ec54",
+              "volumeName": "postgres-volume",
+              "mountPath": "/var/lib/postgresql/data"
+            }
+          ],
+          "latestDeployment": null,
+          "stagedChangeCount": 0
+        },
+        {
+          "id": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+          "name": "controle-financeiro",
+          "state": "live",
+          "source": {
+            "image": null,
+            "repo": "kaiqueGeraldo/controle-financeiro",
+            "branch": "main"
+          },
+          "regions": [
+            "us-east4-eqdc4a"
+          ],
+          "numReplicas": 1,
+          "cronSchedule": null,
+          "volumeMounts": [],
+          "latestDeployment": null,
+          "stagedChangeCount": 0
+        }
+      ],
+      "volumes": [
+        {
+          "id": "1fe34e12-e948-4c99-8448-7cfbf871ec54",
+          "name": "postgres-volume",
+          "state": "live",
+          "region": "us-east4-eqdc4a",
+          "sizeMB": 5000,
+          "mountedOn": {
+            "serviceId": "79d2ee56-cfd0-47bc-8744-e932cf49ba69",
+            "serviceName": "Postgres",
+            "mountPath": "/var/lib/postgresql/data"
+          },
+          "stagedChangeCount": 0
+        }
+      ],
+      "buckets": [],
+      "sharedVariableNames": []
+    },
+    "api": {
+      "service": {
+        "id": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "name": "controle-financeiro",
+        "state": "live"
+      },
+      "environment": {
+        "id": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "name": "production"
+      },
+      "staged": null,
+      "config": {
+        "source": {
+          "repo": "kaiqueGeraldo/controle-financeiro",
+          "branch": "main",
+          "rootDirectory": "/controle-financeiro-backend"
+        },
+        "networking": {
+          "serviceDomains": {
+            "controle-financeiro-production-aa40.up.railway.app": {
+              "port": 8080
+            }
+          }
+        },
+        "build": {
+          "builder": "DOCKERFILE",
+          "watchPatterns": [
+            "/controle-financeiro-backend/**"
+          ],
+          "dockerfilePath": "/controle-financeiro-backend/Dockerfile"
+        },
+        "deploy": {
+          "useLegacyStacker": false,
+          "ipv6EgressEnabled": false,
+          "runtime": "V2",
+          "multiRegionConfig": {
+            "us-east4-eqdc4a": {
+              "numReplicas": 1
+            }
+          }
+        }
+      },
+      "stagedChanges": [],
+      "variableNames": [
+        "BRAPI_TOKEN",
+        "EMAIL_RESEND",
+        "FRONT_URL",
+        "JWT_SECRET",
+        "RESEND_API_KEY",
+        "SPRING_DATASOURCE_PASSWORD",
+        "SPRING_DATASOURCE_URL",
+        "SPRING_DATASOURCE_USERNAME",
+        "SPRING_JPA_HIBERNATE_DDL_AUTO"
+      ],
+      "volumes": [],
+      "domains": {
+        "serviceDomains": [
+          {
+            "id": "71633df1-aeab-4c57-b04b-c51d0ce8ce8f",
+            "domain": "controle-financeiro-production-aa40.up.railway.app",
+            "targetPort": 8080
+          }
+        ],
+        "customDomains": []
+      },
+      "tcpProxies": [],
+      "latestDeployment": null,
+      "tracing": {
+        "tracingEnabled": false,
+        "autoInstrumentationEnabled": false,
+        "autoInstrumentationActive": false
+      }
+    },
+    "postgres": {
+      "service": {
+        "id": "79d2ee56-cfd0-47bc-8744-e932cf49ba69",
+        "name": "Postgres",
+        "state": "live"
+      },
+      "environment": {
+        "id": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "name": "production"
+      },
+      "staged": null,
+      "config": {
+        "source": {
+          "image": "ghcr.io/railwayapp-templates/postgres-ssl:17"
+        },
+        "networking": {
+          "tcpProxies": {
+            "5432": {}
+          },
+          "privateNetworkEndpoint": "postgres"
+        },
+        "build": {
+          "builder": "RAILPACK"
+        },
+        "deploy": {
+          "useLegacyStacker": false,
+          "ipv6EgressEnabled": false,
+          "runtime": "V2",
+          "multiRegionConfig": {
+            "us-east4-eqdc4a": {
+              "numReplicas": 1
+            }
+          },
+          "requiredMountPath": "/var/lib/postgresql/data"
+        },
+        "haTemplateCode": "postgres-ha",
+        "haConversionConfig": {
+          "edge": {
+            "label": "Reverse Proxy",
+            "options": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "nodeLabel": "HAProxy",
+            "description": "Routes traffic to the primary",
+            "defaultValue": 3
+          },
+          "replica": {
+            "label": "Replicas",
+            "options": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "nodeLabel": "Postgres",
+            "description": "Streaming replicas for automatic failover",
+            "defaultValue": 2
+          },
+          "internal": {
+            "label": "Coordinator Nodes",
+            "options": [
+              3,
+              5,
+              7,
+              9
+            ],
+            "nodeLabel": "etcd",
+            "defaultValue": 3
+          },
+          "description": "This will convert your Postgres database to an HA cluster with Patroni failover and etcd consensus."
+        },
+        "volumeMounts": {
+          "1fe34e12-e948-4c99-8448-7cfbf871ec54": {
+            "mountPath": "/var/lib/postgresql/data"
+          }
+        }
+      },
+      "stagedChanges": [],
+      "variableNames": [
+        "DATABASE_PUBLIC_URL",
+        "DATABASE_URL",
+        "PGDATA",
+        "PGDATABASE",
+        "PGHOST",
+        "PGPASSWORD",
+        "PGPORT",
+        "PGUSER",
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER",
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS",
+        "SSL_CERT_DAYS"
+      ],
+      "volumes": [
+        {
+          "id": "1fe34e12-e948-4c99-8448-7cfbf871ec54",
+          "name": "postgres-volume",
+          "mountPath": "/var/lib/postgresql/data",
+          "sizeMB": 5000,
+          "region": "us-east4-eqdc4a",
+          "state": "live"
+        }
+      ],
+      "domains": {
+        "serviceDomains": [],
+        "customDomains": []
+      },
+      "tcpProxies": [
+        {
+          "id": "527f64e3-d897-4457-8169-e6a4bf514df6",
+          "endpoint": "shuttle.proxy.rlwy.net:49160",
+          "domain": "shuttle.proxy.rlwy.net",
+          "proxyPort": 49160,
+          "applicationPort": 5432,
+          "syncStatus": "ACTIVE"
+        }
+      ],
+      "latestDeployment": null,
+      "tracing": {
+        "tracingEnabled": false,
+        "autoInstrumentationEnabled": false,
+        "autoInstrumentationActive": false
+      }
+    },
+    "deployments": [
+      {
+        "id": "58cf4748-2eb1-4ba4-aa87-be5f224ecdce",
+        "status": "SKIPPED",
+        "createdAt": "2026-10-24T22:40:38.727Z",
+        "updatedAt": "2026-10-24T22:40:38.727Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": null,
+        "canRollback": false,
+        "canRedeploy": false,
+        "regions": [],
+        "meta": {
+          "commitMessage": "docs(cf034): autorizar recorte local de CI pela DEC-CI-04",
+          "commitHash": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "b596f01e-667c-4d28-b5e0-30f4faadc70e",
+        "status": "REMOVED",
+        "createdAt": "2026-10-24T12:44:40.566Z",
+        "updatedAt": "2026-10-25T21:49:42.508Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "3ca969a3-5b83-406a-a23b-e6a727fb40fd",
+        "canRollback": true,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf033): encerrar achado por revalidacao independente",
+          "commitHash": "e1a01b62e0766c92120c3cefc2bc4b4fc316ce58",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "f80b24db-07fa-410a-bf6d-47410b3edf2b",
+        "status": "REMOVED",
+        "createdAt": "2026-10-23T23:40:46.603Z",
+        "updatedAt": "2026-10-24T12:46:15.511Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "a1a6ae63-9937-4152-ade6-854d6497166a",
+        "canRollback": true,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf032): aceitar revalidacao independente no escopo local",
+          "commitHash": "bfb6c61d6b68e1da112eabf420634bb5b5e9127b",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "0c9aa7ce-5592-4efe-8e26-97ad695a85aa",
+        "status": "REMOVED",
+        "createdAt": "2026-10-22T22:11:52.893Z",
+        "updatedAt": "2026-10-23T23:44:10.503Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "4b99a101-4406-4916-81a3-c1c687465d6a",
+        "canRollback": true,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(workspace): arquivar runtimes e padronizar execucoes externas",
+          "commitHash": "331d3344c24dc60f5e1940989b9a35c0d5da1aa6",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "5b6aad9c-a1d1-4964-b171-0e203276217a",
+        "status": "REMOVED",
+        "createdAt": "2026-10-20T02:04:08.905Z",
+        "updatedAt": "2026-10-22T22:14:01.440Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "83a7885f-9306-4674-acbd-eebcebf2dea3",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf029): accept RC029-01 and close local draft foundation",
+          "commitHash": "5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "b49adec0-d4ce-4e32-a0f5-7b0e12e2640f",
+        "status": "REMOVED",
+        "createdAt": "2026-10-18T13:35:20.202Z",
+        "updatedAt": "2026-10-20T02:06:13.120Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "b31d8a2a-904a-408f-b6b8-65998dcafa03",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf022): conclude task after independent remediation approval",
+          "commitHash": "dd554d188976144ccf00e00f9b20242196f70d90",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "601a7117-c515-4c4a-8d51-e19af24cbd78",
+        "status": "REMOVED",
+        "createdAt": "2026-10-16T14:49:00.394Z",
+        "updatedAt": "2026-10-16T14:54:50.407Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "b044a7c4-8e33-4642-bd35-57b121251912",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf019): close RVA03 with historical limits and accept CF013 CF019",
+          "commitHash": "e1c63120129f202440992f29276fa4372111513a",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "e59576b7-7ae0-4518-9b80-ea7b94ffa21b",
+        "status": "REMOVED",
+        "createdAt": "2026-10-15T21:25:41.027Z",
+        "updatedAt": "2026-10-16T14:51:15.767Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "75f4b6ee-a965-44b2-9cc7-8ad04318d34c",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf017): encerrar residuo P2 apos revalidacao documental",
+          "commitHash": "8a83c357880ad20d4adff119a60100dae20cb868",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "fd457dfd-43b9-4252-9d43-563e4c9ef695",
+        "status": "REMOVED",
+        "createdAt": "2026-10-14T17:25:49.737Z",
+        "updatedAt": "2026-10-14T17:29:08.263Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "3402b58b-63ab-42d3-a69e-f9a00b0ed0c3",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs: close CF014 visual lifecycle P2 after independent revalidation",
+          "commitHash": "8096b22f0baebf1665cf833065fd3972817d5000",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "a67db1ca-e399-4f2e-ae50-7efa7b307dbe",
+        "status": "REMOVED",
+        "createdAt": "2026-09-29T02:30:41.391Z",
+        "updatedAt": "2026-09-29T02:59:09.128Z",
+        "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+        "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "url": null,
+        "snapshotId": "55b757bd-2599-4b8b-9102-b60d341d3156",
+        "canRollback": false,
+        "canRedeploy": true,
+        "regions": [
+          "us-east4-eqdc4a"
+        ],
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "CF-021 record reporting validation and review status",
+          "commitHash": "46d9fad98e9744b7bf46461d5c0ba7654934a6a9",
+          "branch": "main"
+        }
+      }
+    ]
+  },
+  "vercel": {
+    "project": {
+      "result": {
+        "id": "prj_OdfwpJWp3wv8ZgfpcjVEBscrj03r",
+        "name": "controle-financeiro",
+        "framework": "nextjs",
+        "accountId": "team_XIdQ9KaGg5iPeIkN15K0Wscg",
+        "createdAt": 1773032495406,
+        "updatedAt": 1792881852464,
+        "nodeVersion": "24.x",
+        "live": false,
+        "latestDeployment": {
+          "id": "dpl_FkfL25jbyrt6FdD5Di5wqoLH9iHm",
+          "url": "controle-financeiro-yqclcl125-kaiquedev.vercel.app",
+          "createdAt": 1792881638958,
+          "readyState": "READY",
+          "target": "production"
+        },
+        "domains": [
+          "controle-financeiro-three-black.vercel.app",
+          "controle-financeiro-kaiquedev.vercel.app",
+          "controle-financeiro-git-main-kaiquedev.vercel.app"
+        ],
+        "passwordProtection": {
+          "enabled": false,
+          "deploymentType": null
+        },
+        "ssoProtection": {
+          "enabled": true,
+          "deploymentType": "all_except_custom_domains"
+        },
+        "trustedIps": {
+          "enabled": false,
+          "deploymentType": null,
+          "addresses": [],
+          "protectionMode": null
+        }
+      }
+    },
+    "deployment": {
+      "result": {
+        "deployment": {
+          "id": "dpl_FkfL25jbyrt6FdD5Di5wqoLH9iHm",
+          "name": "controle-financeiro",
+          "url": "controle-financeiro-yqclcl125-kaiquedev.vercel.app",
+          "type": "LAMBDAS",
+          "state": "READY",
+          "createdAt": 1792881638958,
+          "creator": {
+            "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+            "username": "kaiquegeraldo"
+          },
+          "project": {
+            "id": "prj_OdfwpJWp3wv8ZgfpcjVEBscrj03r",
+            "name": "controle-financeiro",
+            "framework": "nextjs"
+          },
+          "meta": {
+            "githubCommitRef": "main",
+            "githubCommitSha": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+            "githubCommitMessage": "docs(cf034): autorizar recorte local de CI pela DEC-CI-04",
+            "githubRepo": "controle-financeiro",
+            "githubOrg": "kaiqueGeraldo"
+          },
+          "alias": [
+            "controle-financeiro-three-black.vercel.app",
+            "controle-financeiro-kaiquedev.vercel.app",
+            "controle-financeiro-git-main-kaiquedev.vercel.app"
+          ],
+          "target": "production",
+          "regions": [
+            "iad1"
+          ],
+          "buildingAt": 1792881742011,
+          "ready": 1792881852140,
+          "readyState": "READY",
+          "source": "git",
+          "aliasError": null
+        }
+      }
+    },
+    "envs": [
+      {
+        "type": "encrypted",
+        "key": "BACKEND_API_URL",
+        "target": [
+          "production",
+          "preview",
+          "development"
+        ],
+        "configurationId": null,
+        "createdAt": 1773032495287,
+        "updatedAt": 1773038024104,
+        "createdBy": "doTrfVfxOisUVmxmKnJM7MwQ",
+        "updatedBy": "doTrfVfxOisUVmxmKnJM7MwQ",
+        "id": "PPAF0aG7iVO8ew5f",
+        "customEnvironmentIds": [],
+        "decrypted": false,
+        "lastEditedByDisplayName": "kaiquegeraldo",
+        "lastEditedByPrincipal": {
+          "type": "user",
+          "id": "doTrfVfxOisUVmxmKnJM7MwQ",
+          "username": "kaiquegeraldo"
+        },
+        "securityIssues": []
+      }
+    ],
+    "backend": {
+      "observedAt": "2026-10-26T23:15:38.393Z",
+      "key": "BACKEND_API_URL",
+      "target": [
+        "production",
+        "preview",
+        "development"
+      ],
+      "decrypted": true,
+      "validAbsoluteUrl": false
+    },
+    "deployments": {
+      "result": {
+        "deployments": {
+          "pagination": {
+            "count": 20,
+            "next": 1773038030425,
+            "prev": 1792881638958
+          },
+          "deployments": [
+            {
+              "id": "dpl_FkfL25jbyrt6FdD5Di5wqoLH9iHm",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-yqclcl125-kaiquedev.vercel.app",
+              "created": 1792881638958,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+                "githubCommitMessage": "docs(cf034): autorizar recorte local de CI pela DEC-CI-04",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/FkfL25jbyrt6FdD5Di5wqoLH9iHm",
+              "isRollbackCandidate": true
+            },
+            {
+              "id": "dpl_84SbeoTjMRB4bVFtQipmXCvT5HvY",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-esw2tz4tc-kaiquedev.vercel.app",
+              "created": 1792881637031,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf015-zoom-gate-cf034",
+                "githubCommitSha": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+                "githubCommitMessage": "docs(cf034): autorizar recorte local de CI pela DEC-CI-04",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/84SbeoTjMRB4bVFtQipmXCvT5HvY",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_BUEbZv76dQhFqbXV9zyPt8HujokR",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-gvjsela7k-kaiquedev.vercel.app",
+              "created": 1792845881394,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "e1a01b62e0766c92120c3cefc2bc4b4fc316ce58",
+                "githubCommitMessage": "docs(cf033): encerrar achado por revalidacao independente",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/BUEbZv76dQhFqbXV9zyPt8HujokR",
+              "isRollbackCandidate": true
+            },
+            {
+              "id": "dpl_2cq56QWiWrKjoTf451knZ2a9aG9f",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-nl9dxw3sb-kaiquedev.vercel.app",
+              "created": 1792845853535,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf033-revisao-integrada",
+                "githubCommitSha": "e1a01b62e0766c92120c3cefc2bc4b4fc316ce58",
+                "githubCommitMessage": "docs(cf033): encerrar achado por revalidacao independente",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/2cq56QWiWrKjoTf451knZ2a9aG9f",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_GFA7bw2pmQCnVyzTwmbNJsMMnJST",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-hitukvga7-kaiquedev.vercel.app",
+              "created": 1792798847216,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "bfb6c61d6b68e1da112eabf420634bb5b5e9127b",
+                "githubCommitMessage": "docs(cf032): aceitar revalidacao independente no escopo local",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/GFA7bw2pmQCnVyzTwmbNJsMMnJST",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_F8NPLcGSpnwWAk5wWBoy2kJtUEN6",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-r7z2s6x60-kaiquedev.vercel.app",
+              "created": 1792797905556,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf032-e2e-financeiro",
+                "githubCommitSha": "bfb6c61d6b68e1da112eabf420634bb5b5e9127b",
+                "githubCommitMessage": "docs(cf032): aceitar revalidacao independente no escopo local",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/F8NPLcGSpnwWAk5wWBoy2kJtUEN6",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_5YQdNax8za3PkG1Gjwwg3gmhon5D",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-r8atp1hi7-kaiquedev.vercel.app",
+              "created": 1792707114184,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "331d3344c24dc60f5e1940989b9a35c0d5da1aa6",
+                "githubCommitMessage": "docs(workspace): arquivar runtimes e padronizar execucoes externas",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/5YQdNax8za3PkG1Gjwwg3gmhon5D",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_2Ugv5QrLStBWx3RVbxSg67HeCJMd",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-m4mlwyfhj-kaiquedev.vercel.app",
+              "created": 1792580250756,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "6d819aaeeb59c39e6e3f5e96dc59c50d9a7c2b82",
+                "githubCommitMessage": "docs(cf031): authorize conditional local onboarding development",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/2Ugv5QrLStBWx3RVbxSg67HeCJMd",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_9w1YtBGPsUU1Q68UcRiJznJEkZfC",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-4a3e289p6-kaiquedev.vercel.app",
+              "created": 1792580223237,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf030-aplicacao-onboarding",
+                "githubCommitSha": "6d819aaeeb59c39e6e3f5e96dc59c50d9a7c2b82",
+                "githubCommitMessage": "docs(cf031): authorize conditional local onboarding development",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/9w1YtBGPsUU1Q68UcRiJznJEkZfC",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_5HwKYP44k82FKQhvBQeqUBdey7S1",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-qk34nkck3-kaiquedev.vercel.app",
+              "created": 1792461850023,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251",
+                "githubCommitMessage": "docs(cf029): accept RC029-01 and close local draft foundation",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/5HwKYP44k82FKQhvBQeqUBdey7S1",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_3q9Zfmuj2eszppvTNp9KGKwgS3r5",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-fmwh5ug36-kaiquedev.vercel.app",
+              "created": 1792461837779,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf029-onboarding",
+                "githubCommitSha": "5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251",
+                "githubCommitMessage": "docs(cf029): accept RC029-01 and close local draft foundation",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/3q9Zfmuj2eszppvTNp9KGKwgS3r5",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_CwtuBFv5VFxtc2Y3kzW9wHSwx4oe",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-l7gr8kpb3-kaiquedev.vercel.app",
+              "created": 1792330521418,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "dd554d188976144ccf00e00f9b20242196f70d90",
+                "githubCommitMessage": "docs(cf022): conclude task after independent remediation approval",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/CwtuBFv5VFxtc2Y3kzW9wHSwx4oe",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_H6PRwvQ5rSR2yCoPsC59EeMf3ENU",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-ppk7rigx3-kaiquedev.vercel.app",
+              "created": 1792330471651,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf022-investigacao",
+                "githubCommitSha": "dd554d188976144ccf00e00f9b20242196f70d90",
+                "githubCommitMessage": "docs(cf022): conclude task after independent remediation approval",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/H6PRwvQ5rSR2yCoPsC59EeMf3ENU",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_8ajbKrUKFjZwNLfCCG8DzgJJvJCY",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-kkaqb993s-kaiquedev.vercel.app",
+              "created": 1792162141895,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "e1c63120129f202440992f29276fa4372111513a",
+                "githubCommitMessage": "docs(cf019): close RVA03 with historical limits and accept CF013 CF019",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/8ajbKrUKFjZwNLfCCG8DzgJJvJCY",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_8rqTEQ9LVvg1yU5Tw4heKrkduFC7",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-iepwlgl6x-kaiquedev.vercel.app",
+              "created": 1792162126251,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf019-rva03-investigacao",
+                "githubCommitSha": "e1c63120129f202440992f29276fa4372111513a",
+                "githubCommitMessage": "docs(cf019): close RVA03 with historical limits and accept CF013 CF019",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/8rqTEQ9LVvg1yU5Tw4heKrkduFC7",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_H2ZnJZtMcytUmVibfvrK5Gh9A91d",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-52vzfotc1-kaiquedev.vercel.app",
+              "created": 1792099541869,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "8a83c357880ad20d4adff119a60100dae20cb868",
+                "githubCommitMessage": "docs(cf017): encerrar residuo P2 apos revalidacao documental",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/H2ZnJZtMcytUmVibfvrK5Gh9A91d",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_FhdwTKnd9PaWXSnUShQtFq4ZmkqR",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-5ij8e0pka-kaiquedev.vercel.app",
+              "created": 1792099521296,
+              "state": "READY",
+              "target": null,
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "codex/cf017-preflight-restore",
+                "githubCommitSha": "8a83c357880ad20d4adff119a60100dae20cb868",
+                "githubCommitMessage": "docs(cf017): encerrar residuo P2 apos revalidacao documental",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/FhdwTKnd9PaWXSnUShQtFq4ZmkqR",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_HhbEoBEKbp4YPNpcwem6Kztn4txQ",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-i7ae3xs6l-kaiquedev.vercel.app",
+              "created": 1791998751831,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "8096b22f0baebf1665cf833065fd3972817d5000",
+                "githubCommitMessage": "docs: close CF014 visual lifecycle P2 after independent revalidation",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/HhbEoBEKbp4YPNpcwem6Kztn4txQ",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_FJ87PM1fpgSHxU9h8B8Y99wkte3M",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-2vw0inbqv-kaiquedev.vercel.app",
+              "created": 1790649042707,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "46d9fad98e9744b7bf46461d5c0ba7654934a6a9",
+                "githubCommitMessage": "CF-021 record reporting validation and review status",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/FJ87PM1fpgSHxU9h8B8Y99wkte3M",
+              "isRollbackCandidate": false
+            },
+            {
+              "id": "dpl_FHTyBT5Te4LzhQGNTmogBANoAY9g",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-i0pfd64ze-kaiquedev.vercel.app",
+              "created": 1773038030425,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "169d7be4c7d3db97d4c318ff3f99d9de3a808067",
+                "githubCommitMessage": "add Suspense authPage",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/FHTyBT5Te4LzhQGNTmogBANoAY9g",
+              "isRollbackCandidate": false
+            }
+          ]
+        }
+      }
+    },
+    "older": {
+      "result": {
+        "deployments": {
+          "pagination": {
+            "count": 1,
+            "prev": 1773037473099
+          },
+          "deployments": [
+            {
+              "id": "dpl_GYneRA6cv2rgVdoFH6yaGkjcpPXo",
+              "name": "controle-financeiro",
+              "url": "controle-financeiro-7srhwxqw6-kaiquedev.vercel.app",
+              "created": 1773037473099,
+              "state": "READY",
+              "target": "production",
+              "creator": {
+                "uid": "doTrfVfxOisUVmxmKnJM7MwQ",
+                "username": "kaiquegeraldo"
+              },
+              "meta": {
+                "githubCommitRef": "main",
+                "githubCommitSha": "169d7be4c7d3db97d4c318ff3f99d9de3a808067",
+                "githubCommitMessage": "add Suspense authPage",
+                "githubRepo": "controle-financeiro",
+                "githubOrg": "kaiqueGeraldo"
+              },
+              "inspectorUrl": "https://vercel.com/kaiquedev/controle-financeiro/GYneRA6cv2rgVdoFH6yaGkjcpPXo",
+              "isRollbackCandidate": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "github": {
+    "branches": [
+      {
+        "branch": "main"
+      }
+    ],
+    "cursor": "MQ"
+  },
+  "limits": [
+    "no application endpoint or real database contacted",
+    "no configuration mutation, CI dispatch, deploy or activation",
+    "live service config means provisioned configuration, not running process"
+  ]
+}
+

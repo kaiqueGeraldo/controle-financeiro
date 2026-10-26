@@ -1,0 +1,28 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-26 20:22:06.855 -ERROR 37548 --- [           main] o.s.boot.SpringApplication               : Application run failed
+-
+java.lang.IllegalStateException: Unsafe adoption configuration: spring.sql.init.mode
+	at com.controlefinanceiro.api.infra.operations.AdoptionSafetyInitializer.unsafe(AdoptionSafetyInitializer.java:46) ~[!/:0.0.1]
+	at com.controlefinanceiro.api.infra.operations.AdoptionSafetyInitializer.require(AdoptionSafetyInitializer.java:42) ~[!/:0.0.1]
+	at com.controlefinanceiro.api.infra.operations.AdoptionSafetyInitializer.initialize(AdoptionSafetyInitializer.java:21) ~[!/:0.0.1]
+	at org.springframework.boot.SpringApplication.applyInitializers(SpringApplication.java:623) ~[spring-boot-4.0.2.jar!/:4.0.2]
+	at org.springframework.boot.SpringApplication.prepareContext(SpringApplication.java:386) ~[spring-boot-4.0.2.jar!/:4.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:320) ~[spring-boot-4.0.2.jar!/:4.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.2.jar!/:4.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.2.jar!/:4.0.2]
+	at com.controlefinanceiro.api.ControleFinanceiroApiApplication.main(ControleFinanceiroApiApplication.java:24) ~[!/:0.0.1]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106) ~[api.jar:0.0.1]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[api.jar:0.0.1]
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[api.jar:0.0.1]
+

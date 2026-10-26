@@ -1,0 +1,386 @@
+56012:
+2026-10-26 20:25:08
+Full thread dump OpenJDK 64-Bit Server VM (21.0.12.1+1-LTS mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x0000019713f48ec0, length=24, elements={
+0x00000196aa2aee00, 0x0000019709097140, 0x0000019709099cb0, 0x000001970909d2d0,
+0x000001970909e4d0, 0x000001970909f6d0, 0x00000197090a2c40, 0x00000197090cf690,
+0x00000197090d0ce0, 0x00000196c7c6fa90, 0x0000019709198180, 0x00000197092cb3c0,
+0x00000197092ccc10, 0x0000019709449150, 0x000001970eb31340, 0x000001970eb2ff90,
+0x0000019712c77d00, 0x0000019712c7acb0, 0x0000019712c77630, 0x0000019712c79170,
+0x0000019710854a10, 0x0000019710854380, 0x00000197108550a0, 0x0000019712c79840
+}
+
+"main" #1 [47840] prio=5 os_prio=0 cpu=22968.75ms elapsed=26.64s tid=0x00000196aa2aee00 nid=47840 runnable  [0x00000036069f9000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ClassLoader.defineClass0(java.base@21.0.12.1/Native Method)
+	at java.lang.System$2.defineClass(java.base@21.0.12.1/System.java:2395)
+	at java.lang.invoke.MethodHandles$Lookup$ClassDefiner.defineClass(java.base@21.0.12.1/MethodHandles.java:2505)
+	at java.lang.invoke.InnerClassLambdaMetafactory.generateInnerClass(java.base@21.0.12.1/InnerClassLambdaMetafactory.java:361)
+	at java.lang.invoke.InnerClassLambdaMetafactory.spinInnerClass(java.base@21.0.12.1/InnerClassLambdaMetafactory.java:286)
+	at java.lang.invoke.InnerClassLambdaMetafactory.buildCallSite(java.base@21.0.12.1/InnerClassLambdaMetafactory.java:221)
+	at java.lang.invoke.LambdaMetafactory.metafactory(java.base@21.0.12.1/LambdaMetafactory.java:341)
+	at java.lang.invoke.LambdaForm$DMH/0x00000196c90c4400.invokeStatic(java.base@21.0.12.1/LambdaForm$DMH)
+	at java.lang.invoke.Invokers$Holder.invokeExact_MT(java.base@21.0.12.1/Invokers$Holder)
+	at java.lang.invoke.BootstrapMethodInvoker.invoke(java.base@21.0.12.1/BootstrapMethodInvoker.java:134)
+	at java.lang.invoke.CallSite.makeSite(java.base@21.0.12.1/CallSite.java:310)
+	at java.lang.invoke.MethodHandleNatives.linkCallSiteImpl(java.base@21.0.12.1/MethodHandleNatives.java:249)
+	at java.lang.invoke.MethodHandleNatives.linkCallSite(java.base@21.0.12.1/MethodHandleNatives.java:239)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitGenericFunctionArguments(HqlQueryRenderer.java:1146)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitGenericFunctionArguments(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlParser$GenericFunctionArgumentsContext.accept(HqlParser.java:13942)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitGenericFunction(HqlQueryRenderer.java:1695)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitGenericFunction(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlParser$GenericFunctionContext.accept(HqlParser.java:13530)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitGenericFunctionInvocation(HqlBaseVisitor.java:1139)
+	at org.springframework.data.jpa.repository.query.HqlParser$GenericFunctionInvocationContext.accept(HqlParser.java:10192)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitFunctionExpression(HqlBaseVisitor.java:915)
+	at org.springframework.data.jpa.repository.query.HqlParser$FunctionExpressionContext.accept(HqlParser.java:8056)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitPlainPrimaryExpression(HqlBaseVisitor.java:775)
+	at org.springframework.data.jpa.repository.query.HqlParser$PlainPrimaryExpressionContext.accept(HqlParser.java:7511)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitExpressionOrPredicate(HqlBaseVisitor.java:2021)
+	at org.springframework.data.jpa.repository.query.HqlParser$ExpressionOrPredicateContext.accept(HqlParser.java:19682)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitSelectExpression(HqlBaseVisitor.java:390)
+	at org.springframework.data.jpa.repository.query.HqlParser$SelectExpressionContext.accept(HqlParser.java:3909)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:2112)
+	at org.springframework.data.jpa.repository.query.HqlQueryRenderer.visitChildren(HqlQueryRenderer.java:1)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitSelection(HqlBaseVisitor.java:383)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector$$Lambda/0x00000196c9ae6a20.apply(Unknown Source)
+	at org.springframework.data.jpa.repository.query.QueryInformationHolder.captureProjection(QueryInformationHolder.java:98)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector.visitSelectClause(HqlQueryIntrospector.java:79)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector.visitSelectClause(HqlQueryIntrospector.java:1)
+	at org.springframework.data.jpa.repository.query.HqlParser$SelectClauseContext.accept(HqlParser.java:3720)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitSelectQuery(HqlBaseVisitor.java:124)
+	at org.springframework.data.jpa.repository.query.HqlParser$SelectQueryContext.accept(HqlParser.java:1327)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitOrderedQuery(HqlBaseVisitor.java:117)
+	at org.springframework.data.jpa.repository.query.HqlParser$OrderedQueryContext.accept(HqlParser.java:1199)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitQueryExpression(HqlBaseVisitor.java:61)
+	at org.springframework.data.jpa.repository.query.HqlParser$QueryExpressionContext.accept(HqlParser.java:564)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitSelectStatement(HqlBaseVisitor.java:54)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector.visitSelectStatement(HqlQueryIntrospector.java:45)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector.visitSelectStatement(HqlQueryIntrospector.java:1)
+	at org.springframework.data.jpa.repository.query.HqlParser$SelectStatementContext.accept(HqlParser.java:507)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitQl_statement(HqlBaseVisitor.java:47)
+	at org.springframework.data.jpa.repository.query.HqlParser$Ql_statementContext.accept(HqlParser.java:430)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visitChildren(AbstractParseTreeVisitor.java:46)
+	at org.springframework.data.jpa.repository.query.HqlBaseVisitor.visitStart(HqlBaseVisitor.java:40)
+	at org.springframework.data.jpa.repository.query.HqlParser$StartContext.accept(HqlParser.java:374)
+	at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)
+	at org.springframework.data.jpa.repository.query.HqlQueryIntrospector.visit(HqlQueryIntrospector.java:1)
+	at org.springframework.data.jpa.repository.query.JpaQueryEnhancer.<init>(JpaQueryEnhancer.java:65)
+	at org.springframework.data.jpa.repository.query.JpaQueryEnhancer$HqlQueryParser.<init>(JpaQueryEnhancer.java:287)
+	at org.springframework.data.jpa.repository.query.JpaQueryEnhancer$HqlQueryParser.parseQuery(JpaQueryEnhancer.java:298)
+	at org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql(JpaQueryEnhancer.java:159)
+	at org.springframework.data.jpa.repository.query.QueryEnhancerFactories$BuiltinQueryEnhancerFactories$3.create(QueryEnhancerFactories.java:91)
+	at org.springframework.data.jpa.repository.query.DefaultEntityQuery.<init>(DefaultEntityQuery.java:50)
+	at org.springframework.data.jpa.repository.query.EntityQuery.create(EntityQuery.java:47)
+	at org.springframework.data.jpa.repository.query.TemplatedQuery.create(TemplatedQuery.java:91)
+	at org.springframework.data.jpa.repository.query.AbstractStringBasedJpaQuery.<init>(AbstractStringBasedJpaQuery.java:101)
+	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.<init>(SimpleJpaQuery.java:50)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$DeclaredQueryLookupStrategy.createStringQuery(JpaQueryLookupStrategy.java:228)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$DeclaredQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:160)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:285)
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:93)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:114)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:102)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:90)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:413)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$1(RepositoryFactoryBeanSupport.java:361)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport$$Lambda/0x00000196c99f9d18.get(Unknown Source)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:136)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:370)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda/0x00000196c92258b8.getObject(Unknown Source)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:763)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda/0x00000196c92258b8.getObject(Unknown Source)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:763)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:747)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:492)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1446)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda/0x00000196c92258b8.getObject(Unknown Source)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:993)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:620)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.controlefinanceiro.api.ControleFinanceiroApiApplication.main(ControleFinanceiroApiApplication.java:24)
+	at java.lang.invoke.LambdaForm$DMH/0x00000196c9020400.invokeStatic(java.base@21.0.12.1/LambdaForm$DMH)
+	at java.lang.invoke.LambdaForm$MH/0x00000196c9021800.invoke(java.base@21.0.12.1/LambdaForm$MH)
+	at java.lang.invoke.Invokers$Holder.invokeExact_MT(java.base@21.0.12.1/Invokers$Holder)
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl(java.base@21.0.12.1/DirectMethodHandleAccessor.java:154)
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(java.base@21.0.12.1/DirectMethodHandleAccessor.java:103)
+	at java.lang.reflect.Method.invoke(java.base@21.0.12.1/Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+
+"Reference Handler" #9 [56980] daemon prio=10 os_prio=2 cpu=46.88ms elapsed=26.59s tid=0x0000019709097140 nid=56980 waiting on condition  [0x00000036071ff000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@21.0.12.1/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@21.0.12.1/Reference.java:246)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@21.0.12.1/Reference.java:208)
+
+"Finalizer" #10 [38168] daemon prio=8 os_prio=1 cpu=0.00ms elapsed=26.59s tid=0x0000019709099cb0 nid=38168 in Object.wait()  [0x00000036072ff000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@21.0.12.1/Native Method)
+	- waiting on <0x00000000e8000888> (a java.lang.ref.NativeReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@21.0.12.1/Object.java:366)
+	at java.lang.Object.wait(java.base@21.0.12.1/Object.java:339)
+	at java.lang.ref.NativeReferenceQueue.await(java.base@21.0.12.1/NativeReferenceQueue.java:48)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:158)
+	at java.lang.ref.NativeReferenceQueue.remove(java.base@21.0.12.1/NativeReferenceQueue.java:89)
+	- locked <0x00000000e8000888> (a java.lang.ref.NativeReferenceQueue$Lock)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@21.0.12.1/Finalizer.java:173)
+
+"Signal Dispatcher" #11 [40844] daemon prio=9 os_prio=2 cpu=0.00ms elapsed=26.59s tid=0x000001970909d2d0 nid=40844 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" #12 [51184] daemon prio=5 os_prio=2 cpu=0.00ms elapsed=26.59s tid=0x000001970909e4d0 nid=51184 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #13 [6700] daemon prio=9 os_prio=0 cpu=15.62ms elapsed=26.59s tid=0x000001970909f6d0 nid=6700 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #14 [40416] daemon prio=9 os_prio=0 cpu=0.00ms elapsed=26.59s tid=0x00000197090a2c40 nid=40416 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #15 [54508] daemon prio=9 os_prio=2 cpu=14109.38ms elapsed=26.59s tid=0x00000197090cf690 nid=54508 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread0" #23 [31400] daemon prio=9 os_prio=2 cpu=2437.50ms elapsed=26.59s tid=0x00000197090d0ce0 nid=31400 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread1" #24 [47220] daemon prio=9 os_prio=2 cpu=2640.62ms elapsed=26.58s tid=0x00000196c7c6fa90 nid=47220 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread2" #25 [49816] daemon prio=9 os_prio=2 cpu=2359.38ms elapsed=26.58s tid=0x0000019709198180 nid=49816 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Notification Thread" #27 [50924] daemon prio=9 os_prio=0 cpu=0.00ms elapsed=26.57s tid=0x00000197092cb3c0 nid=50924 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #28 [59212] daemon prio=8 os_prio=1 cpu=0.00ms elapsed=26.57s tid=0x00000197092ccc10 nid=59212 waiting on condition  [0x0000003607cff000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e8001340> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1886)
+	at java.lang.ref.ReferenceQueue.await(java.base@21.0.12.1/ReferenceQueue.java:71)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:143)
+	at java.lang.ref.ReferenceQueue.remove(java.base@21.0.12.1/ReferenceQueue.java:218)
+	at jdk.internal.ref.CleanerImpl.run(java.base@21.0.12.1/CleanerImpl.java:140)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+	at jdk.internal.misc.InnocuousThread.run(java.base@21.0.12.1/InnocuousThread.java:186)
+
+"Cleaner-0" #29 [41180] daemon prio=8 os_prio=1 cpu=31.25ms elapsed=26.40s tid=0x0000019709449150 nid=41180 waiting on condition  [0x0000003607eff000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e8001c50> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1886)
+	at java.lang.ref.ReferenceQueue.await(java.base@21.0.12.1/ReferenceQueue.java:71)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:143)
+	at java.lang.ref.ReferenceQueue.remove(java.base@21.0.12.1/ReferenceQueue.java:218)
+	at jdk.internal.ref.CleanerImpl.run(java.base@21.0.12.1/CleanerImpl.java:140)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+	at jdk.internal.misc.InnocuousThread.run(java.base@21.0.12.1/InnocuousThread.java:186)
+
+"Cleaner-1" #48 [31272] daemon prio=8 os_prio=1 cpu=15.62ms elapsed=10.25s tid=0x000001970eb31340 nid=31272 waiting on condition  [0x0000003608aff000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e959fb48> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1886)
+	at java.lang.ref.ReferenceQueue.await(java.base@21.0.12.1/ReferenceQueue.java:71)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:143)
+	at java.lang.ref.ReferenceQueue.remove(java.base@21.0.12.1/ReferenceQueue.java:218)
+	at jdk.internal.ref.CleanerImpl.run(java.base@21.0.12.1/CleanerImpl.java:140)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+	at jdk.internal.misc.InnocuousThread.run(java.base@21.0.12.1/InnocuousThread.java:186)
+
+"HikariPool-1:housekeeper" #49 [23052] daemon prio=5 os_prio=0 cpu=0.00ms elapsed=10.19s tid=0x000001970eb2ff90 nid=23052 waiting on condition  [0x00000036091fe000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e959fc30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1797)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:1182)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:899)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@21.0.12.1/ThreadPoolExecutor.java:1070)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@21.0.12.1/ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@21.0.12.1/ThreadPoolExecutor.java:642)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+"C2 CompilerThread1" #16 [39912] daemon prio=9 os_prio=2 cpu=1312.50ms elapsed=3.14s tid=0x0000019712c77d00 nid=39912 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C2 CompilerThread2" #17 [52276] daemon prio=9 os_prio=2 cpu=1359.38ms elapsed=3.14s tid=0x0000019712c7acb0 nid=52276 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C2 CompilerThread3" #18 [62148] daemon prio=9 os_prio=2 cpu=1640.62ms elapsed=3.13s tid=0x0000019712c77630 nid=62148 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   Compiling: 9818       4       org.antlr.v4.runtime.atn.ATNConfigSet::add (142 bytes)
+
+"C2 CompilerThread4" #19 [52528] daemon prio=9 os_prio=2 cpu=1625.00ms elapsed=3.02s tid=0x0000019712c79170 nid=52528 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Catalina-utility-1" #51 [46444] prio=1 os_prio=-2 cpu=0.00ms elapsed=2.92s tid=0x0000019710854a10 nid=46444 waiting on condition  [0x00000036094fe000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e8f05a90> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@21.0.12.1/LockSupport.java:371)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:519)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@21.0.12.1/ForkJoinPool.java:3780)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@21.0.12.1/ForkJoinPool.java:3725)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1746)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:1177)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:899)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@21.0.12.1/ThreadPoolExecutor.java:1070)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@21.0.12.1/ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@21.0.12.1/ThreadPoolExecutor.java:642)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+"Catalina-utility-2" #52 [49316] prio=1 os_prio=-2 cpu=0.00ms elapsed=2.92s tid=0x0000019710854380 nid=49316 waiting on condition  [0x00000036095ff000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x00000000e8f05a90> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1797)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:1182)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(java.base@21.0.12.1/ScheduledThreadPoolExecutor.java:899)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@21.0.12.1/ThreadPoolExecutor.java:1070)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@21.0.12.1/ThreadPoolExecutor.java:1130)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@21.0.12.1/ThreadPoolExecutor.java:642)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+"container-0" #53 [32940] prio=5 os_prio=0 cpu=0.00ms elapsed=2.91s tid=0x00000197108550a0 nid=32940 waiting on condition  [0x00000036096ff000]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep0(java.base@21.0.12.1/Native Method)
+	at java.lang.Thread.sleep(java.base@21.0.12.1/Thread.java:509)
+	at org.apache.catalina.core.StandardServer.await(StandardServer.java:517)
+	at org.springframework.boot.tomcat.TomcatWebServer$1.run(TomcatWebServer.java:216)
+
+"C2 CompilerThread5" #20 [59516] daemon prio=9 os_prio=2 cpu=812.50ms elapsed=1.66s tid=0x0000019712c79840 nid=59516 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   Compiling: 9804       4       org.antlr.v4.runtime.atn.ParserATNSimulator::closure_ (343 bytes)
+
+"G1 Conc#2" os_prio=2 cpu=125.00ms elapsed=19.83s tid=0x000001970f6913b0 nid=35324 runnable  
+
+"G1 Conc#1" os_prio=2 cpu=125.00ms elapsed=19.83s tid=0x000001970f690140 nid=23616 runnable  
+
+"GC Thread#12" os_prio=2 cpu=46.88ms elapsed=19.83s tid=0x000001970f692270 nid=32720 runnable  
+
+"GC Thread#10" os_prio=2 cpu=93.75ms elapsed=19.83s tid=0x000001970e0da3c0 nid=55908 runnable  
+
+"GC Thread#11" os_prio=2 cpu=46.88ms elapsed=19.83s tid=0x000001970e0dab20 nid=30928 runnable  
+
+"GC Thread#9" os_prio=2 cpu=125.00ms elapsed=19.83s tid=0x000001970e0daed0 nid=67936 runnable  
+
+"GC Thread#7" os_prio=2 cpu=171.88ms elapsed=25.95s tid=0x000001970e0db280 nid=36004 runnable  
+
+"GC Thread#8" os_prio=2 cpu=109.38ms elapsed=25.95s tid=0x000001970e0db630 nid=30400 runnable  
+
+"GC Thread#6" os_prio=2 cpu=93.75ms elapsed=25.95s tid=0x00000197099360b0 nid=66068 runnable  
+
+"GC Thread#5" os_prio=2 cpu=187.50ms elapsed=25.95s tid=0x0000019709935d00 nid=51244 runnable  
+
+"GC Thread#4" os_prio=2 cpu=78.12ms elapsed=25.95s tid=0x00000197099485c0 nid=35564 runnable  
+
+"GC Thread#3" os_prio=2 cpu=171.88ms elapsed=25.95s tid=0x0000019709948210 nid=49808 runnable  
+
+"GC Thread#2" os_prio=2 cpu=93.75ms elapsed=25.95s tid=0x0000019709947e60 nid=58268 runnable  
+
+"GC Thread#1" os_prio=2 cpu=187.50ms elapsed=25.95s tid=0x000001970974fad0 nid=62952 runnable  
+
+"VM Thread" os_prio=2 cpu=46.88ms elapsed=26.61s tid=0x00000196c7c7d920 nid=18632 runnable  
+
+"VM Periodic Task Thread" os_prio=2 cpu=93.75ms elapsed=26.61s tid=0x00000196c7c6eb40 nid=6116 waiting on condition  
+
+"G1 Conc#0" os_prio=2 cpu=125.00ms elapsed=26.64s tid=0x00000196ac64d060 nid=21372 runnable  
+
+"G1 Refine#0" os_prio=2 cpu=15.62ms elapsed=26.63s tid=0x00000196c7bbcf00 nid=5788 runnable  
+
+"G1 Service" os_prio=2 cpu=125.00ms elapsed=26.63s tid=0x00000196c7bbe740 nid=55860 runnable  
+
+"G1 Main Marker" os_prio=2 cpu=0.00ms elapsed=26.64s tid=0x00000196ac64c550 nid=63788 runnable  
+
+"GC Thread#0" os_prio=2 cpu=78.12ms elapsed=26.64s tid=0x00000196ac648560 nid=60860 runnable  
+
+JNI global refs: 31, weak refs: 0
+

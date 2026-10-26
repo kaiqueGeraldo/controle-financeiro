@@ -1,0 +1,49 @@
+[
+  {
+    "name": "preflight-hides-missing-constraint",
+    "status": 1,
+    "log": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-20261026-01\\counterproofs\\preflight-hides-missing-constraint.log",
+    "image": null,
+    "commands": [
+      "mvnw.cmd",
+      "--batch-mode",
+      "-Duser.timezone=UTC",
+      "-Dcf017.postgres.major=17",
+      "-Dspring.test.context.cache.maxSize=4",
+      "-Dtest=Cf017OriginalFindingsTest#missingOriginalForeignKeyStopsBeforeBaseline",
+      "-Dcf034.reportsDirectory=C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-20261026-01\\counterproofs\\preflight-hides-missing-constraint-reports",
+      "test"
+    ],
+    "restored": [
+      {
+        "file": "src/main/java/com/controlefinanceiro/api/infra/migration/LegacyPreflight.java",
+        "before": "74e9ba07a34a805bec08b635634b1d6936c1316dcb3f8eb7e8ad90b0e3eaad2a",
+        "after": "74e9ba07a34a805bec08b635634b1d6936c1316dcb3f8eb7e8ad90b0e3eaad2a"
+      }
+    ]
+  },
+  {
+    "name": "writer-passes-maintenance",
+    "status": 1,
+    "log": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-20261026-01\\counterproofs\\writer-passes-maintenance.log",
+    "image": "sha256:d65e63a540a06b99932745e01bf254f36631995fdaaaec38f5c521fa1a9b5903",
+    "commands": [
+      "mvnw.cmd",
+      "--batch-mode",
+      "-Duser.timezone=UTC",
+      "-Dcf017.postgres.major=17",
+      "-Dspring.test.context.cache.maxSize=4",
+      "-Dtest=AdoptionRuntimeTest#maintenanceBlocksAllFunctionalIngressWithoutDatabaseEffects",
+      "-Dcf034.reportsDirectory=C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-20261026-01\\counterproofs\\writer-passes-maintenance-reports",
+      "-Dpreparation.image=sha256:d65e63a540a06b99932745e01bf254f36631995fdaaaec38f5c521fa1a9b5903",
+      "test"
+    ],
+    "restored": [
+      {
+        "file": "src/main/java/com/controlefinanceiro/api/infra/operations/MaintenanceFilter.java",
+        "before": "9379fcc6b892d34fe1fe230f1b80b62ddb46cb6f872f60957f0c88ec9d0a9e8f",
+        "after": "9379fcc6b892d34fe1fe230f1b80b62ddb46cb6f872f60957f0c88ec9d0a9e8f"
+      }
+    ]
+  }
+]
