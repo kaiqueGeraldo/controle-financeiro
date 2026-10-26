@@ -1,0 +1,79 @@
+{
+  "contracts": {
+    "status": "passed",
+    "scope": "synthetic expected-failure experiments; not product tests",
+    "subprocess": {
+      "exit": 1,
+      "steps": [
+        {
+          "name": "install",
+          "exit": 0
+        },
+        {
+          "name": "lint",
+          "exit": 23
+        }
+      ],
+      "blocked": [
+        "backend",
+        "e2e",
+        "package"
+      ]
+    },
+    "missingReport": {
+      "required": "mandatory.ProbeTest",
+      "detected": true,
+      "mechanism": "real requireReportedClasses validator; not a Maven execution"
+    },
+    "tamperedPackage": {
+      "exit": 1,
+      "error": "Package changed after the verified build",
+      "before": "ae9b02afea03817953b354575523aebb1c8a890cfc3fea9ab547a86d4bff6a09",
+      "after": "ae9b02afea03817953b354575523aebb1c8a890cfc3fea9ab547a86d4bff6a09",
+      "restored": true,
+      "approvedArtifact": false
+    },
+    "sanitization": {
+      "formats": [
+        "JSON password",
+        "opaque Bearer",
+        "cookie",
+        "prefixed escaped JSON"
+      ],
+      "downloadCheck": "pending platform download",
+      "ambiguous": {
+        "exit": 1,
+        "publicDirectory": false,
+        "rawFallback": false,
+        "consoleDisclosure": false
+      }
+    },
+    "sourceCommit": "ddd5a4143827146e8e3abdb99aba4c101a9fddcd"
+  },
+  "cleanup": {
+    "status": "passed",
+    "scope": "cleanup observation before runner disposal; platform run conclusion inspected separately",
+    "runId": "c55d6a9d-919a-49b8-a91c-cbb42a789999",
+    "runnerStatus": "cancelled",
+    "steps": [
+      "install",
+      "lint"
+    ],
+    "childAlive": false,
+    "descendantAlive": false,
+    "containerRemoved": true,
+    "approvedArtifact": false,
+    "errors": [],
+    "vmDisposal": "not observed; no claim about processes after runner disposal"
+  },
+  "ready": {
+    "runId": "c55d6a9d-919a-49b8-a91c-cbb42a789999",
+    "postgres": {
+      "container": "389906b650e05827c0f1ea4b7e7020d06ed9581f20c9f94e0d7d0fb83bf81cee",
+      "network": "none",
+      "readiness": "pg_isready success",
+      "data": "synthetic; tmpfs; no published ports"
+    }
+  },
+  "scope": "Supported workflow cancellation plus explicit private cancel request in always cleanup; bounded synthetic processes/container; no unrelated Linux control or post-VM observation"
+}
