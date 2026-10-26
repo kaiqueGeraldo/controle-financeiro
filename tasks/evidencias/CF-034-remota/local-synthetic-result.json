@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "scope": "synthetic expected-failure experiments; not product tests",
+  "subprocess": {
+    "exit": 1,
+    "steps": [
+      {
+        "name": "install",
+        "exit": 0
+      },
+      {
+        "name": "lint",
+        "exit": 23
+      }
+    ],
+    "blocked": [
+      "backend",
+      "e2e",
+      "package"
+    ]
+  },
+  "missingReport": {
+    "required": "mandatory.ProbeTest",
+    "detected": true,
+    "mechanism": "real requireReportedClasses validator; not a Maven execution"
+  },
+  "tamperedPackage": {
+    "exit": 1,
+    "error": "Package changed after the verified build",
+    "before": "ae9b02afea03817953b354575523aebb1c8a890cfc3fea9ab547a86d4bff6a09",
+    "after": "ae9b02afea03817953b354575523aebb1c8a890cfc3fea9ab547a86d4bff6a09",
+    "restored": true,
+    "approvedArtifact": false
+  },
+  "sanitization": {
+    "formats": [
+      "JSON password",
+      "opaque Bearer",
+      "cookie",
+      "prefixed escaped JSON"
+    ],
+    "downloadCheck": "pending platform download",
+    "ambiguous": {
+      "exit": 1,
+      "publicDirectory": false,
+      "rawFallback": false,
+      "consoleDisclosure": false
+    }
+  },
+  "sourceCommit": "4d20fb00f929f70cd2fe30b7a3d9aab004526547"
+}

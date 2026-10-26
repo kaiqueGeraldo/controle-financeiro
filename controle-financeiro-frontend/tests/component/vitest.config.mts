@@ -9,7 +9,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    include: ["tests/component/**/*.test.tsx"],
+    include: ["tests/component/**/*.test.tsx", "src/**/*.test.tsx"],
     reporters: ["verbose"],
     setupFiles: [fileURLToPath(new URL("./setup.ts", import.meta.url))],
     restoreMocks: true,

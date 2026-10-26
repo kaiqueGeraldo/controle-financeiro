@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-25T13:48:19.552Z",
+  "branch": "codex/cf034-ci-local",
+  "codeHead": "fa144e1e7dbfe0aaabf3710479b042e2a0b8c92b",
+  "base": "8d58207dff108066e2385eabde31330a3f79e38f",
+  "localCommits": [
+    "fa144e1e7dbfe0aaabf3710479b042e2a0b8c92b fix(cf034): supervisionar arvore Windows e cancelar por execucao",
+    "2b28e1842fb826ec45f42fa3bbb9296c79b48116 fix(cf034): sanitizar evidencias e bloquear coleta insegura"
+  ],
+  "originalTreeChanges": "M README.md\n M tasks/05-release/CF-034-gates-ci.md\n M tasks/README.md\n?? tasks/evidencias/saneamento-CF-034/CANCELAMENTO.md\n?? tasks/evidencias/saneamento-CF-034/PROVAS.md\n?? tasks/evidencias/saneamento-CF-034/README.md\n?? tasks/evidencias/saneamento-CF-034/SANITIZACAO.md\n?? tasks/evidencias/saneamento-CF-034/baseline-inputs.json\n?? tasks/evidencias/saneamento-CF-034/baseline.mjs\n?? tasks/evidencias/saneamento-CF-034/before-cancellation.json\n?? tasks/evidencias/saneamento-CF-034/before-probes.json\n?? tasks/evidencias/saneamento-CF-034/execution-trace.json\n?? tasks/evidencias/saneamento-CF-034/finalize.mjs\n?? tasks/evidencias/saneamento-CF-034/logs/\n?? tasks/evidencias/saneamento-CF-034/preservation-final.json\n?? tasks/evidencias/saneamento-CF-034/proofs-s03.json\n?? tasks/evidencias/saneamento-CF-034/proofs-s04.json\n?? tasks/evidencias/saneamento-CF-034/proofs.json\n?? tasks/evidencias/saneamento-CF-034/supplement.json",
+  "versions": {
+    "node": "v24.18.0",
+    "npm": "11.16.0",
+    "windowsPowerShellAndDotNet": "5.1.26100.9711\r\n4.0.30319.42000"
+  },
+  "code": [
+    {
+      "file": ".github/scripts/cancel.mjs",
+      "rawSha256": "64258656446c537a789c8f78f79ba6b790ef92e25795ebfec88f7da43afc184a",
+      "versionedSha256": "64258656446c537a789c8f78f79ba6b790ef92e25795ebfec88f7da43afc184a",
+      "gitObject": "8fd13f4cd919a1a3cc8d15af50d2ec8ee4cc2f7c",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/cancellation.mjs",
+      "rawSha256": "3c3cc8397cb8fb304d6f08b1a36a6436acfc9a3d5f0bf3eb32d8a4b52bd10642",
+      "versionedSha256": "3c3cc8397cb8fb304d6f08b1a36a6436acfc9a3d5f0bf3eb32d8a4b52bd10642",
+      "gitObject": "a4fea3449f9e484e25bc42d437ee695b26ffec21",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/ci.mjs",
+      "rawSha256": "2d1794442a83f2f4a282bdb3142ec12d51133c4f99cecf254f644b5430dbc2d8",
+      "versionedSha256": "2d1794442a83f2f4a282bdb3142ec12d51133c4f99cecf254f644b5430dbc2d8",
+      "gitObject": "31dd66df4dcfd26b6eb653169e37170db5b5f8e5",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/ci.test.mjs",
+      "rawSha256": "f569d6c4ff9c3dfbc4bb4a45859991d7d495fcfd41b3f65fcc787c30c5768093",
+      "versionedSha256": "f569d6c4ff9c3dfbc4bb4a45859991d7d495fcfd41b3f65fcc787c30c5768093",
+      "gitObject": "d15428eccd9aa91c2a78dba823b9d8f2c66a0895",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/owned-process.mjs",
+      "rawSha256": "bc699a592fe1c6721a08af1a43f6d89b9a2d9c9d25287d1820cb34d7ef870bb1",
+      "versionedSha256": "2e4af24d5e44b62d7ceda11e07a849fb38b58c5a2936b67e66aa8e0610060a7e",
+      "gitObject": "9a0a085c5e6740d10b757ff990481eaf7fea86bd",
+      "representation": "CRLF to LF reproduces versioned bytes exactly"
+    },
+    {
+      "file": ".github/scripts/owned-process.ps1",
+      "rawSha256": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "versionedSha256": "261467e9c36a1aa289bd2a84ddaa838bae9b27302152b660dfbda3e0f239a1ac",
+      "gitObject": "4f8a47b9a1395d052c523cef86ea88f73876e99d",
+      "representation": "CRLF to LF reproduces versioned bytes exactly"
+    },
+    {
+      "file": ".github/scripts/prepare.mjs",
+      "rawSha256": "0396f696dd41c0a4edbbc40191b8d62356c7aef1a5ee6d3030e2161fb35c1bbc",
+      "versionedSha256": "0396f696dd41c0a4edbbc40191b8d62356c7aef1a5ee6d3030e2161fb35c1bbc",
+      "gitObject": "628d0e42e5a7d14ac25144a2784e2ad73e6b2453",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/publish-evidence.mjs",
+      "rawSha256": "6920d4687f642534d78133e197e10d48cf75ee2ae8e500672757d6ad5594832d",
+      "versionedSha256": "f34acf8be086829bcccf34d1951cd7fb2d1a7f738f3229537aebd99abc21a682",
+      "gitObject": "e639655973f79a71aa1e73993b89e91dad62bb04",
+      "representation": "CRLF to LF reproduces versioned bytes exactly"
+    },
+    {
+      "file": ".github/scripts/sanitize.mjs",
+      "rawSha256": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "versionedSha256": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "gitObject": "d6a7b19133ef4f2ff7de4162db751923babc3bda",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/sanitize.test.mjs",
+      "rawSha256": "f3e1ebffc17dd5ee9a4660f0c86f2db763979fda9d09ecf9f7e6986b02fa9821",
+      "versionedSha256": "f3e1ebffc17dd5ee9a4660f0c86f2db763979fda9d09ecf9f7e6986b02fa9821",
+      "gitObject": "db541ca9e25d38db98a29e8b36db99bb92247e81",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/source.mjs",
+      "rawSha256": "c90dbc1582ffaade32ca1036c9c19781d936f0d74b2493361f9ba00e7ce7e684",
+      "versionedSha256": "c90dbc1582ffaade32ca1036c9c19781d936f0d74b2493361f9ba00e7ce7e684",
+      "gitObject": "0d2825404e311618483449697967e7dc1af829e5",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/scripts/suites.mjs",
+      "rawSha256": "cbce1f9705f9ba0f764f203304a6f4385ba15e4435326f7e4ae87ad9e7c3ee84",
+      "versionedSha256": "cbce1f9705f9ba0f764f203304a6f4385ba15e4435326f7e4ae87ad9e7c3ee84",
+      "gitObject": "8e2c2a5cb22b58cad38f356d29e5343cfb7b9c15",
+      "representation": "byte-identical"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "rawSha256": "f0efbab700a63b61ac13457e103abc53f0359aec411c97590d1e8fbee0d9217d",
+      "versionedSha256": "f0efbab700a63b61ac13457e103abc53f0359aec411c97590d1e8fbee0d9217d",
+      "gitObject": "b1fdb0d7f6520ecb8ffc6279c2557f74146022a5",
+      "representation": "byte-identical"
+    },
+    {
+      "file": "tasks/evidencias/CF-034/collect.mjs",
+      "rawSha256": "d351aa25bc6bfe7cb6245739f1c819a5897833f44c82c8140cc68dc453f47fa0",
+      "versionedSha256": "d351aa25bc6bfe7cb6245739f1c819a5897833f44c82c8140cc68dc453f47fa0",
+      "gitObject": "97f245c2661e4235881775a5a987e49d183f4603",
+      "representation": "byte-identical"
+    }
+  ],
+  "finalLifecycleRuntime": "CF-034/s08",
+  "postLifecycleChanges": {
+    "files": [
+      {
+        "file": ".github/scripts/publish-evidence.mjs",
+        "exercisedSha256": "a911284d6d2446df0ca2e2f707db61cd3362a49660325839e3156b2bd4c3586f",
+        "finalSha256": "6920d4687f642534d78133e197e10d48cf75ee2ae8e500672757d6ad5594832d"
+      },
+      {
+        "file": ".github/scripts/sanitize.test.mjs",
+        "exercisedSha256": "5cb000534ac8a185632b1dd39eb85360c59b9414e3f231aa14eeb3f7ee3c3447",
+        "finalSha256": "f3e1ebffc17dd5ee9a4660f0c86f2db763979fda9d09ecf9f7e6986b02fa9821"
+      }
+    ],
+    "meaning": "only missing-result/incomplete metadata and its assertion added; final eight Node tests rerun after this change; lifecycle/sanitizer algorithm unchanged"
+  },
+  "logs": [
+    {
+      "file": "ambiente-e-preparacao.md",
+      "sha256": "6f1ec93ba93a3cf4b1b6016e9c0ab4890af3453efffaaf3a688deb1230a745d2"
+    },
+    {
+      "file": "proofs-s03.log",
+      "sha256": "e2b872a8731f1cb04cf43d8ccbe5ad2a6a44285134b3cc01072c602cd7dde449"
+    },
+    {
+      "file": "proofs-s04.log",
+      "sha256": "311eff0d8ee049c220725636caf2067ff27ac6865ad2184280d0aee15bcd0d9e"
+    },
+    {
+      "file": "proofs-s08.log",
+      "sha256": "311eff0d8ee049c220725636caf2067ff27ac6865ad2184280d0aee15bcd0d9e"
+    },
+    {
+      "file": "supplement-s05.log",
+      "sha256": "0affdfade032c953448f8a5a1d7819511b7805dd3a15c558f6268fb969980e08"
+    },
+    {
+      "file": "supplement-s06.log",
+      "sha256": "79fcbc70fc53865bc2407e377dc58371caabceb951baa10bc102186ec8adb1c7"
+    },
+    {
+      "file": "supplement-s07.log",
+      "sha256": "95cc4ea16b7d1108d3ba9e0f98fa1180acd9c8a0d20fb2a4f02a41f195bc0d70"
+    },
+    {
+      "file": "tests-final.log",
+      "sha256": "02833d2772421d8594964d20b95c37b6b5648e7f0a6ba991dfb034f38f8c085e"
+    },
+    {
+      "file": "tests-initial.log",
+      "sha256": "a1d4277cce42d9f59f5f5f53840be2ddf3f64d1c5cf1abb75e9518e4fec53b55"
+    }
+  ],
+  "oldPackage": {
+    "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\11\\evidence-01\\api-0.0.1.jar",
+    "sha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+    "source": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+    "newBuild": false
+  },
+  "productDiffToBase": [],
+  "remainingSyntheticProcesses": [],
+  "remoteExecution": false,
+  "newProductCompilation": false,
+  "newProductE2E": false,
+  "notes": "Historical manifests and 57 unresolved historical raw representations were not rewritten; no binary reproducibility claimed."
+}

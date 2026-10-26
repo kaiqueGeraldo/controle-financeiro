@@ -1,0 +1,103 @@
+name: CI integrated gates
+
+on:
+  push:
+    branches: [main]
+    paths: ['controle-financeiro-backend/**', 'controle-financeiro-frontend/**', '.github/**', 'tasks/**', 'docs/sdd/**']
+  pull_request:
+    branches: [main]
+    paths: ['controle-financeiro-backend/**', 'controle-financeiro-frontend/**', '.github/**', 'tasks/**', 'docs/sdd/**']
+  workflow_dispatch:
+    inputs:
+      suite:
+        type: choice
+        options: [smoke, expanded]
+        default: smoke
+
+permissions:
+  contents: read
+
+jobs:
+  required:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CF034_SUITE: smoke
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: controle-financeiro-frontend/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Set canonical external runtime path
+        run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required" >> "$GITHUB_ENV"
+      - name: Verify gate failure propagation and report contracts
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
+      - name: Lint, types, tests, build, PostgreSQL, integrated E2E, package
+        run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
+      - name: Collect sanitized diagnosis even on failure
+        id: collect
+        if: always()
+        run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.collect.outcome == 'success'
+        with:
+          name: diagnosis-${{ github.sha }}
+          path: ${{ env.CF034_OUT }}/public/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tested-package-${{ github.sha }}
+          path: |
+            ${{ env.CF034_OUT }}/*.jar
+            ${{ env.CF034_OUT }}/public/package-manifest.json
+          if-no-files-found: error
+          retention-days: 7
+
+  expanded:
+    if: github.event_name == 'workflow_dispatch' && inputs.suite == 'expanded'
+    needs: required
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CF034_SUITE: expanded
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: controle-financeiro-frontend/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Set canonical external runtime path
+        run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-expanded" >> "$GITHUB_ENV"
+      - name: Full browser matrix, including the three accepted timezone cases
+        run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
+      - name: Collect diagnosis
+        id: collect
+        if: always()
+        run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.collect.outcome == 'success'
+        with:
+          name: expanded-diagnosis-${{ github.sha }}
+          path: ${{ env.CF034_OUT }}/public/
+          if-no-files-found: error
+          retention-days: 7

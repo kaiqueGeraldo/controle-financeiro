@@ -180,7 +180,8 @@ class TemporalCompatibilityIntegrationTest extends PostgresIntegrationTest {
     @Test void paginationAndExportUseKnownWallTimeBeforeUnknownWithoutInventingAudit() throws Exception {
         UUID midnight = id(create(",\"time\":\"00:00\"").andExpect(status().isOk()));
         UUID missing = id(create("").andExpect(status().isOk()));
-        UUID evening = id(create(",\"time\":\"23:30\"").andExpect(status().isOk()));
+        // SPEC-002: canonical output retains seconds, including in exported data.
+        UUID evening = id(create(",\"time\":\"23:30:45\"").andExpect(status().isOk()));
         UUID[] expected = {evening, midnight, missing};
         for (int page=0; page<3; page++) {
             mvc.perform(get("/transactions?month=9&year=2026&size=1&page="+page+"&sort=createdAt,desc").header("Authorization",auth))
@@ -190,8 +191,8 @@ class TemporalCompatibilityIntegrationTest extends PostgresIntegrationTest {
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray();
         try (var workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook(new java.io.ByteArrayInputStream(bytes))) {
             var sheet = workbook.getSheetAt(0);
-            assertThat(sheet.getRow(8).getCell(1).getStringCellValue()).isEqualTo("23:30");
-            assertThat(sheet.getRow(9).getCell(1).getStringCellValue()).isEqualTo("00:00");
+            assertThat(sheet.getRow(8).getCell(1).getStringCellValue()).isEqualTo("23:30:45");
+            assertThat(sheet.getRow(9).getCell(1).getStringCellValue()).isEqualTo("00:00:00");
             assertThat(sheet.getRow(10).getCell(1).getStringCellValue()).isEqualTo("—");
         }
     }

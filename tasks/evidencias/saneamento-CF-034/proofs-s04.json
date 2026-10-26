@@ -1,0 +1,580 @@
+{
+  "at": "2026-10-25T13:30:25.707Z",
+  "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s04",
+  "head": "8d58207dff108066e2385eabde31330a3f79e38f",
+  "node": "v24.18.0",
+  "platform": "win32",
+  "tests": [
+    {
+      "name": "original-sanitization-after",
+      "exit": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+      "publicSha256": "2e3418db6fa722ab5c555acec426f18c3b71a9e23b7f3a90134a30481367662c",
+      "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\": \"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n"
+    },
+    {
+      "name": "sanitization-mutation",
+      "originalAlgorithmRestoresThreeLeaks": true,
+      "before": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "mutated": "64564847a39aa641e4119570a69783d8a9588350f7bb8a0037db8b4592d50edd",
+      "restored": "0898be0d023ab5a01ad3b08f37d1976097f86a48fae42603c34b24f4d4149869",
+      "controlPassed": true
+    },
+    {
+      "name": "original-failure-regressions",
+      "exit": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": "",
+      "cases": {
+        "child-failure": {
+          "exit": 1,
+          "stdout": "install: passed\n",
+          "stderr": "lint failed (23); see lint.log\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "1448fed3c0c25db6cd7bff2be496da123871f8739860550409400de2466fffb3",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T13:30:26.191Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:26.192Z",
+                "exit": 0,
+                "durationMs": 3580
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:29.773Z",
+                "exit": 23,
+                "durationMs": 2995
+              }
+            ],
+            "status": "failed",
+            "error": "lint failed (23); see lint.log",
+            "runId": "407990d8-ce57-4511-a175-251856e29a13",
+            "finished": "2026-10-25T13:30:32.768Z"
+          }
+        },
+        "missing-report": {
+          "exit": 1,
+          "stdout": "install: passed\nlint: passed\ntypecheck: passed\nunit: passed\ncomponents: passed\n",
+          "stderr": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s04\\missing-report-output\\components.json'\n",
+          "report": {
+            "source": {
+              "commit": "synthetic-review-fixture",
+              "digest": "28f972471adf97eed318cd2a8c5a7b1bb47ce3b853ba72b9c9d58a5476abdaa1",
+              "originalTreeChanges": []
+            },
+            "node": "v24.18.0",
+            "platform": "win32",
+            "stage": "all",
+            "started": "2026-10-25T13:30:32.856Z",
+            "steps": [
+              {
+                "name": "install",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "ci",
+                  "--no-audit",
+                  "--no-fund"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:32.857Z",
+                "exit": 0,
+                "durationMs": 3397
+              },
+              {
+                "name": "lint",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "lint",
+                  "--",
+                  "--max-warnings=0"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:36.255Z",
+                "exit": 0,
+                "durationMs": 3022
+              },
+              {
+                "name": "typecheck",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "typecheck"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:39.278Z",
+                "exit": 0,
+                "durationMs": 3002
+              },
+              {
+                "name": "unit",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "test"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:42.281Z",
+                "exit": 0,
+                "durationMs": 3045
+              },
+              {
+                "name": "components",
+                "command": [
+                  "node.exe",
+                  "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+                  "run",
+                  "test:component",
+                  "--",
+                  "--reporter=json",
+                  "--outputFile=${EVIDENCE_ROOT}\\components.json"
+                ],
+                "cwd": "controle-financeiro-frontend",
+                "started": "2026-10-25T13:30:45.328Z",
+                "exit": 0,
+                "durationMs": 3080
+              }
+            ],
+            "status": "failed",
+            "unit": {
+              "timezones": 3,
+              "tests": 3
+            },
+            "error": "ENOENT: no such file or directory, open 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s04\\missing-report-output\\components.json'",
+            "runId": "9e63b2e4-acb1-4d77-a322-c433d9a4b41a",
+            "finished": "2026-10-25T13:30:48.408Z"
+          }
+        }
+      }
+    },
+    {
+      "name": "jar-tamper",
+      "exit": 1,
+      "signal": null,
+      "stdout": "",
+      "stderr": "Package changed after the verified build\n",
+      "report": {
+        "source": {
+          "commit": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+          "digest": "191e8beb19382553d50946a4b97b83825f878d4c13cff689ca6e49bbc6d6f787",
+          "originalTreeChanges": [
+            "M README.md",
+            " M tasks/05-release/CF-034-gates-ci.md",
+            "?? tasks/evidencias/CF-034/"
+          ]
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "package",
+        "started": "2026-10-25T13:30:49.316Z",
+        "steps": [],
+        "status": "failed",
+        "error": "Package changed after the verified build",
+        "runId": "51da802f-b343-4f78-8ce6-85905b79c6bb",
+        "finished": "2026-10-25T13:30:50.011Z"
+      },
+      "originalSha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+      "mutatedSha256": "f6da5392cc57369ff98646b6ef7dd5541264c4920a5d6cad1f35191698267e7b",
+      "meaning": "historical package/receipts copied; no new compilation"
+    },
+    {
+      "name": "already-exited-and-argument-transport",
+      "exit": 17,
+      "argumentsPreserved": true,
+      "repeatedStopSafe": true
+    },
+    {
+      "name": "active-child-grandchild",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "412bb6e0e4ec46ef698b2a7d548a274f88045ff448f4dc9311e71844a2923a65",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T13:30:53.191Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:30:53.192Z",
+            "exit": 0,
+            "durationMs": 3394
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:30:56.587Z",
+            "exit": 130,
+            "durationMs": 3781
+          }
+        ],
+        "status": "cancelled",
+        "error": "lint failed (130); see lint.log",
+        "runId": "fe1f0920-6a4e-4010-bb94-8261f86f125b",
+        "finished": "2026-10-25T13:31:00.369Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "lint failed (130); see lint.log\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 66380,
+          "ppid": 43320,
+          "start": 1792935057302
+        },
+        {
+          "role": "grand",
+          "pid": 24692,
+          "ppid": 66380,
+          "start": 1792935057341,
+          "port": 56407
+        }
+      ],
+      "observed": [
+        {
+          "exit": 0,
+          "pid": 66380,
+          "wait": 0
+        },
+        {
+          "exit": 0,
+          "pid": 24692,
+          "wait": 0
+        }
+      ],
+      "elapsedMs": 2424,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": true,
+      "mutate": false,
+      "early": false
+    },
+    {
+      "name": "during-startup",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "54d16e09ff0fd644f43a75b147e4d8624e81521d1e3440ca8b80149b1e6bae56",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T13:31:00.573Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:31:00.574Z",
+            "exit": 130,
+            "durationMs": 2723
+          }
+        ],
+        "status": "cancelled",
+        "error": "install failed (130); see install.log",
+        "runId": "eaa27b64-99ed-40c6-8409-75f97b1fd377",
+        "finished": "2026-10-25T13:31:03.298Z"
+      },
+      "stdout": "",
+      "stderr": "install failed (130); see install.log\n",
+      "identities": [],
+      "elapsedMs": 2734,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": false,
+      "mutate": false,
+      "early": true
+    },
+    {
+      "name": "cancel-mutant",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "e3ee6ac118ace6a68f3701d12a5c2a226722c9f40277a730c5eb4582727461bc",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T13:31:03.473Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:31:03.474Z",
+            "exit": 0,
+            "durationMs": 3477
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:31:06.952Z",
+            "exit": 130,
+            "durationMs": 20910
+          }
+        ],
+        "status": "cancelled",
+        "error": "lint failed (130); see lint.log",
+        "runId": "f76fa63e-bce4-4998-a321-4a319ab10f2b",
+        "finished": "2026-10-25T13:31:27.862Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "lint failed (130); see lint.log\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 31912,
+          "ppid": 11452,
+          "start": 1792935067778
+        },
+        {
+          "role": "grand",
+          "pid": 42284,
+          "ppid": 31912,
+          "start": 1792935067817,
+          "port": 56416
+        }
+      ],
+      "observed": [
+        {
+          "exit": 259,
+          "pid": 31912,
+          "wait": 258
+        },
+        {
+          "exit": 259,
+          "pid": 42284,
+          "wait": 258
+        }
+      ],
+      "elapsedMs": 19462,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": false,
+      "mutate": true,
+      "early": false
+    },
+    {
+      "name": "cancel-restored",
+      "runnerExit": {
+        "code": 130,
+        "signal": null
+      },
+      "report": {
+        "source": {
+          "commit": "synthetic-cancel-only",
+          "digest": "6d625d8dd7c2076570e9373f048fbc112cd8d45edb5284b36afe773cf97cbada",
+          "originalTreeChanges": []
+        },
+        "node": "v24.18.0",
+        "platform": "win32",
+        "stage": "all",
+        "started": "2026-10-25T13:31:28.068Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:31:28.069Z",
+            "exit": 0,
+            "durationMs": 3448
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node.exe",
+              "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-25T13:31:31.517Z",
+            "exit": 130,
+            "durationMs": 3635
+          }
+        ],
+        "status": "cancelled",
+        "error": "lint failed (130); see lint.log",
+        "runId": "14693c39-a919-4331-99b8-74f2d16bf2ad",
+        "finished": "2026-10-25T13:31:35.153Z"
+      },
+      "stdout": "install: passed\n",
+      "stderr": "lint failed (130); see lint.log\n",
+      "identities": [
+        {
+          "role": "parent",
+          "pid": 8224,
+          "ppid": 46716,
+          "start": 1792935092240
+        },
+        {
+          "role": "grand",
+          "pid": 67428,
+          "ppid": 8224,
+          "start": 1792935092281,
+          "port": 61201
+        }
+      ],
+      "observed": [
+        {
+          "exit": 0,
+          "pid": 8224,
+          "wait": 0
+        },
+        {
+          "exit": 0,
+          "pid": 67428,
+          "wait": 0
+        }
+      ],
+      "elapsedMs": 2398,
+      "jobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "restoredJobHash": "9608d89d7081623548407ad63a7d0b2367c33225d8b453dbd242278dfeb8e9bf",
+      "unrelatedPreserved": true,
+      "ownedPortReleased": true,
+      "mutate": false,
+      "early": false
+    },
+    {
+      "name": "original-abrupt-after",
+      "exit": 1,
+      "signal": null,
+      "stdout": "",
+      "stderr": "node:internal/modules/run_main:107\r\n    triggerUncaughtException(\r\n    ^\r\n\r\nAssertionError [ERR_ASSERTION]: candidate unexpectedly cleaned up child; reassess finding\r\n    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-034/s04/original-abrupt.mjs:32:1 {\r\n  generatedMessage: false,\r\n  code: 'ERR_ASSERTION',\r\n  actual: false,\r\n  expected: true,\r\n  operator: '==',\r\n  diff: 'simple'\r\n}\r\n\r\nNode.js v24.18.0\r\n",
+      "report": {
+        "at": "2026-10-25T13:31:53.539Z",
+        "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s04\\abrupt",
+        "parentPid": 41256,
+        "sentinelPid": 59808,
+        "killed": true,
+        "parentExit": {
+          "code": null,
+          "signal": "SIGTERM"
+        },
+        "before": {
+          "pid": 59808,
+          "start": 1792935099483,
+          "at": 1792935099483
+        },
+        "after": {
+          "pid": 59808,
+          "start": 1792935099483,
+          "at": 1792935099483
+        },
+        "childContinuedAfterParentExit": false,
+        "sentinelAliveAtEnd": false,
+        "resultFileExists": false,
+        "stdout": "install: passed\n",
+        "stderr": "",
+        "limit": "Windows SIGTERM termination of runner only; no claim about GitHub runner process-tree cleanup"
+      },
+      "meaning": "original finding assertion now rejects; hard-killed runner cannot write final report"
+    },
+    {
+      "name": "durable-collector",
+      "exit": 0,
+      "signal": null,
+      "stdout": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s04\\durable\\runs\\sanitized\n",
+      "stderr": "",
+      "files": [
+        "collection.json",
+        "result.json"
+      ]
+    }
+  ]
+}

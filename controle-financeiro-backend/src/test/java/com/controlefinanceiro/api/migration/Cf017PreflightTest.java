@@ -65,7 +65,7 @@ class Cf017PreflightTest {
         // This is the only wrapper in the harness. Never baseline on nonzero exit.
         if (code == 0) {
             assertThat(Cf017PostgresSupport.flyway(schema).baseline().successfullyBaselined).isTrue();
-            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(13);
+            assertThat(Cf017PostgresSupport.flyway(schema).migrate().migrationsExecuted).isEqualTo(15);
         } else {
             try (var c = Cf017PostgresSupport.connect(); var s = c.createStatement();
                  var r = s.executeQuery("SELECT to_regclass('" + schema + ".flyway_schema_history')")) {

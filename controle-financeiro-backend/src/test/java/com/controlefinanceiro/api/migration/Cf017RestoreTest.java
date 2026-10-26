@@ -40,7 +40,7 @@ class Cf017RestoreTest {
         }
     }
 
-    @Test void realCustomDumpRestoresCurrentV14AndFlywayRemainsStable(@TempDir Path temp) throws Exception {
+    @Test void realCustomDumpRestoresCurrentV16AndFlywayRemainsStable(@TempDir Path temp) throws Exception {
         String schema = upgraded();
         String database = roundTrip(schema,temp);
         var flyway = Flyway.configure().dataSource(Cf017PostgresSupport.restoreDatabaseUrl(database),
@@ -48,7 +48,7 @@ class Cf017RestoreTest {
                 .baselineOnMigrate(false).cleanDisabled(true).load();
         flyway.validate();
         assertThat(flyway.migrate().migrationsExecuted).isZero();
-        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("14");
+        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("16");
     }
 
     @ParameterizedTest(name="{0}") @MethodSource("mutations")

@@ -1,0 +1,353 @@
+{
+  "source": {
+    "commit": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+    "digest": "191e8beb19382553d50946a4b97b83825f878d4c13cff689ca6e49bbc6d6f787",
+    "originalTreeChanges": [
+      "M README.md",
+      " M tasks/05-release/CF-034-gates-ci.md",
+      "?? tasks/evidencias/CF-034/"
+    ]
+  },
+  "node": "v24.18.0",
+  "platform": "win32",
+  "stage": "all",
+  "started": "2026-10-25T00:17:41.481Z",
+  "steps": [
+    {
+      "name": "install",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:17:41.483Z",
+      "exit": 0,
+      "durationMs": 160643
+    },
+    {
+      "name": "lint",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint",
+        "--",
+        "--max-warnings=0"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:20:22.125Z",
+      "exit": 0,
+      "durationMs": 18308
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:20:40.433Z",
+      "exit": 0,
+      "durationMs": 10612
+    },
+    {
+      "name": "unit",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "test"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:20:51.046Z",
+      "exit": 0,
+      "durationMs": 1320
+    },
+    {
+      "name": "components",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:component",
+        "--",
+        "--reporter=json",
+        "--outputFile=${EVIDENCE_ROOT}\\components.json"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:20:52.369Z",
+      "exit": 0,
+      "durationMs": 66941
+    },
+    {
+      "name": "build",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:21:59.313Z",
+      "exit": 0,
+      "durationMs": 28340
+    },
+    {
+      "name": "browser-install",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:e2e:install"
+      ],
+      "cwd": "controle-financeiro-frontend",
+      "started": "2026-10-25T00:22:27.653Z",
+      "exit": 0,
+      "durationMs": 22971
+    },
+    {
+      "name": "backend",
+      "command": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "mvnw.cmd",
+        "--batch-mode",
+        "-Duser.timezone=UTC",
+        "-Dspring.test.context.cache.maxSize=4",
+        "-DfailIfNoTests=true",
+        "-Dtest=com.controlefinanceiro.api.CF015PaymentRecoveryTest,com.controlefinanceiro.api.CF015PlanningOwnershipTest,com.controlefinanceiro.api.ControleFinanceiroApiApplicationTests,com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest,com.controlefinanceiro.api.GoalHistoryRecordedInstantIntegrationTest,com.controlefinanceiro.api.HarnessCredentialClockTest,com.controlefinanceiro.api.PlanningEditIntegrationTest,com.controlefinanceiro.api.PostgreSqlPersistenceTests,com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests,com.controlefinanceiro.api.SecurityHttpContractIntegrationTest,com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest,com.controlefinanceiro.api.controller.AuthControllerContractTest,com.controlefinanceiro.api.controller.HttpContractControllerTest,com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest,com.controlefinanceiro.api.domain.TemporalJsonContractTest,com.controlefinanceiro.api.domain.habit.HabitFixtureIsolationIntegrationTest,com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest,com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest,com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest,com.controlefinanceiro.api.domain.onboarding.Cf033CapacityCostTest,com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest,com.controlefinanceiro.api.domain.onboarding.Cf033GateTransitionReviewTest,com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest,com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest,com.controlefinanceiro.api.domain.onboarding.DailyReservationConcurrencyTest,com.controlefinanceiro.api.domain.onboarding.DraftValidatorTest,com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationTest,com.controlefinanceiro.api.domain.onboarding.OnboardingAtomicityEventTest,com.controlefinanceiro.api.domain.onboarding.OnboardingBoundaryTest,com.controlefinanceiro.api.domain.onboarding.OnboardingCanonicalContractTest,com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityCostTest,com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityHttpTest,com.controlefinanceiro.api.domain.onboarding.OnboardingForeignZoneReviewTest,com.controlefinanceiro.api.domain.onboarding.OnboardingGoalRevalidationTest,com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentContractTest,com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentReviewTest,com.controlefinanceiro.api.domain.onboarding.OnboardingIntegrationTest,com.controlefinanceiro.api.domain.onboarding.OnboardingLifecycleConcurrencyTest,com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationTest,com.controlefinanceiro.api.domain.onboarding.OnboardingPrecisionProtocolTest,com.controlefinanceiro.api.domain.onboarding.OnboardingRc030CivilTest,com.controlefinanceiro.api.domain.onboarding.OnboardingRc030PaymentTest,com.controlefinanceiro.api.domain.onboarding.OnboardingRc030VersionTest,com.controlefinanceiro.api.domain.onboarding.OnboardingReservationIssueTest,com.controlefinanceiro.api.domain.onboarding.OnboardingReservationsTest,com.controlefinanceiro.api.domain.onboarding.OnboardingRevalidationCivilTest,com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest,com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest,com.controlefinanceiro.api.domain.onboarding.OnboardingReviewTemporalTest,com.controlefinanceiro.api.domain.onboarding.OnboardingV16MigrationTest,com.controlefinanceiro.api.domain.validation.FutureInProductZoneValidatorTest,com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest,com.controlefinanceiro.api.migration.Cf017ManifestTest,com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest,com.controlefinanceiro.api.migration.Cf017PreflightTest,com.controlefinanceiro.api.migration.Cf017RestoreTest,com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest,com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest,com.controlefinanceiro.api.migration.IncrementalMilestoneReviewTest,com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest,com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest,com.controlefinanceiro.api.service.Cf019CardIntegrationTest,com.controlefinanceiro.api.service.Cf020GoalAllocationTest,com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest,com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest,com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest,com.controlefinanceiro.api.service.Cf025QueryPerformanceIntegrationTest,com.controlefinanceiro.api.service.CredentialExpiryClockTest,com.controlefinanceiro.api.service.HabitServiceTemporalTest,com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest,com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest,com.controlefinanceiro.api.service.InvestmentServiceTemporalTest,com.controlefinanceiro.api.service.InvoiceBankOperationListenerTemporalTest,com.controlefinanceiro.api.service.MilestoneCashPresentationTest,com.controlefinanceiro.api.service.MilestoneExportSnapshotTest,com.controlefinanceiro.api.service.MilestoneGoalFlowTest,com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest,com.controlefinanceiro.api.service.MilestoneReportingCoverageTest,com.controlefinanceiro.api.service.MilestoneReportingPositionTest,com.controlefinanceiro.api.service.MilestoneSourceConcurrencyTest,com.controlefinanceiro.api.service.MilestoneTransactionCommandTest,com.controlefinanceiro.api.service.MilestoneValuationTest,com.controlefinanceiro.api.service.MilestoneWriterPolicyTest,com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest,com.controlefinanceiro.api.service.Rf15InvoiceDatesTest,com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest,com.controlefinanceiro.api.service.ScheduledCalendarClockTest,com.controlefinanceiro.api.service.TransactionServiceTemporalTest,com.controlefinanceiro.api.service.intent.FinancialIntentArchitectureTest,com.controlefinanceiro.api.service.intent.FinancialIntentsIntegrationTest,com.controlefinanceiro.api.service.intent.IntentFingerprintTest,com.controlefinanceiro.api.support.DisposablePostgresGuardTest,com.controlefinanceiro.api.utils.DateUtilTest,com.controlefinanceiro.api.utils.TemporalConfigTest",
+        "-Dcf034.reportsDirectory=${EVIDENCE_ROOT}\\surefire",
+        "verify"
+      ],
+      "cwd": "controle-financeiro-backend",
+      "started": "2026-10-25T00:22:50.724Z",
+      "exit": 0,
+      "durationMs": 533935
+    },
+    {
+      "name": "e2e",
+      "command": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "mvnw.cmd",
+        "--batch-mode",
+        "-Duser.timezone=UTC",
+        "-Dspring.test.context.cache.maxSize=4",
+        "-Dtest=FinancialJourneyPostgresE2E",
+        "-Dsurefire.failIfNoSpecifiedTests=true",
+        "-Dcf034.reportsDirectory=${EVIDENCE_ROOT}\\e2e-surefire",
+        "test"
+      ],
+      "cwd": "controle-financeiro-backend",
+      "started": "2026-10-25T00:31:44.961Z",
+      "exit": 0,
+      "durationMs": 102016
+    }
+  ],
+  "status": "passed",
+  "unit": {
+    "timezones": 3,
+    "tests": 18
+  },
+  "components": {
+    "tests": 620,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "selection": {
+    "suite": "smoke",
+    "selected": [
+      "com.controlefinanceiro.api.CF015PaymentRecoveryTest",
+      "com.controlefinanceiro.api.CF015PlanningOwnershipTest",
+      "com.controlefinanceiro.api.ControleFinanceiroApiApplicationTests",
+      "com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest",
+      "com.controlefinanceiro.api.GoalHistoryRecordedInstantIntegrationTest",
+      "com.controlefinanceiro.api.HarnessCredentialClockTest",
+      "com.controlefinanceiro.api.PlanningEditIntegrationTest",
+      "com.controlefinanceiro.api.PostgreSqlPersistenceTests",
+      "com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests",
+      "com.controlefinanceiro.api.SecurityHttpContractIntegrationTest",
+      "com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest",
+      "com.controlefinanceiro.api.controller.AuthControllerContractTest",
+      "com.controlefinanceiro.api.controller.HttpContractControllerTest",
+      "com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest",
+      "com.controlefinanceiro.api.domain.TemporalJsonContractTest",
+      "com.controlefinanceiro.api.domain.habit.HabitFixtureIsolationIntegrationTest",
+      "com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest",
+      "com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033CapacityCostTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033GateTransitionReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest",
+      "com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest",
+      "com.controlefinanceiro.api.domain.onboarding.DailyReservationConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.DraftValidatorTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingAtomicityEventTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingBoundaryTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCanonicalContractTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityCostTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityHttpTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingForeignZoneReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingGoalRevalidationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentContractTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIntegrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingLifecycleConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingPrecisionProtocolTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030CivilTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030PaymentTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030VersionTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReservationIssueTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReservationsTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRevalidationCivilTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewTemporalTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingV16MigrationTest",
+      "com.controlefinanceiro.api.domain.validation.FutureInProductZoneValidatorTest",
+      "com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest",
+      "com.controlefinanceiro.api.migration.Cf017ManifestTest",
+      "com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest",
+      "com.controlefinanceiro.api.migration.Cf017PreflightTest",
+      "com.controlefinanceiro.api.migration.Cf017RestoreTest",
+      "com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest",
+      "com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest",
+      "com.controlefinanceiro.api.migration.IncrementalMilestoneReviewTest",
+      "com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf019CardIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf020GoalAllocationTest",
+      "com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf025QueryPerformanceIntegrationTest",
+      "com.controlefinanceiro.api.service.CredentialExpiryClockTest",
+      "com.controlefinanceiro.api.service.HabitServiceTemporalTest",
+      "com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest",
+      "com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest",
+      "com.controlefinanceiro.api.service.InvestmentServiceTemporalTest",
+      "com.controlefinanceiro.api.service.InvoiceBankOperationListenerTemporalTest",
+      "com.controlefinanceiro.api.service.MilestoneCashPresentationTest",
+      "com.controlefinanceiro.api.service.MilestoneExportSnapshotTest",
+      "com.controlefinanceiro.api.service.MilestoneGoalFlowTest",
+      "com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest",
+      "com.controlefinanceiro.api.service.MilestoneReportingCoverageTest",
+      "com.controlefinanceiro.api.service.MilestoneReportingPositionTest",
+      "com.controlefinanceiro.api.service.MilestoneSourceConcurrencyTest",
+      "com.controlefinanceiro.api.service.MilestoneTransactionCommandTest",
+      "com.controlefinanceiro.api.service.MilestoneValuationTest",
+      "com.controlefinanceiro.api.service.MilestoneWriterPolicyTest",
+      "com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest",
+      "com.controlefinanceiro.api.service.Rf15InvoiceDatesTest",
+      "com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest",
+      "com.controlefinanceiro.api.service.ScheduledCalendarClockTest",
+      "com.controlefinanceiro.api.service.TransactionServiceTemporalTest",
+      "com.controlefinanceiro.api.service.intent.FinancialIntentArchitectureTest",
+      "com.controlefinanceiro.api.service.intent.FinancialIntentsIntegrationTest",
+      "com.controlefinanceiro.api.service.intent.IntentFingerprintTest",
+      "com.controlefinanceiro.api.support.DisposablePostgresGuardTest",
+      "com.controlefinanceiro.api.utils.DateUtilTest",
+      "com.controlefinanceiro.api.utils.TemporalConfigTest"
+    ],
+    "deferred": [
+      {
+        "name": "com.controlefinanceiro.api.Cf014HistoryDiagnosticTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Cf014HistoryReviewTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Cf019Rva03DiagnosticTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.FrontendClosureBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.MilestoneRemediationBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rf15IndependentBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rf15RemediationBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rf15ResidualBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rvr24ReviewBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      },
+      {
+        "name": "com.controlefinanceiro.api.Rvr24VisualBrowserTest",
+        "reason": "historical standalone browser harness; expanded only; not approved by smoke"
+      }
+    ]
+  },
+  "backend": {
+    "tests": 889,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "e2eJava": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "artifact": {
+    "file": "api-0.0.1.jar",
+    "sha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+    "bytes": 86226092,
+    "commit": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+    "sourceDigest": "191e8beb19382553d50946a4b97b83825f878d4c13cff689ca6e49bbc6d6f787",
+    "reproducibleBinary": "not claimed",
+    "publication": "local artifact only"
+  },
+  "finished": "2026-10-25T00:33:28.045Z"
+}

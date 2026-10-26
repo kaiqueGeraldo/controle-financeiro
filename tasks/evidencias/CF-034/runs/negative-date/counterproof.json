@@ -1,0 +1,87 @@
+{
+  "mode": "date",
+  "originCommit": "7ac740757f5279f61288cabc7f9ca91cbd08f364",
+  "originDigest": "8337157d759acd96445811b528773ded1e9f020590e96fa80f8332f79c09b52a",
+  "path": "controle-financeiro-frontend/src/utils/date.ts",
+  "before": "a21fdde714a3341e53a742faeaa1fe19a68b6461783bc15691e6b78eebf63661",
+  "after": "a21fdde714a3341e53a742faeaa1fe19a68b6461783bc15691e6b78eebf63661",
+  "restored": true,
+  "gate": {
+    "exit": 1,
+    "result": {
+      "source": {
+        "commit": "7ac740757f5279f61288cabc7f9ca91cbd08f364",
+        "digest": "92f60c43737ade29c44628d68f215670aae98e8f07376f77551a4f6a3ddb17b5",
+        "originalTreeChanges": [
+          "M README.md",
+          " M tasks/05-release/CF-034-gates-ci.md",
+          "?? tasks/evidencias/CF-034/"
+        ]
+      },
+      "node": "v24.18.0",
+      "platform": "win32",
+      "stage": "all",
+      "started": "2026-10-24T23:50:37.765Z",
+      "steps": [
+        {
+          "name": "install",
+          "command": [
+            "node.exe",
+            "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "started": "2026-10-24T23:50:37.769Z",
+          "exit": 0,
+          "durationMs": 233505
+        },
+        {
+          "name": "lint",
+          "command": [
+            "node.exe",
+            "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+            "run",
+            "lint",
+            "--",
+            "--max-warnings=0"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "started": "2026-10-24T23:54:31.275Z",
+          "exit": 0,
+          "durationMs": 35519
+        },
+        {
+          "name": "typecheck",
+          "command": [
+            "node.exe",
+            "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+            "run",
+            "typecheck"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "started": "2026-10-24T23:55:06.794Z",
+          "exit": 0,
+          "durationMs": 15117
+        },
+        {
+          "name": "unit",
+          "command": [
+            "node.exe",
+            "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+            "test"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "started": "2026-10-24T23:55:21.911Z",
+          "exit": 1,
+          "durationMs": 1145
+        }
+      ],
+      "status": "failed",
+      "error": "unit failed (1); see unit.log",
+      "finished": "2026-10-24T23:55:23.056Z"
+    }
+  },
+  "remoteRunner": "not exercised"
+}

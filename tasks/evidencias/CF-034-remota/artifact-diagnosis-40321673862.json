@@ -1,0 +1,211 @@
+{
+  "platformDigestMatches": true,
+  "collectionHashChecks": [
+    {
+      "matches": true,
+      "path": "result.json"
+    },
+    {
+      "matches": true,
+      "path": "lint.log"
+    },
+    {
+      "matches": true,
+      "path": "typecheck.log"
+    },
+    {
+      "matches": true,
+      "path": "unit.log"
+    },
+    {
+      "matches": true,
+      "path": "components.log"
+    }
+  ],
+  "results": [
+    {
+      "value": {
+        "source": {
+          "commit": "5aa2474ebff50d35eb4d06a8da899735788f154b",
+          "digest": "0aef896488c7cbde5560ea06c210f15e33396f1e9b92e83563a16215a3fb068f",
+          "originalTreeChanges": []
+        },
+        "node": "v24.21.0",
+        "platform": "linux",
+        "stage": "all",
+        "started": "2026-10-26T12:19:56.497Z",
+        "steps": [
+          {
+            "name": "install",
+            "command": [
+              "node",
+              "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-26T12:19:56.501Z",
+            "exit": 0,
+            "ownerPid": 2470,
+            "ownership": "POSIX process group; remote validation pending",
+            "durationMs": 13053
+          },
+          {
+            "name": "lint",
+            "command": [
+              "node",
+              "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+              "run",
+              "lint",
+              "--",
+              "--max-warnings=0"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-26T12:20:09.555Z",
+            "exit": 0,
+            "ownerPid": 2539,
+            "ownership": "POSIX process group; remote validation pending",
+            "durationMs": 14174
+          },
+          {
+            "name": "typecheck",
+            "command": [
+              "node",
+              "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+              "run",
+              "typecheck"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-26T12:20:23.729Z",
+            "exit": 0,
+            "ownerPid": 2564,
+            "ownership": "POSIX process group; remote validation pending",
+            "durationMs": 8766
+          },
+          {
+            "name": "unit",
+            "command": [
+              "node",
+              "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+              "test"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-26T12:20:32.495Z",
+            "exit": 0,
+            "ownerPid": 2585,
+            "ownership": "POSIX process group; remote validation pending",
+            "durationMs": 678
+          },
+          {
+            "name": "components",
+            "command": [
+              "node",
+              "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+              "run",
+              "test:component",
+              "--",
+              "--reporter=json",
+              "--outputFile=${EVIDENCE_ROOT}/components.json"
+            ],
+            "cwd": "controle-financeiro-frontend",
+            "started": "2026-10-26T12:20:33.174Z",
+            "exit": 1,
+            "ownerPid": 2644,
+            "ownership": "POSIX process group; remote validation pending",
+            "durationMs": 35945
+          }
+        ],
+        "status": "failed",
+        "ci": {
+          "repository": "kaiqueGeraldo/controle-financeiro",
+          "workflow": "CI integrated gates",
+          "runId": "40321673862",
+          "attempt": "1",
+          "job": "required",
+          "event": "pull_request",
+          "ref": "refs/pull/1/merge",
+          "headRef": "codex/cf034-ci-local",
+          "baseRef": "main",
+          "checkoutSha": "5aa2474ebff50d35eb4d06a8da899735788f154b",
+          "runnerOS": "Linux",
+          "runnerArch": "X64"
+        },
+        "unit": {
+          "timezones": 3,
+          "tests": 18
+        },
+        "components": {
+          "tests": 620,
+          "failures": 6,
+          "errors": 0,
+          "skipped": 0
+        },
+        "componentFailures": [
+          {
+            "file": "controle-financeiro-frontend/tests/component/temporal-forms.test.tsx",
+            "tests": [
+              "defaults e payloads de data civil nos formulários abre os quatro formulários às 23h59 com o dia do navegador, não o UTC",
+              "defaults e payloads de data civil nos formulários preserva o campo aberto na virada e submete exatamente a data digitada",
+              "defaults e payloads de data civil nos formulários R13: dois submits de transaction no mesmo tick enviam uma operação",
+              "defaults e payloads de data civil nos formulários R13: dois submits de investment no mesmo tick enviam uma operação"
+            ]
+          },
+          {
+            "file": "controle-financeiro-frontend/tests/component/temporal-presentation.test.tsx",
+            "tests": [
+              "apresentação temporal reclassifica prazo ao virar o dia e nunca atrasa meta concluída",
+              "apresentação temporal revalida o dia ao recuperar foco depois de uma aba suspensa"
+            ]
+          }
+        ],
+        "error": "components failed (1); see components.log",
+        "runId": "cc06fbbd-e3d8-49da-becd-811416840bfe",
+        "finished": "2026-10-26T12:21:09.123Z"
+      },
+      "path": "result.json"
+    }
+  ],
+  "zipSha256": "dc5a5c0e91f21bc8a326aa37f52badf5d78b8353224dc08d66b04b102f811522",
+  "scope": "sentinel formats and collection hashes; no universal secret guarantee",
+  "inspection": "downloaded platform archive, without extraction or raw fallback",
+  "files": [
+    {
+      "path": "collection.json",
+      "sensitiveSentinel": false,
+      "sha256": "dfa50853f40f9c9ebb08ca53c8f77c45530dcebb2636c8f84805fc42dc3b45fc",
+      "bytes": 1485
+    },
+    {
+      "path": "components.log",
+      "sensitiveSentinel": false,
+      "sha256": "58aae6d95d3cd91fea21fb3b2d0c9e6eb73a2d643a42c2b3104c2e361a00f8ad",
+      "bytes": 379
+    },
+    {
+      "path": "lint.log",
+      "sensitiveSentinel": false,
+      "sha256": "d1c8398cf83c9ccb2ccad24f1692f917541af76a12dc28df1290be45f868ba94",
+      "bytes": 61
+    },
+    {
+      "path": "result.json",
+      "sensitiveSentinel": false,
+      "sha256": "db676bbd4b75098ceb71a1a5a7c15635a21ea5da2d1fb55cb64740237489036c",
+      "bytes": 4329
+    },
+    {
+      "path": "typecheck.log",
+      "sensitiveSentinel": false,
+      "sha256": "be0d8ffec2b54142d61d6684a3d039cb00ccd64e6a3c1fefd0d7401f175cdc1e",
+      "bytes": 55
+    },
+    {
+      "path": "unit.log",
+      "sensitiveSentinel": false,
+      "sha256": "9f156c4d0400ef8601b671c24cc45cb7bd759eb0efc3970a0427ac1e2a6e92f9",
+      "bytes": 5587
+    }
+  ],
+  "at": "2026-10-26T12:23:23.6305722Z"
+}

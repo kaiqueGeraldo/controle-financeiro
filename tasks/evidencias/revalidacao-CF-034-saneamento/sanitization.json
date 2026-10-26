@@ -1,0 +1,187 @@
+{
+  "at": "2026-10-25T18:07:41.062Z",
+  "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\v02",
+  "cases": [
+    {
+      "name": "original",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "b59b7f23c5dc5600b5d88f19fcf7d8d408f288d141a42e8b23d0e5bd3d5339bf",
+      "publicExists": true,
+      "output": "diagnostic=keep\npassword=[REDACTED]\n{\"password\": \"[REDACTED]\"}\nAuthorization: [REDACTED]\nCookie: [REDACTED]\ntoken=[REDACTED_JWT]\n",
+      "residualSentinel": false,
+      "expectedReject": false,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": true
+    },
+    {
+      "name": "case-escapes-multiple",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "04c2485ab8d6286b94296da2350c20134a71ae8c6c7b227ae901725eb8af40c4",
+      "publicExists": true,
+      "output": "prefix {\"Pass\\u0077ord\": \"[REDACTED]\", \"password\": \"[REDACTED]\"}\nAUTHORIZATION = [REDACTED]\nCookie: [REDACTED]\ndiagnostic=keep\n",
+      "residualSentinel": false,
+      "expectedReject": false,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": true
+    },
+    {
+      "name": "nested-structured",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "3e24e66cd73b70d051308acc65475259af9c3ae2207bec471eff3fcee3f2aa47",
+      "publicExists": true,
+      "output": "{\n  \"status\": \"failed\",\n  \"count\": 3,\n  \"diagnostic\": \"keep\",\n  \"details\": [\n    {\n      \"password\": \"[REDACTED]\"\n    }\n  ],\n  \"message\": \"{\\\"password\\\": \\\"[REDACTED]\\\"}\"\n}\n",
+      "residualSentinel": false,
+      "expectedReject": false,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": true
+    },
+    {
+      "name": "nested-message-in-log",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "1929b80a42f3f1705da7bd158fb246186e8e5e2791bb3ece0d723d5a8911e39b",
+      "publicExists": true,
+      "output": "INFO {\"status\":\"failed\",\"count\":3,\"diagnostic\":\"keep\",\"message\":\"{\\\"password\\\":\\\"SENTINEL_NESTED_MESSAGE\\\"}\"}\n",
+      "residualSentinel": true,
+      "expectedReject": false,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": false
+    },
+    {
+      "name": "unterminated-text-quote",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "3a370be15368062fce70903f19dd65338f13ba0d9dc21b11ac9724862b0bf505",
+      "publicExists": true,
+      "output": "password=[REDACTED] SENTINEL_UNCLOSED\ndiagnostic=keep\n",
+      "residualSentinel": true,
+      "expectedReject": true,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": false
+    },
+    {
+      "name": "unterminated-json-log",
+      "command": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+      },
+      "rawSha256": "4f71d72ab31cc733ddcac5c0932c354ceacecec2258f473d31e3f88150069eae",
+      "publicExists": false,
+      "output": null,
+      "residualSentinel": false,
+      "expectedReject": true,
+      "contractSatisfied": true
+    },
+    {
+      "name": "invalid-json-file",
+      "command": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.\n"
+      },
+      "rawSha256": "50b1b732a6b57987acdd46554eda6b636d9f8b9058e654ee4df41c6736672394",
+      "publicExists": false,
+      "output": null,
+      "residualSentinel": false,
+      "expectedReject": true,
+      "contractSatisfied": true
+    },
+    {
+      "name": "harmless-malformed",
+      "command": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "rawSha256": "130400829f7d96a17c180770f9819ad3bf0b9278a277d806ffe708395601f309",
+      "publicExists": true,
+      "output": "unclosed { diagnostic=keep\nstatus=failed\ncount=3\n",
+      "residualSentinel": false,
+      "expectedReject": false,
+      "idempotent": true,
+      "reuse": {
+        "exit": 1,
+        "oldPublicUnchanged": true,
+        "notEligibleForWorkflowUpload": true
+      },
+      "contractSatisfied": true
+    }
+  ],
+  "runner": {
+    "gate": {
+      "exit": 1,
+      "stdout": "install: passed\n",
+      "stderr": "lint failed (23); see lint.log\n"
+    },
+    "collector": {
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "rawSha256": "93247123435684aa1069edd687e505358b5257eae042a4563f2467d4ed9b44f1",
+    "sanitizedSha256": "9f3dd129ce51f3c144d76cd2acfbdcf97129c9422719213aa2780ae4619f0dcd",
+    "consoleProtected": true,
+    "originalThreeFormatsRemoved": true,
+    "nestedMessageResidual": true,
+    "redContract": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "node:internal/modules/run_main:107\r\n    triggerUncaughtException(\r\n    ^\r\n\r\nAssertionError [ERR_ASSERTION]: public log must not retain password in a nested JSON message\r\n    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/CF-034/v02/no-secret-contract.mjs:1:230\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\r\n    at async node:internal/modules/esm/loader:643:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\r\n  generatedMessage: false,\r\n  code: 'ERR_ASSERTION',\r\n  actual: false,\r\n  expected: true,\r\n  operator: '==',\r\n  diff: 'simple'\r\n}\r\n\r\nNode.js v24.18.0\r\n"
+    }
+  },
+  "durable": {
+    "command": {
+      "exit": 0,
+      "stdout": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\v02\\durable\\runs\\runner\n",
+      "stderr": ""
+    },
+    "residual": true,
+    "originalScriptSha256": "d351aa25bc6bfe7cb6245739f1c819a5897833f44c82c8140cc68dc453f47fa0",
+    "relocatedScriptSha256": "b3b98a66a68fa6bb9d6261a2e66c43317465352c53cccfca391d822e234818f6"
+  },
+  "limit": "synthetic secrets only; no remote upload or general secret scan"
+}

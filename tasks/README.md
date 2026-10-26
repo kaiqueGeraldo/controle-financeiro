@@ -4,14 +4,105 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — recorte local CF034 autorizado, 24/10/2026
+## Situação vigente — CI remoto obrigatório aprovado, 26/10/2026
+
+Etapa operacional autorizada sobre4d20fb0, com revisão Railway/Vercel.
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) aberta,
+candidato c926aaa/checkout e2ce3ad, run40327234898 aprovado:13 contratos,
+18 temporais,620 componentes,891 testes backend/PostgreSQL, wrapper Java e seis
+jornadas E2E, sem falhas/skips. Expanded pulado por condição, sem aprovação.
+[Pacote novo, hashes, falhas e limites](evidencias/CF-034-remota/RESULTADOS.md).
+JAR baixado e vinculado a820 inputs do merge testado; não é o JAR histórico a5ad7a6.
+
+Aceite local preservado; CF034 integral em_revisao. Main272001f sem integração;
+Railway API/PG offline, Vercel produção Ready em272001f. URLs conferidas e JDBC
+privado; variável DDL_AUTO=update diverge do contrato validate e precisa de revisão
+antes de release. Nenhuma configuração ou banco real alterado, deploy ou sucessora.
+[Separação preparada dos autodeploys de main](evidencias/CF-034-remota/SEPARACAO-MAIN-PROPOSTA.md)
+aguarda decisão explícita antes da integração. A branch CF034 permanece sem deploy.
+
+## Situação anterior — aceite independente local CF034, 25/10/2026
+
+[Revalidação independente de RCI034-01/R1](evidencias/revalidacao-RCI034-01-R1/README.md),
+candidato `ea00a06`, intervalo `418a648..ea00a06`: **R1 encerrado e recorte local
+da CF034 aprovado sob DEC-CI-04**. JSON escapado perde a senha; aspa incompleta
+bloqueia a coleta. Oito casos originais, coletores reais, 27 casos complementares,
+limites e contraprova causal com restauração sustentam o aceite; 12 testes Node
+passaram. Aceite Windows/processos de RCI034-L01 e demais aceites históricos
+não afetados preservados, sem repetir cancelamento integral ou suítes financeiras.
+CF034 permanece **em_revisao integral**: Ctrl+C nativo, Actions/Linux, containers
+após aborto, CI/matriz ampliada/artifacts remotos, zoom nativo 200%/CF010/015,
+adoção CF017/P01/P02 e gates das sucessoras continuam pendentes. JAR histórico
+continua a5ad7a6; não houve pacote novo, publicação, deploy ou banco real.
+Próximo passo: preparar etapa separada de publicação revisada e execução remota
+controlada, sujeita à autorização específica; nenhuma sucessora iniciada.
+README raiz e runtimes preservados; revisão registrada somente em commits locais.
+
+## Situação anterior — saneamento residual CF034, 25/10/2026
+
+[RCI034-01/R1 saneado localmente](evidencias/saneamento-RCI034-01-R1/README.md),
+entrada418a648: JSON escapado com prefixo é visitado; atribuição com aspa
+incompleta bloqueia coleta. Probes originais antes/depois,12 controles Node,
+coletores reais, mutação/restauração e regressões ordinárias registrados.
+CF034 em_revisao; residual aguarda revalidação independente, sem autoencerramento.
+Aceite RCI034-L01 Windows/processos preservado, sem mudança de Job Object/UUID.
+Ctrl+C, Actions/Linux, containers, remoto/matriz ampliada, zoom e adoção continuam
+pendentes. JAR permanece a5ad7a6; sem pacote novo, publicação ou sucessoras.
+
+## Situação anterior — revalidação dirigida CF034, 25/10/2026
+
+[Parecer independente do saneamento](evidencias/revalidacao-CF-034-saneamento/README.md),
+candidato `91ee02d`, intervalo `8d58207..91ee02d`: **recorte local ainda não aceito**.
+RCI034-01 protege os formatos originais, mas permanece aberto por RCI034-01/R1/P2:
+senha em JSON escapado de mensagem com prefixo e atribuição textual com aspa
+incompleta ainda chegam ao material publicável. Nenhuma correção nesta revisão.
+RCI034-L01 tem aceite delimitado a processos Windows: UUID e morte abrupta
+encerram filho/descendente, preservam processo sintético alheio e bloqueiam avanço.
+Ctrl+C nativo, Actions/Linux e descarte de containers após cancelamento não
+recebem certificação. Oito testes e contraprovas dirigidas sustentam regressões;
+aceites anteriores não afetados preservados, sem repetir suítes financeiras.
+JAR continua atribuído a a5ad7a6, sem pacote novo nem atribuição aos scripts atuais.
+CF034 permanece em_revisao; próximo passo é saneamento separado do residual e
+revalidação das fronteiras de publicação. Remoto/matriz ampliada, zoom nativo200%,
+CF010/015 em_revisao, adoção CF017/P01/P02 e gates das sucessoras permanecem.
+README raiz e runtimes históricos preservados; commits somente locais.
+
+## Situação anterior — revisão e saneamento CF034, 25/10/2026
+
+Saneamento posterior exclusivamente local de RCI034-01/RCI034-L01, entrada8d58207:
+[correções, provas e limites](evidencias/saneamento-CF-034/README.md).
+Política compartilhada de sanitização/coleta bloqueada em falha e cancelamento
+Windows por UUID/Job Object, com contraprovas/restauração e regressões dirigidas.
+CF034 continua em_revisao; aguardando revalidação independente, sem autoencerramento
+dos achados. Cadeia histórica do JAR a5ad7a6 preservada, sem pacote novo. Actions/
+Linux, matriz ampliada, artifacts/imagem remotos, zoom e adoção mantêm pendências.
+Sem publicação, merge, CI remota, banco ou deploy; DEC-CI-04 inalterada.
+
+CF034 permanece **em_revisao**, sem aceite local completo da DEC-CI-04.
+[Parecer independente](evidencias/revisao-CF-034/README.md), candidato64603a3:
+RCI034-01/P2 confirma sanitização insuficiente de JSON/Bearer/cookie; RCI034-L01
+delimita a lacuna de encerramento por cancelamento local, sem inferir falha remota.
+Comandos/gates ordinários, seis jornadas reais e rastreabilidade do JAR da11
+preservam sustentação:810 inputs, fonte a5ad7a6, inputs relevantes equivalentes
+a64603a3 documental. Não é pacote compilado do HEAD nem reprodução binária.
+Sem correções de implementação; probes e parecer em commits exclusivamente locais.
+Próximo passo: saneamento separado da coleta e contrato/prova de cancelamento,
+seguido de revalidação dirigida; publicação/CI remota exigem etapa autorizada própria.
+CF010/015 em_revisao por zoom200%, adoção CF017/P01/P02, desempenho em produção,
+DEC-ONB-03 e sucessoras conservam seus limites. README raiz e runtimes preservados.
+
+## Situação anterior — CF034 em revisão local, 24/10/2026
 
 [DEC-CI-04](../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova PROP-CF034-01/A.
-CF034 pronta exclusivamente para preparação/implementação/revisão locais de CI;
-dependência de aceite integral CF015 preservada. CF010/015 em_revisao por zoom
+CF034 em_revisao exclusivamente no recorte local de CI, candidato a5ad7a6.
+[Entrega, matriz e contraprovas](evidencias/CF-034/README.md): lint/tipagem,
+18 temporais, 620 componentes, 889 backend/PostgreSQL e seis jornadas reais
+aprovados; JAR local rastreável e falhas preservadas. CI remota, matriz ampliada,
+imagem/pacote publicado e revisão independente pendentes; aceite integral não dado.
+Dependência de aceite integral CF015 preservada. CF010/015 em_revisao por zoom
 nativo200% não validado; sem nova investigação, dispensa ou defeito presumido.
 Publicação autorizada apenas da análise `0f787eb`/`79ce089` e decisão documental;
-implementação futura permanece local. Adoção real CF017/P01/P02, uso e sucessoras
+implementação da CF034 permanece local. Adoção real CF017/P01/P02, uso e sucessoras
 mantêm gates; sem deploy manual, banco real ou notificações reais.
 
 ## Situação anterior — lote CF033 integrado; análise de zoom/gate, 24/10/2026

@@ -1,0 +1,88 @@
+{
+  "at": "2026-10-26T13:01:06.915Z",
+  "classification": "test fixture leaks search_path through pooled connection; not a production rule change",
+  "toolchain": {
+    "java": "Temurin21.0.12.1",
+    "postgres": "16-alpine disposable Testcontainers",
+    "hikari": "7.0.2"
+  },
+  "before": {
+    "runtime": "rem-pool-03",
+    "sourceCommit": "887894825393859de9652c287594ac58fbcb0833",
+    "sourceDigest": "cb0b0070a8d678f29834587f4a5d8b0c26833a4bc4ead8d3a05d38017707d9e7",
+    "counts": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "logSha256": "418abc8fe3bd7f51d2364d63066f8f0c276f870dc06743198ff2d7d0e926dca8",
+    "reports": [
+      {
+        "file": "TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationPoolIsolationTest.xml",
+        "sha256": "41b55a0546b3b9894c8d9cf846ff3d1c0ec2e825af9f6b184e18ae5f7fb93ab6"
+      }
+    ],
+    "fixtures": [
+      {
+        "file": "OnboardingMigrationTest.java",
+        "sha256": "6758b3cfac09e952a34066ecf348c42497b4ce9ed7d9ab253adda52ce291c759"
+      },
+      {
+        "file": "OnboardingV16MigrationTest.java",
+        "sha256": "4be998fbfac5edaab23e6d90879c2bf61b241283ea329e8393cfe61d17fe28ab"
+      },
+      {
+        "file": "OnboardingMigrationPoolIsolationTest.java",
+        "sha256": "2231797fa507f011c8f9733e84b9b3a50719532dabd0411b8b178d6f36156148"
+      }
+    ]
+  },
+  "after": {
+    "runtime": "rem-pool-04",
+    "sourceCommit": "887894825393859de9652c287594ac58fbcb0833",
+    "sourceDigest": "31267b542f45f35301b25355850f84f76a7493ac5dac8c5cdde2031eccafaed7",
+    "counts": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "logSha256": "6174afef714977d34c2d665afdca4f810b52566a4f634e0b7fa869122ed603b6",
+    "reports": [
+      {
+        "file": "TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationPoolIsolationTest.xml",
+        "sha256": "ec9c0bbe92fc2f82b7db123617dad6b5e8d01282290ffe2f0fab4e3781dff68a"
+      }
+    ],
+    "fixtures": [
+      {
+        "file": "OnboardingMigrationTest.java",
+        "sha256": "1d214ada21448d712a38968ae2f8bee6ba44a02a5712ce961b0f3393e2e54cc6"
+      },
+      {
+        "file": "OnboardingV16MigrationTest.java",
+        "sha256": "f8390510f0844b438cb3f4ff379bb556dd090294c51ba7a061cb5b88d8a2bfe3"
+      },
+      {
+        "file": "OnboardingMigrationPoolIsolationTest.java",
+        "sha256": "2231797fa507f011c8f9733e84b9b3a50719532dabd0411b8b178d6f36156148"
+      }
+    ]
+  },
+  "changes": "four session SQL operations replaced with JDBC Connection.setSchema; original migration assertions retained",
+  "regression": "same two cases, borrows both available connections before returning either, requires application schema and user FK",
+  "invalidPreparations": [
+    {
+      "runtime": "rem-pool-01",
+      "attempt": 1,
+      "result": "PowerShell split unquoted Maven option; no tests"
+    },
+    {
+      "runtime": "rem-pool-01/02",
+      "result": "first regression harness used one connection; Flyway initialization timed out before assertions; not a leak counterproof"
+    }
+  ],
+  "scope": "directed local comparison; full remote suite and package still pending; raw XML and process output stay in external runtime",
+  "reference": "https://github.com/brettwooldridge/HikariCP/blob/HikariCP-7.0.2/src/main/java/com/zaxxer/hikari/pool/ProxyConnection.java"
+}

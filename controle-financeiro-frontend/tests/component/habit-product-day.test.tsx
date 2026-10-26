@@ -25,6 +25,9 @@ function setup(logs: Habit["logs"] = []) {
     <HabitItem habit={value} onToggle={onToggle} onClick={vi.fn()} />
     <HabitDetails isOpen habit={value} onClose={vi.fn()} onDelete={vi.fn()} onUpdate={vi.fn()} />
   </BrowserTodayProvider>);
+  // jsdom focus schedules selectionchange at 0ms; settle that browser fixture
+  // event before checking the calendar's owned timers, without advancing time.
+  act(() => vi.advanceTimersByTime(0));
   return { ...result, onToggle };
 }
 

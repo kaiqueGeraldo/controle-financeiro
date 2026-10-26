@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-25T13:36:08.684Z",
+  "root": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s07",
+  "chunkedOutput": {
+    "gate": {
+      "exit": 1,
+      "stdout": "install: passed\n",
+      "stderr": "lint failed (23); see lint.log\n"
+    },
+    "collector": {
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "rawSha256": "ce9069585ce41407f33b3dc29a2507467dd61f2a627af27de4b4e8f759b1b74b",
+    "sanitizedSha256": "cfb0def07378f948a5575766a5b4ccd6dd990f21b2506ac123da16465804e0c0",
+    "collection": {
+      "status": "sanitized",
+      "policy": "allowlist; originals retained locally; no arbitrary-secret guarantee",
+      "files": [
+        {
+          "input": "result.json",
+          "rawLocalSha256": "c16e5319813c43e05e5082f6a90557e2ffbbeeb115a06879280c92ba09416af2",
+          "publicFile": "result.json",
+          "sanitizedSha256": "c16e5319813c43e05e5082f6a90557e2ffbbeeb115a06879280c92ba09416af2"
+        },
+        {
+          "input": "lint.log",
+          "rawLocalSha256": "ce9069585ce41407f33b3dc29a2507467dd61f2a627af27de4b4e8f759b1b74b",
+          "publicFile": "lint.log",
+          "sanitizedSha256": "cfb0def07378f948a5575766a5b4ccd6dd990f21b2506ac123da16465804e0c0"
+        }
+      ]
+    }
+  },
+  "durable": {
+    "accepted": {
+      "exit": 0,
+      "stdout": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\CF-034\\s07\\durable\\runs\\safe\n",
+      "stderr": ""
+    },
+    "rejected": {
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Durable evidence collection failed; no completed collection released. Raw originals retained locally.\n"
+    },
+    "rawSha256": "ce9069585ce41407f33b3dc29a2507467dd61f2a627af27de4b4e8f759b1b74b",
+    "sanitizedSha256": "cfb0def07378f948a5575766a5b4ccd6dd990f21b2506ac123da16465804e0c0"
+  },
+  "parentAlreadyExited": {
+    "supervisorExit": 0,
+    "observed": {
+      "code": 0,
+      "exited": true
+    },
+    "naturalTimeout": false,
+    "lateRepeatedCancellation": "no-op after observed completion"
+  },
+  "workflow": {
+    "parser": "js-yaml",
+    "permissions": {
+      "contents": "read"
+    },
+    "expandedNeeds": "required",
+    "uploadPaths": [
+      {
+        "if": "always() && steps.collect.outcome == 'success'",
+        "path": "${{ env.CF034_OUT }}/public/"
+      },
+      {
+        "path": "${{ env.CF034_OUT }}/*.jar\n${{ env.CF034_OUT }}/public/package-manifest.json\n"
+      },
+      {
+        "if": "always() && steps.collect.outcome == 'success'",
+        "path": "${{ env.CF034_OUT }}/public/"
+      }
+    ],
+    "limit": "static only; Actions/Linux not executed"
+  }
+}

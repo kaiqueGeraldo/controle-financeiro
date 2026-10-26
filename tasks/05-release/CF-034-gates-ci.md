@@ -1,6 +1,6 @@
 # CF-034 — Consolidar gates de CI reproduzíveis
 
-- Estado: pronta
+- Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
@@ -8,11 +8,101 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Publicação controlada e validação remota — 26/10/2026
+
+Etapa operacional autorizada, entrada4d20fb0; revisão Railway/Vercel incluída por
+pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).
+[PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) criada após
+aprovação explícita. Candidato c926aaa, checkout e2ce3ad, run40327234898 aprovado:
+13 contratos,18 temporais em3 fusos,620 componentes,891 casos backend/PostgreSQL
+em95 classes, wrapper Java e6 jornadas E2E; zero falhas/erros/skips no smoke.
+Expanded pulado por condição, não executado nem aprovado.
+
+JAR novo baixado: SHA256
+4ae18379f6d21c709a76c6e7ac0c1c1ff81201574037ddab1352464c04c35554;
+[cadeia de820 inputs e manifesto](../evidencias/CF-034-remota/package-chain-40327234898.json).
+Contraprovas de falha/upload/coleta e cancelamento/cleanup Linux preservadas;
+limite de observação anterior ao descarte da VM. Falhas reais e correções dirigidas
+de paths, diagnóstico, fuso e schema do pool documentadas, sem relaxar assertions,
+timeouts, retries ou seleção anterior. Nenhuma regra de produto alterada.
+
+Main272001f sem integração. Railway API/PG offline, main com autodeploy e Wait for
+CI off; Vercel produção Ready272001f, sem Deployment Checks. URL do backend,
+alias do frontend e JDBC privado conferidos; DDL_AUTO=update diverge do contrato
+validate e deve ser revisto antes de release. Nenhuma configuração de produção
+ou banco real alterado. [Separação dos gatilhos preparada, não aplicada](../evidencias/CF-034-remota/SEPARACAO-MAIN-PROPOSTA.md).
+
+Aceite local DEC-CI-04/RCI034-01/R1 preservado; estado integral **em_revisao**.
+Nenhum checkbox integral, garantia de produção, zoom/Ctrl+C nativo, adoção
+CF017/P01/P02 ou sucessora liberados. Commits documentais posteriores exigem seus
+checks aplicáveis; não recebem automaticamente a proveniência deste JAR.
+
 ## Liberação exclusivamente local — 24/10/2026
+
+Revalidação independente de25/10, candidato `ea00a06`, intervalo `418a648..ea00a06`:
+[parecer, matriz, provas e limites](../evidencias/revalidacao-RCI034-01-R1/README.md).
+**RCI034-01/R1 encerrado; recorte local aprovado sob DEC-CI-04.** JSON escapado
+com prefixo é sanitizado; aspa incompleta bloqueia ambos os coletores sem fallback.
+Provas originais, contraprova causal/restauração, fronteiras de limites e arquivos
+publicáveis efetivos sustentam o aceite. RCI034-L01 Windows/processos preservado,
+assim como gates ordinários, isolamento/E2E smoke e proveniência históricos não
+afetados. Não se atribuem testes financeiros ou compilação novos ao JAR a5ad7a6.
+Estado integral **em_revisao**: Ctrl+C nativo, Actions/Linux, containers após aborto,
+CI remota/matriz ampliada/artifacts, zoom nativo200%/CF010/015, adoção CF017/P01/P02
+e limites de produção continuam pendentes. Nenhum checkbox integral concluído.
+Próximo passo é preparar publicação revisada/execução remota controlada em etapa
+separada, sujeita à autorização específica. Sem publicação, deploy, banco real,
+pacote novo ou sucessoras nesta revisão; implementação e históricos preservados.
+
+Saneamento residual RCI034-01/R1, entrada418a648:
+[correção delimitada e provas](../evidencias/saneamento-RCI034-01-R1/README.md).
+JSON escapado com prefixo tratado; aspa incompleta de atribuição bloqueia coleta.
+Estado em_revisao; R1 saneado localmente aguardando revalidação, sem autoaceite.
+RCI034-L01 conserva aceite Windows/processos; Job Object/UUID não foram alterados
+nem reabertos. Limites Ctrl+C/Actions/Linux/containers e demais gates preservados.
+Nenhum pacote novo; JAR histórico continua a5ad7a6. Sem publicação/CI remota/deploy,
+banco real, aceite integral ou liberação de sucessoras.
+
+Revalidação independente dirigida de25/10, candidato `91ee02d`:
+[parecer, matriz e provas](../evidencias/revalidacao-CF-034-saneamento/README.md).
+**Sem aceite local completo; estado em_revisao preservado.** RCI034-01 parcialmente
+saneado, mas residual RCI034-01/R1/P2 publica senha em mensagem JSON escapada com
+prefixo e sufixo de atribuição textual com aspa incompleta. RCI034-L01 sustentado
+no mecanismo Windows/processos: UUID e morte abrupta encerram filho/descendente;
+próximo gate bloqueado, diagnóstico preservado e controle sintético alheio intacto.
+Não encerrar irrestritamente recursos externos: Ctrl+C nativo, Actions/Linux e
+containers após cancelamento continuam sem prova. Gates ordinários e aceites
+anteriores não afetados preservados; oito testes e contraprovas dirigidas,
+sem novas suítes financeiras ou pacote. JAR histórico continua a5ad7a6.
+Próximo passo é saneamento separado de RCI034-01/R1 e revalidação da publicação;
+nenhuma implementação corrigida, publicação/CI remota/deploy/banco real executados.
+Nenhum checkbox integral, dependência ou gate das sucessoras foi liberado.
+
+Saneamento dirigido posterior,25/10, entrada8d58207:
+[entrega e provas](../evidencias/saneamento-CF-034/README.md).
+RCI034-01 e RCI034-L01 corrigidos/comprovados no alcance descrito pelo executor,
+aguardando revalidação independente, **sem autoencerramento/aceite local completo**.
+Sanitização estruturada/textual compartilhada, coleta obrigatória e cancelamento
+Windows com UUID/Job Object. Brutos/históricos preservados; nenhum pacote novo.
+Prova sintética de processo/porta não certifica cancelamento do daemon Docker,
+Ctrl+C nativo ou Actions/Linux. Critérios e DEC-CI-04 preservados, estado em_revisao;
+nenhum checkbox integral ou gate de publicação/zoom/adoção foi liberado.
+
+Revisão independente de25/10, candidato64603a3:
+[parecer A–G e matriz](../evidencias/revisao-CF-034/README.md).
+**Recorte local ainda não aceito; estado em_revisao mantido.** RCI034-01/P2:
+coleta permite senha JSON, Bearer opaco e cookie em log publicável. RCI034-L01:
+cancelamento local precisa de contrato/prova delimitados; aborto do pai Windows
+não comprova cleanup da árvore nem permite inferir comportamento Actions.
+Gates/falhas ordinárias, isolamento/E2E smoke e cadeia independente do JAR da11
+estão sustentados nos limites do parecer; fonte a5ad7a6 e810 inputs equivalentes
+a64603a3 relevante, sem atribuir nova compilação ao HEAD documental.
+Nenhum checkbox integral aprovado. Sanear/revalidar esses pontos antes de decidir
+publicação e execução remota controlada em etapa separada; sem sucessoras.
 
 [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md) aprova expressamente
 PROP-CF034-01/A: infraestrutura e provas locais de CI, sem aceite integral ou uso.
-Estado pronta somente nesse recorte; CF015 continua em_revisao por zoom nativo200%.
+Entrega local em_revisao nesse recorte; CF015 continua em_revisao por zoom nativo200%.
 Scripts compartilhados `.github/scripts/` e adaptadores/testes do harness são
 extensão delimitada para evitar comandos divergentes entre local e CI.
 Implementação local deve terminar em_revisao e passar por revisão independente.
@@ -69,7 +159,18 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Ainda não executada. Usar `tasks/evidencias/CF-034/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
+Entrega local executada em 24/10/2026, candidato a5ad7a6, sob DEC-CI-04.
+[Relatório e matriz](../evidencias/CF-034/README.md): lint/tipagem, 18 testes
+temporais, 620 componentes, 889 testes backend/PostgreSQL, wrapper E2E e seis
+jornadas reais aprovados, sem skips/retry. Verify e JAR vinculados a 810 inputs;
+contraprovas de lint, data e adulteração de pacote falham e restauram por SHA.
+Falhas intermediárias preservadas. README/runtimes históricos mantidos.
+
+Implementação somente local, aguardando revisão independente. Runner remoto,
+matriz ampliada, upload/pacote remoto e imagem Dockerfile histórica ainda pendentes;
+nenhum checkbox integral autoaprovado. Zoom CF010/015, adoção CF017/P01/P02 e
+sucessoras mantêm condições. Usar o [template](../templates/EVIDENCIA.md) nas
+revisões seguintes; evidências anteriores não são testes do pacote desta rodada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
