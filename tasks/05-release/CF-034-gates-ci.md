@@ -8,7 +8,29 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
-## Publicação controlada e validação remota — 26/10/2026
+## Revisão independente da validação remota — 26/10/2026
+
+[Parecer, matriz por critério e plano de adoção](../evidencias/revisao-prontidao-CF034-CF017/README.md),
+base `fb986456a37a48afcafef204f165d15354294d26`. Main/PR integrada conferidas
+pela API; ddd5a41 é pai do merge e tem árvore igual. Run main 40337346702/1:
+required success, expanded skipped; lint/tipos/build, 13 contratos, 18 execuções
+temporais, 620 componentes, 891 backend/95 classes, wrapper 1 e seis jornadas
+conferidos sem somar sobreposições. Cinco ZIPs confrontados com digests atuais;
+JAR c3860ec0… e 820 inputs verificados contra Git, sem nova suíte/recompilação.
+
+Aceite local DEC-CI-04 preservado; critérios integrais mantidos abertos. Expanded
+não certifica sete casos CF032, incluindo três combinações temporais, nem os 15
+harnesses diferidos. Cancelamento Linux comprova cleanup explícito de recursos
+sintéticos próprios antes do descarte da VM; não certifica Ctrl+C ou controle
+alheio Linux. Imagem de release e dependência integral CF015/zoom200% pendentes.
+
+API/PG offline, autodeploy Railway desativado e produção Vercel anterior preservada.
+DDL externo update, Flyway no startup, jobs, saúde e previews exigem preparo;
+ferramenta CF017 major16 incompatível com imagem alvo17. CF017/P01/P02 permanecem
+em_revisao. Nenhum checkbox integral alterado, sucessora iniciada ou mutação remota.
+Branch de revisão derivada da main integrada; somente documentos/provas locais.
+
+## Histórico — publicação controlada e validação remota — 26/10/2026
 
 Etapa operacional autorizada, entrada4d20fb0; revisão Railway/Vercel incluída por
 pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).

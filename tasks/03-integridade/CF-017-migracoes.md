@@ -8,6 +8,21 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Plano de adoção após revisão CF034 — 26/10/2026
+
+[Revisão de prontidão e procedimento A–D](../evidencias/revisao-prontidao-CF034-CF017/PLANO-ADOCAO.md),
+base integrada fb98645. Cadeia atual V1–V16 preservada; aceites locais RV17-01/02
+e regra da janela continuam válidos, sem reabertura. Imagem Railway configurada
+PG17 e banco offline confirmados; PgSchemaInventory/CLI aprovado recusa major
+diferente16. Preparar/revisar suporte17 em descartável antes de usar essa ferramenta
+no alvo. Nenhuma mudança do verificador ou migrations nesta revisão.
+
+Hibernate externo update, Flyway no bootstrap e agendadores exigem controles
+antes de uma inicialização autorizada. Compatibilidade/inventário/backup/restore,
+proveniência temporal e coordenação de writers reais continuam sem evidência;
+CF017/P01/P02 **em_revisao**, sem novos critérios reais marcados. Plano/documentação
+não executam CF035/036 nem autorizam ligar banco/API, baseline, migrate ou deploy.
+
 ## Delta documental RV17-01/P2 — 15/10/2026
 
 **Situação vigente:** [revalidação independente de 6e64aad](../evidencias/revalidacao-RV17-01-P2/README.md)

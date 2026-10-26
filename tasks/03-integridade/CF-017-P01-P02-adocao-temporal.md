@@ -5,6 +5,20 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Plano de adoção condicionado — 26/10/2026
+
+[Cenários A–D, janela e ações autorizáveis](../evidencias/revisao-prontidao-CF034-CF017/PLANO-ADOCAO.md),
+base integrada fb98645. Cadeia atual V1–V16 e aceites locais preservados.
+Banco real não acessado; imagem PG17 exige suporte/teste dirigido da ferramenta
+operacional atualmente restrita a16. Proveniência/bruto/UNKNOWN/null não podem
+ser preenchidos por inferência. Hibernate validate, Flyway separado e liberação
+dos writers são controles diferentes; rollout inclui V15/V16 e todos os jobs.
+
+Estado em_revisao mantido, sem checkbox real encerrado por CI verde ou revisão
+documental. Inventário/backup/restore, temporalidade por lote, clientes/writers,
+medição e adoção reais exigem autorizações/evidências próprias. CF035/036 não
+iniciadas; nenhuma configuração remota ou migration alterada nesta etapa.
+
 ## Delta documental da janela preflight→baseline — 15/10/2026
 
 **Situação vigente:** [P2 e RV17-01 encerrados no escopo local/documental](../evidencias/revalidacao-RV17-01-P2/README.md),

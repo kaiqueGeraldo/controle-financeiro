@@ -4,7 +4,28 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — CI remoto obrigatório aprovado, 26/10/2026
+## Situação vigente — revisão independente de prontidão, 26/10/2026
+
+[Parecer e plano CF-034/CF-017](evidencias/revisao-prontidao-CF034-CF017/README.md),
+base integrada `fb986456a37a48afcafef204f165d15354294d26`. PR #1 integrada;
+CI main 40337346702/1 confirmada: required aprovado, expanded pulado. Contagens
+e JAR da main conferidos independentemente contra artifacts/API/Git: 820 inputs,
+SHA-256 c3860ec0…, sem nova execução de suítes ou CI. Aceite local preservado;
+CF-034 integral continua em_revisao por critérios/dependências ainda não demonstrados.
+
+Railway API/PG offline e autodeploy desativado confirmados na UI; Vercel mantém
+produção READY em 272001f e configuração main=false. Hibernate externo update,
+Flyway no bootstrap, jobs ativos por configuração, healthcheck ausente e previews
+compartilhando destino exigem preparo antes de ligar a API. A ferramenta de
+preflight/restore aceita PG16, enquanto a imagem do alvo é PG17: preparar e revisar
+suporte17 em descartável antes de usar o procedimento no ambiente real.
+
+CF-017/P01/P02 continuam em_revisao, sem acesso ao banco ou prova real de backup/
+restore. Plano condicionado A–D preparado; CF-035/036 permanecem propostas,
+não iniciadas. Zoom nativo 200% permanece explícito, sem nova tentativa ou dispensa.
+Somente documentação/provas e commits locais desta revisão; README raiz preservado.
+
+## Situação anterior — CI remoto obrigatório aprovado, 26/10/2026
 
 Etapa operacional autorizada sobre4d20fb0, com revisão Railway/Vercel.
 [PR #1](https://github.com/kaiqueGeraldo/controle-financeiro/pull/1) aberta,
