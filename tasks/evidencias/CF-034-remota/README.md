@@ -4,6 +4,11 @@
 expresso de revisão das integrações Railway/Vercel. Aceite local DEC-CI-04 e
 RCI034-01/R1 preservados; CF-034 integral continua **em_revisao**.
 
+**Resultado atual: publicação parcial, sem integração.** Branch publicada até5593e4e;
+[contratos Linux, artifacts baixados, cancelamento/cleanup e limites](RESULTADOS.md).
+PR ainda não enviada após403 e recusa automática do navegador; proposta preparada
+aguarda confirmação. Gates de produto e JAR novo ainda não executados nesta etapa.
+
 ## Entrada, lote e preparação
 
 - Branch `codex/cf034-ci-local`, HEAD aprovado `4d20fb00f929f70cd2fe30b7a3d9aab004526547`.
@@ -47,8 +52,8 @@ da restrição confirmou a main. Nenhuma restauração foi feita por essas falha
 [Matriz](MATRIZ.md), [Git inicial](git-initial.json),
 [inspeção GitHub](github-inspection.json), [auditoria do lote](publication-audit.json),
 [configuração Railway](platform-inspection.json), [inspeção do navegador](browser-inspection.json).
-Resultados remotos serão registrados por run ID, tentativa, job, checkout e
-artifact; o planejamento acima não certifica execução remota.
+Resultados remotos efetivos constam em [RESULTADOS](RESULTADOS.md), por run ID,
+tentativa, job, checkout e artifact; o planejamento não aprova execuções pendentes.
 
 Workflows: `CI integrated gates / required` via PR, e
 `CF034 synthetic remote probes / contracts,cancellation` via push desta branch.

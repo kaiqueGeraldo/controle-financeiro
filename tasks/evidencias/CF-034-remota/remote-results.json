@@ -1,0 +1,234 @@
+{
+  "date": "2026-10-25",
+  "candidate": "5593e4e8269070d5e0269ef26c8451c0bb910c55",
+  "branch": "codex/cf034-ci-local",
+  "mainObserved": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+  "publication": {
+    "initial": "ef76aeea96f279e043ee4898687caa72aacdceda",
+    "correction": "5593e4e8269070d5e0269ef26c8451c0bb910c55",
+    "integrated": false,
+    "forcePush": false
+  },
+  "runs": [
+    {
+      "id": 40246339786,
+      "url": "https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40246339786",
+      "attempt": 1,
+      "head": "ef76aeea96f279e043ee4898687caa72aacdceda",
+      "conclusion": "failure",
+      "contracts": {
+        "tests": 12,
+        "passed": 12,
+        "failures": 0,
+        "skipped": 0
+      },
+      "syntheticExperiments": "passed",
+      "upload": "failed; path with '..' rejected",
+      "cancellation": "skipped"
+    },
+    {
+      "id": 40246575186,
+      "url": "https://github.com/kaiqueGeraldo/controle-financeiro/actions/runs/40246575186",
+      "attempt": 1,
+      "head": "5593e4e8269070d5e0269ef26c8451c0bb910c55",
+      "conclusion": "cancelled; intentional bounded experiment",
+      "jobs": [
+        {
+          "id": 121329292654,
+          "name": "contracts",
+          "conclusion": "success",
+          "tests": 12,
+          "failures": 0,
+          "skipped": 0
+        },
+        {
+          "id": 121329350846,
+          "name": "cancellation",
+          "conclusion": "cancelled",
+          "preparation": "success; process and descendant alive; PostgreSQL pg_isready success",
+          "hold": "cancelled through supported GitHub UI",
+          "downstream": "skipped",
+          "cleanup": "success; child/descendant absent; owned container removed",
+          "upload": "success"
+        }
+      ],
+      "toolchain": {
+        "runner": "Ubuntu 24.04.5",
+        "image": "ubuntu-24.04",
+        "imageVersion": "20261012.334.1",
+        "node": "24.21.0",
+        "npm": "11.19.0",
+        "token": {
+          "contents": "read",
+          "metadata": "read"
+        },
+        "postgresImage": "postgres:16-alpine",
+        "postgresDigest": "sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12619036288,
+      "name": "cf034-contracts-40246575186",
+      "sha256": "75a20115ac7e83853597ed54fae122e83d9e410df97e91c669066ee2a6bebfb1",
+      "expiresAt": "2026-11-01T23:51:02Z",
+      "files": 5,
+      "collectionHashChecks": 3
+    },
+    {
+      "id": 12618957668,
+      "name": "cf034-cancellation-ready-40246575186",
+      "sha256": "54fe6f9d077bf3c46242258cc3de6e2fa7ad01df56cd2156d5ee01b763a21758",
+      "expiresAt": "2026-11-01T23:51:34Z",
+      "files": 1,
+      "scope": "readiness receipt; no application credential; not a sanitized diagnosis collection"
+    },
+    {
+      "id": 12618379689,
+      "name": "cf034-cancellation-cleanup-40246575186",
+      "sha256": "2fda99748323265700bea59d89a6c493205e51d8c27318e282af907057d3acf3",
+      "expiresAt": "2026-11-01T23:52:36Z",
+      "files": 2,
+      "collectionHashChecks": 1
+    }
+  ],
+  "downloadedArtifacts": {
+    "hashesMatchPlatform": true,
+    "sensitiveSentinelsFound": 0,
+    "manifestsMatchDownloadedMembers": true,
+    "extraction": false,
+    "rawFallback": false
+  },
+  "actionsLogs": {
+    "raw": "preserved under CF-034/rem-download-01/logs and on GitHub",
+    "publicRepresentation": "withheld by unchanged bounded shared sanitizer; hashes/reasons only in repository",
+    "notTheSameChannelAsUploadedArtifacts": true
+  },
+  "gatesNotExecuted": [
+    "product lint",
+    "product typecheck",
+    "product temporal suite",
+    "product component suite",
+    "backend/Maven/PostgreSQL domain suite",
+    "product E2E journeys",
+    "product build",
+    "new application JAR",
+    "expanded historical matrix"
+  ],
+  "pullRequest": {
+    "created": false,
+    "connector": "403 Resource not accessible by integration",
+    "browser": "automatic approval review rejected PR submission; explicit approval for prepared text requested asynchronously",
+    "proposal": "PR-PROPOSTA.md",
+    "noPermissionExpansion": true
+  },
+  "package": {
+    "newPackage": false,
+    "historicalJarSource": "a5ad7a64794abca1cc852b11cc1bf79a156dafde",
+    "historicalJarSha256": "28b13d76da59cbfd1af7bd4df9456dd8705602f52fdcc4b868e8decc43d0e6d8",
+    "syntheticTamperProbeIsNotApplicationPackage": true
+  },
+  "cf034": {
+    "localAcceptance": "preserved under DEC-CI-04",
+    "remoteAcceptance": "only demonstrated synthetic contracts, artifact round trip and bounded Linux cancellation/cleanup",
+    "overall": "em_revisao",
+    "integralCheckboxesChanged": false
+  },
+  "noDeployObservation": {
+    "railway": {
+      "environment": {
+        "id": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+        "name": "production"
+      },
+      "services": [
+        {
+          "serviceId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+          "serviceName": "controle-financeiro",
+          "state": "offline",
+          "statusText": "Offline",
+          "activeDeployments": [],
+          "replicaStatus": null,
+          "cronJob": null,
+          "issues": {
+            "warningCount": 0,
+            "criticalCount": 0
+          },
+          "recentFailures": 0,
+          "recentFailedDeployments": [],
+          "hasIssues": false,
+          "isCronJob": false,
+          "hasVolume": false
+        },
+        {
+          "serviceId": "79d2ee56-cfd0-47bc-8744-e932cf49ba69",
+          "serviceName": "Postgres",
+          "state": "offline",
+          "statusText": "Offline",
+          "activeDeployments": [],
+          "replicaStatus": null,
+          "cronJob": null,
+          "issues": {
+            "warningCount": 0,
+            "criticalCount": 0
+          },
+          "recentFailures": 0,
+          "recentFailedDeployments": [],
+          "hasIssues": false,
+          "isCronJob": false,
+          "hasVolume": true
+        }
+      ],
+      "pendingWork": [],
+      "summary": {
+        "totalServices": 2,
+        "servicesWithIssues": 0,
+        "totalFailures": 0
+      }
+    },
+    "latestRailwayDeployments": [
+      {
+        "id": "58cf4748-2eb1-4ba4-aa87-be5f224ecdce",
+        "status": "SKIPPED",
+        "createdAt": "2026-10-24T22:40:38.727Z",
+        "meta": {
+          "commitMessage": "docs(cf034): autorizar recorte local de CI pela DEC-CI-04",
+          "commitHash": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "b596f01e-667c-4d28-b5e0-30f4faadc70e",
+        "status": "REMOVED",
+        "createdAt": "2026-10-24T12:44:40.566Z",
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf033): encerrar achado por revalidacao independente",
+          "commitHash": "e1a01b62e0766c92120c3cefc2bc4b4fc316ce58",
+          "branch": "main"
+        }
+      },
+      {
+        "id": "f80b24db-07fa-410a-bf6d-47410b3edf2b",
+        "status": "REMOVED",
+        "createdAt": "2026-10-23T23:40:46.603Z",
+        "meta": {
+          "reason": "deploy",
+          "commitMessage": "docs(cf032): aceitar revalidacao independente no escopo local",
+          "commitHash": "bfb6c61d6b68e1da112eabf420634bb5b5e9127b",
+          "branch": "main"
+        }
+      }
+    ],
+    "vercel": "authenticated deployment list inspected after branch pushes; latest production remains FkfL25jbyrt6FdD5Di5wqoLH9iHm at272001f, latest entry24/10; no branch CF034 deployment observed"
+  },
+  "limits": [
+    "no real DB connection or migration",
+    "no manual deploy or promotion",
+    "no production settings or secrets changed",
+    "no observation of processes after VM disposal",
+    "no native Windows Ctrl+C certification",
+    "native zoom200%, CF017/P01/P02 adoption and production guarantees unchanged",
+    "no successor task started"
+  ]
+}

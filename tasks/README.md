@@ -4,7 +4,7 @@ Prioridade: corrigir divergências de horário, calendário e apresentação no 
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.
 
-## Situação vigente — preparação da publicação controlada CF034, 25/10/2026
+## Situação vigente — publicação parcial e provas sintéticas CF034, 25/10/2026
 
 Etapa operacional autorizada sobre4d20fb0, com revisão Railway/Vercel. [Matriz,
 inspeções e limites](evidencias/CF-034-remota/README.md). Aceite local preservado;
@@ -12,6 +12,11 @@ CF034 integral em_revisao. Main remota272001f sem proteção/checks; Railway API
 offline, produção ligada à main sem Wait for CI; Vercel ativa/Ready em272001f,
 previews de branches e nenhum Deployment Check. Bloqueio versionado somente da
 branch CF034 prepara CI sem deploy; main aguarda separação explícita dos gatilhos.
+Branch publicada até5593e4e; contratos Linux12/12, artifacts baixados/conferidos e
+cancelamento/cleanup sintético comprovados. Primeiro upload falhou por path,
+correção dirigida aprovada na segunda execução; workflow cancelado não é suíte
+de produto aprovada. PR não enviada após403 e recusa automática do navegador;
+texto preparado/aguardando confirmação. Gates de produto/JAR novo pendentes.
 Sem banco real, infraestrutura de produção alterada, pacote novo ou sucessoras.
 
 ## Situação anterior — aceite independente local CF034, 25/10/2026

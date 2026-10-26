@@ -18,7 +18,13 @@ Wait for CI; API/PG offline, ambientes de PR desativados. Vercel Production Read
 em272001f, main com autoassign e previews de branches sem Deployment Checks.
 Bloqueio versionado apenas da branch CF034 prepara publicação/CI por PR sem deploy.
 Integração na main aguarda separação explícita dos gatilhos de produção, conforme
-limites do pedido; configuração sozinha não comprova gates remotos.
+limites do pedido; configuração sozinha não comprova gates remotos. Branch publicada
+até5593e4e: contratos Linux12/12 e artifacts baixados/conferidos; cancelamento
+suportado bloqueou próxima etapa, encerrou árvore e removeu PG isolado antes do
+descarte da VM. Falha inicial de path/upload preservada/corrigida. PR ainda não
+enviada após403 e recusa automática do navegador; proposta preparada/aguardando
+confirmação. Gates de produto e JAR novo não executados nesta etapa; nenhuma
+aprovação integral inferida das contraprovas ou do workflow cancelado.
 Nenhum checkbox integral alterado, banco real/deploy ou sucessora autorizados.
 
 ## Liberação exclusivamente local — 24/10/2026
