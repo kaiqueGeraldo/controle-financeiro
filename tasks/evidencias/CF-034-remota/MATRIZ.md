@@ -10,7 +10,7 @@ de execução e evidência concluída; configuração não é aprovação.
 | Lint e tipos | `ci.yml / required`, ubuntu-latest, Node 24 | Nenhum | Logs novos, ESLint sem warnings e tsc exit 0 | Obrigatório nesta etapa |
 | Datas | Mesmo job, comando canônico `npm test` | Nenhum | 3 fusos São Paulo/UTC/Kiritimati, totais positivos, zero skips/falhas | Obrigatório nesta etapa |
 | Componentes/onboarding | Vitest do lockfile | Nenhum | JSON bruto examinado, total positivo e zero falhas/erros/skips | Obrigatório nesta etapa |
-| Backend | Temurin 21, Maven wrapper/POM, Docker | PostgreSQL 16 Testcontainers, schema por contexto, Flyway real | Seleção das 94 classes correntes, relatórios de cada classe e contagens sem skips | Obrigatório nesta etapa |
+| Backend | Temurin 21, Maven wrapper/POM, Docker | PostgreSQL 16 Testcontainers, schema por contexto, Flyway real | 94 classes originais e a regressão de pool acrescentada em26/10 (95 correntes); relatório de cada classe e contagens sem skips | Obrigatório nesta etapa |
 | E2E smoke | Java + Playwright do lockfile, Chromium, JVM UTC | Spring/Next em loopback e PostgreSQL sintético | 6 jornadas CF032 A/B/G/H/K/L, SQL/reload, zero flaky/skips | Obrigatório nesta etapa |
 | Build e JAR | Next build + Maven verify, sem skipTests no gate | Mesmos recursos do job | Manifesto novo, fonte efetiva, lock/POM, comandos, contagens e SHA256; download do artifact | Obrigatório nesta etapa |
 | Runner/coleta e contraprovas | Node tests + experimentos isolados | Fixtures/processos sintéticos | Falha/subprocesso, relatório ausente, JAR alterado e coleta recusada bloqueiam avanço | Obrigatório nesta etapa |

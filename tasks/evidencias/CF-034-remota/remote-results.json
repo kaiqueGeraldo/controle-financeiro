@@ -1,6 +1,6 @@
 {
   "date": "2026-10-26",
-  "candidate": "5593e4e8269070d5e0269ef26c8451c0bb910c55",
+  "candidate": "887894825393859de9652c287594ac58fbcb0833",
   "branch": "codex/cf034-ci-local",
   "mainObserved": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
   "publication": {
@@ -106,9 +106,7 @@
     "notTheSameChannelAsUploadedArtifacts": true
   },
   "gatesNotExecuted": [
-    "backend/Maven/PostgreSQL domain suite",
     "product E2E journeys",
-    "product build",
     "new application JAR",
     "expanded historical matrix"
   ],
@@ -122,7 +120,8 @@
     "number": 1,
     "head": "36391eeb84d6a1b15c79bbdb3882c5f0415e6535",
     "base": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
-    "merged": false
+    "merged": false,
+    "lastObservedHead": "887894825393859de9652c287594ac58fbcb0833"
   },
   "package": {
     "newPackage": false,
@@ -300,6 +299,55 @@
         "expiresAt": "2026-11-02T12:21:09Z"
       },
       "package": false
+    },
+    {
+      "id": 40323062343,
+      "attempt": 1,
+      "head": "887894825393859de9652c287594ac58fbcb0833",
+      "checkout": "9b5303f3cff3156ad81e7ccb737fc78c322bcc12",
+      "conclusion": "failure",
+      "contracts": {
+        "tests": 13,
+        "failures": 0,
+        "skipped": 0
+      },
+      "frontend": {
+        "lint": "passed",
+        "types": "passed",
+        "unit": {
+          "timezones": 3,
+          "tests": 18
+        },
+        "components": {
+          "tests": 620,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "build": "passed"
+      },
+      "backend": {
+        "tests": 889,
+        "failures": 23,
+        "errors": 91,
+        "skipped": 0,
+        "selectedClasses": 94
+      },
+      "blocked": [
+        "E2E",
+        "package"
+      ],
+      "classification": "pooled schema leak in two migration fixtures; same two regression cases fail with session SQL, pass with JDBC setSchema",
+      "comparison": "pool-schema-comparison.json",
+      "diagnosis": {
+        "id": 12650476395,
+        "sha256": "6b63fab98bee9b05c7df84984e4cc8c603bdf3d744274f474024298df4149552",
+        "files": 9,
+        "hashChecks": 8,
+        "sentinels": 0,
+        "expiresAt": "2026-11-02T12:37:28Z"
+      },
+      "package": false
     }
   ],
   "repeatProbes": [
@@ -330,6 +378,27 @@
         "sha256": "12d65eecd8f6b27b8fcc5499381c6640bfe65fdf8a7ad3a2a3ecb81a8cf6fe4d",
         "downloaded": false
       }
+    },
+    {
+      "id": 40323055814,
+      "head": "887894825393859de9652c287594ac58fbcb0833",
+      "contracts": "success",
+      "cancellation": "intentional after ready",
+      "downstream": "skipped",
+      "cleanup": "success",
+      "upload": "success",
+      "cleanupArtifact": {
+        "id": 12649518670,
+        "sha256": "a06dc363ad2671e47b7084907837ac4825d538da9fd494e64c0dbb42cfd1a022",
+        "downloaded": true
+      }
     }
-  ]
+  ],
+  "candidateMeaning": "last remotely executed candidate; following commits require their own checks",
+  "platformVerification": {
+    "backendUrl": "verified by authenticated Vercel UI after owner completed MFA; HTTPS root matches Railway hostname; value hidden again",
+    "changes": "none",
+    "applicationRequests": 0,
+    "realDatabaseConnections": 0
+  }
 }

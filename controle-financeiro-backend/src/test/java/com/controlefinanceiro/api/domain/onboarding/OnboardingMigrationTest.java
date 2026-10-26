@@ -16,14 +16,14 @@ class OnboardingMigrationTest extends PostgresIntegrationTest {
         String schema="cf029_upgrade_"+UUID.randomUUID().toString().replace("-","");UUID owner=UUID.randomUUID();
         Flyway.configure().dataSource(dataSource).schemas(schema).defaultSchema(schema).target("14").load().migrate();
         try(var c=dataSource.getConnection();var s=c.createStatement()) {
-            s.execute("set search_path to "+schema);
+            c.setSchema(schema); // Let Hikari restore the application schema on return.
             s.execute("insert into users(id,nome,email,senha,dark_mode,privacy_mode) values('"+owner+"','synthetic','upgrade@example.test','hash',false,false)");
             s.execute("insert into accounts(id,name,type,balance,user_id,is_archived) values('"+UUID.randomUUID()+"','legacy','CHECKING',999999999999.99,'"+owner+"',false)");
         }
         var upgraded=Flyway.configure().dataSource(dataSource).schemas(schema).defaultSchema(schema).load();
         assertThat(upgraded.migrate().migrationsExecuted).isEqualTo(2);upgraded.validate();
         try(var c=dataSource.getConnection();var s=c.createStatement()) {
-            s.execute("set search_path to "+schema);
+            c.setSchema(schema);
             try(var rs=s.executeQuery("select balance::text, opening_origin from accounts")){rs.next();assertThat(rs.getString(1)).isEqualTo("999999999999.99");assertThat(rs.getString(2)).isNull();}
             String insert="insert into onboarding_sessions(id,user_id,version,status,issues,updated_at) values('"+UUID.randomUUID()+"','"+owner+"',1,'SKIPPED','[]',now())";
             s.execute(insert);

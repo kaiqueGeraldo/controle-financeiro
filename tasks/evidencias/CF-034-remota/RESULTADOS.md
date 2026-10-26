@@ -43,6 +43,26 @@ timeouts e retries preservados. Diagnosis12649661157 baixado/conferido,6 arquivo
 `dc5a5c0e91f21bc8a326aa37f52badf5d78b8353224dc08d66b04b102f811522`.
 Build/backend/E2E/pacote ainda bloqueados até execução corrigida; sem novo JAR.
 
+CI40323062343/8878948, checkout9b5303f: frontend completo aprovado (620 componentes,
+18 temporais, lint/tipos/build), backend889 casos com23 falhas/91 erros/0 skips.
+Sem E2E/pacote. Diagnosis12650476395 baixado,9 arquivos/8 hashes/zero sentinelas,
+SHA256 `6b63fab98bee9b05c7df84984e4cc8c603bdf3d744274f474024298df4149552`.
+As fixtures OnboardingMigrationTest e OnboardingV16MigrationTest faziam SET
+search_path por SQL em conexões Hikari: o próximo consumidor recebia schema de
+upgrade, diferente do Hibernate. Correção de quatro operações para Connection.setSchema,
+que o pool rastreia/restaura, sem alterar assertions de migração ou produto.
+[Prova dirigida](pool-schema-comparison.json): mesmos2 casos de regressão, versão
+SQL2 falhas/0 erros; versão corrigida2 aprovados, zero skips. Teste observa as duas
+conexões do pool e integridade usuário/conta, sem depender de ordenação. Primeiro
+ensaio com pool1 falhou na inicialização Flyway e não conta como contraprova.
+Seleção passa de94 para95 classes e acrescenta2 casos; suíte remota completa
+ainda necessária. Cache global, timeouts, retries e classes anteriores preservados.
+
+Vercel26/10: titular concluiu a verificação adicional; BACKEND_API_URL confirmado
+como HTTPS/raiz para o hostname do serviço backend Railway, sem credenciais ou
+query na URL, ocultado novamente. All Environments permanece; nenhuma alteração
+de configuração, requisição à aplicação ou acesso a banco real.
+
 Branch publicada emef76aee, corrigida em `5593e4e8269070d5e0269ef26c8451c0bb910c55`.
 Main permanece272001f, sem integração. [Registro estruturado](remote-results.json).
 
