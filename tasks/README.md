@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Saneamento dirigido da preparação — 26–27/10/2026
+
+[Delta local, provas e encaminhamento](evidencias/saneamento-preparacao-local-adocao/README.md),
+base07c3963, **em_revisao**. RVPLA-01 corrigido no runner com checkpoint causal,
+identidade/quiescência/restauração e28 testes; fonte/cópias mutantes restauradas.
+Uma corrida de porta do harness foi demonstrada e corrigida, com controles PG16,
+PG17/JAR e imagem. Diagnóstico HQL aprofundado; causa dos estouros históricos ainda
+inconclusiva, startup integral não aprovado. Sem alteração de produto ou JAR novo.
+Aceites locais anteriores preservados no alcance do parecer; nenhuma tarefa maior,
+gate real, expanded, zoom200% ou cancelamento é encerrado por associação.
+Pendências remotas registradas na revisão permanecem sem alteração. Sem acesso ao
+banco real, push, merge, CI remota, alteração de hospedagem, ativação ou deploy.
+
 ## Revisão independente da preparação local — 26/10/2026
 
 [Parecer A–G e matriz](evidencias/revisao-preparacao-local-adocao/README.md),

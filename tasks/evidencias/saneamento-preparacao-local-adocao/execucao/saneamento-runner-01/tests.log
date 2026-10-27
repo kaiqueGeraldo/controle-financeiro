@@ -1,0 +1,136 @@
+TAP version 13
+# Subtest: valid completion is reused only after evidence and restoration checks
+ok 1 - valid completion is reused only after evidence and restoration checks
+  ---
+  duration_ms: 75.722
+  type: 'test'
+  ...
+# Subtest: recorded exit 1 before causal effect is retried as a new attempt, never skipped
+ok 2 - recorded exit 1 before causal effect is retried as a new attempt, never skipped
+  ---
+  duration_ms: 102.4061
+  type: 'test'
+  ...
+# Subtest: failure preparing mutation is recorded and cannot release following work
+ok 3 - failure preparing mutation is recorded and cannot release following work
+  ---
+  duration_ms: 71.7196
+  type: 'test'
+  ...
+# Subtest: observer exception after mutation restores bytes and persists failure
+ok 4 - observer exception after mutation restores bytes and persists failure
+  ---
+  duration_ms: 91.4239
+  type: 'test'
+  ...
+# Subtest: interruption in running restores and observes anew
+ok 5 - interruption in running restores and observes anew
+  ---
+  duration_ms: 68.3344
+  type: 'test'
+  ...
+# Subtest: interruption in mutated restores and observes anew
+ok 6 - interruption in mutated restores and observes anew
+  ---
+  duration_ms: 71.2261
+  type: 'test'
+  ...
+# Subtest: interruption in observed restores and observes anew
+ok 7 - interruption in observed restores and observes anew
+  ---
+  duration_ms: 73.3298
+  type: 'test'
+  ...
+# Subtest: interruption in restoration-pending restores and observes anew
+ok 8 - interruption in restoration-pending restores and observes anew
+  ---
+  duration_ms: 81.0277
+  type: 'test'
+  ...
+# Subtest: interruption in failed-before-completion restores and observes anew
+ok 9 - interruption in failed-before-completion restores and observes anew
+  ---
+  duration_ms: 117.2523
+  type: 'test'
+  ...
+# Subtest: surviving mutation does not complete
+ok 10 - surviving mutation does not complete
+  ---
+  duration_ms: 80.4682
+  type: 'test'
+  ...
+# Subtest: generic assertion counts with wrong failure do not complete
+ok 11 - generic assertion counts with wrong failure do not complete
+  ---
+  duration_ms: 103.1001
+  type: 'test'
+  ...
+# Subtest: invalid evidence missing-log is not reused
+ok 12 - invalid evidence missing-log is not reused
+  ---
+  duration_ms: 193.3495
+  type: 'test'
+  ...
+# Subtest: invalid evidence tampered-report is not reused
+ok 13 - invalid evidence tampered-report is not reused
+  ---
+  duration_ms: 178.9931
+  type: 'test'
+  ...
+# Subtest: invalid evidence tampered-checkpoint-result is not reused
+ok 14 - invalid evidence tampered-checkpoint-result is not reused
+  ---
+  duration_ms: 180.3444
+  type: 'test'
+  ...
+# Subtest: different candidate checkpoint is rejected without mutation
+ok 15 - different candidate checkpoint is rejected without mutation
+  ---
+  duration_ms: 86.4762
+  type: 'test'
+  ...
+# Subtest: different observer checkpoint is rejected without mutation
+ok 16 - different observer checkpoint is rejected without mutation
+  ---
+  duration_ms: 85.9834
+  type: 'test'
+  ...
+# Subtest: different config checkpoint is rejected without mutation
+ok 17 - different config checkpoint is rejected without mutation
+  ---
+  duration_ms: 77.6104
+  type: 'test'
+  ...
+# Subtest: incomplete restoration blocks resume until backup/source repair is verified
+ok 18 - incomplete restoration blocks resume until backup/source repair is verified
+  ---
+  duration_ms: 134.7691
+  type: 'test'
+  ...
+# Subtest: unrelated candidate change blocks reuse even with a valid proof
+ok 19 - unrelated candidate change blocks reuse even with a valid proof
+  ---
+  duration_ms: 110.9494
+  type: 'test'
+  ...
+# Subtest: legacy status-only receipt is kept but never imported as completion
+ok 20 - legacy status-only receipt is kept but never imported as completion
+  ---
+  duration_ms: 88.527
+  type: 'test'
+  ...
+# Subtest: truncated checkpoint fails closed and does not advance
+ok 21 - truncated checkpoint fails closed and does not advance
+  ---
+  duration_ms: 75.8073
+  type: 'test'
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2319.4509

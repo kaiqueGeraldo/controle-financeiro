@@ -1,0 +1,105 @@
+[ {
+  "commandSanitized" : [ "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-backend\\target\\temurin21\\jdk-21.0.12.1+1\\bin\\java", "-Xmx384m", "-javaagent:C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-startup-01\\agent\\boot-agent.jar", "-XX:StartFlightRecording=settings=profile,dumponexit=true,filename=C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-startup-01\\native.jfr", "-jar", "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\p05\\package\\api.jar", "--spring.profiles.active=adoption", "--server.port=0", "--app.operations.writers-enabled=true", "--app.operations.jobs-enabled=false" ],
+  "wallStartUtc" : "2026-10-27T00:38:08.928983600Z",
+  "budgetPassed" : true,
+  "mode" : "native",
+  "readyMs" : 23215,
+  "diagnosticBudgetMs" : 90000,
+  "events" : [ {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 0,
+    "ms" : 8
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 19125,
+    "ms" : 5107
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 40156,
+    "ms" : 10125
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 54703,
+    "ms" : 15128
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 72625,
+    "ms" : 20171
+  }, {
+    "port" : 63884,
+    "ms" : 22937,
+    "event" : "bound-port-discovered"
+  }, {
+    "liveness" : 200,
+    "ms" : 23215,
+    "event" : "first-readiness-200"
+  }, {
+    "ms" : 23222,
+    "alive" : true,
+    "event" : "diagnostic-ended"
+  }, {
+    "liveness" : 200,
+    "readiness" : 503,
+    "event" : "db-paused",
+    "probeMs" : 1023
+  } ],
+  "originalBudgetMs" : 40000,
+  "configuration" : "adoption; writers=true; jobs=false; JDBC connect/socket2s; JFR profile + external agent; dynamic host port"
+}, {
+  "commandSanitized" : [ "docker", "run", "--rm", "--name", "cf-saneamento-8f80fa6e-566b-4145-ba7c-bc42546fd981", "--label", "cf.saneamento.adoption=true", "-p", "127.0.0.1::8080", "-v", "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-startup-01\\agent:/diagnostic", "--entrypoint", "java", "--env", "FRONT_URL=http://localhost", "--env", "EMAIL_RESEND=no-reply@example.test", "--env", "JWT_SECRET=[synthetic-redacted]", "--env", "SPRING_DATASOURCE_[synthetic-redacted]", "--env", "SPRING_DATASOURCE_[synthetic-redacted]", "--env", "BRAPI_TOKEN=[synthetic-redacted]", "--env", "SPRING_DATASOURCE_[synthetic-redacted]", "--env", "RESEND_API_KEY=[synthetic-redacted]", "sha256:8c10218386234f364e264e898fa77e40cd56a0236f4eeab245cf6bb97f568ef1", "-javaagent:/diagnostic/boot-agent.jar", "-XX:StartFlightRecording=settings=profile,dumponexit=true,filename=/diagnostic/image.jfr", "-jar", "/app/api.jar", "--spring.profiles.active=adoption", "--server.port=8080", "--app.operations.writers-enabled=true", "--app.operations.jobs-enabled=false" ],
+  "wallStartUtc" : "2026-10-27T00:38:33.287322900Z",
+  "budgetPassed" : true,
+  "mode" : "image",
+  "readyMs" : 21137,
+  "diagnosticBudgetMs" : 90000,
+  "events" : [ {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 0,
+    "ms" : 12
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 46,
+    "ms" : 5112
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 46,
+    "ms" : 10129
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 62,
+    "ms" : 15184
+  }, {
+    "availableProcessors" : 16,
+    "event" : "resource-sample",
+    "processCpuMs" : 156,
+    "ms" : 20216
+  }, {
+    "port" : 63888,
+    "ms" : 20926,
+    "event" : "bound-port-discovered"
+  }, {
+    "liveness" : 200,
+    "ms" : 21137,
+    "event" : "first-readiness-200"
+  }, {
+    "ms" : 21146,
+    "alive" : true,
+    "event" : "diagnostic-ended"
+  }, {
+    "liveness" : 200,
+    "readiness" : 503,
+    "event" : "db-paused",
+    "probeMs" : 1026
+  } ],
+  "originalBudgetMs" : 40000,
+  "configuration" : "adoption; writers=true; jobs=false; JDBC connect/socket2s; JFR profile + external agent; dynamic host port"
+} ]

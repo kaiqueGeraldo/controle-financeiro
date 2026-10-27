@@ -1,0 +1,688 @@
+BOOT_AGENT|336327506194764|1793061514013
+[2.262s][info][jfr,startup] Started recording 1. No limit specified, using maxsize=250MB as default.
+[2.262s][info][jfr,startup] 
+[2.262s][info][jfr,startup] Use jcmd 1 JFR.dump name=1 to copy recording data to file.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-27 00:38:38.612 - INFO 1 --- [           main] c.c.a.ControleFinanceiroApiApplication   : Starting ControleFinanceiroApiApplication v0.0.1 using Java 21.0.12 with PID 1 (/app/api.jar started by ? in /app)
+-2026-10-27 00:38:38.619 - INFO 1 --- [           main] c.c.a.ControleFinanceiroApiApplication   : The following 1 profile is active: "adoption"
+-2026-10-27 00:38:40.662 - INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+-2026-10-27 00:38:40.899 - INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 221 ms. Found 29 JPA repository interfaces.
+-2026-10-27 00:38:42.101 - INFO 1 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+-2026-10-27 00:38:42.133 - INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+-2026-10-27 00:38:42.134 - INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+-2026-10-27 00:38:42.186 - INFO 1 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3346 ms
+-2026-10-27 00:38:42.519 - INFO 1 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+-2026-10-27 00:38:42.633 - INFO 1 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+-2026-10-27 00:38:43.495 - INFO 1 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+-2026-10-27 00:38:43.537 - INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+-2026-10-27 00:38:43.816 - INFO 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7be1e187
+-2026-10-27 00:38:43.818 - INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+-2026-10-27 00:38:43.863 - WARN 1 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-27 00:38:43.905 - INFO 1 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [[JDBC_REDACTED]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: cf_test_cf017_38f0eb53d86746fe8808e8942934033b/startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+-2026-10-27 00:38:46.621 - INFO 1 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+-2026-10-27 00:38:46.735 - INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-27 00:38:46.839 - INFO 1 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+-BOOT_METHOD|336341123230582|public abstract java.util.Optional com.controlefinanceiro.api.domain.account.AccountRepository.findOwnedForAllocation(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336341166315034|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|64
+BOOT_QUERY_END|336341608411310|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|442096276|OK
+BOOT_QUERY_BEGIN|336341618127750|org.hibernate.internal.AbstractSharedSessionContract.createQuery|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|64
+BOOT_QUERY_BEGIN|336341618749877|org.hibernate.internal.AbstractSharedSessionContract.createQuery|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|64
+BOOT_QUERY_END|336342042476940|org.hibernate.internal.AbstractSharedSessionContract.createQuery|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|423727063|OK
+BOOT_QUERY_END|336342042983598|org.hibernate.internal.AbstractSharedSessionContract.createQuery|73188ea00b8621f674cae3dc919d80048ab8fb1376b2c32c0a133fdc9616fae6|424855848|OK
+BOOT_METHOD|336342045817498|public abstract java.util.List com.controlefinanceiro.api.domain.account.AccountRepository.findAllByIdForTransfer(java.util.List,java.util.UUID)
+BOOT_QUERY_BEGIN|336342048293320|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|80
+BOOT_QUERY_END|336342059756590|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|11463270|OK
+BOOT_QUERY_BEGIN|336342061547787|org.hibernate.internal.AbstractSharedSessionContract.createQuery|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|80
+BOOT_QUERY_BEGIN|336342061762509|org.hibernate.internal.AbstractSharedSessionContract.createQuery|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|80
+BOOT_QUERY_END|336342080287918|org.hibernate.internal.AbstractSharedSessionContract.createQuery|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|18525409|OK
+BOOT_QUERY_END|336342080486771|org.hibernate.internal.AbstractSharedSessionContract.createQuery|faf7649e31dc27688cbc792e4050cef51d32fc5a5ce76e5bae391aef6cb9860a|18938984|OK
+BOOT_METHOD|336342081507387|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.account.AccountRepository.sumTotalBalanceByUserId(java.util.UUID)
+BOOT_QUERY_BEGIN|336342082111627|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|75
+BOOT_QUERY_END|336342224711696|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|142600069|OK
+BOOT_QUERY_BEGIN|336342226642161|org.hibernate.internal.AbstractSharedSessionContract.createQuery|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|75
+BOOT_QUERY_BEGIN|336342226802816|org.hibernate.internal.AbstractSharedSessionContract.createQuery|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|75
+BOOT_QUERY_END|336342273035600|org.hibernate.internal.AbstractSharedSessionContract.createQuery|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|46232784|OK
+BOOT_QUERY_END|336342273232443|org.hibernate.internal.AbstractSharedSessionContract.createQuery|857c926786a24afee08029146a8622d4b21f316162ae3865750bb9f176bbd1d3|46590282|OK
+BOOT_METHOD|336342354682189|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumOutstandingByCardId(java.util.UUID)
+BOOT_QUERY_BEGIN|336342356425539|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|fe2420c060da24cc6382d7601492ea153bc47ba157665529ebc573c5bf29d2b5|327
+BOOT_QUERY_END|336342426232322|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|fe2420c060da24cc6382d7601492ea153bc47ba157665529ebc573c5bf29d2b5|69806783|OK
+BOOT_QUERY_BEGIN|336342430366841|org.hibernate.internal.AbstractSharedSessionContract.createQuery|76220b3344ad6cf1ab4736dae9f6747a111a84cd8488a353aa7d2f3a0b167464|317
+BOOT_QUERY_BEGIN|336342430831327|org.hibernate.internal.AbstractSharedSessionContract.createQuery|76220b3344ad6cf1ab4736dae9f6747a111a84cd8488a353aa7d2f3a0b167464|317
+BOOT_QUERY_END|336342477645673|org.hibernate.internal.AbstractSharedSessionContract.createQuery|76220b3344ad6cf1ab4736dae9f6747a111a84cd8488a353aa7d2f3a0b167464|46814346|OK
+BOOT_QUERY_END|336342477849894|org.hibernate.internal.AbstractSharedSessionContract.createQuery|76220b3344ad6cf1ab4736dae9f6747a111a84cd8488a353aa7d2f3a0b167464|47483053|OK
+BOOT_METHOD|336342479352844|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumByCategoryAndYear(java.util.UUID,java.lang.Integer,java.lang.String)
+BOOT_QUERY_BEGIN|336342480607870|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|276
+BOOT_QUERY_END|336342511939390|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|31331520|OK
+BOOT_QUERY_BEGIN|336342515573559|org.hibernate.internal.AbstractSharedSessionContract.createQuery|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|276
+BOOT_QUERY_BEGIN|336342515796921|org.hibernate.internal.AbstractSharedSessionContract.createQuery|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|276
+BOOT_QUERY_END|336342534158624|org.hibernate.internal.AbstractSharedSessionContract.createQuery|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|18361703|OK
+BOOT_QUERY_END|336342534363267|org.hibernate.internal.AbstractSharedSessionContract.createQuery|5a6a0fab5583e56ab0070af34932bea6d102948e9b36edfdd6f388802d654d05|18789708|OK
+BOOT_METHOD|336342537133634|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumPurchasesByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336342538205885|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|232
+BOOT_QUERY_END|336342541621357|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|3415472|OK
+BOOT_QUERY_BEGIN|336342545387529|org.hibernate.internal.AbstractSharedSessionContract.createQuery|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|232
+BOOT_QUERY_BEGIN|336342545567333|org.hibernate.internal.AbstractSharedSessionContract.createQuery|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|232
+BOOT_QUERY_END|336342550188691|org.hibernate.internal.AbstractSharedSessionContract.createQuery|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|4621358|OK
+BOOT_QUERY_END|336342550378792|org.hibernate.internal.AbstractSharedSessionContract.createQuery|af7d7f44bbfb83628183dc31c19214a60c678cdacc092509a9029222dc50607d|4991263|OK
+BOOT_METHOD|336342551327577|public abstract java.util.List com.controlefinanceiro.api.domain.card.CardTransactionRepository.outstandingByCardPeriod(java.util.List)
+BOOT_QUERY_BEGIN|336342552517589|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9ef65425e5ccd6ff47c3faca18a37eb494e8fc049c8701b66f3eb9552de897cd|400
+BOOT_QUERY_END|336342636061010|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9ef65425e5ccd6ff47c3faca18a37eb494e8fc049c8701b66f3eb9552de897cd|83543421|OK
+BOOT_QUERY_BEGIN|336342640483866|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3ebf9f6464c6f8fc94497fce48e1d0859200261f8be09dba4a0298c296ec48bc|390
+BOOT_QUERY_BEGIN|336342640721707|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3ebf9f6464c6f8fc94497fce48e1d0859200261f8be09dba4a0298c296ec48bc|390
+BOOT_QUERY_END|336342672781327|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3ebf9f6464c6f8fc94497fce48e1d0859200261f8be09dba4a0298c296ec48bc|32059620|OK
+BOOT_QUERY_END|336342672970702|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3ebf9f6464c6f8fc94497fce48e1d0859200261f8be09dba4a0298c296ec48bc|32486836|OK
+BOOT_METHOD|336342685421879|public abstract java.util.List com.controlefinanceiro.api.domain.card.CardTransactionRepository.findByInvoiceIdWithDetails(java.util.UUID)
+BOOT_QUERY_BEGIN|336342686295644|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|179
+BOOT_QUERY_END|336342709789131|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|23493487|OK
+BOOT_QUERY_BEGIN|336342711232796|org.hibernate.internal.AbstractSharedSessionContract.createQuery|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|179
+BOOT_QUERY_BEGIN|336342711442854|org.hibernate.internal.AbstractSharedSessionContract.createQuery|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|179
+BOOT_QUERY_END|336342726284830|org.hibernate.internal.AbstractSharedSessionContract.createQuery|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|14841976|OK
+BOOT_QUERY_END|336342726480701|org.hibernate.internal.AbstractSharedSessionContract.createQuery|694047869b0045c3d9db12ea9f3bbd4793d547003dcbcf697ee36f3bfc31f410|15247905|OK
+BOOT_METHOD|336342727172741|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumAmountByInvoiceId(java.util.UUID)
+BOOT_QUERY_BEGIN|336342727663667|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|88
+BOOT_QUERY_END|336342728362193|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|698526|OK
+BOOT_QUERY_BEGIN|336342729130749|org.hibernate.internal.AbstractSharedSessionContract.createQuery|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|88
+BOOT_QUERY_BEGIN|336342729286565|org.hibernate.internal.AbstractSharedSessionContract.createQuery|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|88
+BOOT_QUERY_END|336342730765530|org.hibernate.internal.AbstractSharedSessionContract.createQuery|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|1478965|OK
+BOOT_QUERY_END|336342730891116|org.hibernate.internal.AbstractSharedSessionContract.createQuery|08389b772d4babb5e8313a53beba3462edab2af59ecea6a9d8c9ef56947906ed|1760367|OK
+BOOT_METHOD|336342731878963|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumOutstandingByInvoiceId(java.util.UUID)
+BOOT_QUERY_BEGIN|336342733290443|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|71c8dc035467f7ceebdadc5b9b5e12fa487a4ce2278d6c6fe3ab81a3f27a9ac1|325
+BOOT_QUERY_END|336342734611731|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|71c8dc035467f7ceebdadc5b9b5e12fa487a4ce2278d6c6fe3ab81a3f27a9ac1|1321288|OK
+BOOT_QUERY_BEGIN|336342736444444|org.hibernate.internal.AbstractSharedSessionContract.createQuery|fe4c4fcfba2462ee94c29624ce47ab3ad72881c640095168cab6bcf019fec9c8|315
+BOOT_QUERY_BEGIN|336342736727922|org.hibernate.internal.AbstractSharedSessionContract.createQuery|fe4c4fcfba2462ee94c29624ce47ab3ad72881c640095168cab6bcf019fec9c8|315
+BOOT_QUERY_END|336342740221737|org.hibernate.internal.AbstractSharedSessionContract.createQuery|fe4c4fcfba2462ee94c29624ce47ab3ad72881c640095168cab6bcf019fec9c8|3493815|OK
+BOOT_QUERY_END|336342740403940|org.hibernate.internal.AbstractSharedSessionContract.createQuery|fe4c4fcfba2462ee94c29624ce47ab3ad72881c640095168cab6bcf019fec9c8|3959496|OK
+BOOT_METHOD|336342742059095|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumOutstandingUpTo(java.util.UUID,int,int,boolean)
+BOOT_QUERY_BEGIN|336342744933380|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2f4b25dff5e6f5948ac2de3b4d6670e7f2b7c2ad6ebce5ac77479c723a58684d|549
+BOOT_QUERY_END|336343050391462|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2f4b25dff5e6f5948ac2de3b4d6670e7f2b7c2ad6ebce5ac77479c723a58684d|305458082|OK
+BOOT_QUERY_BEGIN|336343053029796|org.hibernate.internal.AbstractSharedSessionContract.createQuery|861a3c0e50f712788e4af1579f8b292c4b0cee21a77423f661e66d35035fa650|525
+BOOT_QUERY_BEGIN|336343053199488|org.hibernate.internal.AbstractSharedSessionContract.createQuery|861a3c0e50f712788e4af1579f8b292c4b0cee21a77423f661e66d35035fa650|525
+BOOT_QUERY_END|336343126070514|org.hibernate.internal.AbstractSharedSessionContract.createQuery|861a3c0e50f712788e4af1579f8b292c4b0cee21a77423f661e66d35035fa650|72871026|OK
+BOOT_QUERY_END|336343126233306|org.hibernate.internal.AbstractSharedSessionContract.createQuery|861a3c0e50f712788e4af1579f8b292c4b0cee21a77423f661e66d35035fa650|73203510|OK
+BOOT_METHOD|336343128729448|public abstract java.util.Optional com.controlefinanceiro.api.domain.card.CardTransactionRepository.findCardIdByTransactionId(java.util.UUID)
+BOOT_QUERY_BEGIN|336343129147736|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|75
+BOOT_QUERY_END|336343130754360|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|1606624|OK
+BOOT_QUERY_BEGIN|336343131503641|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|75
+BOOT_QUERY_BEGIN|336343131760840|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|75
+BOOT_QUERY_END|336343132937799|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|1176959|OK
+BOOT_QUERY_END|336343133295741|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ff8d0c0b7ca99f0bdcec1a082c36589378df497ab63ecae516295c65464cfdfb|1792100|OK
+BOOT_METHOD|336343134395701|public abstract java.util.List com.controlefinanceiro.api.domain.card.CardTransactionRepository.findPurchaseInstallments(java.util.UUID)
+BOOT_QUERY_BEGIN|336343134849268|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|124
+BOOT_QUERY_END|336343135694630|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|845362|OK
+BOOT_QUERY_BEGIN|336343136623299|org.hibernate.internal.AbstractSharedSessionContract.createQuery|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|124
+BOOT_QUERY_BEGIN|336343136931231|org.hibernate.internal.AbstractSharedSessionContract.createQuery|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|124
+BOOT_QUERY_END|336343138559055|org.hibernate.internal.AbstractSharedSessionContract.createQuery|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|1627824|OK
+BOOT_QUERY_END|336343138771674|org.hibernate.internal.AbstractSharedSessionContract.createQuery|19dbde9bf976cf72fff59f5545069a679de6920fb4dc0a1d1dc425792fec50a8|2148375|OK
+BOOT_METHOD|336343139813957|public abstract long com.controlefinanceiro.api.domain.card.CardTransactionRepository.countLegacyAdjustmentsUpTo(java.util.UUID,int,int,boolean)
+BOOT_QUERY_BEGIN|336343140940974|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|aac2153e9722ed9730473ea95e4469c079598d0d7bdf001546d3c0c9bc967912|321
+BOOT_QUERY_END|336343142851998|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|aac2153e9722ed9730473ea95e4469c079598d0d7bdf001546d3c0c9bc967912|1911024|OK
+BOOT_QUERY_BEGIN|336343144053884|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59e68f0356389d18e1401c8bff5ace7bc186ffc4c8908472c35c08e677e275c|306
+BOOT_QUERY_BEGIN|336343144192386|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59e68f0356389d18e1401c8bff5ace7bc186ffc4c8908472c35c08e677e275c|306
+BOOT_QUERY_END|336343146672148|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59e68f0356389d18e1401c8bff5ace7bc186ffc4c8908472c35c08e677e275c|2479762|OK
+BOOT_QUERY_END|336343146803407|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59e68f0356389d18e1401c8bff5ace7bc186ffc4c8908472c35c08e677e275c|2749523|OK
+BOOT_METHOD|336343147903003|public abstract java.util.List com.controlefinanceiro.api.domain.card.CardTransactionRepository.findOutstandingUpTo(java.util.UUID,int,int,boolean)
+BOOT_QUERY_BEGIN|336343149138328|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|e95be7bb95f89b97af567eefc40cda926a27a471020249f865ad677856905633|602
+BOOT_QUERY_END|336343155921861|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|e95be7bb95f89b97af567eefc40cda926a27a471020249f865ad677856905633|6783533|OK
+BOOT_QUERY_BEGIN|336343157308767|org.hibernate.internal.AbstractSharedSessionContract.createQuery|379963e2600ca0b5d0c7fa170aca1c7df4dc5127689ed8dfb449aebc54a4d41f|578
+BOOT_QUERY_BEGIN|336343157440819|org.hibernate.internal.AbstractSharedSessionContract.createQuery|379963e2600ca0b5d0c7fa170aca1c7df4dc5127689ed8dfb449aebc54a4d41f|578
+BOOT_QUERY_END|336343162445108|org.hibernate.internal.AbstractSharedSessionContract.createQuery|379963e2600ca0b5d0c7fa170aca1c7df4dc5127689ed8dfb449aebc54a4d41f|5004289|OK
+BOOT_QUERY_END|336343162731656|org.hibernate.internal.AbstractSharedSessionContract.createQuery|379963e2600ca0b5d0c7fa170aca1c7df4dc5127689ed8dfb449aebc54a4d41f|5422889|OK
+BOOT_METHOD|336343165365724|public abstract org.springframework.data.domain.Page com.controlefinanceiro.api.domain.card.CardTransactionRepository.findReportPurchases(java.util.UUID,java.time.LocalDate,java.time.LocalDate,org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336343165870961|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|235
+BOOT_QUERY_END|336343166617205|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|746244|OK
+BOOT_QUERY_BEGIN|336343168237957|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|235
+BOOT_QUERY_BEGIN|336343168375110|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|235
+BOOT_QUERY_END|336343169649376|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|1274266|OK
+BOOT_QUERY_END|336343169760135|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8b7f88d2ea9d617256be5177201cd3ef7e3ccb7bd6f0eb725cd373a9e46a8c18|1522178|OK
+BOOT_QUERY_BEGIN|336343170264191|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|214
+BOOT_QUERY_END|336343171038833|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|774642|OK
+BOOT_QUERY_BEGIN|336343172415647|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|214
+BOOT_QUERY_BEGIN|336343172636504|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|214
+BOOT_QUERY_END|336343174708245|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|2071741|OK
+BOOT_QUERY_END|336343174849016|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ec091f35da449fc1e1b72dbd3865caf618bd2d8ead4733ebe29feaf6f2731157|2433369|OK
+BOOT_METHOD|336343175759382|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumByYear(java.util.UUID,java.lang.Integer)
+BOOT_QUERY_BEGIN|336343176295151|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|427
+BOOT_QUERY_END|336343249476564|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|73181413|OK
+BOOT_QUERY_BEGIN|336343250637328|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|427
+BOOT_QUERY_BEGIN|336343250800988|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|427
+BOOT_QUERY_END|336343291856967|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|41055979|OK
+BOOT_QUERY_END|336343292311166|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0ceffdc96d3561e871c57e72b88fcc542dbcbed0ea1b308ac1d3e794a9108211|41673838|OK
+BOOT_METHOD|336343296227336|public abstract java.util.List com.controlefinanceiro.api.domain.card.CardTransactionRepository.sumAmountsByInvoiceIds(java.util.List)
+BOOT_QUERY_BEGIN|336343297138722|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|126
+BOOT_QUERY_END|336343297956479|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|817757|OK
+BOOT_QUERY_BEGIN|336343298999028|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|126
+BOOT_QUERY_BEGIN|336343299169315|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|126
+BOOT_QUERY_END|336343300395845|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|1226530|OK
+BOOT_QUERY_END|336343300521885|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d031f7ee9ff6489dfc7cab584c7199cd73f0535a8ab85bf061b9f0e4b3f208e1|1522857|OK
+BOOT_METHOD|336343321457322|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardRefundRepository.sumByCategoryAndYear(java.util.UUID,int,java.lang.String)
+BOOT_QUERY_BEGIN|336343321986795|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|162
+BOOT_QUERY_END|336343322882084|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|895289|OK
+BOOT_QUERY_BEGIN|336343323669612|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|162
+BOOT_QUERY_BEGIN|336343323800814|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|162
+BOOT_QUERY_END|336343325340612|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|1539798|OK
+BOOT_QUERY_END|336343325480356|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9feabd3ec3a66fab9f1556fe0ce727bc665bd7585d544c662c58109eb0a107f5|1810744|OK
+BOOT_METHOD|336343327329106|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardRefundRepository.sumByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336343328149227|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|131
+BOOT_QUERY_END|336343328868817|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|719590|OK
+BOOT_QUERY_BEGIN|336343329515947|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|131
+BOOT_QUERY_BEGIN|336343329632740|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|131
+BOOT_QUERY_END|336343330603038|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|970298|OK
+BOOT_QUERY_END|336343330713551|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2719622c6c89df21b2c3dc90795818e07f7b0069936247735ac687e5705dba21|1197604|OK
+BOOT_METHOD|336343331481253|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardRefundRepository.sumByPurchase(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336343331928266|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|108
+BOOT_QUERY_END|336343332795652|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|867386|OK
+BOOT_QUERY_BEGIN|336343333426844|org.hibernate.internal.AbstractSharedSessionContract.createQuery|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|108
+BOOT_QUERY_BEGIN|336343333544374|org.hibernate.internal.AbstractSharedSessionContract.createQuery|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|108
+BOOT_QUERY_END|336343334557530|org.hibernate.internal.AbstractSharedSessionContract.createQuery|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|1013156|OK
+BOOT_QUERY_END|336343334689838|org.hibernate.internal.AbstractSharedSessionContract.createQuery|81f9321005b522ec9971ad2fb0237ff1b39bf32a43809faf6f97b775698b1960|1262994|OK
+BOOT_METHOD|336343338367517|public abstract org.springframework.data.domain.Page com.controlefinanceiro.api.domain.card.CardRefundRepository.findReportRefunds(java.util.UUID,java.time.LocalDate,java.time.LocalDate,org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336343338815882|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|134
+BOOT_QUERY_END|336343339893992|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|1078110|OK
+BOOT_QUERY_BEGIN|336343340776314|org.hibernate.internal.AbstractSharedSessionContract.createQuery|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|134
+BOOT_QUERY_BEGIN|336343341018189|org.hibernate.internal.AbstractSharedSessionContract.createQuery|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|134
+BOOT_QUERY_END|336343342833994|org.hibernate.internal.AbstractSharedSessionContract.createQuery|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|1815805|OK
+BOOT_QUERY_END|336343342966103|org.hibernate.internal.AbstractSharedSessionContract.createQuery|173f1b359ad702cbb166f23c09834f5f3caaf3a6d5435b38c2bd4408dac49865|2189789|OK
+BOOT_QUERY_BEGIN|336343343331065|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|113
+BOOT_QUERY_END|336343343885689|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|554624|OK
+BOOT_QUERY_BEGIN|336343344439204|org.hibernate.internal.AbstractSharedSessionContract.createQuery|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|113
+BOOT_QUERY_BEGIN|336343344558934|org.hibernate.internal.AbstractSharedSessionContract.createQuery|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|113
+BOOT_QUERY_END|336343345609620|org.hibernate.internal.AbstractSharedSessionContract.createQuery|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|1050686|OK
+BOOT_QUERY_END|336343345710878|org.hibernate.internal.AbstractSharedSessionContract.createQuery|62c1fc3fc8fa71c62b4d2771fc7f04fc8bd1dc366405ba675d1feb3de00b1aad|1271674|OK
+BOOT_METHOD|336343346511314|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.card.CardRefundRepository.sumByYear(java.util.UUID,int)
+BOOT_QUERY_BEGIN|336343346866580|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|126
+BOOT_QUERY_END|336343347845187|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|978607|OK
+BOOT_QUERY_BEGIN|336343348397040|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|126
+BOOT_QUERY_BEGIN|336343348505205|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|126
+BOOT_QUERY_END|336343349423295|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|918090|OK
+BOOT_QUERY_END|336343349526258|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9a98b2c34d556a12ca85ee3a656ce6536374a99944ac7fea3db4b6547d55d8f3|1129218|OK
+BOOT_METHOD|336343395923816|public abstract java.util.Optional com.controlefinanceiro.api.domain.investment.InvestmentRepository.findOwnedForAllocation(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336343396334298|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|67
+BOOT_QUERY_END|336343397218857|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|884559|OK
+BOOT_QUERY_BEGIN|336343398156981|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|67
+BOOT_QUERY_BEGIN|336343398326762|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|67
+BOOT_QUERY_END|336343400027240|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|1700478|OK
+BOOT_QUERY_END|336343400205953|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c4c9bbdf2909dd967f7b990b01c97983532cbc49521bc8a46f8b232dc7bb2a91|2048972|OK
+BOOT_METHOD|336343401244466|public abstract java.util.List com.controlefinanceiro.api.domain.investment.InvestmentRepository.findDistinctTickersByTypes(java.util.List)
+BOOT_QUERY_BEGIN|336343401732643|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|143
+BOOT_QUERY_END|336343429312590|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|27579947|OK
+BOOT_QUERY_BEGIN|336343430432677|org.hibernate.internal.AbstractSharedSessionContract.createQuery|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|143
+BOOT_QUERY_BEGIN|336343430592136|org.hibernate.internal.AbstractSharedSessionContract.createQuery|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|143
+BOOT_QUERY_END|336343446752600|org.hibernate.internal.AbstractSharedSessionContract.createQuery|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|16160464|OK
+BOOT_QUERY_END|336343446994784|org.hibernate.internal.AbstractSharedSessionContract.createQuery|69d7e6c46df2101285bdb7243ee414228221e3d0b386d53450858af21499ca15|16562107|OK
+BOOT_METHOD|336343449962876|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.investment.InvestmentRepository.sumValueByGoalId(java.util.UUID)
+BOOT_QUERY_BEGIN|336343450490310|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|86
+BOOT_QUERY_END|336343451278582|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|788272|OK
+BOOT_QUERY_BEGIN|336343452383875|org.hibernate.internal.AbstractSharedSessionContract.createQuery|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|86
+BOOT_QUERY_BEGIN|336343452593784|org.hibernate.internal.AbstractSharedSessionContract.createQuery|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|86
+BOOT_QUERY_END|336343453717987|org.hibernate.internal.AbstractSharedSessionContract.createQuery|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|1124203|OK
+BOOT_QUERY_END|336343454106817|org.hibernate.internal.AbstractSharedSessionContract.createQuery|237c4bbfbafd46dda2636fe2c5610e89903ad9dbad9b9ea62e6980211e542bdd|1722942|OK
+BOOT_METHOD|336343455343445|public abstract java.util.List com.controlefinanceiro.api.domain.investment.InvestmentRepository.findAllByUserIdWithGoal(java.util.UUID)
+BOOT_QUERY_BEGIN|336343455716667|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|75
+BOOT_QUERY_END|336343456286274|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|569607|OK
+BOOT_QUERY_BEGIN|336343456945369|org.hibernate.internal.AbstractSharedSessionContract.createQuery|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|75
+BOOT_QUERY_BEGIN|336343457067690|org.hibernate.internal.AbstractSharedSessionContract.createQuery|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|75
+BOOT_QUERY_END|336343457741111|org.hibernate.internal.AbstractSharedSessionContract.createQuery|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|673421|OK
+BOOT_QUERY_END|336343457905186|org.hibernate.internal.AbstractSharedSessionContract.createQuery|79ef2ab19c6584d5f1964de9249011b1d7dcd282530e275715e56f8c8ed8ce2b|959817|OK
+BOOT_METHOD|336343458811826|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.investment.InvestmentRepository.sumTotalValueByUserId(java.util.UUID)
+BOOT_QUERY_BEGIN|336343459138225|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|86
+BOOT_QUERY_END|336343459775161|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|636936|OK
+BOOT_QUERY_BEGIN|336343460626644|org.hibernate.internal.AbstractSharedSessionContract.createQuery|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|86
+BOOT_QUERY_BEGIN|336343460785048|org.hibernate.internal.AbstractSharedSessionContract.createQuery|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|86
+BOOT_QUERY_END|336343461587195|org.hibernate.internal.AbstractSharedSessionContract.createQuery|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|802147|OK
+BOOT_QUERY_END|336343461701853|org.hibernate.internal.AbstractSharedSessionContract.createQuery|b8a6322a82331cc3a2b6bec523ee6aa03dbe52c9777fb941e73a2c348fd08090|1075209|OK
+BOOT_METHOD|336343496428496|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumReportByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate,com.controlefinanceiro.api.domain.transaction.TransactionType,java.util.UUID)
+BOOT_QUERY_BEGIN|336343498233630|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f746b6a1a82d82477d0ba0391df92bc26f78f95c4f5a5d46d0d161afa2a8d365|1808
+BOOT_QUERY_END|336344109811140|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f746b6a1a82d82477d0ba0391df92bc26f78f95c4f5a5d46d0d161afa2a8d365|611577510|OK
+BOOT_QUERY_BEGIN|336344111692296|org.hibernate.internal.AbstractSharedSessionContract.createQuery|84e30b31da0d5677c1b21f26f5ba4939a55d70c78e9a5488750244ee5f453297|1707
+BOOT_QUERY_BEGIN|336344111817092|org.hibernate.internal.AbstractSharedSessionContract.createQuery|84e30b31da0d5677c1b21f26f5ba4939a55d70c78e9a5488750244ee5f453297|1707
+BOOT_QUERY_END|336344272696391|org.hibernate.internal.AbstractSharedSessionContract.createQuery|84e30b31da0d5677c1b21f26f5ba4939a55d70c78e9a5488750244ee5f453297|160879299|OK
+BOOT_QUERY_END|336344273206811|org.hibernate.internal.AbstractSharedSessionContract.createQuery|84e30b31da0d5677c1b21f26f5ba4939a55d70c78e9a5488750244ee5f453297|161514515|OK
+BOOT_METHOD|336344275312621|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumCashByDateAndType(java.util.UUID,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344275975461|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0b28f00e8879ed0c26ecb10efa396a9df8bf4da0e9fbd3ac2f75a7efd957ce23|785
+BOOT_QUERY_END|336344327968123|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0b28f00e8879ed0c26ecb10efa396a9df8bf4da0e9fbd3ac2f75a7efd957ce23|51992662|OK
+BOOT_QUERY_BEGIN|336344329162975|org.hibernate.internal.AbstractSharedSessionContract.createQuery|27dd0d641bd9ed6771369228d940448d49ee62c22be01f7a6d37a7a75a1bd9e2|734
+BOOT_QUERY_BEGIN|336344329471822|org.hibernate.internal.AbstractSharedSessionContract.createQuery|27dd0d641bd9ed6771369228d940448d49ee62c22be01f7a6d37a7a75a1bd9e2|734
+BOOT_QUERY_END|336344347922394|org.hibernate.internal.AbstractSharedSessionContract.createQuery|27dd0d641bd9ed6771369228d940448d49ee62c22be01f7a6d37a7a75a1bd9e2|18450572|OK
+BOOT_QUERY_END|336344348092820|org.hibernate.internal.AbstractSharedSessionContract.createQuery|27dd0d641bd9ed6771369228d940448d49ee62c22be01f7a6d37a7a75a1bd9e2|18929845|OK
+BOOT_METHOD|336344350145524|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumCashByMonthAndType(java.util.UUID,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344351581943|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|5fde3aba06a0889a50803cb805084ac90986ec9b49fb1927d1fedc25a89c0b94|900
+BOOT_QUERY_END|336344391237757|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|5fde3aba06a0889a50803cb805084ac90986ec9b49fb1927d1fedc25a89c0b94|39655814|OK
+BOOT_QUERY_BEGIN|336344392375330|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d6c8bed8987b29c095acbcf1a5718b8705bfab8456b397b9af51a37b4c3224b9|828
+BOOT_QUERY_BEGIN|336344392534435|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d6c8bed8987b29c095acbcf1a5718b8705bfab8456b397b9af51a37b4c3224b9|828
+BOOT_QUERY_END|336344411131463|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d6c8bed8987b29c095acbcf1a5718b8705bfab8456b397b9af51a37b4c3224b9|18597028|OK
+BOOT_QUERY_END|336344411374643|org.hibernate.internal.AbstractSharedSessionContract.createQuery|d6c8bed8987b29c095acbcf1a5718b8705bfab8456b397b9af51a37b4c3224b9|18999313|OK
+BOOT_METHOD|336344412703137|public abstract java.util.Optional com.controlefinanceiro.api.domain.transaction.TransactionRepository.findGoalPurchase(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336344413217493|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|177
+BOOT_QUERY_END|336344414049888|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|832395|OK
+BOOT_QUERY_BEGIN|336344414747033|org.hibernate.internal.AbstractSharedSessionContract.createQuery|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|177
+BOOT_QUERY_BEGIN|336344414966267|org.hibernate.internal.AbstractSharedSessionContract.createQuery|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|177
+BOOT_QUERY_END|336344417445943|org.hibernate.internal.AbstractSharedSessionContract.createQuery|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|2479676|OK
+BOOT_QUERY_END|336344417656451|org.hibernate.internal.AbstractSharedSessionContract.createQuery|624e29dd04573c31f282c3ebecd63d81af1cde49ce9d3ed71c038045b60699d7|2909418|OK
+BOOT_METHOD|336344420268761|public abstract java.util.Optional com.controlefinanceiro.api.domain.transaction.TransactionRepository.findOwnedSource(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336344421144004|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a741f53cd472052c8094021da1b67ba5f0b25ebdbf54862acc49c32fd88d37ea|161
+BOOT_QUERY_END|336344422495903|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a741f53cd472052c8094021da1b67ba5f0b25ebdbf54862acc49c32fd88d37ea|1351899|OK
+BOOT_QUERY_BEGIN|336344423196951|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c177bde10200ac31271a7cc5ff910f9a211a8ecc0fa27e72323696ec99e45822|165
+BOOT_QUERY_BEGIN|336344423707480|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c177bde10200ac31271a7cc5ff910f9a211a8ecc0fa27e72323696ec99e45822|165
+BOOT_QUERY_END|336344426912956|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c177bde10200ac31271a7cc5ff910f9a211a8ecc0fa27e72323696ec99e45822|3205476|OK
+BOOT_QUERY_END|336344427087758|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c177bde10200ac31271a7cc5ff910f9a211a8ecc0fa27e72323696ec99e45822|3890807|OK
+BOOT_METHOD|336344428882395|public abstract java.util.Optional com.controlefinanceiro.api.domain.transaction.TransactionRepository.findOwnedForUpdate(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336344429295764|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|68
+BOOT_QUERY_END|336344429853853|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|558089|OK
+BOOT_QUERY_BEGIN|336344430721327|org.hibernate.internal.AbstractSharedSessionContract.createQuery|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|68
+BOOT_QUERY_BEGIN|336344430831143|org.hibernate.internal.AbstractSharedSessionContract.createQuery|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|68
+BOOT_QUERY_END|336344432182612|org.hibernate.internal.AbstractSharedSessionContract.createQuery|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|1351469|OK
+BOOT_QUERY_END|336344432295961|org.hibernate.internal.AbstractSharedSessionContract.createQuery|358c126e75e7f9af9af0b498a6da73d4bf7cf20b45f310c86aba9fa47d0a1b9d|1574634|OK
+BOOT_METHOD|336344438293271|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumActiveSettlements(java.util.UUID)
+BOOT_QUERY_BEGIN|336344439026323|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|82f1a279b012ad2c3bfd875f2930ff611891654b732980d6b1d2b48bfdea9296|492
+BOOT_QUERY_END|336344445874480|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|82f1a279b012ad2c3bfd875f2930ff611891654b732980d6b1d2b48bfdea9296|6848157|OK
+BOOT_QUERY_BEGIN|336344446956380|org.hibernate.internal.AbstractSharedSessionContract.createQuery|71c3ea77b2357bf45b789f61d7a8fa2a47a2f17930282b16abc7a826eb2637f1|477
+BOOT_QUERY_BEGIN|336344447094750|org.hibernate.internal.AbstractSharedSessionContract.createQuery|71c3ea77b2357bf45b789f61d7a8fa2a47a2f17930282b16abc7a826eb2637f1|477
+BOOT_QUERY_END|336344451328387|org.hibernate.internal.AbstractSharedSessionContract.createQuery|71c3ea77b2357bf45b789f61d7a8fa2a47a2f17930282b16abc7a826eb2637f1|4233637|OK
+BOOT_QUERY_END|336344451781245|org.hibernate.internal.AbstractSharedSessionContract.createQuery|71c3ea77b2357bf45b789f61d7a8fa2a47a2f17930282b16abc7a826eb2637f1|4824865|OK
+BOOT_METHOD|336344453950355|public abstract org.springframework.data.domain.Page com.controlefinanceiro.api.domain.transaction.TransactionRepository.findAllByUserIdWithDetails(java.util.UUID,org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336344454819482|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|190
+BOOT_QUERY_END|336344455805136|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|985654|OK
+BOOT_QUERY_BEGIN|336344456564932|org.hibernate.internal.AbstractSharedSessionContract.createQuery|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|190
+BOOT_QUERY_BEGIN|336344456687732|org.hibernate.internal.AbstractSharedSessionContract.createQuery|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|190
+BOOT_QUERY_END|336344458229882|org.hibernate.internal.AbstractSharedSessionContract.createQuery|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|1542150|OK
+BOOT_QUERY_END|336344458346581|org.hibernate.internal.AbstractSharedSessionContract.createQuery|6311416556323e751c3cd08e7668b2569db83a468fb1e390dfb4ea207c579df2|1781649|OK
+BOOT_QUERY_BEGIN|336344459092230|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|60
+BOOT_QUERY_END|336344459611457|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|519227|OK
+BOOT_QUERY_BEGIN|336344460218921|org.hibernate.internal.AbstractSharedSessionContract.createQuery|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|60
+BOOT_QUERY_BEGIN|336344460350094|org.hibernate.internal.AbstractSharedSessionContract.createQuery|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|60
+BOOT_QUERY_END|336344461119314|org.hibernate.internal.AbstractSharedSessionContract.createQuery|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|769220|OK
+BOOT_QUERY_END|336344461209708|org.hibernate.internal.AbstractSharedSessionContract.createQuery|272132f49bd11338f946566baed00acbb04dee740d2fc2f2c98009399649fe2a|990787|OK
+BOOT_METHOD|336344462169845|public abstract org.springframework.data.domain.Page com.controlefinanceiro.api.domain.transaction.TransactionRepository.findFilteredByUserId(java.util.UUID,java.time.LocalDate,java.time.LocalDate,com.controlefinanceiro.api.domain.transaction.TransactionType,java.util.UUID,org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336344462974933|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|354
+BOOT_QUERY_END|336344506677906|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|43702973|OK
+BOOT_QUERY_BEGIN|336344508108872|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|354
+BOOT_QUERY_BEGIN|336344508264267|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|354
+BOOT_QUERY_END|336344521720944|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|13456677|OK
+BOOT_QUERY_END|336344521879515|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f17aab2956a2b51b64f2e715756695d6b602bf79903facc46e7c48e9389f4b8a|13770643|OK
+BOOT_QUERY_BEGIN|336344522796770|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|237
+BOOT_QUERY_END|336344523669262|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|872492|OK
+BOOT_QUERY_BEGIN|336344524744318|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|237
+BOOT_QUERY_BEGIN|336344524886811|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|237
+BOOT_QUERY_END|336344527196010|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|2309199|OK
+BOOT_QUERY_END|336344527315761|org.hibernate.internal.AbstractSharedSessionContract.createQuery|3cc4da7238be4d5e44246665b25349fd0cab7c7058be56c4fed76726ad1e2acf|2571443|OK
+BOOT_METHOD|336344531098121|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.operationAccountIds(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336344531437724|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3d4c88b04b9371ea160857748fc78ca9c37f2327fb05445b050468ead055e27e|124
+BOOT_QUERY_END|336344531955302|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3d4c88b04b9371ea160857748fc78ca9c37f2327fb05445b050468ead055e27e|517578|OK
+BOOT_QUERY_BEGIN|336344532586657|org.hibernate.internal.AbstractSharedSessionContract.createQuery|54b885c8e5af8da2ed87095258f88e0fd9e21643a952b0b1cc76d27392bcecc1|128
+BOOT_QUERY_BEGIN|336344532736069|org.hibernate.internal.AbstractSharedSessionContract.createQuery|54b885c8e5af8da2ed87095258f88e0fd9e21643a952b0b1cc76d27392bcecc1|128
+BOOT_QUERY_END|336344533529464|org.hibernate.internal.AbstractSharedSessionContract.createQuery|54b885c8e5af8da2ed87095258f88e0fd9e21643a952b0b1cc76d27392bcecc1|793395|OK
+BOOT_QUERY_END|336344533630302|org.hibernate.internal.AbstractSharedSessionContract.createQuery|54b885c8e5af8da2ed87095258f88e0fd9e21643a952b0b1cc76d27392bcecc1|1043645|OK
+BOOT_METHOD|336344534722217|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumReversals(java.util.UUID)
+BOOT_QUERY_BEGIN|336344535087558|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|40465c6bb3a0d600d356a64cd6e0f29480dc7a5dc97e5dcab8b49be054ac5ec2|76
+BOOT_QUERY_END|336344535640006|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|40465c6bb3a0d600d356a64cd6e0f29480dc7a5dc97e5dcab8b49be054ac5ec2|552448|OK
+BOOT_QUERY_BEGIN|336344536695676|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59fc02d73cc47be446a55f7c6ba9302b131cae31e81186fa6fdadf2bec4d1db|79
+BOOT_QUERY_BEGIN|336344536836991|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59fc02d73cc47be446a55f7c6ba9302b131cae31e81186fa6fdadf2bec4d1db|79
+BOOT_QUERY_END|336344537615374|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59fc02d73cc47be446a55f7c6ba9302b131cae31e81186fa6fdadf2bec4d1db|778383|OK
+BOOT_QUERY_END|336344537766865|org.hibernate.internal.AbstractSharedSessionContract.createQuery|e59fc02d73cc47be446a55f7c6ba9302b131cae31e81186fa6fdadf2bec4d1db|1071189|OK
+BOOT_METHOD|336344539790917|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.findOperationForUpdate(java.util.UUID)
+BOOT_QUERY_BEGIN|336344540270657|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|76
+BOOT_QUERY_END|336344540718784|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|448127|OK
+BOOT_QUERY_BEGIN|336344542327424|org.hibernate.internal.AbstractSharedSessionContract.createQuery|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|76
+BOOT_QUERY_BEGIN|336344542496106|org.hibernate.internal.AbstractSharedSessionContract.createQuery|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|76
+BOOT_QUERY_END|336344543278367|org.hibernate.internal.AbstractSharedSessionContract.createQuery|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|782261|OK
+BOOT_QUERY_END|336344543418186|org.hibernate.internal.AbstractSharedSessionContract.createQuery|161d457a0cd910b6e8899b593529fb1ddf5cfae5d98f5d64d2677a2e37e7f51b|1090762|OK
+BOOT_METHOD|336344545584281|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumCashByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate,com.controlefinanceiro.api.domain.transaction.TransactionType,java.util.UUID)
+BOOT_QUERY_BEGIN|336344547453380|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3fec7e4904ae4e6a255724d8ff55a86c66344538b9a7f53a5ecdade66e434468|1319
+BOOT_QUERY_END|336344620821363|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|3fec7e4904ae4e6a255724d8ff55a86c66344538b9a7f53a5ecdade66e434468|73367983|OK
+BOOT_QUERY_BEGIN|336344622780399|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f39f105f2c6bf8f1f1783bf1f7d136891c37925553070710f73242b8ef8bd74d|1253
+BOOT_QUERY_BEGIN|336344622944952|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f39f105f2c6bf8f1f1783bf1f7d136891c37925553070710f73242b8ef8bd74d|1253
+BOOT_QUERY_END|336344661776281|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f39f105f2c6bf8f1f1783bf1f7d136891c37925553070710f73242b8ef8bd74d|38831329|OK
+BOOT_QUERY_END|336344661925140|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f39f105f2c6bf8f1f1783bf1f7d136891c37925553070710f73242b8ef8bd74d|39144741|OK
+BOOT_METHOD|336344662753773|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumAmountByMonthAndType(java.util.UUID,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344663763014|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|b7984ddb5aa8369ee3cccb2cd09fe58e4c4e44d2c462526ec65f84b125f4dfab|783
+BOOT_QUERY_END|336344665226682|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|b7984ddb5aa8369ee3cccb2cd09fe58e4c4e44d2c462526ec65f84b125f4dfab|1463668|OK
+BOOT_QUERY_BEGIN|336344665890958|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2bc01c29e6f80aec6a8ac93ecd8f4b22fde9b330407833c74cdf46ca20dd8148|711
+BOOT_QUERY_BEGIN|336344666178406|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2bc01c29e6f80aec6a8ac93ecd8f4b22fde9b330407833c74cdf46ca20dd8148|711
+BOOT_QUERY_END|336344669220225|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2bc01c29e6f80aec6a8ac93ecd8f4b22fde9b330407833c74cdf46ca20dd8148|3041819|OK
+BOOT_QUERY_END|336344669328702|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2bc01c29e6f80aec6a8ac93ecd8f4b22fde9b330407833c74cdf46ca20dd8148|3437744|OK
+BOOT_METHOD|336344670175986|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumTotalAmountByType(java.util.UUID)
+BOOT_QUERY_BEGIN|336344670990394|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1e7474b0d5bee0d1a2c41d6df802d910cfd51969f91166c1bff5365d034288e1|626
+BOOT_QUERY_END|336344671932805|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1e7474b0d5bee0d1a2c41d6df802d910cfd51969f91166c1bff5365d034288e1|942411|OK
+BOOT_QUERY_BEGIN|336344673265183|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c413f5590f4c6f2aee20b1f33a2907fe09f2ec25112c57e31994ac7e3124cccb|576
+BOOT_QUERY_BEGIN|336344673383195|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c413f5590f4c6f2aee20b1f33a2907fe09f2ec25112c57e31994ac7e3124cccb|576
+BOOT_QUERY_END|336344675914999|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c413f5590f4c6f2aee20b1f33a2907fe09f2ec25112c57e31994ac7e3124cccb|2531804|OK
+BOOT_QUERY_END|336344676066796|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c413f5590f4c6f2aee20b1f33a2907fe09f2ec25112c57e31994ac7e3124cccb|2801613|OK
+BOOT_METHOD|336344676806904|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumByTypeAndYear(java.util.UUID,com.controlefinanceiro.api.domain.transaction.TransactionType,java.lang.Integer)
+BOOT_QUERY_BEGIN|336344677709191|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1882e22fb705de5b35a68eae1221df938755bb37f475c91bf2ba13709a092e07|676
+BOOT_QUERY_END|336344678830551|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1882e22fb705de5b35a68eae1221df938755bb37f475c91bf2ba13709a092e07|1121360|OK
+BOOT_QUERY_BEGIN|336344679923732|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f979f0f047c5eb4a889ed4864c4dbcb08015609c8a868bd20e79e967e68abb2a|622
+BOOT_QUERY_BEGIN|336344680181892|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f979f0f047c5eb4a889ed4864c4dbcb08015609c8a868bd20e79e967e68abb2a|622
+BOOT_QUERY_END|336344681619493|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f979f0f047c5eb4a889ed4864c4dbcb08015609c8a868bd20e79e967e68abb2a|1437601|OK
+BOOT_QUERY_END|336344681719357|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f979f0f047c5eb4a889ed4864c4dbcb08015609c8a868bd20e79e967e68abb2a|1795625|OK
+BOOT_METHOD|336344683099133|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumAmountByDateAndType(java.util.UUID,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344683574388|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1f8e21aa2995eef8cebc44638dea4bb84cf1fb67e1387347ea74af3b9f0d699b|669
+BOOT_QUERY_END|336344684869642|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|1f8e21aa2995eef8cebc44638dea4bb84cf1fb67e1387347ea74af3b9f0d699b|1295254|OK
+BOOT_QUERY_BEGIN|336344685887736|org.hibernate.internal.AbstractSharedSessionContract.createQuery|1d721f3ca620b9aad1fd7edf73ac9b2ffc9c6911f20c823711dd43f3b0b94448|617
+BOOT_QUERY_BEGIN|336344685989998|org.hibernate.internal.AbstractSharedSessionContract.createQuery|1d721f3ca620b9aad1fd7edf73ac9b2ffc9c6911f20c823711dd43f3b0b94448|617
+BOOT_QUERY_END|336344687322667|org.hibernate.internal.AbstractSharedSessionContract.createQuery|1d721f3ca620b9aad1fd7edf73ac9b2ffc9c6911f20c823711dd43f3b0b94448|1332669|OK
+BOOT_QUERY_END|336344687413812|org.hibernate.internal.AbstractSharedSessionContract.createQuery|1d721f3ca620b9aad1fd7edf73ac9b2ffc9c6911f20c823711dd43f3b0b94448|1526076|OK
+BOOT_METHOD|336344688516597|public abstract java.util.List com.controlefinanceiro.api.domain.transaction.TransactionRepository.sumAmountByTypeAndDateBetween(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344688977760|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|336003f6ddbd3ccda6d67b82dce5ab3495b7a471a478c31353e5d0f92b99e1e9|671
+BOOT_QUERY_END|336344689840341|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|336003f6ddbd3ccda6d67b82dce5ab3495b7a471a478c31353e5d0f92b99e1e9|862581|OK
+BOOT_QUERY_BEGIN|336344690761873|org.hibernate.internal.AbstractSharedSessionContract.createQuery|31d884e35ae9ea13a369b6d989a422add59c56e19c00333aa312de394c64f631|619
+BOOT_QUERY_BEGIN|336344690862687|org.hibernate.internal.AbstractSharedSessionContract.createQuery|31d884e35ae9ea13a369b6d989a422add59c56e19c00333aa312de394c64f631|619
+BOOT_QUERY_END|336344692752942|org.hibernate.internal.AbstractSharedSessionContract.createQuery|31d884e35ae9ea13a369b6d989a422add59c56e19c00333aa312de394c64f631|1890255|OK
+BOOT_QUERY_END|336344692938944|org.hibernate.internal.AbstractSharedSessionContract.createQuery|31d884e35ae9ea13a369b6d989a422add59c56e19c00333aa312de394c64f631|2177071|OK
+BOOT_METHOD|336344719305564|public abstract long com.controlefinanceiro.api.domain.investment.InvestTransactionRepository.countUnknownResultsByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344719913684|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|237
+BOOT_QUERY_END|336344721640420|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|1726736|OK
+BOOT_QUERY_BEGIN|336344722346789|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|237
+BOOT_QUERY_BEGIN|336344722475829|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|237
+BOOT_QUERY_END|336344726685778|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|4209949|OK
+BOOT_QUERY_END|336344726844470|org.hibernate.internal.AbstractSharedSessionContract.createQuery|0c89104a63ed1966f91066e6a1d74ea0325eeec8ddbb57409bf0ba4c64dd43c9|4497681|OK
+BOOT_METHOD|336344727715100|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.investment.InvestTransactionRepository.sumRealizedResultByPeriod(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344728277022|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|234
+BOOT_QUERY_END|336344728945204|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|668182|OK
+BOOT_QUERY_BEGIN|336344729539677|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|234
+BOOT_QUERY_BEGIN|336344729665169|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|234
+BOOT_QUERY_END|336344731246414|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|1581245|OK
+BOOT_QUERY_END|336344731351928|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a9920dc7ebca17c0c15c1a2a02295934606231c0e9dccc0df5b45fd9016d58ac|1812251|OK
+BOOT_METHOD|336344732523932|public abstract java.util.List com.controlefinanceiro.api.domain.investment.InvestTransactionRepository.findHistory(java.util.UUID)
+BOOT_QUERY_BEGIN|336344732838877|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|162
+BOOT_QUERY_END|336344733276715|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|437838|OK
+BOOT_QUERY_BEGIN|336344734248625|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|162
+BOOT_QUERY_BEGIN|336344734348046|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|162
+BOOT_QUERY_END|336344735090015|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|741969|OK
+BOOT_QUERY_END|336344735186513|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8651b62518e37ee33a4908bc7af289e5e1203a7b4dfe1fef623a3a373c90cb00|937888|OK
+BOOT_METHOD|336344766335943|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.investment.InvestmentCorrectionRepository.sumResult(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336344766806663|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|11c1eda1be0c85b6e03bff0068eace85924e16bbbb7c96eb84e66eea2e37a52b|181
+BOOT_QUERY_END|336344768100687|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|11c1eda1be0c85b6e03bff0068eace85924e16bbbb7c96eb84e66eea2e37a52b|1294024|OK
+BOOT_QUERY_BEGIN|336344769016234|org.hibernate.internal.AbstractSharedSessionContract.createQuery|627242d8e1e159eac238e94b74c1d6316885ef207aa3a0d948c91751c683219c|186
+BOOT_QUERY_BEGIN|336344769252598|org.hibernate.internal.AbstractSharedSessionContract.createQuery|627242d8e1e159eac238e94b74c1d6316885ef207aa3a0d948c91751c683219c|186
+BOOT_QUERY_END|336344770868524|org.hibernate.internal.AbstractSharedSessionContract.createQuery|627242d8e1e159eac238e94b74c1d6316885ef207aa3a0d948c91751c683219c|1615926|OK
+BOOT_QUERY_END|336344771034016|org.hibernate.internal.AbstractSharedSessionContract.createQuery|627242d8e1e159eac238e94b74c1d6316885ef207aa3a0d948c91751c683219c|2017782|OK
+BOOT_METHOD|336345101022730|public abstract java.util.Optional com.controlefinanceiro.api.domain.planning.PlanItemRepository.findOwnedForUpdate(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336345101480531|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|91
+BOOT_QUERY_END|336345102313801|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|833270|OK
+BOOT_QUERY_BEGIN|336345103204654|org.hibernate.internal.AbstractSharedSessionContract.createQuery|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|91
+BOOT_QUERY_BEGIN|336345103341676|org.hibernate.internal.AbstractSharedSessionContract.createQuery|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|91
+BOOT_QUERY_END|336345105095620|org.hibernate.internal.AbstractSharedSessionContract.createQuery|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|1753944|OK
+BOOT_QUERY_END|336345105324894|org.hibernate.internal.AbstractSharedSessionContract.createQuery|030abf07e5ca2a9907aad87a259ffd7c4fb8d037e8b77c159e00852ae06616c4|2120240|OK
+BOOT_METHOD|336345107750683|public abstract void com.controlefinanceiro.api.domain.planning.PlanItemRepository.markAsPaidByCardAndMonth(java.util.UUID,int,int)
+BOOT_QUERY_BEGIN|336345108577307|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|115
+BOOT_QUERY_END|336345118299586|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|9722279|OK
+BOOT_QUERY_BEGIN|336345120273928|org.hibernate.internal.AbstractSharedSessionContract.createQuery|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|115
+BOOT_QUERY_BEGIN|336345120427651|org.hibernate.internal.AbstractSharedSessionContract.createQuery|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|115
+BOOT_QUERY_END|336345132403463|org.hibernate.internal.AbstractSharedSessionContract.createQuery|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|11975812|OK
+BOOT_QUERY_END|336345132705759|org.hibernate.internal.AbstractSharedSessionContract.createQuery|49a5e22d84748a2f859227cb34aa68f7604373e459024fe17133054b7d4ba179|12431831|OK
+BOOT_METHOD|336345134023856|public abstract java.util.List com.controlefinanceiro.api.domain.planning.PlanItemRepository.findPendingByUserIdAndDate(java.util.UUID,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336345134583201|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|108
+BOOT_QUERY_END|336345135329113|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|745912|OK
+BOOT_QUERY_BEGIN|336345136050560|org.hibernate.internal.AbstractSharedSessionContract.createQuery|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|108
+BOOT_QUERY_BEGIN|336345136275735|org.hibernate.internal.AbstractSharedSessionContract.createQuery|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|108
+BOOT_QUERY_END|336345137660026|org.hibernate.internal.AbstractSharedSessionContract.createQuery|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|1384291|OK
+BOOT_QUERY_END|336345137810200|org.hibernate.internal.AbstractSharedSessionContract.createQuery|58bdbbceca96a086b1495a95f49ee231c5454f2896b74fc3bfdaf906bd07b643|1759640|OK
+BOOT_METHOD|336345196284540|public abstract java.util.Optional com.controlefinanceiro.api.domain.card.CreditCardRepository.findOwnedForPayment(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336345196761059|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|67
+BOOT_QUERY_END|336345197371735|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|610676|OK
+BOOT_QUERY_BEGIN|336345197888187|org.hibernate.internal.AbstractSharedSessionContract.createQuery|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|67
+BOOT_QUERY_BEGIN|336345197981194|org.hibernate.internal.AbstractSharedSessionContract.createQuery|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|67
+BOOT_QUERY_END|336345200527371|org.hibernate.internal.AbstractSharedSessionContract.createQuery|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|2546177|OK
+BOOT_QUERY_END|336345200666721|org.hibernate.internal.AbstractSharedSessionContract.createQuery|23bfd3792cafef51764007d983402b5493a834b88b444aef5b9b73333b105a27|2778534|OK
+BOOT_METHOD|336345201586108|public abstract java.util.Optional com.controlefinanceiro.api.domain.card.CreditCardRepository.findByIdForUpdate(java.util.UUID)
+BOOT_QUERY_BEGIN|336345201892721|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|43
+BOOT_QUERY_END|336345202581081|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|688360|OK
+BOOT_QUERY_BEGIN|336345203094427|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|43
+BOOT_QUERY_BEGIN|336345203220195|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|43
+BOOT_QUERY_END|336345204356216|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|1136021|OK
+BOOT_QUERY_END|336345204478243|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a64aedf84349e95a0d9d0df937157d82c44ca1d275df6817d0824fbecae889cd|1383816|OK
+BOOT_METHOD|336345224047090|public abstract java.util.Optional com.controlefinanceiro.api.domain.card.InvoiceRepository.findByIdForUpdate(java.util.UUID)
+BOOT_QUERY_BEGIN|336345224496064|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|40
+BOOT_QUERY_END|336345224929081|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|433017|OK
+BOOT_QUERY_BEGIN|336345225517327|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|40
+BOOT_QUERY_BEGIN|336345225638604|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|40
+BOOT_QUERY_END|336345226525179|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|886575|OK
+BOOT_QUERY_END|336345226651984|org.hibernate.internal.AbstractSharedSessionContract.createQuery|ccb3c5642e13e0f1c67930d76070f9010494665297e986c51585883057fb05d8|1134657|OK
+BOOT_METHOD|336345227851333|public abstract java.util.List com.controlefinanceiro.api.domain.card.InvoiceRepository.findByCardIdsAndStatus(java.util.List,com.controlefinanceiro.api.domain.card.InvoiceStatus)
+BOOT_QUERY_BEGIN|336345228437776|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|74
+BOOT_QUERY_END|336345229365698|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|927922|OK
+BOOT_QUERY_BEGIN|336345230224460|org.hibernate.internal.AbstractSharedSessionContract.createQuery|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|74
+BOOT_QUERY_BEGIN|336345230355573|org.hibernate.internal.AbstractSharedSessionContract.createQuery|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|74
+BOOT_QUERY_END|336345231493227|org.hibernate.internal.AbstractSharedSessionContract.createQuery|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|1137654|OK
+BOOT_QUERY_END|336345231665893|org.hibernate.internal.AbstractSharedSessionContract.createQuery|4f50c8858fd24b9666c64e972ab6a04e946316aacdb5f4897ca7bd3f6e8685c9|1441433|OK
+BOOT_METHOD|336345235245508|public abstract java.util.List com.controlefinanceiro.api.domain.card.InvoiceRepository.findByStatusWithCardAndUser(com.controlefinanceiro.api.domain.card.InvoiceStatus)
+BOOT_QUERY_BEGIN|336345235695106|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|86
+BOOT_QUERY_END|336345236412683|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|717577|OK
+BOOT_QUERY_BEGIN|336345237256506|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|86
+BOOT_QUERY_BEGIN|336345237391265|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|86
+BOOT_QUERY_END|336345238812075|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|1420810|OK
+BOOT_QUERY_END|336345238946834|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c59b8982ef139d721332f958adafd9adffb4475eee1fd1013a6b8fd518ce961a|1690328|OK
+BOOT_METHOD|336345242031831|public abstract java.util.List com.controlefinanceiro.api.domain.card.InvoiceRepository.findRecentInvoicesForCards(java.util.List,java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer)
+BOOT_QUERY_BEGIN|336345243401864|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|158
+BOOT_QUERY_END|336345245213399|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|1811535|OK
+BOOT_QUERY_BEGIN|336345246028303|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|158
+BOOT_QUERY_BEGIN|336345246195561|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|158
+BOOT_QUERY_END|336345248393963|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|2198402|OK
+BOOT_QUERY_END|336345248513441|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9e6598f35e72b222cfcc9c6f35fd8711692b6fbf50b6a93c1a0cf5d38b28b438|2485138|OK
+BOOT_METHOD|336345453999799|public abstract java.util.List com.controlefinanceiro.api.domain.goal.GoalHistoryRepository.findByGoalAndNoteAndDate(java.util.UUID,java.lang.String,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336345454376834|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|110
+BOOT_QUERY_END|336345456884005|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|2507171|OK
+BOOT_QUERY_BEGIN|336345457460424|org.hibernate.internal.AbstractSharedSessionContract.createQuery|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|110
+BOOT_QUERY_BEGIN|336345457602807|org.hibernate.internal.AbstractSharedSessionContract.createQuery|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|110
+BOOT_QUERY_END|336345462226906|org.hibernate.internal.AbstractSharedSessionContract.createQuery|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|4624099|OK
+BOOT_QUERY_END|336345462356390|org.hibernate.internal.AbstractSharedSessionContract.createQuery|218aff3a357a9e871c8277e085cbbd714d2c81e9dbebd696a11a51e6a1f805fc|4895966|OK
+BOOT_METHOD|336345482706827|public abstract java.util.List com.controlefinanceiro.api.domain.goal.GoalItemRepository.findAllOwned(java.util.UUID)
+BOOT_QUERY_BEGIN|336345483063177|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|98
+BOOT_QUERY_END|336345484232568|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|1169391|OK
+BOOT_QUERY_BEGIN|336345484885184|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|98
+BOOT_QUERY_BEGIN|336345484996172|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|98
+BOOT_QUERY_END|336345486188894|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|1192722|OK
+BOOT_QUERY_END|336345486281225|org.hibernate.internal.AbstractSharedSessionContract.createQuery|2d545b0e5a5908db7e11a3d8d94e5b0c65488a8e66211eecf46aacc3cf8280b4|1396041|OK
+BOOT_METHOD|336345517000800|public abstract java.util.Optional com.controlefinanceiro.api.domain.goal.GoalPurchaseRepository.findOwnedForRefund(java.util.UUID,java.util.UUID)
+BOOT_QUERY_BEGIN|336345517336817|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|72
+BOOT_QUERY_END|336345517989668|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|652851|OK
+BOOT_QUERY_BEGIN|336345518471421|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|72
+BOOT_QUERY_BEGIN|336345518599384|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|72
+BOOT_QUERY_END|336345519935434|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|1336050|OK
+BOOT_QUERY_END|336345520060640|org.hibernate.internal.AbstractSharedSessionContract.createQuery|c28c36726b7b83c20405c6961ced9452e2dcd79e95a83d5c07c4a9f5b2d2db82|1589219|OK
+BOOT_METHOD|336345549137364|public abstract java.util.List com.controlefinanceiro.api.domain.goal.GoalAllocationRepository.findAllOwnedWithSources(java.util.UUID)
+BOOT_QUERY_BEGIN|336345549600438|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|131
+BOOT_QUERY_END|336345550346180|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|745742|OK
+BOOT_QUERY_BEGIN|336345551731955|org.hibernate.internal.AbstractSharedSessionContract.createQuery|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|131
+BOOT_QUERY_BEGIN|336345551838046|org.hibernate.internal.AbstractSharedSessionContract.createQuery|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|131
+BOOT_QUERY_END|336345553410341|org.hibernate.internal.AbstractSharedSessionContract.createQuery|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|1572295|OK
+BOOT_QUERY_END|336345553535050|org.hibernate.internal.AbstractSharedSessionContract.createQuery|85b8dec01b221a4ac11a142a14881240738ca0beaea85d771352d64ebb71ac71|1803095|OK
+BOOT_METHOD|336345556345464|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.goal.GoalAllocationRepository.sumByAccountId(java.util.UUID)
+BOOT_QUERY_BEGIN|336345556730348|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|80
+BOOT_QUERY_END|336345557461154|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|730806|OK
+BOOT_QUERY_BEGIN|336345558006901|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|80
+BOOT_QUERY_BEGIN|336345558131804|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|80
+BOOT_QUERY_END|336345559276269|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|1144465|OK
+BOOT_QUERY_END|336345559459886|org.hibernate.internal.AbstractSharedSessionContract.createQuery|8a5c4710c23795fe22043e9cf4c5210832342141c7718575dd1a959afcb88e33|1452985|OK
+BOOT_METHOD|336345560418868|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.goal.GoalAllocationRepository.sumByInvestmentId(java.util.UUID)
+BOOT_QUERY_BEGIN|336345560761245|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|83
+BOOT_QUERY_END|336345561363346|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|602101|OK
+BOOT_QUERY_BEGIN|336345562026283|org.hibernate.internal.AbstractSharedSessionContract.createQuery|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|83
+BOOT_QUERY_BEGIN|336345562126154|org.hibernate.internal.AbstractSharedSessionContract.createQuery|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|83
+BOOT_QUERY_END|336345563149105|org.hibernate.internal.AbstractSharedSessionContract.createQuery|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|1022951|OK
+BOOT_QUERY_END|336345563249640|org.hibernate.internal.AbstractSharedSessionContract.createQuery|496393dd1a6a03c543ac444bc5f0036e4c0311b683077ee2883e43badd42800c|1223357|OK
+BOOT_METHOD|336345564453479|public abstract java.math.BigDecimal com.controlefinanceiro.api.domain.goal.GoalAllocationRepository.sumByGoalId(java.util.UUID)
+BOOT_QUERY_BEGIN|336345564813036|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|77
+BOOT_QUERY_END|336345565292358|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|479322|OK
+BOOT_QUERY_BEGIN|336345566464850|org.hibernate.internal.AbstractSharedSessionContract.createQuery|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|77
+BOOT_QUERY_BEGIN|336345566594301|org.hibernate.internal.AbstractSharedSessionContract.createQuery|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|77
+BOOT_QUERY_END|336345567652481|org.hibernate.internal.AbstractSharedSessionContract.createQuery|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|1058180|OK
+BOOT_QUERY_END|336345567777767|org.hibernate.internal.AbstractSharedSessionContract.createQuery|50a5fb4043d2dedd1ff23f7a6cf0ca7af98c969bf34971fb598c7a0241dbe5d4|1312917|OK
+BOOT_METHOD|336345626555492|public abstract java.util.List com.controlefinanceiro.api.domain.habit.HabitRepository.findFirstIds(org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336345626808699|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|38
+BOOT_QUERY_END|336345627979085|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|1170386|OK
+BOOT_QUERY_BEGIN|336345628698316|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|38
+BOOT_QUERY_BEGIN|336345628817209|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|38
+BOOT_QUERY_END|336345629405054|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|587845|OK
+BOOT_QUERY_END|336345629488429|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9eb4ef31dc82728daf1b468c752c1c9087e97a4d1315dbae11c41c593aae677c|790113|OK
+BOOT_METHOD|336345630364178|public abstract java.util.List com.controlefinanceiro.api.domain.habit.HabitRepository.findIdsAfter(java.util.UUID,org.springframework.data.domain.Pageable)
+BOOT_QUERY_BEGIN|336345630898144|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|58
+BOOT_QUERY_END|336345631299889|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|401745|OK
+BOOT_QUERY_BEGIN|336345632113540|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|58
+BOOT_QUERY_BEGIN|336345632303924|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|58
+BOOT_QUERY_END|336345633221165|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|917241|OK
+BOOT_QUERY_END|336345633366141|org.hibernate.internal.AbstractSharedSessionContract.createQuery|f4f086fe32f1379f9af4b27befb36d85f8ea1c11250c29f57dbee6290e5fe859|1252601|OK
+BOOT_METHOD|336345634687857|public abstract java.util.Optional com.controlefinanceiro.api.domain.habit.HabitRepository.findForUpdate(java.util.UUID)
+BOOT_QUERY_BEGIN|336345635217170|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|38
+BOOT_QUERY_END|336345635659732|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|442562|OK
+BOOT_QUERY_BEGIN|336345636191966|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|38
+BOOT_QUERY_BEGIN|336345636290113|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|38
+BOOT_QUERY_END|336345637121035|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|830922|OK
+BOOT_QUERY_END|336345637222771|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a5d937ed1c489decddd7cfc453472db5b0358c4e04c8f5d5ebdcc34b72037f1b|1030805|OK
+BOOT_METHOD|336345658291892|public abstract java.util.List com.controlefinanceiro.api.domain.habit.HabitLogRepository.findLogsForHabitsInDates(java.util.List,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336345659154411|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|93
+BOOT_QUERY_END|336345727559420|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|68405009|OK
+BOOT_QUERY_BEGIN|336345728993153|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|93
+BOOT_QUERY_BEGIN|336345729236302|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|93
+BOOT_QUERY_END|336345761991566|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|32755264|OK
+BOOT_QUERY_END|336345762119179|org.hibernate.internal.AbstractSharedSessionContract.createQuery|a161b20df68b9865cfdfad7fe3da8f6e0de4a77fa4f66fc777d64666924f02e8|33126026|OK
+BOOT_METHOD|336345763304074|public abstract long com.controlefinanceiro.api.domain.habit.HabitLogRepository.countCompletedLogsBetween(java.util.UUID,java.time.LocalDate,java.time.LocalDate)
+BOOT_QUERY_BEGIN|336345763691032|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|134
+BOOT_QUERY_END|336345764954234|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|1263202|OK
+BOOT_QUERY_BEGIN|336345765675287|org.hibernate.internal.AbstractSharedSessionContract.createQuery|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|134
+BOOT_QUERY_BEGIN|336345765767818|org.hibernate.internal.AbstractSharedSessionContract.createQuery|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|134
+BOOT_QUERY_END|336345766930551|org.hibernate.internal.AbstractSharedSessionContract.createQuery|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|1162733|OK
+BOOT_QUERY_END|336345767022534|org.hibernate.internal.AbstractSharedSessionContract.createQuery|620e41a4588b139caa95f8c1449b87a78154e10fcb2edff3714021b33947d607|1347247|OK
+BOOT_METHOD|336345944797051|public abstract java.util.Optional com.controlefinanceiro.api.domain.planning.MonthlyPlanRepository.findByUserIdAndMonthAndYearWithDetails(java.util.UUID,java.lang.Integer,java.lang.Integer)
+BOOT_QUERY_BEGIN|336345945156086|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|178
+BOOT_QUERY_END|336345946011996|org.springframework.data.jpa.repository.query.JpaQueryEnhancer.forHql|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|855910|OK
+BOOT_QUERY_BEGIN|336345946722029|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|178
+BOOT_QUERY_BEGIN|336345946813969|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|178
+BOOT_QUERY_END|336345949855146|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|3041177|OK
+BOOT_QUERY_END|336345949952169|org.hibernate.internal.AbstractSharedSessionContract.createQuery|9708f706dc05bc9d3574f7bd6abac8e15c759075527c50564720cc5a84ae2ab5|3230140|OK
+2026-10-27 00:38:52.944 - WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-2026-10-27 00:38:53.866 - INFO 1 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+-2026-10-27 00:38:53.880 - INFO 1 --- [           main] c.c.a.ControleFinanceiroApiApplication   : Started ControleFinanceiroApiApplication in 16.455 seconds (process running for 20.155)
+-2026-10-27 00:38:54.291 - INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+-2026-10-27 00:38:54.291 - INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+-2026-10-27 00:38:54.293 - INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+-2026-10-27 00:38:55.487 - WARN 1 --- [nio-8080-exec-3] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection org.postgresql.jdbc.PgConnection@7be1e187 marked as broken because of SQLSTATE(08003), ErrorCode(0)
+-
+org.postgresql.util.PSQLException: This connection has been closed.
+	at org.postgresql.jdbc.PgConnection.checkClosed(PgConnection.java:1026) ~[postgresql-42.7.9.jar!/:42.7.9]
+	at org.postgresql.jdbc.PgConnection.clearWarnings(PgConnection.java:918) ~[postgresql-42.7.9.jar!/:42.7.9]
+	at com.zaxxer.hikari.pool.ProxyConnection.close(ProxyConnection.java:258) ~[HikariCP-7.0.2.jar!/:na]
+	at com.controlefinanceiro.api.infra.operations.HealthController.readiness(HealthController.java:40) ~[!/:0.0.1]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.3.jar!/:7.0.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-11.0.15.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:235) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:132) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:86) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.0.2.jar!/:7.0.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at com.controlefinanceiro.api.infra.operations.MaintenanceFilter.doFilterInternal(MaintenanceFilter.java:26) ~[!/:0.0.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.3.jar!/:7.0.3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57) ~[tomcat-embed-core-11.0.15.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-10-27 00:38:55.650 - INFO 1 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+-2026-10-27 00:38:55.653 - INFO 1 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+-2026-10-27 00:38:55.662 - INFO 1 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-27 00:38:55.665 - INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+-2026-10-27 00:38:55.668 - INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+-

@@ -1,0 +1,178 @@
+TAP version 13
+# Subtest: valid completion is reused only after evidence and restoration checks
+ok 1 - valid completion is reused only after evidence and restoration checks
+  ---
+  duration_ms: 53.2608
+  type: 'test'
+  ...
+# Subtest: recorded exit 1 before causal effect is retried as a new attempt, never skipped
+ok 2 - recorded exit 1 before causal effect is retried as a new attempt, never skipped
+  ---
+  duration_ms: 74.8006
+  type: 'test'
+  ...
+# Subtest: failure preparing mutation is recorded and cannot release following work
+ok 3 - failure preparing mutation is recorded and cannot release following work
+  ---
+  duration_ms: 53.3554
+  type: 'test'
+  ...
+# Subtest: observer exception after mutation restores bytes and persists failure
+ok 4 - observer exception after mutation restores bytes and persists failure
+  ---
+  duration_ms: 67.8465
+  type: 'test'
+  ...
+# Subtest: interruption in running restores and observes anew
+ok 5 - interruption in running restores and observes anew
+  ---
+  duration_ms: 48.4967
+  type: 'test'
+  ...
+# Subtest: interruption in mutated restores and observes anew
+ok 6 - interruption in mutated restores and observes anew
+  ---
+  duration_ms: 48.3983
+  type: 'test'
+  ...
+# Subtest: interruption in observed restores and observes anew
+ok 7 - interruption in observed restores and observes anew
+  ---
+  duration_ms: 48.1848
+  type: 'test'
+  ...
+# Subtest: interruption in restoration-pending restores and observes anew
+ok 8 - interruption in restoration-pending restores and observes anew
+  ---
+  duration_ms: 48.3426
+  type: 'test'
+  ...
+# Subtest: interruption in failed-before-completion restores and observes anew
+ok 9 - interruption in failed-before-completion restores and observes anew
+  ---
+  duration_ms: 46.5928
+  type: 'test'
+  ...
+# Subtest: surviving mutation does not complete
+ok 10 - surviving mutation does not complete
+  ---
+  duration_ms: 32.0677
+  type: 'test'
+  ...
+# Subtest: generic assertion counts with wrong failure do not complete
+ok 11 - generic assertion counts with wrong failure do not complete
+  ---
+  duration_ms: 34.0015
+  type: 'test'
+  ...
+# Subtest: observer rejects wrong-method
+ok 12 - observer rejects wrong-method
+  ---
+  duration_ms: 36.1327
+  type: 'test'
+  ...
+# Subtest: observer rejects errors
+ok 13 - observer rejects errors
+  ---
+  duration_ms: 33.334
+  type: 'test'
+  ...
+# Subtest: observer rejects skipped
+ok 14 - observer rejects skipped
+  ---
+  duration_ms: 35.1412
+  type: 'test'
+  ...
+# Subtest: observer rejects missing-child-effect
+ok 15 - observer rejects missing-child-effect
+  ---
+  duration_ms: 36.1683
+  type: 'test'
+  ...
+# Subtest: invalid evidence missing-log is not reused
+ok 16 - invalid evidence missing-log is not reused
+  ---
+  duration_ms: 75.8839
+  type: 'test'
+  ...
+# Subtest: invalid evidence tampered-report is not reused
+ok 17 - invalid evidence tampered-report is not reused
+  ---
+  duration_ms: 75.3153
+  type: 'test'
+  ...
+# Subtest: invalid evidence tampered-checkpoint-result is not reused
+ok 18 - invalid evidence tampered-checkpoint-result is not reused
+  ---
+  duration_ms: 80.4953
+  type: 'test'
+  ...
+# Subtest: different candidate checkpoint is rejected without mutation
+ok 19 - different candidate checkpoint is rejected without mutation
+  ---
+  duration_ms: 38.137
+  type: 'test'
+  ...
+# Subtest: different observer checkpoint is rejected without mutation
+ok 20 - different observer checkpoint is rejected without mutation
+  ---
+  duration_ms: 40.8473
+  type: 'test'
+  ...
+# Subtest: different config checkpoint is rejected without mutation
+ok 21 - different config checkpoint is rejected without mutation
+  ---
+  duration_ms: 41.3756
+  type: 'test'
+  ...
+# Subtest: incomplete restoration blocks resume until backup/source repair is verified
+ok 22 - incomplete restoration blocks resume until backup/source repair is verified
+  ---
+  duration_ms: 74.8684
+  type: 'test'
+  ...
+# Subtest: unrelated candidate change blocks reuse even with a valid proof
+ok 23 - unrelated candidate change blocks reuse even with a valid proof
+  ---
+  duration_ms: 52.8759
+  type: 'test'
+  ...
+# Subtest: legacy status-only receipt is kept but never imported as completion
+ok 24 - legacy status-only receipt is kept but never imported as completion
+  ---
+  duration_ms: 39.2739
+  type: 'test'
+  ...
+# Subtest: truncated checkpoint fails closed and does not advance
+ok 25 - truncated checkpoint fails closed and does not advance
+  ---
+  duration_ms: 40.2226
+  type: 'test'
+  ...
+# Subtest: a later incomplete attempt prevents reuse of an older completion
+ok 26 - a later incomplete attempt prevents reuse of an older completion
+  ---
+  duration_ms: 82.6503
+  type: 'test'
+  ...
+# Subtest: an active observer cannot be resumed or have its mutation restored concurrently
+ok 27 - an active observer cannot be resumed or have its mutation restored concurrently
+  ---
+  duration_ms: 41.3223
+  type: 'test'
+  ...
+# Subtest: unknown external process cleanup blocks restoration and continuation until verified
+ok 28 - unknown external process cleanup blocks restoration and continuation until verified
+  ---
+  duration_ms: 79.3337
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1579.9542
