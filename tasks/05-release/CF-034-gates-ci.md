@@ -8,6 +8,16 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente do saneamento — 27/10/2026
+
+[Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):
+RVPLA-01 encerrado; correção da corrida de porta aceita no recorte. RVPLA-03/P2
+confirma wrapper tardio após interrupção; startup segue inconclusivo/não aprovado.
+Mesmo JAR p05/inputs24844b5, sem build atribuído ao HEAD. Aceite DEC-CI-04 e
+provas anteriores mantidos, CF034 integral em_revisao; expanded, zoom200%,
+cancelamento e gates CF017/configuração/adoção/produção preservados. Nenhuma
+CI remota, publicação, correção de produto/harness ou sucessora executada.
+
 ## Revisão independente da preparação local — 26/10/2026
 
 [Parecer, matriz e achados](../evidencias/revisao-preparacao-local-adocao/README.md),

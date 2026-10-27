@@ -5,6 +5,15 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente do saneamento — 27/10/2026
+
+[Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):
+skip causal RVPLA-01 encerrado e corrida de porta aceita; quiescência após
+interrupção Windows tem novo resíduo RVPLA-03, e startup segue inconclusivo.
+Aceites locais preservados. P01/P02 em_revisao; A–D, proveniência temporal,
+brutos/null/UNKNOWN, backup/restore e coordenação reais continuam pendentes.
+Nenhum checkbox real encerrado nem adoção/sucessora iniciada.
+
 ## Revisão independente local correlata — 26/10/2026
 
 [Parecer A–G](../evidencias/revisao-preparacao-local-adocao/README.md), candidato6f70a87:

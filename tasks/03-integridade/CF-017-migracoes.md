@@ -8,6 +8,14 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente do saneamento — 27/10/2026
+
+[Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):
+RVPLA-01 encerrado, corrida de porta aceita; novo RVPLA-03 de quiescência do runner
+e startup inconclusivo permanecem pendentes. Suporte local PG16/17, migrations,
+guard/writers/jobs e proveniência preservados. CF017/P01/P02 em_revisao; nenhum
+inventário, backup/restore, freeze, baseline ou migration real executado/liberado.
+
 ## Revisão independente da preparação — 26/10/2026
 
 [Parecer e evidências](../evidencias/revisao-preparacao-local-adocao/README.md),

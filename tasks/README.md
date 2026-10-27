@@ -1,5 +1,17 @@
 # Plano de execução do monorepo
 
+## Revalidação independente do saneamento — 27/10/2026
+
+[Parecer, matriz e provas](evidencias/revalidacao-preparacao-local-adocao/README.md),
+candidatoaa068d1: RVPLA-01 encerrado no resume causal; corrida de porta aceita no
+recorte PG16/PG17/JAR/imagem. Novo RVPLA-03/P2 confirma wrapper próprio anterior à
+JVM iniciando trabalho após retomada; quiescência nesse caminho Windows pendente.
+Startup continua inconclusivo/não aprovado,40s preservados. Aceites locais de
+produto/pacote anteriores mantidos; nenhum critério integral ou adoção liberado.
+CF017/P01/P02 e CF034 integral em_revisao; expanded, zoom200%, configurações
+remotas e gates reais preservados. Próximo lote recomendado: quiescência dirigida
+e diagnóstico de startup separados. Nenhuma correção, sucessora ou ação remota.
+
 ## Saneamento dirigido da preparação — 26–27/10/2026
 
 [Delta local, provas e encaminhamento](evidencias/saneamento-preparacao-local-adocao/README.md),
