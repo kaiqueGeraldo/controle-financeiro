@@ -9,7 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.net.ServerSocket;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -218,14 +217,16 @@ class AdoptionRuntimeTest {
         return new com.fasterxml.jackson.databind.ObjectMapper().readTree(json).get(name).asText();
     }
 
-    private static final class App implements AutoCloseable {
+    static final class App implements AutoCloseable {
         final Process process;
         final Path log;
-        final int port;
+        int port;
         final String containerName;
         App(String schema, boolean writers, boolean jobs) throws Exception { this(schema, writers, jobs, List.of(), Map.of()); }
         App(String schema, boolean writers, boolean jobs, List<String> overrides, Map<String, String> envOverrides) throws Exception {
-            try (var socket = new ServerSocket(0)) { port = socket.getLocalPort(); }
+            // Let Tomcat/Docker reserve the actual listener. Closing a temporary
+            // ServerSocket left a TOCTOU window for unrelated processes/clients.
+            port = 0;
             Files.createDirectories(LOGS); log = LOGS.resolve(UUID.randomUUID() + ".log");
             var command = new ArrayList<String>();
             String jar = System.getProperty("preparation.jar");
@@ -244,13 +245,13 @@ class AdoptionRuntimeTest {
                 if (!image.matches("sha256:[a-f0-9]{64}")) throw new IllegalArgumentException("Use the locally built image ID");
                 config.computeIfPresent("SPRING_DATASOURCE_URL", (key, url) -> url.replace("//localhost:", "//host.docker.internal:"));
                 command.addAll(List.of("docker", "run", "--rm", "--name", containerName,
-                        "--label", "cf.preparation.adoption=true", "-p", "127.0.0.1:" + port + ":8080"));
+                        "--label", "cf.preparation.adoption=true", "-p", "127.0.0.1::8080"));
                 config.forEach((key, value) -> command.addAll(List.of("--env", key + "=" + value)));
                 command.add(image);
             }
             var arguments = new java.util.LinkedHashMap<String, String>();
             arguments.put("spring.profiles.active", "adoption");
-            arguments.put("server.port", Integer.toString(image == null ? port : 8080));
+            arguments.put("server.port", Integer.toString(image == null ? 0 : 8080));
             arguments.put("app.operations.writers-enabled", Boolean.toString(writers));
             arguments.put("app.operations.jobs-enabled", Boolean.toString(jobs));
             for (String override : overrides) {
@@ -275,11 +276,27 @@ class AdoptionRuntimeTest {
         void awaitStatus(String path, int expected) throws Exception {
             long deadline = System.nanoTime() + Duration.ofSeconds(40).toNanos();
             while (process.isAlive() && System.nanoTime() < deadline) {
-                try { if (call("GET", path, null, null).statusCode() == expected) return; }
+                try {
+                    if (port == 0) discoverBoundPort();
+                    if (port != 0 && call("GET", path, null, null).statusCode() == expected) return;
+                }
                 catch (java.io.IOException starting) { /* Port not accepting connections yet. */ }
                 Thread.sleep(100);
             }
             throw new AssertionError("Expected HTTP " + expected + " at " + path + "; process log: " + Files.readString(log));
+        }
+        private void discoverBoundPort() throws Exception {
+            var bound = java.util.regex.Pattern.compile("Tomcat started on port (\\d+)").matcher(Files.readString(log));
+            if (!bound.find()) return;
+            if (containerName == null) port = Integer.parseInt(bound.group(1));
+            else {
+                var mapping = new ProcessBuilder("docker", "port", containerName, "8080/tcp").redirectErrorStream(true).start();
+                assertThat(mapping.waitFor(5, TimeUnit.SECONDS)).isTrue();
+                assertThat(mapping.exitValue()).isZero();
+                String address = new String(mapping.getInputStream().readAllBytes(), java.nio.charset.StandardCharsets.UTF_8).trim();
+                assertThat(address).startsWith("127.0.0.1:");
+                port = Integer.parseInt(address.substring(address.lastIndexOf(':') + 1));
+            }
         }
         String login(String email) throws Exception {
             var response = call("POST", "/auth/login", "{\"email\":\"" + email + "\",\"senha\":\"" + PASSWORD + "\"}", null);
