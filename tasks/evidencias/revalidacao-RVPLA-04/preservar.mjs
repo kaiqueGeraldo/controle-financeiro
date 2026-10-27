@@ -1,0 +1,13 @@
+import fs from'node:fs';import path from'node:path';import crypto from'node:crypto';import assert from'node:assert/strict';import{execFileSync}from'node:child_process';
+const root='tasks/evidencias/revalidacao-RVPLA-04',phase=process.argv[2];assert.ok(['inicial','final'].includes(phase));
+const sha=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex'),git=a=>execFileSync('git',a,{encoding:'utf8',maxBuffer:8*1024*1024}).trim();
+const prior=JSON.parse(fs.readFileSync('tasks/evidencias/saneamento-RVPLA-04/preservacao-final.json'));assert.equal(prior.protectedFiles,5854);const hashes={...prior.hashes};
+for(const[f,h]of Object.entries(hashes))assert.equal(sha(f),h,f);
+const files=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(d,e.name)):[path.join(d,e.name)]);
+for(const f of [...files('tasks/evidencias/saneamento-RVPLA-04'),...['.github/scripts/owned-process.mjs','.github/scripts/owned-process.ps1','.github/scripts/owned-job-probe.ps1','.github/scripts/owned-command.mjs','tasks/evidencias/preparacao-local-adocao/counterproofs.mjs','tasks/evidencias/preparacao-local-adocao/counterproof-supervision.mjs','tasks/evidencias/preparacao-local-adocao/counterproof-checkpoint.mjs']])hashes[f]=sha(f);
+const evidence=JSON.parse(fs.readFileSync('tasks/evidencias/saneamento-RVPLA-04/resultados-encerramento.json'));for(const a of evidence.artifacts){assert.equal(sha(a.source),a.originalSha256,a.source);assert.equal(sha(path.join('tasks/evidencias/saneamento-RVPLA-04',a.target)),a.collectedSha256);hashes[a.source]=a.originalSha256;}
+const readme=sha('README.md'),jar=sha('../controle-financeiro-runtimes/preparacao-adocao/p05/package/api.jar');assert.equal(readme,'6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca');assert.equal(jar,'b296705828c8461c7c3cb15acb919e90280ed92a6944e6f22d7dd34b6d31395b');
+if(phase==='final')for(const[f,h]of Object.entries(JSON.parse(fs.readFileSync(root+'/preservacao-inicial.json')).hashes))assert.equal(sha(f),h,f);
+for(const c of ['3a6e95be68678e394cd718d9d688fab1fdc428ce','badecb55e45eb80eec6d7dc435b9afcfe4a8106d'])execFileSync('git',['merge-base','--is-ancestor',c,'HEAD']);
+const receipt={phase,at:new Date().toISOString(),head:git(['rev-parse','HEAD']),branch:git(['branch','--show-current']),status:git(['status','--porcelain=v2']),staging:git(['diff','--cached','--name-status']),historicalProtectedFiles:5854,historicalFiles:29,migrations:16,previousArtifacts:evidence.artifacts.length,readmeSha256:readme,jarSha256:jar,protectedFiles:Object.keys(hashes).length,hashes};
+fs.writeFileSync(root+'/preservacao-'+phase+'.json',JSON.stringify(receipt,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({...receipt,hashes:undefined}));
