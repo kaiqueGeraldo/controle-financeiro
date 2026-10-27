@@ -5,6 +5,17 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+[Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; abandono físico RVPLA-03
+preservado. Gate original20s falhou por latência (RVPLA-05/P2), e audit PG17 teve
+EPERM inconclusivo; preflight causal e resume passaram no recorte. Quiescência
+segura demonstrada não aprova o ciclo funcional integral. TCP/reuso/HQL separados,
+40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhuma adoção ou sucessora
+iniciada; nenhum checkbox real encerrado.
+
 ## Revalidação independente RVPLA-03 — 27/10/2026
 
 [Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):

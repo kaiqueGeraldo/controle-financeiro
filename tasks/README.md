@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+[Parecer, matriz e provas](evidencias/revalidacao-RVPLA-04/README.md), candidato
+`badecb55`: RVPLA-04 encerrado no handoff Windows/mesma sessão; consultas
+inconclusivas bloqueiam restauração, complete e avanço. Aceite específico de
+contenção RVPLA-03 preservado. O probe original de retomada em 20s falhou por
+regressão de latência (RVPLA-05/P2); diagnóstico mais longo não aprova o gate.
+Preflight PG17 e resume passaram; audit falhou por EPERM, causa inconclusiva,
+sem repetição. Runner sem aceite funcional integral. TCP/reuso e HQL separados,
+inconclusivos, 40s mantidos. CF017/P01/P02 e CF034 integral em_revisao; expanded,
+zoom200%, configuração e gates reais preservados. Adoção/produção não liberadas.
+Sem correção de implementação, sucessora iniciada ou ação remota nesta revisão.
+
 ## Saneamento dirigido do RVPLA-04/P2 — 27/10/2026
 
 [Causa, contenção e provas](evidencias/saneamento-RVPLA-04/README.md), base3a6e95be:

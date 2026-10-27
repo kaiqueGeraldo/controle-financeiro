@@ -8,6 +8,17 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+[Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; contenção específica RVPLA-03
+preservada. Gate legado20s falhou por latência (RVPLA-05/P2), mantendo o runner
+sem aceite funcional integral. Preflight PG17 e resume passaram; audit falhou
+por EPERM, causa inconclusiva, sem repetição. TCP/reuso/HQL continuam separados,
+inconclusivos, 40s mantidos. Aceites DEC-CI-04 e pacote/JAR anterior preservados;
+CF034 integral em_revisao, expanded/zoom200%, cancelamento/configuração e gates
+CF017/adoção/produção não liberados. Sem implementação, CI remota ou publicação.
+
 ## Revalidação independente RVPLA-03 — 27/10/2026
 
 [Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):

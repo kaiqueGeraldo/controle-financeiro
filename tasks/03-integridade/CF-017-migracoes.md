@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+[Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; contenção específica RVPLA-03
+preservada. Retomada original20s falhou por latência (RVPLA-05/P2); audit PG17
+falhou por EPERM, causa inconclusiva, após preflight/resume aprovados no recorte.
+Runner integral pendente; TCP/reuso e HQL inconclusivos, 40s intactos. Migrations,
+JAR e históricos preservados. CF017/P01/P02 em_revisao: sem checkbox real
+encerrado, inventário, backup/restore, freeze, baseline ou DDL reais liberados.
+
 ## Revalidação independente RVPLA-03 — 27/10/2026
 
 [Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):
