@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Saneamento dirigido do RVPLA-04/P2 — 27/10/2026
+
+[Causa, contenção e provas](evidencias/saneamento-RVPLA-04/README.md), base3a6e95be:
+comandos isolados em Jobs próprios e bloqueio de geração do worker com criação
+não gerenciada; fotografia inconsistente não autoriza restauração/complete.
+Handoff original vermelho, contraprova antiga vermelha e controle corrigido com
+restauração somente após fechar a execução anterior. **Saneado localmente, em
+revisão independente**. RVPLA-01 e aceite específico RVPLA-03 preservados.
+Probe legado20s de abandono não certificado na nova rodada, custo registrado,
+sem aumento de prazo. TCP/reuso e HQL continuam investigações próprias,40s
+preservados. Produto/migrations/JAR/README alheio intactos; CF017/P01/P02 e
+CF034 integral em_revisao, adoção real/produção não liberadas. Nenhuma ação remota.
+
 ## Revalidação independente RVPLA-03 — 27/10/2026
 
 [Parecer e provas](evidencias/revalidacao-RVPLA-03/README.md), candidato0b4c6598:
