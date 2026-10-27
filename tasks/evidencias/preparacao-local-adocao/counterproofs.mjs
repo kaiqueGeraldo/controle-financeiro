@@ -1,11 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {ProofStore,hash} from './counterproof-checkpoint.mjs';
 import {validateObservation} from './counterproof-observation.mjs';
-import {superviseCounterproof,verifyOwnedBoundary,supervisionSources} from './counterproof-supervision.mjs';
+import {superviseCounterproof,verifyOwnedBoundary,runOwnedCommand,supervisionSources} from './counterproof-supervision.mjs';
 
 const execution = path.resolve(process.argv[2] ?? '');
 const restoredImage = process.argv[3];
@@ -59,35 +58,30 @@ if(audit&&!fs.existsSync(path.join(proofRoot,'v2/identity.json')))throw Error('L
 if(resume&&fs.existsSync(path.join(proofRoot,'results.json')))console.log('Legacy results preserved; status alone never proves completion');
 function verifyEnvironment() {
   verifyOwnedBoundary(execution); // Includes shells/wrappers that have no JVM yet.
-  const docker=spawnSync('docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{encoding:'utf8',timeout:10000});
+  const docker=runOwnedCommand(execution,'docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{timeout:10000});
   if(docker.error||docker.status!==0||docker.stdout.trim())throw Error('API containers may still be active; cleanup must be verified before restoring/resuming');
   // Read PID ownership only. Never stop an unknown process or print its command line.
   // A native -jar child can refer only to shared p05, without its parent's cwd.
   // Conservatively block adoption JVMs too; never mistake a dead owner for cleanup.
   const script="$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }";
-  const processes=spawnSync(path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
-    ['-NoProfile','-NonInteractive','-Command',script],{encoding:'utf8',timeout:10000,env:{...process.env,CF_PREPARATION_AUDIT_ROOT:execution}});
+  const processes=runOwnedCommand(execution,path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
+    ['-NoProfile','-NonInteractive','-Command',script],{timeout:10000,env:{CF_PREPARATION_AUDIT_ROOT:execution}});
   if(processes.error||processes.status!==0)throw Error('Runtime Java processes may still be active; cleanup must be verified before restoring/resuming');
 }
 const store=new ProofStore({directory:path.join(proofRoot,'v2'),identity,sourceRoot:root,evidenceRoot:execution,inputs:manifest.inputs,verifyEnvironment});
 const results=[];
 function run(name, selection, image) {
   const log = path.join(out,name+'.log');
-  const fd = fs.openSync(log,'wx');
   const args=['--batch-mode','-Duser.timezone=UTC','-Dcf017.postgres.major=17','-Dspring.test.context.cache.maxSize=4',
     '-Dtest='+selection,'-Dcf034.reportsDirectory='+path.join(out,name+'-reports'),
     ...(image?['-Dpreparation.image='+image]:[]),'test'];
-  let result;
-  try { result=spawnSync(process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd',...args],{cwd:back,env:process.env,stdio:['ignore',fd,fd]}); }
-  finally { fs.closeSync(fd); }
+  const result=runOwnedCommand(execution,process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd',...args],{cwd:back,log});
   if (result.error) throw result.error;
   return {status:result.status,log,reports:path.join(out,name+'-reports'),image:image??null,commands:['mvnw.cmd',...args]};
 }
 function step(logName, command, args, cwd) {
-  const log=path.join(out,logName+'.log'),fd=fs.openSync(log,'wx');
-  let result;
-  try { result=spawnSync(command,args,{cwd,env:process.env,stdio:['ignore',fd,fd]}); }
-  finally { fs.closeSync(fd); }
+  const log=path.join(out,logName+'.log');
+  const result=runOwnedCommand(execution,command,args,{cwd,log});
   if(result.error || result.status!==0) throw new Error('Counterproof preparation failed: '+logName);
   return {command:[command,...args],log};
 }

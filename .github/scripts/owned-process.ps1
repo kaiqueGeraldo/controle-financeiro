@@ -51,9 +51,11 @@ public static class Cf034OwnedProcess {
     if(jobName!=null) {
       // Job exists BEFORE any owner check. A guardian that boots after owner
       // death cannot launch work, even if a later run already saw job absence.
-      executionMutex=new System.Threading.Mutex(false,mutexName);
-      bool acquired;try{acquired=executionMutex.WaitOne(0);}catch(System.Threading.AbandonedMutexException){acquired=true;}
-      if(!acquired)throw new InvalidOperationException("Execution already supervised");
+      if(!String.IsNullOrEmpty(mutexName)) {
+        executionMutex=new System.Threading.Mutex(false,mutexName);
+        bool acquired;try{acquired=executionMutex.WaitOne(0);}catch(System.Threading.AbandonedMutexException){acquired=true;}
+        if(!acquired)throw new InvalidOperationException("Execution already supervised");
+      }
       if(!OwnerAlive(ownerPid,ownerTicks))Environment.Exit(130);
       beforeChild();
       if(!OwnerAlive(ownerPid,ownerTicks))Environment.Exit(130);
@@ -89,7 +91,10 @@ $config = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Configura
 if ($config.ownership) {
   $owned=$config.ownership
   $verify=[Action]{
-    foreach($file in Get-ChildItem -LiteralPath $owned.registry -Filter 'run-*.json') {
+    # Command guardians have their own job and exact owner, but share the
+    # already-held execution lock. Future recovery checks both receipt kinds.
+    $receipts=@();if($owned.kind -ne 'command'){$receipts=@(Get-ChildItem -LiteralPath $owned.registry | Where-Object {$_.Name -match '^(run|command)-.*\.json$'})}
+    foreach($file in $receipts) {
       $envelope=Get-Content -Raw -LiteralPath $file.FullName | ConvertFrom-Json
       $bytes=[Convert]::FromBase64String($envelope.payload)
       $algorithm=[Security.Cryptography.SHA256]::Create()
