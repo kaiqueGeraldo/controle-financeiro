@@ -2,6 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {ProofStore,hash} from './counterproof-checkpoint.mjs';
+import {validateObservation} from './counterproof-observation.mjs';
 
 const execution = path.resolve(process.argv[2] ?? '');
 const restoredImage = process.argv[3];
@@ -10,47 +13,50 @@ const allowed = path.resolve('../controle-financeiro-runtimes/preparacao-adocao'
 if (!execution.startsWith(allowed)) throw new Error('Disposable execution required');
 const root = path.join(execution,'checkout');
 const back = path.join(root,'controle-financeiro-backend');
-const out = path.join(execution,'counterproofs');
+const proofRoot = path.join(execution,'counterproofs');
+let out = proofRoot;
+const manifest=JSON.parse(fs.readFileSync(path.join(execution,'inputs.json')));
 const audit = process.argv[4] === 'audit';
-if (audit) {
-  const manifest=JSON.parse(fs.readFileSync(path.join(execution,'inputs.json')));
-  const digest=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
-  for(const input of manifest.inputs)if(digest(path.join(root,input.file))!==input.sha256)throw new Error('Unrestored input '+input.file);
-  const text=fs.readFileSync(path.join(out,'restored-witness.log'),'utf8');
-  if(!text.includes('Tests run: 4, Failures: 2, Errors: 0, Skipped: 0'))throw new Error('Unexpected existing witness; investigate');
-  fs.writeFileSync(path.join(out,'witness.json'),JSON.stringify({status:1,tests:4,failures:2,errors:0,skipped:0,
-    allInputsRestored:true,inputFiles:manifest.inputs.length,image:restoredImage,
-    existingLog:path.join(out,'restored-witness.log'),newTestsExecutedByAudit:0,
-    limitation:'Two restored Linux process starts exceeded 40s. No rerun, retry or timeout increase; startup timing remains uncertified.'},null,2)+'\n',{flag:'wx'});
-  console.log('All source hashes restored; existing failed witness preserved, no new tests executed');
-  process.exit(0);
-}
 const resume = process.argv[4] === 'resume';
-if (!resume) fs.mkdirSync(out); // Never overwrite a previous attempt.
-else fs.copyFileSync(path.join(out,'results.json'),path.join(out,'interrupted-results-01.json'),fs.constants.COPYFILE_EXCL);
+if (!resume&&!audit) fs.mkdirSync(out); // Never overwrite a previous execution.
+else if(!fs.existsSync(out))throw Error('Missing execution to resume/audit');
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const base = 'src/main/java/com/controlefinanceiro/api/';
 const cases = [
   {name:'preflight-hides-missing-constraint',test:'Cf017OriginalFindingsTest#missingOriginalForeignKeyStopsBeforeBaseline',
+    method:'missingOriginalForeignKeyStopsBeforeBaseline',failure:['Expecting code to raise a throwable.'],
     edits:[[base+'infra/migration/LegacyPreflight.java', text=>text.replace('var counts = new TreeMap<String, Integer>();',
       'expected = expected.stream().filter(x -> !x.startsWith("constraint\\t")).toList();\n        observed = observed.stream().filter(x -> !x.startsWith("constraint\\t")).toList();\n        var counts = new TreeMap<String, Integer>();')]]},
   {name:'writer-passes-maintenance',test:'AdoptionRuntimeTest#maintenanceBlocksAllFunctionalIngressWithoutDatabaseEffects',
+    method:'maintenanceBlocksAllFunctionalIngressWithoutDatabaseEffects(Path)',failure:['expected: 503','but was: 200'],
     diagnostic:'ADOPTION_BLOCKED_WRITE http=200 persistedAccounts=1',
     edits:[[base+'infra/operations/MaintenanceFilter.java',text=>text.replace('operations.writersEnabled() || probe','true')]]},
   {name:'jobs-register-while-disabled',test:'SchedulingBoundaryTest',
+    method:'disabledJobsRegisterNoScheduledTaskIncludingShedlockWork',failure:['Expecting empty but was:','MarketDataService.updateVariableIncomePrices'],
     edits:[[base+'infra/config/SchedulerConfig.java',text=>text.replace(/@ConditionalOnProperty\([\s\S]*?matchIfMissing = true\)\r?\n/,'')]]},
   {name:'flyway-runs-in-api-bootstrap',test:'AdoptionRuntimeTest#emptyOrIncompatibleSchemaCannotStartOrMigrate',
+    method:'emptyOrIncompatibleSchemaCannotStartOrMigrate(Path)',failure:['Expecting value to be true but was false'],
     childDiagnostic:'Successfully applied 16 migrations',
     edits:[[base+'infra/operations/AdoptionSafetyInitializer.java',text=>text.replace('require(env, "spring.flyway.enabled", "false");','// counterproof: guard removed')],
       ['src/main/resources/application-adoption.yml',text=>text.replace('enabled: false','enabled: true')]]},
   {name:'readiness-healthy-with-db-frozen',test:'AdoptionRuntimeTest#readinessFailsWithinBudgetWhenDatabaseStopsAndRecoversWithoutRestart',
+    method:'readinessFailsWithinBudgetWhenDatabaseStopsAndRecoversWithoutRestart',failure:['expected: 503','but was: 200'],
     edits:[[base+'infra/operations/HealthController.java',text=>text.replace('return response(connection.isValid(1));','return response(true);').replaceAll('return response(false);','return response(true);')]]},
 ];
-const results = resume ? JSON.parse(fs.readFileSync(path.join(out,'results.json'))).filter(x=>x.status===1) : [];
-if(resume) {
-  const inputs=JSON.parse(fs.readFileSync(path.join(execution,'inputs.json')));
-  for(const input of inputs.inputs)if(sha(fs.readFileSync(path.join(root,input.file)))!==input.sha256)throw new Error('Source not restored before resume: '+input.file);
-}
+const only=process.argv.find(arg=>arg.startsWith('only='))?.substring(5);
+if(only&&!cases.some(x=>x.name===only))throw Error('Unknown scoped proof');
+const selected=only?cases.filter(x=>x.name===only):cases;
+const identity={candidate:manifest.commit,inputManifestSha256:hash(fs.readFileSync(path.join(execution,'inputs.json'))),
+  observerSha256:hash(Buffer.concat(['counterproofs.mjs','counterproof-checkpoint.mjs','counterproof-observation.mjs']
+    .map(file=>fs.readFileSync(fileURLToPath(new URL(file,import.meta.url)))))),
+  configuration:{postgresMajor:17,image:restoredImage,selection:selected.map(x=>x.name),javaHome:process.env.JAVA_HOME??null,node:process.version,
+    javaSha256:process.env.JAVA_HOME?hash(fs.readFileSync(path.join(process.env.JAVA_HOME,'bin',process.platform==='win32'?'java.exe':'java'))):null,
+    nodeSha256:hash(fs.readFileSync(process.execPath)),
+    environmentSha256:hash(JSON.stringify(Object.entries(process.env).filter(([key])=>/^(JAVA_|JDK_JAVA|_JAVA|MAVEN_|SPRING_|DB_|FLYWAY_)/.test(key)).sort()))}};
+if(audit&&!fs.existsSync(path.join(proofRoot,'v2/identity.json')))throw Error('Legacy checkpoint is ambiguous; no completed proofs certified');
+if(resume&&fs.existsSync(path.join(proofRoot,'results.json')))console.log('Legacy results preserved; status alone never proves completion');
+const store=new ProofStore({directory:path.join(proofRoot,'v2'),identity,sourceRoot:root,evidenceRoot:execution,inputs:manifest.inputs});
+const results=[];
 function run(name, selection, image) {
   const log = path.join(out,name+'.log');
   const fd = fs.openSync(log,'wx');
@@ -61,7 +67,7 @@ function run(name, selection, image) {
   try { result=spawnSync(process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd',...args],{cwd:back,env:process.env,stdio:['ignore',fd,fd]}); }
   finally { fs.closeSync(fd); }
   if (result.error) throw result.error;
-  return {status:result.status,log,image:image??null,commands:['mvnw.cmd',...args]};
+  return {status:result.status,log,reports:path.join(out,name+'-reports'),image:image??null,commands:['mvnw.cmd',...args]};
 }
 function step(logName, command, args, cwd) {
   const log=path.join(out,logName+'.log'),fd=fs.openSync(log,'wx');
@@ -87,44 +93,38 @@ function mutantImage(name) {
   fs.writeFileSync(path.join(out,name+'-build.json'),JSON.stringify({build,imageBuild,image,jarSha256:digest,testsRunDuringPackaging:0},null,2)+'\n');
   return image;
 }
-for (const experiment of cases) {
-  if(results.some(x=>x.name===experiment.name && x.status===1)) {
-    console.log(experiment.name+': existing completed proof retained, not rerun');
-    continue;
+if(audit) {
+  store.verifyInputs();
+  for(const experiment of selected) {
+    const directory=path.join(proofRoot,'v2',experiment.name);
+    const complete=fs.readdirSync(directory).some(name=>{
+      const folder=path.join(directory,name),record=JSON.parse(fs.readFileSync(path.join(folder,'checkpoint.json')));
+      if(!store.valid(record,folder))return false;
+      try{return validateObservation(record.result,experiment).causal===true;}catch{return false;}
+    });
+    if(!complete)throw Error('No valid completed proof: '+experiment.name);
   }
-  const originals = experiment.edits.map(([file])=>({file,bytes:fs.readFileSync(path.join(back,file))}));
-  let result;
-  const priorLogs = fs.existsSync(path.join(back,'target/adoption-processes'))
-    ? new Set(fs.readdirSync(path.join(back,'target/adoption-processes'))) : new Set();
-  try {
-    for (const [file,change] of experiment.edits) {
-      const before=fs.readFileSync(path.join(back,file),'utf8'), after=change(before);
-      if (before===after) throw new Error('Mutation did not apply: '+experiment.name);
-      fs.writeFileSync(path.join(back,file),after);
-    }
-    const image=experiment.test.startsWith('AdoptionRuntimeTest#')?mutantImage(experiment.name):undefined;
-    result=run(experiment.name,experiment.test,image);
-    const text=fs.readFileSync(result.log,'utf8');
-    if(result.status===0 || !/Tests run: \d+, Failures: [1-9]\d*, Errors: 0/.test(text)) {
-      throw new Error('Mutation survived or failed outside assertions: '+experiment.name);
-    }
-    if(experiment.diagnostic && !text.includes(experiment.diagnostic)) throw new Error('Missing causal effect: '+experiment.name);
-    if(experiment.childDiagnostic) {
-      const observed=fs.readdirSync(path.join(back,'target/adoption-processes')).filter(f=>!priorLogs.has(f))
-        .some(f=>fs.readFileSync(path.join(back,'target/adoption-processes',f),'utf8').includes(experiment.childDiagnostic));
-      if(!observed) throw new Error('Missing bootstrap migration proof');
-    }
-  } finally {
-    for (const original of originals) fs.writeFileSync(path.join(back,original.file),original.bytes);
-    const restored=originals.map(x=>({file:x.file,before:sha(x.bytes),after:sha(fs.readFileSync(path.join(back,x.file)))}));
-    if(restored.some(x=>x.before!==x.after)) throw new Error('Restoration failed');
-    results.push({name:experiment.name,...result,restored});
-    fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(results,null,2)+'\n');
-  }
-  console.log(experiment.name+': detected by assertion; sources restored by SHA256');
+  console.log(selected.length+' causal proofs and restoration verified; zero new tests; startup witness not certified');process.exit(0);
 }
+for (const experiment of selected) {
+  const outcome=store.run({...experiment,edits:experiment.edits.map(([file,change])=>['controle-financeiro-backend/'+file,change])},folder=>{
+    out=folder;
+    const priorLogs=fs.existsSync(path.join(back,'target/adoption-processes'))?new Set(fs.readdirSync(path.join(back,'target/adoption-processes'))):new Set();
+    const image=experiment.test.startsWith('AdoptionRuntimeTest#')?mutantImage(experiment.name):undefined;
+    const result=run(experiment.name,experiment.test,image);
+    result.children=[];
+    const childRoot=path.join(back,'target/adoption-processes');
+    if(fs.existsSync(childRoot))for(const file of fs.readdirSync(childRoot).filter(f=>!priorLogs.has(f))) {
+      const target=path.join(folder,'child-'+file);fs.copyFileSync(path.join(childRoot,file),target);result.children.push(target);
+    }
+    return result;
+  },result=>validateObservation(result,experiment));
+  results.push({name:experiment.name,...outcome});
+  console.log(experiment.name+(outcome.reused?': verified completion reused':': causal assertion and restoration verified'));
+}
+if(only){console.log('Scoped proof complete; full counterproof/startup gate not certified');process.exit(0);}
+out=path.join(proofRoot,'witness-'+crypto.randomUUID());fs.mkdirSync(out);
 const witness=run('restored-witness','Cf017OriginalFindingsTest#missingOriginalForeignKeyStopsBeforeBaseline,AdoptionRuntimeTest#maintenanceBlocksAllFunctionalIngressWithoutDatabaseEffects+readinessFailsWithinBudgetWhenDatabaseStopsAndRecoversWithoutRestart,SchedulingBoundaryTest',restoredImage);
-const manifest=JSON.parse(fs.readFileSync(path.join(execution,'inputs.json')));
 for(const input of manifest.inputs) if(sha(fs.readFileSync(path.join(root,input.file)))!==input.sha256) throw new Error('Final source mismatch '+input.file);
 fs.writeFileSync(path.join(out,'witness.json'),JSON.stringify({...witness,allInputsRestored:true},null,2)+'\n');
 if(witness.status!==0) throw new Error('Restored positive witness failed; hashes restored, failure receipt retained');
