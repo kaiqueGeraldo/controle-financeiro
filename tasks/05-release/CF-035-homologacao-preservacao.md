@@ -44,6 +44,12 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Revisão independente de26/10/2026:
+[parecer/configuração/ordem operacional](../evidencias/revisao-preparacao-local-adocao/README.md).
+Recortes locais aprovados não iniciam homologação real. Startup e observador
+resume exigem saneamento; volume Railway sem backups listados, sem restore real
+demonstrado. Estado proposta e checkboxes mantidos; nenhum banco real acessado.
+
 Preparação correlata de26/10/2026: [lote exclusivamente local/descartável](../evidencias/preparacao-local-adocao/README.md),
 em_revisao e com startup estável ainda não certificado.
 Não inicia a CF035 integralmente, não certifica backup real ou homologação HTTPS

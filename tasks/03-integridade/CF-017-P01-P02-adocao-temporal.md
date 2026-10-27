@@ -5,6 +5,14 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revisão independente local correlata — 26/10/2026
+
+[Parecer A–G](../evidencias/revisao-preparacao-local-adocao/README.md), candidato6f70a87:
+PG16/17 e fronteiras locais de adoção aprovados no alcance examinado; startup
+continua pendente e observador resume exige saneamento próprio. Nenhum critério
+de inventário/backup/proveniência/freeze real foi marcado. Cenários A–D, UNKNOWN/
+null/brutos e gates desta derivada permanecem; estado em_revisao conservado.
+
 ## Preparação local correlata — 26/10/2026
 
 [Resultados, matriz e limites do lote autorizado](../evidencias/preparacao-local-adocao/README.md).

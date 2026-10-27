@@ -8,6 +8,19 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revisão independente da preparação — 26/10/2026
+
+[Parecer e evidências](../evidencias/revisao-preparacao-local-adocao/README.md),
+candidato6f70a87: suporte operacional local16.15/17.11 aprovado, incluindo
+servidores/clientes, migrations/validate, preflight rigoroso e restore. Controles
+de bootstrap/writers/jobs aprovados no alcance local; startup estável não aprovado.
+RVPLA-01 afeta resume do observador, não o comparador ou migrations. Nenhuma
+correção de produto/runner realizada nesta revisão.
+
+CF017/P01/P02 permanecem em_revisao pelas obrigações reais de classificação,
+backup/restore, proveniência e writers. Matriz/configuração e ordem A–D preparadas,
+sem acesso ao banco, baseline, migration, ativação ou deploy remotos.
+
 ## Preparação exclusivamente local após revisão — 26/10/2026
 
 [Lote local delimitado e resultados](../evidencias/preparacao-local-adocao/README.md), entrada

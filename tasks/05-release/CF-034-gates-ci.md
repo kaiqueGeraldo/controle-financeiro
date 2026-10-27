@@ -8,6 +8,18 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revisão independente da preparação local — 26/10/2026
+
+[Parecer, matriz e achados](../evidencias/revisao-preparacao-local-adocao/README.md),
+candidato6f70a87: bytes/831inputs/22recursos e imagem do JAR p05 conferidos,
+sem atribuir seu build ao HEAD documental. Controles locais aprovados no recorte;
+controle original de startup17/3 falhas mantém o gate aberto. RVPLA-01 confirma
+que resume de contraprovas pode pular timeout sem efeito; não corrigido aqui.
+
+Aceite DEC-CI-04 e resultados remotos anteriores preservados; nenhuma CI nova,
+publicação, deploy ou configuração alterada. CF034 integral em_revisao;
+expanded, zoom, cancelamento e gates CF017/035/036 não foram dispensados.
+
 ## Preparação local de adoção/pacote — 26/10/2026
 
 Lote autorizado a partir46b85ee, em_revisao na branch

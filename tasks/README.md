@@ -1,5 +1,20 @@
 # Plano de execução do monorepo
 
+## Revisão independente da preparação local — 26/10/2026
+
+[Parecer A–G e matriz](evidencias/revisao-preparacao-local-adocao/README.md),
+candidato6f70a87: PG16/17, controles locais de inicialização/writers/jobs,
+saúde/preview e vínculo do pacote aprovados no alcance documentado. Startup
+permanece não aprovado:17 contratos originais com3 falhas; pilhas localizam
+trabalho HQL após JPA, sem causa completa demonstrada. RVPLA-01 confirma falha
+do resume do observador de contraprovas; saneamento local próprio necessário.
+
+Configuração remota foi somente lida; proposta/ordem preparadas. DDL update,
+previews antigos/compartilhamento de destino e ausência de backup listado no
+provedor exigem tratamento autorizado. CF017/P01/P02 e CF034 integral continuam
+em_revisao; CF035/036 propostas. Expanded, zoom200% e demais gates preservados.
+Nenhuma correção de produto/runner, banco real, ativação, push, CI ou deploy.
+
 Prioridade: corrigir divergências de horário, calendário e apresentação no frontend; depois consolidar integridade financeira, onboarding e publicação. Criado em 07/09/2026 a partir do [SDD](../docs/sdd/README.md).
 
 Estas são tarefas versionadas no repositório, abrangendo frontend e backend. Cada arquivo pode orientar uma tarefa no Codex. Criar os arquivos não inicia agentes, não muda o modelo desta conversa nem agenda execuções.

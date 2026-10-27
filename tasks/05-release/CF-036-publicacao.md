@@ -43,6 +43,12 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Revisão independente de26/10/2026:
+[parecer A–G](../evidencias/revisao-preparacao-local-adocao/README.md). Vínculo do
+pacote aprovado localmente não libera publicação/ativação/uso. Startup, saneamento
+do observador e gates integrais/reais permanecem; configuração somente proposta.
+Estado proposta e checkboxes mantidos; nenhum deploy/publicação foi executado.
+
 Preparação correlata de26/10/2026: [lote local de pacote e controles](../evidencias/preparacao-local-adocao/README.md),
 em_revisao e com startup estável ainda não certificado.
 Nenhuma publicação/configuração/deploy executados. CF036 permanece proposta;
