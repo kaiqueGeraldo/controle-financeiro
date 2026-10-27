@@ -1,0 +1,121 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 133 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.NativeTransportDiagnosticTest
+12:31:51.575 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:31:51.586 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:31:51.600 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+12:31:52.069 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:31:52.801 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+12:31:52.803 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+12:31:52.835 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+12:31:53.132 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+12:31:53.691 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 0ca23e9ab155433af826e1e0cb7a3683011ac235af758b50c0ac76739fea4043
+12:31:54.308 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT1.1758572S
+12:31:54.325 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+12:31:54.325 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+12:31:54.327 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+12:31:54.329 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+12:31:54.454 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: 3b9d0d07906f062ae60e3e3d024d0cd5b43a5c8dac98c573341e2b8f0fbebc36
+12:31:56.445 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT2.1162824S
+12:31:56.446 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: <JDBC_LOCAL_WITHHELD>
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=3b9d0d07906f062ae60e3e3d024d0cd5b43a5c8dac98c573341e2b8f0fbebc36
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+12:31:57.930 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:31:58.071 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a"."flyway_schema_history" does not exist yet
+12:31:58.080 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.072s)
+12:31:58.112 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a"."flyway_schema_history" ...
+12:31:58.200 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a": << Empty Schema >>
+12:31:58.249 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "1 - baseline pre temporal"
+12:31:58.439 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "2 - adopt temporal metadata"
+12:31:58.488 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "3 - account opening and transaction flow"
+12:31:58.555 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "4 - card invoice integrity"
+12:31:58.654 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "5 - investment positions and goal allocations"
+12:31:58.763 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "6 - preserve goal purchase facts"
+12:31:58.798 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "7 - valuation reference and audit"
+12:31:58.843 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "8 - investment corrections"
+12:31:58.919 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "9 - payment intent receipt"
+12:31:58.945 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "10 - financial commands and partial reversals"
+12:31:58.987 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "11 - reporting coverage baselines"
+12:31:59.019 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "12 - habit goal effect identity"
+12:31:59.060 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "13 - financial creation intent receipts"
+12:31:59.090 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "14 - goal history recorded instant"
+12:31:59.119 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "15 - onboarding draft"
+12:31:59.160 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a" to version "16 - onboarding application"
+12:31:59.258 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "rv_tcp_diagnostic_3604c1964bb243498d1edc81a7205f6a", now at version v16 (execution time 00:00.641s)
+ADOPTION_PROCESS mode=jar pid=27564 log=target\adoption-processes\3cef8c57-c51c-4028-b3b5-26af985a793d.log
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 36.83 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.NativeTransportDiagnosticTest
+[ERROR] com.controlefinanceiro.api.migration.NativeTransportDiagnosticTest.distinguishDeadProcessFromWindowsTimeWait -- Time elapsed: 36.79 s <<< ERROR!
+java.nio.charset.MalformedInputException: Input length = 1
+	at java.base/java.lang.String.throwMalformed(String.java:1268)
+	at java.base/java.lang.String.decodeUTF8_UTF16(String.java:1224)
+	at java.base/java.lang.String.newStringUTF8NoRepl(String.java:749)
+	at java.base/java.lang.String.newStringNoRepl1(String.java:780)
+	at java.base/java.lang.String.newStringNoRepl(String.java:762)
+	at java.base/java.lang.System$2.newStringNoRepl(System.java:2481)
+	at java.base/java.nio.file.Files.readString(Files.java:3362)
+	at java.base/java.nio.file.Files.readString(Files.java:3318)
+	at com.controlefinanceiro.api.migration.NativeTransportDiagnosticTest.distinguishDeadProcessFromWindowsTimeWait(NativeTransportDiagnosticTest.java:24)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   NativeTransportDiagnosticTest.distinguishDeadProcessFromWindowsTimeWait:24 � MalformedInput Input length = 1
+[INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:06 min
+[INFO] Finished at: 2026-10-27T12:32:28Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: 
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\revalidacao-20261027-01\transport-diagnostic-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

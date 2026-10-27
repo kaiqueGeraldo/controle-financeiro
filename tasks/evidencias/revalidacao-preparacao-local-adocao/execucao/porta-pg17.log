@@ -1,0 +1,249 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 259 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/onboarding/OnboardingJson.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/onboarding/OnboardingJson.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 132 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+12:22:28.747 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:22:28.758 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:22:28.775 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+12:22:29.204 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:22:29.897 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+12:22:29.899 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+12:22:29.926 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+12:22:30.098 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+12:22:30.524 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 89636284ea03f8a6d189a4cc13f686312adfc660f1fa8b28caca8aee5cd286ca
+12:22:31.068 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.9700714S
+12:22:31.081 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+12:22:31.082 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+12:22:31.083 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+12:22:31.084 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+12:22:31.201 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: 11b72f0a10e8ee4091c4b2853d57c9165912d0261e11ace88897b4ab5102e393
+12:22:33.171 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT2.0869075S
+12:22:33.171 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: <JDBC_LOCAL_WITHHELD>
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=11b72f0a10e8ee4091c4b2853d57c9165912d0261e11ace88897b4ab5102e393
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+12:22:34.486 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:22:34.935 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45"."flyway_schema_history" does not exist yet
+12:22:34.941 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.389s)
+12:22:34.965 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45"."flyway_schema_history" ...
+12:22:35.038 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45": << Empty Schema >>
+12:22:35.071 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "1 - baseline pre temporal"
+12:22:35.227 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "2 - adopt temporal metadata"
+12:22:35.269 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "3 - account opening and transaction flow"
+12:22:35.330 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "4 - card invoice integrity"
+12:22:35.424 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "5 - investment positions and goal allocations"
+12:22:35.522 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "6 - preserve goal purchase facts"
+12:22:35.553 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "7 - valuation reference and audit"
+12:22:35.588 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "8 - investment corrections"
+12:22:35.639 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "9 - payment intent receipt"
+12:22:35.658 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "10 - financial commands and partial reversals"
+12:22:35.690 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "11 - reporting coverage baselines"
+12:22:35.712 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "12 - habit goal effect identity"
+12:22:35.744 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "13 - financial creation intent receipts"
+12:22:35.767 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "14 - goal history recorded instant"
+12:22:35.786 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "15 - onboarding draft"
+12:22:35.818 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45" to version "16 - onboarding application"
+12:22:35.888 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "port_allocation_34c7b5d8d329488c873c0a9a5b3f2a45", now at version v16 (execution time 00:00.545s)
+ADOPTION_PROCESS mode=jar pid=30616 log=target\adoption-processes\221cecf1-146d-4a55-a6e6-0f0e83ae789b.log
+PORT_ALLOCATION_BOUND_BY_SERVER=true unrelatedListenerAlive=true
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.12 s -- in com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+[INFO] Running com.controlefinanceiro.api.migration.AdoptionRuntimeTest
+12:22:52.668 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:22:52.710 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "cf017_runtime_3c791487b076487db9a13c131d86329e"."flyway_schema_history" does not exist yet
+12:22:52.712 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.022s)
+12:22:52.732 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_runtime_3c791487b076487db9a13c131d86329e"."flyway_schema_history" ...
+12:22:52.785 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_runtime_3c791487b076487db9a13c131d86329e": << Empty Schema >>
+12:22:52.798 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "1 - baseline pre temporal"
+12:22:52.952 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "2 - adopt temporal metadata"
+12:22:52.987 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "3 - account opening and transaction flow"
+12:22:53.044 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "4 - card invoice integrity"
+12:22:53.130 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "5 - investment positions and goal allocations"
+12:22:53.229 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "6 - preserve goal purchase facts"
+12:22:53.257 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "7 - valuation reference and audit"
+12:22:53.293 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "8 - investment corrections"
+12:22:53.348 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "9 - payment intent receipt"
+12:22:53.369 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "10 - financial commands and partial reversals"
+12:22:53.402 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "11 - reporting coverage baselines"
+12:22:53.427 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "12 - habit goal effect identity"
+12:22:53.461 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "13 - financial creation intent receipts"
+12:22:53.486 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "14 - goal history recorded instant"
+12:22:53.505 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "15 - onboarding draft"
+12:22:53.539 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_3c791487b076487db9a13c131d86329e" to version "16 - onboarding application"
+12:22:53.609 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "cf017_runtime_3c791487b076487db9a13c131d86329e", now at version v16 (execution time 00:00.574s)
+ADOPTION_PROCESS mode=jar pid=64112 log=target\adoption-processes\89711fa3-1f02-40ec-8607-829235b4b43c.log
+ADOPTION_PROCESS mode=jar pid=15600 log=target\adoption-processes\6e0eeb9f-79b2-4e7c-83a6-159692daa410.log
+12:23:28.632 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:23:28.654 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55"."flyway_schema_history" does not exist yet
+12:23:28.655 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.012s)
+12:23:28.665 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55"."flyway_schema_history" ...
+12:23:28.699 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55": << Empty Schema >>
+12:23:28.705 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "1 - baseline pre temporal"
+12:23:28.813 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "2 - adopt temporal metadata"
+12:23:28.838 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "3 - account opening and transaction flow"
+12:23:28.880 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "4 - card invoice integrity"
+12:23:28.946 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "5 - investment positions and goal allocations"
+12:23:29.026 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "6 - preserve goal purchase facts"
+12:23:29.058 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "7 - valuation reference and audit"
+12:23:29.093 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "8 - investment corrections"
+12:23:29.149 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "9 - payment intent receipt"
+12:23:29.173 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "10 - financial commands and partial reversals"
+12:23:29.212 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "11 - reporting coverage baselines"
+12:23:29.239 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "12 - habit goal effect identity"
+12:23:29.280 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "13 - financial creation intent receipts"
+12:23:29.313 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "14 - goal history recorded instant"
+12:23:29.336 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "15 - onboarding draft"
+12:23:29.379 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55" to version "16 - onboarding application"
+12:23:29.466 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "cf017_runtime_e5b275e608cc4134b6e17f3138a54c55", now at version v16 (execution time 00:00.512s)
+ADOPTION_PROCESS mode=jar pid=11032 log=target\adoption-processes\e09bf82b-9ed0-4bcd-8014-37079f7247ec.log
+ADOPTION_DB_UNAVAILABLE readiness503=true liveness200=true elapsedMs=1042
+ADOPTION_DB_RECOVERY sameProcess=true readiness200=true
+12:23:47.758 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:23:47.784 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "cf017_runtime_89102f1b460a417f88bb1ce6136cc146"."flyway_schema_history" does not exist yet
+12:23:47.785 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.014s)
+12:23:47.798 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "cf017_runtime_89102f1b460a417f88bb1ce6136cc146"."flyway_schema_history" ...
+12:23:47.830 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146": << Empty Schema >>
+12:23:47.837 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "1 - baseline pre temporal"
+12:23:47.949 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "2 - adopt temporal metadata"
+12:23:47.975 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "3 - account opening and transaction flow"
+12:23:48.016 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "4 - card invoice integrity"
+12:23:48.081 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "5 - investment positions and goal allocations"
+12:23:48.164 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "6 - preserve goal purchase facts"
+12:23:48.191 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "7 - valuation reference and audit"
+12:23:48.221 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "8 - investment corrections"
+12:23:48.267 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "9 - payment intent receipt"
+12:23:48.283 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "10 - financial commands and partial reversals"
+12:23:48.315 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "11 - reporting coverage baselines"
+12:23:48.335 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "12 - habit goal effect identity"
+12:23:48.365 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "13 - financial creation intent receipts"
+12:23:48.386 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "14 - goal history recorded instant"
+12:23:48.404 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "15 - onboarding draft"
+12:23:48.434 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146" to version "16 - onboarding application"
+12:23:48.498 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "cf017_runtime_89102f1b460a417f88bb1ce6136cc146", now at version v16 (execution time 00:00.459s)
+ADOPTION_PROCESS mode=jar pid=20048 log=target\adoption-processes\f5cda3d4-57a2-4a96-85a0-bfe1a09ff70f.log
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 73.41 s -- in com.controlefinanceiro.api.migration.AdoptionRuntimeTest
+[INFO] Running com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+12:24:06.058 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:24:06.092 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "rv_port_lifecycle_77ce373f06684692ac6a818018246e50"."flyway_schema_history" does not exist yet
+12:24:06.094 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.018s)
+12:24:06.108 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "rv_port_lifecycle_77ce373f06684692ac6a818018246e50"."flyway_schema_history" ...
+12:24:06.149 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50": << Empty Schema >>
+12:24:06.157 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "1 - baseline pre temporal"
+12:24:06.302 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "2 - adopt temporal metadata"
+12:24:06.335 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "3 - account opening and transaction flow"
+12:24:06.389 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "4 - card invoice integrity"
+12:24:06.478 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "5 - investment positions and goal allocations"
+12:24:06.573 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "6 - preserve goal purchase facts"
+12:24:06.603 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "7 - valuation reference and audit"
+12:24:06.640 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "8 - investment corrections"
+12:24:06.691 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "9 - payment intent receipt"
+12:24:06.709 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "10 - financial commands and partial reversals"
+12:24:06.742 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "11 - reporting coverage baselines"
+12:24:06.765 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "12 - habit goal effect identity"
+12:24:06.797 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "13 - financial creation intent receipts"
+12:24:06.820 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "14 - goal history recorded instant"
+12:24:06.836 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "15 - onboarding draft"
+12:24:06.876 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50" to version "16 - onboarding application"
+12:24:06.942 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "rv_port_lifecycle_77ce373f06684692ac6a818018246e50", now at version v16 (execution time 00:00.553s)
+ADOPTION_PROCESS mode=jar pid=19268 log=target\adoption-processes\780158c9-6c2c-41b1-972a-b01189f351f4.log
+INDEPENDENT_BOUND_LISTENER port=59466 pid=19268 container=null
+12:24:23.522 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+12:24:23.552 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120"."flyway_schema_history" does not exist yet
+12:24:23.554 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.016s)
+12:24:23.569 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120"."flyway_schema_history" ...
+12:24:23.607 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120": << Empty Schema >>
+12:24:23.614 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "1 - baseline pre temporal"
+12:24:23.748 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "2 - adopt temporal metadata"
+12:24:23.779 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "3 - account opening and transaction flow"
+12:24:23.825 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "4 - card invoice integrity"
+12:24:23.897 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "5 - investment positions and goal allocations"
+12:24:23.981 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "6 - preserve goal purchase facts"
+12:24:24.006 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "7 - valuation reference and audit"
+12:24:24.037 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "8 - investment corrections"
+12:24:24.084 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "9 - payment intent receipt"
+12:24:24.100 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "10 - financial commands and partial reversals"
+12:24:24.130 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "11 - reporting coverage baselines"
+12:24:24.150 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "12 - habit goal effect identity"
+12:24:24.181 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "13 - financial creation intent receipts"
+12:24:24.202 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "14 - goal history recorded instant"
+12:24:24.218 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "15 - onboarding draft"
+12:24:24.247 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120" to version "16 - onboarding application"
+12:24:24.312 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "rv_occupied_port_aea4a31556e24a2a856e8b3b26d76120", now at version v16 (execution time 00:00.500s)
+ADOPTION_PROCESS mode=jar pid=20328 log=target\adoption-processes\dca944a7-9bd7-47a6-9701-5e7ad9950187.log
+INDEPENDENT_OCCUPIED_PORT foreignReadyNotAccepted=true foreignServicePreserved=true
+[ERROR] Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 35.10 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+[ERROR] com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives -- Time elapsed: 17.48 s <<< ERROR!
+java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:577)
+	at java.base/sun.nio.ch.Net.bind(Net.java:566)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:342)
+	at com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives(PortLifecycleProbeTest.java:32)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives:32 � Bind Address already in use: bind
+[INFO] 
+[ERROR] Tests run: 6, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:38 min
+[INFO] Finished at: 2026-10-27T12:24:41Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: 
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\revalidacao-20261027-01\porta-pg17-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

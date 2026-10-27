@@ -1,0 +1,77 @@
+{
+  "records": [
+    {
+      "name": "observador-original",
+      "args": [
+        "--import",
+        "file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-20261027-01/resume/redirecionar-saida.mjs",
+        "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-20261027-01\\resume\\observador-original.mjs",
+        "../controle-financeiro-runtimes/preparacao-adocao/revisao-20261026-01"
+      ],
+      "exit": 0,
+      "logSha256": "545e52aa5561b9e13a0670912a89f1cb1d244b3b4e7999939642eb0541b6ec5b"
+    },
+    {
+      "name": "original",
+      "args": [
+        "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-20261027-01\\resume\\reproduzir-resume.mjs",
+        "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-20261027-01\\resume\\original"
+      ],
+      "exit": 0,
+      "logSha256": "54974daa691078140ecd0a415fc96d54257dc3841bdce163d89bb09ced1feece"
+    },
+    {
+      "name": "fixed",
+      "args": [
+        "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-20261027-01\\resume\\reproduzir-resume.mjs",
+        "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-20261027-01\\resume\\fixed",
+        "fixed"
+      ],
+      "exit": 0,
+      "logSha256": "ed641caacefa4a2475115ff11c944a71ecaa2020c0a0c13d8dabe8f50d05d45c"
+    },
+    {
+      "name": "controle-28",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "tasks/evidencias/preparacao-local-adocao/counterproof-checkpoint.test.mjs"
+      ],
+      "exit": 0,
+      "logSha256": "dffa00e069da5016c82ef53c697505dc6012169628cb0fbcc77c06a97b379c39"
+    },
+    {
+      "name": "mutante-resume",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "tasks/evidencias/preparacao-local-adocao/counterproof-checkpoint.test.mjs"
+      ],
+      "exit": 1,
+      "logSha256": "8ddd63f51c76c692e7747d32472a3a3b2170a3553c3949865859cf0f39fcca6c"
+    },
+    {
+      "name": "restaurado-28",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "tasks/evidencias/preparacao-local-adocao/counterproof-checkpoint.test.mjs"
+      ],
+      "exit": 0,
+      "logSha256": "af67bd259ba83e7383f66e56b748d1770e60633d8d7966b2fac7a1188714fd35"
+    }
+  ],
+  "originalObserverSha256": "ec63380015d368ede04bb7569b2233783b50e673feb9a53b3c083e14f5e6eed4",
+  "originalObserverLimitation": "Evaluates hardcoded old predicate over historical result; still reports old defect for corrected source. Actual runner executions distinguish versions.",
+  "fixtureOriginalSha256": "21fbc23ce9e5c9692ca4504021aec0cc40d90fe33085ece5c252c97806c6acef",
+  "fixtureAdaptedSha256": "8f9dfdf965ed84aade6c1e3b3027f6bef693825810973fc7e901109f85af5a56",
+  "adaptation": "Only saneamento directory prefix replaced by revalidacao; no criteria, expected values or runner modifications",
+  "failedAttemptRetained": true,
+  "nextGateNotRun": true,
+  "mutation": {
+    "before": "59ee6a23dc8def23a576a0d1914c162596b8a4cecd14a4d34a2cc60736c461e9",
+    "mutant": "c0f0c7f6b1d18196433952d0136da8092b642064cccbdb94aba76ca395b83ee1",
+    "restored": "59ee6a23dc8def23a576a0d1914c162596b8a4cecd14a4d34a2cc60736c461e9",
+    "detectedByExpectedAssertion": true
+  }
+}
