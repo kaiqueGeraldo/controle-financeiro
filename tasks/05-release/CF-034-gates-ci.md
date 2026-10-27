@@ -8,6 +8,15 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+[Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):
+RVPLA-03 encerrado no abandono Windows/sessão atual; RVPLA-04 novo revela falsa
+quiescência durante inspeção de handoff. Reuso nativo e startup HQL inconclusivos,
+40s mantidos. Pacote/JAR anterior e aceites DEC-CI-04 preservados; CF034 integral
+em_revisao, expanded/zoom/cancelamento/configuração/adoção reais não liberados.
+Sem CI remota, correção de implementação, publicação, deploy ou sucessora.
+
 ## Revalidação independente do saneamento — 27/10/2026
 
 [Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):

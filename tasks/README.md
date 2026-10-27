@@ -1,5 +1,17 @@
 # Plano de execução do monorepo
 
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+[Parecer e provas](evidencias/revalidacao-RVPLA-03/README.md), candidato0b4c6598:
+RVPLA-03 encerrado no abandono original Windows/sessão atual; wrapper/descendentes
+gerenciados não sobreviveram à retomada autorizada. Novo RVPLA-04/P2 confirma
+fotografia incoerente de PIDs durante handoff, com restauração/complete enquanto
+filho ainda atua; aceite amplo de quiescência pendente. Reuso nativo e HQL seguem
+inconclusivos,40s preservados. RVPLA-01 e demais aceites locais/proveniência mantidos.
+CF017/P01/P02 e CF034 integral em_revisao; expanded, zoom200%, configuração remota
+e adoção real/produção não liberados. Próximo lote recomendado: RVPLA-04, sem
+correção ou sucessora iniciada nesta revisão. Nenhuma ação remota.
+
 ## Saneamento local do RVPLA-03/P2 — 27/10/2026
 
 [Correção, provas e limites](evidencias/saneamento-RVPLA-03/README.md), base9bed5e2:

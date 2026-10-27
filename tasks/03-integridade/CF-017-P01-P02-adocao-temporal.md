@@ -5,6 +5,14 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+[Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):
+RVPLA-03 encerrado no cenário original de abandono; RVPLA-04 novo impede aceite
+amplo do restauro durante comandos tardios. Reuso nativo e HQL inconclusivos,
+aceites locais preservados. P01/P02 em_revisao, sem checkbox real encerrado:
+A–D, temporalidade/brutos/null/UNKNOWN, backup/restore e coordenação reais pendentes.
+
 ## Revalidação independente do saneamento — 27/10/2026
 
 [Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):

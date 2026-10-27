@@ -8,6 +8,14 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+[Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):
+abandono original RVPLA-03 encerrado no recorte Windows; novo RVPLA-04 mantém
+pendente a quiescência durante handoff. Reuso nativo e HQL inconclusivos. Suporte
+PG16/17, migrations, controles locais e pacote preservados; CF017/P01/P02 em_revisao,
+sem execução/liberação de inventário, backup/restore, freeze ou DDL reais.
+
 ## Revalidação independente do saneamento — 27/10/2026
 
 [Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):
