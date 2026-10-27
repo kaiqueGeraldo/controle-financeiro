@@ -59,7 +59,9 @@ function verifyEnvironment() {
   const docker=spawnSync('docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{encoding:'utf8',timeout:10000});
   if(docker.error||docker.status!==0||docker.stdout.trim())throw Error('API containers may still be active; cleanup must be verified before restoring/resuming');
   // Read PID ownership only. Never stop an unknown process or print its command line.
-  const script="$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and $_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 }); if ($taskFound.Count -gt 0) { exit 3 }";
+  // A native -jar child can refer only to shared p05, without its parent's cwd.
+  // Conservatively block adoption JVMs too; never mistake a dead owner for cleanup.
+  const script="$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }";
   const processes=spawnSync(path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
     ['-NoProfile','-NonInteractive','-Command',script],{encoding:'utf8',timeout:10000,env:{...process.env,CF_PREPARATION_AUDIT_ROOT:execution}});
   if(processes.error||processes.status!==0)throw Error('Runtime Java processes may still be active; cleanup must be verified before restoring/resuming');
