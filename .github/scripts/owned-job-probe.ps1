@@ -28,7 +28,7 @@ public static class CfOwnedJobProbe {
 "@
 $config=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Configuration)) | ConvertFrom-Json
 if($config.mode -eq 'identity') {
- [ordered]@{pid=[int]$config.pid;ticks=[CfOwnedJobProbe]::StartTicks([int]$config.pid)} | ConvertTo-Json -Compress
+ [ordered]@{pid=[int]$config.pid;ticks=[CfOwnedJobProbe]::StartTicks([int]$config.pid);session=[Diagnostics.Process]::GetProcessById([int]$config.pid).SessionId} | ConvertTo-Json -Compress
  exit 0
 }
 if($config.jobName -notmatch '^Local\\CF034-CP-[a-f0-9]{24}-[a-f0-9-]{36}$'){throw 'Invalid private job identity'}

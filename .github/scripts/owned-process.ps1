@@ -97,6 +97,9 @@ if ($config.ownership) {
       if($envelope.version -ne 1 -or $digest -ne $envelope.sha256){throw 'Invalid owned execution checksum'}
       $prior=[Text.Encoding]::UTF8.GetString($bytes) | ConvertFrom-Json
       if($prior.version -ne 1 -or $prior.root -ne $owned.root -or $prior.runId -notmatch '^[a-f0-9-]{36}$' -or $prior.jobName -ne ($owned.jobPrefix+$prior.runId) -or !$prior.owner.ticks) {throw 'Invalid owned execution record'}
+      # Local job names are visible only inside one Windows session. Absence in
+      # another session cannot certify the previous tree has stopped.
+      if($null -eq $prior.owner.session -or [int]$prior.owner.session -ne [Diagnostics.Process]::GetCurrentProcess().SessionId){throw 'Previous Windows session ownership cannot be verified'}
       if($prior.runId -ne $owned.runId){[Cf034OwnedProcess]::RequireClosed([int]$prior.owner.pid,[string]$prior.owner.ticks,[string]$prior.jobName)}
     }
     # Diagnostic identity only; the immutable run record was committed before spawn.
