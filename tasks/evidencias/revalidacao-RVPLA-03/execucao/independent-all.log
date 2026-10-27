@@ -1,0 +1,10 @@
+file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-RVPLA-03/processos-independentes.mjs:11
+async function barrier(file){const end=Date.now()+20000;while(!fs.existsSync(file)){if(Date.now()>end)throw Error('Missing deterministic barrier '+file);await new Promise(r=>setTimeout(r,25));}return JSON.parse(fs.readFileSync(file));}
+                                                                                                            ^
+
+Error: Missing deterministic barrier C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\revalidacao-rvpla03-20261027-01\independent-all\guardian-abrupt\wrapper.json
+    at barrier (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-RVPLA-03/processos-independentes.mjs:11:109)
+    at async guardianCase (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-RVPLA-03/processos-independentes.mjs:23:34)
+    at async file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-RVPLA-03/processos-independentes.mjs:38:70
+
+Node.js v24.18.0
