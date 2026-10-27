@@ -1,5 +1,17 @@
 # Plano de execução do monorepo
 
+## Saneamento local do RVPLA-03/P2 — 27/10/2026
+
+[Correção, provas e limites](evidencias/saneamento-RVPLA-03/README.md), base9bed5e2:
+supervisão da árvore própria antes de comandos e bloqueio de retomada sem prova
+de quiescência, com identidade UUID/PID/nascimento/sessão e Job Object existente.
+Saneado localmente no recorte Windows demonstrado, **aguardando revisão independente**
+dos caminhos alterados e compartilhados. RVPLA-01 e aceite anterior da reserva
+dinâmica de porta preservados; reuso nativo imediato continua não certificado.
+Startup HQL inconclusivo/não aprovado,40s e falhas preservados. Produto, migrations,
+JAR e README alheio intactos. CF017/P01/P02 e CF034 integral em_revisao;
+adoção real não liberada. Sem ação remota, push, merge, CI remota ou deploy.
+
 ## Revalidação independente do saneamento — 27/10/2026
 
 [Parecer, matriz e provas](evidencias/revalidacao-preparacao-local-adocao/README.md),
