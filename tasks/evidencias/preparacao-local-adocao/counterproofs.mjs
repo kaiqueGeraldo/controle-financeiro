@@ -5,12 +5,14 @@ import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {ProofStore,hash} from './counterproof-checkpoint.mjs';
 import {validateObservation} from './counterproof-observation.mjs';
+import {superviseCounterproof,verifyOwnedBoundary,supervisionSources} from './counterproof-supervision.mjs';
 
 const execution = path.resolve(process.argv[2] ?? '');
 const restoredImage = process.argv[3];
 if (!/^sha256:[a-f0-9]{64}$/.test(restoredImage??'')) throw new Error('Supply the verified local Linux image ID');
 const allowed = path.resolve('../controle-financeiro-runtimes/preparacao-adocao') + path.sep;
 if (!execution.startsWith(allowed)) throw new Error('Disposable execution required');
+await superviseCounterproof(execution);
 const root = path.join(execution,'checkout');
 const back = path.join(root,'controle-financeiro-backend');
 const proofRoot = path.join(execution,'counterproofs');
@@ -47,8 +49,8 @@ const only=process.argv.find(arg=>arg.startsWith('only='))?.substring(5);
 if(only&&!cases.some(x=>x.name===only))throw Error('Unknown scoped proof');
 const selected=only?cases.filter(x=>x.name===only):cases;
 const identity={candidate:manifest.commit,inputManifestSha256:hash(fs.readFileSync(path.join(execution,'inputs.json'))),
-  observerSha256:hash(Buffer.concat(['counterproofs.mjs','counterproof-checkpoint.mjs','counterproof-observation.mjs']
-    .map(file=>fs.readFileSync(fileURLToPath(new URL(file,import.meta.url)))))),
+  observerSha256:hash(Buffer.concat([...['counterproofs.mjs','counterproof-checkpoint.mjs','counterproof-observation.mjs']
+    .map(file=>fileURLToPath(new URL(file,import.meta.url))),...supervisionSources].map(file=>fs.readFileSync(file)))),
   configuration:{postgresMajor:17,image:restoredImage,selection:selected.map(x=>x.name),javaHome:process.env.JAVA_HOME??null,node:process.version,
     javaSha256:process.env.JAVA_HOME?hash(fs.readFileSync(path.join(process.env.JAVA_HOME,'bin',process.platform==='win32'?'java.exe':'java'))):null,
     nodeSha256:hash(fs.readFileSync(process.execPath)),
@@ -56,6 +58,7 @@ const identity={candidate:manifest.commit,inputManifestSha256:hash(fs.readFileSy
 if(audit&&!fs.existsSync(path.join(proofRoot,'v2/identity.json')))throw Error('Legacy checkpoint is ambiguous; no completed proofs certified');
 if(resume&&fs.existsSync(path.join(proofRoot,'results.json')))console.log('Legacy results preserved; status alone never proves completion');
 function verifyEnvironment() {
+  verifyOwnedBoundary(execution); // Includes shells/wrappers that have no JVM yet.
   const docker=spawnSync('docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{encoding:'utf8',timeout:10000});
   if(docker.error||docker.status!==0||docker.stdout.trim())throw Error('API containers may still be active; cleanup must be verified before restoring/resuming');
   // Read PID ownership only. Never stop an unknown process or print its command line.
