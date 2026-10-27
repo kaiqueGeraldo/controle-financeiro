@@ -55,7 +55,16 @@ const identity={candidate:manifest.commit,inputManifestSha256:hash(fs.readFileSy
     environmentSha256:hash(JSON.stringify(Object.entries(process.env).filter(([key])=>/^(JAVA_|JDK_JAVA|_JAVA|MAVEN_|SPRING_|DB_|FLYWAY_)/.test(key)).sort()))}};
 if(audit&&!fs.existsSync(path.join(proofRoot,'v2/identity.json')))throw Error('Legacy checkpoint is ambiguous; no completed proofs certified');
 if(resume&&fs.existsSync(path.join(proofRoot,'results.json')))console.log('Legacy results preserved; status alone never proves completion');
-const store=new ProofStore({directory:path.join(proofRoot,'v2'),identity,sourceRoot:root,evidenceRoot:execution,inputs:manifest.inputs});
+function verifyEnvironment() {
+  const docker=spawnSync('docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{encoding:'utf8',timeout:10000});
+  if(docker.error||docker.status!==0||docker.stdout.trim())throw Error('API containers may still be active; cleanup must be verified before restoring/resuming');
+  // Read PID ownership only. Never stop an unknown process or print its command line.
+  const script="$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and $_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 }); if ($taskFound.Count -gt 0) { exit 3 }";
+  const processes=spawnSync(path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
+    ['-NoProfile','-NonInteractive','-Command',script],{encoding:'utf8',timeout:10000,env:{...process.env,CF_PREPARATION_AUDIT_ROOT:execution}});
+  if(processes.error||processes.status!==0)throw Error('Runtime Java processes may still be active; cleanup must be verified before restoring/resuming');
+}
+const store=new ProofStore({directory:path.join(proofRoot,'v2'),identity,sourceRoot:root,evidenceRoot:execution,inputs:manifest.inputs,verifyEnvironment});
 const results=[];
 function run(name, selection, image) {
   const log = path.join(out,name+'.log');
@@ -94,7 +103,7 @@ function mutantImage(name) {
   return image;
 }
 if(audit) {
-  store.verifyInputs();
+  verifyEnvironment();store.verifyInputs();
   for(const experiment of selected) {
     const directory=path.join(proofRoot,'v2',experiment.name);
     const complete=fs.readdirSync(directory).some(name=>{
@@ -125,6 +134,7 @@ for (const experiment of selected) {
 if(only){console.log('Scoped proof complete; full counterproof/startup gate not certified');process.exit(0);}
 out=path.join(proofRoot,'witness-'+crypto.randomUUID());fs.mkdirSync(out);
 const witness=run('restored-witness','Cf017OriginalFindingsTest#missingOriginalForeignKeyStopsBeforeBaseline,AdoptionRuntimeTest#maintenanceBlocksAllFunctionalIngressWithoutDatabaseEffects+readinessFailsWithinBudgetWhenDatabaseStopsAndRecoversWithoutRestart,SchedulingBoundaryTest',restoredImage);
+verifyEnvironment();
 for(const input of manifest.inputs) if(sha(fs.readFileSync(path.join(root,input.file)))!==input.sha256) throw new Error('Final source mismatch '+input.file);
 fs.writeFileSync(path.join(out,'witness.json'),JSON.stringify({...witness,allInputsRestored:true},null,2)+'\n');
 if(witness.status!==0) throw new Error('Restored positive witness failed; hashes restored, failure receipt retained');

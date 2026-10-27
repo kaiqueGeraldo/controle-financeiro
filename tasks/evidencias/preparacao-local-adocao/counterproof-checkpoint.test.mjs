@@ -119,3 +119,12 @@ test('an active observer cannot be resumed or have its mutation restored concurr
   assert.equal(fs.readFileSync(path.join(f.source,'a'),'utf8'),'mutant');return f.observe(folder);
  },f.validate);f.original();
 });
+test('unknown external process cleanup blocks restoration and continuation until verified',()=>{
+ const f=fixture();let externalActive=false;
+ f.options.verifyEnvironment=()=>{if(externalActive)throw Error('external child still active');};
+ assert.throws(()=>f.store().run(f.spec,folder=>{const result=f.observe(folder);externalActive=true;return result;},f.validate),/external child/);
+ assert.equal(fs.readFileSync(path.join(f.source,'a'),'utf8'),'mutant');
+ assert.throws(()=>f.store().run(f.spec,f.observe,f.validate),/external child/);assert.equal(f.calls(),1);
+ externalActive=false;
+ assert.equal(f.store().run(f.spec,f.observe,f.validate).reused,false);f.original();assert.equal(f.calls(),2);
+});

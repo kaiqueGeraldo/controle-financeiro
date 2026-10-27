@@ -19,10 +19,11 @@ function inside(root,file) {
 /** Local sequential runner. Each attempt has its own evidence and backups.
  * A checkpoint is a receipt, never a generic exit-code success cache. */
 export class ProofStore {
-  constructor({directory,identity,sourceRoot,evidenceRoot,inputs}) {
+  constructor({directory,identity,sourceRoot,evidenceRoot,inputs,verifyEnvironment=()=>{}}) {
     this.directory=path.resolve(directory);this.identity=identity;
     this.sourceRoot=path.resolve(sourceRoot);this.evidenceRoot=path.resolve(evidenceRoot);
     this.inputs=new Map(inputs.map(x=>[x.file,x.sha256]));
+    this.verifyEnvironment=verifyEnvironment;
     fs.mkdirSync(this.directory,{recursive:true});
     const file=path.join(this.directory,'identity.json');
     if(fs.existsSync(file)) {
@@ -50,7 +51,7 @@ export class ProofStore {
     }
   }
   valid(record,folder) {
-    if(record.state!=='complete'||record.identity!==hash(JSON.stringify(this.identity))
+    if(record.state!=='complete'||!record.environmentVerified||record.identity!==hash(JSON.stringify(this.identity))
       ||record.proof?.causal!==true||record.proof?.assertionDetected!==true||!record.evidence?.length)return false;
     try {
       this.restored(record,folder);
@@ -59,6 +60,7 @@ export class ProofStore {
     } catch {return false;}
   }
   run(experiment,observe,validate) {
+    this.verifyEnvironment();
     if(!/^[a-z0-9-]+$/.test(experiment.name))throw Error('Invalid proof name');
     const cases=path.join(this.directory,experiment.name);fs.mkdirSync(cases,{recursive:true});
     const attempts=fs.readdirSync(cases,{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>x.name).sort();
@@ -111,8 +113,8 @@ export class ProofStore {
       record=this.state(folder,{...record,state:'restoration-pending',proof:{...proof,files:undefined},evidence});
     } catch(error) {failure=error;record=this.state(folder,{...record,state:'failed-before-completion',reason:error.message});}
     try {
-      this.restored(record,folder);this.verifyInputs();
-      record=this.state(folder,{...record,state:failure?'failed':'complete',active:false,restorationVerified:true});
+      this.verifyEnvironment();this.restored(record,folder);this.verifyInputs();
+      record=this.state(folder,{...record,state:failure?'failed':'complete',active:false,restorationVerified:true,environmentVerified:true});
     } catch(error) {
       this.state(folder,{...record,state:'restoration-pending',active:false,reason:error.message});throw error;
     }
