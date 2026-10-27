@@ -1,0 +1,12 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import crypto from 'node:crypto';import {spawnSync} from 'node:child_process';
+const root=path.resolve(process.argv[2]);assert.ok(root.startsWith(path.resolve('../controle-financeiro-runtimes/preparacao-adocao/rvpla03-')));fs.mkdirSync(root);
+const snapshot=path.join(root,'snapshot'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+for(const f of ['.github/scripts/owned-process.mjs','.github/scripts/owned-process.ps1','.github/scripts/owned-job-probe.ps1',...['counterproofs.mjs','counterproof-supervision.mjs','counterproof-checkpoint.mjs','counterproof-observation.mjs'].map(n=>'tasks/evidencias/preparacao-local-adocao/'+n)]){const to=path.join(snapshot,f);fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(f,to);}
+const file=path.join(snapshot,'tasks/evidencias/preparacao-local-adocao/counterproofs.mjs'),bytes=fs.readFileSync(file);
+const mutant=bytes.toString().replace('await superviseCounterproof(execution);','// isolated counterproof: previous unsupervised command tree').replace('verifyOwnedBoundary(execution); // Includes shells/wrappers that have no JVM yet.','// isolated counterproof: previous Java-only snapshot');assert.notEqual(mutant,bytes.toString());
+const result={before:sha(bytes),mutant:sha(mutant)};
+function run(name,mode){const fd=fs.openSync(path.join(root,name+'.log'),'wx');try{return spawnSync(process.execPath,[path.join(import.meta.dirname,'process-probes.mjs'),path.join(root,name),file,mode],{env:process.env,stdio:['ignore',fd,fd]}).status;}finally{fs.closeSync(fd);}}
+try{fs.writeFileSync(file,mutant);result.mutantExit=run('mutant','mutant');}finally{fs.writeFileSync(file,bytes);result.restored=sha(fs.readFileSync(file));fs.writeFileSync(path.join(root,'mutation.json'),JSON.stringify(result,null,2)+'\n');}
+assert.equal(result.restored,result.before);assert.equal(result.mutantExit,0);
+result.controlExit=run('control','control');fs.writeFileSync(path.join(root,'mutation.json'),JSON.stringify(result,null,2)+'\n');assert.equal(result.controlExit,0);
+console.log(JSON.stringify(result));
