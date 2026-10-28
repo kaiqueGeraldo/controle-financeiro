@@ -44,6 +44,12 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Consolidação de28/10/2026: [parecer C e plano separado](../evidencias/consolidacao-pre-adocao/README.md).
+Aceites locais startup/TCP/RVPLA/audit preservados; CPA-01/P2 exige saneamento da
+seleção de teste Windows no job Linux antes de publicação/CI. Não é bloqueio geral
+de startup nem início de homologação. CF035 permanece proposta, sem critérios
+reais/backup/restore/configuração satisfeitos ou acesso a banco/serviço remoto.
+
 Revisão independente de28/10/2026:
 [startup local aceito e histórico inconclusivo não bloqueante para preparação](../evidencias/revisao-startup-HQL/README.md).
 Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de

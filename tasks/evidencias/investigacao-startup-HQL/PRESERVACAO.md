@@ -29,7 +29,10 @@ Não houve cópia recursiva de evidências antigas, limpeza geral de target,
 git clean/reset destrutivo, remoção de runtimes ou imagens anteriores.
 
 Auditoria final somente leitura em execucao/ambiente-final.json: zero processos
-associados e containers ativos; portas53120/60421/53124/64885. Duas tuplas
+associados e containers ativos; listeners53120/53124/61591/60421 na ordem dos
+cenários. Errata conferida em28/10 na consolidação:64885 é porta remota da tupla
+TimeWait local60421, conforme observations e ambiente-final, que não foram alterados.
+Duas tuplas
 residuais estado11/TimeWait, owner0, nenhum LISTEN ou processo próprio ativo.
 Não se alegou ausência de toda tupla kernel. Java PID20288, nascimento
 2026-10-25T22:04:29.672Z, presente antes/depois e preservado. Nenhuma terminação

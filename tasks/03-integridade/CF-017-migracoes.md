@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Consolidação pré-adoção — 28/10/2026
+
+[Parecer integrado e matriz](../evidencias/consolidacao-pre-adocao/README.md),
+entrada56eb80b5/mainfb986456: aceites locais PG16/17, guard/writers/jobs, saúde,
+startup40s, TCP e RVPLA/audit preservados. **CPA-01/P2** exige saneamento separado
+da seleção do teste Windows no job Linux antes de publicação/CI; não é regressão
+do suporte PG ou reabertura de startup/TCP. Limite JSON diagnóstico delimitado.
+CF017 permanece em_revisao: A–D, backup/restore, proveniência e consumidores reais
+pendentes, sem novo checkbox, banco, baseline, migration ou adoção autorizados.
+
 ## Revisão independente de startup HQL — 28/10/2026
 
 [Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):

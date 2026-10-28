@@ -1,5 +1,17 @@
 # Contrato operacional preparado localmente
 
+## Situação vigente — 28/10/2026
+
+Os [pareceres finais reconciliados](../consolidacao-pre-adocao/MATRIZ.md) aceitam
+os controles locais de produto/PG16/17, startup local40s, TCP Windows/JAR e recortes
+RVPLA/audit. O texto de preparação de26/10 abaixo preserva seus resultados e
+falhas; referências a revisão ainda pendente/startup não aceito são históricas
+no alcance substituído pelos pareceres posteriores. Não há nova suíte17 verde.
+CPA-01/P2 exige saneamento da seleção Windows/job Linux antes de publicação/CI;
+os gates operacionais reais descritos neste contrato continuam intactos.
+
+## Registro da preparação de26/10/2026
+
 Lote de preparação, aguardando revisão independente. Não autoriza adoção real,
 configuração de provedor, CI remota, deploy, publicação ou uso. Ver resultados e
 proveniência desta execução no README deste diretório; não usar pacotes históricos

@@ -8,6 +8,18 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Consolidação pré-adoção — 28/10/2026
+
+[Revisão integrada, achado e plano de publicação/CI](../evidencias/consolidacao-pre-adocao/README.md),
+entrada56eb80b5/mainfb986456: **parecer C — CPA-01/P2 confirmado**. O seletor atual
+inclui AdoptionNativeSocketsTest nos jobs Ubuntu; a condição Windows gera skip,
+que requireCounts rejeita. Saneamento mínimo proposto com seleção por ambiente,
+prova Windows obrigatória e zero skips aplicáveis, sem implementação nesta revisão.
+DEC-CI-04 e aceites locais de produto/startup40s/TCP/RVPLA/audit preservados.
+CF034 integral em_revisao: matriz/runner remotos, zoom200%, cancelamento e gates
+de adoção/produção continuam próprios. Proposta de PR e cadeia de pacote novo
+preparadas, sem push, PR, CI remota, alteração de hospedagem ou deploy.
+
 ## Revisão independente de startup HQL — 28/10/2026
 
 [Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):

@@ -1,5 +1,16 @@
 # Runbook CF-017: verificação local e gates de adoção
 
+## Situação vigente — 28/10/2026
+
+[Matriz de consolidação](../consolidacao-pre-adocao/MATRIZ.md): suporte local
+PG16/17, guard/writers/jobs, saúde/preview, startup no recorte local de40s,
+TCP Windows/JAR e aceites específicos RVPLA/audit possuem pareceres posteriores.
+As ressalvas de startup/revisão pendente no delta de26/10 abaixo são históricas
+nesse alcance. CF017/P01/P02 continuam em_revisao por adoção real. CPA-01/P2 é
+pendência própria de seleção de teste Windows/CI Linux, sem invalidar os ensaios
+PG16/17. Nenhuma leitura de banco real, baseline, migration ou ativação autorizada.
+Plano A–D, validade da janela, freeze e16 migrations permanecem preservados.
+
 ## Delta local de26/10/2026 — cadeia atual V1–V16
 
 Preparação posterior à revisão CF034/017 em_revisao:

@@ -1,5 +1,23 @@
 # Plano de execução do monorepo
 
+## Consolidação pré-adoção — 28/10/2026
+
+[Revisão integrada, mapa e plano de CI](evidencias/consolidacao-pre-adocao/README.md),
+entrada `56eb80b5`, main remota conferida `fb986456`: **parecer C, saneamento local
+necessário de CPA-01/P2**. O seletor inclui o teste TCP exclusivo de Windows no
+job Linux e o skip resultante é recusado pelo gate. Reprodução local dirigida
+confirmou a incompatibilidade; nenhuma implementação foi corrigida nesta revisão.
+Branch local `codex/consolidacao-pre-adocao`; 48 commits acumulados e branches
+anteriores já contidas, sem merge/cherry-pick. Provas e documentação somente locais.
+
+Startup local/40s, TCP Windows/JAR/PG16/17 e RVPLA-01/03/04/05/audit mantêm aceites
+próprios. Histórico HQL E/inconclusivo não bloqueia preparação; não há nova suíte17
+aprovada. Limite JSON diagnóstico separado, sem invalidar capturas atuais conferidas.
+CF017/P01/P02 e CF034 integral em_revisao; zoom, matriz/configuração remotas,
+adoção real, CF035/036 e produção mantêm gates. Próximo lote: saneamento separado
+da seleção/OS e revisão independente antes de autorizar publicação/CI. Sem push,
+PR, merge remoto, CI remota, hospedagem, deploy, serviços ou banco real.
+
 ## Revisão independente de startup HQL — 28/10/2026
 
 [Parecer, matriz e conferência das provas](evidencias/revisao-startup-HQL/README.md),

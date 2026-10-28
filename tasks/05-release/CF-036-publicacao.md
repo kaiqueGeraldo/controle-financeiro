@@ -43,6 +43,12 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Consolidação de28/10/2026: [parecer C e publicação futura preparada](../evidencias/consolidacao-pre-adocao/README.md).
+CPA-01/P2 confirma incompatibilidade seleção Windows/job Linux; saneamento e
+revisão separados antes de novo parecer de publicação/CI. Aceites locais de
+produto/startup40s/TCP/RVPLA/audit preservados. CF036 permanece proposta: sem
+liberação de deploy/uso por CI, sem publicação, banco real ou configuração remota.
+
 Revisão independente de28/10/2026:
 [startup local aceito e histórico inconclusivo não bloqueante para preparação](../evidencias/revisao-startup-HQL/README.md).
 Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de

@@ -5,6 +5,16 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Consolidação pré-adoção — 28/10/2026
+
+[Parecer integrado e matriz](../evidencias/consolidacao-pre-adocao/README.md),
+entrada56eb80b5/mainfb986456: aceites locais de produto, startup40s, TCP e RVPLA/
+audit preservados. CPA-01/P2 é incompatibilidade de seleção Windows/job Linux,
+com saneamento local separado antes de publicação/CI. Não reabre os aceites por
+associação nem resolve P01/P02. Estado em_revisao e critérios reais de A–D,
+brutos/null/UNKNOWN, backup/restore, freeze, proveniência e coordenação mantidos.
+Sem adoção, migration, banco real ou novo checkbox concluído.
+
 ## Revisão independente de startup HQL — 28/10/2026
 
 [Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):

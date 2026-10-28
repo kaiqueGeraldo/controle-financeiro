@@ -37,7 +37,10 @@ O GET funcional401 verifica a fronteira HTTP/security, sem escrita ou jornada.
 
 Identidade: PID nativo do log igual ao Process lançado (64032/45364); imagem
 JVM1 vinculada a nome UUID criado pelo App e cliente Docker46352/50356. Portas
-dinâmicas53120/60421/53124/64885, vindas do listener/daemon. O observador não aceita
+dinâmicas53120/53124/61591/60421, na ordem dos cenários, vindas do listener/daemon.
+Errata conferida em28/10 na consolidação:64885 é RemotePort da tuplaTimeWait
+local60421, não listener da aplicação; observações e recibo bruto final intactos.
+O observador não aceita
 resposta de porta reservada/solta. Não houve fotografia kernel do primeiro bind;
 o vínculo Process/log/container é a prova usada, com cleanup TCP canônico.
 

@@ -1,5 +1,15 @@
 # Plano condicionado de adoção e publicação
 
+## Situação vigente — 28/10/2026
+
+[Consolidação e matriz atual](../consolidacao-pre-adocao/README.md): preparação
+local16/17, controles operacionais, startup no recorte local40s, TCP e aceites
+RVPLA/audit possuem pareceres finais posteriores. O delta de26/10 abaixo é
+histórico quando indica revisão/startup ainda pendentes. CPA-01/P2 é impedimento
+concreto da nova seleção Windows no job Linux; sanear/revisar separadamente antes
+de publicar/CI. Não altera A–D ou satisfaz qualquer gate de banco/adoção real.
+Nenhuma etapa remota deste plano foi executada pela consolidação.
+
 ## Delta de preparação local — 26/10/2026
 
 O usuário autorizou o lote local posterior, entrada46b85ee:
