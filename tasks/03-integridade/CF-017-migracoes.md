@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+[Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):
+RVPLA-05/P2 encerrado no original Windows/mesma sessão,3/3 no20s, margem mínima
+4,916s. Redução9/3/13 verificada com confirmação externa/identidade/restauração
+preservadas; aceites específicos RVPLA-03/04 e EPERM mantidos. Preflight/resume/
+audit PG17 limitados passaram. TCP/HQL inconclusivos,40s mantidos. CF017/P01/P02
+permanecem em_revisao: produto/migrations/JAR intactos; inventário, backup/restore,
+freeze, baseline ou DDL reais não executados/liberados. Nenhuma adoção real.
+
 ## Saneamento residual RVPLA-05 — 28/10/2026
 
 [Medições, contraprovas e preservação](../evidencias/saneamento-RVPLA-05-residual/README.md),

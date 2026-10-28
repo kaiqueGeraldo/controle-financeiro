@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+[Parecer, matriz e medições](evidencias/revalidacao-RVPLA-05-residual/README.md),
+candidato `d8bd180a`: **RVPLA-05/P2 encerrado** no original Windows/mesma sessão.
+3/3 no20s em15,084/12,635/12,287s, margem mínima4,916s;15→9 consultas externas,
+5→3 comandos,21→13 lançamentos diretos, sem cache/omissão de confirmação.
+Contenção/restauração/identidade sustentadas por negativos e regressões; RVPLA-03/04
+e EPERM preservados, novo audit PG17 limitado passou. Comparação histórica antiga
+18,564s continua positiva; nova observação antiga censurada não decide o aceite.
+TCP/HQL seguem separados/inconclusivos,40s mantidos. CF017/P01/P02 e CF034 integral
+em_revisao; expanded/zoom/configuração e gates reais preservados, adoção/produção
+não liberadas. Sem implementação, sucessora iniciada ou ação remota nesta revisão.
+
 ## Saneamento residual RVPLA-05 — 28/10/2026
 
 [Caminho crítico, medições e contraprovas](evidencias/saneamento-RVPLA-05-residual/README.md),

@@ -8,6 +8,17 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+[Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):
+RVPLA-05/P2 encerrado no original Windows/mesma sessão,3/3 no20s em15,084/12,635/
+12,287s, margem mínima4,916s. Redução15→9 consultas/5→3 comandos/21→13 lançamentos
+diretos sustentada, mantendo confirmação externa e aceites RVPLA-03/04/EPERM.
+Negativos, regressões e audit PG17 limitado passaram no alcance; TCP/HQL continuam
+inconclusivos e40s intactos. CF034 integral em_revisao; expanded/zoom200%,cancelamento/
+configuração e gates CF017/adoção/produção não liberados. JAR anterior preservado,
+sem pacote novo, implementação, CI remota ou publicação nesta revisão.
+
 ## Saneamento residual RVPLA-05 — 28/10/2026
 
 [Evidências e limites](../evidencias/saneamento-RVPLA-05-residual/README.md),

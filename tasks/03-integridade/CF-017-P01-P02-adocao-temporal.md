@@ -5,6 +5,16 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+[Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):
+RVPLA-05/P2 encerrado no original20s (3/3), alcance Windows/mesma sessão, margem
+mínima4,916s. Contenção RVPLA-03/04, identidade, confirmação externa e EPERM
+preservados; novo PG17 causal/resume/audit limitado passou. TCP/HQL separados,
+inconclusivos,40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real encerrado,
+adoção/publicação ou sucessora iniciada pela revisão do runner.
+
 ## Saneamento residual RVPLA-05 — 28/10/2026
 
 [Estados separados e provas](../evidencias/saneamento-RVPLA-05-residual/README.md),
