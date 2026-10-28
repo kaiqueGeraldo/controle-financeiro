@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-28T20:34:01.180Z",
+  "envelopeChecks": [
+    {
+      "document": "{\"recording\":{\"events\":[{}]}",
+      "strictJsonRejects": true,
+      "existingReaderAccepts": true,
+      "impact": "Permissive envelope; not present in the checked current files."
+    },
+    {
+      "document": "{\"events\":[{},]}",
+      "strictJsonRejects": true,
+      "existingReaderAccepts": true,
+      "impact": "Permissive envelope; not present in the checked current files."
+    }
+  ],
+  "checks": [
+    {
+      "scenario": "native-instrumented",
+      "counts": {
+        "jdk.ObjectAllocationSample": 4116,
+        "jdk.Compilation": 141,
+        "jdk.ExecutionSample": 147,
+        "jdk.GCPhasePause": 55,
+        "jdk.GarbageCollection": 48,
+        "jdk.ThreadPark": 44,
+        "jdk.CPULoad": 16,
+        "jdk.ClassLoadingStatistics": 16,
+        "jdk.FileRead": 1,
+        "jdk.SocketRead": 1
+      },
+      "startupCounts": {
+        "jdk.Compilation": 141,
+        "jdk.ExecutionSample": 146,
+        "jdk.GCPhasePause": 55,
+        "jdk.GarbageCollection": 48,
+        "jdk.ThreadPark": 44,
+        "jdk.CPULoad": 15,
+        "jdk.ClassLoadingStatistics": 15,
+        "jdk.FileRead": 1,
+        "jdk.SocketRead": 1
+      },
+      "crossCutoffEvents": 3,
+      "strictJsonEventCount": null,
+      "allSelectedTypeCountsMatchJfrSummary": true,
+      "startupCountsAndGcDurationsMatch": true
+    },
+    {
+      "scenario": "image-instrumented",
+      "counts": {
+        "jdk.JavaMonitorEnter": 1,
+        "jdk.ExecutionSample": 307,
+        "jdk.Compilation": 57,
+        "jdk.GCPhasePause": 46,
+        "jdk.GarbageCollection": 41,
+        "jdk.ThreadPark": 44,
+        "jdk.CPULoad": 18,
+        "jdk.ClassLoadingStatistics": 18,
+        "jdk.SocketRead": 1
+      },
+      "startupCounts": {
+        "jdk.JavaMonitorEnter": 1,
+        "jdk.ExecutionSample": 306,
+        "jdk.Compilation": 57,
+        "jdk.GCPhasePause": 46,
+        "jdk.GarbageCollection": 41,
+        "jdk.ThreadPark": 42,
+        "jdk.CPULoad": 16,
+        "jdk.ClassLoadingStatistics": 16,
+        "jdk.SocketRead": 1
+      },
+      "crossCutoffEvents": 4,
+      "strictJsonEventCount": 533,
+      "allSelectedTypeCountsMatchJfrSummary": true,
+      "startupCountsAndGcDurationsMatch": true
+    }
+  ],
+  "limitation": "Reader validates event objects/separators but not a strict complete JSON envelope. Current image is strict JSON; both current files have a checked complete suffix and counts matching JFR summary. No startup or source modification."
+}
