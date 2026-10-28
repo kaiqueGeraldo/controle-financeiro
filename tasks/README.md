@@ -1,5 +1,22 @@
 # Plano de execução do monorepo
 
+## Revisão independente de startup HQL — 28/10/2026
+
+[Parecer, matriz e conferência das provas](evidencias/revisao-startup-HQL/README.md),
+candidato `ed42309f`: **startup aceito no recorte local; histórico E inconclusivo
+e não bloqueante para preparar a próxima etapa**. Quatro observações cumprem40s;
+demais modos usam provas funcionais anteriores com produto/pacote preservados,
+explicitadas na matriz. Não se reclassificam suítes antigas falhas como verdes,
+nem se exige causa raiz completa sem requisito normativo.40s/testes obrigatórios
+mantidos; nova falha bloqueia sua invocação e reabre o recorte afetado.
+
+Consolidação/revisão do intervalo acumulado e plano de CI/matriz podem ser
+preparados; nenhuma publicação, CI remota ou deploy autorizados. TCP/RVPLA/EPERM
+aceitos preservados. CF017/P01/P02 e CF034 integral em_revisao; zoom200%,
+configurações remotas, gates reais, CF035/036 e produção mantêm pendências.
+Sem novo startup, produto, timeout ou pacote. Notas datadas abaixo são históricas;
+o impedimento geral de startup nelas descrito é substituído por este aceite local.
+
 ## Investigação dirigida startup HQL — 28/10/2026
 
 [Contrato, históricos e análise](evidencias/investigacao-startup-HQL/README.md),

@@ -8,6 +8,19 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revisão independente de startup HQL — 28/10/2026
+
+[Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):
+**startup aceito no recorte local; histórico E inconclusivo e não bloqueante para
+preparação seguinte**.40s e testes obrigatórios mantidos; quatro observações novas
+e provas anteriores dos demais modos discriminadas, sem transformar falhas antigas
+em suíte17 verde. Nova falha bloqueia seu gate e reabre o recorte afetado.
+TCP/RVPLA/EPERM e DEC-CI-04 preservados; consolidação/revisão do intervalo acumulado
+e plano de validação remota/matriz podem ser preparados, sem executá-los agora.
+CF034 integral em_revisao; expanded, zoom200%, limites de cancelamento, configuração,
+CF017/adoção/produção continuam próprios. Sem novo startup/produto/pacote/CI remota,
+push ou deploy. Notas anteriores são históricas quanto ao bloqueio geral startup.
+
 ## Revalidação independente TCP/reuso nativo — 28/10/2026
 
 [Parecer A–F e matriz](../evidencias/revalidacao-TCP-reuso-nativo/README.md),

@@ -43,6 +43,13 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Revisão independente de28/10/2026:
+[startup local aceito e histórico inconclusivo não bloqueante para preparação](../evidencias/revisao-startup-HQL/README.md).
+Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de
+startup/observador citados nas notas antigas abaixo são históricos nesse alcance.
+CF036 permanece proposta: revisão/publicação do candidato, CI/matriz, homologação,
+backup/compatibilidade e gates de uso/produção continuam próprios. Sem deploy.
+
 Revisão independente de26/10/2026:
 [parecer A–G](../evidencias/revisao-preparacao-local-adocao/README.md). Vínculo do
 pacote aprovado localmente não libera publicação/ativação/uso. Startup, saneamento

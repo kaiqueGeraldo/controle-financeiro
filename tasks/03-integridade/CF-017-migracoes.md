@@ -8,6 +8,18 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revisão independente de startup HQL — 28/10/2026
+
+[Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):
+startup aceito no recorte local da matriz, histórico E inconclusivo não bloqueante
+para preparação/consolidação/revisão do próximo candidato.40s e testes obrigatórios
+preservados; falhas antigas continuam falhas, nova ocorrência bloqueia seu gate.
+Sem requisito normativo de causa raiz completa, sem suíte17 artificialmente verde.
+Aceites TCP/RVPLA/EPERM preservados. CF017 continua em_revisao; inventário A–D,
+backup/restore, temporalidade, freeze e coordenação reais não foram dispensados.
+Sem produto/pacote novo, banco real, CI remota ou publicação. Notas anteriores
+conservam seu valor histórico; startup não é impedimento geral da preparação local.
+
 ## Revalidação independente TCP/reuso nativo — 28/10/2026
 
 [Parecer do candidato b7a2c206](../evidencias/revalidacao-TCP-reuso-nativo/README.md):

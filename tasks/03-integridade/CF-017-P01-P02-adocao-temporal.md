@@ -5,6 +5,17 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revisão independente de startup HQL — 28/10/2026
+
+[Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):
+aceite local de startup, histórico E inconclusivo não bloqueante para preparar
+próximo candidato;40s e testes obrigatórios mantidos, sem apagar falhas antigas.
+Demais modos apoiados nas provas anteriores explicitadas na matriz, sem alegar
+nova suíte17 verde. Aceites TCP/RVPLA/EPERM preservados. P01/P02 em_revisao:
+A–D, brutos/null/UNKNOWN, backup/restore, freeze, baseline/DDL e coordenação reais
+continuam pendentes. Nenhum checkbox real alterado, adoção/publicação ou ação
+remota liberada. Notas anteriores são históricas no alcance do impedimento startup.
+
 ## Revalidação independente TCP/reuso nativo — 28/10/2026
 
 [Parecer do candidato b7a2c206](../evidencias/revalidacao-TCP-reuso-nativo/README.md):

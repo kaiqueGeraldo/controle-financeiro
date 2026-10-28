@@ -44,6 +44,13 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Revisão independente de28/10/2026:
+[startup local aceito e histórico inconclusivo não bloqueante para preparação](../evidencias/revisao-startup-HQL/README.md).
+Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de
+startup/observador citados nas notas antigas abaixo são históricos nesse alcance.
+CF035 permanece proposta: banco/configuração/backup/restore/homologação reais e
+dependências integrais continuam pendentes; nenhuma execução remota autorizada.
+
 Revisão independente de26/10/2026:
 [parecer/configuração/ordem operacional](../evidencias/revisao-preparacao-local-adocao/README.md).
 Recortes locais aprovados não iniciam homologação real. Startup e observador
