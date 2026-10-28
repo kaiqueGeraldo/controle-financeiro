@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Investigação dirigida startup HQL — 28/10/2026
+
+[Contrato, históricos e análise](evidencias/investigacao-startup-HQL/README.md),
+base `c091abb8`, branch local `codex/diagnostico-startup-hql`: **E, inconclusivo**.
+Rodada finita com4 observações novas, sem repetição: readiness18,925/13,824s nos
+controles nativo/Docker e19,652/18,669s com agent/JFR.76 HQL/76 hashes por captura,
+sem repetição externa; parsing2,044/1,680s, sem causa demonstrada dos estouros
+históricos.40s intactos, gate integral não aprovado; sem correção de produto ou
+pacote novo. TCP/reuso e RVPLA-01/03/04/05/audit-EPERM aceitos preservados.
+CF017/P01/P02 e CF034 integral seguem em_revisao; adoção real/produção e demais
+gates pendentes. README raiz e runtimes históricos preservados; somente commits
+locais de probes/evidências. Encaminhamento independente, sem ação remota.
+
 ## Revalidação independente TCP/reuso nativo — 28/10/2026
 
 [Parecer A–F, matriz e provas](evidencias/revalidacao-TCP-reuso-nativo/README.md),
