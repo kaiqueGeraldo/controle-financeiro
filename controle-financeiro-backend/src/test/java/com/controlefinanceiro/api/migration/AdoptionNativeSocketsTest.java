@@ -8,8 +8,8 @@ import java.net.ServerSocket;
 import java.time.Duration;
 import static org.assertj.core.api.Assertions.*;
 
+@EnabledOnOs(OS.WINDOWS)
 class AdoptionNativeSocketsTest {
-    @EnabledOnOs(OS.WINDOWS)
     @Test void liveOwnedListenerCannotBeCertifiedReleasedOrTerminated() throws Exception {
         try (var listener = new ServerSocket()) {
             listener.bind(new InetSocketAddress("127.0.0.1", 0));

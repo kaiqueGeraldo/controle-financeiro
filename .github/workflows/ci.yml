@@ -18,7 +18,47 @@ permissions:
   contents: read
 
 jobs:
+  windows-native:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      CF034_SUITE: smoke
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Set canonical external runtime path
+        shell: pwsh
+        run: |
+          $runtime = Join-Path (Split-Path $env:GITHUB_WORKSPACE -Parent) "controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-windows-native"
+          "CF034_OUT=$runtime" >> $env:GITHUB_ENV
+      - name: Verify selection and report contracts
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs
+      - name: Execute mandatory Windows native contracts, zero skips
+        run: node .github/scripts/ci.mjs windows-native "$env:GITHUB_WORKSPACE" "$env:CF034_OUT"
+      - name: Collect sanitized diagnosis even on failure
+        id: collect
+        if: always()
+        run: node .github/scripts/publish-evidence.mjs "$env:CF034_OUT"
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.collect.outcome == 'success'
+        with:
+          name: windows-native-diagnosis-${{ github.sha }}
+          path: ${{ env.CF034_OUT }}/public/
+          if-no-files-found: error
+          retention-days: 7
+
   required:
+    needs: windows-native
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -41,7 +81,7 @@ jobs:
       - name: Set canonical external runtime path
         run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required" >> "$GITHUB_ENV"
       - name: Verify gate failure propagation and report contracts
-        run: node --test .github/scripts/ci.test.mjs .github/scripts/sanitize.test.mjs
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs
       - name: Lint, types, tests, build, PostgreSQL, integrated E2E, package
         run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
       - name: Collect sanitized diagnosis even on failure
