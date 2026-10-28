@@ -1,0 +1,92 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.TcpNativeDiagnosticTest
+12:38:19.113 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:38:19.122 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:38:19.135 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+12:38:19.574 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:38:20.641 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+12:38:20.644 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+12:38:20.680 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+12:38:20.871 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+12:38:21.413 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: b2eb6e494691a362f759a98b17f5e6aa2763afa2bba24a5f158c186bbeb61b0f
+12:38:22.109 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT1.2378864S
+12:38:22.124 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+12:38:22.124 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+12:38:22.125 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+12:38:22.126 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+12:38:22.235 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 29a96bacdaf33104fe99193c287af1f480185c9ad967f88d8a4a7993bd37ebc6
+12:38:24.033 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.9066945S
+12:38:24.034 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: <JDBC_LOCAL_WITHHELD>
+CF017_SERVER PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=29a96bacdaf33104fe99193c287af1f480185c9ad967f88d8a4a7993bd37ebc6
+CF017_CLIENT psql (PostgreSQL) 16.15
+CF017_CLIENT pg_dump (PostgreSQL) 16.15
+CF017_CLIENT pg_restore (PostgreSQL) 16.15
+12:38:25.070 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 16.15)
+12:38:25.175 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f"."flyway_schema_history" does not exist yet
+12:38:25.182 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.062s)
+12:38:25.213 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f"."flyway_schema_history" ...
+12:38:25.291 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f": << Empty Schema >>
+12:38:25.339 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "1 - baseline pre temporal"
+12:38:25.511 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "2 - adopt temporal metadata"
+12:38:25.560 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "3 - account opening and transaction flow"
+12:38:25.625 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "4 - card invoice integrity"
+12:38:25.721 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "5 - investment positions and goal allocations"
+12:38:25.821 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "6 - preserve goal purchase facts"
+12:38:25.859 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "7 - valuation reference and audit"
+12:38:25.902 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "8 - investment corrections"
+12:38:25.963 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "9 - payment intent receipt"
+12:38:25.992 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "10 - financial commands and partial reversals"
+12:38:26.032 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "11 - reporting coverage baselines"
+12:38:26.062 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "12 - habit goal effect identity"
+12:38:26.102 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "13 - financial creation intent receipts"
+12:38:26.134 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "14 - goal history recorded instant"
+12:38:26.162 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "15 - onboarding draft"
+12:38:26.206 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f" to version "16 - onboarding application"
+12:38:26.289 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "tcp_native_5f7a0c64e99140a5b216674f56f7ba4f", now at version v16 (execution time 00:00.598s)
+ADOPTION_PROCESS mode=jar pid=44352 log=target\adoption-processes\fae33d09-57d5-4d14-9629-a59a36deda1c.log
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.52 s -- in com.controlefinanceiro.api.migration.TcpNativeDiagnosticTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  39.978 s
+[INFO] Finished at: 2026-10-28T12:38:51Z
+[INFO] ------------------------------------------------------------------------

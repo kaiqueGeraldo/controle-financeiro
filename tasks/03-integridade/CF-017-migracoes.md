@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Investigação TCP/reuso nativo — 28/10/2026
+
+[Provas e limites](../evidencias/investigacao-TCP-reuso-nativo/README.md),
+base3b245d9d/correçãob8b645d0: close do harness Windows confirma liberação TCP
+depois do término; originais PG16/17 e contraprovas causais/restauração registrados.
+Implementado localmente, aguardando revisão independente, sem autoencerramento.
+Aceites RVPLA-01/03/04/05 e EPERM preservados. HQL inconclusivo/40s mantidos;
+CF017/P01/P02 em_revisao, produto/migrations/JAR intactos. Adoção/banco real e
+gates remotos não liberados; próximo experimento HQL somente preparado.
+
 ## Revalidação independente residual RVPLA-05 — 28/10/2026
 
 [Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):

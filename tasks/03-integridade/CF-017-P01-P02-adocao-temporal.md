@@ -5,6 +5,16 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Investigação TCP/reuso nativo — 28/10/2026
+
+[Causa equivalente, correção e limites](../evidencias/investigacao-TCP-reuso-nativo/README.md),
+base3b245d9d/correçãob8b645d0: confirmação TCP no close nativo Windows mantém
+reuso da mesma porta e segurança; PG16/17 e contraprovas/restauração registrados.
+Implementado localmente, aguardando revisão independente. RVPLA-01/03/04/05 e
+EPERM preservados; HQL inconclusivo/40s mantidos. P01/P02 em_revisao: nenhuma
+adoção/publicação, baseline, DDL, backup/restore/freeze ou coordenação real
+liberada. Produto/migrations/JAR intactos; próximo HQL somente preparado.
+
 ## Revalidação independente residual RVPLA-05 — 28/10/2026
 
 [Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):

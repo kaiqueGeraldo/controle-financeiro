@@ -8,6 +8,16 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Investigação TCP/reuso nativo — 28/10/2026
+
+[Provas, contraprovas e estados](../evidencias/investigacao-TCP-reuso-nativo/README.md),
+base3b245d9d/correçãob8b645d0: pós-condição TCP do close Windows saneada localmente,
+originais PG16/17 verdes e contraprovas detectadas/restauradas. Aguardando revisão
+independente, sem autoencerramento. Runner/RVPLA-01/03/04/05 e EPERM preservados;
+HQL inconclusivo/40s mantidos e falhas pré-bind novas preservadas. CF034 integral
+em_revisao; expanded,zoom200%,cancelamento/configuração e gates reais continuam
+pendentes. JAR anterior intacto, sem CI remota, publicação, adoção ou deploy.
+
 ## Revalidação independente residual RVPLA-05 — 28/10/2026
 
 [Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):

@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Investigação dirigida TCP/reuso nativo — 28/10/2026
+
+[Causa, provas e estados](evidencias/investigacao-TCP-reuso-nativo/README.md),
+base3b245d9d, correção localb8b645d0: término do processo Windows antecedeu
+liberação TCP, reproduzido no probe/JAR e sintéticos. Close agora confirma tuplas
+próprias dentro do budget existente; originais PG16/17 passaram, contraprovas
+detectadas e restauradas. **Implementado localmente, aguardando revisão independente**,
+sem autoencerramento. Estados TCP históricos não foram capturados retroativamente.
+RVPLA-01/03/04/05 e EPERM preservados; HQL inconclusivo/40s mantidos, inclusive
+falhas novas pré-bind preservadas. CF017/P01/P02 e CF034 integral em_revisao;
+adoção real/configuração/gates remotos não liberados. Produto/migrations/JAR e
+README alheio preservados. Sem ação remota; notas seguintes são históricas.
+
 ## Revalidação independente residual RVPLA-05 — 28/10/2026
 
 [Parecer, matriz e medições](evidencias/revalidacao-RVPLA-05-residual/README.md),
