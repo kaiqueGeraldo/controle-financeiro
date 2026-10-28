@@ -1,5 +1,19 @@
 # Plano de execução do monorepo
 
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+[Parecer A–F, matriz e provas](evidencias/revalidacao-TCP-reuso-nativo/README.md),
+candidato `b7a2c206`: **TCP/reuso encerrado no alcance Windows nativo/JAR/PG16/17**.
+Originais 3/3 por invocação; App antigo reproduziu BindException com endpoints
+próprios após término, controle restaurado passou, alheios preservados. Prazos
+de certificação de 10s/5s mantidos; limpeza do inspetor em erro pode acrescentar
+até 2s, sem sucesso tardio. Estados TCP históricos continuam desconhecidos.
+RVPLA-01/03/04/05 e EPERM preservados por diff/hashes; HQL separado/inconclusivo,
+40s intactos, próximo experimento somente delimitado. CF017/P01/P02 e CF034
+integral em_revisao; expanded/zoom/configuração, gates reais e adoção/produção
+não liberados. Produto, migrations, JAR e README alheio intactos. Sem correção
+de implementação ou ação remota; notas seguintes registram estados históricos.
+
 ## Investigação dirigida TCP/reuso nativo — 28/10/2026
 
 [Causa, provas e estados](evidencias/investigacao-TCP-reuso-nativo/README.md),

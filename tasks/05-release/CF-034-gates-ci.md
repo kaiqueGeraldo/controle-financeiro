@@ -8,6 +8,19 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+[Parecer A–F e matriz](../evidencias/revalidacao-TCP-reuso-nativo/README.md),
+candidato `b7a2c206`: TCP/reuso aceito no Windows nativo/JAR/PG16/17, originais
+3/3 por invocação; contraprova antiga BindException, inspeção falha bloqueante e
+controle restaurado aprovado. Mesma porta/bind único e alheios preservados.
+Certificação em 10s/5s; limpeza do inspetor em erro até 2s adicionais, sem sucesso
+tardio. RVPLA-01/03/04/05 e EPERM preservados por caminhos intocados. HQL
+separado/inconclusivo, 40s mantidos; próximo experimento somente delimitado.
+CF034 integral em_revisao, expanded/zoom 200%, cancelamento/configuração e gates
+CF017/adoção/produção pendentes. JAR anterior intacto; nenhuma implementação,
+CI remota, publicação ou deploy nesta revisão.
+
 ## Investigação TCP/reuso nativo — 28/10/2026
 
 [Provas, contraprovas e estados](../evidencias/investigacao-TCP-reuso-nativo/README.md),

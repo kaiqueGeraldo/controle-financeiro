@@ -5,6 +5,18 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+[Parecer do candidato b7a2c206](../evidencias/revalidacao-TCP-reuso-nativo/README.md):
+TCP/reuso encerrado no alcance Windows nativo/JAR/PG16/17; originais 3/3 por
+invocação, mecanismo antigo reproduzido e controle restaurado aprovado. Prazos
+de certificação de 10s/5s mantidos, com até 2s adicionais de limpeza em erro;
+alheios preservados e atribuição histórica qualificada. RVPLA-01/03/04/05 e EPERM
+preservados; HQL continua inconclusivo, 40s, experimento futuro apenas delimitado.
+P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN, backup/restore, freeze,
+baseline/DDL e coordenação reais mantêm pendências. Produto/migrations/JAR
+intactos; nenhuma adoção/publicação ou ação remota liberada por este aceite.
+
 ## Investigação TCP/reuso nativo — 28/10/2026
 
 [Causa equivalente, correção e limites](../evidencias/investigacao-TCP-reuso-nativo/README.md),

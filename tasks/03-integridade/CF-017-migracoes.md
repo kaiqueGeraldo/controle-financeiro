@@ -8,6 +8,18 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+[Parecer do candidato b7a2c206](../evidencias/revalidacao-TCP-reuso-nativo/README.md):
+TCP/reuso aceito no harness Windows nativo/JAR/PG16/17, originais 3/3 por
+invocação, contraprova antiga vermelha e controle restaurado verde. Bind único,
+mesma porta e alheios preservados; certificação em 10s/5s, limpeza de erro até
+2s adicionais. Não prova as tuplas históricas. RVPLA-01/03/04/05 e EPERM
+preservados; HQL inconclusivo/40s intactos, próximo experimento só delimitado.
+CF017/P01/P02 permanecem em_revisao, produto/migrations/JAR intactos. Inventário,
+backup/restore, freeze, baseline/DDL e adoção em banco real continuam pendentes;
+nenhum gate remoto liberado. Sem correção de implementação nesta revisão.
+
 ## Investigação TCP/reuso nativo — 28/10/2026
 
 [Provas e limites](../evidencias/investigacao-TCP-reuso-nativo/README.md),
