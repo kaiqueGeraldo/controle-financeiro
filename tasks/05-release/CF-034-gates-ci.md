@@ -8,6 +8,19 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+[Delta local e limites](../evidencias/saneamento-RVPLA-05/README.md), base9c27881,
+implementação762a085/d254822: três probes originais20s passaram em16,572/17,978/
+16,990s; encerramento gerenciado dos guardiões era o custo dominante demonstrado.
+Contenção/quiescência mantidas. Corrida EPERM de mailbox demonstrada/corrigida;
+audit PG17 limitado passou, autoria do handle histórico permanece desconhecida.
+Revisão independente dirigida pendente, sem autoaprovação. Falha da fixture
+alheia no grupo completo RVPLA-03 preservada e não promovida a sucesso.
+Aceites específicos RVPLA-03/04 e DEC-CI-04 mantidos no alcance próprio; TCP/HQL
+inconclusivos,40s intactos. CF034 integral em_revisao; expanded, zoom200%,
+configuração e adoção/produção continuam pendentes. JAR anterior sem novo build.
+
 ## Revalidação independente RVPLA-04 — 27/10/2026
 
 [Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):

@@ -5,6 +5,18 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+[Estado separado de prazo/audit/adoção](../evidencias/saneamento-RVPLA-05/README.md),
+base9c27881, implementação762a085/d254822: prazo original20s passou3/3 localmente,
+contenção/quiescência mantidas; corrida EPERM demonstrada e corrigida, novo audit
+limitado passou. Detentor do handle histórico não identificado. Saneamento em
+revisão independente; falha do grupo antigo por fixture alheia conservada.
+Aceites específicos RVPLA-03/04 preservados; TCP/HQL inconclusivos,40s intactos.
+P01/P02 continuam em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real,
+adoção, publicação ou sucessora liberado por esta execução local.
+
 ## Revalidação independente RVPLA-04 — 27/10/2026
 
 [Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):

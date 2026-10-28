@@ -8,6 +8,18 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+[Medições, provas e preservação](../evidencias/saneamento-RVPLA-05/README.md),
+base9c27881, implementação762a085/d254822: prazo20s atendido3/3 localmente;
+canal EPERM corrigido após demonstração causal, audit/preflight PG17 limitados
+passaram com834 inputs restaurados e checkpoint idêntico no reuso. Sem aceite
+independente novo; falha da fixture alheia no grupo antigo explicitada.
+RVPLA-03/04 preservam o alcance específico; TCP/HQL inconclusivos,40s mantidos.
+CF017/P01/P02 permanecem em_revisao. Migrations, JAR e históricos intactos;
+nenhum inventário, backup/restore, freeze, baseline, DDL ou banco real executado
+ou liberado por este saneamento do harness.
+
 ## Revalidação independente RVPLA-04 — 27/10/2026
 
 [Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):

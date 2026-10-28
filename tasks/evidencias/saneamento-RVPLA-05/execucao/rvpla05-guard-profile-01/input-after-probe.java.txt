@@ -1,0 +1,58 @@
+package com.controlefinanceiro.api.infra.migration;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
+/** V1 adoption gate. A managed or empty schema belongs to another workflow. */
+public final class LegacyPreflight {
+    private LegacyPreflight() { }
+
+    public record Report(List<String> problems, List<String> informational) {
+        public boolean compatible() { return problems.isEmpty(); }
+        public String render() {
+            return "CF017_V1=" + (compatible() ? "COMPATIBLE" : "STOP") + "\n"
+                    + String.join("\n", problems) + "\n" + String.join("\n", informational) + "\n";
+        }
+    }
+
+    public static Report inspect(Connection c, String schema) throws Exception {
+        PgSchemaInventory.beginReadOnly(c, schema);
+        return compare(expected(), PgSchemaInventory.read(c));
+    }
+
+    public static List<String> expected() throws IOException {
+        return PgSchemaInventory.resource("legacy-v1.inventory").lines()
+                .filter(line -> !line.isBlank() && !line.startsWith("#")).toList();
+    }
+
+    static Report compare(List<String> expected, List<String> observed) {
+        expected = expected.stream().filter(x -> !x.startsWith("constraint\t")).toList();
+        observed = observed.stream().filter(x -> !x.startsWith("constraint\t")).toList();
+        var counts = new TreeMap<String, Integer>();
+        expected.forEach(line -> counts.merge(line, -1, Integer::sum));
+        observed.forEach(line -> counts.merge(line, 1, Integer::sum));
+        var problems = new ArrayList<String>();
+        var information = new ArrayList<String>();
+        var tables = expected.stream().filter(e -> e.startsWith("relation\t"))
+                .map(e -> e.split("\t")[1]).collect(java.util.stream.Collectors.toSet());
+        for (var entry : counts.entrySet()) {
+            int delta = entry.getValue();
+            if (delta == 0) continue;
+            String object = entry.getKey();
+            if (delta > 0 && object.startsWith("plain-index\t")
+                    && tables.contains(object.split("\t")[1])) {
+                information.add("ADDITIONAL_COMPATIBLE count=" + delta + " " + object);
+            } else if (delta > 0) {
+                problems.add("REVIEW_REQUIRED expected=absent observed=" + object + " count=" + delta
+                        + " reason=unknown/additional/changed object; no baseline");
+            } else {
+                problems.add("INCOMPATIBLE expected=" + object + " observed=absent count=" + -delta
+                        + " reason=required V1 semantics missing; no baseline");
+            }
+        }
+        return new Report(List.copyOf(problems), List.copyOf(information));
+    }
+}

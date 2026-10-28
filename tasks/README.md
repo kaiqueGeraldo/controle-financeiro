@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+[Causa, medições, contraprovas e limites](evidencias/saneamento-RVPLA-05/README.md),
+base9c27881, implementação762a085/d254822: prazo original20s atendido nas três
+execuções finais (16,572/17,978/16,990s), sem relaxar contenção/quiescência.
+Corrida de rename sobre mailbox aberta demonstrada e corrigida; audit PG17
+limitado passou. O handle da ocorrência histórica não é identificável pelos
+logs antigos. Saneamento **em revisão independente**, sem autoaprovação.
+Controles RVPLA-03/04 preservados no alcance próprio; falha da fixture alheia
+no probe completo antigo explicitamente mantida, sem contar esse grupo como verde.
+TCP/reuso/HQL inconclusivos e40s intactos. CF017/P01/P02 e CF034 integral seguem
+em_revisao, adoção/produção e demais gates não liberados. Notas abaixo são históricas.
+
 ## Revalidação independente RVPLA-04 — 27/10/2026
 
 [Parecer, matriz e provas](evidencias/revalidacao-RVPLA-04/README.md), candidato

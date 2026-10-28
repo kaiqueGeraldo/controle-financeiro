@@ -1,0 +1,42 @@
+{
+  "scope": "Only mailbox implementation reverted; new fast guardian and all physical inspections retained",
+  "before": "c0dd2dadc58c733ead002b0886a0e9d185bc2cc891499435747c9ece91482e38",
+  "mutant": "c5899af0c5411da6180ed7b3fb13a6ab724280c31bfe408839efb26e36a12b25",
+  "restored": "c0dd2dadc58c733ead002b0886a0e9d185bc2cc891499435747c9ece91482e38",
+  "results": [
+    {
+      "case": "old-mailbox",
+      "oracle": 1,
+      "result": {
+        "error": {
+          "message": "EPERM: operation not permitted, rename 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\rvpla05-audit-causal-01\\old-mailbox\\.owned-runs\\mailbox-13ebf0dc-e0e2-4f5b-afb0-c45019f3c2c0.json.1a330017-75d0-4f11-ae60-5354053b375b.tmp' -> 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\rvpla05-audit-causal-01\\old-mailbox\\.owned-runs\\mailbox-13ebf0dc-e0e2-4f5b-afb0-c45019f3c2c0.json'",
+          "code": "EPERM",
+          "errno": -4048,
+          "syscall": "rename",
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\rvpla05-audit-causal-01\\old-mailbox\\.owned-runs\\mailbox-13ebf0dc-e0e2-4f5b-afb0-c45019f3c2c0.json.1a330017-75d0-4f11-ae60-5354053b375b.tmp",
+          "dest": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\rvpla05-audit-causal-01\\old-mailbox\\.owned-runs\\mailbox-13ebf0dc-e0e2-4f5b-afb0-c45019f3c2c0.json"
+        },
+        "certified": false
+      }
+    },
+    {
+      "case": "restored-slots",
+      "oracle": 0,
+      "result": {
+        "value": {
+          "jobName": "Local\\CF034-CP-4fda80bc075908da15c5b2de-65657a86-8acd-45b8-b177-0ae1f6630e44",
+          "members": [
+            "37252:639287469680265609:powershell",
+            "60372:639287469686545974:node",
+            "32092:639287469686617880:conhost"
+          ],
+          "creationCount": 3,
+          "status": "quiescent",
+          "membershipVerified": true,
+          "noCommandDescendants": true
+        },
+        "certified": true
+      }
+    }
+  ]
+}
