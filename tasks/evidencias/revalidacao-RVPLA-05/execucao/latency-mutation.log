@@ -1,0 +1,13 @@
+file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/tools/tasks/evidencias/saneamento-RVPLA-05/prazo.mjs:10
+assert.equal(sha(fs.readFileSync(helper)),sha(before));const rows=fs.readFileSync(path.join(root,'trace.jsonl'),'utf8').trim().split('\n').map(JSON.parse),b=rows.find(x=>x.event==='spawned'&&x.resume&&x.executable.startsWith('node')),end=rows.find(x=>x.event==='child-close'&&x.pid===b.pid&&x.childPid===b.childPid),cut=rows.find(x=>x.event==='execFileSync-start'&&x.pid===b.pid&&x.mode==='identity'&&x.targetPid===b.childPid);
+                                                                                                                                                                                                                                                                                              ^
+
+TypeError: Cannot read properties of undefined (reading 'pid')
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/tools/tasks/evidencias/saneamento-RVPLA-05/prazo.mjs:10:287
+    at Array.find (<anonymous>)
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/tools/tasks/evidencias/saneamento-RVPLA-05/prazo.mjs:10:244
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.18.0

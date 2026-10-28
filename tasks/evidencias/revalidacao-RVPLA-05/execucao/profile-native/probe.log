@@ -1,0 +1,15 @@
+C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro\.github\scripts\owned-job-probe.ps1 : Exce��o ao 
+chamar "StartTicks" com "1" argumento(s): "Processo com identifica��o 32644 n�o est� em execu��o."
+    + CategoryInfo          : NotSpecified: (:) [owned-job-probe.ps1], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentException,owned-job-probe.ps1
+ 
+file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/profile-native/tools/process-probes.mjs:13
+async function exit(child){if(child.exitCode!==null||child.signalCode!==null)return child.exitCode;return await Promise.race([child.done,new Promise((_,reject)=>setTimeout(()=>reject(Error('Owned process did not exit')),20000).unref())]);}
+                                                                                                                                                                                       ^
+
+Error: Owned process did not exit
+    at Timeout._onTimeout (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/profile-native/tools/process-probes.mjs:13:184)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+
+Node.js v24.18.0
