@@ -1,0 +1,20 @@
+{
+  "requestId": "93074f2d-d3f3-4df1-a8f1-9f0d95b2e4cc",
+  "runId": "e4ddaffb-c231-494c-8e8e-fdd4be59de1c",
+  "sequence": 2,
+  "mode": "command",
+  "workerPid": 38548,
+  "command": {
+    "executable": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "args": [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      "$ErrorActionPreference='Stop'; $taskDocker=@(& docker ps --filter 'label=cf.preparation.adoption=true' --format '{{.ID}}'); $taskDockerText=($taskDocker -join [Environment]::NewLine).Trim(); if ($LASTEXITCODE -ne 0 -or $taskDockerText) { throw 'API containers may still be active or inspection failed' }; $taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance RVPLA05ResidualMissingClass -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }"
+    ],
+    "timeout": 10000,
+    "env": {
+      "CF_PREPARATION_AUDIT_ROOT": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-residual-20261028-01\\environment\\cim-error"
+    }
+  }
+}

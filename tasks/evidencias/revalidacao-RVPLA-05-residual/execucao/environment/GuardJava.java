@@ -1,0 +1,1 @@
+import java.nio.file.*;class GuardJava{public static void main(String[]a)throws Exception{Path r=Path.of(a[0]);Files.writeString(r.resolve("java-ready"),Long.toString(ProcessHandle.current().pid()));while(!Files.exists(r.resolve("release-java")))Thread.sleep(25);}}
