@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 34.18 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives -- Time elapsed: 34.15 s <<< ERROR!
+java.lang.IllegalStateException: TCP inspection failed for owned PID 50272
+	at com.controlefinanceiro.api.migration.AdoptionNativeSockets.awaitReleased(AdoptionNativeSockets.java:29)
+	at com.controlefinanceiro.api.migration.AdoptionRuntimeTest$App.close(AdoptionRuntimeTest.java:325)
+	at com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives(PortLifecycleProbeTest.java:29)
+

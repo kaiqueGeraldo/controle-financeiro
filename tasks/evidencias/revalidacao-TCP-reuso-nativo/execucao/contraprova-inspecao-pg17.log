@@ -1,0 +1,116 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 135 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-tcp-20261028-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-tcp-20261028-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+13:25:39.569 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+13:25:39.578 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+13:25:39.589 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+13:25:39.912 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+13:25:40.462 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+13:25:40.464 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+13:25:40.489 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+13:25:40.619 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+13:25:40.978 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: bc786629d2cf5ed6d4dd9c409c708a6a440ac872dee62e4a7c2eb77a71cbb2b2
+13:25:41.498 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.8786012S
+13:25:41.507 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+13:25:41.507 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+13:25:41.508 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+13:25:41.510 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+13:25:41.600 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: d1b20418a866a2438cad3010320675c9a1b44eae005c0aab33f4371842205b5e
+13:25:43.058 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT1.5483882S
+13:25:43.059 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: <JDBC_LOCAL_WITHHELD>
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=d1b20418a866a2438cad3010320675c9a1b44eae005c0aab33f4371842205b5e
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+13:25:44.416 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: <JDBC_LOCAL_WITHHELD> (PostgreSQL 17.11)
+13:25:44.566 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2"."flyway_schema_history" does not exist yet
+13:25:44.574 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.082s)
+13:25:44.613 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2"."flyway_schema_history" ...
+13:25:44.705 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2": << Empty Schema >>
+13:25:44.749 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "1 - baseline pre temporal"
+13:25:44.914 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "2 - adopt temporal metadata"
+13:25:44.955 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "3 - account opening and transaction flow"
+13:25:45.016 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "4 - card invoice integrity"
+13:25:45.115 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "5 - investment positions and goal allocations"
+13:25:45.221 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "6 - preserve goal purchase facts"
+13:25:45.259 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "7 - valuation reference and audit"
+13:25:45.300 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "8 - investment corrections"
+13:25:45.357 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "9 - payment intent receipt"
+13:25:45.375 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "10 - financial commands and partial reversals"
+13:25:45.407 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "11 - reporting coverage baselines"
+13:25:45.431 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "12 - habit goal effect identity"
+13:25:45.465 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "13 - financial creation intent receipts"
+13:25:45.493 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "14 - goal history recorded instant"
+13:25:45.515 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "15 - onboarding draft"
+13:25:45.551 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2" to version "16 - onboarding application"
+13:25:45.621 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "rv_port_lifecycle_b0b30df2d53b4b37bc5fb9977361acc2", now at version v16 (execution time 00:00.570s)
+ADOPTION_PROCESS mode=jar pid=50272 log=target\adoption-processes\43a4da07-2b32-4bf1-abe1-6aab79ebcba0.log
+INDEPENDENT_BOUND_LISTENER port=61468 pid=50272 container=null
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 34.18 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.PortLifecycleProbeTest
+[ERROR] com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives -- Time elapsed: 34.15 s <<< ERROR!
+java.lang.IllegalStateException: TCP inspection failed for owned PID 50272
+	at com.controlefinanceiro.api.migration.AdoptionNativeSockets.awaitReleased(AdoptionNativeSockets.java:29)
+	at com.controlefinanceiro.api.migration.AdoptionRuntimeTest$App.close(AdoptionRuntimeTest.java:325)
+	at com.controlefinanceiro.api.migration.PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives(PortLifecycleProbeTest.java:29)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   PortLifecycleProbeTest.ownedListenerEndsWhileUnrelatedReadyServiceSurvives:29 � IllegalState TCP inspection failed for owned PID 50272
+[INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  56.988 s
+[INFO] Finished at: 2026-10-28T13:26:14Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: 
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\revalidacao-tcp-20261028-01\contraprova-inspecao-pg17-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
