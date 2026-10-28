@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Saneamento local CPA-01/P2 — 28/10/2026
+
+[Causa, matriz, provas e preservação](evidencias/saneamento-CPA-01/README.md).
+Base `434e293f`, implementação `c597ffc5`: seleção explícita por plataforma JVM,
+Windows TCP obrigatório antes do required Linux; zero skips e relatórios exigidos.
+CPA-01 **saneado localmente, aguardando revisão independente**; parecer C da
+consolidação não convertido em aprovação. 23 contratos Node passaram em Windows
+e Linux em container, TCP Windows real1/1 e Linux comum dirigido3/3. Não é suíte
+Linux integral, Actions ou supervisor nativo Linux. Aceites startup40s/TCP/RVPLA/
+audit/PG16/17 preservados; HQL histórico inconclusivo não bloqueante. CI/matriz
+remota, CF034 integral, zoom200%, CF017/P01/P02, adoção/configuração/produção
+continuam pendentes. Somente commits locais; README raiz alheio fora deles.
+
 ## Consolidação pré-adoção — 28/10/2026
 
 [Revisão integrada, mapa e plano de CI](evidencias/consolidacao-pre-adocao/README.md),

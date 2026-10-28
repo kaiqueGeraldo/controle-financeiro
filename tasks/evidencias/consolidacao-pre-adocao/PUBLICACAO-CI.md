@@ -1,19 +1,23 @@
 # Plano de publicação e CI futura — preparado, não executado
 
-**Bloqueio atual delimitado:CPA-01/P2.** Este documento não autoriza push, PR,
-workflow, merge, configuração de provedor, registry ou deploy. A próxima execução
-necessária é o saneamento local separado e sua revisão independente.
+**CPA-01/P2 saneado localmente, aguardando revisão independente.** Implementação
+`c597ffc5c33abe45f764b1aaca099daa9f520b00`, branch
+`codex/saneamento-cpa01-selecao-testes`; [provas e limites](../saneamento-CPA-01/README.md).
+O parecer C da consolidação não foi convertido em aprovação. Este documento não
+autoriza push, PR, workflow, merge, configuração de provedor, registry ou deploy.
 
 ## Branch, intervalo e destino
 
-Origem preparada:`codex/consolidacao-pre-adocao` no remoto
+Origem local para futura revisão:`codex/saneamento-cpa01-selecao-testes`, derivada
+sem merge/rebase de `434e293f76c3b6ff345fe03f2091149291316aac`, no remoto
 `https://github.com/kaiqueGeraldo/controle-financeiro.git`.
 Destino da PR:`main`. Intervalo recebido exato:
 `fb986456a37a48afcafef204f165d15354294d26..56eb80b5cb867539d94995ec58b63ce2dbc519fa`.
 Somam-se apenas os commits locais de provas/parecer/preservação desta consolidação,
-identificados na entrega final. O futuro saneamento mudará esse candidato e exige
-novo intervalo explícito/revisão. **Não autorizar publicar o tip atual como se
-CPA-01 já tivesse sido corrigido.** README raiz alheio permanece fora do intervalo.
+identificados na entrega final. O saneamento acrescenta seu intervalo próprio a
+partir de `434e293f`, com HEAD documental final identificado na entrega.
+**Correção local não autoriza publicar o tip sem revisão independente.**
+README raiz alheio permanece fora do intervalo.
 
 Após aprovação do saneamento, registrar main/SHA/merge-base novos e um SHA imutável
 de envio. Publicar somente essa branch/intervalo sem force. PRnormal preserva os
@@ -25,24 +29,29 @@ commits/histórico; não fazer squash/rebase por conveniência. A PR proposta es
 | Entrada | O que executa hoje | Consequência |
 |---|---|---|
 | Push da nova branch | ci.yml não reage; só main em push. Probes sintéticos também não reagem à nova branch | Não esperar check completo por esse push; integrações externas ainda podem reagir |
-| Pull request para main com paths backend/frontend/.github/tasks/docs-sdd | `CI integrated gates / required`, Ubuntu-latest, 45min; Node 24, Temurin 21, Maven wrapper, Chromium | Roda contratosNode, frontend/backend/E2E/package. Hoje falharia CPA-01; sem sucesso presumido |
+| Pull request para main com paths backend/frontend/.github/tasks/docs-sdd | `windows-native`, Windows-latest, 15min, antes de `required`, Ubuntu-latest, 45min; Node 24, Temurin 21 | Windows executa TCP; Linux roda contratosNode, frontend/backend/E2E/package. YAML local alterado; sem sucesso remoto presumido |
 | Push main após integração | Mesmo required pelos mesmos paths | Combinação efetiva da main exige resultado próprio; PRverde não substitui esse run |
-| Dispatch ci.yml, suite=smoke | Required; suite fixa smoke no job | Expanded skipped por condição, não aprovado |
-| Dispatch ci.yml, suite=expanded | Required smoke e depois expanded, Ubuntu-latest por 45min | Necessário para matriz ampliada; dispatch usa ref, conferir head_sha criado |
+| Dispatch ci.yml, suite=smoke | Windows obrigatório e required; suite fixa smoke nos jobs | Expanded skipped por condição, não aprovado |
+| Dispatch ci.yml, suite=expanded | Windows obrigatório, required smoke e depois expanded, Ubuntu-latest por 45min | Necessário para matriz ampliada; dispatch usa ref, conferir head_sha criado |
 | Push codex/cf034-ci-local com paths do probe | CF034 synthetic remote probes/contracts e cancellation | Branch antiga; nenhum gatilho da consolidação. Não empurrar branch antiga para disparar provas por associação |
 
 Nomes declarados nos YAMLs não provam regras atuais de branch protection/rulesets.
 Antes da publicação, conferir quais check contexts são realmente exigidos no remoto.
 
-## SaneamentoCI proposto e matriz necessária
+## SaneamentoCI local e matriz ainda necessária
 
-Proposta mínima para CPA-01:novo job `windows-native` em runnerWindows/JDK 21/Node 24,
-executando a classeTCP original com relatório exigido e zero skips. Required Linux
-depende desse job e mantém sua seleção aplicável completa e zero skips. Testar a
-união dos seletores e a ausência de relatório antes de aceitar a implementação.
-O job Windows não precisa de PostgreSQL para esse método. O runnerWindows exato
-e versões resolvidas deverão constar do futuro recibo; nenhuma versão de host
-atual foi presumida nesta revisão.
+Implementado localmente: `windows-native`, Windows/JDK21/Node24, sem condição por
+evento/suite; `required` depende dele e `expanded` continua dependendo de required.
+O seletor lê a condição JUnit no nível da classe (movida do método, com corpo e
+assertions intactos) e exige plataforma alvo explícita. Linux seleciona 100 classes
+smoke/115 expanded; Windows executa a classe TCP, sem PostgreSQL. A união por
+identidade conserva as 101/116 classes anteriores e os 15 harnesses expanded.
+Condições não suportadas/plataforma desconhecida falham fechadas. O runner Windows
+usa argumentos literais via PowerShell para chamar o wrapper; o estágio específico
+usa `test`, sem criar JAR. Relatório obrigatório e zero skips continuam exigidos.
+23 contratos passaram localmente em Windows e Linux em container; TCP Windows1/1;
+Linux comum dirigido3/3. Sem suíte integral ou CI remota. Runner remoto exato e
+versões resolvidas ainda deverão constar do futuro recibo.
 
 | Alcance futuro | Ambiente/serviços descartáveis | Evidência necessária |
 |---|---|---|
@@ -56,7 +65,8 @@ atual foi presumida nesta revisão.
 
 A lista das 15 classes e sete casos faltantes está em
 [MATRIZ-CF034 canônica da revisão](../revisao-prontidao-CF034-CF017/MATRIZ-CF034.md)
-e em verificacoes.json. A seleção atual é101/116 classes, com CPA-01; as 95 classes
+e em verificacoes.json. Linux seleciona100/115 classes mais uma classe obrigatória
+Windows, conservando101/116 na união; as 95 classes
 e891execuções do run main antigo não são contagem esperada imutável deste candidato.
 Não chamar expanded com classes históricas despreparadas só para produzir falha
 conhecida. Preparar seleção/caminhos é parte da próxima mudança local autorizada.
@@ -64,7 +74,7 @@ conhecida. Preparar seleção/caminhos é parte da próxima mudança local autor
 Comando remoto futuro existente,**não executado**, após novo candidato aprovado:
 
 ```text
-gh workflow run ci.yml --repo kaiqueGeraldo/controle-financeiro --ref codex/consolidacao-pre-adocao -f suite=expanded
+gh workflow run ci.yml --repo kaiqueGeraldo/controle-financeiro --ref codex/saneamento-cpa01-selecao-testes -f suite=expanded
 ```
 
 Conferir se o workflow já existe na defaultbranch e se a branch aponta para o
@@ -82,9 +92,12 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
   privados. XML/PlaywrightJSON completo não é publicado pelo YAML atual:qualquer
   complemento futuro precisa política explícita de coleta sanitizada, sem upload
   indiscriminado de surefire/trace.
-- Novo job Windows e PG17 precisam recibo/contagens/hash/identidade publicados em
-  caminho explícito. Ainda não existem nesse workflow; não afirmar que estão
-  implementados. Não criar um pacote local para contornar o bloqueio.
+- Windows publica `windows-native-diagnosis-<github.sha>` por 7dias com a mesma
+  allowlist sanitizada; `result.json` inclui seleção, contagens, hashes XML,
+  sourceDigest e identidade CI. XML bruto fica privado; sem pacote Windows.
+  Implementado somente no YAML local; upload remoto ainda não executado. PG17
+  ainda precisa job/recibo próprio, fora deste saneamento. Não criar pacote local
+  para contornar revisão ou matriz remota.
 - Instalação por npmci+lock, setupNode 24/setupJava 21, wrapperMaven eChromium fixado
   pelo lock do Playwright. Tagsactions/ubuntu/latest/PG são móveis:registrar
   versões/digests efetivos no run. Cache só dependências; sem cache de status/target.
@@ -97,7 +110,9 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
 
 1. Main, refa publicar, diff, index eREADMEhash; nenhum código novo recebe aceite por
    herança. CPA-01 encerrado na base final por revisão separada.
-2. GitHub:Actions/rulesets/contexts obrigatórios, permissões efetivas de token, ambientes do repositório,
+2. GitHub:Actions/rulesets/contexts obrigatórios (inclusive `windows-native`;
+   required dependente pode ficar skipped se Windows falhar, e skip não é aceite),
+   permissões efetivas de token, ambientes do repositório,
    secrets/variables por nome, apps/webhooks/workflows reutilizáveis, checkout SHA e
    políticas de artifacts. Não solicitar ou registrar valores secretos em evidência.
 3. Railway:mesmos projeto/ambiente/serviços do inventário atual a consultar;
