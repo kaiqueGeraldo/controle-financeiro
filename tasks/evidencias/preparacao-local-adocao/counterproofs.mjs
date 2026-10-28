@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {ProofStore,hash} from './counterproof-checkpoint.mjs';
 import {validateObservation} from './counterproof-observation.mjs';
-import {superviseCounterproof,verifyOwnedBoundary,runOwnedCommand,supervisionSources} from './counterproof-supervision.mjs';
+import {superviseCounterproof,runOwnedCommand,supervisionSources} from './counterproof-supervision.mjs';
 
 const execution = path.resolve(process.argv[2] ?? '');
 const restoredImage = process.argv[3];
@@ -57,16 +57,18 @@ const identity={candidate:manifest.commit,inputManifestSha256:hash(fs.readFileSy
 if(audit&&!fs.existsSync(path.join(proofRoot,'v2/identity.json')))throw Error('Legacy checkpoint is ambiguous; no completed proofs certified');
 if(resume&&fs.existsSync(path.join(proofRoot,'results.json')))console.log('Legacy results preserved; status alone never proves completion');
 function verifyEnvironment() {
-  verifyOwnedBoundary(execution); // Includes shells/wrappers that have no JVM yet.
-  const docker=runOwnedCommand(execution,'docker',['ps','--filter','label=cf.preparation.adoption=true','--format','{{.ID}}'],{timeout:10000});
-  if(docker.error||docker.status!==0||docker.stdout.trim())throw Error('API containers may still be active; cleanup must be verified before restoring/resuming');
+  // The broker checks the sealed worker boundary immediately before EVERY
+  // command. A separate current request here repeated that same inspection.
+  // Run both read-only environment checks in one command job, in order. Its
+  // close is still followed by the broker's independent external closed query.
+  const docker="$ErrorActionPreference='Stop'; $taskDocker=@(& docker ps --filter 'label=cf.preparation.adoption=true' --format '{{.ID}}'); $taskDockerText=($taskDocker -join [Environment]::NewLine).Trim(); if ($LASTEXITCODE -ne 0 -or $taskDockerText) { throw 'API containers may still be active or inspection failed' }; ";
   // Read PID ownership only. Never stop an unknown process or print its command line.
   // A native -jar child can refer only to shared p05, without its parent's cwd.
   // Conservatively block adoption JVMs too; never mistake a dead owner for cleanup.
   const script="$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }";
-  const processes=runOwnedCommand(execution,path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
-    ['-NoProfile','-NonInteractive','-Command',script],{timeout:10000,env:{CF_PREPARATION_AUDIT_ROOT:execution}});
-  if(processes.error||processes.status!==0)throw Error('Runtime Java processes may still be active; cleanup must be verified before restoring/resuming');
+  const checks=runOwnedCommand(execution,path.join(process.env.SystemRoot??'C:/Windows','System32/WindowsPowerShell/v1.0/powershell.exe'),
+    ['-NoProfile','-NonInteractive','-Command',docker+script],{timeout:10000,env:{CF_PREPARATION_AUDIT_ROOT:execution}});
+  if(checks.error||checks.status!==0)throw Error('Runtime environment inspection failed or processes may still be active; cleanup must be verified before restoring/resuming');
 }
 const store=new ProofStore({directory:path.join(proofRoot,'v2'),identity,sourceRoot:root,evidenceRoot:execution,inputs:manifest.inputs,verifyEnvironment});
 const results=[];
