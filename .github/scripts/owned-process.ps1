@@ -15,6 +15,8 @@ public static class Cf034OwnedProcess {
   [DllImport("kernel32.dll", SetLastError=true)] static extern bool AssignProcessToJobObject(IntPtr job,IntPtr process);
   [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern IntPtr OpenJobObject(uint access,bool inherit,string name);
   [DllImport("kernel32.dll", SetLastError=true)] static extern bool CloseHandle(IntPtr handle);
+  [DllImport("kernel32.dll")] static extern IntPtr GetCurrentProcess();
+  [DllImport("kernel32.dll", SetLastError=true)] static extern bool TerminateProcess(IntPtr process,uint code);
   public static bool OwnerAlive(int pid,string ticks) {
     try { using(var p=Process.GetProcessById(pid)) return p.StartTime.ToUniversalTime().Ticks.ToString()==ticks && !p.HasExited; }
     catch(ArgumentException){return false;}
@@ -33,7 +35,18 @@ public static class Cf034OwnedProcess {
   // Keep the only job handle in this supervisor. Children inherit job membership,
   // not this handle. Kernel closes it on normal/forced supervisor termination.
   static IntPtr job;
+  static bool namedJob;
   static System.Threading.Mutex executionMutex;
+  static void Finish(int code) {
+    if(!namedJob){Environment.Exit(code);return;}
+    // This disposable guardian has no durable state to finalize. Managed
+    // shutdown stalls after completed drain in Windows PowerShell/.NET.
+    // Terminate only ourselves, preserving the child's exit code. Kernel closes
+    // our sole job handle; callers STILL require job disappearance separately.
+    // Never close the job handle manually while the guardian is its member.
+    if(!TerminateProcess(GetCurrentProcess(),unchecked((uint)code)))
+      throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+  }
   static string Quote(string value) {
     var b=new StringBuilder("\""); int slashes=0;
     foreach(char c in value) { if(c=='\\'){slashes++;continue;} if(c=='\"'){b.Append('\\',slashes*2+1);b.Append(c);}else{b.Append('\\',slashes);b.Append(c);}slashes=0; }
@@ -43,6 +56,7 @@ public static class Cf034OwnedProcess {
     // PowerShell converts a null argument bound to string into String.Empty.
     // Preserve the original unnamed-job path used by shared CI callers.
     if(String.IsNullOrEmpty(jobName))jobName=null;
+    namedJob=jobName!=null;
     job=CreateJobObject(IntPtr.Zero,jobName);
     int createError=Marshal.GetLastWin32Error();
     if(jobName!=null && createError==183){CloseHandle(job);job=IntPtr.Zero;throw new InvalidOperationException("Owned job name collision");}
@@ -56,9 +70,9 @@ public static class Cf034OwnedProcess {
         bool acquired;try{acquired=executionMutex.WaitOne(0);}catch(System.Threading.AbandonedMutexException){acquired=true;}
         if(!acquired)throw new InvalidOperationException("Execution already supervised");
       }
-      if(!OwnerAlive(ownerPid,ownerTicks))Environment.Exit(130);
+      if(!OwnerAlive(ownerPid,ownerTicks))Finish(130);
       beforeChild();
-      if(!OwnerAlive(ownerPid,ownerTicks))Environment.Exit(130);
+      if(!OwnerAlive(ownerPid,ownerTicks))Finish(130);
     }
     var start=new ProcessStartInfo(executable);start.WorkingDirectory=cwd;start.UseShellExecute=false;start.CreateNoWindow=true;
     start.RedirectStandardInput=true;start.RedirectStandardOutput=true;start.RedirectStandardError=true;
@@ -69,18 +83,18 @@ public static class Cf034OwnedProcess {
     // .NET Framework's synchronized Console reader may implement Async by
     // blocking the caller; run the private-pipe read on its own worker.
     var cancel=Task.Run(()=>Console.In.ReadToEnd());
-    if(cancel.IsCompleted)Environment.Exit(130);
+    if(cancel.IsCompleted)Finish(130);
     if(!process.Start())throw new InvalidOperationException("Cannot start owned command");
     process.StandardInput.Close();
     var output=process.StandardOutput.BaseStream.CopyToAsync(Console.OpenStandardOutput());
     var error=process.StandardError.BaseStream.CopyToAsync(Console.OpenStandardError());
-    if(Task.WaitAny(exited.Task,cancel)==1)Environment.Exit(130);
+    if(Task.WaitAny(exited.Task,cancel)==1)Finish(130);
     process.WaitForExit();
     if(jobName!=null) {
       // A dead root cannot keep its descendants alive by inheriting stdout.
       // Quiescence is confirmed separately through disappearance of the job.
-      if(Task.WaitAny(Task.WhenAll(output,error),cancel,Task.Delay(1000))==1)Environment.Exit(130);
-      Environment.Exit(process.ExitCode);
+      if(Task.WaitAny(Task.WhenAll(output,error),cancel,Task.Delay(1000))==1)Finish(130);
+      Finish(process.ExitCode);
     }
     if(Task.WaitAny(Task.WhenAll(output,error),cancel)==1)Environment.Exit(130);
     Environment.Exit(process.ExitCode);
