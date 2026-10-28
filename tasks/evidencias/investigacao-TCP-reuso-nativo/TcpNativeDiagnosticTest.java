@@ -22,6 +22,12 @@ class TcpNativeDiagnosticTest {
     static void save(String file,Object result)throws Exception {
         Files.writeString(root().resolve(file),JSON.writerWithDefaultPrettyPrinter().writeValueAsString(result)+"\n",StandardOpenOption.CREATE_NEW);
     }
+    static void assertListener(JsonNode snapshot,int port,long pid) {
+        var listeners=new ArrayList<JsonNode>();
+        for(var row:snapshot.path("rows")) if(row.path("State").asInt()==2 && row.path("LocalPort").asInt()==port)listeners.add(row);
+        assertThat(listeners).isNotEmpty();
+        for(var row:listeners)assertThat(row.path("Pid").asLong()).isEqualTo(pid);
+    }
     static class Observer implements AutoCloseable {
         final Process process; final BufferedReader output; final PrintWriter input;
         Observer() throws Exception {

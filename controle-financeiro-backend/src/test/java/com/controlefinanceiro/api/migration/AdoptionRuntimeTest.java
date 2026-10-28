@@ -310,8 +310,19 @@ class AdoptionRuntimeTest {
                 assertThat(stop.waitFor(20, TimeUnit.SECONDS)).isTrue();
                 assertThat(stop.exitValue()).isZero();
             }
+            if (containerName != null || port == 0 || !System.getProperty("os.name").startsWith("Windows")) {
+                process.destroy();
+                if (!process.waitFor(10, TimeUnit.SECONDS)) { process.destroyForcibly(); assertThat(process.waitFor(5, TimeUnit.SECONDS)).isTrue(); }
+                return;
+            }
+            long deadline = System.nanoTime() + Duration.ofSeconds(10).toNanos();
             process.destroy();
-            if (!process.waitFor(10, TimeUnit.SECONDS)) { process.destroyForcibly(); assertThat(process.waitFor(5, TimeUnit.SECONDS)).isTrue(); }
+            if (!process.waitFor(Math.max(0, deadline - System.nanoTime()), TimeUnit.NANOSECONDS)) {
+                deadline = System.nanoTime() + Duration.ofSeconds(5).toNanos();
+                process.destroyForcibly();
+                assertThat(process.waitFor(Math.max(0, deadline - System.nanoTime()), TimeUnit.NANOSECONDS)).isTrue();
+            }
+            AdoptionNativeSockets.awaitReleased(process.pid(), port, deadline);
         }
     }
 }
