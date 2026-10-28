@@ -8,6 +8,8 @@ import {spawnOwned,stopOwned} from '../../../.github/scripts/owned-process.mjs';
 const probe=fileURLToPath(new URL('../../../.github/scripts/owned-job-probe.ps1',import.meta.url));
 const commandRunner=fileURLToPath(new URL('../../../.github/scripts/owned-command.mjs',import.meta.url));
 const token='CF_COUNTERPROOF_SESSION';
+let requestSequence=0; // One synchronous worker per immutable run receipt.
+const mailboxSlot=(registry,runId,sequence)=>path.join(registry,'mailbox-'+runId+'-'+String(sequence).padStart(8,'0')+'.json');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 function atomic(file,value) {
   const tmp=file+'.'+crypto.randomUUID()+'.tmp',fd=fs.openSync(tmp,'wx');
@@ -29,14 +31,18 @@ function current(execution) {
   const envelope=JSON.parse(fs.readFileSync(path.join(execution,'.owned-runs','run-'+value.runId+'.json'))),bytes=Buffer.from(envelope.payload,'base64');
   if(envelope.version!==1||sha(bytes)!==envelope.sha256)throw Error('Invalid owned execution receipt');
   const record=JSON.parse(bytes);
-  if(record.version!==1||record.contract!==3||record.root!==root||record.runId!==value.runId||record.jobName!==value.jobName)throw Error('Incompatible owned execution record');
+  if(record.version!==1||record.contract!==4||record.root!==root||record.runId!==value.runId||record.jobName!==value.jobName)throw Error('Incompatible owned execution record');
   return record;
 }
 function request(execution,record,mode,command) {
   const requestId=crypto.randomUUID(),registry=path.join(execution,'.owned-runs'),reply=path.join(registry,'reply-'+requestId+'.json');
-  const check={requestId,runId:record.runId,mode,workerPid:process.pid,command};
+  const sequence=++requestSequence;
+  if(!Number.isSafeInteger(sequence))throw Error('OWNED_OPERATIONAL_ERROR: request sequence exhausted');
+  const check={requestId,runId:record.runId,sequence,mode,workerPid:process.pid,command};
   atomic(path.join(registry,'check-'+record.runId+'-'+requestId+'.json'),check);
-  atomic(path.join(registry,'mailbox-'+record.runId+'.json'),check);
+  // A reader can hold a Windows descriptor without delete sharing. Publish
+  // each slot once: never rename over a file the controller may be reading.
+  atomic(mailboxSlot(registry,record.runId,sequence),check);
   // Maven had no invocation deadline. Its startup/test budgets stay inside it.
   // Controller death closes the private worker-job pipe.
   const deadline=mode==='command'?Infinity:Date.now()+15000;
@@ -68,7 +74,7 @@ export async function superviseCounterproof(execution) {
   if(fs.existsSync(path.join(execution,'counterproofs'))&&(!fs.existsSync(registry)||!fs.readdirSync(registry).some(x=>/^run-.*\.json$/.test(x))))throw Error('Previous command ownership is unknown; do not restore or resume this legacy execution');
   fs.mkdirSync(registry,{recursive:true});
   const runId=crypto.randomUUID(),prefix='Local\\CF034-CP-'+sha(root).slice(0,24)+'-';
-  const record={version:1,contract:3,runId,root,owner:query({mode:'identity',pid:process.pid}),jobName:prefix+runId,jobPrefix:prefix,mutexName:'Local\\CF034-CP-LOCK-'+sha(root),registry,at:new Date().toISOString()};
+  const record={version:1,contract:4,runId,root,owner:query({mode:'identity',pid:process.pid}),jobName:prefix+runId,jobPrefix:prefix,mutexName:'Local\\CF034-CP-LOCK-'+sha(root),registry,at:new Date().toISOString()};
   receipt(path.join(registry,'run-'+runId+'.json'),record);
   const child=spawnOwned(process.execPath,[...process.execArgv,...process.argv.slice(1)],{cwd:process.cwd(),env:{...process.env,[token]:JSON.stringify({runId,jobName:record.jobName})},ownership:record});
   const served=new Set(),commands=new Map(),pending=new Set();let baseline;
@@ -128,17 +134,22 @@ export async function superviseCounterproof(execution) {
     return check.mode==='command'?await command(check):boundary(check.workerPid);
   }
   const cancel=()=>{stopOwned(child);for(const state of commands.values())if(state.child&&!state.closed)stopOwned(state.child);};
-  const mailbox=path.join(registry,'mailbox-'+runId+'.json');
+  let nextSequence=1,activeSlot;
   const timer=setInterval(()=>{
-    if(!fs.existsSync(mailbox))return;
-    let check;
-    try{check=JSON.parse(fs.readFileSync(mailbox));}catch{cancel();return;}
-    if(!/^[-a-f0-9]{36}$/.test(check.requestId??'')){cancel();return;}
-    if(!served.has(check.requestId)) {
-      served.add(check.requestId);
-      const task=serve(check).then(value=>atomic(path.join(registry,'reply-'+check.requestId+'.json'),{value}),error=>atomic(path.join(registry,'reply-'+check.requestId+'.json'),{error:classify(error)}));
-      pending.add(task);task.finally(()=>pending.delete(task));
-    }
+    let check,bytes;
+    const mailbox=mailboxSlot(registry,runId,nextSequence);
+    try {
+      // Preserve fail-closed cancellation if the active request is corrupted,
+      // removed or changed while its owned command is still executing.
+      if(activeSlot&&sha(fs.readFileSync(activeSlot.file))!==activeSlot.sha256){cancel();return;}
+      if(!fs.existsSync(mailbox))return;
+      bytes=fs.readFileSync(mailbox);check=JSON.parse(bytes);
+    }catch{cancel();return;}
+    if(check.sequence!==nextSequence||!/^[-a-f0-9]{36}$/.test(check.requestId??'')||served.has(check.requestId)){cancel();return;}
+    activeSlot={file:mailbox,sha256:sha(bytes)};nextSequence++;
+    served.add(check.requestId);
+    const task=serve(check).then(value=>atomic(path.join(registry,'reply-'+check.requestId+'.json'),{value}),error=>atomic(path.join(registry,'reply-'+check.requestId+'.json'),{error:classify(error)}));
+    pending.add(task);task.finally(()=>pending.delete(task));
   },100);
   process.on('SIGINT',cancel);process.on('SIGTERM',cancel);
   child.stdout.on('data',bytes=>process.stdout.write(bytes));child.stderr.on('data',bytes=>process.stderr.write(bytes));
