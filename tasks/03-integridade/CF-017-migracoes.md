@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+[Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):
+RVPLA-05/P2 aberto,0/3 no original20s; cauda reduzida não aprovou o ciclo integral.
+RVPLA-03/04 específicos preservados. Fixture30s expirava naturalmente; complemento
+controlado sustentou preservação do alheio. EPERM causal corrigido e audit PG17
+limitado aprovado, sem identificar detentor histórico. TCP/HQL inconclusivos,40s
+mantidos. Produto/migrations/JAR e históricos preservados. CF017/P01/P02 continuam
+em_revisao; inventário, backup/restore, freeze, baseline ou DDL reais não liberados.
+
 ## Saneamento local RVPLA-05 e audit — 27/10/2026
 
 [Medições, provas e preservação](../evidencias/saneamento-RVPLA-05/README.md),

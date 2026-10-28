@@ -5,6 +5,17 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+[Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):
+RVPLA-05/P2 permanece aberto, três falhas no20s; diagnóstico21,167s não é aprovação.
+Contenção específica RVPLA-03/04 preservada; falha histórica de fixture classificada
+como expiração natural, sem grupo completo original verde. Correção causal EPERM
+e audit PG17 limitado aceitos, detentor histórico desconhecido. TCP/HQL separados,
+inconclusivos,40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real encerrado
+nem adoção ou sucessora iniciada.
+
 ## Saneamento local RVPLA-05 e audit — 27/10/2026
 
 [Estado separado de prazo/audit/adoção](../evidencias/saneamento-RVPLA-05/README.md),

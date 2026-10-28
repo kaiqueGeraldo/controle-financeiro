@@ -1,5 +1,19 @@
 # Plano de execução do monorepo
 
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+[Parecer, medições e matriz](evidencias/revalidacao-RVPLA-05/README.md), candidato
+`019a6ce3`: RVPLA-05/P2 **permanece aberto**, três probes originais20s falhos.
+Cauda gerenciada removida no perfil, mas o diagnóstico natural terminou21,167s;
+não houve aumento de prazo/retry. Aceites específicos RVPLA-03/04 preservados.
+Fixture alheia: expiração natural30s antes da observação histórica, complemento
+controlado sensível a término indevido; grupo completo original não aprovado.
+Correção causal de EPERM aceita, com negativo/vermelho-restaurado/verde e novo
+audit PG17 limitado aprovado; detentor histórico desconhecido. TCP/HQL seguem
+separados/inconclusivos,40s intactos. CF017/P01/P02 e CF034 integral em_revisao;
+expanded/zoom/configuração e gates reais preservados, adoção/produção não liberadas.
+Sem correções de implementação, sucessora iniciada ou ação remota nesta revisão.
+
 ## Saneamento local RVPLA-05 e audit — 27/10/2026
 
 [Causa, medições, contraprovas e limites](evidencias/saneamento-RVPLA-05/README.md),

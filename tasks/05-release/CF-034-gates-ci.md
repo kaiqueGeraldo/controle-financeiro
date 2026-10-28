@@ -8,6 +8,17 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+[Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):
+RVPLA-05/P2 aberto,0/3 no probe original20s; saída rápida não aprovou duração
+integral. RVPLA-03/04 específicos preservados; fixture histórica expirava30s,
+complemento controlado sensível e grupo completo original não aprovado. EPERM
+causal e audit PG17 limitado aceitos, sem atribuição integral do handle histórico.
+TCP/reuso/HQL inconclusivos e40s mantidos. Aceites DEC-CI-04/JAR anterior preservados;
+CF034 integral em_revisao, expanded/zoom200%, cancelamento/configuração e gates
+CF017/adoção/produção não liberados. Sem implementação, CI remota ou publicação.
+
 ## Saneamento local RVPLA-05 e audit — 27/10/2026
 
 [Delta local e limites](../evidencias/saneamento-RVPLA-05/README.md), base9c27881,
