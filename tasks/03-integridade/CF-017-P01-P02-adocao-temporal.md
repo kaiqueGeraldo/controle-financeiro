@@ -5,6 +5,17 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+[Estados separados e provas](../evidencias/saneamento-RVPLA-05-residual/README.md),
+baseacaa6ed9, implementaçãoe88ee50a:3/3 no original20s com margem mínima7,774s;
+contenção e confirmação externa mantidas, sem alterar canal/aceite EPERM.
+Complemento alheio e preflight/resume/audit PG17 limitados passaram. Saneado
+localmente, aguardando revisão independente. RVPLA-03/04 específicos preservados;
+TCP/HQL inconclusivos,40s intactos. P01/P02 permanecem em_revisao: A–D,
+temporalidade/brutos/null/UNKNOWN, backup/restore, freeze e coordenação reais
+pendentes. Nenhum checkbox real, adoção, publicação ou sucessora liberado.
+
 ## Revalidação independente RVPLA-05 — 27/10/2026
 
 [Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):

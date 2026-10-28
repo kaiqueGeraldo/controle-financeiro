@@ -8,6 +8,17 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+[Medições, contraprovas e preservação](../evidencias/saneamento-RVPLA-05-residual/README.md),
+baseacaa6ed9, implementaçãoe88ee50a:3/3 no original20s, margem mínima7,774s,
+sem relaxar contenção/identidade/confirmação externa. Preflight/resume/audit PG17
+limitados passaram;834 inputs restaurados e checkpoint estável no reuso.
+Saneamento local aguardando revisão independente; aceites RVPLA-03/04 e EPERM
+preservados. TCP/HQL inconclusivos,40s intactos. CF017/P01/P02 em_revisao:
+migrations, JAR e históricos intactos; inventário, backup/restore, freeze,
+baseline e DDL reais não executados nem liberados por esse delta do harness.
+
 ## Revalidação independente RVPLA-05 — 27/10/2026
 
 [Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):

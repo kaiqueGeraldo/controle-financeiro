@@ -1,0 +1,30 @@
+# Plano residual, fixado após a decomposição e antes da implementação
+
+Base `acaa6ed9374f8c9a205d92955f0f4f946b17aa8a`, branch `codex/preparacao-local-adocao`. README raiz preexistente preservado; nenhuma mudança posterior de implementação encontrada. Os14.475 itens anteriores e os3.737 arquivos da revisão foram conferidos; fotografia inicial19.841 protegidos, excluindo somente o futuro delta autorizado em counterproofs.mjs. Guarda/probe/broker/checkpoints/mailbox permanecem protegidos byte a byte.
+
+## Medições que determinam a escolha
+
+`rvpla05-residual-before-01`: original intacto (só diretório permitido adaptado), B natural19.673,8893ms, margem326,1107ms. Isso não demonstra robustez nem invalida as três falhas da revisão. Quinze consultas somaram10.707,5676ms; cinco comandos contidos6.860,6760ms; inicialização913,2986ms; comunicação exclusiva777,8119ms; I/O exclusivo174,8781ms; fechamento/retorno36,5907ms; parcela não explicada203,5374ms (~1,03%). Categorias particionam a parede sem somar I/O/IPC aninhado novamente. Soma19.673,8893ms. Instrumentação de append reportada por processo, incluída no prazo, nunca subtraída para aprovar.
+
+`rvpla05-residual-profile-01` é diagnóstico, não nova linha de base: código do probe nativo marcado em cópia isolada e restaurado por hash. Original cortou B aos20.001,4328ms, close forçado21.584,0687ms. Treze consultas completadas,11.284,3762ms. Inicialização do processo/shell354–494ms, Add-Type302–374ms, configuração+consulta nativa+serialização59–127ms e saída17–21ms por chamada observada. As marcações aumentam o custo e o código compilado; não se atribui a diferença de desempenho exclusivamente ao candidato/ambiente nem se credita esse perfil como gate verde. Contadores/proporções mostram que iniciar/compilar novamente domina o corpo da inspeção. Não há nova evidência para otimizar a cauda já reduzida.
+
+JSONL/TSV e [partição antes](tempos-antes.json) mantêm valores, ordens e parcela não explicada. Snapshot de hardware/memória em ambiente.json foi capturado **depois** da primeira linha de base e antes do perfil; não é telemetria de carga contínua nem fotografia inicial inventada. Java21 explícito, Node24.18.0/libuv1.52.1, mesmas fixtures, fontes e limites. Nenhum teste de aplicação concorrente iniciado pelo executor nessas medições.
+
+## Menor correção escolhida
+
+O caminho chama verifyEnvironment duas vezes em B. Cada chamada faz current isolado, depois Docker e CIM como comandos separados; cada comando já exige current fresco no broker e closed externo após close. O primeiro current isolado é repetido antes de qualquer efeito por boundary do primeiro comando. Docker e CIM são verificações somente de leitura, em ordem, sem dependência que exija Jobs diferentes.
+
+1. Executar Docker seguido de CIM em **um** checker contido por chamada de verifyEnvironment. Ambos devem passar, exit não zero/erro/timeout bloqueia. Não agrega múltiplos Jobs em um certificado: existe um único Job do checker, identificado individualmente, cuja ausência continua sendo consultada externamente. Nenhuma observação de dentro desse Job certifica o próprio encerramento.
+2. Usar o current fresco obrigatório do broker imediatamente antes desse checker, eliminando o current isolado redundante. Não usar certificado anterior/cache. O worker fica bloqueado no request, como antes; não muta/restaura enquanto o checker ou confirmação externa estiver pendente.
+
+Previsão estrutural verificável: cinco→três comandos; seis→quatro guardiões incluindo worker;15→9 consultas externas;21→13 lançamentos diretos pelo controller. Kernel/identidades/baseline/creationCount/mutex/Jobs separados por comando/EOF/close/closed/canais imutáveis/ordem dos checkpoints não mudam. Não criar observador persistente, batching de Jobs, conexão reaproveitada, polling novo ou paralelismo. Custo removido é constante por verificação, assintótica O(1) mantida; cada checker conserva apenas sua saída limitada.
+
+Trade-offs: os dois checks compartilham o timeout de10s em vez de dois budgets de10s. É mais restritivo, não aumento de prazo; uma falha do primeiro impede o segundo e a restauração. Precisa preservar exit/stdout do Docker e propagação de erro do CIM. Testes dirigidos devem bloquear com containers aparentes/erro Docker/JVM ainda presente/erro de inspeção, sem tocar fonte ou criar complete. Nenhum privilégio extra ou mudança do aceite EPERM.
+
+## Conjunto finito e contraprovas
+
+Antes da rodada final: exatamente três pastas `rvpla05-residual-after-01`, `-02`, `-03`, mesma fixture original20s/assertions/marcos, sem retry ou seleção. Cada B inicia processos/probes frescos e compila seus tipos normalmente; sem aquecimento artificial e sem esconder inicialização após o retorno. Caches do sistema operacional não são limpos nem prometidos frios. Registrar todos os resultados e margem; se falhar, não repetir até passar.
+
+Antes disso, uma validação funcional delimitada `rvpla05-residual-smoke-01` verifica apenas a implementação concreta. Contraprova `rvpla05-residual-cost-mutation-01`: recolocar exclusivamente verifyEnvironment antigo e sua importação em cópia, conservando guardião rápido/broker/inspeções. Comparar15/5 contra9/3 e os tempos do caminho crítico; o resultado pode variar no limiar, sem forçar causalidade pelo gate global. Restaurar SHA. Os controles de Job retido, erro de inspeção, resposta/publicação de outra geração e identidade/recibos devem rejeitar sucesso falso. Executar o complemento alheio controlado aceito; conservar original30s sem reexecutá-lo como prova de interferência.
+
+Revalidar proporcionalmente checkpoints43, broker4, antes-do-filho, handoff causal, inspeções2, identidade/sessão5, canal2, protocolo e audit pertinente. Não somar sobreposições. Como o canal e seu ciclo de vida não mudam, reutilizar a contraprova EPERM aceita por SHA e executar audit limitado no fluxo compartilhado. Usar PG17 descartável somente no preflight causal necessário; sem pacote novo, suíte financeira completa, TCP/HQL ou alteração de40s. Implementação/testes em commit local separado dos pareceres/estados, sem autoaprovação.

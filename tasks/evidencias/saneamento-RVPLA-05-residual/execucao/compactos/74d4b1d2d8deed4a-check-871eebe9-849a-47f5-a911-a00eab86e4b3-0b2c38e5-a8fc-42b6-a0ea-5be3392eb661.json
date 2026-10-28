@@ -1,0 +1,20 @@
+{
+  "requestId": "0b2c38e5-a8fc-42b6-a0ea-5be3392eb661",
+  "runId": "871eebe9-849a-47f5-a911-a00eab86e4b3",
+  "sequence": 2,
+  "mode": "command",
+  "workerPid": 68508,
+  "command": {
+    "executable": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "args": [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      "$ErrorActionPreference='Stop'; $taskDocker=@(& docker ps --filter 'label=cf.preparation.adoption=true' --format '{{.ID}}'); $taskDockerText=($taskDocker -join [Environment]::NewLine).Trim(); if ($LASTEXITCODE -ne 0 -or $taskDockerText) { throw 'API containers may still be active or inspection failed' }; $taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }"
+    ],
+    "timeout": 10000,
+    "env": {
+      "CF_PREPARATION_AUDIT_ROOT": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\rvpla05-residual-smoke-01\\execution\\late-wrapper"
+    }
+  }
+}

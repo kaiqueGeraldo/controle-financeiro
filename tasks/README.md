@@ -1,5 +1,17 @@
 # Plano de execução do monorepo
 
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+[Caminho crítico, medições e contraprovas](evidencias/saneamento-RVPLA-05-residual/README.md),
+baseacaa6ed9, implementaçãoe88ee50a:3/3 no original20s em10,213/11,560/12,226s,
+margem mínima7,774s. Consultas externas15→9, comandos5→3, sem cache ou alteração
+de guardiões/probes/broker/mailbox. Encerramento continua confirmado externamente.
+Bloqueios e contraprovas dirigidos passaram; complemento alheio aceito e novo
+preflight/resume/audit PG17 limitado passaram. **Saneado localmente, aguardando
+revisão independente**, sem autoaprovação. Aceites RVPLA-03/04 e EPERM preservados;
+TCP/HQL inconclusivos,40s intactos. CF017/P01/P02 e CF034 integral em_revisao,
+adoção/produção e demais gates não liberados. Notas seguintes são históricas.
+
 ## Revalidação independente RVPLA-05 — 27/10/2026
 
 [Parecer, medições e matriz](evidencias/revalidacao-RVPLA-05/README.md), candidato

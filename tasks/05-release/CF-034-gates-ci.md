@@ -8,6 +8,18 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+[Evidências e limites](../evidencias/saneamento-RVPLA-05-residual/README.md),
+baseacaa6ed9, implementaçãoe88ee50a: custo residual de consultas/lançamentos
+reduzido,3/3 no original20s (10,213/11,560/12,226s), margem mínima7,774s.
+Contenção, identidade e ausência externa dos Jobs mantidas; nenhum cache/broker
+permanente ou mudança do canal. Saneado localmente, **em revisão independente**.
+RVPLA-03/04 e EPERM mantêm seus aceites; complemento alheio, controles dirigidos
+e audit PG17 limitado passaram. TCP/HQL inconclusivos e40s intactos. CF034
+integral em_revisao, expanded/zoom200%, configuração, CF017/adoção/produção
+continuam próprios. JAR anterior preservado, sem pacote novo ou CI remota.
+
 ## Revalidação independente RVPLA-05 — 27/10/2026
 
 [Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):
