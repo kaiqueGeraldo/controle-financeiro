@@ -1,0 +1,11 @@
+{
+  "classification": "ambiente/permissao local do observador; sem teste de produto falho",
+  "initialCommand": "node tasks/evidencias/consolidacao-pre-adocao/conferir-material.mjs",
+  "exit": 1,
+  "completedBeforeFailure": ["material-git.json", "leitor-limites.json"],
+  "failedOperation": "docker image inspect (somente leitura)",
+  "diagnosticConfirmation": "permission denied while trying to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine",
+  "preservation": "Recibos materiais/leitor mantidos sem sobrescrita; nenhuma aplicacao ou container iniciado",
+  "resolution": "Separar fases do script da revisao e executar somente a consulta de imagem com a permissao local adequada; nao repetir testes nem coleta material",
+  "closureCriterion": "Recibo imagem-observada.json da mesma imagem imutavel e inventario somente do runtime novo"
+}
