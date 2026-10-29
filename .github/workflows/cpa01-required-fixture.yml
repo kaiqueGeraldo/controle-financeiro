@@ -18,7 +18,7 @@ jobs:
       - name: Synthetic dependency outcome, not the Windows contract
         env:
           OUTCOME: ${{ inputs.windows }}
-        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+        run: node -e 'process.exit(Number(process.env.OUTCOME === "failure"))'
   linux:
     needs: windows-native
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       - name: Synthetic Linux outcome, not a test suite
         env:
           OUTCOME: ${{ inputs.linux }}
-        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+        run: node -e 'process.exit(Number(process.env.OUTCOME === "failure"))'
   expanded:
     if: inputs.mode == 'workflow_dispatch' && inputs.suite == 'expanded' && inputs.expanded != 'skipped'
     needs: linux
@@ -37,7 +37,7 @@ jobs:
       - name: Synthetic expanded outcome
         env:
           OUTCOME: ${{ inputs.expanded }}
-        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+        run: node -e 'process.exit(Number(process.env.OUTCOME === "failure"))'
   required:
     if: ${{ always() }}
     needs: [windows-native, linux, expanded]
@@ -59,8 +59,8 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
           CF_REQUIRED_SUITE: ${{ inputs.suite }}
-          GITHUB_EVENT_NAME: ${{ inputs.mode }}
-        run: node .github/scripts/required.mjs
+          EVALUATOR_EVENT: ${{ inputs.mode }}
+        run: env GITHUB_EVENT_NAME="$EVALUATOR_EVENT" node .github/scripts/required.mjs
   smoke-package-sentinel:
     needs: [windows-native, linux]
     runs-on: ubuntu-latest
