@@ -57,8 +57,8 @@ test('empty common and platform-only selections are errors',t=>{
  assert.throws(()=>backendSelection(root,'smoke','win32','platform-only'),/Empty mandatory/);
  const empty=fixture(t,{});assert.throws(()=>backendSelection(empty,'smoke','linux'),/Empty mandatory/);
 });
-test('every CI entry reaches unconditional Windows before required/package and expanded',()=>{
- const workflow=fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8');
+test('every CI entry reaches unconditional Windows before Linux/package and expanded',()=>{
+ const workflow=fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8').replaceAll('\r\n','\n');
  const jobs=Object.fromEntries([...workflow.matchAll(/^  ([\w-]+):\n([\s\S]*?)(?=^  [\w-]+:|$(?![\s\S]))/gm)].map(m=>[m[1],m[2]]));
  assert.match(workflow,/push:\n    branches: \[main\]/);
  assert.match(workflow,/pull_request:\n    branches: \[main\]/);
@@ -67,11 +67,12 @@ test('every CI entry reaches unconditional Windows before required/package and e
  assert.doesNotMatch(jobs['windows-native'].split('    steps:')[0],/\bif:/);
  assert.match(jobs['windows-native'],/ci\.mjs windows-native/);
  assert.doesNotMatch(workflow,/continue-on-error/);
- assert.match(jobs.required,/needs: windows-native/);
- assert.doesNotMatch(jobs.required.split('    steps:')[0],/\bif:/);
- assert.match(jobs.required,/runs-on: ubuntu-latest/);
- assert.match(jobs.required,/ci\.mjs all/);
- assert.match(jobs.expanded,/needs: required/);
+ assert.match(jobs.linux,/needs: windows-native/);
+ assert.doesNotMatch(jobs.linux.split('    steps:')[0],/\bif:/);
+ assert.match(jobs.linux,/runs-on: ubuntu-latest/);
+ assert.match(jobs.linux,/ci\.mjs all/);
+ assert.match(jobs.expanded,/needs: linux/);
+ assert.match(jobs.required,/needs: \[windows-native, linux, expanded\]/);
  assert.match(jobs.expanded,/inputs.suite == 'expanded'/);
  assert.match(jobs['windows-native'],/publish-evidence\.mjs/);
  assert.match(jobs['windows-native'],/windows-native-diagnosis-\$\{\{ github.sha \}\}/);
