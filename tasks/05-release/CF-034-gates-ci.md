@@ -8,7 +8,17 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
-## Revalidação independente CPA-01 — 28/10/2026
+## Revalidação independente CPA-01/R1 — 28/10/2026
+
+[Parecer de81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md): **R1/P2 encerrado
+localmente; consolidação apta a publicação controlada e CI remota (parecer A)**.
+32 contratos,7 probes originais,6 controles com500 combinações e7 mutações
+detectadas/restauradas; cobertura e bloqueio do pacote preservados. Sem implementação
+ou ação remota. CF034 integral permanece em_revisao; zoom, matriz/runner/required
+remotos, cancelamento e demais gates mantêm seus critérios. Nenhum checkbox marcado.
+Os registros seguintes são históricos e não revogam este aceite local posterior.
+
+## Histórico da revalidação CPA-01 de193916a1 — 28/10/2026
 
 [Parecer e matriz](../evidencias/revalidacao-CPA-01/README.md), candidato193916a1:
 seleção original encerrada e união101/116 preservada, Linux100/115+Windows1,

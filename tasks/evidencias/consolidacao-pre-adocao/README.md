@@ -1,6 +1,24 @@
 # Consolidação local e revisão integrada pré-adoção — 28/10/2026
 
-## Situação vigente após revalidação CPA-01
+## Situação vigente após revalidação independente CPA-01/R1
+
+**Parecer A — Candidato apto a publicação controlada e CI remota.**
+[Revalidação de81b20bca](../revalidacao-CPA-01-R1/README.md): R1/P2 encerrado no
+alcance local, sem novo impedimento confirmado no delta e837748a..81b20bca.
+Required usa always e avalia diretamente Windows/Linux/expanded; rejeita qualquer
+obrigatório não success e dados inválidos. Expanded skipped é não aplicabilidade
+explícita somente fora do dispatch expanded.32 contratos,7 probes originais e6
+controles independentes com500 combinações passaram;7 mutações detectadas e
+restauradas por hash. Cobertura100/115 Linux, união101/116,15 históricos e barreiras
+do pacote preservados. Sem correção de implementação nesta revisão.
+
+Prontidão contratual/estática para a próxima etapa não é Actions aprovado.
+[Plano de publicação/CI](PUBLICACAO-CI.md) atualizado; execução e reconferências
+remotas exigem autorização posterior. CF034 integral e CF017/P01/P02 em_revisao;
+CF035/036 proposta. Zoom, configuração remota, adoção e produção mantêm gates.
+Os pareceres C abaixo permanecem como resultados históricos das bases anteriores.
+
+## Histórico após revalidação CPA-01 de193916a1
 
 [Revalidação independente de193916a1](../revalidacao-CPA-01/README.md): **parecer C
 mantido somente por CPA-01/R1/P2, agregação de status do required**. O defeito

@@ -1,6 +1,16 @@
 # Achados e condições de encerramento
 
-## Situação vigente — revalidação independente CPA-01
+## Situação vigente — CPA-01/R1 encerrado localmente
+
+[Revalidação independente de81b20bca](../revalidacao-CPA-01-R1/README.md):
+agregação requerida aceita no alcance local. Always/needs/invocação/exit1 conferidos;
+500 combinações no avaliador real, CLI, estrutura YAML e7 mutações sustentam o
+encerramento de R1/P2. Seleção e pacote preservados, sem novo achado confirmado.
+Consolidação recebe parecer A para publicação controlada e CI remota; scheduler,
+cancelamento e checks remotos serão validados na próxima etapa autorizada.
+CPA-02 continua delimitado e não impede esse recorte. Não houve implementação.
+
+## Histórico — revalidação independente CPA-01 de193916a1
 
 [Parecer de193916a1](../revalidacao-CPA-01/README.md): a incompatibilidade original
 de seleção está **encerrada** e a cobertura foi preservada. CPA-01 permanece aberto

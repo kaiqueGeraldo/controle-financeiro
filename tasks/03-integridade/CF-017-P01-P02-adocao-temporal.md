@@ -5,7 +5,15 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
-## Atualização CPA-01 — 28/10/2026
+## Atualização CPA-01/R1 — 28/10/2026
+
+[Revalidação independente de81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md):
+R1 encerrado no alcance local; parecer A apenas para publicação controlada e CI
+remota. P01/P02 continuam em_revisao: A–D, brutos/null/UNKNOWN, proveniência,
+backup/restore, freeze e coordenação mantêm seus critérios. Sem adoção, baseline,
+migration, banco real ou checkbox novo. Atualizações CPA abaixo são históricas.
+
+## Histórico da atualização CPA-01 — 28/10/2026
 
 [Revalidação independente](../evidencias/revalidacao-CPA-01/README.md): cobertura
 e seleção Windows/Linux aceitas; R1 de agregação required mantém parecer C.

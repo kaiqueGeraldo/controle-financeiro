@@ -1,5 +1,18 @@
 # Plano de execução do monorepo
 
+## Revalidação independente CPA-01/R1/P2 — 28/10/2026
+
+[Parecer, matriz e provas](evidencias/revalidacao-CPA-01-R1/README.md), candidato
+81b20bca: **R1 encerrado localmente; parecer A — candidato apto a publicação
+controlada e CI remota**. Required rejeita obrigatório não success, ausência,
+JSON/estrutura/modo inválidos; expanded skipped só é não aplicabilidade fora do
+dispatch expanded.32 contratos,7 probes originais,6 controles independentes com500
+combinações e7 mutações detectadas/restauradas. Cobertura100/115, união101/116,
+15 históricos e bloqueio do pacote preservados. Sem correção de implementação ou
+ação remota. CF034 integral/CF017/P01/P02 continuam em_revisao; CF035/036 proposta;
+zoom/configuração/adoção/produção conservam gates próprios. Registros abaixo são
+históricos das respectivas bases, inclusive pareceres C e falhas anteriores.
+
 ## Saneamento local CPA-01/R1/P2 — 28/10/2026
 
 [Agregador, matriz e contraprovas](evidencias/saneamento-CPA-01-R1/README.md),

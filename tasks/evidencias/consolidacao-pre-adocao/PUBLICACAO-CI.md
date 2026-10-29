@@ -1,13 +1,13 @@
 # Plano de publicação e CI futura — preparado, não executado
 
-**Seleção original aceita e cobertura preservada. CPA-01/R1/P2 saneado localmente,
-aguardando revisão independente; parecer C mantido.** Implementação do agregador
-`b45284e876277e4136b6487ed3e3d9a320bfaa62`, base `e837748a600c356e2e9d4f60291240cebf523916`;
-[provas e limites locais](../saneamento-CPA-01-R1/README.md). Candidato anterior
-`193916a1778f1322f5368f66d30a83286766b147`, implementação
-`c597ffc5c33abe45f764b1aaca099daa9f520b00`, branch
-`codex/saneamento-cpa01-selecao-testes`.
-[Parecer e resíduo](../revalidacao-CPA-01/README.md). Este documento não autoriza
+**Parecer A — Candidato apto a publicação controlada e CI remota. CPA-01/R1/P2
+encerrado no alcance local, cobertura e pacote preservados.** Candidato revisado
+`81b20bca7c95c452fa04899f583a1b0b5007853e`, base
+`e837748a600c356e2e9d4f60291240cebf523916`; implementação
+`b45284e876277e4136b6487ed3e3d9a320bfaa62`.
+[Revalidação independente e limites](../revalidacao-CPA-01-R1/README.md).
+Os pareceres C anteriores e suas falhas permanecem históricos.
+Branch `codex/saneamento-cpa01-selecao-testes`. Este documento não autoriza
 push, PR, CI, merge, configuração de provedor, registry ou deploy.
 
 ## Branch, intervalo e destino
@@ -16,18 +16,19 @@ Origem local preparada:`codex/saneamento-cpa01-selecao-testes`, derivada
 sem merge/rebase de `434e293f76c3b6ff345fe03f2091149291316aac`, no remoto
 `https://github.com/kaiqueGeraldo/controle-financeiro.git`.
 Destino da PR:`main`. Intervalo de código/documentação recebido nesta revalidação:
-`fb986456a37a48afcafef204f165d15354294d26..193916a1778f1322f5368f66d30a83286766b147`:
-53 commits, zero exclusivos da main reconferida por fetch. Somam-se somente os
-commits de provas/parecer/preservação desta revisão, com HEAD completo na entrega.
-Somou-se o delta local R1 a partir de `e837748a`; HEAD documental final na entrega.
-**A publicação ainda depende da revisão independente de R1.** Não atribuir o
-aceite anterior de seleção ao novo agregador.
+`fb986456a37a48afcafef204f165d15354294d26..81b20bca7c95c452fa04899f583a1b0b5007853e`:
+58 commits exclusivos em relação a origin/main **local**; nenhum exclusivo dessa
+referência local. Não houve fetch ou consulta remota nesta revisão. Somam-se os
+commits de provas/parecer/preservação, com HEAD completo e contagem final na entrega.
+**A revisão independente local de R1 está concluída.** A publicação depende agora
+da autorização e das reconferências remotas próprias da etapa seguinte.
 README raiz alheio permanece fora do intervalo.
 
-Após aprovação do saneamento, registrar main/SHA/merge-base novos e um SHA imutável
-de envio. Publicar somente essa branch/intervalo sem force. PRnormal preserva os
+Na próxima etapa autorizada, registrar main/SHA/merge-base novos e um SHA imutável
+de envio. Divergência nova exige análise, sem estender automaticamente este aceite.
+Publicar somente essa branch/intervalo sem force. PR normal preserva os
 commits/histórico; não fazer squash/rebase por conveniência. A PR proposta está em
-[PROPOSTA-PR.md](PROPOSTA-PR.md), com pendência transparente até sua resolução.
+[PROPOSTA-PR.md](PROPOSTA-PR.md), com limites locais/remotos explícitos.
 
 ## Eventos e jobs existentes
 
@@ -43,7 +44,7 @@ commits/histórico; não fazer squash/rebase por conveniência. A PR proposta es
 Nomes declarados nos YAMLs não provam regras atuais de branch protection/rulesets.
 Antes da publicação, conferir quais check contexts são realmente exigidos no remoto.
 
-## SaneamentoCI local e matriz ainda necessária
+## Saneamento CI aceito localmente e matriz remota ainda necessária
 
 Implementado localmente: `windows-native`, Windows/JDK21/Node24, sem condição por
 evento/suite; `linux` depende dele e `expanded` depende de linux. O nome required
@@ -62,21 +63,23 @@ Não há garantia de parserJava genérico para condições compostas/herdadas, n
 utilizadas nesta base. O runner Windows
 usa argumentos literais via PowerShell para chamar o wrapper; o estágio específico
 usa `test`, sem criar JAR. Relatório obrigatório e zero skips continuam exigidos.
-Nesta revalidação,23 contratos passaram em Windows e Linux em container, mais
+Na revalidação anterior do seletor,23 contratos passaram em Windows e Linux em container, mais
 sete probes independentes Windows; TCPWindows real1/1 e comunsLinux3/3. Linux
 usou Node22.23.1, distinto do24 previsto no workflow. Sem suíte integral ou Actions.
 Runner remoto exato e versões resolvidas ainda deverão constar do futuro recibo.
 
-**R1/P2 aguardando revisão independente:** a prova anterior reproduziu o skip do
-required e o bloqueio do pacote com Windows falho. Agora o worker Linux preserva
-integralmente execução/pacote (só acrescenta contratos), enquanto required avalia
-os resultados estruturados em NEEDS_JSON.32 contratos,7 probes independentes e82
-cenários do avaliador passaram;6 mutações foram detectadas e restauradas por hash.
+**R1/P2 encerrado pela revisão independente de81b20bca:**32 contratos e7 probes
+originais passaram;6 controles novos incluem500 combinações no avaliador real,
+CLI/exit e YAML parseado. Sete mutações foram detectadas por assertions e
+restauradas por hash, inclusive interpretação incorreta de expanded. As alegações
+recebidas32/7/82/6 foram conferidas, sem somar conjuntos sobrepostos.
+Windows/Linux obrigatórios e não aplicabilidade de expanded estão coerentes com
+os modos do YAML; default smoke do dispatch conferido. Worker/pacote preservados.
 Sem scheduler Actions ou rulesets consultados. A condição always dá elegibilidade
 segundo a [semântica oficial](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-jobs),
 sem prometer execução após cancelamento forçado ou indisponibilidade de runner.
 Agregador/checkout/setup/avaliação têm limites locais YAML de5/1/1/1min; falha de
-infraestrutura não equivale a success. [Matriz e encaminhamento](../saneamento-CPA-01-R1/README.md).
+infraestrutura não equivale a success. [Matriz e encaminhamento](../revalidacao-CPA-01-R1/README.md).
 
 | Alcance futuro | Ambiente/serviços descartáveis | Evidência necessária |
 |---|---|---|
@@ -130,15 +133,17 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
   pelo lock do Playwright. Tagsactions/ubuntu/latest/PG são móveis:registrar
   versões/digests efetivos no run. Cache só dependências; sem cache de status/target.
 - Coleta `always()` precisa sucesso para upload de diagnóstico; sem fallback bruto.
-  Pacote após gates. Cancelamento/falha não pode manter certificado verde ou
-  permitir pacote. Respeitar lifecycle dos containers próprios, sem cleanup por nome
+  Pacote após gates Windows/Linux. Falha/cancelamento desses gates não pode
+  exportar pacote aprovado. Artifact smoke já existente não certifica expanded ou
+  required final; não se exige nova ordenação de artifact após expanded.
+  Respeitar lifecycle dos containers próprios, sem cleanup por nome
   ou limpeza geral de runner/DB. Retenção de artifactsCI não é backup operacional.
 
 ## Reconferências antes de qualquer push
 
 1. Main, refa publicar, diff, index eREADMEhash; nenhum código novo recebe aceite por
    herança. CPA-01 encerrado na base final por revisão separada.
-2. GitHub:Actions/rulesets/contexts obrigatórios após corrigir/revisar R1 (inclusive
+2. GitHub:Actions/rulesets/contexts obrigatórios após este aceite local de R1 (inclusive
    `windows-native` e o agregador estável; nenhum skipped vale como execução aceita),
    permissões efetivas de token, ambientes do repositório,
    secrets/variables por nome, apps/webhooks/workflows reutilizáveis, checkout SHA e
@@ -165,7 +170,9 @@ esses provedores e não afirma que continuamoffline/configurados da mesma forma.
 
 ## Condições para integrar à main e etapas posteriores
 
-Na futura etapa autorizada: exercitar Windows failure/skipped/cancelled com Linux
+Na futura etapa autorizada: caminho de sucesso em PR elegível, dispatch smoke
+inclusive input omitido/default, e dispatch expanded; conferir evento/SHA/runner.
+Exercitar Windows failure/skipped/cancelled com Linux
 success sintético e com skip real da cadeia, Linux failure com Windows success,
 expanded failure/skipped/cancelled no modo expanded, e todos success. Required deve
 falhar quando executar com qualquer obrigatório não success; interrupção forçada,
@@ -178,7 +185,7 @@ não trata um dispatch como substituto do check de PR nas rulesets. Reconfirmar
 esse vínculo no remoto autorizado. Se houver merge queue, conferir seu evento
 próprio; nenhuma configuração de fila/proteção foi alterada aqui.
 
-Novo parecer favorável do delta R1 saneado, autorização de publicação e de CI,
+Parecer local favorável de R1 já emitido; ainda exigidos autorização de publicação e de CI,
 checkout exato, required completo eexpanded escolhido aprovado com relatórios,
 artifacts/manifesto coerentes e gates remotos aplicáveis atendidos. Reconfirmar
 regras de merge/revisão na hora; não executar merge nesta etapa. Falha/skip/checkout

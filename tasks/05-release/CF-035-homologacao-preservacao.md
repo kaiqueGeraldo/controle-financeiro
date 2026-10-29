@@ -10,6 +10,12 @@
 
 ## Problema e resultado esperado
 
+Atualização de28/10/2026: [CPA-01/R1 encerrado localmente em81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md).
+Parecer A da consolidação para publicação controlada/CI remota, sem aprovação de
+homologação, hospedagem, adoção ou produção. CF035 permanece proposta e seus gates
+de preservação/backup/restore/autorização mantêm alcance. Notas CPA anteriores
+são históricas; nenhuma execução remota realizada nesta revisão.
+
 Backend Railway está desligado e o estado do banco não foi confirmado. Preparar ambiente e ensaio de publicação preservando dados existentes.
 
 ## Escopo e referências

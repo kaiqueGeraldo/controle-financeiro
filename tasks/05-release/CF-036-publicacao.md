@@ -10,6 +10,12 @@
 
 ## Problema e resultado esperado
 
+Atualização de28/10/2026: [CPA-01/R1 encerrado localmente em81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md).
+Consolidação recebe parecer A para publicação controlada e CI remota mediante
+autorização própria. CF036 permanece proposta; isso não autoriza deploy, ativação,
+adoção ou produção. Gates de CF017/034/035, zoom e configuração remota preservados;
+notas CPA anteriores são históricas. Nenhuma ação remota nesta revisão.
+
 Promover somente o artefato e schema ensaiados, com rollback conhecido e evidência de prontidão completa.
 
 ## Escopo e referências

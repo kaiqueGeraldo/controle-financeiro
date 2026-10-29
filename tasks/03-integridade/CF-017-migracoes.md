@@ -8,7 +8,15 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
-## Atualização CPA-01 — 28/10/2026
+## Atualização CPA-01/R1 — 28/10/2026
+
+[Revalidação independente de81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md):
+R1 encerrado localmente e parecer A da consolidação para publicação controlada/CI
+remota. Suporte PG16/17, produto, startup/TCP/RVPLA e16 migrations preservados.
+CF017 continua em_revisao pelos critérios reais já registrados; sem adoção, banco
+real ou novo checkbox. Notas CPA anteriores abaixo conservam valor histórico.
+
+## Histórico da atualização CPA-01 — 28/10/2026
 
 [Revalidação independente](../evidencias/revalidacao-CPA-01/README.md): seleção
 Windows/Linux aceita; resíduo R1 de agregação required mantém parecer C para
