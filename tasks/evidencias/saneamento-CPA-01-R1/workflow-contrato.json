@@ -1,0 +1,71 @@
+{
+  "yamlSha256": "117f8e641f46e1d0c099c3f0a47f0bb6cad7ae16cbe4a589cdb3b7cffa19d8ba",
+  "parser": {
+    "version": "4.1.1"
+  },
+  "events": {
+    "push": {
+      "branches": [
+        "main"
+      ],
+      "paths": [
+        "controle-financeiro-backend/**",
+        "controle-financeiro-frontend/**",
+        ".github/**",
+        "tasks/**",
+        "docs/sdd/**"
+      ]
+    },
+    "pull_request": {
+      "branches": [
+        "main"
+      ],
+      "paths": [
+        "controle-financeiro-backend/**",
+        "controle-financeiro-frontend/**",
+        ".github/**",
+        "tasks/**",
+        "docs/sdd/**"
+      ]
+    },
+    "workflow_dispatch": {
+      "inputs": {
+        "suite": {
+          "type": "choice",
+          "options": [
+            "smoke",
+            "expanded"
+          ],
+          "default": "smoke"
+        }
+      }
+    }
+  },
+  "needs": {
+    "windows-native": [],
+    "linux": [
+      "windows-native"
+    ],
+    "expanded": [
+      "linux"
+    ],
+    "required": [
+      "expanded",
+      "linux",
+      "windows-native"
+    ]
+  },
+  "aggregateCondition": "${{ always() }}",
+  "expectedNeeds": [
+    "windows-native",
+    "linux",
+    "expanded"
+  ],
+  "workerAndPackageUnchangedExceptContractCommand": true,
+  "expandedChangedOnlyNeeds": true,
+  "noContinueOnError": true,
+  "aggregateFinalCommand": "node .github/scripts/required.mjs",
+  "checkName": "CI integrated gates / required",
+  "remoteRulesQueried": false,
+  "schedulerExecuted": false
+}

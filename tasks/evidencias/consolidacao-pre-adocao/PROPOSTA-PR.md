@@ -2,8 +2,8 @@
 
 Destino: `kaiqueGeraldo/controle-financeiro:main`.
 Origem preparada: `codex/saneamento-cpa01-selecao-testes`.
-**Rascunho documental: seleção CPA-01 aceita; resíduo R1/P2 precisa saneamento e
-revisão antes de publicar.** Nenhuma PR, CI ou publicação foi executada.
+**Rascunho documental: seleção CPA-01 aceita; R1/P2 saneado localmente, aguardando
+revisão independente antes de publicar.** Nenhuma PR, CI ou publicação executada.
 
 ## Título proposto
 
@@ -30,12 +30,21 @@ antiga reproduziu skip/rejeição; duas mutações de cobertura foram detectadas
 restauradas por hash. Linux local usou Node 22, diferente do 24 previsto em Actions.
 Isso não é suíte Linux integral, CI remota ou supervisor Linux certificado.
 
-**Pendência CPA-01/R1/P2:** needs impede pacote após falha Windows, mas propaga skipped
-ao required. Esse status pode ser insuficiente como único check obrigatório; as
-regras remotas não foram presumidas atuais. Falta agregação que reprove explicitamente
-os resultados não verdes. O parecer C permanece por esse resíduo, sem reabrir a
-seleção já aceita. Atualizar esta descrição após saneamento/revisão e identificar
-os SHAs finais antes de abrir a PR; não dizer que a correção de R1 já existe.
+**CPA-01/R1/P2 saneado localmente, sem autoaprovação:** o nome required foi
+preservado para um agregador com always e needs diretos Windows/Linux/expanded.
+O worker Linux conserva execução e pacote atrás do sucesso Windows. O agregador
+exige success de ambos e também de expanded no dispatch expanded; nos demais
+modos, expanded skipped representa somente não aplicabilidade explícita.
+Falha, cancelamento, skip obrigatório, ausência, resultado desconhecido ou JSON
+inválido produzem exit1 com diagnóstico dos jobs. Não há continue-on-error.
+32 contratosCI,7 probes independentes e82 cenários do avaliador real passaram;
+6 mutações detectadas/restauradas por hash. Sem nova suíte financeira, startup ou
+TCP; seleção100/115 e união101/116 conferidas contra o aceite independente.
+Implementação `b45284e876277e4136b6487ed3e3d9a320bfaa62`, base `e837748a`.
+O parecer C permanece até revisão independente; scheduling/cancelamento remoto e
+proteções continuam não certificados. Não se promete execução após force-cancel
+ou indisponibilidade de runner. Artifacts smoke anteriores à matriz expanded não
+substituem aprovação do required final.
 
 Startup local conserva 40s e seu alcance anterior, sem nova suíte de 17 contratos verde ou causa
 histórica HQL demonstrada. TCP/reuso, RVPLA/audit e PG16/17 mantêm seus aceites. JAR p05
@@ -46,9 +55,12 @@ realmente testado; imagem/registry/deploy são etapas próprias.
 Base remota reconferida: `fb986456a37a48afcafef204f165d15354294d26`.
 Candidato de código: `193916a1778f1322f5368f66d30a83286766b147`, 53 commits acumulados,
 mais os commits locais de provas/documentação da revalidação. O HEAD documental
-final consta da entrega; R1 acrescentará um delta ainda não aceito.
+final consta da entrega; R1 acrescenta o delta local a partir de `e837748a`, ainda
+sem aceite independente. Check esperado: `required`, workflow `CI integrated gates`;
+conferir no futuro os nomes/origem/SHA/evento e rulesets, sem migrar proteções aqui.
 
 CF034 integral/matriz remota, zoom 200%, configuração de hospedagem, CF017/P01/P02,
 adoção real e produção continuam com critérios próprios. CI verde não autoriza
 uso ou deploy. Evidências em `tasks/evidencias/revalidacao-CPA-01/` e plano em
 `tasks/evidencias/consolidacao-pre-adocao/PUBLICACAO-CI.md`.
+Provas de R1 em `tasks/evidencias/saneamento-CPA-01-R1/`.

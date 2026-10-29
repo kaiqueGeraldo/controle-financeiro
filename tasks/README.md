@@ -1,5 +1,17 @@
 # Plano de execução do monorepo
 
+## Saneamento local CPA-01/R1/P2 — 28/10/2026
+
+[Agregador, matriz e contraprovas](evidencias/saneamento-CPA-01-R1/README.md),
+basee837748a, implementaçãob45284e8: required mantém o nome, usa always e verifica
+explicitamente Windows/Linux e expanded quando aplicável. Falha/cancelamento/skip
+obrigatório/ausência/desconhecido/JSON inválido reprovam; pacote preserva suas
+barreiras.32 contratosCI,7 probes independentes e82 cenários locais passaram;
+6 mutações detectadas/restauradas. Seleção aceita100/115, união101/116 e15
+históricos preservados. **R1 saneado localmente, aguardando revisão independente**;
+parecer C mantido. Sem scheduler/rulesets remotos certificados, CI remota, produto,
+suíte financeira, startup ou pacote novo. Demais aceites e pendências preservados.
+
 ## Revalidação independente CPA-01/P2 — 28/10/2026
 
 [Parecer, identidades e contrato required](evidencias/revalidacao-CPA-01/README.md),

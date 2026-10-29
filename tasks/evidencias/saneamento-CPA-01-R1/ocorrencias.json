@@ -1,0 +1,18 @@
+{
+  "scope": "Falhas de adaptação da prova, anteriores à execução do trecho original; não contam como contraprovas nem resultados do agregador",
+  "occurrences": [
+    {
+      "runtime": "../controle-financeiro-runtimes/preparacao-adocao/cpa01-r1-original-01",
+      "observation": "O adaptador procurou um marcador com pontuação que não existia no verificador. Assert de localização interrompeu antes de extrair/executar a seção original.",
+      "resolution": "Corrigido somente o delimitador do adaptador; diretório preservado."
+    },
+    {
+      "runtime": "../controle-financeiro-runtimes/preparacao-adocao/cpa01-r1-original-02",
+      "observation": "Prelude do adaptador serializou uma quebra de linha dentro de uma string JavaScript. SyntaxError antes das assertions originais; original.log e wrapper preservados nesse runtime.",
+      "resolution": "Prelude usa String.fromCharCode(10); prova executada em runtime novo cpa01-r1-original-03. Nenhuma assertion ou byte do trecho original foi alterado."
+    }
+  ],
+  "originalProofExecutedSuccessfully": "cpa01-r1-original-03",
+  "productSuitesRepeated": false,
+  "remoteActions": false
+}

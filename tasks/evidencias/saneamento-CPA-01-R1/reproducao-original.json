@@ -1,0 +1,125 @@
+{
+  "at": "2026-10-29T01:34:50.164Z",
+  "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\cpa01-r1-original-03",
+  "original": {
+    "file": "tasks/evidencias/revalidacao-CPA-01/executar.mjs",
+    "sha256": "84727589105839cffee5e3a83e8cb80af7d87ff6df195e8e580ee385ce4c4579",
+    "excerptSha256": "2c92c79488bd9e46af4edc651038952fff33987b358da5bad6da3de80e6e3d5b",
+    "assertionsUnchanged": true,
+    "scope": "Exact original workflow-status section only; Java/product sections not repeated"
+  },
+  "workflowSha256": "c54a926f6800a9888a5c64a3cc36ad298c90c750f0808e793ac62da9e6e357c1",
+  "controller": {
+    "platform": "win32",
+    "node": "v24.18.0"
+  },
+  "exit": 0,
+  "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "result": {
+    "at": "2026-10-29T01:34:50.124Z",
+    "candidate": "193916a1778f1322f5368f66d30a83286766b147",
+    "yamlSha256": "c54a926f6800a9888a5c64a3cc36ad298c90c750f0808e793ac62da9e6e357c1",
+    "yamlParser": {
+      "module": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\controle-financeiro-frontend\\node_modules\\js-yaml\\index.js",
+      "version": "4.1.1"
+    },
+    "events": {
+      "push": {
+        "branches": [
+          "main"
+        ],
+        "paths": [
+          "controle-financeiro-backend/**",
+          "controle-financeiro-frontend/**",
+          ".github/**",
+          "tasks/**",
+          "docs/sdd/**"
+        ]
+      },
+      "pull_request": {
+        "branches": [
+          "main"
+        ],
+        "paths": [
+          "controle-financeiro-backend/**",
+          "controle-financeiro-frontend/**",
+          ".github/**",
+          "tasks/**",
+          "docs/sdd/**"
+        ]
+      },
+      "workflow_dispatch": {
+        "inputs": {
+          "suite": {
+            "type": "choice",
+            "options": [
+              "smoke",
+              "expanded"
+            ],
+            "default": "smoke"
+          }
+        }
+      }
+    },
+    "needs": {
+      "required": "windows-native",
+      "expanded": "required"
+    },
+    "jobIf": {
+      "windows": null,
+      "required": null
+    },
+    "windowsMatrix": null,
+    "rows": [
+      {
+        "windowsResult": "success",
+        "requiredState": "eligible; still must execute",
+        "packageReachable": true,
+        "singleRequiredContextMayAcceptSkipped": false,
+        "approvedExecutionEvidence": false
+      },
+      {
+        "windowsResult": "failure",
+        "requiredState": "skipped",
+        "packageReachable": false,
+        "singleRequiredContextMayAcceptSkipped": true,
+        "approvedExecutionEvidence": false
+      },
+      {
+        "windowsResult": "cancelled",
+        "requiredState": "skipped",
+        "packageReachable": false,
+        "singleRequiredContextMayAcceptSkipped": true,
+        "approvedExecutionEvidence": false
+      },
+      {
+        "windowsResult": "skipped",
+        "requiredState": "skipped",
+        "packageReachable": false,
+        "singleRequiredContextMayAcceptSkipped": true,
+        "approvedExecutionEvidence": false
+      },
+      {
+        "windowsResult": "missing",
+        "requiredState": "waiting/not executed",
+        "packageReachable": false,
+        "singleRequiredContextMayAcceptSkipped": false,
+        "approvedExecutionEvidence": false
+      },
+      {
+        "windowsResult": "pending",
+        "requiredState": "waiting/not executed",
+        "packageReachable": false,
+        "singleRequiredContextMayAcceptSkipped": false,
+        "approvedExecutionEvidence": false
+      }
+    ],
+    "finding": "CPA-01/R1: dependency prevents package execution but required has no non-skippable status aggregation; a failed/skipped Windows job propagates skip instead of a failed required check. Effective remote required contexts are unknown.",
+    "proofKind": "Local static model of the present no-job-if dependency chain, grounded in official GitHub semantics; no Actions execution.",
+    "sources": [
+      "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-jobs",
+      "https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks"
+    ]
+  },
+  "proofKind": "Local original contract + official needs semantics; no Actions scheduler executed"
+}

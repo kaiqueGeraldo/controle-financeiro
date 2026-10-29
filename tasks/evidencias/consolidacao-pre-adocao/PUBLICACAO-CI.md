@@ -1,7 +1,9 @@
 # Plano de publicação e CI futura — preparado, não executado
 
-**Revalidação independente: seleção original aceita e cobertura preservada;
-parecer C mantido somente por CPA-01/R1/P2, agregação do required.** Candidato
+**Seleção original aceita e cobertura preservada. CPA-01/R1/P2 saneado localmente,
+aguardando revisão independente; parecer C mantido.** Implementação do agregador
+`b45284e876277e4136b6487ed3e3d9a320bfaa62`, base `e837748a600c356e2e9d4f60291240cebf523916`;
+[provas e limites locais](../saneamento-CPA-01-R1/README.md). Candidato anterior
 `193916a1778f1322f5368f66d30a83286766b147`, implementação
 `c597ffc5c33abe45f764b1aaca099daa9f520b00`, branch
 `codex/saneamento-cpa01-selecao-testes`.
@@ -17,8 +19,9 @@ Destino da PR:`main`. Intervalo de código/documentação recebido nesta revalid
 `fb986456a37a48afcafef204f165d15354294d26..193916a1778f1322f5368f66d30a83286766b147`:
 53 commits, zero exclusivos da main reconferida por fetch. Somam-se somente os
 commits de provas/parecer/preservação desta revisão, com HEAD completo na entrega.
-R1 exigirá outro delta e outro aceite; não atribuir este parecer ao código futuro.
-**A publicação ainda depende do saneamento de R1 e revisão independente.**
+Somou-se o delta local R1 a partir de `e837748a`; HEAD documental final na entrega.
+**A publicação ainda depende da revisão independente de R1.** Não atribuir o
+aceite anterior de seleção ao novo agregador.
 README raiz alheio permanece fora do intervalo.
 
 Após aprovação do saneamento, registrar main/SHA/merge-base novos e um SHA imutável
@@ -31,10 +34,10 @@ commits/histórico; não fazer squash/rebase por conveniência. A PR proposta es
 | Entrada | O que executa hoje | Consequência |
 |---|---|---|
 | Push da nova branch | ci.yml não reage; só main em push. Probes sintéticos também não reagem à nova branch | Não esperar check completo por esse push; integrações externas ainda podem reagir |
-| Pull request para main com paths backend/frontend/.github/tasks/docs-sdd | `windows-native`, Windows-latest, 15min, antes de `required`, Ubuntu-latest, 45min; Node 24, Temurin 21 | Windows executa TCP; Linux roda contratosNode, frontend/backend/E2E/package. YAML local alterado; sem sucesso remoto presumido |
-| Push main após integração | Mesmo required pelos mesmos paths | Combinação efetiva da main exige resultado próprio; PRverde não substitui esse run |
-| Dispatch ci.yml, suite=smoke | Windows obrigatório e required; suite fixa smoke nos jobs | Expanded skipped por condição, não aprovado |
-| Dispatch ci.yml, suite=expanded | Windows obrigatório, required smoke e depois expanded, Ubuntu-latest por 45min | Necessário para matriz ampliada; dispatch usa ref, conferir head_sha criado |
+| Pull request para main com paths backend/frontend/.github/tasks/docs-sdd | `windows-native` Windows/15min -> `linux` Ubuntu/45min; `required` agrega ao término, Ubuntu/5min; Node24/Temurin21 | Windows executa TCP; Linux conserva frontend/backend/E2E/package. Required exige ambos success e expanded explicitamente skipped/não aplicável |
+| Push main após integração | Mesmos jobs pelos mesmos paths | Combinação efetiva da main exige resultado próprio; PRverde não substitui esse run |
+| Dispatch ci.yml, suite=smoke | Windows e Linux smoke obrigatórios; required agrega com always | Expanded skipped é somente não aplicabilidade explícita, não execução aprovada |
+| Dispatch ci.yml, suite=expanded | Windows -> Linux smoke -> expanded Ubuntu/45min; required aguarda os três | Todos obrigatórios success; nenhum skip aceito. Conferir head_sha e evento do run |
 | Push codex/cf034-ci-local com paths do probe | CF034 synthetic remote probes/contracts e cancellation | Branch antiga; nenhum gatilho da consolidação. Não empurrar branch antiga para disparar provas por associação |
 
 Nomes declarados nos YAMLs não provam regras atuais de branch protection/rulesets.
@@ -43,7 +46,13 @@ Antes da publicação, conferir quais check contexts são realmente exigidos no 
 ## SaneamentoCI local e matriz ainda necessária
 
 Implementado localmente: `windows-native`, Windows/JDK21/Node24, sem condição por
-evento/suite; `required` depende dele e `expanded` continua dependendo de required.
+evento/suite; `linux` depende dele e `expanded` depende de linux. O nome required
+foi preservado para um job agregador com `if: ${{ always() }}` e needs diretos
+`[windows-native, linux, expanded]`. O avaliador real exige success de Windows e
+Linux em todos os modos; expanded também é obrigatório no dispatch expanded.
+Nos demais modos, expanded deve constar com resultado skipped por não aplicabilidade.
+Ausência, failure, cancelled, skipped obrigatório, desconhecido ou JSON inválido
+reprovam com exit1. Sem continue-on-error ou comando posterior que neutralize erro.
 O seletor lê a condição JUnit no nível da classe (movida do método, com corpo e
 assertions intactos) e exige plataforma alvo explícita. Linux seleciona 100 classes
 smoke/115 expanded; Windows executa a classe TCP, sem PostgreSQL. A união por
@@ -58,18 +67,20 @@ sete probes independentes Windows; TCPWindows real1/1 e comunsLinux3/3. Linux
 usou Node22.23.1, distinto do24 previsto no workflow. Sem suíte integral ou Actions.
 Runner remoto exato e versões resolvidas ainda deverão constar do futuro recibo.
 
-**R1/P2 aberto:** o needs atual impede alcançar pacote após falhaWindows, mas
-required fica skipped. Esse status pode satisfazer um contexto obrigatório;
-as regras remotas atuais não foram consultadas. A recomendação anterior de exigir
-também Windows nos contexts é defesa adicional, não prova de agregação correta.
-[Modelo local, fonte oficial e encerramento](../revalidacao-CPA-01/WORKFLOW-REQUIRED.md).
-Antes de publicar/CI, autorizar um lote local para reprovar explicitamente o check
-estável de integração quando qualquer dependência obrigatória não for success,
-preservando a barreira de pacote; submeter o delta a revisão independente.
+**R1/P2 aguardando revisão independente:** a prova anterior reproduziu o skip do
+required e o bloqueio do pacote com Windows falho. Agora o worker Linux preserva
+integralmente execução/pacote (só acrescenta contratos), enquanto required avalia
+os resultados estruturados em NEEDS_JSON.32 contratos,7 probes independentes e82
+cenários do avaliador passaram;6 mutações foram detectadas e restauradas por hash.
+Sem scheduler Actions ou rulesets consultados. A condição always dá elegibilidade
+segundo a [semântica oficial](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-jobs),
+sem prometer execução após cancelamento forçado ou indisponibilidade de runner.
+Agregador/checkout/setup/avaliação têm limites locais YAML de5/1/1/1min; falha de
+infraestrutura não equivale a success. [Matriz e encaminhamento](../saneamento-CPA-01-R1/README.md).
 
 | Alcance futuro | Ambiente/serviços descartáveis | Evidência necessária |
 |---|---|---|
-| Required atual | Ubuntu resolvido; Node 24/JDK 21/Maven wrapper; TestcontainersPG16 e schemas/DBs sintéticos; Chromium | Lint/tipos/build, temporais3fusos, componentes, seleção backend aplicável inteira, wrapper e6CF032 A/B/G/H/K/L, zero falhas/skips/retry |
+| Execução Linux e agregação required | Ubuntu resolvido; Node24/JDK21/Maven wrapper; TestcontainersPG16 e schemas/DBs sintéticos; Chromium | Linux conserva lint/tipos/build, temporais3fusos, componentes, backend, wrapper e6CF032; required verifica Windows/Linux e expanded quando aplicável |
 | Windows TCP após saneamento | RunnerWindows resolvido; somente listener sintético pertencente ao teste | Classe original executada, relatório e contagem; nenhum skip aceito como execução |
 | PG17 dos controles novos | Job/adaptador dirigido JDK 21,`-Dcf017.postgres.major=17`, postgres17 com clientes da mesma major | Migrations/validate/preflight/restore e controles pertinentes, vínculo de inputs/major/ferramentas. O YAML atual não tem matrizPG17 nem passa esse parâmetro |
 | Novo JAR/imagem, antes de consumo de release | JAR do run aprovado e depois imagem por digest; PG16/17 descartáveis, flags/schema sintéticos | Provas de bootstrap/manutenção/jobs/saúde no pacote/imagem exatos; sem chamar p05 de pacote novo. O teste normalCI usa classes quando preparation.jar/image não é passado |
@@ -98,9 +109,12 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
 
 ## Artifacts, retenção e instalação
 
-- Required: `diagnosis-<github.sha>` com `public/` sanitizado e
+- Worker Linux (antes required): `diagnosis-<github.sha>` com `public/` sanitizado e
   `tested-package-<github.sha>` comJAR+`public/package-manifest.json`; retenção 7dias.
   Expanded:`expanded-diagnosis-<github.sha>`, mesma retenção, sem upload de pacote.
+  O agregador required não gera/publica pacote; emite diagnóstico de IDs/status
+  conhecidos e exit code. Presença do artifactLinux não substitui aprovação do
+  required final; como antes, o artifact smoke antecede a matriz expanded.
 - `result.json` e manifesto registram SHA, digest, comandos, contagens e toolchain.
   Sanitização publica só allowlist; XMLproperties, traces, SQL, env, JFR e brutos ficam
   privados. XML/PlaywrightJSON completo não é publicado pelo YAML atual:qualquer
@@ -129,6 +143,10 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
    permissões efetivas de token, ambientes do repositório,
    secrets/variables por nome, apps/webhooks/workflows reutilizáveis, checkout SHA e
    políticas de artifacts. Não solicitar ou registrar valores secretos em evidência.
+   Esperado: workflow `CI integrated gates`, job/check `required` (rótulo de UI
+   `CI integrated gates / required`), mesmo nome anterior, agora agregador. Conferir
+   origem GitHub Actions, SHA, evento elegível, contextos legados e eventuais checks
+   homônimos antes de decidir integração. Não houve consulta remota neste lote.
 3. Railway:mesmos projeto/ambiente/serviços do inventário atual a consultar;
    estadoAPI/PG, autodeploy, Wait for CI, PR environments, origemGit/branch/rootDockerfile,
    pending/staged changes e webhooks. Não aplicar/religar para completar conferência.
@@ -146,6 +164,19 @@ As observaçõesRailway/Vercel de 26/10 são históricas. Esta execução não v
 esses provedores e não afirma que continuamoffline/configurados da mesma forma.
 
 ## Condições para integrar à main e etapas posteriores
+
+Na futura etapa autorizada: exercitar Windows failure/skipped/cancelled com Linux
+success sintético e com skip real da cadeia, Linux failure com Windows success,
+expanded failure/skipped/cancelled no modo expanded, e todos success. Required deve
+falhar quando executar com qualquer obrigatório não success; interrupção forçada,
+runner ausente ou check ausente não podem receber aceite operacional por skip.
+Conferir também bloqueio de pacote para falha Windows/Linux, logs sem secrets e
+relatórios atuais; não usar artifact já existente como certificado do agregado.
+PR/push elegíveis e dispatch expanded são verificações distintas: a
+[documentação atual de required checks](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks)
+não trata um dispatch como substituto do check de PR nas rulesets. Reconfirmar
+esse vínculo no remoto autorizado. Se houver merge queue, conferir seu evento
+próprio; nenhuma configuração de fila/proteção foi alterada aqui.
 
 Novo parecer favorável do delta R1 saneado, autorização de publicação e de CI,
 checkout exato, required completo eexpanded escolhido aprovado com relatórios,
