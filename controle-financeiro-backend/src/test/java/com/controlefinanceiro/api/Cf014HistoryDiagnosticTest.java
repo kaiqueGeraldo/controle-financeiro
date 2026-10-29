@@ -2,7 +2,7 @@ package com.controlefinanceiro.api;
 
 import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.MarketDataService;
-import com.controlefinanceiro.api.migration.EmptyMigrationTestInitializer;
+import com.controlefinanceiro.api.migration.IsolatedHistorySchemaInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,9 +23,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties={"spring.flyway.enabled=true","spring.jpa.hibernate.ddl-auto=validate"})
-@ContextConfiguration(initializers=EmptyMigrationTestInitializer.class)
+@ContextConfiguration(initializers=Cf014HistoryDiagnosticTest.Schema.class)
+@org.springframework.test.annotation.DirtiesContext(classMode=org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS)
 @Import(Rvr24VisualBrowserTest.FixedClock.class)
 class Cf014HistoryDiagnosticTest {
+    public static class Schema extends IsolatedHistorySchemaInitializer {}
     @LocalServerPort int port;
     @Autowired JdbcTemplate sql;
     @MockitoBean EmailService email;
