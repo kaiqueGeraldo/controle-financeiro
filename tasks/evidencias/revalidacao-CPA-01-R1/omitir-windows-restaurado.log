@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: independent literal table covers all 500 status combinations in the real evaluator
+ok 1 - independent literal table covers all 500 status combinations in the real evaluator
+  ---
+  duration_ms: 4.3639
+  type: 'test'
+  ...
+# Subtest: every job and result must exist, even expanded when not applicable; invalid types fail closed
+ok 2 - every job and result must exist, even expanded when not applicable; invalid types fail closed
+  ---
+  duration_ms: 0.9907
+  type: 'test'
+  ...
+# Subtest: workflow dispatch default and invalid modes match the job condition without implicit fallback
+ok 3 - workflow dispatch default and invalid modes match the job condition without implicit fallback
+  ---
+  duration_ms: 0.7282
+  type: 'test'
+  ...
+# Subtest: actual workflow CLI propagates exit 1 and sanitizes hostile synthetic input
+ok 4 - actual workflow CLI propagates exit 1 and sanitizes hostile synthetic input
+  ---
+  duration_ms: 2433.5566
+  type: 'test'
+  ...
+# Subtest: parsed YAML always calls the real evaluator as the final command, with intact needs data
+ok 5 - parsed YAML always calls the real evaluator as the final command, with intact needs data
+  ---
+  duration_ms: 1.1684
+  type: 'test'
+  ...
+# Subtest: worker DAG, filters and package ordering match the accepted base except the declared delta
+ok 6 - worker DAG, filters and package ordering match the accepted base except the declared delta
+  ---
+  duration_ms: 51.1604
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2606.9713
