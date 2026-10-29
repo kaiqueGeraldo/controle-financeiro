@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const root=process.cwd(),out=import.meta.dirname;
+const hash=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
+const read=file=>JSON.parse(fs.readFileSync(path.join(out,file)));
+const initial=read('preservacao-inicial.json'),validation=read('validacao.json');
+for(const item of initial.files)assert.equal(hash(item.file),item.sha256,item.file);
+assert.equal(git('diff','--cached','--name-only'),'');
+assert.equal(git('diff','--name-only',validation.candidate,'--','.github','controle-financeiro-backend','controle-financeiro-frontend'),'');
+assert.equal(git('rev-parse','main'),initial.localMain);assert.equal(git('rev-parse','origin/main'),initial.localTrackingOriginMain);
+function inventory(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(entry=>{const file=path.join(directory,entry.name);assert.equal(entry.isSymbolicLink(),false,'Never traverse a link');if(entry.isDirectory())return inventory(file);return[{file:path.relative(directory===out?out:validation.runtime,file).replaceAll('\\','/'),absolute:file,bytes:fs.statSync(file).size,sha256:hash(file)}];});}
+const runtimeInventory=inventory(validation.runtime).map(({absolute,...record})=>record);
+const proofInventory=fs.readdirSync(out,{withFileTypes:true}).filter(entry=>entry.isFile()).map(entry=>({file:entry.name,bytes:fs.statSync(path.join(out,entry.name)).size,sha256:hash(path.join(out,entry.name))}));
+const runtimeInventoryPath=path.join(out,'runtime-files.json');fs.writeFileSync(runtimeInventoryPath,JSON.stringify({scope:'Only the new review runtime; old runtimes referenced through existing manifests',runtime:validation.runtime,files:runtimeInventory},null,2)+'\n',{flag:'wx'});
+const head=git('rev-parse','HEAD'),branch=git('branch','--show-current');
+const gitReceipt={at:new Date().toISOString(),candidate:validation.candidate,base:validation.base,headBeforeFinalReceiptCommit:head,branch,localTrackingOriginMain:initial.localTrackingOriginMain,localMain:initial.localMain,localExclusiveCommitsBeforeFinal:Number(git('rev-list','--count','origin/main..HEAD')),trackingExclusive:Number(git('rev-list','--count','HEAD..origin/main')),mergeBase:git('merge-base','origin/main','HEAD'),reviewCommits:git('log','--format=%H %s',validation.candidate+'..HEAD').split('\n'),status:git('status','--short'),index:git('diff','--cached','--name-only'),remoteQueries:false,scope:'Final commit identity must be reported outside its own contents; origin/main is local, not remotely refreshed'};
+fs.writeFileSync(path.join(out,'fechamento-git.json'),JSON.stringify(gitReceipt,null,2)+'\n',{flag:'wx'});
+fs.writeFileSync(path.join(out,'preservacao-final.json'),JSON.stringify({at:new Date().toISOString(),candidate:validation.candidate,headBeforeFinalReceiptCommit:head,branch,protectedPathsChecked:initial.files.length,files:initial.files,readmeSha256:hash('README.md'),jarSha256:hash('../controle-financeiro-runtimes/preparacao-adocao/p05/package/api.jar'),migrations:initial.files.filter(item=>item.file.includes('/db/migration/')).length,implementationDiffFromCandidate:'',initialReceiptSha256:hash(path.join(out,'preservacao-inicial.json')),proofInventory,runtimeInventory:{file:'runtime-files.json',sha256:hash(runtimeInventoryPath),files:runtimeInventory.length},status:git('status','--short'),index:git('diff','--cached','--name-only'),verdict:'A — Candidato apto a publicação controlada e CI remota; CPA-01/R1 encerrado localmente'},null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({headBeforeFinal:head,branch,protected:initial.files.length,newRuntimeFiles:runtimeInventory.length,readme:hash('README.md'),localRangeCountBeforeFinal:gitReceipt.localExclusiveCommitsBeforeFinal}));

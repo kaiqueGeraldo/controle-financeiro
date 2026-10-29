@@ -1,0 +1,47 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.release
+#1 transferring dockerfile: 669B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b
+#5 resolve docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b 0.0s done
+#5 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 56.31MB 5.0s
+#4 transferring context: 86.25MB 7.5s done
+#4 DONE 7.5s
+
+#6 [2/4] WORKDIR /app
+#6 CACHED
+
+#7 [3/4] COPY api.jar /app/api.jar
+#7 DONE 0.2s
+
+#8 [4/4] RUN test -n "counterproof-readiness-healthy-with-db-frozen" && test -n "168410cb8bbfef62760506b43875c2d3ebf5f9e153c2815753b65d37e0b88b2b" && printf '%s  /app/api.jar\n' "168410cb8bbfef62760506b43875c2d3ebf5f9e153c2815753b65d37e0b88b2b" | sha256sum -c -
+#8 0.450 /app/api.jar: OK
+#8 DONE 0.5s
+
+#9 exporting to image
+#9 exporting layers
+#9 exporting layers 4.1s done
+#9 exporting manifest sha256:97298b61d0e858ebedef8fdb6fe55d55cb802c5eadf4c828c30f007cd8e88ce2 0.0s done
+#9 exporting config sha256:6e3b4e80a8b0a8c1c48077f504b83d2d52fc7c53974a5108cac2d498065741eb 0.0s done
+#9 exporting attestation manifest sha256:a51b43968f6da11437c03d74779e10f2e0498d7c2f30b85bccba1f876e80244b 0.1s done
+#9 exporting manifest list sha256:5f501048890e73dd87c5e09bb05127133b58a839c77de5b1d28f7e9d478d414c
+#9 exporting manifest list sha256:5f501048890e73dd87c5e09bb05127133b58a839c77de5b1d28f7e9d478d414c 0.0s done
+#9 naming to moby-dangling@sha256:5f501048890e73dd87c5e09bb05127133b58a839c77de5b1d28f7e9d478d414c done
+#9 unpacking to moby-dangling@sha256:5f501048890e73dd87c5e09bb05127133b58a839c77de5b1d28f7e9d478d414c
+#9 unpacking to moby-dangling@sha256:5f501048890e73dd87c5e09bb05127133b58a839c77de5b1d28f7e9d478d414c 1.4s done
+#9 DONE 5.7s

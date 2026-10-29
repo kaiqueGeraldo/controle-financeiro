@@ -40,6 +40,14 @@ function forwardedResponseHeaders(response: Response): Headers {
 }
 
 export async function proxyRequest(request: NextRequest, context: RouteContext) {
+  // Previews remain closed until an independently reviewed isolated backend exists.
+  // This does not compare URLs or claim to revoke older deployments.
+  if (process.env.VERCEL_ENV === "preview") {
+    return NextResponse.json(
+      { message: "Operações indisponíveis neste ambiente de prévia." },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
+  }
   if (request.signal.aborted) {
     return new NextResponse(null, { status: 499 });
   }

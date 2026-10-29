@@ -1,0 +1,72 @@
+-------------------------------------------------------------------------------
+Test set: com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 31.43 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+com.controlefinanceiro.api.migration.AdoptionPortAllocationTest.unrelatedListenerCannotStealApplicationPortBeforeTomcatBinds -- Time elapsed: 31.37 s <<< FAILURE!
+java.lang.AssertionError: 
+Expected HTTP 200 at /ops/health/readiness; process log: 
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-27 11:03:27.216 - INFO 51748 --- [           main] c.c.a.ControleFinanceiroApiApplication   : Starting ControleFinanceiroApiApplication v0.0.1 using Java 21.0.12.1 with PID 51748 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\p05\package\api.jar started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\rvpla03-pg-01\checkout\controle-financeiro-backend)
+-2026-10-27 11:03:27.226 - INFO 51748 --- [           main] c.c.a.ControleFinanceiroApiApplication   : The following 1 profile is active: "adoption"
+-2026-10-27 11:03:29.403 - INFO 51748 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+-2026-10-27 11:03:29.577 - INFO 51748 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 154 ms. Found 29 JPA repository interfaces.
+-2026-10-27 11:03:31.142 - INFO 51748 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 56278 (http)
+-2026-10-27 11:03:31.168 - INFO 51748 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+-2026-10-27 11:03:31.168 - INFO 51748 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+-2026-10-27 11:03:31.272 - INFO 51748 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3895 ms
+-2026-10-27 11:03:31.604 - INFO 51748 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+-2026-10-27 11:03:31.703 - INFO 51748 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+-2026-10-27 11:03:32.591 - INFO 51748 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+-2026-10-27 11:03:32.631 - INFO 51748 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+-2026-10-27 11:03:32.854 - INFO 51748 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4d8522ff
+-2026-10-27 11:03:32.855 - INFO 51748 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+-2026-10-27 11:03:32.902 - WARN 51748 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-27 11:03:32.930 - INFO 51748 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [<JDBC_LOCAL_WITHHELD>]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: cf_test_cf017_fb89899f050e4e7d9f742c7083460ead/port_allocation_e05a82cb414844528ddea379f138f6aa
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+-2026-10-27 11:03:35.483 - INFO 51748 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+-2026-10-27 11:03:35.583 - INFO 51748 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-27 11:03:35.687 - INFO 51748 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+-2026-10-27 11:03:40.289 - WARN 51748 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-2026-10-27 11:03:40.981 - WARN 51748 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+-2026-10-27 11:03:40.987 - INFO 51748 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-27 11:03:40.989 - INFO 51748 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+-2026-10-27 11:03:40.995 - INFO 51748 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+-2026-10-27 11:03:41.009 - INFO 51748 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+-2026-10-27 11:03:41.031 -ERROR 51748 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 56278 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 56278 or configure this application to listen on another port.
+
+-
+	at com.controlefinanceiro.api.migration.AdoptionRuntimeTest$App.awaitStatus(AdoptionRuntimeTest.java:286)
+	at com.controlefinanceiro.api.migration.AdoptionPortAllocationTest.unrelatedListenerCannotStealApplicationPortBeforeTomcatBinds(AdoptionPortAllocationTest.java:14)
+

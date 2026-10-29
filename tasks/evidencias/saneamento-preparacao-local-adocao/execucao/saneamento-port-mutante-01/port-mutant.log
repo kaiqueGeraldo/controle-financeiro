@@ -1,0 +1,244 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 259 source files with javac [debug parameters release 21] to target\classes
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/card/CardTransaction.java:[18,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[WARNING] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/transaction/Transaction.java:[22,1] Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/onboarding/OnboardingJson.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/domain/onboarding/OnboardingJson.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 131 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-port-mutante-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+00:52:47.922 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+00:52:47.934 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+00:52:47.949 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+00:52:48.344 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+00:52:49.004 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+00:52:49.006 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+00:52:49.034 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+00:52:49.195 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+00:52:49.587 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 02da758d05521d4c7053d09cb9b3a3a52434dca1e3d347a1656844452f606c11
+00:52:50.072 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.877429S
+00:52:50.084 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+00:52:50.084 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+00:52:50.085 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+00:52:50.087 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+00:52:50.201 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: cb427ca83f92769bb3a5f063685e2da062592978083999fca98950195e3d714e
+00:52:52.098 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT2.0109156S
+00:52:52.099 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: [JDBC_REDACTED]
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=cb427ca83f92769bb3a5f063685e2da062592978083999fca98950195e3d714e
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+00:52:53.250 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: [JDBC_REDACTED] (PostgreSQL 17.11)
+00:52:53.464 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "port_allocation_dee6a2594344481a94a2b1609bad1ce4"."flyway_schema_history" does not exist yet
+00:52:53.472 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.127s)
+00:52:53.501 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "port_allocation_dee6a2594344481a94a2b1609bad1ce4"."flyway_schema_history" ...
+00:52:53.596 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4": << Empty Schema >>
+00:52:53.641 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "1 - baseline pre temporal"
+00:52:53.809 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "2 - adopt temporal metadata"
+00:52:53.851 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "3 - account opening and transaction flow"
+00:52:53.911 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "4 - card invoice integrity"
+00:52:53.997 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "5 - investment positions and goal allocations"
+00:52:54.092 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "6 - preserve goal purchase facts"
+00:52:54.123 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "7 - valuation reference and audit"
+00:52:54.163 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "8 - investment corrections"
+00:52:54.220 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "9 - payment intent receipt"
+00:52:54.241 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "10 - financial commands and partial reversals"
+00:52:54.281 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "11 - reporting coverage baselines"
+00:52:54.308 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "12 - habit goal effect identity"
+00:52:54.349 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "13 - financial creation intent receipts"
+00:52:54.374 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "14 - goal history recorded instant"
+00:52:54.397 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "15 - onboarding draft"
+00:52:54.434 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4" to version "16 - onboarding application"
+00:52:54.510 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "port_allocation_dee6a2594344481a94a2b1609bad1ce4", now at version v16 (execution time 00:00.574s)
+ADOPTION_PROCESS mode=jar pid=41388 log=target\adoption-processes\f814013c-fb54-4845-a4a2-43ea14483c25.log
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 31.52 s <<< FAILURE! -- in com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+[ERROR] com.controlefinanceiro.api.migration.AdoptionPortAllocationTest.unrelatedListenerCannotStealApplicationPortBeforeTomcatBinds -- Time elapsed: 31.47 s <<< FAILURE!
+java.lang.AssertionError: 
+Expected HTTP 200 at /ops/health/readiness; process log: 
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-26 21:52:56.894 - INFO 41388 --- [           main] c.c.a.ControleFinanceiroApiApplication   : Starting ControleFinanceiroApiApplication v0.0.1 using Java 21.0.12.1 with PID 41388 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\p05\package\api.jar started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\saneamento-port-mutante-01\checkout\controle-financeiro-backend)
+-2026-10-26 21:52:56.903 - INFO 41388 --- [           main] c.c.a.ControleFinanceiroApiApplication   : The following 1 profile is active: "adoption"
+-2026-10-26 21:52:59.018 - INFO 41388 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+-2026-10-26 21:52:59.193 - INFO 41388 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 157 ms. Found 29 JPA repository interfaces.
+-2026-10-26 21:53:00.670 - INFO 41388 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 60486 (http)
+-2026-10-26 21:53:00.705 - INFO 41388 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+-2026-10-26 21:53:00.706 - INFO 41388 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+-2026-10-26 21:53:00.792 - INFO 41388 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3724 ms
+-2026-10-26 21:53:01.200 - INFO 41388 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+-2026-10-26 21:53:01.393 - INFO 41388 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+-2026-10-26 21:53:02.759 - INFO 41388 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+-2026-10-26 21:53:02.801 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+-2026-10-26 21:53:03.071 - INFO 41388 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4d8522ff
+-2026-10-26 21:53:03.073 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+-2026-10-26 21:53:03.127 - WARN 41388 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-26 21:53:03.166 - INFO 41388 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [[JDBC_REDACTED]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: cf_test_cf017_8a27405ee24a45b6b172f6e270110ba1/port_allocation_dee6a2594344481a94a2b1609bad1ce4
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+-2026-10-26 21:53:05.847 - INFO 41388 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+-2026-10-26 21:53:05.941 - INFO 41388 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-26 21:53:06.079 - INFO 41388 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+-2026-10-26 21:53:11.505 - WARN 41388 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-2026-10-26 21:53:12.348 - WARN 41388 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+-2026-10-26 21:53:12.356 - INFO 41388 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-26 21:53:12.359 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+-2026-10-26 21:53:12.366 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+-2026-10-26 21:53:12.383 - INFO 41388 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+-2026-10-26 21:53:12.412 -ERROR 41388 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 60486 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 60486 or configure this application to listen on another port.
+
+-
+	at com.controlefinanceiro.api.migration.AdoptionRuntimeTest$App.awaitStatus(AdoptionRuntimeTest.java:286)
+	at com.controlefinanceiro.api.migration.AdoptionPortAllocationTest.unrelatedListenerCannotStealApplicationPortBeforeTomcatBinds(AdoptionPortAllocationTest.java:14)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   AdoptionPortAllocationTest.unrelatedListenerCannotStealApplicationPortBeforeTomcatBinds:14 Expected HTTP 200 at /ops/health/readiness; process log: 
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-26 21:52:56.894 - INFO 41388 --- [           main] c.c.a.ControleFinanceiroApiApplication   : Starting ControleFinanceiroApiApplication v0.0.1 using Java 21.0.12.1 with PID 41388 (C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\p05\package\api.jar started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\saneamento-port-mutante-01\checkout\controle-financeiro-backend)
+-2026-10-26 21:52:56.903 - INFO 41388 --- [           main] c.c.a.ControleFinanceiroApiApplication   : The following 1 profile is active: "adoption"
+-2026-10-26 21:52:59.018 - INFO 41388 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+-2026-10-26 21:52:59.193 - INFO 41388 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 157 ms. Found 29 JPA repository interfaces.
+-2026-10-26 21:53:00.670 - INFO 41388 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 60486 (http)
+-2026-10-26 21:53:00.705 - INFO 41388 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+-2026-10-26 21:53:00.706 - INFO 41388 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+-2026-10-26 21:53:00.792 - INFO 41388 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3724 ms
+-2026-10-26 21:53:01.200 - INFO 41388 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+-2026-10-26 21:53:01.393 - INFO 41388 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+-2026-10-26 21:53:02.759 - INFO 41388 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+-2026-10-26 21:53:02.801 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+-2026-10-26 21:53:03.071 - INFO 41388 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4d8522ff
+-2026-10-26 21:53:03.073 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+-2026-10-26 21:53:03.127 - WARN 41388 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-26 21:53:03.166 - INFO 41388 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [[JDBC_REDACTED]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: cf_test_cf017_8a27405ee24a45b6b172f6e270110ba1/port_allocation_dee6a2594344481a94a2b1609bad1ce4
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+-2026-10-26 21:53:05.847 - INFO 41388 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+-2026-10-26 21:53:05.941 - INFO 41388 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-26 21:53:06.079 - INFO 41388 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+-2026-10-26 21:53:11.505 - WARN 41388 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-2026-10-26 21:53:12.348 - WARN 41388 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+-2026-10-26 21:53:12.356 - INFO 41388 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+-2026-10-26 21:53:12.359 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+-2026-10-26 21:53:12.366 - INFO 41388 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+-2026-10-26 21:53:12.383 - INFO 41388 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+-2026-10-26 21:53:12.412 -ERROR 41388 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 60486 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 60486 or configure this application to listen on another port.
+
+-
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:08 min
+[INFO] Finished at: 2026-10-27T00:53:19Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project api: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\saneamento-port-mutante-01\port-mutant-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

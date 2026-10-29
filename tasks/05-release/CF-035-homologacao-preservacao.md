@@ -10,6 +10,12 @@
 
 ## Problema e resultado esperado
 
+Atualização de28/10/2026: [CPA-01/R1 encerrado localmente em81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md).
+Parecer A da consolidação para publicação controlada/CI remota, sem aprovação de
+homologação, hospedagem, adoção ou produção. CF035 permanece proposta e seus gates
+de preservação/backup/restore/autorização mantêm alcance. Notas CPA anteriores
+são históricas; nenhuma execução remota realizada nesta revisão.
+
 Backend Railway está desligado e o estado do banco não foi confirmado. Preparar ambiente e ensaio de publicação preservando dados existentes.
 
 ## Escopo e referências
@@ -43,6 +49,34 @@ Criar infraestrutura duplicada, apagar volume ou resetar banco existente; public
 O escopo exige implementação e validação de comportamento entre camadas; priorizar investigação causal e testes proporcionais. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+Revalidação CPA-01 de28/10: [seleção aceita, R1 de agregação required aberto](../evidencias/revalidacao-CPA-01/README.md).
+Parecer C mantido por esse resíduo; nenhum bloqueio de startup/TCP reaberto.
+CF035 permanece proposta, sem homologação/backup/restore reais autorizados.
+
+Consolidação de28/10/2026: [parecer C e plano separado](../evidencias/consolidacao-pre-adocao/README.md).
+Aceites locais startup/TCP/RVPLA/audit preservados; CPA-01/P2 exige saneamento da
+seleção de teste Windows no job Linux antes de publicação/CI. Não é bloqueio geral
+de startup nem início de homologação. CF035 permanece proposta, sem critérios
+reais/backup/restore/configuração satisfeitos ou acesso a banco/serviço remoto.
+
+Revisão independente de28/10/2026:
+[startup local aceito e histórico inconclusivo não bloqueante para preparação](../evidencias/revisao-startup-HQL/README.md).
+Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de
+startup/observador citados nas notas antigas abaixo são históricos nesse alcance.
+CF035 permanece proposta: banco/configuração/backup/restore/homologação reais e
+dependências integrais continuam pendentes; nenhuma execução remota autorizada.
+
+Revisão independente de26/10/2026:
+[parecer/configuração/ordem operacional](../evidencias/revisao-preparacao-local-adocao/README.md).
+Recortes locais aprovados não iniciam homologação real. Startup e observador
+resume exigem saneamento; volume Railway sem backups listados, sem restore real
+demonstrado. Estado proposta e checkboxes mantidos; nenhum banco real acessado.
+
+Preparação correlata de26/10/2026: [lote exclusivamente local/descartável](../evidencias/preparacao-local-adocao/README.md),
+em_revisao e com startup estável ainda não certificado.
+Não inicia a CF035 integralmente, não certifica backup real ou homologação HTTPS
+remota e não altera o estado proposta nem os checkboxes desta tarefa.
 
 Ainda não executada. Usar `tasks/evidencias/CF-035/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 

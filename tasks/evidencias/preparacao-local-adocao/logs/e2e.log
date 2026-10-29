@@ -1,0 +1,249 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+19:44:21.493 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.controlefinanceiro.api.support.PostgresIntegrationTest]: PostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:44:22.401 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.controlefinanceiro.api.ControleFinanceiroApiApplication for test class com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+19:44:24.345 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+19:44:24.364 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-10-26 19:44:26.674 - INFO 50132 --- [           main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.3
+-2026-10-26 19:44:28.604 - INFO 50132 --- [           main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+-2026-10-26 19:44:30.915 - INFO 50132 --- [           main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+-2026-10-26 19:44:30.923 - INFO 50132 --- [           main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+-2026-10-26 19:44:31.006 - INFO 50132 --- [           main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+-2026-10-26 19:44:34.497 - INFO 50132 --- [           main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+-2026-10-26 19:44:34.499 - INFO 50132 --- [           main] org.testcontainers.DockerClientFactory   : Checking the system...
+-2026-10-26 19:44:34.502 - INFO 50132 --- [           main] org.testcontainers.DockerClientFactory   : ?? Docker server version should be at least 1.6.0
+-2026-10-26 19:44:40.326 - INFO 50132 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Starting FinancialJourneyPostgresE2E using Java 21.0.12.1 with PID 50132 (started by Aluga.com in C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\p05\checkout\controle-financeiro-backend)
+-2026-10-26 19:44:40.330 - INFO 50132 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : The following 1 profile is active: "test"
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\Aluga.com\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+-2026-10-26 19:45:14.088 - WARN 50132 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+-2026-10-26 19:45:41.894 - INFO 50132 --- [           main] c.c.a.cf032.FinancialJourneyPostgresE2E  : Started FinancialJourneyPostgresE2E in 77.448 seconds (process running for 90.274)
+-2026-10-26 19:46:00.420 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-a@example.invalid
+-2026-10-26 19:46:00.511 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-a@example.invalid
+-2026-10-26 19:46:01.971 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 94122e29-7d78-4c31-b16c-7497b1022e89
+-2026-10-26 19:46:01.971 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 94122e29-7d78-4c31-b16c-7497b1022e89
+-2026-10-26 19:46:02.195 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-a@example.invalid
+-2026-10-26 19:46:04.220 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-a@example.invalid
+-2026-10-26 19:46:05.477 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-a@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:08.237 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-a@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:11.946 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-a@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:14.442 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-a@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:21.073 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-a@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:25.260 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:46:25.276 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:46:25.682 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 849c02f9-3a77-4678-8b81-e524de3bc960
+-2026-10-26 19:46:25.682 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 849c02f9-3a77-4678-8b81-e524de3bc960
+-2026-10-26 19:46:25.734 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:46:26.028 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:46:26.426 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:28.420 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:32.852 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:33.172 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:36.122 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | Valor: 250.10 | Tipo: INCOME
+-2026-10-26 19:46:36.169 - INFO 50132 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=250.10, ContaID=bbb6cd40-11ab-4731-b0ab-07501f43f0d3
+-2026-10-26 19:46:36.226 - INFO 50132 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Saldo atualizado na conta bbb6cd40-11ab-4731-b0ab-07501f43f0d3. Novo saldo: 1250.10
+-2026-10-26 19:46:36.255 - INFO 50132 --- [o-auto-1-exec-1] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 19924f6a-7388-4e72-8606-6308395f5a25
+-2026-10-26 19:46:36.404 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:36.806 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:37.032 - INFO 50132 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:39.125 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | Valor: 40.20 | Tipo: EXPENSE
+-2026-10-26 19:46:39.176 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=40.20, ContaID=bbb6cd40-11ab-4731-b0ab-07501f43f0d3
+-2026-10-26 19:46:39.194 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta bbb6cd40-11ab-4731-b0ab-07501f43f0d3. Novo saldo: 1209.90
+-2026-10-26 19:46:39.220 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID dfb71228-bc5c-471e-be08-56e3b3c07bb4
+-2026-10-26 19:46:39.364 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:40.100 - INFO 50132 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:40.313 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:42.571 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | Valor: 100.00 | Tipo: TRANSFER
+-2026-10-26 19:46:42.631 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=100.00, ContaID=bbb6cd40-11ab-4731-b0ab-07501f43f0d3
+-2026-10-26 19:46:42.814 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:46:43.060 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:43.716 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:45.170 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.controller.CreditCardController  : API: Nova Compra no Cart�o ff60bb14-288f-45e5-b0ca-3902d22ed631. Valor: 120. Parcelas: 3
+-2026-10-26 19:46:45.188 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Nova compra no cart�o ID ff60bb14-288f-45e5-b0ca-3902d22ed631: 120 (3x)
+-2026-10-26 19:46:45.666 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.CreditCardService        : Compra parcelada processada com sucesso.
+-2026-10-26 19:46:46.378 - INFO 50132 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:48.055 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:52.350 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o ff60bb14-288f-45e5-b0ca-3902d22ed631. Valor: 200. � adiantamento? true
+-2026-10-26 19:46:52.352 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-26 19:46:52.510 - INFO 50132 --- [o-auto-1-exec-7] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-10-26 19:46:53.106 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:46:55.860 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:00.972 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.InvestmentController  : API: Opera��o de BUY no ativo ID 414e37df-07e0-4bdd-a4aa-0ab68732a1eb. Qtd: 2, Pre�o: 10
+-2026-10-26 19:47:01.076 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.InvestmentService        : SERVICE: Processando opera��o de BUY no ativo ID 414e37df-07e0-4bdd-a4aa-0ab68732a1eb
+-2026-10-26 19:47:01.159 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.InvestmentService        : SERVICE: Opera��o finalizada com sucesso.
+-2026-10-26 19:47:02.235 - INFO 50132 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:05.273 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.controller.GoalController        : API: Dep�sito na Meta 46d4b3df-0041-4b41-85eb-35bf622edc67. Valor: 100. Conta Origem: bbb6cd40-11ab-4731-b0ab-07501f43f0d3
+-2026-10-26 19:47:05.446 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.GoalService              : Registrando progresso/destina��o na meta ID: 46d4b3df-0041-4b41-85eb-35bf622edc67. Valor: 100
+-2026-10-26 19:47:05.586 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.GoalService              : Aporte na meta conclu�do com sucesso. Novo saldo da meta: 600.00
+-2026-10-26 19:47:06.401 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:08.503 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:10.044 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:10.884 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-26 19:47:12.170 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:47:12.450 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-b@example.invalid
+-2026-10-26 19:47:12.653 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:13.708 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:47:13.852 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-b@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:16.834 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-lost@example.invalid
+-2026-10-26 19:47:16.837 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-lost@example.invalid
+-2026-10-26 19:47:17.389 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 60bc7fdc-b82f-4e33-a4fd-d29f765542d0
+-2026-10-26 19:47:17.389 - INFO 50132 --- [o-auto-1-exec-9] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 60bc7fdc-b82f-4e33-a4fd-d29f765542d0
+-2026-10-26 19:47:17.511 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-lost@example.invalid
+-2026-10-26 19:47:18.290 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-lost@example.invalid
+-2026-10-26 19:47:18.741 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:20.776 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:24.262 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:29.564 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o aa610aa2-a0bd-4534-8ebf-26b149c9a28a. Valor: 200. � adiantamento? true
+-2026-10-26 19:47:29.566 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-26 19:47:29.661 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.s.l.InvoiceBankOperationListener   : LISTENER: Processando d�bito banc�rio para pagamento do cart�o Cart�o sint�tico
+-2026-10-26 19:47:30.379 - INFO 50132 --- [o-auto-1-exec-7] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:34.012 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:35.856 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o aa610aa2-a0bd-4534-8ebf-26b149c9a28a. Valor: 200. � adiantamento? true
+-2026-10-26 19:47:35.861 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-26 19:47:36.020 - INFO 50132 --- [-auto-1-exec-10] c.c.api.controller.CreditCardController  : API: PAGAMENTO FATURA Cart�o aa610aa2-a0bd-4534-8ebf-26b149c9a28a. Valor: 201. � adiantamento? true
+-2026-10-26 19:47:36.021 - INFO 50132 --- [-auto-1-exec-10] c.c.api.service.CreditCardService        : SERVICE: Processando regras de cart�o para pagamento da fatura.
+-2026-10-26 19:47:37.241 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-lost@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:40.586 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:40.596 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:41.067 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 34339b97-f4e3-46ca-8ce8-2330130593b0
+-2026-10-26 19:47:41.067 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 34339b97-f4e3-46ca-8ce8-2330130593b0
+-2026-10-26 19:47:41.096 - INFO 50132 --- [o-auto-1-exec-8] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:42.060 - INFO 50132 --- [o-auto-1-exec-8] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:42.592 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:45.862 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:45.874 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:47.463 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: 5d93ffd7-2797-4f90-aa28-26e9cddd693f
+-2026-10-26 19:47:47.463 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID 5d93ffd7-2797-4f90-aa28-26e9cddd693f
+-2026-10-26 19:47:47.655 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:48.101 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:49.098 - INFO 50132 --- [-auto-1-exec-10] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:49.586 - INFO 50132 --- [o-auto-1-exec-1] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO A'. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:49.644 - INFO 50132 --- [o-auto-1-exec-1] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 34339b97-f4e3-46ca-8ce8-2330130593b0
+-2026-10-26 19:47:49.786 - INFO 50132 --- [o-auto-1-exec-8] c.c.api.controller.AccountController     : API: Criar Conta 'EXCLUSIVO B'. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:49.798 - INFO 50132 --- [o-auto-1-exec-8] c.c.api.service.AccountService           : Criando nova conta para o usu�rio 5d93ffd7-2797-4f90-aa28-26e9cddd693f
+-2026-10-26 19:47:50.886 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:47:51.054 - INFO 50132 --- [o-auto-1-exec-8] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:53.150 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | Valor: 10.00 | Tipo: INCOME
+-2026-10-26 19:47:53.206 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Criando transa��o: Tipo=INCOME, Valor=10.00, ContaID=47ce348f-d36c-4e8d-a2fe-6c1be02d3fc2
+-2026-10-26 19:47:53.226 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Saldo atualizado na conta 47ce348f-d36c-4e8d-a2fe-6c1be02d3fc2. Novo saldo: 1010.00
+-2026-10-26 19:47:53.247 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 4085dd6b-f57c-4757-9069-ce1f2fb95ff8
+-2026-10-26 19:47:53.407 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:47:53.516 - INFO 50132 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:54.089 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:47:54.303 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:56.854 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | Valor: 20.00 | Tipo: EXPENSE
+-2026-10-26 19:47:56.904 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Criando transa��o: Tipo=EXPENSE, Valor=20.00, ContaID=55913640-0510-4e16-acd2-6f6d5a341d1e
+-2026-10-26 19:47:56.925 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Saldo atualizado na conta 55913640-0510-4e16-acd2-6f6d5a341d1e. Novo saldo: 2280.00
+-2026-10-26 19:47:56.955 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Transa��o salva com sucesso: ID 384948b2-d9dd-4668-ae09-2129d81c0ceb
+-2026-10-26 19:47:57.167 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:47:57.342 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:47:57.497 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.controller.CreditCardController  : API: Criar Cart�o 'CART�O EXCLUSIVO B'. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:47:57.516 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.service.CreditCardService        : Criando cart�o 'CART�O EXCLUSIVO B' (Final 4242)
+-2026-10-26 19:47:57.643 - WARN 50132 --- [o-auto-1-exec-8] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Cart�o n�o encontrado [URI: /cards/de2f3b8b-bed1-4fa2-9d5b-94f8a68b55ad/invoice]
+-2026-10-26 19:47:57.827 - WARN 50132 --- [-auto-1-exec-10] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Inten��o ainda n�o localizada. [URI: /financial-intents/c6d2eeec-7175-4ae8-961a-72ee73e07bf6]
+-2026-10-26 19:47:57.926 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.controller.AccountController     : API: Atualizar Conta 55913640-0510-4e16-acd2-6f6d5a341d1e
+-2026-10-26 19:47:57.941 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AccountService           : Atualizando dados da conta ID 55913640-0510-4e16-acd2-6f6d5a341d1e
+-2026-10-26 19:47:57.955 -ERROR 50132 --- [o-auto-1-exec-3] c.c.api.service.AccountService           : Acesso negado: Usu�rio 34339b97-f4e3-46ca-8ce8-2330130593b0 tentou alterar conta 55913640-0510-4e16-acd2-6f6d5a341d1e
+-2026-10-26 19:47:57.965 - WARN 50132 --- [o-auto-1-exec-3] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta n�o encontrada [URI: /accounts/55913640-0510-4e16-acd2-6f6d5a341d1e]
+-2026-10-26 19:47:58.045 - INFO 50132 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para CRIAR transa��o. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | Valor: 1 | Tipo: TRANSFER
+-2026-10-26 19:47:58.103 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.service.TransactionService       : Criando transa��o: Tipo=TRANSFER, Valor=1, ContaID=47ce348f-d36c-4e8d-a2fe-6c1be02d3fc2
+-2026-10-26 19:47:58.125 - WARN 50132 --- [o-auto-1-exec-2] c.c.a.i.e.ResourceExceptionHandler       : API ERROR 404: Conta de origem ou destino n�o encontrada [URI: /transactions]
+-2026-10-26 19:47:59.259 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:00.082 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:01.489 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:48:01.773 - INFO 50132 --- [o-auto-1-exec-1] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:02.498 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:02.548 - INFO 50132 --- [o-auto-1-exec-6] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:11.906 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: 10 | Conta: null
+-2026-10-26 19:48:12.176 - INFO 50132 --- [o-auto-1-exec-5] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:12.618 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Exportando extrato em Excel. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:12.635 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.TransactionService       : Gerando Excel em lotes para o usu�rio cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:15.031 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:15.712 - INFO 50132 --- [o-auto-1-exec-2] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-26 19:48:16.799 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:17.151 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-b-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:17.452 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:18.765 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:20.237 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-b-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:21.212 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Logout chamado (stateless).
+-2026-10-26 19:48:22.140 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:22.443 - INFO 50132 --- [o-auto-1-exec-5] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-owners@example.invalid
+-2026-10-26 19:48:22.623 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-owners@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:25.166 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-card-limit@example.invalid
+-2026-10-26 19:48:25.170 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-card-limit@example.invalid
+-2026-10-26 19:48:25.421 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: ead9020a-6b9c-4dab-8c27-95c3986737b7
+-2026-10-26 19:48:25.422 - INFO 50132 --- [o-auto-1-exec-7] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID ead9020a-6b9c-4dab-8c27-95c3986737b7
+-2026-10-26 19:48:25.444 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-card-limit@example.invalid
+-2026-10-26 19:48:25.659 - INFO 50132 --- [o-auto-1-exec-3] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-card-limit@example.invalid
+-2026-10-26 19:48:25.827 - INFO 50132 --- [o-auto-1-exec-9] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:27.643 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:30.748 - INFO 50132 --- [o-auto-1-exec-4] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-card-limit@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:33.814 - INFO 50132 --- [-auto-1-exec-10] c.c.api.controller.AuthController        : API: Novo registro solicitado: cf003-a-cf032-800a681f-optional-identifier@example.invalid
+-2026-10-26 19:48:33.826 - INFO 50132 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Tentativa de registro de novo usu�rio: cf003-a-cf032-800a681f-optional-identifier@example.invalid
+-2026-10-26 19:48:34.288 - INFO 50132 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Carteira f�sica padr�o gerada com sucesso para o usu�rio: d2c85570-40ed-4bf4-aaaa-c8c6e85ae447
+-2026-10-26 19:48:34.289 - INFO 50132 --- [-auto-1-exec-10] c.c.api.service.AuthService              : Usu�rio registrado com sucesso: ID d2c85570-40ed-4bf4-aaaa-c8c6e85ae447
+-2026-10-26 19:48:34.336 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.controller.AuthController        : API: Tentativa de login: cf003-a-cf032-800a681f-optional-identifier@example.invalid
+-2026-10-26 19:48:34.691 - INFO 50132 --- [o-auto-1-exec-4] c.c.api.service.AuthService              : Login efetuado com sucesso: cf003-a-cf032-800a681f-optional-identifier@example.invalid
+-2026-10-26 19:48:34.968 - INFO 50132 --- [o-auto-1-exec-2] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-optional-identifier@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:37.228 - INFO 50132 --- [o-auto-1-exec-6] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-optional-identifier@example.invalid | M�s: null | Conta: null
+-2026-10-26 19:48:40.094 - INFO 50132 --- [o-auto-1-exec-3] c.c.a.controller.TransactionController   : API: Requisi��o para LISTAR transa��es filtradas. Usu�rio: cf003-a-cf032-800a681f-optional-identifier@example.invalid | M�s: null | Conta: null
+-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 263.3 s -- in com.controlefinanceiro.api.cf032.FinancialJourneyPostgresE2E
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  04:49 min
+[INFO] Finished at: 2026-10-26T19:48:44Z
+[INFO] ------------------------------------------------------------------------

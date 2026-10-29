@@ -1,0 +1,10 @@
+file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/latency-mutation/tools/process-probes.mjs:12
+async function waitFile(file){const deadline=Date.now()+20000;while(!fs.existsSync(file)){if(Date.now()>deadline)throw Error('Missing causal barrier: '+file);await new Promise(r=>setTimeout(r,25));}return JSON.parse(fs.readFileSync(file));}
+                                                                                                                       ^
+
+Error: Missing causal barrier: C:\Users\Aluga.com\Documents\Projetos\pessoal\controle-financeiro-runtimes\preparacao-adocao\revalidacao-rvpla05-20261027-01\latency-mutation\execution\late-wrapper\wrapper.json
+    at waitFile (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/latency-mutation/tools/process-probes.mjs:12:120)
+    at async interrupted (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/latency-mutation/tools/process-probes.mjs:29:30)
+    at async file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/latency-mutation/tools/process-probes.mjs:51:39
+
+Node.js v24.18.0

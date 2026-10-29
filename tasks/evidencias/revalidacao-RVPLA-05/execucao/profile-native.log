@@ -1,0 +1,11 @@
+file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/profile-tools-native/prazo.mjs:12
+const native=rows.filter(x=>x.pid===b.childPid&&x.event==='execFileSync-end'),spawns=rows.filter(x=>x.pid===b.childPid&&x.event==='spawned'),result={mutation:mutate,status,error,totalScriptMs:Number(process.hrtime.bigint()-begin)/1e6,resumeCloseMs:Number(BigInt(end.ns)-BigInt(b.ns))/1e6,marginMs:20000-Number(BigInt(end.ns)-BigInt(b.ns))/1e6,deadlineCleanupMs:cut?Number(BigInt(cut.ns)-BigInt(b.ns))/1e6:null,controllerSpawnCount:spawns.length,commandGuardians:spawns.filter(x=>x.kind==='command').length,nativeCalls:native.map(x=>({mode:x.mode,ms:x.ms})),nativeTotalMs:native.reduce((a,x)=>a+x.ms,0),appendOverhead:rows.filter(x=>x.event==='process-exit').map(x=>({pid:x.pid,ms:x.instrumentationAppendMs})),originalProbeSha256:sha(original),adaptedProbeSha256:sha(adapted),sourceHashes:hashes,helperOriginal:sha(before),helperExecuted:sha(candidate),helperRestored:sha(fs.readFileSync(helper)),javaHome:process.env.JAVA_HOME,node:process.version,uv:process.versions.uv};
+                                                                                                                                                                                                                                                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'ns')
+    at file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/revalidacao-rvpla05-20261027-01/profile-tools-native/prazo.mjs:12:267
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.18.0

@@ -66,7 +66,11 @@ public final class RestoreSnapshot {
             }
         }
         write(directory.resolve("sequences.txt"), String.join("\n", states) + "\n");
-        write(directory.resolve("COMPLETE"), "CF017 logical snapshot v1; PostgreSQL16; UTC; ISO; field-text SHA256\n");
+        try (var s = c.createStatement(); var r = s.executeQuery("SELECT current_setting('server_version_num')::int / 10000")) {
+            r.next();
+            write(directory.resolve("COMPLETE"), "CF017 logical snapshot v1; PostgreSQL" + r.getInt(1)
+                    + "; UTC; ISO; field-text SHA256\n");
+        }
     }
 
     private static void captureTable(Connection c, String table, Path output) throws Exception {

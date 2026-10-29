@@ -1,0 +1,44 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.release
+#1 transferring dockerfile: 669B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/4] FROM docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b
+#4 resolve docker.io/library/eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 70.43MB 5.1s
+#5 transferring context: 86.25MB 6.3s done
+#5 DONE 6.3s
+
+#6 [2/4] WORKDIR /app
+#6 CACHED
+
+#7 [3/4] COPY api.jar /app/api.jar
+#7 DONE 0.2s
+
+#8 [4/4] RUN test -n "counterproof-writer-passes-maintenance" && test -n "0dbb866cdfab1d56861a5d3687f1b398e453979fa95f95d6940676bc0995f8e2" && printf '%s  /app/api.jar\n' "0dbb866cdfab1d56861a5d3687f1b398e453979fa95f95d6940676bc0995f8e2" | sha256sum -c -
+#8 0.412 /app/api.jar: OK
+#8 DONE 0.4s
+
+#9 exporting to image
+#9 exporting layers
+#9 exporting layers 3.3s done
+#9 exporting manifest sha256:95f2eb47a38d5554d61a2419eb9a0a609b6787ec81a86c22534ee8efa1981d1e 0.0s done
+#9 exporting config sha256:82f0b65b7ac68d650995ce30cfc0d365ef56aa0082944dcd987c2e1f23cf5c9c 0.0s done
+#9 exporting attestation manifest sha256:93574e3b6ba1a4c474be3bdae324f5c75b31668f7a3a7604abf2d1e400ab2d0f 0.0s done
+#9 exporting manifest list sha256:1ca6cd5633401c1e0d45a9b27241d38fd78f0dea22f0f41c67932145d66d935f 0.0s done
+#9 naming to moby-dangling@sha256:1ca6cd5633401c1e0d45a9b27241d38fd78f0dea22f0f41c67932145d66d935f done
+#9 unpacking to moby-dangling@sha256:1ca6cd5633401c1e0d45a9b27241d38fd78f0dea22f0f41c67932145d66d935f
+#9 unpacking to moby-dangling@sha256:1ca6cd5633401c1e0d45a9b27241d38fd78f0dea22f0f41c67932145d66d935f 0.9s done
+#9 DONE 4.4s

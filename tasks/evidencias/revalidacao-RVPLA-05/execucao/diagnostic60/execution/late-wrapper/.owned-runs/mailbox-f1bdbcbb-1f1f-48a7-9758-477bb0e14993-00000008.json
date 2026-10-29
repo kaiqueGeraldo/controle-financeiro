@@ -1,0 +1,20 @@
+{
+  "requestId": "0072f2bb-6b90-4d8c-9c74-3fce5a991c4a",
+  "runId": "f1bdbcbb-1f1f-48a7-9758-477bb0e14993",
+  "sequence": 8,
+  "mode": "command",
+  "workerPid": 36112,
+  "command": {
+    "executable": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "args": [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      "$taskMarker=$env:CF_PREPARATION_AUDIT_ROOT.Replace('/','\\'); $taskFound=@(Get-CimInstance Win32_Process -ErrorAction Stop | Where-Object { $_.Name -in @('java.exe','javaw.exe') -and $_.CommandLine -and ($_.CommandLine.Replace('/','\\').IndexOf($taskMarker,[StringComparison]::OrdinalIgnoreCase) -ge 0 -or $_.CommandLine.IndexOf('--spring.profiles.active=adoption',[StringComparison]::OrdinalIgnoreCase) -ge 0) }); if ($taskFound.Count -gt 0) { exit 3 }"
+    ],
+    "timeout": 10000,
+    "env": {
+      "CF_PREPARATION_AUDIT_ROOT": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-20261027-01\\diagnostic60\\execution\\late-wrapper"
+    }
+  }
+}

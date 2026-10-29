@@ -1,0 +1,1 @@
+import fs from'node:fs';import assert from'node:assert/strict';const r=JSON.parse(fs.readFileSync(process.argv[2]));assert.equal(r.state==='complete'&&r.environmentVerified===true,false,'OWNED_DESCENDANT_EFFECT_AFTER_COMPLETE');assert.equal(r.inputAfter,'mutant');assert.equal(r.nextGateCreated,false);

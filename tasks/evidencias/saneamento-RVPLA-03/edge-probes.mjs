@@ -1,0 +1,73 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import crypto from 'node:crypto';
+import {spawn,execFileSync} from 'node:child_process';import {pathToFileURL} from 'node:url';
+const root=path.resolve(process.argv[2]),here=import.meta.dirname;
+assert.ok(root.startsWith(path.resolve('../controle-financeiro-runtimes/preparacao-adocao/rvpla03-')));fs.mkdirSync(root);
+const ps=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const results=[];
+function native(c){return JSON.parse(execFileSync(ps,['-NoProfile','-NonInteractive','-File',path.resolve('.github/scripts/owned-job-probe.ps1'),'-Configuration',Buffer.from(JSON.stringify(c)).toString('base64')],{windowsHide:true,encoding:'utf8'}));}
+async function barrier(f){const end=Date.now()+20000;while(!fs.existsSync(f)){if(Date.now()>end)throw Error('Missing barrier '+f);await new Promise(r=>setTimeout(r,25));}return JSON.parse(fs.readFileSync(f));}
+async function exited(c){return await Promise.race([c.done,new Promise((_,reject)=>setTimeout(()=>reject(Error('No process exit')),20000).unref())]);}
+function start(entry,dir){const fd=fs.openSync(path.join(dir,crypto.randomUUID()+'.log'),'wx');const c=spawn(process.execPath,[entry,dir],{env:process.env,windowsHide:true,stdio:['ignore',fd,fd]});fs.closeSync(fd);c.done=new Promise((r,j)=>{c.once('error',j);c.once('close',r);});return c;}
+async function stop(c){const i=native({mode:'identity',pid:c.pid});execFileSync(ps,['-NoProfile','-NonInteractive','-File',path.join(here,'stop-own.ps1'),'-OwnedPid',String(i.pid),'-ExpectedTicks',i.ticks],{windowsHide:true});await exited(c);return i;}
+function records(dir){return fs.readdirSync(path.join(dir,'.owned-runs')).filter(f=>/^run-/.test(f)).map(f=>JSON.parse(Buffer.from(JSON.parse(fs.readFileSync(path.join(dir,'.owned-runs',f))).payload,'base64')));}
+function fixture(name,phase){
+ const snapshot=path.join(root,name+'-snapshot'),dir=path.join(root,name);fs.mkdirSync(dir);fs.mkdirSync(snapshot,{recursive:true});
+ for(const f of ['.github/scripts/owned-process.mjs','.github/scripts/owned-process.ps1','.github/scripts/owned-job-probe.ps1','tasks/evidencias/preparacao-local-adocao/counterproof-supervision.mjs']){const target=path.join(snapshot,f);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(f,target);}
+ const guardian=path.join(snapshot,'.github/scripts/owned-process.ps1'),bytes=fs.readFileSync(guardian);
+ const wait=`
+    $gate=Join-Path $owned.registry 'test-barrier.json'
+    if(!(Test-Path -LiteralPath $gate)) {
+      [IO.File]::WriteAllText($gate,(@{pid=$PID;ticks=[Diagnostics.Process]::GetCurrentProcess().StartTime.ToUniversalTime().Ticks.ToString()} | ConvertTo-Json -Compress))
+      $watch=[Diagnostics.Stopwatch]::StartNew()
+      while(!(Test-Path -LiteralPath (Join-Path $owned.registry 'test-release')) -and $watch.ElapsedMilliseconds -lt 20000){Start-Sleep -Milliseconds 25}
+      if(!(Test-Path -LiteralPath (Join-Path $owned.registry 'test-release'))){throw 'Test barrier expired'}
+    }
+`;
+ let text=bytes.toString();
+ if(phase==='before-job')text=text.replace('  $owned=$config.ownership','  $owned=$config.ownership\n'+wait);
+ if(phase==='after-job')text=text.replace('  $verify=[Action]{','  $verify=[Action]{\n'+wait);
+ if(phase)assert.notEqual(text,bytes.toString());fs.writeFileSync(guardian,text);
+ const entry=path.join(snapshot,'worker.mjs'),module=pathToFileURL(path.join(snapshot,'tasks/evidencias/preparacao-local-adocao/counterproof-supervision.mjs')).href;
+ fs.writeFileSync(entry,`import fs from'node:fs';import{superviseCounterproof,verifyOwnedBoundary}from ${JSON.stringify(module)};const root=process.argv[2];await superviseCounterproof(root);verifyOwnedBoundary(root);const token=JSON.parse(process.env.CF_COUNTERPROOF_SESSION);fs.writeFileSync(root+'/worker-'+token.runId+'.json',JSON.stringify({pid:process.pid}));`);
+ return {dir,entry,guardian,bytes,variant:sha(text)};
+}
+function restore(f){fs.writeFileSync(f.guardian,f.bytes);assert.equal(sha(fs.readFileSync(f.guardian)),sha(f.bytes));}
+try{
+ for(const phase of ['before-job','after-job']){
+  const f=fixture(phase,phase);let a,b,guardian;try{
+   // Keep the guardian's private pipe in this test controller. This exercises
+   // delayed boot independently of the real EOF path covered by process-probes.
+   // The immutable receipt and exact owner tuple match the production protocol.
+   a=spawn(process.execPath,['-e','setInterval(()=>{},1000)'],{windowsHide:true,stdio:'ignore'});a.done=new Promise(r=>a.once('close',r));
+   const canonical=fs.realpathSync(f.dir).toLowerCase(),registry=path.join(f.dir,'.owned-runs'),runId=crypto.randomUUID(),prefix='Local\\CF034-CP-'+sha(canonical).slice(0,24)+'-';fs.mkdirSync(registry);
+   const old={version:1,runId,root:canonical,owner:native({mode:'identity',pid:a.pid}),jobName:prefix+runId,jobPrefix:prefix,mutexName:'Local\\CF034-CP-LOCK-'+sha(canonical),registry};
+   const payload=Buffer.from(JSON.stringify(old));fs.writeFileSync(path.join(registry,'run-'+runId+'.json'),JSON.stringify({version:1,payload:payload.toString('base64'),sha256:sha(payload)}));
+   const ownModule=await import(pathToFileURL(path.join(path.dirname(path.dirname(f.guardian)),'scripts/owned-process.mjs')).href);
+   guardian=ownModule.spawnOwned(process.execPath,[f.entry,f.dir],{cwd:process.cwd(),env:{...process.env,CF_COUNTERPROOF_SESSION:JSON.stringify({runId,jobName:old.jobName})},ownership:old});guardian.done=new Promise(r=>guardian.once('close',r));guardian.stdout.resume();guardian.stderr.resume();
+   const gate=await barrier(path.join(f.dir,'.owned-runs/test-barrier.json'));const killed=await stop(a);a=null;
+   b=start(f.entry,f.dir);const code=await exited(b);b=null;
+   if(phase==='before-job'){assert.equal(code,0);assert.equal(fs.existsSync(path.join(f.dir,'worker-'+old.runId+'.json')),false);}
+   else{assert.notEqual(code,0);assert.equal(fs.readdirSync(f.dir).some(n=>n.startsWith('worker-')),false);}
+   // Acquire the synchronization handle BEFORE releasing the barrier: a process
+   // may otherwise legitimately finish before GetProcessById opens its handle.
+   const ready=path.join(f.dir,'wait-ready.json');
+   const waiter=spawn(ps,['-NoProfile','-NonInteractive','-Command',`$ErrorActionPreference='Stop';$p=[Diagnostics.Process]::GetProcessById(${gate.pid});$handle=$p.Handle;if($p.StartTime.ToUniversalTime().Ticks.ToString() -ne '${gate.ticks}'){throw 'Identity changed'};[IO.File]::WriteAllText('${ready}', '{}');if(!$p.WaitForExit(20000)){throw 'Delayed guardian still alive'}`],{windowsHide:true,stdio:'inherit'});
+   waiter.done=new Promise(r=>waiter.once('close',r));await barrier(ready);
+   fs.writeFileSync(path.join(f.dir,'.owned-runs/test-release'),'release');
+   assert.equal(await exited(waiter),0);
+   assert.equal(await exited(guardian),130);guardian=null;
+   for(const r of records(f.dir))assert.equal(native({mode:'closed',jobName:r.jobName}).absent,true);
+   assert.equal(fs.existsSync(path.join(f.dir,'worker-'+old.runId+'.json')),false);
+   if(phase==='after-job'){const c=start(f.entry,f.dir);assert.equal(await exited(c),0);}
+   results.push({name:phase,old,gate,killed,resumeExit:code,noLateWorker:true,variantSha256:f.variant,restoredSha256:sha(f.bytes)});
+  }finally{if(a)await stop(a);if(b)await stop(b);if(guardian){guardian.stdin.end();await exited(guardian);}restore(f);}
+ }
+ const malformed=fixture('malformed');fs.mkdirSync(path.join(malformed.dir,'.owned-runs'));const file=path.join(malformed.dir,'.owned-runs/run-bad.json'),bad='{"version":1,"payload":"e30=","sha256":"bad"}';fs.writeFileSync(file,bad);const c=start(malformed.entry,malformed.dir);assert.notEqual(await exited(c),0);assert.equal(fs.readFileSync(file,'utf8'),bad);assert.equal(fs.readdirSync(malformed.dir).some(n=>n.startsWith('worker-')),false);results.push({name:'malformed',blocked:true,bytesPreserved:true});
+ const reused=fixture('pid-reuse');fs.mkdirSync(path.join(reused.dir,'.owned-runs'));const real=native({mode:'identity',pid:process.pid}),runId=crypto.randomUUID(),canonical=fs.realpathSync(reused.dir).toLowerCase(),prefix='Local\\CF034-CP-'+sha(canonical).slice(0,24)+'-';
+ const prior={version:1,runId,root:canonical,jobName:prefix+runId,owner:{...real,ticks:String(BigInt(real.ticks)-1n)}};const payload=Buffer.from(JSON.stringify(prior));fs.writeFileSync(path.join(reused.dir,'.owned-runs/run-'+runId+'.json'),JSON.stringify({version:1,payload:payload.toString('base64'),sha256:sha(payload)}));
+ const d=start(reused.entry,reused.dir);assert.equal(await exited(d),0);assert.deepEqual(native({mode:'identity',pid:real.pid}),real);
+ assert.throws(()=>execFileSync(ps,['-NoProfile','-NonInteractive','-File',path.join(here,'stop-own.ps1'),'-OwnedPid',String(real.pid),'-ExpectedTicks',prior.owner.ticks],{windowsHide:true,stdio:'pipe'}));assert.deepEqual(native({mode:'identity',pid:real.pid}),real);
+ results.push({name:'pid-reuse',liveProcessPreserved:true,wrongBirthTimeNotOwner:true,terminationRefused:true});
+ const cross=fixture('other-session');fs.mkdirSync(path.join(cross.dir,'.owned-runs'));const crossRoot=fs.realpathSync(cross.dir).toLowerCase(),crossId=crypto.randomUUID();const foreignRecord={version:1,runId:crossId,root:crossRoot,jobName:'Local\\CF034-CP-'+sha(crossRoot).slice(0,24)+'-'+crossId,owner:{...real,session:real.session+1,ticks:String(BigInt(real.ticks)-1n)}};const foreignBytes=Buffer.from(JSON.stringify(foreignRecord));fs.writeFileSync(path.join(cross.dir,'.owned-runs/run-'+crossId+'.json'),JSON.stringify({version:1,payload:foreignBytes.toString('base64'),sha256:sha(foreignBytes)}));const e=start(cross.entry,cross.dir);assert.notEqual(await exited(e),0);assert.equal(fs.readdirSync(cross.dir).some(n=>n.startsWith('worker-')),false);results.push({name:'other-session',blockedBeforeWorker:true,processPreserved:true});
+}finally{fs.writeFileSync(path.join(root,'results.json'),JSON.stringify(results,null,2)+'\n');}
+console.log(JSON.stringify({cases:results.length,passed:true}));

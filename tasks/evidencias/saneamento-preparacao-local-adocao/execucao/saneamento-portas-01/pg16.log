@@ -1,0 +1,93 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+00:47:24.447 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+00:47:24.463 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+00:47:24.478 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+00:47:24.939 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+00:47:25.626 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+00:47:25.628 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+00:47:25.657 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+00:47:25.835 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+00:47:26.223 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: bddd79f2e7674c4004efcdb8e9a1a4cf06ed3f1d8cec61ec72038687a9a8145a
+00:47:26.703 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.8682452S
+00:47:26.715 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+00:47:26.715 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+00:47:26.716 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+00:47:26.718 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+00:47:26.823 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 638b6bab49476023471e19833f30015cb2b7bea640a62460230f6df3563deda2
+00:47:28.825 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT2.1071444S
+00:47:28.825 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: [JDBC_REDACTED]
+CF017_SERVER PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=638b6bab49476023471e19833f30015cb2b7bea640a62460230f6df3563deda2
+CF017_CLIENT psql (PostgreSQL) 16.15
+CF017_CLIENT pg_dump (PostgreSQL) 16.15
+CF017_CLIENT pg_restore (PostgreSQL) 16.15
+00:47:29.849 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: [JDBC_REDACTED] (PostgreSQL 16.15)
+00:47:29.971 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "port_allocation_f95572e552b7492ca5491b3c3d978ca1"."flyway_schema_history" does not exist yet
+00:47:29.978 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.055s)
+00:47:30.006 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "port_allocation_f95572e552b7492ca5491b3c3d978ca1"."flyway_schema_history" ...
+00:47:30.084 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1": << Empty Schema >>
+00:47:30.128 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "1 - baseline pre temporal"
+00:47:30.324 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "2 - adopt temporal metadata"
+00:47:30.372 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "3 - account opening and transaction flow"
+00:47:30.442 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "4 - card invoice integrity"
+00:47:30.543 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "5 - investment positions and goal allocations"
+00:47:30.675 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "6 - preserve goal purchase facts"
+00:47:30.718 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "7 - valuation reference and audit"
+00:47:30.767 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "8 - investment corrections"
+00:47:30.842 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "9 - payment intent receipt"
+00:47:30.871 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "10 - financial commands and partial reversals"
+00:47:30.922 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "11 - reporting coverage baselines"
+00:47:30.954 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "12 - habit goal effect identity"
+00:47:31.001 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "13 - financial creation intent receipts"
+00:47:31.035 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "14 - goal history recorded instant"
+00:47:31.063 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "15 - onboarding draft"
+00:47:31.110 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1" to version "16 - onboarding application"
+00:47:31.208 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "port_allocation_f95572e552b7492ca5491b3c3d978ca1", now at version v16 (execution time 00:00.724s)
+ADOPTION_PROCESS mode=jar pid=43076 log=target\adoption-processes\f441e961-a0a2-457f-ba5b-acc8b3dc6d1d.log
+PORT_ALLOCATION_BOUND_BY_SERVER=true unrelatedListenerAlive=true
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.40 s -- in com.controlefinanceiro.api.migration.AdoptionPortAllocationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  31.926 s
+[INFO] Finished at: 2026-10-27T00:47:51Z
+[INFO] ------------------------------------------------------------------------

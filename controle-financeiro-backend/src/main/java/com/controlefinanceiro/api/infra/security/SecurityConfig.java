@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(restSecurityErrorHandler)
                 )
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/ops/health/liveness", "/ops/health/readiness").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/recover-password").permitAll()

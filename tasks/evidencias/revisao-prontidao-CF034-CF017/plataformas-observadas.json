@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-26",
+  "method": "Authenticated Railway UI via CUA; Vercel connector and UI; control plane only",
+  "railway": {
+    "projectId": "19974952-914d-4072-9140-e62e5ed23c31",
+    "environmentId": "73f7324a-a15f-4940-b2dc-d5bcb5510441",
+    "environment": "production",
+    "apiId": "f4ad9689-58ed-4112-8bb2-2cfe4af24483",
+    "postgresId": "79d2ee56-cfd0-47bc-8744-e932cf49ba69",
+    "volumeId": "1fe34e12-e948-4c99-8448-7cfbf871ec54",
+    "apiState": "offline; no active deployment",
+    "postgresState": "offline",
+    "autodeploy": "Auto deploy is disabled; Enable button",
+    "waitForCI": false,
+    "sourceBranch": "main",
+    "root": "/controle-financeiro-backend",
+    "dockerfile": "/controle-financeiro-backend/Dockerfile",
+    "watchPaths": [
+      "/controle-financeiro-backend/**"
+    ],
+    "healthcheck": "unset; Healthcheck Path button",
+    "region": "US East (Virginia, USA)",
+    "replicas": 1,
+    "restartPolicy": "On Failure",
+    "maxRestartRetries": 10,
+    "postgresImage": "ghcr.io/railwayapp-templates/postgres-ssl:17",
+    "postgresEngineVersion": "unknown; image tag is not a server query",
+    "postgresPublicProxy": true,
+    "jdbc": {
+      "postgres": true,
+      "privateRailwayHost": true,
+      "credentialsInUrl": false,
+      "valueWithheld": true
+    },
+    "frontURL": {
+      "productionAlias": true,
+      "hostname": "controle-financeiro-kaiquedev.vercel.app",
+      "credentialsInUrl": false,
+      "query": false
+    },
+    "variables": [
+      "BRAPI_TOKEN",
+      "EMAIL_RESEND",
+      "FRONT_URL",
+      "JWT_SECRET",
+      "RESEND_API_KEY",
+      "SPRING_DATASOURCE_PASSWORD",
+      "SPRING_DATASOURCE_URL",
+      "SPRING_DATASOURCE_USERNAME",
+      "SPRING_JPA_HIBERNATE_DDL_AUTO"
+    ],
+    "hibernateDDL": "update",
+    "activeSpringProfile": "unknown; no service override listed",
+    "flywayOverride": "none of 9 service variables; no live process to introspect",
+    "pendingWork": "unknown via current UI; historical final-platforms reports empty",
+    "prEnvironments": "historical off; not independently reconfirmed yet"
+  },
+  "vercel": {
+    "decrypted": true,
+    "variable": "BACKEND_API_URL",
+    "targets": [
+      "production",
+      "preview",
+      "development"
+    ],
+    "validAbsoluteUrl": true,
+    "https": true,
+    "expectedRailwayHost": true,
+    "rootPath": true,
+    "credentialsPresent": false,
+    "queryPresent": false,
+    "projectId": "prj_OdfwpJWp3wv8ZgfpcjVEBscrj03r",
+    "lastProduction": "dpl_FkfL25jbyrt6FdD5Di5wqoLH9iHm",
+    "productionCommit": "272001f7b4c39aebd18bdcd856109f9a0f6c1213",
+    "state": "READY",
+    "gitDeploymentEnabled": {
+      "main": false,
+      "codex/cf034-ci-local": false
+    },
+    "ssoProtection": "all_except_custom_domains",
+    "rootEvidence": "UI Build and Deployment: Root Directory controle-financeiro-frontend",
+    "framework": "Next.js",
+    "nodeVersion": "24.x",
+    "buildOverrides": false,
+    "deploymentChecks": "No checks configured"
+  },
+  "limits": [
+    "No database connection or data query",
+    "No deployment, configuration mutation, activation or CI dispatch",
+    "No HTTP smoke against deployed application",
+    "Future startup behavior inferred from code/config, not an observed real startup"
+  ]
+}

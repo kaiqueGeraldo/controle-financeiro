@@ -13,6 +13,15 @@ export function requireCounts(counts,label){
   return counts;
 }
 export async function sequence(stages,run){for(const stage of stages)await run(stage);}
+export function mavenInvocation(platform,args){
+  if(platform==='linux')return {executable:'sh',args:['./mvnw','--batch-mode',...args]};
+  if(platform!=='win32')throw new Error(`Unknown Maven JVM platform: ${platform}`);
+  // The owned Windows launcher quotes argv using Win32 rules. cmd /c parses
+  // embedded quotes differently; use a literal PowerShell invocation instead.
+  const literal=value=>"'"+value.replaceAll("'","''")+"'";
+  const script=`& './mvnw.cmd' ${['--batch-mode',...args].map(literal).join(' ')}; exit $LASTEXITCODE`;
+  return {executable:'powershell.exe',args:['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')]};
+}
 export function junitCounts(directory){
   const counts={tests:0,failures:0,errors:0,skipped:0};
   for(const file of fs.readdirSync(directory).filter(p=>p.startsWith('TEST-')&&p.endsWith('.xml'))){
@@ -22,9 +31,20 @@ export function junitCounts(directory){
   }return counts;
 }
 export function requireReportedClasses(directory,required){
+  if(!required.length)throw new Error('Empty mandatory backend selection');
   const reported=fs.readdirSync(directory).filter(f=>f.startsWith('TEST-')&&f.endsWith('.xml')).map(f=>f.slice(5,-4));
   const missing=required.filter(name=>!reported.some(r=>r===name||r.startsWith(name+'$')));
   if(missing.length)throw new Error(`Mandatory classes have no report: ${missing.join(',')}`);
+}
+export function requireBackendReports(directory,selection){
+  requireReportedClasses(directory,selection.selected);
+  return requireCounts(junitCounts(directory),'backend');
+}
+export function freshOutput(rootArg,outArg){
+  const root=path.resolve(rootArg),out=path.resolve(outArg);
+  if(out===root||out.startsWith(root+path.sep))throw new Error('Evidence must be outside the source checkout');
+  if(fs.existsSync(out))throw new Error('Never reuse an evidence directory');
+  fs.mkdirSync(out,{recursive:true});return out;
 }
 export function componentSummary(vitest,root){
   return {
@@ -39,10 +59,8 @@ const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withhe
 
 async function main(){
   const [stage='all',rootArg,outArg]=process.argv.slice(2);
-  if(!['all','frontend','backend','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|frontend|backend|e2e|package> <isolated-root> <new-output-dir>');
-  const root=path.resolve(rootArg),out=path.resolve(outArg);
-  if(fs.existsSync(out))throw new Error('Never reuse an evidence directory');
-  fs.mkdirSync(out,{recursive:true});
+  if(!['all','frontend','backend','windows-native','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
+  const root=path.resolve(rootArg),out=freshOutput(root,outArg);
   const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
   const report={source:{commit:source.commit,digest:source.digest,originalTreeChanges:source.originalTreeChanges},node:process.version,platform:process.platform,stage,started:new Date().toISOString(),steps:[],status:'running'};
@@ -70,7 +88,7 @@ async function main(){
     console.log(`${name}: passed`);
   }
   const runNpm=(name,args,extraEnv)=>command(name,process.execPath,[npm,...args],front,extraEnv);
-  const maven=(name,args)=>process.platform==='win32'?command(name,process.env.ComSpec??'cmd.exe',['/d','/c','mvnw.cmd','--batch-mode',...args],back):command(name,'sh',['./mvnw','--batch-mode',...args],back);
+  const maven=(name,args)=>{const invocation=mavenInvocation(process.platform,args);return command(name,invocation.executable,invocation.args,back);};
   function invalidate(names){for(const name of names){const marker=path.join(root,`.ci-${name}.json`);if(fs.existsSync(marker))fs.unlinkSync(marker);}}
   async function frontend(){
     invalidate(['frontend','backend','e2e']);
@@ -99,19 +117,26 @@ async function main(){
     await runNpm('browser-install',['run','test:e2e:install']);
     writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});
   }
-  async function backend(){
-    invalidate(['backend','e2e']);
+  async function backend(scope='all'){
+    if(scope==='all')invalidate(['backend','e2e']);
+    // Maven below launches a local JVM on this process platform. Container
+    // callers must run this controller inside the target container as well.
+    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform,scope);
+    writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
     await maven('maven-version',['--version']);
     const reports=path.join(out,'surefire');
-    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke');
-    writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
-    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,'verify']);}
+    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,scope==='all'?'verify':'test']);}
     finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
-    report.backend=requireCounts(junitCounts(reports),'backend');
-    requireReportedClasses(reports,selection.selected);
+    report.backend=requireBackendReports(reports,selection);
+    report.junitReports=fs.readdirSync(reports).filter(f=>f.startsWith('TEST-')&&f.endsWith('.xml')).sort().map(file=>({file,sha256:hash(fs.readFileSync(path.join(reports,file)))}));
+    if(scope==='platform-only')return;
     const jars=fs.readdirSync(path.join(back,'target')).filter(f=>f.endsWith('.jar'));
     if(jars.length!==1)throw new Error('Verify must produce exactly one executable JAR');
     writeJson(path.join(root,'.ci-backend.json'),{source:source.digest,status:'passed',counts:report.backend,jar:jars[0],jarSha256:hash(fs.readFileSync(path.join(back,'target',jars[0])))});
+  }
+  async function windowsNative(){
+    if(process.platform!=='win32')throw new Error('windows-native requires a real Windows controller and local Windows JVM');
+    await backend('platform-only');
   }
   function prerequisite(name){const record=JSON.parse(fs.readFileSync(path.join(root,`.ci-${name}.json`)));if(record.status!=='passed'||record.source!==source.digest)throw new Error(`Missing current ${name} gate`);}
   async function e2e(){
@@ -143,7 +168,7 @@ async function main(){
     writeJson(path.join(out,'package-manifest.json'),{...report.artifact,ci,toolchain:{node:process.version,mavenJava:'see sanitized maven-version.log from this run'},originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
   }
   try{
-    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,e2e,package:packageArtifact})[name]();control.check();});
+    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,'windows-native':windowsNative,e2e,package:packageArtifact})[name]();control.check();});
     report.status='passed';
   }catch(error){
     report.status=control.cancelled?'cancelled':'failed';report.error=control.cancelled?'Execution cancelled; subsequent gates blocked':safe(error.message);process.exitCode=control.cancelled?130:1;

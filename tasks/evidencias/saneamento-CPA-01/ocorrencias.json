@@ -1,0 +1,23 @@
+{
+  "scope": "Ocorrências preservadas; não convertidas em testes aprovados",
+  "occurrences": [
+    {
+      "phase": "acesso inicial",
+      "observation": "Escrita de branch em .git e leitura do Docker/WSL negadas pelo perfil restrito da ferramenta. Repetidas com escopo autorizado; nenhuma revisão automática rejeitou uma ação.",
+      "impact": "Sem alteração de fontes, proofs históricos ou regras de acesso do sistema."
+    },
+    {
+      "phase": "primeira execução Node na pasta temporária da ferramenta",
+      "observation": "19/22 testes passaram; 3 testes de coleta falharam com EPERM no rename de .public-pending para public na pasta temporária restrita. Saída original preservada no histórico desta conversa.",
+      "resolution": "Mesmo coletor e assertions executados no runtime externo com TEMP/TMP próprios; 23/23 após a inclusão do contrato do runner Windows. Não se alterou a sanitização."
+    },
+    {
+      "phase": "cpa01-validacao-01",
+      "observation": "22 contratos verdes e duas mutações detectadas/restauradas; o estágio Windows falhou antes do teste em maven-version (255), por interpretação das aspas por cmd /c.",
+      "receipt": "cpa01-validacao-01-falha.json",
+      "resolution": "Invocação literal via PowerShell no runner e teste de argumentos; nova execução cpa01-validacao-02 com 23 contratos, mesmo teste TCP/assertions e prazo de 3s. Maven/Surefire 1/1, zero skips."
+    }
+  ],
+  "remoteCi": false,
+  "financialSuitesRepeated": false
+}

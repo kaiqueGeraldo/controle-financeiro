@@ -8,7 +8,197 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
-## Publicação controlada e validação remota — 26/10/2026
+## Revalidação independente CPA-01/R1 — 28/10/2026
+
+[Parecer de81b20bca](../evidencias/revalidacao-CPA-01-R1/README.md): **R1/P2 encerrado
+localmente; consolidação apta a publicação controlada e CI remota (parecer A)**.
+32 contratos,7 probes originais,6 controles com500 combinações e7 mutações
+detectadas/restauradas; cobertura e bloqueio do pacote preservados. Sem implementação
+ou ação remota. CF034 integral permanece em_revisao; zoom, matriz/runner/required
+remotos, cancelamento e demais gates mantêm seus critérios. Nenhum checkbox marcado.
+Os registros seguintes são históricos e não revogam este aceite local posterior.
+
+## Histórico da revalidação CPA-01 de193916a1 — 28/10/2026
+
+[Parecer e matriz](../evidencias/revalidacao-CPA-01/README.md), candidato193916a1:
+seleção original encerrada e união101/116 preservada, Linux100/115+Windows1,
+15 históricos. TCPWindows real e comunsLinux dirigidos aprovados, sem Actions ou
+suíteLinux integral. **R1/P2 aberto**: needs bloqueia pacote após falhaWindows,
+mas propaga skipped ao required; falta agregação que reprove explicitamente as
+dependências não verdes. Parecer C mantido por R1, sem correção nesta revisão.
+CF034 integral em_revisao, demais gates e aceites locais preservados.
+
+## Consolidação pré-adoção — 28/10/2026
+
+[Revisão integrada, achado e plano de publicação/CI](../evidencias/consolidacao-pre-adocao/README.md),
+entrada56eb80b5/mainfb986456: **parecer C — CPA-01/P2 confirmado**. O seletor atual
+inclui AdoptionNativeSocketsTest nos jobs Ubuntu; a condição Windows gera skip,
+que requireCounts rejeita. Saneamento mínimo proposto com seleção por ambiente,
+prova Windows obrigatória e zero skips aplicáveis, sem implementação nesta revisão.
+DEC-CI-04 e aceites locais de produto/startup40s/TCP/RVPLA/audit preservados.
+CF034 integral em_revisao: matriz/runner remotos, zoom200%, cancelamento e gates
+de adoção/produção continuam próprios. Proposta de PR e cadeia de pacote novo
+preparadas, sem push, PR, CI remota, alteração de hospedagem ou deploy.
+
+## Revisão independente de startup HQL — 28/10/2026
+
+[Parecer do candidato ed42309f](../evidencias/revisao-startup-HQL/README.md):
+**startup aceito no recorte local; histórico E inconclusivo e não bloqueante para
+preparação seguinte**.40s e testes obrigatórios mantidos; quatro observações novas
+e provas anteriores dos demais modos discriminadas, sem transformar falhas antigas
+em suíte17 verde. Nova falha bloqueia seu gate e reabre o recorte afetado.
+TCP/RVPLA/EPERM e DEC-CI-04 preservados; consolidação/revisão do intervalo acumulado
+e plano de validação remota/matriz podem ser preparados, sem executá-los agora.
+CF034 integral em_revisao; expanded, zoom200%, limites de cancelamento, configuração,
+CF017/adoção/produção continuam próprios. Sem novo startup/produto/pacote/CI remota,
+push ou deploy. Notas anteriores são históricas quanto ao bloqueio geral startup.
+
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+[Parecer A–F e matriz](../evidencias/revalidacao-TCP-reuso-nativo/README.md),
+candidato `b7a2c206`: TCP/reuso aceito no Windows nativo/JAR/PG16/17, originais
+3/3 por invocação; contraprova antiga BindException, inspeção falha bloqueante e
+controle restaurado aprovado. Mesma porta/bind único e alheios preservados.
+Certificação em 10s/5s; limpeza do inspetor em erro até 2s adicionais, sem sucesso
+tardio. RVPLA-01/03/04/05 e EPERM preservados por caminhos intocados. HQL
+separado/inconclusivo, 40s mantidos; próximo experimento somente delimitado.
+CF034 integral em_revisao, expanded/zoom 200%, cancelamento/configuração e gates
+CF017/adoção/produção pendentes. JAR anterior intacto; nenhuma implementação,
+CI remota, publicação ou deploy nesta revisão.
+
+## Investigação TCP/reuso nativo — 28/10/2026
+
+[Provas, contraprovas e estados](../evidencias/investigacao-TCP-reuso-nativo/README.md),
+base3b245d9d/correçãob8b645d0: pós-condição TCP do close Windows saneada localmente,
+originais PG16/17 verdes e contraprovas detectadas/restauradas. Aguardando revisão
+independente, sem autoencerramento. Runner/RVPLA-01/03/04/05 e EPERM preservados;
+HQL inconclusivo/40s mantidos e falhas pré-bind novas preservadas. CF034 integral
+em_revisao; expanded,zoom200%,cancelamento/configuração e gates reais continuam
+pendentes. JAR anterior intacto, sem CI remota, publicação, adoção ou deploy.
+
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+[Parecer do candidato d8bd180a](../evidencias/revalidacao-RVPLA-05-residual/README.md):
+RVPLA-05/P2 encerrado no original Windows/mesma sessão,3/3 no20s em15,084/12,635/
+12,287s, margem mínima4,916s. Redução15→9 consultas/5→3 comandos/21→13 lançamentos
+diretos sustentada, mantendo confirmação externa e aceites RVPLA-03/04/EPERM.
+Negativos, regressões e audit PG17 limitado passaram no alcance; TCP/HQL continuam
+inconclusivos e40s intactos. CF034 integral em_revisao; expanded/zoom200%,cancelamento/
+configuração e gates CF017/adoção/produção não liberados. JAR anterior preservado,
+sem pacote novo, implementação, CI remota ou publicação nesta revisão.
+
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+[Evidências e limites](../evidencias/saneamento-RVPLA-05-residual/README.md),
+baseacaa6ed9, implementaçãoe88ee50a: custo residual de consultas/lançamentos
+reduzido,3/3 no original20s (10,213/11,560/12,226s), margem mínima7,774s.
+Contenção, identidade e ausência externa dos Jobs mantidas; nenhum cache/broker
+permanente ou mudança do canal. Saneado localmente, **em revisão independente**.
+RVPLA-03/04 e EPERM mantêm seus aceites; complemento alheio, controles dirigidos
+e audit PG17 limitado passaram. TCP/HQL inconclusivos e40s intactos. CF034
+integral em_revisao, expanded/zoom200%, configuração, CF017/adoção/produção
+continuam próprios. JAR anterior preservado, sem pacote novo ou CI remota.
+
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+[Parecer do candidato019a6ce3](../evidencias/revalidacao-RVPLA-05/README.md):
+RVPLA-05/P2 aberto,0/3 no probe original20s; saída rápida não aprovou duração
+integral. RVPLA-03/04 específicos preservados; fixture histórica expirava30s,
+complemento controlado sensível e grupo completo original não aprovado. EPERM
+causal e audit PG17 limitado aceitos, sem atribuição integral do handle histórico.
+TCP/reuso/HQL inconclusivos e40s mantidos. Aceites DEC-CI-04/JAR anterior preservados;
+CF034 integral em_revisao, expanded/zoom200%, cancelamento/configuração e gates
+CF017/adoção/produção não liberados. Sem implementação, CI remota ou publicação.
+
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+[Delta local e limites](../evidencias/saneamento-RVPLA-05/README.md), base9c27881,
+implementação762a085/d254822: três probes originais20s passaram em16,572/17,978/
+16,990s; encerramento gerenciado dos guardiões era o custo dominante demonstrado.
+Contenção/quiescência mantidas. Corrida EPERM de mailbox demonstrada/corrigida;
+audit PG17 limitado passou, autoria do handle histórico permanece desconhecida.
+Revisão independente dirigida pendente, sem autoaprovação. Falha da fixture
+alheia no grupo completo RVPLA-03 preservada e não promovida a sucesso.
+Aceites específicos RVPLA-03/04 e DEC-CI-04 mantidos no alcance próprio; TCP/HQL
+inconclusivos,40s intactos. CF034 integral em_revisao; expanded, zoom200%,
+configuração e adoção/produção continuam pendentes. JAR anterior sem novo build.
+
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+[Parecer do candidato badecb55](../evidencias/revalidacao-RVPLA-04/README.md):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; contenção específica RVPLA-03
+preservada. Gate legado20s falhou por latência (RVPLA-05/P2), mantendo o runner
+sem aceite funcional integral. Preflight PG17 e resume passaram; audit falhou
+por EPERM, causa inconclusiva, sem repetição. TCP/reuso/HQL continuam separados,
+inconclusivos, 40s mantidos. Aceites DEC-CI-04 e pacote/JAR anterior preservados;
+CF034 integral em_revisao, expanded/zoom200%, cancelamento/configuração e gates
+CF017/adoção/produção não liberados. Sem implementação, CI remota ou publicação.
+
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+[Parecer do candidato0b4c6598](../evidencias/revalidacao-RVPLA-03/README.md):
+RVPLA-03 encerrado no abandono Windows/sessão atual; RVPLA-04 novo revela falsa
+quiescência durante inspeção de handoff. Reuso nativo e startup HQL inconclusivos,
+40s mantidos. Pacote/JAR anterior e aceites DEC-CI-04 preservados; CF034 integral
+em_revisao, expanded/zoom/cancelamento/configuração/adoção reais não liberados.
+Sem CI remota, correção de implementação, publicação, deploy ou sucessora.
+
+## Revalidação independente do saneamento — 27/10/2026
+
+[Parecer do candidatoaa068d1](../evidencias/revalidacao-preparacao-local-adocao/README.md):
+RVPLA-01 encerrado; correção da corrida de porta aceita no recorte. RVPLA-03/P2
+confirma wrapper tardio após interrupção; startup segue inconclusivo/não aprovado.
+Mesmo JAR p05/inputs24844b5, sem build atribuído ao HEAD. Aceite DEC-CI-04 e
+provas anteriores mantidos, CF034 integral em_revisao; expanded, zoom200%,
+cancelamento e gates CF017/configuração/adoção/produção preservados. Nenhuma
+CI remota, publicação, correção de produto/harness ou sucessora executada.
+
+## Revisão independente da preparação local — 26/10/2026
+
+[Parecer, matriz e achados](../evidencias/revisao-preparacao-local-adocao/README.md),
+candidato6f70a87: bytes/831inputs/22recursos e imagem do JAR p05 conferidos,
+sem atribuir seu build ao HEAD documental. Controles locais aprovados no recorte;
+controle original de startup17/3 falhas mantém o gate aberto. RVPLA-01 confirma
+que resume de contraprovas pode pular timeout sem efeito; não corrigido aqui.
+
+Aceite DEC-CI-04 e resultados remotos anteriores preservados; nenhuma CI nova,
+publicação, deploy ou configuração alterada. CF034 integral em_revisao;
+expanded, zoom, cancelamento e gates CF017/035/036 não foram dispensados.
+
+## Preparação local de adoção/pacote — 26/10/2026
+
+Lote autorizado a partir46b85ee, em_revisao na branch
+`codex/preparacao-local-adocao`: [resultados e limites](../evidencias/preparacao-local-adocao/README.md).
+Acrescenta controles operacionais e ensaios locais em pacote próprio. Não atribui
+seus resultados ao JAR c3860ec0 da main, não executa Actions/expanded/deploy e não
+encerra critério integral. Aceite DEC-CI-04 e evidências remotas anteriores mantidos.
+Entrega em_revisao, sujeita a revisão independente e gates preservados. Os17
+contratos da imagem passaram numa rodada; estouros de40s em processos Windows e
+Linux posteriores mantêm o gate de startup aberto, sem aumento de timeout/retry.
+
+## Revisão independente da validação remota — 26/10/2026
+
+[Parecer, matriz por critério e plano de adoção](../evidencias/revisao-prontidao-CF034-CF017/README.md),
+base `fb986456a37a48afcafef204f165d15354294d26`. Main/PR integrada conferidas
+pela API; ddd5a41 é pai do merge e tem árvore igual. Run main 40337346702/1:
+required success, expanded skipped; lint/tipos/build, 13 contratos, 18 execuções
+temporais, 620 componentes, 891 backend/95 classes, wrapper 1 e seis jornadas
+conferidos sem somar sobreposições. Cinco ZIPs confrontados com digests atuais;
+JAR c3860ec0… e 820 inputs verificados contra Git, sem nova suíte/recompilação.
+
+Aceite local DEC-CI-04 preservado; critérios integrais mantidos abertos. Expanded
+não certifica sete casos CF032, incluindo três combinações temporais, nem os 15
+harnesses diferidos. Cancelamento Linux comprova cleanup explícito de recursos
+sintéticos próprios antes do descarte da VM; não certifica Ctrl+C ou controle
+alheio Linux. Imagem de release e dependência integral CF015/zoom200% pendentes.
+
+API/PG offline, autodeploy Railway desativado e produção Vercel anterior preservada.
+DDL externo update, Flyway no startup, jobs, saúde e previews exigem preparo;
+ferramenta CF017 major16 incompatível com imagem alvo17. CF017/P01/P02 permanecem
+em_revisao. Nenhum checkbox integral alterado, sucessora iniciada ou mutação remota.
+Branch de revisão derivada da main integrada; somente documentos/provas locais.
+
+## Histórico — publicação controlada e validação remota — 26/10/2026
 
 Etapa operacional autorizada, entrada4d20fb0; revisão Railway/Vercel incluída por
 pedido expresso. [Matriz e evidências](../evidencias/CF-034-remota/README.md).

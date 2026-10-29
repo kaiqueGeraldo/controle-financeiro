@@ -1,0 +1,42 @@
+{
+  "scope": "Only mailbox implementation reverted; new fast guardian and all physical inspections retained",
+  "before": "c0dd2dadc58c733ead002b0886a0e9d185bc2cc891499435747c9ece91482e38",
+  "mutant": "c5899af0c5411da6180ed7b3fb13a6ab724280c31bfe408839efb26e36a12b25",
+  "restored": "c0dd2dadc58c733ead002b0886a0e9d185bc2cc891499435747c9ece91482e38",
+  "results": [
+    {
+      "case": "old-mailbox",
+      "oracle": 1,
+      "result": {
+        "error": {
+          "message": "EPERM: operation not permitted, rename 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-20261027-01\\audit-causal\\old-mailbox\\.owned-runs\\mailbox-25a43c8c-e454-4ddc-969f-377db00412da.json.1a0fff28-f77b-4bde-bfd1-54a1bf88b8cc.tmp' -> 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-20261027-01\\audit-causal\\old-mailbox\\.owned-runs\\mailbox-25a43c8c-e454-4ddc-969f-377db00412da.json'",
+          "code": "EPERM",
+          "errno": -4048,
+          "syscall": "rename",
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-20261027-01\\audit-causal\\old-mailbox\\.owned-runs\\mailbox-25a43c8c-e454-4ddc-969f-377db00412da.json.1a0fff28-f77b-4bde-bfd1-54a1bf88b8cc.tmp",
+          "dest": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revalidacao-rvpla05-20261027-01\\audit-causal\\old-mailbox\\.owned-runs\\mailbox-25a43c8c-e454-4ddc-969f-377db00412da.json"
+        },
+        "certified": false
+      }
+    },
+    {
+      "case": "restored-slots",
+      "oracle": 0,
+      "result": {
+        "value": {
+          "jobName": "Local\\CF034-CP-8665e222eeac4da24e774b84-56733e80-07ed-4e0f-97de-909146183157",
+          "members": [
+            "51616:639287499733174100:powershell",
+            "30532:639287499742961481:node",
+            "9936:639287499743143722:conhost"
+          ],
+          "creationCount": 3,
+          "status": "quiescent",
+          "membershipVerified": true,
+          "noCommandDescendants": true
+        },
+        "certified": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+import fs from'node:fs';import assert from'node:assert/strict';const r=JSON.parse(fs.readFileSync(process.argv[2]));assert.equal(r.mavenCalled,false,'ENVIRONMENT_GUARD_ALLOWED_EFFECT');assert.equal(r.inputIsOriginal,true);assert.equal(r.attemptCount,0);

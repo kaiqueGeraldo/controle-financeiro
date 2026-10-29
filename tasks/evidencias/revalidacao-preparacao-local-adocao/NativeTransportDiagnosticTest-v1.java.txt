@@ -1,0 +1,27 @@
+package com.controlefinanceiro.api.migration;
+import org.junit.jupiter.api.Test;
+import java.net.*;import java.nio.file.*;import java.util.*;import java.util.concurrent.TimeUnit;
+import static org.assertj.core.api.Assertions.*;
+/** One bounded diagnostic, not a replacement for either original gate or failed probe. */
+class NativeTransportDiagnosticTest {
+ @Test void distinguishDeadProcessFromWindowsTimeWait() throws Exception {
+  String schema=Cf017PostgresSupport.createSchema("rv_tcp_diagnostic");Cf017PostgresSupport.flyway(schema).migrate();
+  int port;Process process;
+  try(var app=new AdoptionRuntimeTest.App(schema,true,false)){app.awaitStatus("/ops/health/readiness",200);port=app.port;process=app.process;}
+  assertThat(process.isAlive()).isFalse();
+  var query=new ProcessBuilder("powershell.exe","-NoProfile","-NonInteractive","-Command","@(Get-NetTCPConnection -LocalPort "+port+" -ErrorAction SilentlyContinue | Select-Object LocalPort,State,OwningProcess) | ConvertTo-Json -Compress").redirectErrorStream(true).start();
+  assertThat(query.waitFor(5,TimeUnit.SECONDS)).isTrue();String state=new String(query.getInputStream().readAllBytes()).trim();
+  boolean reused=false;String bindError=null;
+  try(var socket=new ServerSocket()){socket.setReuseAddress(true);socket.bind(new InetSocketAddress("127.0.0.1",port));reused=true;}catch(BindException expected){bindError=expected.getMessage();}
+  // NetTCP state 2=Listen. A lingering TIME_WAIT tuple has no application PID.
+  var mapper=new com.fasterxml.jackson.databind.ObjectMapper();var rows=state.isEmpty()?mapper.createArrayNode():mapper.readTree(state);
+  var normalized=rows.isArray()?rows:mapper.createArrayNode().add(rows);
+  for(var row:normalized){assertThat(row.path("State").asInt()).isNotEqualTo(2);assertThat(row.path("OwningProcess").asLong()).isZero();}
+  var record=new LinkedHashMap<String,Object>();record.put("pid",process.pid());record.put("port",port);record.put("ownedProcessAlive",false);record.put("tcpState",rows);record.put("immediateRebind",reused);record.put("bindError",bindError);
+  // The two ports from the preserved failed probes: demonstrate later reuse without re-running them.
+  var oldPorts=new ArrayList<Integer>();
+  Path root=Path.of(System.getProperty("revalidation.runtime"));
+  for(String name:List.of("porta-pg17.log","porta-pg16.log")){var m=java.util.regex.Pattern.compile("INDEPENDENT_BOUND_LISTENER port=(\\d+)").matcher(Files.readString(root.resolve(name)));assertThat(m.find()).isTrue();int old=Integer.parseInt(m.group(1));try(var socket=new ServerSocket()){socket.setReuseAddress(true);socket.bind(new InetSocketAddress("127.0.0.1",old));oldPorts.add(old);}}
+  record.put("previousPortsNowReused",oldPorts);mapper.writerWithDefaultPrettyPrinter().writeValue(root.resolve("transport-diagnostic.json").toFile(),record);System.out.println("TRANSPORT_DIAGNOSTIC "+mapper.writeValueAsString(record));
+ }
+}

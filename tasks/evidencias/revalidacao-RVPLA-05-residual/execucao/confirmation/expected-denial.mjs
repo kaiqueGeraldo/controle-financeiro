@@ -1,0 +1,1 @@
+import fs from'node:fs';import assert from'node:assert/strict';const r=JSON.parse(fs.readFileSync(process.argv[2]));assert.equal(r.certified,false,'STALE_CONFIRMATION_ALLOWED_ADVANCE');assert.equal(r.input,'original');assert.equal(r.attemptCount,1);

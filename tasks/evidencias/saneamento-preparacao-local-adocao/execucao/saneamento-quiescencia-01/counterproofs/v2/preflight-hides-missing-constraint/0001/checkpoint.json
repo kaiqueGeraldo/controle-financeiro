@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "name": "preflight-hides-missing-constraint",
+  "identity": "39a0fc39c4c7b5c307068c3ca68360a6bec5163fcf1cb9de6ccc953a5df8d78f",
+  "state": "complete",
+  "active": false,
+  "ownerPid": 33684,
+  "files": [
+    {
+      "file": "controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/infra/migration/LegacyPreflight.java",
+      "backup": "original-0",
+      "before": "74e9ba07a34a805bec08b635634b1d6936c1316dcb3f8eb7e8ad90b0e3eaad2a",
+      "after": "69736e32936ad2ee8eab5941e10b4760c951d69cd5dc50c4f8c39f844140c086"
+    }
+  ],
+  "at": "2026-10-27T01:17:42.966Z",
+  "result": {
+    "status": 1,
+    "log": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-quiescencia-01\\counterproofs\\v2\\preflight-hides-missing-constraint\\0001\\preflight-hides-missing-constraint.log",
+    "reports": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-quiescencia-01\\counterproofs\\v2\\preflight-hides-missing-constraint\\0001\\preflight-hides-missing-constraint-reports",
+    "image": null,
+    "commands": [
+      "mvnw.cmd",
+      "--batch-mode",
+      "-Duser.timezone=UTC",
+      "-Dcf017.postgres.major=17",
+      "-Dspring.test.context.cache.maxSize=4",
+      "-Dtest=Cf017OriginalFindingsTest#missingOriginalForeignKeyStopsBeforeBaseline",
+      "-Dcf034.reportsDirectory=C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-quiescencia-01\\counterproofs\\v2\\preflight-hides-missing-constraint\\0001\\preflight-hides-missing-constraint-reports",
+      "test"
+    ],
+    "children": []
+  },
+  "proof": {
+    "causal": true,
+    "assertionDetected": true,
+    "method": "missingOriginalForeignKeyStopsBeforeBaseline"
+  },
+  "evidence": [
+    {
+      "file": "counterproofs\\v2\\preflight-hides-missing-constraint\\0001\\preflight-hides-missing-constraint.log",
+      "sha256": "099e502e8135dd25e758c7761a957a3f20f044a092c2d16cfaef6e76b66d996c"
+    },
+    {
+      "file": "counterproofs\\v2\\preflight-hides-missing-constraint\\0001\\preflight-hides-missing-constraint-reports\\TEST-com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest.xml",
+      "sha256": "347769e7017100775f157cf7c979266bc60444a33eb2d220934e5a8ffac4a133"
+    }
+  ],
+  "restorationVerified": true,
+  "environmentVerified": true
+}

@@ -1,0 +1,94 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.controlefinanceiro:api >---------------------
+[INFO] Building controle-financeiro-api 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (require-java-21) @ api ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ api ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 19 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ api ---
+[INFO] Copying 4 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 132 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-startup-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/saneamento-startup-01/checkout/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/domain/onboarding/OnboardingApplicationSupport.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.controlefinanceiro.api.migration.StartupTimelineTest
+00:38:02.308 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+00:38:02.316 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+00:38:02.326 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.3
+00:38:02.692 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+00:38:03.195 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+00:38:03.197 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+00:38:03.225 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.6.2
+  API Version: 1.55
+  Operating System: Docker Desktop
+  Total Memory: 15853 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+00:38:03.400 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Creating container for image: testcontainers/ryuk:0.13.0
+00:38:03.805 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 is starting: 5006a515710800bdc317f22b9a9195872958659d3bd0603a554f96d04c63cdf9
+00:38:04.361 [main] INFO tc.testcontainers/ryuk:0.13.0 -- Container testcontainers/ryuk:0.13.0 started in PT0.9610358S
+00:38:04.370 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+00:38:04.371 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+00:38:04.372 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+00:38:04.372 [main] INFO tc.postgres:17-alpine -- Creating container for image: postgres:17-alpine
+00:38:04.487 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine is starting: 2cb94f4fbd92698bfe5de3e07f259b34e1d980c0c7d748f212cb8491f0656464
+00:38:06.613 [main] INFO tc.postgres:17-alpine -- Container postgres:17-alpine started in PT2.2414801S
+00:38:06.614 [main] INFO tc.postgres:17-alpine -- Container is started (JDBC URL: [JDBC_REDACTED]
+CF017_SERVER PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit container=2cb94f4fbd92698bfe5de3e07f259b34e1d980c0c7d748f212cb8491f0656464
+CF017_CLIENT psql (PostgreSQL) 17.11
+CF017_CLIENT pg_dump (PostgreSQL) 17.11
+CF017_CLIENT pg_restore (PostgreSQL) 17.11
+00:38:07.704 [main] INFO org.flywaydb.core.FlywayExecutor -- Database: [JDBC_REDACTED] (PostgreSQL 17.11)
+00:38:07.832 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Schema history table "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816"."flyway_schema_history" does not exist yet
+00:38:07.840 [main] INFO org.flywaydb.core.internal.command.DbValidate -- Successfully validated 16 migrations (execution time 00:00.060s)
+00:38:07.872 [main] INFO org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory -- Creating Schema History table "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816"."flyway_schema_history" ...
+00:38:07.971 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Current version of schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816": << Empty Schema >>
+00:38:08.021 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "1 - baseline pre temporal"
+00:38:08.198 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "2 - adopt temporal metadata"
+00:38:08.243 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "3 - account opening and transaction flow"
+00:38:08.307 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "4 - card invoice integrity"
+00:38:08.400 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "5 - investment positions and goal allocations"
+00:38:08.507 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "6 - preserve goal purchase facts"
+00:38:08.542 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "7 - valuation reference and audit"
+00:38:08.583 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "8 - investment corrections"
+00:38:08.638 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "9 - payment intent receipt"
+00:38:08.659 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "10 - financial commands and partial reversals"
+00:38:08.693 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "11 - reporting coverage baselines"
+00:38:08.718 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "12 - habit goal effect identity"
+00:38:08.753 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "13 - financial creation intent receipts"
+00:38:08.777 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "14 - goal history recorded instant"
+00:38:08.796 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "15 - onboarding draft"
+00:38:08.829 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Migrating schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816" to version "16 - onboarding application"
+00:38:08.906 [main] INFO org.flywaydb.core.internal.command.DbMigrate -- Successfully applied 16 migrations to schema "startup_timeline_70c0207dc1b74e6e83b8bb9c62b67816", now at version v16 (execution time 00:00.580s)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 54.45 s -- in com.controlefinanceiro.api.migration.StartupTimelineTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:16 min
+[INFO] Finished at: 2026-10-27T00:38:56Z
+[INFO] ------------------------------------------------------------------------

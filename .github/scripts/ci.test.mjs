@@ -3,13 +3,20 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {sequence,requireCounts,junitCounts,requireReportedClasses,componentSummary} from './ci.mjs';
+import {sequence,requireCounts,junitCounts,requireReportedClasses,requireBackendReports,freshOutput,mavenInvocation,componentSummary} from './ci.mjs';
 import {snapshot,sourceFor} from './source.mjs';
 
 test('a failed required gate prevents E2E and packaging',async()=>{
   const visited=[];
   await assert.rejects(sequence(['lint','backend','e2e','package'],async stage=>{visited.push(stage);if(stage==='backend')throw new Error('invariant failed');}),/invariant failed/);
   assert.deepEqual(visited,['lint','backend']);
+});
+test('Windows Maven passes paths and literals without cmd quote reinterpretation',()=>{
+  const invocation=mavenInvocation('win32',['-Dcf034.reportsDirectory=C:\\with spaces\\reports',"-Dliteral=it's $notAnExpression",'test']);
+  assert.equal(invocation.executable,'powershell.exe');
+  assert.equal(Buffer.from(invocation.args.at(-1),'base64').toString('utf16le'),"& './mvnw.cmd' '--batch-mode' '-Dcf034.reportsDirectory=C:\\with spaces\\reports' '-Dliteral=it''s $notAnExpression' 'test'; exit $LASTEXITCODE");
+  assert.deepEqual(mavenInvocation('linux',['test']),{executable:'sh',args:['./mvnw','--batch-mode','test']});
+  assert.throws(()=>mavenInvocation('unknown',['test']),/Unknown Maven JVM platform/);
 });
 test('zero, skipped, failed and errored tests cannot approve a gate',()=>{
   for(const counts of [{tests:0,failures:0,errors:0,skipped:0},{tests:1,failures:0,errors:0,skipped:1},{tests:1,failures:1,errors:0,skipped:0},{tests:1,failures:0,errors:1,skipped:0}])assert.throws(()=>requireCounts(counts,'probe'));
@@ -49,4 +56,26 @@ test('source attestation rejects changed content and additional unrecorded sourc
     assert.throws(()=>sourceFor(directory),/file set changed/);fs.unlinkSync(extra);
     assert.equal(sourceFor(directory).commit,'synthetic');
   }finally{fs.unlinkSync(input);fs.unlinkSync(path.join(directory,'.ci-source.json'));fs.rmdirSync(backend);fs.rmdirSync(directory);}
+});
+
+test('backend selection needs every report and rejects empty, skipped and failed executions',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-reports-'));
+  const selection={selected:['example.CommonTest','example.WindowsTest']};
+  const report=(name,attrs)=>fs.writeFileSync(path.join(directory,`TEST-example.${name}.xml`),`<testsuite ${attrs}></testsuite>`);
+  report('CommonTest','tests="1" failures="0" errors="0" skipped="0"');
+  assert.throws(()=>requireBackendReports(directory,selection),/WindowsTest/);
+  assert.throws(()=>requireBackendReports(directory,{selected:[]}),/Empty mandatory/);
+  for(const attrs of ['tests="1" failures="0" errors="0" skipped="1"','tests="1" failures="1" errors="0" skipped="0"','tests="1" failures="0" errors="1" skipped="0"']){
+    report('WindowsTest',attrs);assert.throws(()=>requireBackendReports(directory,selection),/invalid counts/);
+  }
+  report('WindowsTest','tests="1" failures="0" errors="0" skipped="0"');
+  assert.deepEqual(requireBackendReports(directory,selection),{tests:2,failures:0,errors:0,skipped:0});
+});
+test('evidence output is new and external so an old report cannot certify another run',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-fresh-'));
+  const root=path.join(directory,'source');fs.mkdirSync(root);
+  assert.throws(()=>freshOutput(root,path.join(root,'reports')),/outside/);
+  const out=path.join(directory,'new-run');assert.equal(freshOutput(root,out),out);
+  fs.writeFileSync(path.join(out,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
+  assert.throws(()=>freshOutput(root,out),/Never reuse/);
 });

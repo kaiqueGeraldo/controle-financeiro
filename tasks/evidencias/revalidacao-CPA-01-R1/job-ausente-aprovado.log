@@ -1,0 +1,86 @@
+TAP version 13
+# Subtest: independent literal table covers all 500 status combinations in the real evaluator
+ok 1 - independent literal table covers all 500 status combinations in the real evaluator
+  ---
+  duration_ms: 4.48
+  type: 'test'
+  ...
+# Subtest: every job and result must exist, even expanded when not applicable; invalid types fail closed
+not ok 2 - every job and result must exist, even expanded when not applicable; invalid types fail closed
+  ---
+  duration_ms: 1.2153
+  type: 'test'
+  location: 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\revalidacao-CPA-01-R1\\independentes.test.mjs:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-CPA-01-R1/independentes.test.mjs:42:58)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+  ...
+# Subtest: workflow dispatch default and invalid modes match the job condition without implicit fallback
+ok 3 - workflow dispatch default and invalid modes match the job condition without implicit fallback
+  ---
+  duration_ms: 0.8696
+  type: 'test'
+  ...
+# Subtest: actual workflow CLI propagates exit 1 and sanitizes hostile synthetic input
+not ok 4 - actual workflow CLI propagates exit 1 and sanitizes hostile synthetic input
+  ---
+  duration_ms: 2458.3901
+  type: 'test'
+  location: 'C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro\\tasks\\evidencias\\revalidacao-CPA-01-R1\\independentes.test.mjs:59:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro/tasks/evidencias/revalidacao-CPA-01-R1/independentes.test.mjs:68:44)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: parsed YAML always calls the real evaluator as the final command, with intact needs data
+ok 5 - parsed YAML always calls the real evaluator as the final command, with intact needs data
+  ---
+  duration_ms: 1.7275
+  type: 'test'
+  ...
+# Subtest: worker DAG, filters and package ordering match the accepted base except the declared delta
+ok 6 - worker DAG, filters and package ordering match the accepted base except the declared delta
+  ---
+  duration_ms: 72.8256
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 4
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2656.2348
