@@ -6,7 +6,7 @@ const [runtimeArg,label,...tests]=process.argv.slice(2);
 const root=path.resolve(import.meta.dirname,'../../..'),runtime=path.resolve(runtimeArg);
 if(!label?.match(/^[a-z0-9-]+$/)||!tests.length||!path.basename(runtime).startsWith('pr3-expanded-'))throw Error('runtime label tests required');
 const out=path.join(runtime,label);fs.mkdirSync(out,{recursive:false});
-const original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.resolve(root,'../..'));
+const original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:root,encoding:'utf8',windowsHide:true}).trim()));
 const jdk=process.env.PR3_JAVA_HOME??path.join(original,'controle-financeiro-backend/target/temurin21/jdk-21.0.12.1+1');
 const env={...process.env,CF_BROWSER_DIAGNOSTICS:'1',JAVA_HOME:jdk,PATH:path.join(jdk,'bin')+path.delimiter+process.env.PATH,PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',TEMP:path.join(out,'temp'),TMP:path.join(out,'temp')};
 fs.mkdirSync(env.TEMP);

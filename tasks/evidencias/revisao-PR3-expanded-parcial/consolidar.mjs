@@ -3,7 +3,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-const root=path.resolve(import.meta.dirname,'../../..'),original=path.resolve(root,'../..');
+const root=path.resolve(import.meta.dirname,'../../..'),original=path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:root,encoding:'utf8',windowsHide:true}).trim());
 const [firstArg,secondArg,phase='checkpoint']=process.argv.slice(2),runtimes=[path.resolve(firstArg),path.resolve(secondArg)];
 const read=f=>JSON.parse(fs.readFileSync(f)),sha=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const git=(wd,...args)=>execFileSync('git',args,{cwd:wd,encoding:'utf8',windowsHide:true}).trim();

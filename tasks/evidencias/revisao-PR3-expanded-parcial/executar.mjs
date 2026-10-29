@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {execFileSync,spawnSync} from 'node:child_process';
 
 const origin=path.resolve(import.meta.dirname,'../../..');
-const original=path.resolve(origin,'../..');
+const original=path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:origin,encoding:'utf8',windowsHide:true}).trim());
 const parent=path.resolve(original,'../controle-financeiro-runtimes/preparacao-adocao');
 const [mode,runtimeArg,label,...tests]=process.argv.slice(2);
 const runtime=path.resolve(runtimeArg??'');

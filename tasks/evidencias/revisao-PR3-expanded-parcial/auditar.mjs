@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {inflateRawSync} from 'node:zlib';
 import {execFileSync} from 'node:child_process';
-const root=path.resolve(import.meta.dirname,'../../..'),original=path.resolve(root,'../..');
+const root=path.resolve(import.meta.dirname,'../../..'),original=path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:root,encoding:'utf8',windowsHide:true}).trim());
 const runtime=path.resolve(process.argv[2]);
 const old=path.resolve(original,'../controle-financeiro-runtimes/preparacao-adocao/pr3-expanded-20261029-01');
 const remote=path.resolve(old,'../ci-remota-20261028-01');

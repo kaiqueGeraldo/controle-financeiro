@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 const [runtimeArg,phase='initial']=process.argv.slice(2),runtime=path.resolve(runtimeArg);
-const root=path.resolve(import.meta.dirname,'../../..'),original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.resolve(root,'../..'));
+const root=path.resolve(import.meta.dirname,'../../..'),original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:root,encoding:'utf8',windowsHide:true}).trim()));
 const historical=path.resolve(original,'../controle-financeiro-runtimes/preparacao-adocao/ci-remota-20261028-01');
 const hash=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 assert.equal(hash(path.join(original,'README.md')),'6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca');

@@ -36,7 +36,7 @@ for(const {label,dir,record:recordName,log:logName,reports:reportsName} of entri
 }
 assert.equal(execFileSync('git',['diff','1c4173f2e9a8bd459a9f2ecd4acf2d803245be88','--','controle-financeiro-backend/src/main','controle-financeiro-frontend/src','.github'],{cwd:root,encoding:'utf8'}),'');
 const checks=JSON.parse(fs.readFileSync(path.join(runtime,'checks-final.json')));assert.equal(checks.contracts,0);assert.equal(checks.types,0);
-const original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.resolve(root,'../..'));
+const original=path.resolve(process.env.PR3_ORIGINAL_CHECKOUT??path.dirname(execFileSync('git',['rev-parse','--path-format=absolute','--git-common-dir'],{cwd:root,encoding:'utf8',windowsHide:true}).trim()));
 const oracleFile=path.join(original,'tasks/evidencias/revalidacao-CPA-01/identidades.json'),oracle=JSON.parse(fs.readFileSync(oracleFile));
 const selection={smoke:backendSelection(root,'smoke','linux').selected,expanded:backendSelection(root,'expanded','linux').selected,windows:backendSelection(root,'smoke','win32','platform-only').selected};
 for(const suite of ['smoke','expanded'])assert.deepEqual([...selection[suite],...selection.windows].sort(),oracle.expected[suite]);
