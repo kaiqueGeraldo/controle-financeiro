@@ -17,7 +17,22 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers=IsolationSchemaInitializer.class)
+@org.springframework.context.annotation.Import(UserIsolationBrowserIntegrationTest.CredentialClock.class)
 class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
+    /** Edge middleware evaluates expiry on its real clock, outside the Node preload. */
+    @org.springframework.boot.test.context.TestConfiguration
+    static class CredentialClock {
+        @org.springframework.context.annotation.Bean
+        static org.springframework.beans.factory.config.BeanPostProcessor credentialClock() {
+            return new org.springframework.beans.factory.config.BeanPostProcessor() {
+                @Override public Object postProcessBeforeInitialization(Object bean,String name) {
+                    if(bean instanceof TokenService)
+                        org.springframework.test.util.ReflectionTestUtils.setField(bean,"clock",Clock.systemUTC());
+                    return bean;
+                }
+            };
+        }
+    }
     @LocalServerPort int port;
     @Autowired JdbcTemplate sql;
     @MockitoBean Clock clock;

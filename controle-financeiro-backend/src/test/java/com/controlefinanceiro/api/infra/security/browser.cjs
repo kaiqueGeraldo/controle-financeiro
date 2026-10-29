@@ -14,6 +14,17 @@ async function body(response) { expect(response.ok(), `HTTP${response.status()}`
     await new Promise(resolve => setTimeout(resolve, 200));
   }
   expect(ready).toBe(true);
+  // The ownership journey starts only after the real BFF handlers are ready.
+  // GETs cannot register/login or create financial state; keep the same shared
+  // readiness budget rather than extending the 5s navigation assertion.
+  // SecurityConfig permits POST only for public login/register; these GETs
+  // must remain unauthorized, not bypass the authentication contract.
+  for (const [route, status] of [['/api/auth/user', 401], ['/api/auth/register', 401], ['/api/auth/login', 401]]) {
+    const remaining = deadline - Date.now();
+    expect(remaining, 'original readiness budget').toBeGreaterThan(0);
+    const response = await fetch(baseURL + route, { signal: AbortSignal.timeout(remaining) });
+    expect(response.status, `BFF readiness ${route}`).toBe(status);
+  }
   const browser = await chromium.launch();
   const context = await browser.newContext({ baseURL, timezoneId: 'America/Sao_Paulo', locale: 'pt-BR', viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
   const page = await context.newPage(); await page.clock.setFixedTime(new Date(instant));
