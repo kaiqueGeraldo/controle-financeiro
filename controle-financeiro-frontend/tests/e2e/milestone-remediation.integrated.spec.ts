@@ -2,6 +2,7 @@ import {expect,test,type Page} from "@playwright/test";
 import {mkdir,writeFile} from "node:fs/promises";
 import path from "node:path";
 import {registerSyntheticUser,syntheticUser} from "./support/synthetic-auth";
+import {textGeometry} from "./support/text-geometry";
 import {setCivilDateOnly} from "./support/civil-date-clock";
 const dir=process.env.CF_REVIEW_EVIDENCE!;
 const ns=process.env.CF_E2E_NAMESPACE!;
@@ -207,7 +208,9 @@ test("SAN-E2-visual motivo de indisponibilidade legível em 360, 768 e 1440",asy
  const reason=page.getByText("Custo ou avaliação indisponível",{exact:true});await expect(reason).toBeVisible();
  for(const width of [360,768,1440]){
    await page.setViewportSize({width,height:900});await reason.scrollIntoViewIfNeeded();
-   const box=await reason.boundingBox();expect(box).not.toBeNull();expect(box!.x).toBeGreaterThanOrEqual(0);expect(box!.x+box!.width).toBeLessThanOrEqual(width);
+   await expect(reason).toHaveCount(1);
+   await expect.poll(async()=>textGeometry(reason,"Custo ou avaliação indisponível")).toMatchObject({ok:true});
+   await writeFile(path.join(dir,`san-e2-geometry-${width}.json`),JSON.stringify(await textGeometry(reason,"Custo ou avaliação indisponível"),null,2));
    await page.screenshot({path:path.join(dir,`san-e2-investimentos-${width}.png`),animations:"disabled"});
  }
 });
