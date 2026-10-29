@@ -20,7 +20,7 @@ proprietário deve respeitar o grafo de dependências e não atingir outro owner
 
 `controle-financeiro-backend/src/main/java/com/controlefinanceiro/api/service/UserService.java`,
 repositórios e vínculos necessários à exclusão. Ver
-[contrato vermelho, rollback e limites](../evidencias/revisao-CF-024/ACHADOS.md).
+contrato vermelho, rollback e limites (registro de execução privado).
 Não confundir esta entrega com o aceite de isolamento da CF-023 nem com bare
 deletion/cache da CF-024. Nenhuma limpeza de dados reais está autorizada aqui.
 
@@ -53,7 +53,7 @@ UserService corrige a ordem do grafo completo e agenda email após commit;
 constraints/migrações e alcance de cache CF-024 preservados. Vínculos inconsistentes
 de outro proprietário são rejeitados com rollback, inclusive SET NULL/UUID legado.
 Checkboxes registram evidência do executor, não revisão independente.
-[FKs, contraprovas, grafo29 tabelas, rollback/cache/efeitos externos e limites](../evidencias/RV24-02/README.md).
+FKs, contraprovas, grafo29 tabelas, rollback/cache/efeitos externos e limites (registro de execução privado).
 Gate afetado135/135 e gate dirigido final6/6 têm subconjuntos sobrepostos.
 Nenhuma exclusão de usuário real, migração nova, push ou deploy. CF-027 não executada
 e sua prontidão continua sujeita a avaliação independente posterior.
@@ -67,7 +67,7 @@ outro owner permanece integralmente igual; rollback intermediário conserva
 dados/cache e não envia email. Outra conexão vê o commit quando o double de
 email é chamado; falha de submissão não alega rollback. Writer concorrente
 espera e falha sem fato/recibo órfão. Gate afetado139/139 verify/JAR, R03 4/4;
-contagens sobrepostas. [Parecer e limites](../evidencias/revalidacao-RV24-01-RV24-02/README.md).
+contagens sobrepostas. Parecer e limites (registro de execução privado).
 
 Não há garantia durável de email, ausência universal de deadlocks ou política
 completa de cache de leitura. Alcance global herdado de evicção preservado.

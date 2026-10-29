@@ -2,17 +2,177 @@
 
 - Estado: em_revisao; base local V1/V2 apta para CF-018, adoção/publicação em banco existente bloqueada
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
-- Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
-- Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
+- Origem: P01/P02 da revisão independente (registro de execução privado)
+- Preparação local: saneamento de 13/09/2026 (registro de execução privado)
+
+## Atualização CPA-01/R1 — 28/10/2026
+
+Revalidação independente de81b20bca (registro de execução privado):
+R1 encerrado no alcance local; parecer A apenas para publicação controlada e CI
+remota. P01/P02 continuam em_revisao: A–D, brutos/null/UNKNOWN, proveniência,
+backup/restore, freeze e coordenação mantêm seus critérios. Sem adoção, baseline,
+migration, banco real ou checkbox novo. Atualizações CPA abaixo são históricas.
+
+## Histórico da atualização CPA-01 — 28/10/2026
+
+Revalidação independente (registro de execução privado): cobertura
+e seleção Windows/Linux aceitas; R1 de agregação required mantém parecer C.
+P01/P02 continuam em_revisao pelos mesmos critérios reais, sem novo checkbox,
+proveniência temporal inventada, baseline/migration ou adoção autorizados.
+
+## Consolidação pré-adoção — 28/10/2026
+
+Parecer integrado e matriz (registro de execução privado),
+entrada56eb80b5/mainfb986456: aceites locais de produto, startup40s, TCP e RVPLA/
+audit preservados. CPA-01/P2 é incompatibilidade de seleção Windows/job Linux,
+com saneamento local separado antes de publicação/CI. Não reabre os aceites por
+associação nem resolve P01/P02. Estado em_revisao e critérios reais de A–D,
+brutos/null/UNKNOWN, backup/restore, freeze, proveniência e coordenação mantidos.
+Sem adoção, migration, banco real ou novo checkbox concluído.
+
+## Revisão independente de startup HQL — 28/10/2026
+
+Parecer do candidato ed42309f (registro de execução privado):
+aceite local de startup, histórico E inconclusivo não bloqueante para preparar
+próximo candidato;40s e testes obrigatórios mantidos, sem apagar falhas antigas.
+Demais modos apoiados nas provas anteriores explicitadas na matriz, sem alegar
+nova suíte17 verde. Aceites TCP/RVPLA/EPERM preservados. P01/P02 em_revisao:
+A–D, brutos/null/UNKNOWN, backup/restore, freeze, baseline/DDL e coordenação reais
+continuam pendentes. Nenhum checkbox real alterado, adoção/publicação ou ação
+remota liberada. Notas anteriores são históricas no alcance do impedimento startup.
+
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+Parecer do candidato b7a2c206 (registro de execução privado):
+TCP/reuso encerrado no alcance Windows nativo/JAR/PG16/17; originais 3/3 por
+invocação, mecanismo antigo reproduzido e controle restaurado aprovado. Prazos
+de certificação de 10s/5s mantidos, com até 2s adicionais de limpeza em erro;
+alheios preservados e atribuição histórica qualificada. RVPLA-01/03/04/05 e EPERM
+preservados; HQL continua inconclusivo, 40s, experimento futuro apenas delimitado.
+P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN, backup/restore, freeze,
+baseline/DDL e coordenação reais mantêm pendências. Produto/migrations/JAR
+intactos; nenhuma adoção/publicação ou ação remota liberada por este aceite.
+
+## Investigação TCP/reuso nativo — 28/10/2026
+
+Causa equivalente, correção e limites (registro de execução privado),
+base3b245d9d/correçãob8b645d0: confirmação TCP no close nativo Windows mantém
+reuso da mesma porta e segurança; PG16/17 e contraprovas/restauração registrados.
+Implementado localmente, aguardando revisão independente. RVPLA-01/03/04/05 e
+EPERM preservados; HQL inconclusivo/40s mantidos. P01/P02 em_revisao: nenhuma
+adoção/publicação, baseline, DDL, backup/restore/freeze ou coordenação real
+liberada. Produto/migrations/JAR intactos; próximo HQL somente preparado.
+
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+Parecer do candidato d8bd180a (registro de execução privado):
+RVPLA-05/P2 encerrado no original20s (3/3), alcance Windows/mesma sessão, margem
+mínima4,916s. Contenção RVPLA-03/04, identidade, confirmação externa e EPERM
+preservados; novo PG17 causal/resume/audit limitado passou. TCP/HQL separados,
+inconclusivos,40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real encerrado,
+adoção/publicação ou sucessora iniciada pela revisão do runner.
+
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+Estados separados e provas (registro de execução privado),
+baseacaa6ed9, implementaçãoe88ee50a:3/3 no original20s com margem mínima7,774s;
+contenção e confirmação externa mantidas, sem alterar canal/aceite EPERM.
+Complemento alheio e preflight/resume/audit PG17 limitados passaram. Saneado
+localmente, aguardando revisão independente. RVPLA-03/04 específicos preservados;
+TCP/HQL inconclusivos,40s intactos. P01/P02 permanecem em_revisao: A–D,
+temporalidade/brutos/null/UNKNOWN, backup/restore, freeze e coordenação reais
+pendentes. Nenhum checkbox real, adoção, publicação ou sucessora liberado.
+
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+Parecer do candidato019a6ce3 (registro de execução privado):
+RVPLA-05/P2 permanece aberto, três falhas no20s; diagnóstico21,167s não é aprovação.
+Contenção específica RVPLA-03/04 preservada; falha histórica de fixture classificada
+como expiração natural, sem grupo completo original verde. Correção causal EPERM
+e audit PG17 limitado aceitos, detentor histórico desconhecido. TCP/HQL separados,
+inconclusivos,40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real encerrado
+nem adoção ou sucessora iniciada.
+
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+Estado separado de prazo/audit/adoção (registro de execução privado),
+base9c27881, implementação762a085/d254822: prazo original20s passou3/3 localmente,
+contenção/quiescência mantidas; corrida EPERM demonstrada e corrigida, novo audit
+limitado passou. Detentor do handle histórico não identificado. Saneamento em
+revisão independente; falha do grupo antigo por fixture alheia conservada.
+Aceites específicos RVPLA-03/04 preservados; TCP/HQL inconclusivos,40s intactos.
+P01/P02 continuam em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhum checkbox real,
+adoção, publicação ou sucessora liberado por esta execução local.
+
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+Parecer do candidato badecb55 (registro de execução privado):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; abandono físico RVPLA-03
+preservado. Gate original20s falhou por latência (RVPLA-05/P2), e audit PG17 teve
+EPERM inconclusivo; preflight causal e resume passaram no recorte. Quiescência
+segura demonstrada não aprova o ciclo funcional integral. TCP/reuso/HQL separados,
+40s mantidos. P01/P02 em_revisao: A–D, temporalidade/brutos/null/UNKNOWN,
+backup/restore, freeze e coordenação reais pendentes. Nenhuma adoção ou sucessora
+iniciada; nenhum checkbox real encerrado.
+
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+Parecer do candidato0b4c6598 (registro de execução privado):
+RVPLA-03 encerrado no cenário original de abandono; RVPLA-04 novo impede aceite
+amplo do restauro durante comandos tardios. Reuso nativo e HQL inconclusivos,
+aceites locais preservados. P01/P02 em_revisao, sem checkbox real encerrado:
+A–D, temporalidade/brutos/null/UNKNOWN, backup/restore e coordenação reais pendentes.
+
+## Revalidação independente do saneamento — 27/10/2026
+
+Parecer do candidatoaa068d1 (registro de execução privado):
+skip causal RVPLA-01 encerrado e corrida de porta aceita; quiescência após
+interrupção Windows tem novo resíduo RVPLA-03, e startup segue inconclusivo.
+Aceites locais preservados. P01/P02 em_revisao; A–D, proveniência temporal,
+brutos/null/UNKNOWN, backup/restore e coordenação reais continuam pendentes.
+Nenhum checkbox real encerrado nem adoção/sucessora iniciada.
+
+## Revisão independente local correlata — 26/10/2026
+
+Parecer A–G (registro de execução privado), candidato6f70a87:
+PG16/17 e fronteiras locais de adoção aprovados no alcance examinado; startup
+continua pendente e observador resume exige saneamento próprio. Nenhum critério
+de inventário/backup/proveniência/freeze real foi marcado. Cenários A–D, UNKNOWN/
+null/brutos e gates desta derivada permanecem; estado em_revisao conservado.
+
+## Preparação local correlata — 26/10/2026
+
+Resultados, matriz e limites do lote autorizado (registro de execução privado).
+Ferramentas PG17, inicialização/controle de writers/jobs e saúde são preparação
+sintética, sem virada temporal, backfill, baseline ou migration reais. Nenhum
+checkbox abaixo é encerrado por esse trabalho; estado em_revisao preservado.
+Revisão independente e diagnóstico do startup acima de40s permanecem pendentes.
+
+## Plano de adoção condicionado — 26/10/2026
+
+Cenários A–D, janela e ações autorizáveis (registro de execução privado),
+base integrada fb98645. Cadeia atual V1–V16 e aceites locais preservados.
+Banco real não acessado; imagem PG17 exige suporte/teste dirigido da ferramenta
+operacional atualmente restrita a16. Proveniência/bruto/UNKNOWN/null não podem
+ser preenchidos por inferência. Hibernate validate, Flyway separado e liberação
+dos writers são controles diferentes; rollout inclui V15/V16 e todos os jobs.
+
+Estado em_revisao mantido, sem checkbox real encerrado por CI verde ou revisão
+documental. Inventário/backup/restore, temporalidade por lote, clientes/writers,
+medição e adoção reais exigem autorizações/evidências próprias. CF035/036 não
+iniciadas; nenhuma configuração remota ou migration alterada nesta etapa.
 
 ## Delta documental da janela preflight→baseline — 15/10/2026
 
-**Situação vigente:** [P2 e RV17-01 encerrados no escopo local/documental](../evidencias/revalidacao-RV17-01-P2/README.md),
+**Situação vigente:** P2 e RV17-01 encerrados no escopo local/documental (registro de execução privado),
 candidato `6e64aad`. Esta derivada mantém em_revisao: inventário, compatibilidade,
 backup/restore, proveniência e coordenação reais continuam pendentes. Nenhum
 checkbox real alterado. As notas de candidatura/revisões anteriores abaixo são históricas.
 
-[Saneamento restrito RV17-01/P2](../evidencias/saneamento-RV17-01-P2/README.md), base
+Saneamento restrito RV17-01/P2 (registro de execução privado), base
 `ef08950`, aguardando revalidação independente. Diferencia validade estrutural,
 DML/sequences e freezes próprios de backup/migração. Estado em_revisao mantido;
 nenhum critério de adoção real abaixo foi satisfeito por esta edição documental.
@@ -21,7 +181,7 @@ exclusivamente local/descartável, sem execução por efeito deste encaminhament
 
 ## Revisão independente local — 15/10/2026
 
-Base `bcec50c`: [parecer e matriz](../evidencias/revalidacao-CF-017/README.md).
+Base `bcec50c`: parecer e matriz (registro de execução privado).
 Fundação V1–V14 e restore local aprovados; RV17-02 encerrado no escopo sintético.
 RV17-01 conserva somente resíduo operacional P2 da janela preflight→baseline.
 Esta derivada permanece em_revisao: inventário, compatibilidade, backup/restore,
@@ -30,7 +190,7 @@ executados nem transferidos. Prontidão local da CF-029 não conclui essas obrig
 
 ## Candidato local de preflight/restore — 15/10/2026
 
-[Saneamento RV17-01/02](../evidencias/saneamento-CF-017/README.md) na base integrada
+Saneamento RV17-01/02 (registro de execução privado) na base integrada
 `4206d88`, cadeia V1–V14. Preflight V1 e restauração sintética completa pertinente
 foram separados dos gates de adoção. Exige revisão independente; não altera os
 checkboxes de comprovação real abaixo. Preservação de bruto/null e instante V14
@@ -45,7 +205,7 @@ histórica. P01/P02 continuam abertos nos critérios de adoção real, proveniê
 coordenação de writers/clientes; o aceite sintético não autoriza migração/publicação no
 ambiente existente.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Campos e transição preparada
@@ -54,7 +214,7 @@ Atualização local — 09/10/2026: V14 acrescenta `goal_history.recorded_at`
 (`timestamp(6) with time zone`, nullable, sem default/backfill). Novos writers usam
 Clock; legado preserva date bruto/null e origem UNKNOWN. Banco vazio, upgrade V13,
 Hibernate/HTTP/releitura e consumidores foram aprovados na
-[revalidação RD58](../evidencias/revalidacao-RD58/README.md), encerrando CF-005/006.
+revalidação RD58 (registro de execução privado), encerrando CF-005/006.
 Isso não encerra os gates reais desta derivada nem CF-017. Incluir V14 no rollout:
 migrar antes do binário novo, coordenar writers/clientes e não apagar metadados após
 novas escritas. Nenhum inventário, baseline, migração ou publicação remota executado.
@@ -113,7 +273,7 @@ Também testa novos writes via HTTP/serviço/ORM, reload, hora ausente versus 00
 edição, auditoria protegida, investimento manual/automático, cartão, paginação e Excel.
 Isso agora exercita a V2 versionada, mas não cobre schema remoto, backup real,
 rollout coordenado de versões nem backfill com proveniência real.
-CF-017 está em revisão com [evidência local](../evidencias/CF-017/README.md).
+CF-017 está em revisão com evidência local (registro de execução privado).
 P01/P02 permanecem abertos nos critérios de schema/backup/proveniência reais,
 coordenação de writers e consumidores completos do ambiente alvo.
 
@@ -121,4 +281,4 @@ Revisão independente de 22/09/2026 aprovou a fundação local para a CF-018, se
 aprovar banco real. O preflight sintético não detectou uma FK removida e o oracle
 de restore é parcial; ambos mantêm o gate remoto fechado. A revisão independente
 dos writers/consumidores temporais já existente continua válida apenas nos cenários
-sintéticos documentados. [Parecer CF-017](../evidencias/revisao-CF-017/README.md).
+sintéticos documentados. Parecer CF-017 (registro de execução privado).

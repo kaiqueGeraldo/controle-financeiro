@@ -17,7 +17,7 @@ foram confrontados separadamente; aceites de sessão, RV01, RV24-01 e CF-009
 foram reutilizados somente nos caminhos efetivamente cobertos.
 Paginação/campos/PUT de planejamento e contratos temporais locais verificados.
 
-[Matriz, parecer individual, comandos e limites](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+Matriz, parecer individual, comandos e limites (registro de execução privado),
 base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. RD58-02 pertence à semântica
 de instante/label sob CF-006/005, sem violação demonstrada destes critérios
 de transporte/erro. P01/P02 reais permanecem CF-017; HTTP correto não equivale
@@ -28,7 +28,7 @@ As referências abaixo a RV24-01/CF-025–027 pendentes são históricas e super
 
 Estado `em_revisao` mantido. Categorias 1, 2 e 5: P03/R06/D16-T01 encerrados nos recortes; falta parecer integral de status/204/binário/abort/503 e seus consumidores. RV24-01 conserva RVR24-01/02 sob CF-009, agora saneados pelo executor e aguardando revalidação; adoção P01/P02 é separada. HTTP correto não comprova confirmação financeira.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -40,7 +40,7 @@ revalidação residual. RV24-01 é defeito posterior do consumidor de resultado 
 sob derivada/CF-009: o erro de transporte corretamente sinalizado não prova reconciliação
 segura.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -83,7 +83,7 @@ Iniciada e concluída em 08/09/2026 sobre `main`, HEAD `169d7be4c7d3db97d4c318ff
 
 O contrato consumido foi inventariado em `src/services/HTTP-CONTRACT.md`. Frontend e BFF agora distinguem 401/403, validação, conflito, indisponibilidade, rede, cancelamento, 204, JSON e binário; mutações com resultado desconhecido exigem reconciliação. No backend, validação/desserialização identificam campos, autenticação/autorização também são padronizadas antes do controller, falhas inesperadas de autenticação não são mascaradas e a paginação usa `PagedModel` explícito. `SecurityConfig` foi a alteração compartilhada fora dos caminhos enumerados, necessária porque falhas do filtro não chegam ao `@ControllerAdvice`.
 
-Validação final: 25 testes de componente, 15 execuções unitárias frontend em três fusos, typecheck, lint focado e build Next aprovados; `clean verify` backend aprovou 54 testes com JDK 21 e PostgreSQL 16 descartável. Uma regressão final adicional aprovou 6/6 testes do contrato após comprovar que o update sem `@Valid` aceitava `24:00` com 200. As regressões novas falharam contra o cliente/handler anteriores (7/7 frontend, 3/5 backend e 1/6 no update temporal) pelas causas esperadas. [Evidência completa, comandos e limitações](../evidencias/CF-008/README.md).
+Validação final: 25 testes de componente, 15 execuções unitárias frontend em três fusos, typecheck, lint focado e build Next aprovados; `clean verify` backend aprovou 54 testes com JDK 21 e PostgreSQL 16 descartável. Uma regressão final adicional aprovou 6/6 testes do contrato após comprovar que o update sem `@Valid` aceitava `24:00` com 200. As regressões novas falharam contra o cliente/handler anteriores (7/7 frontend, 3/5 backend e 1/6 no update temporal) pelas causas esperadas. Evidência completa, comandos e limitações (registro de execução privado).
 
 Limites: o BFF anterior não teve execução vermelha independente para timeout/499; não houve Playwright, CI remoto ou produção; todos os JSON 200 ainda não têm validação runtime de schema. O `clean verify` de 54 testes precedeu o último `@Valid`; depois dele houve recompilação e 6/6 testes focados verdes, mas o `clean verify` de 55 não foi contabilizado porque a montagem do socket Docker do host no contêiner JDK foi recusada por segurança. CF-023 mantém a política uniforme de IDs alheios, pois os 29 `BusinessRuleException("Acesso negado...")` legados não devem ser reclassificados por texto. CF-009/024 continuam responsáveis por corridas, idempotência e consumo sistemático da reconciliação.
 
@@ -94,7 +94,7 @@ Tarefa liberada para execução nesta base local: **CF-009**, pois CF-003 e CF-0
 
 R02/R04/R05/R07/R12/R15 corrigidos. PUT de planejamento P03 e adoção temporal canônica P01/P02 permanecem pendentes.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
 
@@ -104,14 +104,14 @@ foi verificado; commits intermediários não são apresentados como testados.
 
 P03 implementa PUT com contrato explícito; P01/P02 acrescentam erros por campo, DTO e perfil temporal candidato. Adoção real permanece pendente.
 
-[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Implementação, autotestes e limites (registro de execução privado).
 Estado permanece em_revisao; esta execução não substitui revisão independente.
 
 ## Candidato de saneamento CF-015 — 21/09/2026
 
 R06: criação, edição e cópia de planejamento validam a propriedade da categoria no backend antes de persistir. Integração com dois usuários e PostgreSQL observa sucesso legítimo, 404 e ausência de persistência parcial.
 
-[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Registro do saneamento e evidências (registro de execução privado).
 Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
@@ -121,4 +121,4 @@ preservado como registro histórico.
 
 R06 encerrado para POST/PUT/cópia de planejamento com PostgreSQL e propriedade no backend. Isso não encerra adoção P01/P02 nem toda a CF-008.
 
-[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+Parecer, rastreabilidade e execuções (registro de execução privado).

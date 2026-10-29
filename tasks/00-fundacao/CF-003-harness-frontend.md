@@ -46,7 +46,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 Iniciada em 07/09/2026 e concluída em 08/09/2026 sobre `main` na base `169d7be4c7d3db97d4c318ff3f99d9de3a808067`, preservando o patch local de CF-001/CF-002 e as correções anteriores. Foram adicionados comandos separados para unitário, componente e E2E, configuração Vitest/jsdom, Playwright em três viewports, relógio/fuso/seed explícitos, autenticação sintética, artefatos de falha e supervisor com limpeza da árvore Next.
 
-A validação sobre `npm ci` aprovou 15 execuções unitárias, 1 teste de componente, 6 testes Playwright, typecheck, lint dos arquivos do harness e build. A mutação proposital falhou com código 1 e foi restaurada; o relógio falhou sem tolerância antes da correção por `setFixedTime`; o E2E não intercepta APIs internas e liberou a porta 3100. [Evidência completa, comandos, falhas intermediárias e riscos](../evidencias/CF-003/README.md).
+A validação sobre `npm ci` aprovou 15 execuções unitárias, 1 teste de componente, 6 testes Playwright, typecheck, lint dos arquivos do harness e build. A mutação proposital falhou com código 1 e foi restaurada; o relógio falhou sem tolerância antes da correção por `setFixedTime`; o E2E não intercepta APIs internas e liberou a porta 3100. Evidência completa, comandos, falhas intermediárias e riscos (registro de execução privado).
 
 Limitações: o lint global mantém o baseline de 70 erros/37 avisos sob responsabilidade da CF-026; o audit atual registra 12 vulnerabilidades, incluindo 3 altas no grafo de produção, sem atualização fora de escopo; o build dependeu de rede para Google Fonts; o BFF global registra 503 quando o backend sentinela está ausente; CI remoto e integração backend não foram executados. Nenhum teste foi ignorado, nenhuma tolerância foi ampliada e nenhum arquivo de produto foi alterado por esta tarefa.
 
@@ -57,6 +57,6 @@ Dependências: a CF-010 passa a ter sua única dependência satisfeita nesta bas
 
 R01 separa seleção do smoke e E2E integrado. Harness detecta falhas causais e mantém seus limites.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.

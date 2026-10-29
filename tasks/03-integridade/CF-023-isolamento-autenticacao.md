@@ -45,14 +45,14 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 ## Evidências e estado
 
 Iniciada em 30/09/2026 sobre `0219a57`, com README raiz alheio preservado.
-A [revalidação dirigida dos resíduos](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md)
+A revalidação dirigida dos resíduos (registro de execução privado)
 libera explicitamente CF-023 localmente sobre CF-002/008/017 integradas, sem
 encerrar seus gates de adoção real. Executar somente em PostgreSQL descartável.
 DEC-09: adotar 404 para referência inexistente ou de outro proprietário, com
 mesma mensagem por recurso; 401 para credencial ausente/inválida/expirada e 403
 para proibição independente de ownership. Reorder com qualquer ID inacessível
 deve falhar integralmente antes de alterar a ordem. O contrato detalhado e os
-oracles ficam em [evidências CF-023](../evidencias/CF-023/CONTRATO.md).
+oracles ficam em evidências CF-023 (registro de execução privado).
 Exceção de caminho: infraestrutura/testes novos em `src/test/java/.../infra/security/`
 e `frontend/tests/component/`, para executar endpoints reais, PostgreSQL e
 actions/BFF sem incluir testes no artefato produtivo; consumidores de sessão
@@ -72,8 +72,8 @@ pendentes os contratos próprios de onboarding de CF-028.
 
 ## Entrega e validação em 30/09/2026
 
-[Relatório](../evidencias/CF-023/README.md), [matriz](../evidencias/CF-023/MATRIZ.md)
-e [comandos/resultados](../evidencias/CF-023/EXECUCOES.md) preservam as falhas
+Relatório (registro de execução privado), matriz (registro de execução privado)
+e comandos/resultados (registro de execução privado) preservam as falhas
 causais, os resultados após correção e os limites de cada camada.
 Código, testes e contrato no commit local `1b93704`; evidências e checkpoint
 registrados no commit documental seguinte, sem alterar os fontes testados.
@@ -106,7 +106,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Os novos comandos e cobertura tiveram ownership/usuários sintéticos distintos no saneamento CF-016–021. Isso não executa a auditoria completa de autenticação, sessão, BFF e superfícies desta tarefa; estado preservado.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Revisão independente conjunta — 30/09/2026
 
@@ -116,7 +116,7 @@ snapshotSQL, reorders atômicos, DTO/exportação, comandos/recibos e recuperaç
 Probes novos cobrem move/realizations/note/copy; a matriz distingue execução de
 inspeção. Browser de duas abas A→B→A, BFF/backend/PG/reload e saldos1000/2300
 aprovados; componentes e contraprovas independentes de principal/owner aprovados.
-[Parecer e provas](../evidencias/revisao-CF-022-CF-023/README.md).
+Parecer e provas (registro de execução privado).
 JWTstateless e BroadcastChannel sem fallback continuam limites contratados;
 não se declara cobertura de todos os browsers/pentest/carga/exclusão de usuário.
 

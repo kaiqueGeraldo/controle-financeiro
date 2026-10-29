@@ -7,10 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.controlefinanceiro.api.infra.operations.OperationsState;
 
 @Slf4j
 @Service
 public class EmailService {
+
+    @Autowired private OperationsState operations;
 
     @Value("${api.resend.key}")
     private String apiKey;
@@ -20,6 +24,7 @@ public class EmailService {
 
     @Async("emailTaskExecutor")
     public void sendTemplatedEmail(String to, String subject, String title, String bodyContent) {
+        if (!operations.writersEnabled()) return;
         log.info("Iniciando envio de e-mail com template para: {}", to);
 
         String htmlTemplate = buildHtmlTemplate(title, bodyContent);
