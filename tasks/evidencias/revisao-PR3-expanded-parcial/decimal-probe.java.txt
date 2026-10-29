@@ -1,0 +1,63 @@
+package com.controlefinanceiro.api;
+
+import com.controlefinanceiro.api.domain.user.User;
+import com.controlefinanceiro.api.domain.user.UserRepository;
+import com.controlefinanceiro.api.infra.security.TokenService;
+import com.controlefinanceiro.api.migration.IsolatedHistorySchemaInitializer;
+import com.controlefinanceiro.api.support.PostgresIntegrationTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import java.math.BigDecimal;
+import java.util.UUID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+/** Independent HTTP -> real deserializer -> domain -> PostgreSQL probe. */
+@AutoConfigureMockMvc
+@ContextConfiguration(initializers=ReviewerDecimalContractProbe.Schema.class,inheritInitializers=false)
+@org.springframework.test.annotation.DirtiesContext(classMode=org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS)
+class ReviewerDecimalContractProbe extends PostgresIntegrationTest {
+    public static class Schema extends IsolatedHistorySchemaInitializer {}
+    @Autowired MockMvc mvc;
+    @Autowired UserRepository users;
+    @Autowired TokenService tokens;
+    @Autowired JdbcTemplate sql;
+    User owner(){var u=new User();u.setNome("Decimal review");u.setEmail(UUID.randomUUID()+"@example.invalid");u.setSenha("unused");return users.save(u);}
+    String valid(){return "{\"ticker\":\"EXACT\",\"name\":\"Exact opening\",\"type\":\"STOCK\",\"openingQuantity\":\"0.12500001\",\"openingCost\":\"1.26\",\"openingValue\":\"2.51\",\"valuationDate\":\"2026-09-01\",\"valuationSource\":\"USER_PROVIDED\"}";}
+    @Test void textualDecimalsPersistExactlyAndOpeningDoesNotCreateCashOrOperation() throws Exception {
+        var u=owner();var auth="Bearer "+tokens.generateToken(u);
+        mvc.perform(post("/investments").header("Authorization",auth).contentType("application/json").content(valid())).andExpect(status().isOk());
+        var row=sql.queryForMap("select quantity,total_cost,valuation_amount from investments where user_id=?",u.getId());
+        assertThat((BigDecimal)row.get("quantity")).isEqualByComparingTo("0.12500001");
+        assertThat((BigDecimal)row.get("total_cost")).isEqualByComparingTo("1.26");
+        assertThat((BigDecimal)row.get("valuation_amount")).isEqualByComparingTo("2.51");
+        mvc.perform(get("/investments").header("Authorization",auth)).andExpect(status().isOk());
+        assertThat(sql.queryForObject("select count(*) from investments where user_id=?",Integer.class,u.getId())).isEqualTo(1);
+        assertThat(sql.queryForObject("select count(*) from invest_transactions t join investments i on i.id=t.investment_id where i.user_id=?",Integer.class,u.getId())).isZero();
+        assertThat(sql.queryForObject("select count(*) from transactions where user_id=?",Integer.class,u.getId())).isZero();
+    }
+    @Test void eachOpeningFieldRejectsNumericTokensWithoutCreatingAnyInvestment() throws Exception {
+        var u=owner();var auth="Bearer "+tokens.generateToken(u);
+        for(String[] f:new String[][]{{"openingQuantity","0.12500001"},{"openingCost","1.26"},{"openingValue","2.51"}}){
+            var numeric=valid().replace("\""+f[0]+"\":\""+f[1]+"\"","\""+f[0]+"\":"+f[1]);
+            mvc.perform(post("/investments").header("Authorization",auth).contentType("application/json").content(numeric)).andExpect(status().isBadRequest()).andExpect(jsonPath("$.fields."+f[0]).exists());
+        }
+        for(String invalid:new String[]{"1e-2","0,125","0.123456789"}){
+            mvc.perform(post("/investments").header("Authorization",auth).contentType("application/json").content(valid().replace("0.12500001",invalid))).andExpect(status().isBadRequest());
+        }
+        assertThat(sql.queryForObject("select count(*) from investments where user_id=?",Integer.class,u.getId())).isZero();
+    }
+    @Test void absentValuationAndCostRemainUnknownAfterRead() throws Exception {
+        var u=owner();var auth="Bearer "+tokens.generateToken(u);
+        String body="{\"ticker\":\"UNKNOWN\",\"name\":\"Unknown opening\",\"type\":\"STOCK\",\"openingQuantity\":\"10\"}";
+        mvc.perform(post("/investments").header("Authorization",auth).contentType("application/json").content(body)).andExpect(status().isOk());
+        mvc.perform(get("/investments").header("Authorization",auth)).andExpect(status().isOk());
+        var row=sql.queryForMap("select quantity,total_cost,valuation_amount from investments where user_id=?",u.getId());
+        assertThat((BigDecimal)row.get("quantity")).isEqualByComparingTo("10");assertThat(row.get("total_cost")).isNull();assertThat(row.get("valuation_amount")).isNull();
+    }
+}
