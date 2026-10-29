@@ -43,6 +43,10 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
+Revalidação CPA-01 de28/10: [seleção aceita, R1 de agregação required aberto](../evidencias/revalidacao-CPA-01/README.md).
+Parecer C mantido por R1; publicação/CI futura dependem de saneamento e revisão.
+CF036 permanece proposta, sem deploy, adoção ou uso liberados por associação.
+
 Consolidação de28/10/2026: [parecer C e publicação futura preparada](../evidencias/consolidacao-pre-adocao/README.md).
 CPA-01/P2 confirma incompatibilidade seleção Windows/job Linux; saneamento e
 revisão separados antes de novo parecer de publicação/CI. Aceites locais de

@@ -1,46 +1,54 @@
 # Proposta de PR — não criada
 
 Destino: `kaiqueGeraldo/controle-financeiro:main`.
-Origem preparada: `codex/consolidacao-pre-adocao`.
-**Rascunho documental; CPA-01/P2 precisa saneamento e revisão antes de publicar.**
-Atualizar a descrição abaixo para os SHAs/resultado final desse saneamento antes
-de abrir a PR. Não afirmar que a correção já existe nem esconder o achado atual.
+Origem preparada: `codex/saneamento-cpa01-selecao-testes`.
+**Rascunho documental: seleção CPA-01 aceita; resíduo R1/P2 precisa saneamento e
+revisão antes de publicar.** Nenhuma PR, CI ou publicação foi executada.
 
 ## Título proposto
 
-Preparar adoção segura:PG16/17, manutenção, jobs, saúde e harness rastreável
+Preparar adoção segura: PG16/17, manutenção, saúde e CI por plataforma
 
-## Descrição proposta na situação atual
+## Descrição proposta para o estado examinado
 
-O bootstrap da API e os previews precisavam de controles antes da adoção do banco
-existente. O lote acrescenta suporte operacionalPG16/17, perfil adoption que separa
-migrations da validação, ingresso e agendadores fechados por flags, probes mínimos
-de vida/prontidão e bloqueio de operações no BFF preview. O harness passa a exigir
-prova causal, restauração e quiescência antes de retomar, além de confirmar liberação
-TCP no Windows. Migrations V1–V16 e regras financeiras foram preservadas.
+O lote separa migrations do bootstrap da API no perfil adoption, controla ingresso
+funcional e agendadores por flags, acrescenta probes mínimos e bloqueia operações
+no BFF de previews. Também prepara suporte operacional PG16/17 e um harness que
+exige provas causais, restauração e quiescência antes do resume. Migrations V1–V16,
+regras financeiras e os aceites locais anteriores foram preservados.
 
-Os aceites locais são delimitados nos pareceres independentes:PG16/17, guard/
-writers/jobs, saúde/preview, TCPWindows/JAR, resume/contenção/handoff/prazo/audit.
-Startup local mantém40s; quatro capturas recentes e provas funcionais anteriores
-sustentam seu recorte, sem declarar nova suíte de 17 contratos verde ou causa dos atrasos históricos.
+O saneamento CPA-01 passa a selecionar testes pela plataforma da JVM. Linux mantém
+100 classes smoke e 115 expanded; um job Windows obrigatório executa o contrato TCP,
+com relatório exigido e zero skips. A união preserva 101/116 identidades, incluindo
+os 15 históricos. A condição JUnit foi movida para a classe dedicada sem alterar
+corpo, assertions ou budget de 3s. Os argumentos Maven Windows são passados como
+literais por PowerShell.
 
-**Pendência antes de publicação:**CPA-01 confirma que o seletorCI inclui um teste
-Windows no job Linux e o skip resultante é rejeitado pelo gate. A correção não faz
-parte da revisão documental; ela exige lote separado e revisão. O limite do leitor
-JSON diagnóstico está registrado sem invalidar as evidências atuais conferidas.
+Revalidação independente: 23 contratos em Windows/Linux, sete probes independentes,
+TCP Windows real 1/1 e três casos comuns em JVM Linux real aprovados. A seleção
+antiga reproduziu skip/rejeição; duas mutações de cobertura foram detectadas e
+restauradas por hash. Linux local usou Node 22, diferente do 24 previsto em Actions.
+Isso não é suíte Linux integral, CI remota ou supervisor Linux certificado.
 
-Esta consolidação reexecutou13 contratos de CI/sanitização e5 do leitor, conferiu
-ancestralidade, inputs relevantes ehashes de JAR/imagem/manifests, além de reproduzir
-a incompatibilidade de OS. Suítes financeiras/startups/TCP/RVPLA anteriores foram
-reaproveitados por diff nos seus alcances; nenhumaCI remota foi executada aqui.
+**Pendência CPA-01/R1/P2:** needs impede pacote após falha Windows, mas propaga skipped
+ao required. Esse status pode ser insuficiente como único check obrigatório; as
+regras remotas não foram presumidas atuais. Falta agregação que reprove explicitamente
+os resultados não verdes. O parecer C permanece por esse resíduo, sem reabrir a
+seleção já aceita. Atualizar esta descrição após saneamento/revisão e identificar
+os SHAs finais antes de abrir a PR; não dizer que a correção de R1 já existe.
 
-JAR p05 b296… pertence aos inputs24844b59; main histórica c386… é outro pacote. A futura
-CI deve gerar manifesto/JAR do checkout testado. Não há imagem de registry ou
-deploy novo. CF017/P01/P02, CF034 integral, expanded/zoom200%, configuração remota e
-adoção real/produção mantêm gates próprios; esta PR não é autorização de uso.
+Startup local conserva 40s e seu alcance anterior, sem nova suíte de 17 contratos verde ou causa
+histórica HQL demonstrada. TCP/reuso, RVPLA/audit e PG16/17 mantêm seus aceites. JAR p05
+b296… pertence aos inputs 24844b59; main histórica c386… é outro pacote. Não houve
+novo JAR nesta revisão. CI futura deve produzir manifesto/pacote do checkout
+realmente testado; imagem/registry/deploy são etapas próprias.
 
-Base remota consultada:fb986456a37a48afcafef204f165d15354294d26.
-Entrada revisada:56eb80b5cb867539d94995ec58b63ce2dbc519fa, 48 commits acumulados.
-Os commits locais de consolidação e o eventual saneamento devem ser identificados
-com SHA completo no texto final da PR. Evidências em
-`tasks/evidencias/consolidacao-pre-adocao/`.
+Base remota reconferida: `fb986456a37a48afcafef204f165d15354294d26`.
+Candidato de código: `193916a1778f1322f5368f66d30a83286766b147`, 53 commits acumulados,
+mais os commits locais de provas/documentação da revalidação. O HEAD documental
+final consta da entrega; R1 acrescentará um delta ainda não aceito.
+
+CF034 integral/matriz remota, zoom 200%, configuração de hospedagem, CF017/P01/P02,
+adoção real e produção continuam com critérios próprios. CI verde não autoriza
+uso ou deploy. Evidências em `tasks/evidencias/revalidacao-CPA-01/` e plano em
+`tasks/evidencias/consolidacao-pre-adocao/PUBLICACAO-CI.md`.

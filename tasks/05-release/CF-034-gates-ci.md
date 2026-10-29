@@ -8,6 +8,16 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Revalidação independente CPA-01 — 28/10/2026
+
+[Parecer e matriz](../evidencias/revalidacao-CPA-01/README.md), candidato193916a1:
+seleção original encerrada e união101/116 preservada, Linux100/115+Windows1,
+15 históricos. TCPWindows real e comunsLinux dirigidos aprovados, sem Actions ou
+suíteLinux integral. **R1/P2 aberto**: needs bloqueia pacote após falhaWindows,
+mas propaga skipped ao required; falta agregação que reprove explicitamente as
+dependências não verdes. Parecer C mantido por R1, sem correção nesta revisão.
+CF034 integral em_revisao, demais gates e aceites locais preservados.
+
 ## Consolidação pré-adoção — 28/10/2026
 
 [Revisão integrada, achado e plano de publicação/CI](../evidencias/consolidacao-pre-adocao/README.md),

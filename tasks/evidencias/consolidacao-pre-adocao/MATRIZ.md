@@ -1,11 +1,16 @@
 # Aceites e pendências vigentes — fotografia28/10/2026
 
+Atualização por [revalidação independente CPA-01](../revalidacao-CPA-01/README.md),
+candidato193916a1: seleção original encerrada/cobertura preservada; parecer C
+mantido somente por R1/P2 de agregação required. As demais linhas preservam o
+alcance da base anterior; não são novas execuções de produto ou de Actions.
+
 Base recebida56eb80b5, main fb986456. Fonte canônica é cada tarefa e o parecer final
 do recorte. Linhas datadas anteriores permanecem históricas, inclusive vermelhos.
 
 | Critério/capacidade | Estado atual | Fonte e alcance | Implicação |
 |---|---|---|---|
-| Startup local / 40s | Aceito localmente | [Revisão final HQL](../revisao-startup-HQL/README.md),[matriz](../revisao-startup-HQL/MATRIZ.md); 4 capturas18, 925/13, 824/19, 652/18,669s; demais modos nas provas anteriores | Não bloqueia preparação; próxima falha bloqueia sua invocação e aciona reabertura; nenhuma suíte de 17 contratos nova aprovada |
+| Startup local / 40s | Aceito localmente | [Revisão final HQL](../revisao-startup-HQL/README.md),[matriz](../revisao-startup-HQL/MATRIZ.md); quatro capturas18,925/13,824/19,652/18,669s; demais modos nas provas anteriores | Não bloqueia preparação; próxima falha bloqueia sua invocação e aciona reabertura; nenhuma suíte de 17 contratos nova aprovada |
 | Causa histórica HQL | E/inconclusiva | Mesmo parecer final | Não é pré-requisito adicional de causa raiz; sem atribuição a TCP/query/carga |
 | PG16/17 | Aceito localmente | [Preparação independente A](../revisao-preparacao-local-adocao/README.md) | Não certifica banco real/outras majors/globals |
 | Guard/validação/migrations/writers/jobs | Aceitos localmente | Preparação independente B; controles HTTP/SQL e mutações estreitas | API adoption não migra; GO/jobs por reinício drenado; freeze real pendente |
@@ -17,8 +22,9 @@ do recorte. Linhas datadas anteriores permanecem históricas, inclusive vermelho
 | Audit/EPERM | Correção causal aceita | [RVPLA-05](../revalidacao-RVPLA-05/README.md), preservado por residual final | Handle histórico desconhecido; novo audit limitado não aprova runner universal |
 | TCP/reuso nativo | Aceito Windows/JAR/PG16/17 | [Revalidação final TCP](../revalidacao-TCP-reuso-nativo/README.md) | Originais3/3 por invocação; atribuição histórica qualificada; mecanismo preservado |
 | Pacote p05/imagem local | Bytes/vínculo aceitos | Preparação independente E + [proveniência](PROVENIENCIA.md) | Sem atribuir build ao HEAD documental; próxima CI produz artifact próprio |
-| Sanitização/CI local DEC-CI-04 | Aceite anterior preservado | Revalidação RCI034-R1; 13 contratos reexecutados aqui | Consumidor ainda precisa saneamento CPA-01 para a nova seleção Linux |
-| Integração seleção/OS de CI | **CPA-01/P2 aberto, confirmado** | [Achado e reprodução](ACHADOS.md); 101 classes smoke/116 expanded incluem teste Windows | Impede parecer A de publicação/CI deste candidato; correção separada |
+| Sanitização/CI local DEC-CI-04 | Aceite anterior preservado | Revalidação RCI034-R1 e contratos atuais do saneamento | Seleção corrigida aceita; agregação required continua com R1 próprio |
+| Integração seleção/OS de CI | **Defeito original encerrado; cobertura preservada** | [Revalidação](../revalidacao-CPA-01/SELETOR.md);Linux100/115 + Windows1 =101/116,15 históricos | Não reabrir a seleção por associação; jobWindows ainda sem execuçãoActions |
+| Agregação de status required | **CPA-01/R1/P2 aberto** | [Contrato e semântica oficial](../revalidacao-CPA-01/WORKFLOW-REQUIRED.md);needs propaga skipped | Pacote bloqueado, mas contexto único pode aceitar skip; impede parecer A até saneamento/revisão |
 | Leitor JFR como JSON estrito geral | **CPA-02/P3 aberto, delimitado** | Parecer HQL e 2 entradas inválidas reproduzidas | Não invalida capturas atuais conferidas; corrigir antes de ampliar uso/aceite do leitor |
 | Zoom nativo 200% CF010/015 | Pendente local | Tarefas canônicas, DEC-CI-04 | Sem defeito presumido; gate integral/uso preservado |
 | CF034 integral/matriz remota | `em_revisao` | CF034, matriz CF034 de prontidão; remoto anterior smoke não testa este candidato | Required atual novo, expanded13CF032/15 harnesses e limites de cancelamento pendentes |

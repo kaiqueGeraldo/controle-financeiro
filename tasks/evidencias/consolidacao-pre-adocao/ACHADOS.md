@@ -1,5 +1,18 @@
 # Achados e condições de encerramento
 
+## Situação vigente — revalidação independente CPA-01
+
+[Parecer de193916a1](../revalidacao-CPA-01/README.md): a incompatibilidade original
+de seleção está **encerrada** e a cobertura foi preservada. CPA-01 permanece aberto
+somente pelo resíduo **R1/P2**, agregação de status: Windows falho/skipped impede
+pacote, mas propaga skipped ao required, sem reprovação explícita do contexto.
+[Reprodução estática, impacto condicional e encerramento](../revalidacao-CPA-01/WORKFLOW-REQUIRED.md).
+Nenhum workflow foi corrigido na revisão; parecer C mantido por esse resíduo.
+
+Os registros de CPA-01 a seguir são históricos da base56eb80b5, inclusive seu
+estado aberto anterior. CPA-02 mantém separadamente o alcance diagnóstico já
+delimitado, sem invalidar as capturas atuais conferidas.
+
 ## CPA-01/P2 — teste Windows torna o gate Linux necessariamente vermelho
 
 **Aberto, confirmado; classificação: harness/integração de CI.** Introduzido no teste

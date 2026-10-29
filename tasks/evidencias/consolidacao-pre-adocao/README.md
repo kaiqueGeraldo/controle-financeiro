@@ -1,5 +1,25 @@
 # Consolidação local e revisão integrada pré-adoção — 28/10/2026
 
+## Situação vigente após revalidação CPA-01
+
+[Revalidação independente de193916a1](../revalidacao-CPA-01/README.md): **parecer C
+mantido somente por CPA-01/R1/P2, agregação de status do required**. O defeito
+original da seleção está encerrado; Linux100/115 + Windows1 preservam101/116
+identidades e15 históricos. TCPWindows real1/1 e comunsLinux dirigidos3/3 passaram;
+23 contratos passaram em cada plataforma, sem declarar Actions ou suíte integral.
+
+O novo job Windows impede o pacote após falha, mas seu dependente required pode
+ficar skipped; isso não é certificado de execução aprovada e pode ser insuficiente
+como único contexto obrigatório. Rulesets remotos não foram presumidos atuais.
+Próximo lote: saneamento separado dessa agregação e revisão, sem alterar o seletor
+aceito. [Resíduo e encerramento](../revalidacao-CPA-01/WORKFLOW-REQUIRED.md).
+
+Os registros abaixo são a fotografia histórica da consolidação em56eb80b5;
+seu impedimento original de seleção foi substituído pelo estado acima. Os aceites
+de produto/startup/TCP/RVPLA/audit/PG16/17 e demais gates conservam alcance.
+
+## Registro histórico da consolidação em56eb80b5
+
 **Parecer C — saneamento local necessário antes de publicar para CI.**
 CPA-01/P2 confirma uma incompatibilidade entre o teste Windows de TCP e o
 consumidor Linux de CI: o seletor inclui a classe, JUnit a ignora em Linux e

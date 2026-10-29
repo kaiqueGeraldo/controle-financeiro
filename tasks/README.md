@@ -1,5 +1,21 @@
 # Plano de execução do monorepo
 
+## Revalidação independente CPA-01/P2 — 28/10/2026
+
+[Parecer, identidades e contrato required](evidencias/revalidacao-CPA-01/README.md),
+candidato193916a1: **defeito original de seleção encerrado, cobertura preservada**.
+Linux100/115 + Windows1 mantêm101/116 identidades e15 históricos;23 contratos em
+Windows/Linux, sete probes independentes, TCPWindows real1/1 e comunsLinux3/3.
+Não é suíteLinux integral, Actions ou supervisorLinux. Provas/mutações restauradas.
+
+**CPA-01 permanece aberto somente pelo resíduo R1/P2**: Windows falho/skipped
+bloqueia pacote, mas deixa required skipped, sem reprovação explícita do contexto;
+rulesets remotos desconhecidos. Parecer C da consolidação mantido por esse critério
+concreto, não pelo seletor já aceito. Próximo lote: agregação de status e revisão
+separados; sem implementação nesta revalidação. Aceites startup40s/TCP/RVPLA/audit/
+PG16/17 preservados; CF034 integral, zoom, matriz/configuração remotas, CF017/P01/P02,
+adoção real e produção continuam próprios. Sem publicação/CI remota/deploy/DB real.
+
 ## Saneamento local CPA-01/P2 — 28/10/2026
 
 [Causa, matriz, provas e preservação](evidencias/saneamento-CPA-01/README.md).

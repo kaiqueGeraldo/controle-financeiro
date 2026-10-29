@@ -1,22 +1,24 @@
 # Plano de publicação e CI futura — preparado, não executado
 
-**CPA-01/P2 saneado localmente, aguardando revisão independente.** Implementação
+**Revalidação independente: seleção original aceita e cobertura preservada;
+parecer C mantido somente por CPA-01/R1/P2, agregação do required.** Candidato
+`193916a1778f1322f5368f66d30a83286766b147`, implementação
 `c597ffc5c33abe45f764b1aaca099daa9f520b00`, branch
-`codex/saneamento-cpa01-selecao-testes`; [provas e limites](../saneamento-CPA-01/README.md).
-O parecer C da consolidação não foi convertido em aprovação. Este documento não
-autoriza push, PR, workflow, merge, configuração de provedor, registry ou deploy.
+`codex/saneamento-cpa01-selecao-testes`.
+[Parecer e resíduo](../revalidacao-CPA-01/README.md). Este documento não autoriza
+push, PR, CI, merge, configuração de provedor, registry ou deploy.
 
 ## Branch, intervalo e destino
 
-Origem local para futura revisão:`codex/saneamento-cpa01-selecao-testes`, derivada
+Origem local preparada:`codex/saneamento-cpa01-selecao-testes`, derivada
 sem merge/rebase de `434e293f76c3b6ff345fe03f2091149291316aac`, no remoto
 `https://github.com/kaiqueGeraldo/controle-financeiro.git`.
-Destino da PR:`main`. Intervalo recebido exato:
-`fb986456a37a48afcafef204f165d15354294d26..56eb80b5cb867539d94995ec58b63ce2dbc519fa`.
-Somam-se apenas os commits locais de provas/parecer/preservação desta consolidação,
-identificados na entrega final. O saneamento acrescenta seu intervalo próprio a
-partir de `434e293f`, com HEAD documental final identificado na entrega.
-**Correção local não autoriza publicar o tip sem revisão independente.**
+Destino da PR:`main`. Intervalo de código/documentação recebido nesta revalidação:
+`fb986456a37a48afcafef204f165d15354294d26..193916a1778f1322f5368f66d30a83286766b147`:
+53 commits, zero exclusivos da main reconferida por fetch. Somam-se somente os
+commits de provas/parecer/preservação desta revisão, com HEAD completo na entrega.
+R1 exigirá outro delta e outro aceite; não atribuir este parecer ao código futuro.
+**A publicação ainda depende do saneamento de R1 e revisão independente.**
 README raiz alheio permanece fora do intervalo.
 
 Após aprovação do saneamento, registrar main/SHA/merge-base novos e um SHA imutável
@@ -46,12 +48,24 @@ O seletor lê a condição JUnit no nível da classe (movida do método, com cor
 assertions intactos) e exige plataforma alvo explícita. Linux seleciona 100 classes
 smoke/115 expanded; Windows executa a classe TCP, sem PostgreSQL. A união por
 identidade conserva as 101/116 classes anteriores e os 15 harnesses expanded.
-Condições não suportadas/plataforma desconhecida falham fechadas. O runner Windows
+Condições diretas de OS não suportadas/plataforma desconhecida falham fechadas.
+Não há garantia de parserJava genérico para condições compostas/herdadas, não
+utilizadas nesta base. O runner Windows
 usa argumentos literais via PowerShell para chamar o wrapper; o estágio específico
 usa `test`, sem criar JAR. Relatório obrigatório e zero skips continuam exigidos.
-23 contratos passaram localmente em Windows e Linux em container; TCP Windows1/1;
-Linux comum dirigido3/3. Sem suíte integral ou CI remota. Runner remoto exato e
-versões resolvidas ainda deverão constar do futuro recibo.
+Nesta revalidação,23 contratos passaram em Windows e Linux em container, mais
+sete probes independentes Windows; TCPWindows real1/1 e comunsLinux3/3. Linux
+usou Node22.23.1, distinto do24 previsto no workflow. Sem suíte integral ou Actions.
+Runner remoto exato e versões resolvidas ainda deverão constar do futuro recibo.
+
+**R1/P2 aberto:** o needs atual impede alcançar pacote após falhaWindows, mas
+required fica skipped. Esse status pode satisfazer um contexto obrigatório;
+as regras remotas atuais não foram consultadas. A recomendação anterior de exigir
+também Windows nos contexts é defesa adicional, não prova de agregação correta.
+[Modelo local, fonte oficial e encerramento](../revalidacao-CPA-01/WORKFLOW-REQUIRED.md).
+Antes de publicar/CI, autorizar um lote local para reprovar explicitamente o check
+estável de integração quando qualquer dependência obrigatória não for success,
+preservando a barreira de pacote; submeter o delta a revisão independente.
 
 | Alcance futuro | Ambiente/serviços descartáveis | Evidência necessária |
 |---|---|---|
@@ -110,8 +124,8 @@ ser feito por conector autorizado; o comando é uma proposta, não uma execuçã
 
 1. Main, refa publicar, diff, index eREADMEhash; nenhum código novo recebe aceite por
    herança. CPA-01 encerrado na base final por revisão separada.
-2. GitHub:Actions/rulesets/contexts obrigatórios (inclusive `windows-native`;
-   required dependente pode ficar skipped se Windows falhar, e skip não é aceite),
+2. GitHub:Actions/rulesets/contexts obrigatórios após corrigir/revisar R1 (inclusive
+   `windows-native` e o agregador estável; nenhum skipped vale como execução aceita),
    permissões efetivas de token, ambientes do repositório,
    secrets/variables por nome, apps/webhooks/workflows reutilizáveis, checkout SHA e
    políticas de artifacts. Não solicitar ou registrar valores secretos em evidência.
@@ -133,7 +147,7 @@ esses provedores e não afirma que continuamoffline/configurados da mesma forma.
 
 ## Condições para integrar à main e etapas posteriores
 
-Novo parecer favorável do delta saneado, autorização de publicação e de CI,
+Novo parecer favorável do delta R1 saneado, autorização de publicação e de CI,
 checkout exato, required completo eexpanded escolhido aprovado com relatórios,
 artifacts/manifesto coerentes e gates remotos aplicáveis atendidos. Reconfirmar
 regras de merge/revisão na hora; não executar merge nesta etapa. Falha/skip/checkout

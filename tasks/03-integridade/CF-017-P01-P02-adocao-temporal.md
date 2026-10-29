@@ -5,6 +5,13 @@
 - Origem: P01/P02 da [revisão independente](../evidencias/revisao-CF-001-CF-009/README.md)
 - Preparação local: [saneamento de 13/09/2026](../evidencias/saneamento-P01-P05-2026-09-09/README.md)
 
+## Atualização CPA-01 — 28/10/2026
+
+[Revalidação independente](../evidencias/revalidacao-CPA-01/README.md): cobertura
+e seleção Windows/Linux aceitas; R1 de agregação required mantém parecer C.
+P01/P02 continuam em_revisao pelos mesmos critérios reais, sem novo checkbox,
+proveniência temporal inventada, baseline/migration ou adoção autorizados.
+
 ## Consolidação pré-adoção — 28/10/2026
 
 [Parecer integrado e matriz](../evidencias/consolidacao-pre-adocao/README.md),

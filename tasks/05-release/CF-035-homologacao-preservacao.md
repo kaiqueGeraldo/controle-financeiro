@@ -44,6 +44,10 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
+Revalidação CPA-01 de28/10: [seleção aceita, R1 de agregação required aberto](../evidencias/revalidacao-CPA-01/README.md).
+Parecer C mantido por esse resíduo; nenhum bloqueio de startup/TCP reaberto.
+CF035 permanece proposta, sem homologação/backup/restore reais autorizados.
+
 Consolidação de28/10/2026: [parecer C e plano separado](../evidencias/consolidacao-pre-adocao/README.md).
 Aceites locais startup/TCP/RVPLA/audit preservados; CPA-01/P2 exige saneamento da
 seleção de teste Windows no job Linux antes de publicação/CI. Não é bloqueio geral
