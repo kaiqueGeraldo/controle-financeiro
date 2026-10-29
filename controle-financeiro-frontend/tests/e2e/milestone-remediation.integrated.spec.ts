@@ -28,7 +28,7 @@ test.afterEach(async ({page},info)=>{
 });
 async function start(page:Page,suffix:string){
  // RVA-03: this journey requires a fixed civil date, with native animation timing across navigation.
- if(suffix.startsWith("goal-card-"))await setCivilDateOnly(page,new Date("2027-01-15T12:00:00Z"));
+ if(suffix.startsWith("goal-card-") || suffix==="payment")await setCivilDateOnly(page,new Date("2027-01-15T12:00:00Z"));
  else await page.clock.setFixedTime(new Date("2027-01-15T12:00:00Z"));
  await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));
 }
