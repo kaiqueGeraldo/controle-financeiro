@@ -43,11 +43,11 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
-Iniciada e concluída em 07/09/2026. Entregues a [matriz de 39 critérios](../../docs/sdd/specs/003-criterios-oracles.md), [fixtures e oracles de dois usuários](../../controle-financeiro-frontend/tests/oracles/README.md), [roteiro exploratório](../../docs/sdd/specs/003-roteiro-exploratorio.md) e [revisão crítica dos testes](../evidencias/CF-001/revisao-testes.md). Todos os 17 achados têm critério/tarefa; nove decisões ainda abertas ficam com suas tarefas donas, sem cristalizar comportamento ambíguo.
+Iniciada e concluída em 07/09/2026. Entregues a [matriz de 39 critérios](../../docs/sdd/specs/003-criterios-oracles.md), [fixtures e oracles de dois usuários](../../controle-financeiro-frontend/tests/oracles/README.md), [roteiro exploratório](../../docs/sdd/specs/003-roteiro-exploratorio.md) e revisão crítica dos testes (registro de execução privado). Todos os 17 achados têm critério/tarefa; nove decisões ainda abertas ficam com suas tarefas donas, sem cristalizar comportamento ambíguo.
 
 Validação: runner Node existente aprovado em 15 execuções (cinco testes em três fusos); verificador dos artefatos aprovado para referências, identidades e exemplos independentes. Tentativa via npm falhou por instalação local (`npm-cli.js` ausente); registrada como ambiente, não regressão de produto. Nenhum teste anterior foi alterado, nenhuma regra financeira implementada e nenhum framework instalado. Banco, browser/E2E e revisão independente não executados nem declarados aprovados.
 
-[Evidência completa, comandos e limitações](../evidencias/CF-001/README.md). [Base inicial](../evidencias/CF-001/base-inicial.json) e conferência final preservam todos os arquivos preexistentes, exceto a atualização autorizada deste arquivo. Conclusão limitada à fundação de critérios.
+Evidência completa, comandos e limitações (registro de execução privado). Base inicial (registro de execução privado) e conferência final preservam todos os arquivos preexistentes, exceto a atualização autorizada deste arquivo. Conclusão limitada à fundação de critérios.
 
 Dependências: CF-004 fica liberada nesta base local; CF-002/003 já estavam prontas. CF-016 continua dependendo de CF-004. Para outro checkout, integrar o patch inicial e esta entrega antes de executar dependentes; nenhuma tarefa seguinte foi iniciada ou teve status alterado.
 
@@ -58,6 +58,6 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Critérios/oracles e referências revalidados; validação documental não foi confundida com produto.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.

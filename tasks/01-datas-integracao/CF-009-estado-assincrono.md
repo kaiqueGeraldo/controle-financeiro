@@ -16,7 +16,7 @@ próprios, respostas inválidas mantêm intenção e não disparam sucesso/fecha
 recuperação válida posterior encerra uma vez, lifecycle/owner/cancelamento
 permanecem protegidos. Provas de modal/hook e SQL/reload sustentam este aceite.
 
-[Matriz dos quatro critérios, contraprovas e limites](../evidencias/revalidacao-RVR24-01-propriedades/README.md).
+Matriz dos quatro critérios, contraprovas e limites (registro de execução privado).
 Seleção/rollback e isolamento/dupla chamada mantêm aceites R01/R02/R03/RV01;
 evidências preservam originais e falha ambiental inicial, sem enfraquecimento.
 Conclusão individual desta tarefa, sem transferência de critérios nem conclusão
@@ -32,7 +32,7 @@ Mesmo RVR24-01/P2, base d4e5a06: parser preserva chaves especiais como dados,
 validação exige campos próprios antes do conteúdo; POST/retry/GET inválidos
 conservam identidade/intenção. Quatro probes originais passam intactos, 267
 regressões e jornadas reais BUY200/NG-01 confirmam recuperação sem duplicação.
-[Evidências e critérios de encerramento](../evidencias/saneamento-RVR24-01-propriedades/README.md).
+Evidências e critérios de encerramento (registro de execução privado).
 Aceites anteriores preservados, sem autoaprovação, CF-028 ou revisão global.
 
 ## Revalidação independente da precisão — 05/10/2026
@@ -45,8 +45,8 @@ substituição ativa de fronteira foi aceita, preservando o original histórico.
 O impedimento atual é específico: campos financeiros herdados via __proto__
 são aceitos pelo parser/validador, produzindo confirmed e remoção da intenção
 em POST/retry/GET. Mesmo RVR24-01/P2, quatro probes vermelhos válidos.
-[Parecer independente](../evidencias/revalidacao-RVR24-01-precisao/README.md),
-[saneamento necessário e encerramento objetivo](../evidencias/revalidacao-RVR24-01-precisao/ACHADOS.md).
+Parecer independente (registro de execução privado),
+saneamento necessário e encerramento objetivo (registro de execução privado).
 Critérios1/3/4, R01/R02, R03/RV01, RVR24-02/RV24-02 e CF-025/026/027
 conservam os aceites; investigações separadas não foram encerradas.
 Nenhum critério retirado/transferido. CF-028 não executada nem publicação autorizada.
@@ -59,7 +59,7 @@ sem DoubleNode. NG-01 confirma/recupera o snapshot exato; resultado divergente
 mantém UUID/payload/intenção. Cinco probes de transporte passam; original que
 exige aceitar informação já perdida permanece documentado, com substituição
 explícita da fronteira e sem flexibilizar FIN-06.
-[Entrega, provas e critérios](../evidencias/saneamento-RVR24-01-precisao/README.md).
+Entrega, provas e critérios (registro de execução privado).
 Critérios1/3/4, RVR24-02/RV24-02 e CF-025–027 preservados. CF-028 não executada;
 nenhum checkbox alterado ou aceite próprio do executor.
 
@@ -71,8 +71,8 @@ nenhum checkbox alterado ou aceite próprio do executor.
 está corrigido; não é mais a justificativa. RVR24-01 mantém falha concreta de
 precisão: resultado NG-01 válido é rejeitado e não recupera após commit real;
 quantidades divergentes dentro do contrato colidem como Number e ainda produzem
-confirmed/removem intenção em probes POST/GET. [Matriz e provas](../evidencias/revalidacao-RVR24-01-teto/README.md),
-[payloads e fronteiras da perda](../evidencias/revalidacao-RVR24-01-teto/JSON-PRECISAO.md).
+confirmed/removem intenção em probes POST/GET. Matriz e provas (registro de execução privado),
+payloads e fronteiras da perda (registro de execução privado).
 Encerramento exige preservar precisão/resultado original nos caminhos afetados,
 passar os seis vermelhos novos e resgate real, mantendo teto/NG-01/lifecycle.
 Critérios1/3/4, R01/R02, R03/RV01, RVR24-02/RV24-02 e CF-025–027 preservados.
@@ -80,7 +80,7 @@ Nenhuma transferência de critério ou liberação de publicação; CF-028 não 
 
 Estado **em_revisao**, somente critério2 aguardando revalidação conforme1e9e932.
 O executor acrescentou faixa monetária/escala no validador comum do mesmo
-RVR24-01, preservando intenção e recuperação. [Matriz, provas e encaminhamento](../evidencias/saneamento-RVR24-01-teto/README.md).
+RVR24-01, preservando intenção e recuperação. Matriz, provas e encaminhamento (registro de execução privado).
 Critérios1/3/4, RVR24-02, RV24-02 e CF-025/026/027 conservam seus aceites.
 Nenhum checkbox alterado; CF-028 não executada. Investigações históricas
 permanecem separadas e não são reclassificadas como causa deste veto.
@@ -92,30 +92,30 @@ permanecem separadas e não são reclassificadas como causa deste veto.
 **em_revisao mantido. Resta exatamente o critério2 no recorte de falso sucesso
 RVR24-01:** bruto1000000000000.00, um centavo acima do teto FIN-06, ainda confirma
 e remove intenção em POST/retry/GET. A relação aritmética200→999 está corrigida,
-mas não encerra o contrato monetário. [Matriz individual dos quatro critérios](../evidencias/revalidacao-RVR24-01-bruto/README.md)
+mas não encerra o contrato monetário. Matriz individual dos quatro critérios (registro de execução privado)
 preserva aceites1 (seleção/rollback),3 (isolamento/dupla chamada) e4 (evidências).
 Condição restante: rejeitar teto excedido sem sucesso/descarte, conservar UUID/payload
 e recuperação válida; passar quatro novos vermelhos e regressões dirigidas.
 R01/R02, R03/RV01 e RVR24-02 permanecem encerrados; H-RV24-01 é investigação
 separada, não justificativa vaga para este estado. Sem revisão integral CF-025–027,
-implementação CF-028 ou alteração de critérios. [Achado e limites](../evidencias/revalidacao-RVR24-01-bruto/ACHADOS.md).
+implementação CF-028 ou alteração de critérios. Achado e limites (registro de execução privado).
 
 Estado **em_revisao** mantido. O executor corrigiu a coerência do bruto do
 investimento em RVR24-01, com decimal exato/HALF_UP e preservação do amount
-autoritativo de NG-01. [Contrato, provas e encaminhamento](../evidencias/saneamento-RVR24-01-bruto/README.md).
+autoritativo de NG-01. Contrato, provas e encaminhamento (registro de execução privado).
 O critério de falso sucesso aguarda revalidação independente; nenhum checkbox
 recebe autoaceite. RVR24-02, RV24-02 e CF-025/026/027 conservam os aceites de
 c45bfb6/40e07ef. CF-028 não executada; investigações históricas preservadas.
 
 ## Parecer dirigido por critério — 03/10/2026
 
-Estado **em_revisao** mantido, candidato `06c1a51`. [Matriz dos quatro critérios](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md): aceites R01/R02 e R03/RV01, rollback e isolamento preservados; RVR24-02 callbacks obsoletos encerrado. Critério de erro sem falso sucesso permanece pendente por RVR24-01: total bruto incompatível do investimento ainda confirma/apaga intenção em POST/retry/GET. [Achado e saneamento necessário](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). H-RV24-01 é investigação de transporte separada, sem causa fechada por verdes novos. CF-026 aceita no lote próprio não conclui esta tarefa; sem nova auditoria integral de telas/adoção.
+Estado **em_revisao** mantido, candidato `06c1a51`. Matriz dos quatro critérios (registro de execução privado): aceites R01/R02 e R03/RV01, rollback e isolamento preservados; RVR24-02 callbacks obsoletos encerrado. Critério de erro sem falso sucesso permanece pendente por RVR24-01: total bruto incompatível do investimento ainda confirma/apaga intenção em POST/retry/GET. Achado e saneamento necessário (registro de execução privado). H-RV24-01 é investigação de transporte separada, sem causa fechada por verdes novos. CF-026 aceita no lote próprio não conclui esta tarefa; sem nova auditoria integral de telas/adoção.
 
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 1, 2 e 3: a revisão RV24 aceitou o reenvio original identificado; a pendência atual é revalidar RVR24-01 (resultado inválido) e RVR24-02 (callback obsoleto), saneados nesta execução, além de classificar H-RV24-01 ECONNRESET. R01/R02 e R03/RV01 permanecem encerrados. Revisor deve confrontar as cinco provas independentes, lifecycle e SQL/reload sem autoaprovar este saneamento.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -127,7 +127,7 @@ CF-019 e não reabre automaticamente R03/RV01. A liberação independente residu
 `0099185` permite CF-026 no recorte de lint/tipagem, com reconferência e testes dos
 consumidores, sem concluir CF-009 ou aprovar produção.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -173,7 +173,7 @@ segregado, lock síncrono por chave, propagação de erro e rollback local à
 entidade. Os testes controlam ordem de resposta, logout/login, duplo clique,
 falha tardia, retry e cancelamento.
 
-[Evidência completa](../evidencias/CF-009/README.md), incluindo comandos,
+Evidência completa (registro de execução privado), incluindo comandos,
 resultados anterior/posterior por mutação, dados sintéticos, complexidade,
 trade-offs e limitações. Não houve enfraquecimento de assertions, skips ou
 timeouts.
@@ -196,7 +196,7 @@ nem teve seu estado alterado.
 
 R03/R09/R10/R11/R12/R13/R14 corrigidos. Rollback testado no provider de hábitos real, callbacks isolados por geração; idempotência de banco e sessões E2E concorrentes não certificadas.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
 
@@ -204,13 +204,13 @@ foi verificado; commits intermediários não são apresentados como testados.
 
 R01/R02 reproduzem respostas obsoletas no retorno a uma seleção em cache. Cenários anteriores de logout/troca de usuário passam, mas não encerram o contrato de seleção.
 
-Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+Estado do marco e condições de encerramento: revisão CF-015 (registro de execução privado), achados (registro de execução privado). Evidências anteriores permanecem históricas e não substituem este parecer.
 
 ## Candidato de saneamento CF-015 — 21/09/2026
 
 R01/R02: a seleção invalida requisição antiga inclusive no cache hit. Foram ampliados os cenários A→B→A, sucesso/erro tardio, troca de sessão e desmontagem. A reconciliação financeira aguarda os consumidores afetados.
 
-[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Registro do saneamento e evidências (registro de execução privado).
 Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
@@ -220,7 +220,7 @@ preservado como registro histórico.
 
 R01/R02 revalidados com defeitos originais reintroduzidos em cópia isolada. RV01/R03 confirma falha na propagação de erro de reconciliação substituída; aceite de erro reaberto. Estado em_revisao mantido.
 
-[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+Parecer, rastreabilidade e execuções (registro de execução privado).
 
 ## Correção dirigida RV01 — 21/09/2026
 
@@ -228,7 +228,7 @@ Cada chamada de reconciliação conserva sua Promise/geração: falha propaga o
 erro, cancelamento/substituição rejeita explicitamente e somente lote atual
 com leituras concluídas resolve. R01/R02 não foram reabertos. Candidato para
 confirmação independente, estado em_revisao mantido:
-[contrato, regressões e evidências](../evidencias/saneamento-CF-015-RV01/README.md).
+contrato, regressões e evidências (registro de execução privado).
 
 ## Confirmação independente de RV01 — 21/09/2026
 
@@ -237,4 +237,4 @@ contraprovas isoladas sensíveis, 41 componentes e jornada integrada aprovados.
 Substituição rejeita para o chamador; recuperação não repete pagamento.
 Encerramentos de R01/R02 preservados. O aceite reaberto por RV01 foi restabelecido;
 esta revisão dirigida não muda a tarefa inteira para concluida.
-[Parecer e limites](../evidencias/revalidacao-CF-015-RV01/README.md).
+Parecer e limites (registro de execução privado).

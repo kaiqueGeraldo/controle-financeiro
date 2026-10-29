@@ -45,17 +45,17 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
-Saneamento de 30/09/2026: [verificador separado e NG-01](../evidencias/saneamento-CF-016-CF-021/CF016-VERIFICADOR.md).
+Saneamento de 30/09/2026: verificador separado e NG-01 (registro de execução privado).
 O modo `--current --adversarial` valida os oráculos atuais; a preservação
 histórica continua estrita e disponível separadamente. A falha integral
 original em pom.xml foi reproduzida e preservada, sem aprovação retrospectiva.
 O marco CF-016–CF-021 continua aguardando revisão independente.
 
-Iniciada em 21/09/2026 sobre `45e156c3189fd9893a88e6adcc0df3903983f4b9`, com CF-001 e CF-004 concluídas e integradas. CF-015 permanece em_revisao exclusivamente pelo aceite de zoom nativo 200%; R03/RV01 encerrado. O [snapshot inicial](../evidencias/CF-016/base-inicial.json) registra os arquivos preexistentes, inclusive README raiz modificado. Escopo documental complementar: nova SPEC-004, referência no índice SDD/ADR-002 e atualização apenas das decisões DEC-04/07 na SPEC-003 para evitar contratos contraditórios. Nenhuma mudança de produto, schema ou estado de tarefa dependente.
+Iniciada em 21/09/2026 sobre `45e156c3189fd9893a88e6adcc0df3903983f4b9`, com CF-001 e CF-004 concluídas e integradas. CF-015 permanece em_revisao exclusivamente pelo aceite de zoom nativo 200%; R03/RV01 encerrado. O snapshot inicial (registro de execução privado) registra os arquivos preexistentes, inclusive README raiz modificado. Escopo documental complementar: nova SPEC-004, referência no índice SDD/ADR-002 e atualização apenas das decisões DEC-04/07 na SPEC-003 para evitar contratos contraditórios. Nenhuma mudança de produto, schema ou estado de tarefa dependente.
 
-Concluída em 22/09/2026 **no escopo de especificação**. A [SPEC-004](../../docs/sdd/specs/004-regras-financeiras.md) resolve DEC-04 e regras financeiras de DEC-07; define abertura, realizado/pendente, transferência, compra/pagamento, custo/avaliação, destinação, taxas, precisão e compensação. [Tabela e guia](../evidencias/CF-016/ORACLES.md): 49 estados reconciliados e 18 bordas contratuais, sem chamar cálculo de produção. [Confronto estático](../evidencias/CF-016/DIVERGENCIAS.md): 15 divergências/lacunas de produto com donos nas tarefas existentes, mais uma lacuna documental preexistente.
+Concluída em 22/09/2026 **no escopo de especificação**. A [SPEC-004](../../docs/sdd/specs/004-regras-financeiras.md) resolve DEC-04 e regras financeiras de DEC-07; define abertura, realizado/pendente, transferência, compra/pagamento, custo/avaliação, destinação, taxas, precisão e compensação. Tabela e guia (registro de execução privado): 49 estados reconciliados e 18 bordas contratuais, sem chamar cálculo de produção. Confronto estático (registro de execução privado): 15 divergências/lacunas de produto com donos nas tarefas existentes, mais uma lacuna documental preexistente.
 
-Validação documental: 49 estados aprovados em três fusos; precisão/custo/parcelas e compatibilidade com sete casos CF-001; seis mutações em memória rejeitadas; verificador CF-001 aprovado. O verificador antigo CF-004 falha por `UpdatePlanItemDTO.dueDate` ausente do inventário, com inputs idênticos à base 45e156c; registrado como D16-T01, atualização documental com CF-008, sem alterar dependência nem enfraquecer assertion. [Execuções e limites](../evidencias/CF-016/EXECUCOES.md).
+Validação documental: 49 estados aprovados em três fusos; precisão/custo/parcelas e compatibilidade com sete casos CF-001; seis mutações em memória rejeitadas; verificador CF-001 aprovado. O verificador antigo CF-004 falha por `UpdatePlanItemDTO.dueDate` ausente do inventário, com inputs idênticos à base 45e156c; registrado como D16-T01, atualização documental com CF-008, sem alterar dependência nem enfraquecer assertion. Execuções e limites (registro de execução privado).
 
 Nenhuma regra de produto foi implementada/certificada. Sem PostgreSQL, HTTP, E2E, visual ou revisão independente nesta execução; essas provas continuam nas tarefas donas. DEC-03 permanece CF-019; detalhe de protocolo/recibo durável, CF-024; proveniência/migração, CF-017. CF-015 e zoom pendente preservados; CF-017 não iniciada, README e alterações alheias intactos. Sem stage/commit/push/deploy ou banco real. Os critérios assinalados atestam os entregáveis da especificação, não conformidade financeira do runtime.
 
@@ -63,8 +63,8 @@ Nenhuma regra de produto foi implementada/certificada. Sem PostgreSQL, HTTP, E2E
 
 NG-01 decidido pelo usuário: avaliação TOTAL autoritativa proporcional; oráculos independentes 1.00/200000000, metade 0.50/final 0.00 e terços 0.67/0.33/0.00. Validação atual e preservação histórica permanecem gates separados; pom.xml continua vermelho no gate estrito histórico.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Revalidação independente — 30/09/2026
 
-Oráculos atuais aprovados; NG-01 permanece decidido. A divergência nova é da implementação, não exige reabrir a especificação. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+Oráculos atuais aprovados; NG-01 permanece decidido. A divergência nova é da implementação, não exige reabrir a especificação. Consulte a matriz e o parecer (registro de execução privado) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.

@@ -12,13 +12,13 @@
 
 Estado `concluida`: recuperação mobile/teclado com email falso e backend real, rejeições e login após reload; preferências reais/reload/erro503; download falho sem arquivo e sucesso binário. Reutilizados R07, sessão CF-023 e exclusão RV24-02. Critérios próprios comprovados; zoom da CF-010 não bloqueia este aceite delimitado.
 
-[Parecer, matriz por critério, achados, execuções e imagens inspecionadas](../evidencias/fechamento-CF-010-CF-015/README.md). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
+Parecer, matriz por critério, achados, execuções e imagens inspecionadas (registro de execução privado). Esta nota supera descrições correntes anteriores; relatórios datados conservam seu alcance histórico. Nenhuma correção de produto nesta revisão.
 
 ## Reconciliação de pendências — 03/10/2026
 
 Estado `em_revisao` mantido. Categorias 4 e 1: concluir recuperação de senha ponta a ponta com provedor falso e vincular mobile/teclado, preferências/reload/erro e download aos critérios originais. R07 e sessão CF-023 têm aceite delimitado. RV24-02 foi concluída independentemente em 40e07ef; exclusão não é mais defeito pendente desta reconciliação e não aprova toda autenticação.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -29,7 +29,7 @@ existentes e completar a recuperação ponta a ponta com provedor falso declarad
 parecer CF-015. RV24-02 mantém exclusão completa de usuário sem aceite em sua derivada;
 não foi transferida para esta tarefa.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -68,7 +68,7 @@ O escopo é delimitado por componentes/telas e contratos existentes; escalar par
 
 ## Evidências e estado
 
-Concluída em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch inicial das tarefas anteriores. Login, recuperação, logout, configurações, perfil e troca de senha receberam validação e semântica de teclado; preferências não atualizam a UI de modo otimista; exportação exige um blob não vazio, evita concorrência e revoga a URL temporária. A validação final aprovou typecheck, 90 testes de componente e o fluxo público em três viewports. [Evidências, mutação e limitações](../evidencias/CF-011/README.md).
+Concluída em 13/09/2026 sobre `main`, HEAD `1ced2f027fa46ab265b211829375581880cbb07b`, preservando o patch inicial das tarefas anteriores. Login, recuperação, logout, configurações, perfil e troca de senha receberam validação e semântica de teclado; preferências não atualizam a UI de modo otimista; exportação exige um blob não vazio, evita concorrência e revoga a URL temporária. A validação final aprovou typecheck, 90 testes de componente e o fluxo público em três viewports. Evidências, mutação e limitações (registro de execução privado).
 
 Limites: o build não pôde baixar fontes externas no sandbox, e não houve E2E autenticado com backend/PostgreSQL descartável. CF-015 deve fazer a revisão independente do marco e verificar esse percurso integrado.
 
@@ -78,13 +78,13 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 R07 reproduz sobrescrita de rascunho no refetch do mesmo usuário. Registro e preferências têm evidência parcial integrada; os limites e o estado do roteiro visual constam do parecer.
 
-Estado do marco e condições de encerramento: [revisão CF-015](../evidencias/revisao-CF-015/README.md), [achados](../evidencias/revisao-CF-015/ACHADOS.md). Evidências anteriores permanecem históricas e não substituem este parecer.
+Estado do marco e condições de encerramento: revisão CF-015 (registro de execução privado), achados (registro de execução privado). Evidências anteriores permanecem históricas e não substituem este parecer.
 
 ## Candidato de saneamento CF-015 — 21/09/2026
 
 R07: perfil conserva rascunho no refetch do mesmo usuário; cancelar/reabrir e troca de identidade têm regressão. Não houve alteração no contrato de autenticação.
 
-[Registro do saneamento e evidências](../evidencias/saneamento-CF-015/README.md).
+Registro do saneamento e evidências (registro de execução privado).
 Estado mantido em_revisao; fechamento depende de nova revisão independente.
 CF-016 não iniciada. P01/P02/CF-017 mantém adoção temporal pendente; testes
 sintéticos não certificam migração ou publicação. O parecer anterior permanece
@@ -94,4 +94,4 @@ preservado como registro histórico.
 
 R07 encerrado no escopo de rascunho, refetch, identidade e cancelar/reabrir. Esta revisão dirigida não conclui integralmente a tarefa; estado em_revisao mantido.
 
-[Parecer, rastreabilidade e execuções](../evidencias/revalidacao-CF-015/README.md).
+Parecer, rastreabilidade e execuções (registro de execução privado).

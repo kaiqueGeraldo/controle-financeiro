@@ -12,7 +12,7 @@
 
 Sete commits aprovados até `e1a01b6` publicados na branch CF033 e integrados por
 fast-forward; main remota `e1a01b62e0766c92120c3cefc2bc4b4fc316ce58`.
-[Provas da integração e análise sucessora delimitada](../evidencias/CF015-zoom-gate-CF034/README.md).
+Provas da integração e análise sucessora delimitada (registro de execução privado).
 Aceite local CF033/CF033-01 preservado, sem ampliar liberação para uso/produção.
 Novos commits da análise CF015→CF034 permanecem locais; CF034 não iniciada.
 Notas abaixo descrevem as execuções anteriores e conservam seus limites.
@@ -66,7 +66,7 @@ sobrepostos); seis interleavings novos de criação/remoção/commit/rollback e 
 mutações distintas detectadas sem erros ambientais. Original e históricos
 preservados;430 fontes restauradas por hash,627 arquivos históricos conferidos
 sem divergência. Sem correção de produto, push, merge, deploy ou banco real.
-[Parecer A–E, matriz e execução](../evidencias/revalidacao-CF033-01/README.md).
+Parecer A–E, matriz e execução (registro de execução privado).
 CF033 continua concluída como marco de revisão, sem aprovação irrestrita de
 publicação. CF034 proposta/não iniciada; CF015 ainda em_revisao por zoom nativo,
 DEC-ONB-03 não dispensa essa dependência. Próximo passo: decisão de publicação
@@ -81,7 +81,7 @@ DEC-10 preservada pelo protocolo de dependências/capacidade por fonte, com
 proteção global para inventário certificado/legado. Probe original intacto
 vermelho→verde;43 dirigidos e229 regressões aprovados (sobrepostos), duas
 contraprovas finais detectadas/restauradas e controles2/2; Maven verify/JAR local
-sem clean. [Reconciliação, provas, falhas, custos e encaminhamento](../evidencias/saneamento-CF033-01/README.md).
+sem clean. Reconciliação, provas, falhas, custos e encaminhamento (registro de execução privado).
 Mesma branch, commits locais, README/runtimes preservados. Aceites anteriores,
 zoom nativo200%, adoção CF017/P01/P02 e DEC-ONB-03 conservam seus alcances;
 CF034+ não iniciadas. Próximo passo: revalidação independente dirigida.
@@ -89,7 +89,7 @@ CF034+ não iniciadas. Próximo passo: revalidação independente dirigida.
 Iniciada em 23/10/2026 sobre a base integrada/publicada `bfb6c61`, na branch
 `codex/cf033-revisao-integrada`. Dependências CF025/027/032 aceitas no alcance
 local e integradas; escopo, matriz normativa anterior à execução e gates em
-[CF-033](../evidencias/CF-033/README.md). Revisão sem correção silenciosa de produto;
+CF-033 (registro de execução privado). Revisão sem correção silenciosa de produto;
 zoom200%, adoção real, produção e sucessoras conservam seus limites.
 
 Encerrada em24/10/2026 como o próprio marco de revisão independente, com parecer
@@ -97,7 +97,7 @@ restritivo e CF033-01/P2 aberto.7 casos backend novos aprovados;3 jornadas reais
 aprovadas; quatro mutações causais detectadas/restauradas; seleção74 com73
 aprovações/1 timeout, seguida de probe causal1 assertion falha/0 erros. Sem
 correção de produto, repetição até passar ou aprovação por contagem.
-[Parecer, matriz, falhas, limites e saneamento delimitado](../evidencias/CF-033/README.md).
+Parecer, matriz, falhas, limites e saneamento delimitado (registro de execução privado).
 Produto487 fontes e README/runtimes preservados; novos commits exclusivamente
 locais. Próximo passo: reconciliar o contrato de progresso CF033-01 sem invalidar
 capacidade/certificação. CF034 e demais sucessoras não iniciadas; zoom nativo200%,

@@ -11,7 +11,7 @@
 ## Aceite independente do saneamento — 18/10/2026
 
 **CF-022 concluída. Critério 4 aceito**, preservados os aceites dos critérios 1–3.
-[Parecer, matriz, contraprovas e limites](../evidencias/revalidacao-saneamento-CF022/README.md),
+Parecer, matriz, contraprovas e limites (registro de execução privado),
 candidato `eb41301..5e2fae5`: Date-only confirmado no harness real; quatro jornadas
 com pintura/interação/reload/SQL; 27 casos originais e quatro ordens aprovados; mutação
 sem isolamento detecta 501 hábitos herdados. Schemas/conexões dos workers e
@@ -32,7 +32,7 @@ abaixo preservam os estados históricos e não substituem este aceite vigente.
 ## Saneamento dirigido — 17/10/2026
 
 **Critério4 implementado localmente, aguardando revalidação independente;
-estado em_revisao preservado.** [Delta, provas e encaminhamento](../evidencias/saneamento-CF022/README.md),
+estado em_revisao preservado.** Delta, provas e encaminhamento (registro de execução privado),
 base eb41301: Date-only no harness real de hábitos; schema/contexto por método
 na classe de integridade. Regressões antes/depois e ordens volume→callback/inversa,
 27 casos originais, quatro jornadas reais/reload/SQL e contraprova2→1006→2.
@@ -48,7 +48,7 @@ CF010/015 e adoção real CF017/P01/P02 preservados. Commits somente locais.
 ## Revisão independente da investigação — 16/10/2026
 
 **Permanece em_revisao**, por saneamento atual do harness e das fixtures no
-critério4. [Parecer, matriz completa e contraprovas](../evidencias/revalidacao-CF022/README.md),
+critério4. Parecer, matriz completa e contraprovas (registro de execução privado),
 candidato0bab205: critérios funcionais1–3 sustentados pelos aceites rastreáveis e
 provas conferidas. RJ-022-01 confirma distorção de animações pelo relógio completo;
 Date-only remove o mecanismo sem deslocar o dia. H24-01 confirma dependência da
@@ -67,7 +67,7 @@ atual de confiabilidade das provas, sem retirar os aceites funcionais anteriores
 
 ## Investigação dirigida — 16/10/2026
 
-Estado `em_revisao` preservado. [Diagnóstico, matriz e provas](../evidencias/investigacao-CF022/README.md):
+Estado `em_revisao` preservado. Diagnóstico, matriz e provas (registro de execução privado):
 RJ-022-01 tem interferência do clock completo demonstrada no caminho de hábitos,
 mas sem reprodução do timeout histórico; H24-01 tem sensibilidade ao volume de
 fixtures demonstrada, sem causa histórica fechada. São investigações distintas.
@@ -75,8 +75,8 @@ Nenhuma correção de produto ou harness compartilhado aplicada; próximos
 experimentos discriminantes e revisão independente delimitados por identificador.
 
 A pendência de revisão LAZY/consumidores citada na reconciliação de03/10 abaixo
-já foi satisfeita pelo [parecer CF-025](../evidencias/revisao-CF-025-CF-027-RV24/README.md#parecer-cf-025--concluída)
-e sua [matriz critérios1–4](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md),
+já foi satisfeita pelo parecer CF-025 (registro de execução privado)
+e sua matriz critérios1–4 (registro de execução privado),
 base06c1a51. Essa atualização documental não é novo aceite desta investigação e
 não encerra RJ-022-01/H24-01. Demais aceites/dependências e prontidão local CF029
 preservados; sem adoção real, onboarding ou publicação de commits novos.
@@ -85,7 +85,7 @@ preservados; sem adoção real, onboarding ou publicação de commits novos.
 
 Estado `em_revisao` mantido. Categoria 3: RJ-022-01 (interação semanal sem POST) e H24-01 (timeout de scheduler) exigem classificações separadas com DOM/rede/calllog e locks/fixtures. Categoria 1 na alteração posterior CF-025: LAZY e consumidores aguardam revisão própria. Backend DEC-08 aceito mantém liberações locais CF-025/027; verdes posteriores não encerram as causas.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Problema e resultado esperado
 
@@ -123,10 +123,10 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 ## Evidências e estado
 
 Execução iniciada em 30/09/2026 sobre `6f0d474`. A revisão dirigida de resíduos
-[libera CF-022 localmente](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md),
+libera CF-022 localmente (registro de execução privado),
 usando a fundação descartável CF-006/017 integrada; não libera produção.
 README raiz alheio preservado e excluído dos commits. DEC-08 aprovada pelo usuário
-nesta execução; [contrato e exemplos independentes](../evidencias/CF-022/CONTRATO.md).
+nesta execução; contrato e exemplos independentes (registro de execução privado).
 Exceções de caminho necessárias: migração aditiva em `src/main/resources/db/migration/`
 para vínculo persistido de contribuição; testes em `src/test/java/.../domain/habit/`
 e adaptação dos consumidores temporais existentes em `src/test/java/.../service/`.
@@ -152,7 +152,7 @@ UTC+14;16 contratos temporais/JVM São Paulo. Zero falhas/erros/skips nesses gat
 Quatro jornadas reais diário/semanal em navegadores São Paulo/UTC+14, com
 Next/BFF/Spring/PostgreSQL e persistência após reload; quatro mutações detectadas
 na cópia isolada, restaurada por hash. Vermelhos, ajustes legítimos de fixtures,
-comandos, capturas, custos e limites: [evidência CF-022](../evidencias/CF-022/README.md).
+comandos, capturas, custos e limites: evidência CF-022 (registro de execução privado).
 
 Permanece `em_revisao`: autotestes não substituem execução independente. Legado
 sem identidade precisa de reconciliação para desfazer contribuição; adoção real
@@ -170,14 +170,14 @@ validate e consumidoresGoalHistory. Probe novo executa o callback registrado no
 worker real do TaskScheduler e comprova o lockShedLock pelo banco; mutação sem
 SchedulerLock o faz falhar. Probes variam o defaultJVM após startup nos três
 fusos, sem confundir o parâmetro de invocação com o timezone efetivo do app.
-[Parecer, matriz e contraprovas](../evidencias/revisao-CF-022-CF-023/README.md).
+Parecer, matriz e contraprovas (registro de execução privado).
 
 **Permanece em_revisao por RJ-022-01.** Quatro jornadas browser→BFF→backend→PG/
 reload passaram na execução diagnóstica, mas a tentativa semanal anterior
 expirou sem POST e sua causa não foi estabelecida. Verde posterior não é
 resolução. Falta classificar a confiabilidade do caminho/prova integrada e
 demonstrar causalmente a correção, se necessária, conforme
-[condição objetiva](../evidencias/revisao-CF-022-CF-023/ACHADOS.md).
+condição objetiva (registro de execução privado).
 Não se declarou defeito de calendário/PG sem prova. Não bloqueia a implementação
 localCF-024, cuja dependência não inclui hábitos; produção continua não liberada.
 
@@ -186,7 +186,7 @@ localCF-024, cuja dependência não inclui hábitos; produção continua não li
 Estado permanece `em_revisao`; RJ-022-01 não foi encerrado. A execução ampliada
 da revisão CF-024 observou timeout no segundo callback registrado de scheduler
 (teste:268); o mesmo caso passou isolado com limite10s/assertions intactos.
-[H24-01](../evidencias/revisao-CF-024/ACHADOS.md) registra logs/thread dump,
+H24-01 (registro de execução privado) registra logs/thread dump,
 incerteza causal e condição de encerramento. É distinto do problema de browser
 RJ-022-01. Não há prova de corrupção financeira; o backend já aprovado permite
 início local de CF-025 com fixtures isoladas, conforme o parecer dessa revisão.

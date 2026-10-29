@@ -46,11 +46,11 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 ## Evidências e estado
 
-Iniciada em 08/09/2026 sobre `main`, HEAD `169d7be4c7d3db97d4c318ff3f99d9de3a808067`, com CF-001 concluída e integrada nesta base local. O [snapshot inicial](../evidencias/CF-004/base-inicial.json) registra os 426 arquivos preexistentes antes das edições. Escopo desta execução: contrato, inventário e validação de exemplos independentes; correções de runtime pertencem às tarefas consumidoras.
+Iniciada em 08/09/2026 sobre `main`, HEAD `169d7be4c7d3db97d4c318ff3f99d9de3a808067`, com CF-001 concluída e integrada nesta base local. O snapshot inicial (registro de execução privado) registra os 426 arquivos preexistentes antes das edições. Escopo desta execução: contrato, inventário e validação de exemplos independentes; correções de runtime pertencem às tarefas consumidoras.
 
 Concluída em 08/09/2026: [SPEC-002](../../docs/sdd/specs/002-datas.md) define formatos, hoje por consumidor, página aberta, nulabilidade, horário informado/auditoria e plano de migração por proveniência. O [inventário](../../controle-financeiro-frontend/src/types/temporal-contract/inventory.md) cobre 22 grupos e 21 exemplos; vetores/verificador não são importados pelo runtime. As referências DEC-01/02/05 na SPEC-003 foram atualizadas sem alterar critérios ou fixtures anteriores.
 
-Validação: verificador documental aprovado em São Paulo/UTC/Kiritimati, cobrindo presença de 37 campos de DTO Java e 14 do types/index.ts; cinco mutações documentais rejeitadas com exit 1; 15 execuções dos testes existentes de datas aprovadas; verificador CF-001, typecheck e lint do novo verificador aprovados. Hashes preservam 423 dos 426 arquivos iniciais: apenas os três documentos autorizados mudaram. [Evidências completas, comandos e manifesto](../evidencias/CF-004/README.md).
+Validação: verificador documental aprovado em São Paulo/UTC/Kiritimati, cobrindo presença de 37 campos de DTO Java e 14 do types/index.ts; cinco mutações documentais rejeitadas com exit 1; 15 execuções dos testes existentes de datas aprovadas; verificador CF-001, typecheck e lint do novo verificador aprovados. Hashes preservam 423 dos 426 arquivos iniciais: apenas os três documentos autorizados mudaram. Evidências completas, comandos e manifesto (registro de execução privado).
 
 Limites: nenhum runtime/DTO/schema alterado, nenhum HTTP real/PostgreSQL/componente/E2E/build/CI remoto ou revisão independente executado. Perfis canônicos de time/recordedAt exigem adoção coordenada e schema CF-017; proveniência histórica permanece desconhecida. DEC-03 (ciclo bancário) continua CF-019; DEC-08 (janela semanal), CF-022; admissibilidade de criação de meta com prazo passado/presente, CF-020. Não fechar conformidade de produto com esta evidência documental.
 
@@ -63,6 +63,6 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Contrato e 40 campos DTO revalidados; proveniência/hora ausente continuam requisitos, sem flexibilização para aceitar runtime.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.

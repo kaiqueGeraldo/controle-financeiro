@@ -10,6 +10,12 @@
 
 ## Problema e resultado esperado
 
+Atualização de28/10/2026: CPA-01/R1 encerrado localmente em81b20bca (registro de execução privado).
+Consolidação recebe parecer A para publicação controlada e CI remota mediante
+autorização própria. CF036 permanece proposta; isso não autoriza deploy, ativação,
+adoção ou produção. Gates de CF017/034/035, zoom e configuração remota preservados;
+notas CPA anteriores são históricas. Nenhuma ação remota nesta revisão.
+
 Promover somente o artefato e schema ensaiados, com rollback conhecido e evidência de prontidão completa.
 
 ## Escopo e referências
@@ -42,6 +48,34 @@ Publicar só porque o build passou, usar dados reais como fixture ou mudar schem
 A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o esforço adicional se concentra em ambiguidades e riscos. Os motivos e limites das recomendações estão em [modelos](../MODELOS.md). A revisão sugerida é uma execução dedicada; sua abrangência deve seguir o risco desta tarefa.
 
 ## Evidências e estado
+
+Revalidação CPA-01 de28/10: seleção aceita, R1 de agregação required aberto (registro de execução privado).
+Parecer C mantido por R1; publicação/CI futura dependem de saneamento e revisão.
+CF036 permanece proposta, sem deploy, adoção ou uso liberados por associação.
+
+Consolidação de28/10/2026: parecer C e publicação futura preparada (registro de execução privado).
+CPA-01/P2 confirma incompatibilidade seleção Windows/job Linux; saneamento e
+revisão separados antes de novo parecer de publicação/CI. Aceites locais de
+produto/startup40s/TCP/RVPLA/audit preservados. CF036 permanece proposta: sem
+liberação de deploy/uso por CI, sem publicação, banco real ou configuração remota.
+
+Revisão independente de28/10/2026:
+startup local aceito e histórico inconclusivo não bloqueante para preparação (registro de execução privado).
+Aceites RVPLA/resume, TCP e EPERM posteriores preservados. Os impedimentos de
+startup/observador citados nas notas antigas abaixo são históricos nesse alcance.
+CF036 permanece proposta: revisão/publicação do candidato, CI/matriz, homologação,
+backup/compatibilidade e gates de uso/produção continuam próprios. Sem deploy.
+
+Revisão independente de26/10/2026:
+parecer A–G (registro de execução privado). Vínculo do
+pacote aprovado localmente não libera publicação/ativação/uso. Startup, saneamento
+do observador e gates integrais/reais permanecem; configuração somente proposta.
+Estado proposta e checkboxes mantidos; nenhum deploy/publicação foi executado.
+
+Preparação correlata de26/10/2026: lote local de pacote e controles (registro de execução privado),
+em_revisao e com startup estável ainda não certificado.
+Nenhuma publicação/configuração/deploy executados. CF036 permanece proposta;
+pacote local testado não é aceite de produção nem liberação dos critérios acima.
 
 Ainda não executada. Usar `tasks/evidencias/CF-036/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 

@@ -61,7 +61,7 @@ RC031-02 encerrado: identidade própria validada e consumida coerente nos cinco
 arquivos afetados. Nove probes intactos9/9 (sete já passavam; dois residuais),
 160 dirigidos,7 probes anteriores e4 controles adicionais aprovados. Contraprova
 reintroduz seis falhas; restauração149/149 e210 fontes idênticos. Lint/tipos/build
-e seis casos temporais em três fusos aprovados. [Parecer e limites](../evidencias/revalidacao-CF-031-identidade/README.md).
+e seis casos temporais em três fusos aprovados. Parecer e limites (registro de execução privado).
 
 RC031-01 e demais aceites preservados. Prova real anterior12/12+SQL reutilizada
 com justificativa pelo diff; nenhuma nova execução real alegada. Carregamento/sessão
@@ -77,7 +77,7 @@ a escolha do único id/tempId próprio. O id herdado deixa de prevalecer sobre o
 tempId validado; duplicatas reais são recusadas e fontes distintas preservadas.
 Conferidos unicidade, comparação canônica, seleção, rótulos e dados de metas.
 Sem reimplementar parser, regras financeiras, recuperação ou protocolo/backend.
-[Causa, controles e limites](../evidencias/saneamento-CF-031-identidade/README.md).
+Causa, controles e limites (registro de execução privado).
 
 Os nove probes independentes intactos passaram após 7/9 na base; os dois
 residuais ficaram verdes. Suíte dirigida 160/160 (138 preservados + 22 novos),
@@ -104,7 +104,7 @@ Os casos originais RC031-02 foram corrigidos, mas o achado permanece aberto/P2:
 id herdado pode prevalecer sobre tempId próprio validado e contornar unicidade
 nas partes de reserva. Reprodução em objetos construídos; JSON bruto/__proto__
 não reproduz esse efeito, sem alegação de ataque remoto ou corrupção do banco.
-[Parecer e condição de encerramento](../evidencias/revalidacao-CF-031-RC031/README.md).
+Parecer e condição de encerramento (registro de execução privado).
 
 138/138 dirigidos,7/7 probes originais intactos; controles adicionais7/9,
 duas assertions vermelhas do mesmo residual. Integração12/12+SQL12 (mobile4
@@ -122,7 +122,7 @@ próprio snapshot e validação integral de reservas/variantes/membros próprios
 na fronteira compartilhada. Provas originais4/7 antes e7/7 depois;138 testes
 dirigidos,12 jornadas reais/12 checkpoints SQL, duas contraprovas detectadas e
 controle127/127 restaurado. Lint/tipos/build aprovados.
-[Causas, evidências e encaminhamento](../evidencias/saneamento-CF-031-RC031/README.md).
+Causas, evidências e encaminhamento (registro de execução privado).
 
 T01/T02 investigadas com requests/DOM e experimentos de catálogo/perfil; origem
 histórica permanece inconclusiva, sem nova correção de sessão ou causalidade
@@ -134,7 +134,7 @@ CF032 sem liberação automática, CF010/015 por zoom e CF017/P01/P02 preservado
 ### Parecer independente — 22/10/2026
 
 **Não aprovada; manter em_revisao.** Candidato `0f0b619`, base `6d819aa`:
-[parecer, matriz, achados e reproduções](../evidencias/revisao-CF-031/README.md).
+parecer, matriz, achados e reproduções (registro de execução privado).
 RC031-01/P2: recibo recuperado aceita caixa livre incoerente; comprovado também
 no navegador após commit real. RC031-02/P2: leitura de reservas aceita membros
 herdados e estruturas antes/depois inválidas. Nenhuma correção de produto.
@@ -153,9 +153,9 @@ CF017/P01/P02 permanecem separados. Checkboxes e entrega abaixo são histórico
 do executor, não aceite independente. Commits somente locais, sem publicação.
 
 Implementada em21/10/2026 na branch local `codex/cf031-onboarding-frontend`, base
-integrada `6d819aa`. [Entrega e evidências](../evidencias/CF-031/README.md),
-[matriz](../evidencias/CF-031/MATRIZ.md) e
-[encaminhamento independente](../evidencias/CF-031/REVISAO.md).
+integrada `6d819aa`. Entrega e evidências (registro de execução privado),
+matriz (registro de execução privado) e
+encaminhamento independente (registro de execução privado).
 75 testes dirigidos,12 jornadas reais com SQL descartável e cinco contraprovas
 detectadas; lint/typecheck/build aprovados. Suíte ampla438/441, com as mesmas
 três falhas reproduzidas na base anterior. Capturas360/768/1440, teclado e

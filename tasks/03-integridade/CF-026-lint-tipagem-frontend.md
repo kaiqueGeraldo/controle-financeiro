@@ -10,7 +10,7 @@
 
 ## Aceite independente — 03/10/2026, candidato 06c1a51
 
-Quatro critérios aceitos no intervalo `5f26a1d..30211b8`, reconferido no candidato. [Parecer separado](../evidencias/revisao-CF-025-CF-027-RV24/README.md) e [matriz](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md): narrowing real de preferências/erros, DTOs/efeitos preservados, cleanup por geração/token; contraprovas históricas e de geração falham causalmente, restauração23/23. Lint247 alvos0/0, typecheck/build e regressões atuais aprovados sem exclusões/ignores ou weakening.
+Quatro critérios aceitos no intervalo `5f26a1d..30211b8`, reconferido no candidato. Parecer separado (registro de execução privado) e matriz (registro de execução privado): narrowing real de preferências/erros, DTOs/efeitos preservados, cleanup por geração/token; contraprovas históricas e de geração falham causalmente, restauração23/23. Lint247 alvos0/0, typecheck/build e regressões atuais aprovados sem exclusões/ignores ou weakening.
 
 RVR24-01 permanece com RV24-01, introduzida depois deste lote; não é aceito nem duplicado como defeito CF-026. CF-009/015 continuam em_revisao. Satisfeitas somente suas arestas CF-032/034; não há aceite de todos os fluxos financeiros, matriz visual ou produção. Notas abaixo são históricas.
 
@@ -18,7 +18,7 @@ RVR24-01 permanece com RV24-01, introduzida depois deste lote; não é aceito ne
 
 Estado `em_revisao` mantido. Categoria 1: revisão independente de 5f26a1d..30211b8, não nova implementação de lint. Examinar narrowing/efeitos/cleanup, contraprovas, consumidores e gates, distinguindo RV24 posterior. Condição: parecer próprio pelos quatro critérios sem supressões. Aprovação satisfaz suas arestas CF-032/034; CF-009/015 não precisam ser artificialmente concluídas.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Problema e resultado esperado
 
@@ -83,7 +83,7 @@ passam. Remover geração em cópia do hook falha nos cenários de sessão/unmou
 restauração e preservação comprovadas por SHA-256. Não houve relaxamento de
 assertions, skips no código de teste, configuração, exclusões ou regras.
 
-[Entrega, critério→cenário→red/green, comandos e limites](../evidencias/CF-026/execucao/README.md).
+Entrega, critério→cenário→red/green, comandos e limites (registro de execução privado).
 `em_revisao` conserva a distinção entre validação do executor e aceite independente.
 Os checkboxes registram as provas do executor, sem aprovar o marco CF-009/015,
 RV24-01/02, RVA-03, RJ-022-01/H24-01, zoom, migrações ou publicação. Nenhuma tarefa
@@ -96,11 +96,11 @@ CF-026 e suas demais dependências. A revisão deste candidato é o próximo pas
 pré-execução `pronta`; nenhuma correção executada e nenhum aceite marcado.
 O bloqueio registrado em `c7f7ffc` fica superado documentalmente, preservado abaixo.
 
-A [liberação independente residual](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md)
+A liberação independente residual (registro de execução privado)
 em `0099185` já permitia esse recorte sem concluir CF-009/015. O confronto com
 as revisões CF-022/023 e CF-024, RV24-01/02 e a entrega CF-025 em `65ec14e`/`04cad8d`
 não encontrou impedimento posterior concreto ao início desses lotes na base
-`c7f7ffc`. [Decisão, arquivos da baseline e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+`c7f7ffc`. Decisão, arquivos da baseline e limites (registro de execução privado).
 
 CF-009/015 continuam `em_revisao`. RV24-01, RVA-03, RJ-022-01, H24-01 e zoom
 nativo 200% não foram encerrados. Mudanças em hooks, sessão ou consumidores dos
@@ -131,7 +131,7 @@ e a medição atual adicionada ao documento de referência. Nenhuma regra,
 exclusão, contrato ou teste foi alterado. Build, testes dos consumidores,
 regressões e revisão das correções não executados, pois não houve implementação.
 
-[Evidências, comandos, preservação e limitações](../evidencias/CF-026/README.md).
+Evidências, comandos, preservação e limitações (registro de execução privado).
 Retomar após conclusão e integração de CF-009 e CF-015, com nova medição da
 base então usada. Nenhum critério de aceite foi marcado como cumprido e
 nenhuma tarefa ficou liberada; CF-032 e CF-034 mantêm CF-026 pendente.

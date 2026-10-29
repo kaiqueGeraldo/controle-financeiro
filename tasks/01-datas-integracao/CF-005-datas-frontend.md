@@ -16,7 +16,7 @@ DEC-01 exige ano inicial do navegador; seleção/query/rascunho/reabertura compr
 Histórico distingue instante conhecido de legado bruto/null com fuso desconhecido.
 Os quatro critérios originais e o trabalho1/3 foram confrontados com os aceites
 acumulados: todos atendidos; tarefa **concluida**. Nenhum critério removido.
-[Parecer, matriz, hashes, validação e limites](../evidencias/revalidacao-RD58/README.md).
+Parecer, matriz, hashes, validação e limites (registro de execução privado).
 CF-007/008 local e CF-009/RV24-01 preservados; CF-017/adoção real permanece aberta.
 CF-028 conserva liberação somente para especificação, sem execução nesta revisão.
 Os registros datados abaixo descrevem suas bases históricas e não o estado vigente.
@@ -31,7 +31,7 @@ Payload/label civil, quatro formulários, prazo de metas, navegação mensal,
 P05 e mutações M01/M02 permanecem aceitos nos cenários discriminados.
 Não é bloqueio automático da adoção CF-017 nem falta de frase de aprovação.
 
-[Matriz por critério, parecer e condições de encerramento](../evidencias/revisao-dirigida-CF-005-CF-008/README.md).
+Matriz por critério, parecer e condições de encerramento (registro de execução privado).
 Base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. CF-025–027, RV24-01 e CF-009
 já têm aceite posterior; referências antigas abaixo permanecem históricas.
 
@@ -39,7 +39,7 @@ já têm aceite posterior; referências antigas abaixo permanecem históricas.
 
 Estado `em_revisao` mantido. P05/diaProduto já aceito; pendência é o parecer final que vincule payload/label/hoje, prazo/navegação e mutações às provas existentes, incluindo consumidores posteriores de CF-026/RV24-01. Categorias 1 e 5: julgamento independente e adoção temporal P01/P02 na CF-017. Não exigir nova correção presumida de P05 nem concluir por aceite local.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -49,7 +49,7 @@ e conservam adoção real na CF-017. Estado `em_revisao` mantido: falta confront
 critério para encerrar o próprio escopo, sem exigir nova correção presumida de P05.
 Capacidade local explicitamente liberada pode ser consumida sem concluir esta tarefa.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -92,7 +92,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 Iniciada e concluída em 08/09/2026 sobre `main`, HEAD `169d7be4c7d3db97d4c318ff3f99d9de3a808067`, preservando o patch local das CF-001–004. A entrega cobre consumidores reais: os quatro formulários usam data local e os três com horário capturam um único instante na abertura; labels civis não deslocam nem normalizam datas inválidas; metas reavaliam atraso na meia-noite e em foco/visibilidade por um provider global; cartões, extrato e planejamento navegam por competência ancorada no dia 1; o extrato ordena datas civis sem convertê-las em instantes.
 
-Validação final: 15/15 execuções unitárias em São Paulo, UTC e UTC+14, 11/11 testes de componente em São Paulo, typecheck, lint direcionado e build Next de produção aprovados. As mutações `toISOString`, parsing local com `new Date(value)` e `setMonth` falharam respectivamente em 2, 2 e 3 testes de consumidor e foram restauradas. [Evidência completa, comandos, falhas anteriores, auditoria e riscos](../evidencias/CF-005/README.md).
+Validação final: 15/15 execuções unitárias em São Paulo, UTC e UTC+14, 11/11 testes de componente em São Paulo, typecheck, lint direcionado e build Next de produção aprovados. As mutações `toISOString`, parsing local com `new Date(value)` e `setMonth` falharam respectivamente em 2, 2 e 3 testes de consumidor e foram restauradas. Evidência completa, comandos, falhas anteriores, auditoria e riscos (registro de execução privado).
 
 Limites: o `npm` global do host está quebrado, então foram usados binários locais equivalentes; o build precisou de rede para Google Fonts e mantém o aviso preexistente de `middleware`; lint global legado permanece CF-026. Não foram executados navegador real, BFF, backend, PostgreSQL ou revisão independente. Timestamps legados aguardam CF-008/017; calendário semanal de hábitos, CF-022; cálculo bancário de vencimento/fechamento, CF-019.
 
@@ -105,7 +105,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 R08/R11/R13 corrigidos. P05 permanece vermelho: hábitos usam dia do navegador onde SPEC-002 exige diaProduto.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
 
@@ -115,7 +115,7 @@ foi verificado; commits intermediários não são apresentados como testados.
 
 P05 corrigido e autotestado. P01/P02 receberam adaptadores e consumidores do candidato temporal; adoção real permanece pendente.
 
-[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Implementação, autotestes e limites (registro de execução privado).
 Estado permanece em_revisao; esta execução não substitui revisão independente.
 
 ## Saneamento restrito RD58 — 09/10/2026
@@ -127,4 +127,4 @@ RD58-02 adiciona auditoria de GoalHistory por Clock, V14 sem backfill, DTO com
 proveniência e apresentação de legado com fuso desconhecido. Provas originais
 preservadas; integração PostgreSQL, upgrade/legado e regressões documentados.
 Aceites locais CF-007/008 e CF-009/RV24-01 preservados; adoção real sob CF-017.
-CF-028 não iniciada. [Causas, provas, limites e encaminhamento](../evidencias/saneamento-RD58/README.md).
+CF-028 não iniciada. Causas, provas, limites e encaminhamento (registro de execução privado).

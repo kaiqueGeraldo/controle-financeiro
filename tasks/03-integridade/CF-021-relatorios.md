@@ -44,7 +44,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Implementação local encerrada em 28/09/2026 sobre `bfa0855`, com CF-018/019/020 integradas mas ainda em revisão. `README.md` preexistente ficou fora do staging. O contrato HTTP/XLSX e os consumidores do extrato, dashboard, contas e investimentos exigiram edições pontuais fora dos quatro caminhos principais: controller/service/DTOs, repositórios de cartão e operações de investimento, hooks/contextos/tipos, componentes e testes. A justificativa é impedir que API e UI continuem apresentando totais de página, avaliação sem cotação ou patrimônio histórico fabricado após a correção dos agregados. O teste PostgreSQL reproduziu falhas financeiras antes da correção; a [evidência](../evidencias/CF-021/README.md) registra oráculos, comandos, escopo e riscos. O estado é `em_revisao` até revisão independente; não houve deploy, migração em banco real nem E2E integrado nesta execução.
+Implementação local encerrada em 28/09/2026 sobre `bfa0855`, com CF-018/019/020 integradas mas ainda em revisão. `README.md` preexistente ficou fora do staging. O contrato HTTP/XLSX e os consumidores do extrato, dashboard, contas e investimentos exigiram edições pontuais fora dos quatro caminhos principais: controller/service/DTOs, repositórios de cartão e operações de investimento, hooks/contextos/tipos, componentes e testes. A justificativa é impedir que API e UI continuem apresentando totais de página, avaliação sem cotação ou patrimônio histórico fabricado após a correção dos agregados. O teste PostgreSQL reproduziu falhas financeiras antes da correção; a evidência (registro de execução privado) registra oráculos, comandos, escopo e riscos. O estado é `em_revisao` até revisão independente; não houve deploy, migração em banco real nem E2E integrado nesta execução.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
@@ -52,21 +52,21 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 RVI-04/05/08/10/20/22 e H-02: posição inclui arquivo e permanece atual datada em qualquer ano; cobertura/origem/faixa separadas de subtotal observado exato em API/UI/XLSX. E27 caixa 9/0 distinto de gerencial 10/1. Filtros e download têm escopo consistente; export REPEATABLE_READ comprovado com writer independente entre páginas. Capturas 360/768/1440, PostgreSQL/reload e arquivos baixados verificados. Não certifica zoom nativo 200%.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Revalidação independente — 30/09/2026
 
-Cobertura, filtros, caixa e snapshot revalidados no recorte; aceite integrado depende das pendências de CF-019/020. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+Cobertura, filtros, caixa e snapshot revalidados no recorte; aceite integrado depende das pendências de CF-019/020. Consulte a matriz e o parecer (registro de execução privado) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
 
 ## Saneamento dirigido dos residuais — 30/09/2026
 
 Posição encerrada passa a apresentar custo residual conhecido zero, inclusive leitura de null bruto legado sem backfill. Ganho/cobertura históricos continuam desconhecidos. Relatórios/backend e SAN-RVA com reload revalidados; encerramentos anteriores preservados. Aceite integrado segue condicionado à revisão independente e RVA-03.
 
-[Evidências e situação dos três pontos](../evidencias/saneamento-CF-016-CF-021-residuais/README.md). Estado em_revisao, sem publicação ou avanço para CF-022+.
+Evidências e situação dos três pontos (registro de execução privado). Estado em_revisao, sem publicação ou avanço para CF-022+.
 
 ## Revalidação dirigida dos resíduos — 30/09/2026
 
-RVA-02 aprovado independentemente: posição encerrada com custo residual0, legado rawNULL preservado na persistência, custo baixado/ganho/proveniência desconhecidos sem conversão geral de null. Testes dirigidos de posição/anual/dashboard e SAN-RVA/API/reload/SQL aprovados. H01/H02 e demais encerramentos anteriores mantidos. Estado `em_revisao`; aceite integrado irrestrito conserva ressalva RVA-03, sem bloquear automaticamente trabalhos independentes. [Parecer e evidências](../evidencias/revalidacao-CF-016-CF-021-residuais/README.md).
+RVA-02 aprovado independentemente: posição encerrada com custo residual0, legado rawNULL preservado na persistência, custo baixado/ganho/proveniência desconhecidos sem conversão geral de null. Testes dirigidos de posição/anual/dashboard e SAN-RVA/API/reload/SQL aprovados. H01/H02 e demais encerramentos anteriores mantidos. Estado `em_revisao`; aceite integrado irrestrito conserva ressalva RVA-03, sem bloquear automaticamente trabalhos independentes. Parecer e evidências (registro de execução privado).
 
 ## Consolidação de aceite — 30/09/2026
 
@@ -74,7 +74,7 @@ Concluída no escopo próprio: total global/filtros, posição atual datada sem
 histórico fabricado e exportação no mesmo escopo/período têm aceite independente
 nos encerramentos RVI-04/05/06/07/08/09/10/20/22, H-02 e RVA-02.
 O residual vazio zero não foi usado para certificar ganho histórico desconhecido.
-[Matriz por critério](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+Matriz por critério (registro de execução privado).
 RVA-03 permanece ressalva da interação de pagamento e do marco conjunto, sem
 defeito demonstrado de agregado/XLSX restante. Zoom nativo200%, desempenho,
 adoção real e verificações transversais/publicação conservam os gates próprios.

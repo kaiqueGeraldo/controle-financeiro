@@ -17,7 +17,7 @@ isolam construção e validação, fontes restauradas. Respostas herdadas não c
 POST/retry/GET, conservam UUID/payload e recuperam após resposta válida/reload.
 BUY200 e NG-01 com PostgreSQL descartável confirmam um efeito por intenção.
 
-[Parecer e matriz individual dos seis critérios](../evidencias/revalidacao-RVR24-01-propriedades/README.md).
+Parecer e matriz individual dos seis critérios (registro de execução privado).
 Critérios1/2/3/5/6 conservam aceites acumulados, corroborados pelas regressões
 atuais; precisão/FIN-06/NG-01/coerência e substituição da sexta prova preservadas.
 267testes dirigidos e5adicionais, lint/typecheck/build aprovados; EPERM inicial
@@ -34,7 +34,7 @@ verificação de membros obrigatórios próprios no snapshot/envelopes de respos
 Quatro probes originais antes vermelhos passam sem alteração; 267 regressões
 passam. BUY200 adulterado mantém intenção até GET válido, um efeito/saldo800;
 NG-01 mantém decimal exato, replay/recuperação e um efeito/saldo1001.
-[Entrega e encaminhamento dirigido](../evidencias/saneamento-RVR24-01-propriedades/README.md).
+Entrega e encaminhamento dirigido (registro de execução privado).
 Precisão, substituição da sexta prova e demais aceites preservados. Sem
 autoaprovação, mudança de checkbox, reabertura por associação ou CF-028.
 
@@ -49,8 +49,8 @@ JSON.parse destrutivo; adaptação explícita já ativa foi aceita, original pre
 Resta defeito concreto do mesmo **RVR24-01/P2**: o parser transforma __proto__
 em protótipo e campos herdados satisfazem a validação. POST/retry/GET retornam
 confirmed e removem intenção para JSON sem os campos financeiros próprios.
-[Parecer e provas](../evidencias/revalidacao-RVR24-01-precisao/README.md),
-[reprodução e condição de encerramento](../evidencias/revalidacao-RVR24-01-precisao/ACHADOS.md).
+Parecer e provas (registro de execução privado),
+reprodução e condição de encerramento (registro de execução privado).
 Critérios1/2/3/5/6 e RVR24-02/RV24-02 preservados; nenhuma revisão global exigida.
 Próximo passo restrito à semântica de objetos/validação, mantendo precisão,
 FIN-06/NG-01 e identidade. CF-028 não executada; sem autorização de publicação.
@@ -65,7 +65,7 @@ preservado como contraprova, com adaptação explícita da fronteira no teste no
 NG-01 legítimo agora confirma e recupera após reload: quantidade exata, uma
 operação/recibo/crédito1, saldo1001 e posição0, inclusive replay da mesma identidade.
 BUY200/saldo800, teto, coerência, lifecycle e aceites anteriores preservados.
-[Provas, ressalva do probe e encaminhamento](../evidencias/saneamento-RVR24-01-precisao/README.md).
+Provas, ressalva do probe e encaminhamento (registro de execução privado).
 Sem autoaprovação, novo ID, migração histórica ou execução da CF-028.
 
 ## Saneamento do teto FIN-06 — 04/10/2026
@@ -79,7 +79,7 @@ de limite foi corrigida. Porém resgate NG-01 válido de amount1.00 e quantidade
 converte a quantidade para1e12 e a nova guarda rejeita a confirmação. GET já
 emite1.0E12 apesar do recibo persistido exato; recuperação mantém a intenção.
 Dois probes também confirmam quantidade divergente que colide como Number.
-[Parecer separado, JSON bruto e condição de encerramento](../evidencias/revalidacao-RVR24-01-teto/README.md).
+Parecer separado, JSON bruto e condição de encerramento (registro de execução privado).
 151 regressões passam; seis novos vermelhos e jornada NG-01 real falham.
 BUY200 com resposta acima do teto recupera sem duplicação; demais critérios e
 aceites preservados. Próximo saneamento é da precisão na fronteira afetada,
@@ -88,7 +88,7 @@ sem aumentar teto/epsilon/clamp ou auditoria global. Produto/CF-028 não alterad
 Estado **em_revisao**, critério4 aguardando revalidação independente.
 Continuação do **RVR24-01** registrado em1e9e932: faixa inclusiva monetária
 999999999999.99, comparação exata em centavos e preservação de amount/NG-01.
-[Matriz, quatro provas originais e integração](../evidencias/saneamento-RVR24-01-teto/README.md).
+Matriz, quatro provas originais e integração (registro de execução privado).
 Entrega do executor, sem autoaprovação. Critérios1/2/3/5/6 e aceites anteriores
 preservados; nenhum checkbox/dependência alterado e CF-028 não executada.
 
@@ -103,8 +103,8 @@ quantity1000000×price1000000/total1000000000000 confirma e apaga a intenção e
 POST/retry/GET, acima do máximo999999999999.99 de FIN-06. Quatro novos vermelhos;
 121 regressões/bordas passam, lint/typecheck/build passam, jornada real BUY200
 com POST/GET adulterados999 conserva um POST/efeito/recibo e saldo800 após reload.
-[Parecer, critérios e condição objetiva de encerramento](../evidencias/revalidacao-RVR24-01-bruto/README.md),
-[reprodução do resíduo](../evidencias/revalidacao-RVR24-01-bruto/ACHADOS.md).
+Parecer, critérios e condição objetiva de encerramento (registro de execução privado),
+reprodução do resíduo (registro de execução privado).
 Não se demonstrou emissão do total fora do teto pelo backend; a prova é do cliente.
 Saneamento necessário: faixa monetária no validador comum, preservando amount/NG-01
 e identidade/recuperação. RVR24-02/RV24-02/CF-025–027 conservam aceites;
@@ -113,19 +113,19 @@ H-RV24-01 continua inconclusivo. Nenhum produto corrigido ou CF-028 executada.
 Estado **em_revisao** mantido. Continuação do mesmo **RVR24-01**: validação
 decimal do bruto de execução no ponto comum a POST/retry/GET, preservando o
 resgate monetário de NG-01 e a intenção quando o resultado é incompatível.
-[Contrato, antes/depois e revalidação dirigida](../evidencias/saneamento-RVR24-01-bruto/README.md).
+Contrato, antes/depois e revalidação dirigida (registro de execução privado).
 Entrega do executor, sem aprovação independente. RVR24-02 e RV24-02 permanecem
 encerrados; H-RV24-01 inconclusivo. Critérios e dependências permanecem intactos.
 
 ## Revalidação independente — 03/10/2026, candidato 06c1a51
 
-**em_revisao mantido. RVR24-02 encerrado; RVR24-01 permanece aberto.** [Parecer/matriz](../evidencias/revisao-CF-025-CF-027-RV24/README.md), [reprodução e encerramento](../evidencias/revisao-CF-025-CF-027-RV24/ACHADOS.md). Cinco vermelhos originais reproduzidos em cópia histórica, mesmos hashes/assertions; candidato passa seis originais e cobertura residual de storage/lifecycle. Doze jornadas novas com PostgreSQL/reload confirmam efeitos únicos e duas intenções legítimas independentes, incluindo null/array/result vazio após commit real.
+**em_revisao mantido. RVR24-02 encerrado; RVR24-01 permanece aberto.** Parecer/matriz (registro de execução privado), reprodução e encerramento (registro de execução privado). Cinco vermelhos originais reproduzidos em cópia histórica, mesmos hashes/assertions; candidato passa seis originais e cobertura residual de storage/lifecycle. Doze jornadas novas com PostgreSQL/reload confirmam efeitos únicos e duas intenções legítimas independentes, incluindo null/array/result vazio após commit real.
 
 Resíduo do mesmo RVR24-01: BUY2×100 com totalValue999 é confirmado e remove a intenção em POST/retry/GET. Três probes independentes vermelhos preservados; nenhum produto corrigido nesta revisão. Sucesso/erro tardios após unmount/A→B/A→B→A/expiração não disparam callbacks, e execução ativa ainda recupera/reconcilia: RVR24-02 aceito. H-RV24-01 ECONNRESET continua inconclusivo; RV24-02 e R03/RV01 preservados. Relatos abaixo mantêm o alcance histórico.
 
 ## Problema e resultado esperado
 
-Situação em 03/10/2026: [saneamento residual do executor](../evidencias/saneamento-residual-RV24/README.md)
+Situação em 03/10/2026: saneamento residual do executor (registro de execução privado)
 implementa validação de resultado e retorno explícito de lifecycle, com as cinco
 provas independentes reproduzidas antes da correção. Estado em_revisao mantido:
 RVR24-01/02 aguardam novo parecer independente; H-RV24-01 ECONNRESET continua
@@ -144,7 +144,7 @@ ou repetir exatamente a identidade/corpo de um protocolo durável adotado.
 `controle-financeiro-frontend/src/components/forms/newTransactionModal.tsx`,
 `operationModal.tsx`, serviços/DTOs e componentes de reconciliação pertinentes.
 Investimento tem risco estático relacionado a verificar dinamicamente. Ler
-[achado, duas provas e limites](../evidencias/revisao-CF-024/ACHADOS.md).
+achado, duas provas e limites (registro de execução privado).
 Não reabrir pagamento R03/RV01 nem prometer identidade após perda de armazenamento.
 Não transformar optional operationId em obrigatório no servidor sem contrato.
 
@@ -177,7 +177,7 @@ validação do executor, não aceite independente. Dois probes causais vermelhos
 193 componentes, lint0/0, typecheck/build e seis jornadas reais com PostgreSQL,
 incluindo falha de recibo antes do commit e resposta perdida após commit.
 Quatro jornadas R03 originais reexecutadas; RVA-03 continua aberto.
-[Causa, ciclo de vida, comandos, primeiras falhas e limites](../evidencias/RV24-01/README.md).
+Causa, ciclo de vida, comandos, primeiras falhas e limites (registro de execução privado).
 Identidade/corpo persistidos por owner/kind; perda do armazenamento não oferece
 recuperação inventada. Backend/BFF e opcionalidade de operationId preservados.
 CF-026 permanece em revisão; CF-027 não executada nem liberada por esta entrega.
@@ -190,7 +190,7 @@ jornadas reais provam efeito único, replay/409/owner e nova intenção legítim
 Entretanto RVR24-01 confirma sucesso indevido com result={} no GET e200/null/array
 no POST de investimento; RVR24-02 confirma onReconcile após unmount/troca de owner.
 O critério de resultado desconhecido voltou a pendente e cleanup fica explícito.
-[Achados e encerramento](../evidencias/revalidacao-RV24-01-RV24-02/ACHADOS.md).
+Achados e encerramento (registro de execução privado).
 
 193 componentes existentes/lint/typecheck/build passam, mas cinco assertions
 novas falham causalmente; não são neutralizadas pelo gate verde. Prova visual
@@ -198,6 +198,6 @@ adicional:5/6, um ECONNRESET de replay preservado como H-RV24-01; caso isolado
 posterior1/1 não encerra causa. R03/RV01 preservados; RVA-03 continua na CF-019.
 CF-026 aguarda sua revisão. Não houve correção de produto nesta revalidação.
 
-[Parecer independente](../evidencias/revalidacao-RV24-01-RV24-02/README.md)
+Parecer independente (registro de execução privado)
 libera início local da CF-027 somente para a fronteira backend de identidade/
 recibos de criação, sem envolver estes consumidores ou encerrar os resíduos.

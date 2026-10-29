@@ -57,7 +57,7 @@ aceitos pela jornada/reconciliação/isolamento, além do saneamento dos defeito
 95 controles backend,5 probes novos,54 componentes,14 jornadas pretendidas eRV6
 aprovados; rodada ampla preserva R2 histórico incompatível com nomes corrigidos.
 Contraprova nova de certificação detectada/restaurada; lint/tipos/build aprovados.
-[Parecer, matriz, execuções, falhas e limites](../evidencias/revalidacao-CF-032/README.md).
+Parecer, matriz, execuções, falhas e limites (registro de execução privado).
 
 Sem correção de produto/sucessoras/publicação. README e runtimes preservados.
 Zoom nativo200%, adoção CF017/P01/P02, desempenho e DEC-ONB-03 mantêm seus gates.
@@ -76,7 +76,7 @@ dirigido aprovados, sem alegar nova matriz histórica completa; 95 controles bac
 (incluem replay e capacidade após CLOSE/ASSIGN), 54 de componentes (19 novos incluídos),
 quatro contraprovas causais detectadas/restauradas e checks pertinentes aprovados.
 Reconciliação B/C, UNKNOWN/PARTIAL, G/H, nova sessão e bytes do XLSX preservados.
-[Causas, provas, comandos, custos e limites](../evidencias/saneamento-CF-032/README.md).
+Causas, provas, comandos, custos e limites (registro de execução privado).
 
 README raiz mantém o hash histórico fora dos commits; runtimes anteriores intactos.
 Sem sucessoras, push, merge, deploy, banco real ou aprovação de zoom/adoção/carga.
@@ -91,7 +91,7 @@ R1 comprova permissões legítimas; R2 confirma limite incorreto após nova sess
 e seleção distinta das posições sem ticker; R3 isola a precisão do arquivo.
 Reprodução dirigida8 cenários4/4,9 controles de reserva aprovados, cálculos
 independentes e inspeção OOXML; nenhuma correção de produto ou sucessora iniciada.
-[Parecer e matriz independentes](../evidencias/revisao-CF-032/README.md).
+Parecer e matriz independentes (registro de execução privado).
 Próximo passo: saneamento delimitado por causa e revalidação dos probes intactos;
 aceites anteriores e gates de zoom/adoção/desempenho preservados.
 
@@ -110,9 +110,9 @@ CF032-01/P2 (reserva por fonte incerta), 02/P2 (limite disponível da UI), 03/P2
 (nomes de posições sem identificador) e 04/P3/precisão (segundos no XLSX). Essas
 regressões continuam vermelhas, sem correção silenciosa de produto.
 
-[Entrega, comandos e falhas preservadas](../evidencias/CF-032/README.md) ·
-[Cobertura/reconciliação/limites](../evidencias/CF-032/RESULTADOS.md) ·
-[Achados e saneamento delimitado](../evidencias/CF-032/ACHADOS.md).
+Entrega, comandos e falhas preservadas (registro de execução privado) ·
+Cobertura/reconciliação/limites (registro de execução privado) ·
+Achados e saneamento delimitado (registro de execução privado).
 README raiz preexistente preservado por SHA256 e fora dos commits; sem publicação,
 merge, deploy, banco real, autoaceite ou sucessoras. DEC-ONB-03, aceites anteriores,
 zoom 200% CF010/015 e adoção CF017/P01/P02 preservados. Próximo passo: revisão
@@ -125,4 +125,4 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 O saneamento CF-016–021 possui jornadas reais navegador→BFF→Spring→PostgreSQL→reload, além de downloads e inspeção 360/768/1440. Essa prova localizada não encerra a matriz futura de E2E/onboarding nem o zoom nativo 200%; estado preservado.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.

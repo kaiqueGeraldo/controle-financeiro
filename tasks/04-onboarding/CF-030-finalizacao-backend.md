@@ -12,7 +12,7 @@
 
 Prontidão técnica em 19/10/2026: CF-018/019/020/024 concluídas e integradas;
 CF-029 aceita independentemente no escopo local/descartável.
-[Parecer e limites de dependência](../evidencias/revalidacao-CF-029-RC029-01/README.md).
+Parecer e limites de dependência (registro de execução privado).
 O parecer de prontidão anterior não iniciou CF-030 nem autorizou publicação ou
 adoção real. Em etapa posterior explicitamente autorizada pelo usuário, o lote
 CF029 foi publicado/integrado e esta implementação partiu da main integrada.
@@ -57,11 +57,11 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 Iniciada em 19/10/2026, prosseguindo em 20/10/2026 na branch local
 `codex/cf030-aplicacao-onboarding`, base integrada `5b8c4e07c2ef49c0c19f7f1a3cd71587a6b50251`.
 Lote CF029 publicado/integrado por autorização explícita; novos commits CF030
-permanecem locais. [Matriz registrada antes da edição de produto](../evidencias/CF-030/MATRIZ.md).
+permanecem locais. Matriz registrada antes da edição de produto (registro de execução privado).
 Validação corrigida504/504, quatro mutações detectadas por assertions e controle
 restaurado21/21; hashes dos400 fontes principal/cópia reconferidos. Falhas anteriores
-preservadas com investigação causal. [Entrega, decisões, comandos e limites](../evidencias/CF-030/README.md).
-[Roteiro da revisão independente](../evidencias/CF-030/REVISAO.md). Novos commits
+preservadas com investigação causal. Entrega, decisões, comandos e limites (registro de execução privado).
+Roteiro da revisão independente (registro de execução privado). Novos commits
 permanecem locais. CF031/032 não iniciadas/liberadas; gate CF015/zoom e adoção real
 CF017/P01/P02 preservados. Nenhum aceite antecipado.
 
@@ -70,7 +70,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 ## Revisão independente — 20/10/2026
 
 **Não aprovada no candidato `89760e64a73b6268d8cf34745cf41d6b00dcd781`.**
-[Parecer, matrizes, reproduções e limites](../evidencias/revisao-CF-030/README.md).
+Parecer, matrizes, reproduções e limites (registro de execução privado).
 Preservados os critérios sustentados de atomicidade, replay/recuperação,
 concorrência dos writers participantes, E01, reservas legadas, precisão e migração.
 195 casos distintos na seleção consolidada:191 passaram;4 assertions reproduzem
@@ -89,7 +89,7 @@ Zoom CF010/015 e adoção real CF017/P01/P02 permanecem separados e pendentes.
 Base251d6c70492e4ad57dc9ca1313dce17afab62464, mesma branch, commits locais por
 achado. Prioridade global dos encargos, ciclos de INITIALIZE_EMPTY e limite civil
 (incluindo binding de Invoice), e400 para versão fora de faixa corrigidos.
-[Causas, provas originais, falhas preservadas e revalidação](../evidencias/saneamento-CF-030-RC030/README.md).
+Causas, provas originais, falhas preservadas e revalidação (registro de execução privado).
 134 casos distintos verdes, quatro contraprovas detectadas, controle restaurado54/54
 e411 fontes principal/cópia conferidos. Um observador foi adaptado somente após
 demonstrar que a rejeição antecipada correta impedia sua consulta; original/hashes
@@ -102,7 +102,7 @@ CF029/015 e gates de sucessoras/zoom/adoção real mantidos. Sem push/merge/depl
 
 **Aprovada no candidato c13aecd032ca8a08276226e55a37864aa18b4873, escopo
 local/descartável. RC030-01/P2, RC030-02/P2 e RC030-03/P3 encerrados.**
-[Parecer, observador, binding, provas e limites](../evidencias/revalidacao-CF-030-RC030/README.md).
+Parecer, observador, binding, provas e limites (registro de execução privado).
 156 casos distintos aprovados (76 dirigidos +80 regressões), quatro contraprovas
 causais detectadas e controle restaurado76/76. Observador adaptado aceito;
 binding civil aprovado com SQL/releitura/query/DTO em três fusos efetivos.

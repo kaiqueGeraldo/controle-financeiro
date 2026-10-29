@@ -44,8 +44,8 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 ## Evidências e estado
 
 Preparação conferida em 30/09/2026 sobre `a21ecdb`; implementação não iniciada
-por gate de dependência. Ver [evidências CF-024](../evidencias/CF-024/README.md)
-e [preflight verificável](../evidencias/CF-024/preflight.json). Os critérios de
+por gate de dependência. Ver evidências CF-024 (registro de execução privado)
+e preflight verificável (registro de execução privado). Os critérios de
 aceite permanecem pendentes; evidência das correções anteriores não equivale à
 conclusão desta tarefa.
 
@@ -53,7 +53,7 @@ Dependência concreta encontrada no saneamento CF-015/R03: fechamento repetido
 de fatura PAID debitava novamente; chamadas concorrentes também não tinham uma
 resposta de conflito consistente. O saneamento adiciona lock por cartão e recusa
 antes do débito, com regressões PostgreSQL sequencial/concorrente. Ver
-[decisões e limites](../evidencias/saneamento-CF-015/DECISOES.md).
+decisões e limites (registro de execução privado).
 Isso não executa nem conclui CF-024. Permanecem nesta tarefa a idempotência
 durável por operação (incluindo adiantamentos), recibo recuperável após perda de
 resposta e a matriz de concorrência entre writers/fontes distintas. O frontend
@@ -68,7 +68,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 O saneamento implementa intenção/fingerprint/recibo recuperável para pagamento e comandos diretos exigidos pelo marco, com PostgreSQL/reload e perda de resposta. Locks por fonte/contas ordenadas e H-01 têm provas independentes. Não há certificação transversal de todos os writers/caches, multitab/dispositivo ou preservação da identificação após perda do sessionStorage; estado preservado.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Gate de início — 30/09/2026
 
@@ -94,7 +94,7 @@ sucessora (CF-025/027/030/032) foi liberada por esta preparação.
 nenhuma implementação/probe de CF-024 foi iniciada. O bloqueio de `9ff1aec`
 acima é histórico e foi superado pelo aceite independente de CF-023 e pelo
 confronto das dependências no
-[parecer conjunto](../evidencias/revisao-CF-022-CF-023/README.md).
+parecer conjunto (registro de execução privado).
 
 CF-018 e CF-020 têm critérios próprios aceitos/concluídos; CF-019 permanece
 em_revisao por RVA-03, mas pagamento/intenção/fingerprint/recibo e invariantes
@@ -119,7 +119,7 @@ CF-024/025/027/032 e cadeia de release. Sem push/deploy/banco real ou CF-025+.
 ## Execução local — 30/09/2026
 
 Retomada sobre `9fa4fae`, com README preexistente preservado. Histórico do
-bloqueio mantido. Expected definidos em [contrato CF-024](../evidencias/CF-024/CONTRATO.md).
+bloqueio mantido. Expected definidos em contrato CF-024 (registro de execução privado).
 Exceções de caminhos necessárias: testes/initializer em `src/test/java/.../service/`
 (não empacotar testes no produto); migração aditiva e testes de migração para
 recibos duráveis de criação/transferência/operação de investimento; controllers
@@ -129,12 +129,12 @@ Não haverá alteração de frontend, habilitação de Cacheable, banco real ou 
 ## Entrega local — 30/09/2026
 
 Critérios implementados/validados no recorte backend; `em_revisao` até execução
-independente. [Relatório atual e histórico](../evidencias/CF-024/README.md),
-[execuções](../evidencias/CF-024/EXECUCOES.md) e
-[mutações/restauração](../evidencias/CF-024/mutation-results.json).
+independente. Relatório atual e histórico (registro de execução privado),
+execuções (registro de execução privado) e
+mutações/restauração (registro de execução privado).
 
 Commit local de produto/testes/contrato: `dbf828e`; fontes, JAR e preservação do
-README vinculados no [checkpoint](../evidencias/CF-024/checkpoint.json).
+README vinculados no checkpoint (registro de execução privado).
 
 Entregues: recibos imutáveis de criação/transferência/investimento em V13,
 operationId opcional/fingerprint/replay/GET autenticado; pagamento/adiantamento
@@ -167,7 +167,7 @@ liberada. RVA-03/RJ-022-01/RV17-01/02 e adoção real mantidos; sem push/deploy.
 ## Revisão independente — 01/10/2026
 
 **Concluída no recorte backend de DEC-10 e invalidação após commit**, conforme
-[parecer independente A–F e matriz](../evidencias/revisao-CF-024/README.md).
+parecer independente A–F e matriz (registro de execução privado).
 O histórico acima permanece. O checklist de cache refere-se ao caminho normal
 de invalidação/chaves/rollback por proxy real, com entradas sintéticas; falha
 de callback não possui recuperação durável e não certifica frescor universal
@@ -182,7 +182,7 @@ mantido como H24-01; isolado posterior passou sem encerrar causa.
 Consumidores sem chave não recebem garantia nova: RV24-01 confirma reenvio
 inseguro após resultado desconhecido; RV24-02 confirma exclusão de usuário com
 pagamento vinculada a FK. São defeitos herdados fora do contrato entregue,
-com [responsáveis e encerramento próprios](../evidencias/revisao-CF-024/ACHADOS.md),
+com responsáveis e encerramento próprios (registro de execução privado),
 sem aprovação integral desses fluxos. Recibos de comandos antigos não foram
 declarados snapshots imutáveis. R03/RV01 preservados; RVA-03 não encerrado.
 
