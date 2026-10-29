@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {randomUUID} from 'node:crypto';
+const runtime=path.resolve(process.argv[2]),out=path.join(runtime,'linux-fixtures');
+const initial=JSON.parse(fs.readFileSync(path.join(out,'execution.json')));
+const args=[...initial.args];args[args.indexOf('--name')+1]='pr3-loopback-'+randomUUID();
+args[args.indexOf('TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal')]='TESTCONTAINERS_HOST_OVERRIDE=127.0.0.1';
+args.splice(args.indexOf('--workdir'),0,'--network','host');
+args[args.length-1]=args.at(-1).replace('/work/surefire','/work/loopback-surefire');
+const fd=fs.openSync(path.join(out,'loopback.log'),'wx'),started=new Date();
+const r=spawnSync('docker',args,{windowsHide:true,stdio:['ignore',fd,fd],timeout:5*60*1000});fs.closeSync(fd);
+if(r.error)spawnSync('docker',['rm','-f',args[args.indexOf('--name')+1]],{windowsHide:true});
+fs.writeFileSync(path.join(out,'loopback-execution.json'),JSON.stringify({...initial,args,started,finished:new Date(),exit:r.status,error:r.error?.message,topology:'Linux host network inside Docker Desktop VM; Testcontainers published loopback, disposable guard unchanged'},null,2)+'\n');
+console.log(JSON.stringify({label:'linux-loopback',exit:r.status}));process.exitCode=r.status??1;
