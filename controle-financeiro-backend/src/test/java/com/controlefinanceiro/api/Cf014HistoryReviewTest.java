@@ -39,7 +39,7 @@ class Cf014HistoryReviewTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/revalidacao-CF014-historico-invisivel")
                 .resolve(System.getProperty("diagnostic.run","browser"));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         sql.update("insert into users(id,nome,email,senha,dark_mode,privacy_mode) values (?,?,?,?,true,false)",
                 id(1),"Pessoa Sintética CF014","cf014-diagnostic@example.invalid",new BCryptPasswordEncoder().encode("Cf014-Synthetic-2026"));
         for(int asset=0;asset<3;asset++) {

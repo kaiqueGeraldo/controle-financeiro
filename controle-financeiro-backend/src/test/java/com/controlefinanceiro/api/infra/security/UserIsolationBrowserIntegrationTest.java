@@ -27,7 +27,7 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
         Path backend=Path.of(System.getProperty("user.dir")).toAbsolutePath();
         Path frontend=backend.resolveSibling("controle-financeiro-frontend");
         Path evidence=backend.resolve(System.getProperty("cf023.evidence", "../tasks/evidencias/CF-023/browser/"+System.getProperty("cf023.run","candidate"))).normalize();
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="cf023-"+UUID.randomUUID().toString().substring(0,8);
         var server=new ProcessBuilder("node","node_modules/next/dist/bin/next","dev","--hostname","127.0.0.1","--port","3113");
         server.directory(frontend.toFile());server.redirectErrorStream(true);server.redirectOutput(evidence.resolve("next.log").toFile());
@@ -46,6 +46,14 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
             assertThat(sql.queryForList("select balance from accounts where name like ? order by name",java.math.BigDecimal.class,namespace+"-ACCOUNT-%"))
                     .containsExactly(new java.math.BigDecimal("1000.00"),new java.math.BigDecimal("2300.00"));
             assertThat(sql.queryForObject("select count(distinct user_id) from accounts where name like ?",Integer.class,namespace+"-ACCOUNT-%")).isEqualTo(2);
-        } finally {next.descendants().forEach(ProcessHandle::destroyForcibly);next.destroyForcibly();}
+        } finally {
+            try {
+                if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS"))) {
+                    var accounts=sql.queryForList("select a.name,a.balance,a.user_id from accounts a join users u on u.id=a.user_id where u.email like ? order by a.name",namespace+"-%@example.invalid");
+                    var receipts=sql.queryForList("select r.kind,count(*) from financial_intent_receipts r join users u on u.id=r.user_id where u.email like ? group by r.kind",namespace+"-%@example.invalid");
+                    Files.writeString(evidence.resolve("sql-state-private.txt"),"Accounts: "+accounts+"\nReceipts: "+receipts+"\n");
+                }
+            } finally {next.descendants().forEach(ProcessHandle::destroyForcibly);next.destroyForcibly();}
+        }
     }
 }

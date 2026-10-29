@@ -46,17 +46,22 @@ class MilestoneRemediationBrowserTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/saneamento-CF-016-CF-021/browser")
                 .resolve(System.getProperty("review.evidence", "."));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="san1821-"+UUID.randomUUID().toString().substring(0,8);
         List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.milestone-remediation.config.ts"));
         String grep=System.getProperty("review.grep");
         if(grep!=null){command.add("--grep");command.add(grep);}
+        if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS"))) {
+            command.addAll(List.of("--trace=retain-on-failure", "--reporter=line,json", "--output="+evidence.resolve("artifacts")));
+        }
         ProcessBuilder pb=new ProcessBuilder(command).directory(front.toFile()).redirectErrorStream(true).redirectOutput(evidence.resolve("playwright.log").toFile());
         pb.environment().put("BACKEND_API_URL","http://127.0.0.1:"+port);
         pb.environment().put("CF_E2E_AUTH_NOW","2027-01-15T12:00:00Z");
         pb.environment().put("CF_TEST_FIXED_NOW","2027-01-15T12:00:00Z");
         pb.environment().put("CF_E2E_NAMESPACE",namespace);
         pb.environment().put("CF_REVIEW_EVIDENCE",evidence.toString());
+        if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS")))
+            pb.environment().put("PLAYWRIGHT_JSON_OUTPUT_FILE",evidence.resolve("playwright-private.json").toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
         Process p=pb.start();
         boolean finished=p.waitFor(15,TimeUnit.MINUTES);
