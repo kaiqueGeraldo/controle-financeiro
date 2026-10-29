@@ -21,6 +21,14 @@ async function start(page:Page,suffix:string){
   await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));
 }
 async function post(page:Page,url:string,data:unknown){
+  // These opening fixtures use small exact literals; the accepted transport
+  // requires decimal strings. Do not loosen the backend's precision contract.
+  if(url==="/investments"&&data&&typeof data==="object"){
+    const opening={...data} as Record<string,unknown>;
+    for(const field of ["openingQuantity","openingCost","openingValue"])
+      if(opening[field]!=null)opening[field]=String(opening[field]);
+    data=opening;
+  }
   const r=await page.request.post(`/api${url}`,{data});
   expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);
   return (await r.text())?r.json():null;
