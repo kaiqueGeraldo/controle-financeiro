@@ -1,0 +1,57 @@
+name: CPA01 isolated scheduler proofs
+on:
+  push:
+    branches: [codex/ci-remota-provas-cpa01-20261028-01]
+permissions:
+  contents: read
+jobs:
+  scenarios:
+    name: synthetic-${{ matrix.id }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {id: windows-failure, windows: failure, linux: success, expanded: skipped, mode: push, suite: smoke}
+          - {id: windows-skipped, windows: skipped, linux: success, expanded: skipped, mode: push, suite: smoke}
+          - {id: linux-failure, windows: success, linux: failure, expanded: skipped, mode: push, suite: smoke}
+          - {id: expanded-failure, windows: success, linux: success, expanded: failure, mode: workflow_dispatch, suite: expanded}
+          - {id: expanded-skipped, windows: success, linux: success, expanded: skipped, mode: workflow_dispatch, suite: expanded}
+          - {id: positive-expanded, windows: success, linux: success, expanded: success, mode: workflow_dispatch, suite: expanded}
+    uses: ./.github/workflows/cpa01-required-fixture.yml
+    with:
+      windows: ${{ matrix.windows }}
+      linux: ${{ matrix.linux }}
+      expanded: ${{ matrix.expanded }}
+      mode: ${{ matrix.mode }}
+      suite: ${{ matrix.suite }}
+  evaluator-payload-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: c16e6545488c8f13efda4dab9efa8aa896fcddaa
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Independently expected CLI exits for synthetic payloads
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import {spawnSync} from 'node:child_process';
+          const make=(w,l,e)=>JSON.stringify({'windows-native':{result:w},linux:{result:l},expanded:{result:e}});
+          const cases=[
+            ['smoke-success','push','smoke',make('success','success','skipped'),0],
+            ['expanded-success','workflow_dispatch','expanded',make('success','success','success'),0],
+            ...['failure','skipped','cancelled'].map(s=>['windows-'+s,'push','smoke',make(s,'success','skipped'),1]),
+            ['linux-failure','push','smoke',make('success','failure','skipped'),1],
+            ...['failure','skipped','cancelled'].map(s=>['expanded-'+s,'workflow_dispatch','expanded',make('success','success',s),1]),
+            ['missing','push','smoke','{}',1],['invalid-json','push','smoke','{',1],
+            ['unknown','push','smoke',make('unknown','success','skipped'),1],
+          ];
+          for(const [id,event,suite,payload,expected] of cases){
+            const r=spawnSync(process.execPath,['.github/scripts/required.mjs'],{env:{...process.env,GITHUB_EVENT_NAME:event,CF_REQUIRED_SUITE:suite,NEEDS_JSON:payload},encoding:'utf8'});
+            assert.equal(r.status,expected,id);console.log(JSON.stringify({id,event,suite,expected,observed:r.status,diagnosis:(r.stdout+r.stderr).trim()}));
+          }
+          NODE

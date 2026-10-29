@@ -1,0 +1,70 @@
+name: CPA01 synthetic dependency chain
+on:
+  workflow_call:
+    inputs:
+      windows: {type: string, required: true}
+      linux: {type: string, required: true}
+      expanded: {type: string, required: true}
+      mode: {type: string, required: true}
+      suite: {type: string, required: true}
+permissions:
+  contents: read
+jobs:
+  windows-native:
+    if: inputs.windows != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Synthetic dependency outcome, not the Windows contract
+        env:
+          OUTCOME: ${{ inputs.windows }}
+        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+  linux:
+    needs: windows-native
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Synthetic Linux outcome, not a test suite
+        env:
+          OUTCOME: ${{ inputs.linux }}
+        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+  expanded:
+    if: inputs.mode == 'workflow_dispatch' && inputs.suite == 'expanded' && inputs.expanded != 'skipped'
+    needs: linux
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Synthetic expanded outcome
+        env:
+          OUTCOME: ${{ inputs.expanded }}
+        run: node -e 'process.exit(process.env.OUTCOME === "failure" ? 1 : 0)'
+  required:
+    if: ${{ always() }}
+    needs: [windows-native, linux, expanded]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        timeout-minutes: 1
+        with:
+          ref: c16e6545488c8f13efda4dab9efa8aa896fcddaa
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        timeout-minutes: 1
+        with:
+          node-version: '24'
+      - name: Exact candidate evaluator over real scheduler dependency results
+        timeout-minutes: 1
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          CF_REQUIRED_SUITE: ${{ inputs.suite }}
+          GITHUB_EVENT_NAME: ${{ inputs.mode }}
+        run: node .github/scripts/required.mjs
+  smoke-package-sentinel:
+    needs: [windows-native, linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Synthetic marker only; no JAR or artifact produced
+        run: echo 'SYNTHETIC_PACKAGE_ELIGIBLE'
