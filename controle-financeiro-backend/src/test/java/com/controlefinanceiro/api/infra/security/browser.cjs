@@ -1,15 +1,24 @@
 const path = require('node:path');
 const fs = require('node:fs/promises');
-const [frontend, evidence, namespace, instant] = process.argv.slice(2);
+const [frontend, evidence, namespace, instant, certificate] = process.argv.slice(2);
 const { chromium, expect } = require(path.join(frontend, 'node_modules/@playwright/test'));
-const baseURL = 'http://127.0.0.1:3113';
+const baseURL = 'https://127.0.0.1:3113';
+// Readiness trusts only the freshly generated loopback certificate.
+async function probe(route, remaining) {
+ const ca=await fs.readFile(certificate);
+ return new Promise((resolve,reject)=>{
+  require('node:https').get(baseURL+route,{ca,signal:AbortSignal.timeout(Math.max(1,remaining))},response=>{
+   response.resume();resolve({status:response.statusCode,ok:response.statusCode>=200&&response.statusCode<300});
+  }).once('error',reject);
+ });
+}
 const password = 'Synthetic-Cf023-2026';
 async function body(response) { expect(response.ok(), `HTTP${response.status()}`).toBe(true); return response.json(); }
 (async () => {
   const deadline = Date.now() + 120000;
   let ready = false;
   while (Date.now() < deadline) {
-    try { ready = (await fetch(`${baseURL}/auth`)).ok; } catch {}
+    try { ready = (await probe("/auth",deadline-Date.now())).ok; } catch {}
     if (ready) break;
     await new Promise(resolve => setTimeout(resolve, 200));
   }
@@ -22,11 +31,11 @@ async function body(response) { expect(response.ok(), `HTTP${response.status()}`
   for (const [route, status] of [['/api/auth/user', 401], ['/api/auth/register', 401], ['/api/auth/login', 401]]) {
     const remaining = deadline - Date.now();
     expect(remaining, 'original readiness budget').toBeGreaterThan(0);
-    const response = await fetch(baseURL + route, { signal: AbortSignal.timeout(remaining) });
+    const response = await probe(route,remaining);
     expect(response.status, `BFF readiness ${route}`).toBe(status);
   }
   const browser = await chromium.launch();
-  const context = await browser.newContext({ baseURL, timezoneId: 'America/Sao_Paulo', locale: 'pt-BR', viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  const context = await browser.newContext({ baseURL, ignoreHTTPSErrors: true, timezoneId: 'America/Sao_Paulo', locale: 'pt-BR', viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
   const page = await context.newPage(); await page.clock.setFixedTime(new Date(instant));
   const diagnostics = process.env.CF_BROWSER_DIAGNOSTICS === '1';
   const events = [];
@@ -88,7 +97,7 @@ async function body(response) { expect(response.ok(), `HTTP${response.status()}`
     try { if (diagnostics) {
       await page.screenshot({ path: path.join(evidence, 'last-state.png'), fullPage: true });
       const state = await page.evaluate(() => ({ path: location.pathname, date: Date.now(), performance: performance.now(), timeOrigin: performance.timeOrigin, timeline: document.timeline.currentTime }));
-      const cookies = (await context.cookies()).map(c => ({ name: c.name, expires: c.expires, tokenExpiration: c.name === 'token' ? JSON.parse(Buffer.from(c.value.split('.')[1], 'base64url')).exp : undefined }));
+      const cookies = (await context.cookies()).map(c => ({ name: c.name, secure: c.secure, httpOnly: c.httpOnly, expires: c.expires, tokenExpiration: c.name === 'token' ? JSON.parse(Buffer.from(c.value.split('.')[1], 'base64url')).exp : undefined }));
       await fs.writeFile(path.join(evidence, 'diagnostics-private.json'), JSON.stringify({ state, cookies, events }, null, 2));
       await context.tracing.stop({ path: path.join(evidence, 'trace-private.zip') });
     } } catch (error) {

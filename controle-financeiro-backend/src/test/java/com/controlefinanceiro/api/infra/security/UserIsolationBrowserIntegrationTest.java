@@ -44,14 +44,14 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
         Path evidence=backend.resolve(System.getProperty("cf023.evidence", "../tasks/evidencias/CF-023/browser/"+System.getProperty("cf023.run","candidate"))).normalize();
         evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="cf023-"+UUID.randomUUID().toString().substring(0,8);
-        var server=new ProcessBuilder("node","node_modules/next/dist/bin/next","dev","--hostname","127.0.0.1","--port","3113");
+        Path preparedFrontend=Path.of(System.getProperty("cf023.frontend.runtime",evidence.resolve("frontend-runtime").toString())).resolve(namespace);
+        Files.writeString(evidence.resolve("prepared-frontend-path.txt"),preparedFrontend.toAbsolutePath().toString());
+        var server=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/prepared-server.cjs").toString(),frontend.toString(),preparedFrontend.toString());
         server.directory(frontend.toFile());server.redirectErrorStream(true);server.redirectOutput(evidence.resolve("next.log").toFile());
         server.environment().put("BACKEND_API_URL","http://127.0.0.1:"+port);
-        server.environment().put("CF_E2E_SERVER_CLOCK","1");server.environment().put("CF_E2E_AUTH_NOW",instant);
-        server.environment().put("NODE_OPTIONS","--require ./tests/e2e/support/server-clock.cjs");
         Process next=server.start();
         try {
-            var runner=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/browser.cjs").toString(),frontend.toString(),evidence.toString(),namespace,instant);
+            var runner=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/browser.cjs").toString(),frontend.toString(),evidence.toString(),namespace,instant,preparedFrontend.resolve("loopback.crt").toString());
             runner.directory(frontend.toFile());runner.redirectErrorStream(true);runner.redirectOutput(evidence.resolve("playwright.log").toFile());
             runner.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
             Process browser=runner.start();boolean completed=browser.waitFor(180,TimeUnit.SECONDS);
