@@ -1,5 +1,7 @@
 # Saneamento residual da PR3
 
+Resultado atual: [relatório local](RESULTADOS.md), [recibos verificados](RESULTADOS.json), [preservação](PRESERVACAO.json), [reprodução](REPRODUCAO.md) e [matriz detalhada](MATRIZ-DETALHADA.md). Código em revisão independente; zoom nativo pendente e expanded integral não executada. Sem liberação de merge ou alteração remota.
+
 ## Organização concluída antes das correções funcionais
 
 Base: `965b93c77bce6cde0c4473272901817d221466a1`; branch `codex/saneamento-pr3-expanded`. A realocação registrada pelo Git preservou 36.114 arquivos (1.634.276.589 bytes) e cinco junctions sem atravessá-las. Somente o mtime do ponteiro `.git` mudou; seu conteúdo permaneceu idêntico. Recibo e mapa: [REALOCACAO.json](REALOCACAO.json).
