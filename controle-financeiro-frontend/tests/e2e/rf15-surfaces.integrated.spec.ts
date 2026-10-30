@@ -1,10 +1,11 @@
+import {fixtureUser} from './support/fixture-owner';
 import {settleVisual} from './support/rf15-visual';
 import {expect,test,type Page} from '@playwright/test';
 import {writeFile} from 'node:fs/promises';
 import path from 'node:path';
-import {registerSyntheticUser,syntheticUser} from './support/synthetic-auth';
+import {registerSyntheticUser} from './support/synthetic-auth';
 const dir=process.env.CF_REVIEW_EVIDENCE!;
-async function start(page:Page,key:string){await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));await registerSyntheticUser(page,syntheticUser('A',process.env.CF_E2E_NAMESPACE+'-'+key));}
+async function start(page:Page,key:string){await page.clock.setFixedTime(new Date('2027-01-15T12:00:00Z'));await registerSyntheticUser(page,fixtureUser('A',process.env.CF_E2E_NAMESPACE!,'rf15-surfaces',key));}
 async function post(page:Page,url:string,data:unknown){const r=await page.request.post('/api'+url,{data});expect(r.ok(),await r.text()).toBe(true);return (await r.text())?r.json():null;}
 
 test('RF15-02: contas ativas/arquivadas, temas, privacidade acessível e reload',async({page})=>{

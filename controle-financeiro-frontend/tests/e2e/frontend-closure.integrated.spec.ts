@@ -1,3 +1,4 @@
+import {fixtureUser} from "./support/fixture-owner";
 import {expect,test,type Page} from "@playwright/test";
 import {mkdir,readFile,writeFile} from "node:fs/promises";
 import path from "node:path";
@@ -38,7 +39,7 @@ test('B: recuperação real com caixa falsa, rejeição e login após reload',as
 });
 
 test('B/C: preferências persistidas, erro recuperável, privacidade e valores',async({page})=>{
- await registerSyntheticUser(page,syntheticUser('A',ns+'-privacy'));
+ await registerSyntheticUser(page,fixtureUser('A',ns,'frontend-closure','privacy'));
  const a=await post(page,'/accounts',{name:'Conta sintética longa privacidade',type:'CHECKING',initialBalance:-125.45,color:'#10b981'});
  await post(page,'/accounts',{name:'Conta com valor extenso',type:'CHECKING',initialBalance:1234567.89,color:'#10b981'});
  await page.setViewportSize({width:768,height:1024});await page.goto('/configuracoes');

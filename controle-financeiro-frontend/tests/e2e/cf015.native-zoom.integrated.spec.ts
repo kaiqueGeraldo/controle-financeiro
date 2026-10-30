@@ -1,19 +1,20 @@
+import {fixtureUser} from "./support/fixture-owner";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { chromium, expect, test } from "@playwright/test";
-import { registerSyntheticUser, syntheticUser } from "./support/synthetic-auth";
+import { registerSyntheticUser } from "./support/synthetic-auth";
 
 // Opt-in, attended test: the operator sets 200% using the browser's native UI.
 // No CSS zoom, device scale, CDP page scale, or reduced viewport substitutes it.
 test("R10: zoom nativo 200% com ações, rolagem e foco", async ({}, info) => {
   test.setTimeout(300_000);
-  const directory = path.resolve(process.env.CF015_VISUAL_DIR!, "native-zoom");
+  const directory = path.resolve(process.env.CF015_VISUAL_DIR!, "native-zoom-cf015");
   await mkdir(directory, { recursive: true });
   const browser = await chromium.launch({ headless: false, args: ["--window-size=1440,1000"] });
   try {
     const context = await browser.newContext({ baseURL: process.env.CF_TEST_BASE_URL, viewport: null, deviceScaleFactor: undefined, locale: "pt-BR", timezoneId: "America/Sao_Paulo", reducedMotion: "reduce" });
     const page = await context.newPage();
-    await registerSyntheticUser(page, syntheticUser("B", `${process.env.CF_E2E_NAMESPACE}-zoom`));
+    await registerSyntheticUser(page, fixtureUser("B", process.env.CF_E2E_NAMESPACE!, "cf015-native-zoom", "zoom"));
     const post = async (endpoint: string, data: unknown) => {
       const response = await page.request.post(`/api${endpoint}`, { data });
       expect(response.ok(), await response.text()).toBe(true);
