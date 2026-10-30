@@ -17,6 +17,9 @@ export async function textGeometry(locator: Locator, expectedText: string) {
     const rects: Array<{x:number,y:number,width:number,height:number}> = [];
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
       if (!node.textContent?.trim()) continue;
+      const style = getComputedStyle(node.parentElement ?? element);
+      const transparent = (color:string) => color === 'transparent' || /(?:rgba\([^)]*,\s*0(?:\.0+)?\)|\/\s*0(?:\.0+)?\s*\))$/.test(color);
+      if (transparent(style.color) || transparent(style.getPropertyValue('-webkit-text-fill-color'))) failures.push('not-painted');
       const range = document.createRange(); range.selectNodeContents(node);
       const boxes = [...range.getClientRects()].filter(r => r.width > 0 && r.height > 0);
       if (!boxes.length) failures.push('no-text-box');
