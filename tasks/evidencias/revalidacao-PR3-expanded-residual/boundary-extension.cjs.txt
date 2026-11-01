@@ -1,0 +1,27 @@
+    // Independent negatives: only synthetic session material; no token is published.
+    const credentialResults=[],validCookie=(await context.cookies()).find(c=>c.name==='token');
+    expect(validCookie).toBeTruthy();expect(validCookie.secure).toBe(true);expect(validCookie.httpOnly).toBe(true);
+    const parts=validCookie.value.split('.'),validPayload=JSON.parse(Buffer.from(parts[1],'base64url'));
+    expect(validPayload.exp).toBeGreaterThan(Math.floor(Date.now()/1000));
+    const sign=(payload,key)=>{const encoded=Buffer.from(JSON.stringify(payload)).toString('base64url'),input=parts[0]+'.'+encoded;return input+'.'+require('node:crypto').createHmac('sha256',key).update(input).digest('base64url');};
+    const validRoot=await page.request.get('/',{maxRedirects:0});expect(validRoot.status()).toBe(200);
+    expect((await page.request.get('/api/auth/user')).status()).toBe(200);
+    for(const state of ['absent','expired','wrong-signature']){
+      const negative=await browser.newContext({baseURL,ignoreHTTPSErrors:true,locale:'pt-BR',timezoneId:'America/Sao_Paulo'});
+      try{
+        if(state!=='absent'){const token=sign(state==='expired'?{...validPayload,exp:Math.floor(Date.now()/1000)-1}:validPayload,state==='expired'?process.env.REVALIDATE_SYNTHETIC_SECRET:'different-synthetic-test-key');await negative.addCookies([{...validCookie,value:token,expires:Math.floor(Date.now()/1000)+86400}]);}
+        const user=await negative.request.get('/api/auth/user'),accounts=await negative.request.get('/api/accounts');
+        expect(user.status()).toBe(401);expect(accounts.status()).toBe(401);
+        const root=await negative.request.get('/',{maxRedirects:0});
+        if(state!=='wrong-signature'){expect(root.status()).toBe(307);expect(root.headers().location).toContain('/auth');expect((await negative.cookies()).some(c=>c.name==='token')).toBe(false);}
+        // Middleware checks expiration; backend authenticates the signature.
+        // A signed-looking nonexpired token can reach shell, but never financial data.
+        const target=await negative.newPage();await target.goto('/');
+        if(state==='wrong-signature'){expect(root.status()).toBe(200);const prompt=target.getByRole('dialog',{name:'Sessão Expirada',exact:true});await expect(prompt).toBeVisible();await expect(target.getByText(namespace+'-ACCOUNT-A',{exact:true})).toHaveCount(0);await prompt.getByRole('button',{name:'Ir para o Login',exact:true}).click();}
+        await expect(target.locator('input[name="email"]')).toBeVisible();
+        credentialResults.push({state,authenticationPrompt:state==='wrong-signature'?'Sessão Expirada, then Ir para o Login':'redirect',user:user.status(),accounts:accounts.status(),root:root.status(),rootLocation:root.headers().location??null,landed:new URL(target.url()).pathname});
+        await fs.writeFile(path.join(evidence,'credential-boundaries-progress.json'),JSON.stringify(credentialResults,null,2));
+      }finally{await negative.close();}
+    }
+    expect((await body(await page.request.get('/api/accounts/position'))).totalBalance).toBe('1000.00');
+    await fs.writeFile(path.join(evidence,'credential-boundaries.json'),JSON.stringify({valid:{root:validRoot.status(),user:200,secure:validCookie.secure,httpOnly:validCookie.httpOnly,expiryInFuture:true},negative:credentialResults,financialPositionAfter:'1000.00'},null,2));

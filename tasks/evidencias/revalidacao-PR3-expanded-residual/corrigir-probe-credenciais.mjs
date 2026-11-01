@@ -1,0 +1,7 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+const runtime=path.resolve(process.argv[2]),auth=path.join(runtime,'s/controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/infra/security'),file=path.join(auth,'boundary-browser.cjs'),before=fs.readFileSync(file),sha=b=>createHash('sha256').update(b).digest('hex');
+fs.writeFileSync(path.join(runtime,'boundary-probe-before.cjs'),before,{flag:'wx'});
+let driver=fs.readFileSync(path.join(auth,'browser.cjs'),'utf8'),extension=fs.readFileSync(path.join(import.meta.dirname,'boundary-extension.cjs.txt'),'utf8'),marker="    await fs.writeFile(path.join(evidence, 'results.json')";
+assert.ok(driver.includes(marker));driver=driver.replace(marker,extension+'\n'+marker);fs.writeFileSync(file,driver);
+fs.writeFileSync(path.join(runtime,'boundary-probe-correction.json'),JSON.stringify({at:new Date(),file,before:sha(before),after:sha(Buffer.from(driver)),cause:'Own probe incorrectly demanded automatic redirect for a nonexpired wrong-signature JWT; AC-UI-004 requires asking for authentication; actual existing SessionExpired dialog is the required observation before clicking its login action',unchanged:{candidateDriver:true,candidateAssertions:true,timeLimits:true,fullOriginalJourney:true},priorFailureRetained:'restored-and-boundaries'},null,2)+'\n',{flag:'wx'});
+console.log('Independent negative probe adjusted to the normative authentication prompt; original journey unchanged.');

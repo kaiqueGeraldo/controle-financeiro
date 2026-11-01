@@ -1,0 +1,14 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
+const runtime=path.resolve(process.argv[2]),s=path.join(runtime,'s'),root=path.resolve(import.meta.dirname,'../../..'),pkg='controle-financeiro-backend/src/test/java/com/controlefinanceiro/api/',auth=pkg+'infra/security/';
+const original=fs.readFileSync(path.join(s,auth,'UserIsolationBrowserIntegrationTest.java'),'utf8');
+let java=original.replaceAll('UserIsolationBrowserIntegrationTest','RevalidationCredentialBoundaryProbe').replace('infra/security/browser.cjs','infra/security/boundary-browser.cjs').replace('@LocalServerPort int port;','@Autowired TokenService credentialTokens;\n    @LocalServerPort int port;').replace('runner.directory(frontend.toFile());','runner.environment().put("REVALIDATE_SYNTHETIC_SECRET",(String)org.springframework.test.util.ReflectionTestUtils.getField(credentialTokens,"secret"));\n            runner.directory(frontend.toFile());');
+fs.writeFileSync(path.join(s,auth,'RevalidationCredentialBoundaryProbe.java'),java,{flag:'wx'});
+let driver=fs.readFileSync(path.join(s,auth,'browser.cjs'),'utf8');
+const marker="    await fs.writeFile(path.join(evidence, 'results.json')";
+const extra=fs.readFileSync(path.join(import.meta.dirname,'boundary-extension.cjs.txt'),'utf8');
+assert.ok(driver.includes(marker));driver=driver.replace(marker,extra+'\n'+marker);fs.writeFileSync(path.join(s,auth,'boundary-browser.cjs'),driver,{flag:'wx'});
+let visual=fs.readFileSync(path.join(s,pkg,'MilestoneRemediationBrowserTest.java'),'utf8').replaceAll('MilestoneRemediationBrowserTest','RevalidationVisualProbe').replace('tests/e2e/playwright.milestone-remediation.config.ts','tests/e2e/playwright.revalidation-visual.config.ts');
+fs.writeFileSync(path.join(s,pkg,'RevalidationVisualProbe.java'),visual,{flag:'wx'});
+fs.copyFileSync(path.join(import.meta.dirname,'live-geometry.ts.txt'),path.join(s,'f/tests/e2e/revalidation.live-geometry.probe.ts'));
+fs.writeFileSync(path.join(s,'f/tests/e2e/playwright.revalidation-visual.config.ts'),"import {defineConfig} from '@playwright/test';import base from './playwright.milestone-review.config';export default defineConfig({...base,testMatch:['**/revalidation.live-geometry.probe.ts']});\n",{flag:'wx'});
+console.log('Independent live observer and compiled HTTPS boundary probes prepared; mandatory candidate source unchanged.');
