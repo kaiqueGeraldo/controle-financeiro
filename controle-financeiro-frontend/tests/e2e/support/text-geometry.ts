@@ -1,4 +1,5 @@
 import type {Locator, Page} from '@playwright/test';
+import {prepareTextPaint,verifyTextPaint} from './text-paint.mjs';
 
 // A paint probe briefly masks glyph fill. Do not interleave probes on one page.
 const probing = new WeakSet<Page>();
@@ -61,84 +62,41 @@ function inspectText(element: Element, expected: string) {
   return {ok:failures.length === 0,failures:[...new Set(failures)],text:element.textContent,rects,glyphs,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio}};
 }
 
-/** Exact HTML text + complete range geometry + stable, nonzero glyph-fill contribution.
- * Uses A / masked-fill B / restored A screenshots; no reference snapshots or timer changes.
- * Conservative evidence for the current static badge, not OCR, contrast, focus or actionability.
- * See tasks/evidencias/saneamento-RR3-01/CONTRATO.md for the bounded paint contract. */
+/** Exact static HTML text: range geometry plus independent glyph attribution. See v2 decision/limits. */
 export async function textGeometry(locator: Locator, expectedText: string) {
-  const page = locator.page(), element = await locator.elementHandle();
-  if (!element) throw new Error('Exact text element is absent');
-  try {
-    const geometry = await element.evaluate(inspectText,expectedText);
-    const reject = (failure:string) => ({...geometry,ok:false,failures:[...geometry.failures,failure]});
-    if (!geometry.ok) return geometry;
-    if (probing.has(page)) return reject('concurrent-paint-probe');
+  const page=locator.page(),element=await locator.elementHandle();
+  if(!element)throw new Error('Exact text element is absent');
+  try{
+    const geometry=await element.evaluate(inspectText,expectedText);
+    const reject=(failure:string)=>({...geometry,ok:false,status:'inconclusive',failures:[...geometry.failures,failure]});
+    if(!geometry.ok)return geometry;
+    if(probing.has(page))return reject('concurrent-paint-probe');
     probing.add(page);
-    try {
-      const x = Math.floor(Math.min(...geometry.rects.map(r=>r.x))), y = Math.floor(Math.min(...geometry.rects.map(r=>r.y)));
-      const clip = {x,y,width:Math.ceil(Math.max(...geometry.rects.map(r=>r.x+r.width)))-x,height:Math.ceil(Math.max(...geometry.rects.map(r=>r.y+r.height)))-y};
-      if (clip.width*clip.height > 1_000_000) return reject('paint-region-too-large');
-      const screenshot = () => page.screenshot({type:'png',clip,scale:'css',animations:'allow',caret:'initial'});
-      const before = await screenshot();
-      // Save before mutating, so even an interrupted masking operation can be restored.
-      const saved = await element.evaluateHandle(el => {
-        const owners = new Set<HTMLElement>(), walker = document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
-        for (let n=walker.nextNode();n;n=walker.nextNode()) if (n.textContent?.trim() && n.parentElement instanceof HTMLElement) owners.add(n.parentElement);
-        return [...owners].map(owner=>({owner,value:owner.style.getPropertyValue('-webkit-text-fill-color'),priority:owner.style.getPropertyPriority('-webkit-text-fill-color'),hadStyle:owner.hasAttribute('style')}));
-      });
-      let masked: Buffer;
-      try {
-        const effective = await saved.evaluate(entries => {
-          for (const {owner} of entries) owner.style.setProperty('-webkit-text-fill-color','transparent','important');
-          return entries.every(({owner})=>getComputedStyle(owner).getPropertyValue('-webkit-text-fill-color') === 'rgba(0, 0, 0, 0)');
-        });
-        if (!effective) return reject('paint-mask-not-effective');
-        masked = await screenshot();
-      } finally {
-        try {
-          await saved.evaluate(entries => {
-            for (const {owner,value,priority,hadStyle} of entries) {
-              if (value) owner.style.setProperty('-webkit-text-fill-color',value,priority);
-              else owner.style.removeProperty('-webkit-text-fill-color');
-              if (!hadStyle && owner.getAttribute('style') === '') owner.removeAttribute('style');
-            }
-          });
-        } finally { await saved.dispose(); }
-      }
-      const restored = await screenshot(), after = await element.evaluate(inspectText,expectedText);
-      if (JSON.stringify(after) !== JSON.stringify(geometry)) return reject('text-state-changed');
-      const paint = await page.evaluate(async ({images,clip,glyphs}) => {
-        const decode = async (bytes:number[]) => {
-          const bitmap = await createImageBitmap(new Blob([new Uint8Array(bytes)],{type:'image/png'}));
-          try {
-            const canvas = new OffscreenCanvas(bitmap.width,bitmap.height), ctx = canvas.getContext('2d')!;
-            ctx.drawImage(bitmap,0,0);
-            return {width:bitmap.width,height:bitmap.height,data:ctx.getImageData(0,0,bitmap.width,bitmap.height).data};
-          } finally { bitmap.close(); }
-        };
-        const [a,b,c] = await Promise.all(images.map(decode));
-        if ([a,b,c].some(i=>i.width!==clip.width || i.height!==clip.height)) return {stable:false,changedPixels:0,glyphPixels:[],dimensions:false};
-        let unstablePixels=0,changedPixels=0;
-        const stride=a.width+1, prefix=new Uint32Array(stride*(a.height+1));
-        for (let y=0;y<a.height;y++) for (let x=0;x<a.width;x++) {
-          const i=4*(y*a.width+x);
-          if ([0,1,2,3].some(k=>a.data[i+k]!==c.data[i+k])) unstablePixels++;
-          const changed=Number([0,1,2].some(k=>a.data[i+k]!==b.data[i+k]));
-          changedPixels+=changed;
-          const p=(y+1)*stride+x+1;
-          prefix[p]=changed+prefix[p-1]+prefix[p-stride]-prefix[p-stride-1];
-        }
-        const glyphPixels=glyphs.map(g=>g.rects.reduce((sum,r)=>{
-          const x0=Math.max(0,Math.floor(r.x-clip.x)),y0=Math.max(0,Math.floor(r.y-clip.y));
-          const x1=Math.min(a.width,Math.ceil(r.x+r.width-clip.x)),y1=Math.min(a.height,Math.ceil(r.y+r.height-clip.y));
-          return sum+prefix[y1*stride+x1]-prefix[y0*stride+x1]-prefix[y1*stride+x0]+prefix[y0*stride+x0];
-        },0));
-        return {stable:unstablePixels===0,unstablePixels,changedPixels,glyphPixels,dimensions:true};
-      },{images:[Array.from(before),Array.from(masked),Array.from(restored)],clip,glyphs:geometry.glyphs});
-      const failures = [...geometry.failures];
-      if (!paint.stable) failures.push('unstable-paint');
-      if (!paint.dimensions || paint.glyphPixels.length !== geometry.glyphs.length || paint.glyphPixels.some(n=>n===0)) failures.push('no-glyph-paint');
-      return {...geometry,ok:failures.length===0,failures,paint};
-    } finally { probing.delete(page); }
-  } finally { await element.dispose(); }
+    try{
+      const x=Math.floor(Math.min(...geometry.rects.map(r=>r.x))),y=Math.floor(Math.min(...geometry.rects.map(r=>r.y)));
+      const clip={x,y,width:Math.ceil(Math.max(...geometry.rects.map(r=>r.x+r.width)))-x,height:Math.ceil(Math.max(...geometry.rects.map(r=>r.y+r.height)))-y};
+      if(clip.width*clip.height>1_000_000)return reject('paint-region-too-large');
+      const saved=await element.evaluateHandle(prepareTextPaint,clip);
+      try{
+        const reference=await saved.evaluate(s=>s.reference);
+        if(reference.error)return reject('reference:'+reference.error);
+        const state=await saved.evaluate(s=>s.state()),screenshot=()=>page.screenshot({type:'png',clip,scale:'css',animations:'allow',caret:'initial'});
+        const before=await screenshot();let masked:Buffer,maskState:string,maskAfterState:string;
+        try{
+          if(!await saved.evaluate(s=>s.mask()))return reject('paint-mask-not-effective');
+          maskState=await saved.evaluate(s=>s.state());masked=await screenshot();maskAfterState=await saved.evaluate(s=>s.state());
+        }finally{await saved.evaluate(s=>s.restore());}
+        const restored=await screenshot(),after=await element.evaluate(inspectText,expectedText),restoredState=await saved.evaluate(s=>s.state());
+        if(JSON.stringify(after)!==JSON.stringify(geometry))return reject('text-state-changed');
+        const paint=await page.evaluate(verifyTextPaint,{images:[Array.from(before),Array.from(masked),Array.from(restored)],clip,glyphs:geometry.glyphs,reference});
+        const failures=[...geometry.failures];
+        if(!paint.stable)failures.push('unstable-paint');
+        if(state!==maskState||state!==maskAfterState||state!==restoredState)failures.push('paint-side-effects');
+        if(!await saved.evaluate(s=>s.restored()))failures.push('paint-state-not-restored');
+        if(!paint.dimensions||paint.glyphPixels.length!==geometry.glyphs.length||paint.glyphPixels.some(n=>n===0))failures.push('no-glyph-paint');
+        if(paint.outsideMaskPixels||paint.wrongDirectionPixels||paint.unmatchedCorePixels)failures.push('ambiguous-glyph-paint');
+        return {...geometry,ok:failures.length===0,status:failures.length?'inconclusive':'painted',failures,paint,reference:{width:reference.width,height:reference.height,inkPixels:reference.alpha.filter(a=>a>0).length,corePixels:reference.alpha.filter(a=>a>=192).length}};
+      }finally{await saved.dispose();}
+    }finally{probing.delete(page);}
+  }finally{await element.dispose();}
 }
