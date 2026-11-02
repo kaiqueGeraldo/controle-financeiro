@@ -1,0 +1,21 @@
+# Fechamento do saneamento v2
+
+02/11/2026, America/Sao_Paulo. Base efetivamente corrigida:7f7f4ec6ec764b65d3a253391c14d52be5a6e0e9. Branch codex/saneamento-pr3-expanded; worktree C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-worktrees/pr3-expanded-source. Histórico155b249d..7f7f4ec6 só tinha provas/documentação; o helper anterior ainda era52bf34a0. O lote implementa uma correção nova.
+
+Commit de implementação/testes:daf84c3b1cd98efadc930e7a18f3a18b4cb41d77, com cinco arquivos explicitados no contrato. O commit documental seguinte contém este registro. HEAD/intervalo exatos e estados pós-commits ficam no recibo privado C:/Users/Aluga.com/Documents/Projetos/pessoal/controle-financeiro-runtimes/preparacao-adocao/rr3-01-atribuicao-v2-01/git-final.json, emitido depois do commit para evitar circularidade.
+
+A intervenção agora usa Ranges/CSS Highlight privado, sem style/atributos/classes/wrappers escritos no alvo. A referência é renderizada antes, em canvas destacado. O sinal deve corresponder à silhueta/núcleos independentes, aproximar o preenchimento esperado na direção correta e manter geometria/estado. Os três falsos aceites anteriores passam a ser rejeitados; positivos reais e controles de fontes/linhas continuam aprovados. O helper retorna inconclusivo quando não sustenta a referência ou detecta ambiguidade, e o consumidor não pode tratá-lo como sucesso.
+
+Provas:10 estáticos originais,21 independentes,3 condições da segunda rodada,4 complementos,42 controles (24+18), consumidor/jornada real em360/768/1440 e dados10/200/null após reload,32 contratos CI, tipagem e lint. Dois wrappers reais passaram nas invocações de desenvolvimento e final; não são expanded ou quatro requisitos distintos. Não houve falha de cadastro/sessão nesta tarefa; a ocorrência histórica anterior permanece separada.
+
+Contraprovas: observador anterior só na cópia reproduziu os2+1 falsos aceites; restaurado por hash com controles positivos/negativos aprovados. Remoção isolada da garantia de silhueta reprovou o controle retangular; módulo restaurado por SHA exato, seguido de três controles raster aprovados. A normalização exclusiva de uma linha vazia de EOF no wrapper está discriminada no recibo de fonte e foi seguida de oito controles com os bytes finais.
+
+Restauração preserva valores/prioridade/ausência/herança/atributos/classes porque a intervenção não os escreve. O finally remove apenas recursos privados. Sucesso, falha, timeout, interrupções, remoção, clone, elemento novo e navegação foram exercitados; contexto destruído encerra com erro e página nova sem máscara. Referência, renderizadores e concorrência possuem limites explícitos. Não é contraste, percepção universal, interação, acessibilidade integral ou zoom.
+
+Custo: três capturas por observação, mínimo166ms/mediana179ms/máximo316ms em cinco amostras controladas. Tempos e memória amostrada são descritos sem atribuir RSS inteiro ao helper ou reivindicar benchmark de produção. Não houve necessidade demonstrada de ampliar prazos ou otimizar queries.
+
+Preservação:97 protegidos,36 registros e sete originais; manifesto1053 intacto, com duas alterações autorizadas de helper/config e respectivos bytes anteriores arquivados.1065/1067 rastreados iniciais iguais; três fontes novos. Probes/pareceres/runtimes antigos, pacotes, migrations, tsconfig, gates e requisitos preservados. Ambos os READMEs mantêm seus hashes próprios. Principal c16e6545/codex/saneamento-cpa01-selecao-testes conserva somente M README.md preexistente; publicação limpa1c4173f2. Não houve.r3, reset, clean, limpeza geral de target ou realocação.
+
+Estado: **RR3-01 saneado localmente, aguardando revisão independente do novo delta e dos caminhos compartilhados afetados.** Aceites anteriores preservados. Zoom C não executado, AC-UI-001/CF010/CF015 e dois cenários obrigatórios pendentes. Expanded integral não executada; PR #3 sem liberação de merge. Sem push, atualização de PR, CI remota, merge, hospedagem, deploy ou banco real.
+
+A observação final de recursos foi somente leitura e não encontrou processos próprios/listeners3107/3113/containers ativos. Nenhum recurso alheio foi encerrado. Os brutos e protótipos continuam no runtime novo; a próxima ação é revisão independente restrita ao intervalo deste saneamento.
