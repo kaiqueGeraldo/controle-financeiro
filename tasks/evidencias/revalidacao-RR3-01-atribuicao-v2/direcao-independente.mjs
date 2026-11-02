@@ -1,0 +1,7 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createRequire} from 'node:module';import {pathToFileURL} from 'node:url';
+const stage=path.resolve(process.argv[2]),front=path.join(stage,'s/f');process.env.PLAYWRIGHT_BROWSERS_PATH='0';const require=createRequire(import.meta.url),{chromium}=require(path.join(front,'node_modules/@playwright/test')),{verifyTextPaint}=await import(pathToFileURL(path.join(front,'tests/e2e/support/text-paint.mjs'))),browser=await chromium.launch(),page=await browser.newPage();
+try{
+ const images=await page.evaluate(async()=>Promise.all([0,1,2].map(async phase=>{const c=new OffscreenCanvas(8,8),ctx=c.getContext('2d'),rgba=new Uint8ClampedArray(256);for(let p=0;p<64;p++)rgba.set(phase===1&&p===27?[0,0,0,255]:[255,255,255,255],p*4);ctx.putImageData(new ImageData(rgba,8,8),0,0);return [...new Uint8Array(await(await c.convertToBlob({type:'image/png'})).arrayBuffer())];})));
+ const alpha=Array(64).fill(0);alpha[27]=255;const result=await page.evaluate(verifyTextPaint,{images,clip:{x:0,y:0,width:8,height:8},glyphs:[{rects:[{x:3,y:3,width:1,height:1}]}],reference:{width:8,height:8,alpha,color:[0,0,0,255]}});
+ console.log(JSON.stringify(result));assert.equal(result.stable,true);assert.equal(result.outsideMaskPixels,0);assert.equal(result.wrongDirectionPixels,1);assert.equal(result.unmatchedCorePixels,1);assert.deepEqual(result.glyphPixels,[0]);
+}finally{await browser.close();}
