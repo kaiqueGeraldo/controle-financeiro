@@ -8,6 +8,11 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Continuidade delimitada — 03/11/2026
+
+[DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.
+
+
 ## Problema e resultado esperado
 
 Atualização de28/10/2026: CPA-01/R1 encerrado localmente em81b20bca (registro de execução privado).
@@ -80,4 +85,3 @@ pacote local testado não é aceite de produção nem liberação dos critérios
 Ainda não executada. Usar `tasks/evidencias/CF-036/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-

@@ -8,6 +8,11 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Continuidade delimitada — 03/11/2026
+
+[DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.
+
+
 ## Revalidação independente CPA-01/R1 — 28/10/2026
 
 Parecer de81b20bca (registro de execução privado): **R1/P2 encerrado
@@ -363,4 +368,3 @@ sucessoras mantêm condições. Usar o [template](../templates/EVIDENCIA.md) nas
 revisões seguintes; evidências anteriores não são testes do pacote desta rodada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
-

@@ -8,6 +8,11 @@
 - Depende de: [CF-007](../01-datas-integracao/CF-007-e2e-temporal.md), [CF-009](../01-datas-integracao/CF-009-estado-assincrono.md), [CF-011](../02-frontend/CF-011-auth-configuracoes.md), [CF-012](../02-frontend/CF-012-dashboard-contas-extrato.md), [CF-013](../02-frontend/CF-013-cartoes-planejamento.md), [CF-014](../02-frontend/CF-014-metas-investimentos-habitos-resumo.md)
 - Origem: T-008, T-010; F-001–007, F-015
 
+## Continuidade delimitada — 03/11/2026
+
+[DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.
+
+
 ## Análise dirigida de zoom e dependência — 24/10/2026
 
 Decisão posterior: [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)

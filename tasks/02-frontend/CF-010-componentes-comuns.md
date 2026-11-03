@@ -8,6 +8,11 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
+## Continuidade delimitada — 03/11/2026
+
+[DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.
+
+
 ## Análise de capacidade — 24/10/2026
 
 Decisão posterior: [DEC-CI-04](../../docs/sdd/decisoes/004-liberacao-local-CF-034.md)
