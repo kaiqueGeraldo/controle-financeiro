@@ -1,0 +1,82 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {pathToFileURL} from 'node:url';
+const root=path.resolve(import.meta.dirname,'../../..');
+const runtime=path.resolve(process.argv[2]);
+const prior=path.resolve(runtime,'../saneamento-expanded-plataformas-01');
+const older=path.resolve(runtime,'../excecao-zoom-expanded-20261103-01');
+const main=path.resolve(root,'../../controle-financeiro');
+const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/^\uFEFF/,''));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const hash=f=>sha(fs.readFileSync(f));
+const output=process.argv[3]?path.join(runtime,process.argv[3]):runtime; if(output!==runtime)fs.mkdirSync(output);
+const write=(f,x)=>fs.writeFileSync(path.join(output,f),JSON.stringify(x,null,2)+'\n',{flag:'wx'});
+const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+const state=cwd=>({head:execFileSync('git',['rev-parse','HEAD'],{cwd,encoding:'utf8'}).trim(),branch:execFileSync('git',['branch','--show-current'],{cwd,encoding:'utf8'}).trim(),status:execFileSync('git',['status','--porcelain=v1'],{cwd,encoding:'utf8'}).trim(),readme:hash(path.join(cwd,'README.md'))});
+const initial=read(path.join(older,'initial.json')),oldFinal=read(path.join(older,'preservation-final-1793724101715.json'));
+const baseline=read(initial.references[0].file),deltas=new Map(oldFinal.authorizedChanges.map(x=>[x.file,x]));
+let unchanged=0;for(const f of baseline.files){if(!deltas.has(f.file)){assert.equal(hash(path.join(root,f.file)),f.sha256,f.file);unchanged++;}}
+assert.equal(unchanged,1113);
+for(const f of oldFinal.authorizedChanges)assert.equal(hash(f.archived),f.before,f.archived);
+for(const f of initial.references)assert.equal(hash(f.file),f.sha256,f.file);
+const history=read(initial.references[1].file);for(const f of history.files)assert.equal(hash(f.file),f.sha256,f.file);
+const protectedFiles=read(initial.references[4].file);for(const f of protectedFiles.protected97)assert.equal(hash(path.resolve(main,f.file)),f.sha256,f.file);
+const priorFinal=read(path.join(root,'tasks/evidencias/saneamento-expanded-plataformas/PRESERVACAO.json'));
+assert.equal(hash(priorFinal.receipt.path),priorFinal.receipt.sha256);
+for(const f of priorFinal.authorizedChanges){assert.equal(hash(f.archived),f.before);assert.equal(hash(path.join(root,f.file)),f.after);const old=deltas.get(f.file);if(old)assert.equal(f.before,old.after);}
+for(const f of oldFinal.authorizedChanges)if(!priorFinal.authorizedChanges.some(x=>x.file===f.file))assert.equal(hash(path.join(root,f.file)),f.after);
+for(const f of read(path.join(root,'tasks/evidencias/excecao-zoom-expanded/RESULTADOS.json')).evidence)assert.equal(hash(f.path),f.sha256,f.path);
+const assisted=path.resolve(runtime,'../zoom-assistido-20261103-06'),prepared=read(path.join(assisted,'prepared.json')),adapted=read(path.join(assisted,'assisted-package.json')),patches=new Map(adapted.changes.map(x=>[x.relative,x]));let assistedCount=0;
+for(const f of prepared.files.filter(x=>x.tree==='s')){const p=patches.get(f.copy);if(p){assert.equal(p.original,f.actual);assert.equal(hash(p.archived),f.actual);}assert.equal(hash(path.join(assisted,'s',f.copy)),p?.actual??f.actual);assistedCount++;}for(const f of adapted.extras){assert.equal(hash(path.join(assisted,'s',f.relative)),f.sha256);assistedCount++;}
+const files=git('ls-files','-z').split('\0').filter(Boolean).map(file=>({file,sha256:hash(path.join(root,file))}));
+const preservation={at:new Date(),root,runtime,unchanged1113:unchanged,archived11:deltas.size,priorDelta4:priorFinal.authorizedChanges.length,historicalArtifacts:history.files.length,protected97:protectedFiles.protected97.length,assistedCount,main:state(main),worktree:state(root),files,references:initial.references};
+assert.equal(preservation.main.readme,'6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca');
+write('preservation-initial.json',preservation);
+const source=read(path.join(prior,'inputs/.ci-source.json'));
+assert.equal(source.commit,'0aac7ccd25934ec022939464486da9fb28610279');assert.equal(source.files.length,860);assert.equal(sha(JSON.stringify(source.files)),source.digest);
+const changed=[];for(const f of source.files){assert.equal(hash(path.join(prior,'inputs',f.path)),f.sha256,f.path);if(hash(path.join(root,f.path))!==f.sha256)changed.push(f.path);}
+assert.deepEqual(changed,[]);
+assert.equal(git('diff','0aac7ccd','f8eff56','--','.github','controle-financeiro-frontend','controle-financeiro-backend','docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md','tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json'),'');
+const invocation=read(path.join(prior,'expanded-01/invocation.json'));
+assert.equal(invocation.executorSha256,hash(path.join(root,'tasks/evidencias/saneamento-expanded-plataformas/executar-linux.mjs')));
+const sourceModule=await import(pathToFileURL(path.join(root,'.github/scripts/source.mjs')));
+assert.equal(sourceModule.sourceFor(path.join(prior,'inputs')).digest,source.digest);
+const result=read(path.join(prior,'expanded-01/expanded/result.json'));
+write('provenance.json',{inputCommit:source.commit,reviewedHead:git('rev-parse','HEAD'),fileCount:source.files.length,digest:source.digest,allBytesMatchWorktree:true,sourceDeltaAfterInputs:[],executorSha256:invocation.executorSha256,image:invocation.imageId,steps:result.steps.map(x=>({name:x.name,exit:x.exit,started:x.started,durationMs:x.durationMs})),status:result.status,artifact:result.artifact??null,e2e:result.e2eJava??null});
+const {backendSelection}=await import(pathToFileURL(path.join(root,'.github/scripts/suites.mjs')));
+const linux=backendSelection(root,'expanded','linux'),windows=backendSelection(root,'expanded','win32','platform-only');
+const declared=git('ls-tree','-r','--name-only','64b0cb4','--','controle-financeiro-backend/src/test/java').split('\n').filter(f=>/Tests?\.java$/.test(f)).filter(f=>!/\babstract\s+class\b/.test(fs.readFileSync(path.join(root,f),'utf8'))).map(f=>{const text=fs.readFileSync(path.join(root,f),'utf8');return text.match(/package\s+([^;]+);/)[1]+'.'+path.basename(f,'.java');}).sort();
+assert.deepEqual([...linux.selected,...windows.selected].sort(),declared);assert.equal(declared.length,116);
+const {browserCases,plan,identity}=await import(pathToFileURL(path.join(root,'.github/scripts/zoom-coverage.mjs')));
+const manifest=read(path.join(prior,'selection-current/manifest.json')),universe=browserCases(read(path.join(prior,'selection-current/A.json')));
+assert.deepEqual(plan(universe,{candidate:manifest.candidate,digest:manifest.digest,runId:manifest.runId,decisionSha:manifest.decisionSha}),manifest);
+assert.deepEqual(browserCases(read(path.join(prior,'selection-current/C.json'))).map(identity).sort(),manifest.C.map(identity).sort());
+assert.equal(manifest.A.length,25);assert.equal(manifest.C.length,23);
+write('selection.json',{java:{universe:declared,linux:linux.selected,windows:windows.selected,equalSets:true},rf15:manifest});
+const frontReport=read(path.join(prior,'expanded-01/expanded/components.json')),audit=read(path.join(prior,'expanded-01/expanded/component-audit.json'));
+const {requireComponentCoverage}=await import(pathToFileURL(path.join(root,'.github/scripts/components.mjs')));
+// Windows Node maps POSIX paths using an explicit temporary report path projection for read-only validation.
+const prefix='/work/s/controle-financeiro-frontend',front=path.resolve('review-component-root');
+const projected=structuredClone(frontReport);for(const t of projected.testResults){assert.ok(t.name.startsWith(prefix+'/'));t.name=path.join(front,t.name.slice(prefix.length+1));}
+const expectedContext={candidate:source.commit,digest:source.digest,runId:result.runId};
+const coverage=requireComponentCoverage(projected,audit,expectedContext,front);
+const ids=r=>r.testResults.flatMap(f=>f.assertionResults.map(t=>JSON.stringify([f.name.replaceAll('\\','/').split('/controle-financeiro-frontend/')[1],t.fullName]))).sort();
+const originalWindows=read(path.join(older,'frontend/components.json')),originalLinux=read(path.join(older,'linux/expanded/components.json'));
+assert.deepEqual(ids(frontReport),ids(originalWindows));
+const missing=ids(originalWindows).filter(x=>!new Set(ids(originalLinux)).has(x));assert.equal(missing.length,29);for(const id of missing)assert.ok(new Set(ids(frontReport)).has(id));
+const allComponentFiles=source.files.filter(f=>/^controle-financeiro-frontend\/(?:tests\/component|src)\/.*\.test\.tsx?$/.test(f.path)).map(f=>f.path.replace('controle-financeiro-frontend/','')).sort();
+assert.deepEqual(allComponentFiles,[...audit.expectedFiles].sort());
+write('coverage.json',{...coverage,expectedContext,allFilesFromCandidate:allComponentFiles,identities:ids(frontReport),missingHistorical:missing,originalWindows:originalWindows.numPassedTests,originalLinux:originalLinux.numPassedTests,all29Recovered:true});
+const decode=s=>s.replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+const attrs=s=>Object.fromEntries([...s.matchAll(/([\w.:-]+)="([^"]*)"/g)].map(m=>[m[1],decode(m[2])]));
+const dir=path.join(prior,'expanded-01/expanded/surefire'),suites=[],errors=[];
+for(const file of fs.readdirSync(dir).filter(f=>/^TEST-.*\.xml$/.test(f))){const xml=fs.readFileSync(path.join(dir,file),'utf8'),suite=attrs(xml.match(/<testsuite\b([^>]*)>/)[1]);const counts={};for(const k of ['tests','failures','errors','skipped'])counts[k]=Number(suite[k]);suites.push({name:suite.name,...counts,file,sha256:hash(path.join(dir,file))});
+for(const test of xml.matchAll(/<testcase\b([^>]*?)(?:\/>|>([\s\S]*?)<\/testcase>)/g)){const a=attrs(test[1]),body=test[2]??'',error=body.match(/<error\b([^>]*?)(?:\/>|>([\s\S]*?)<\/error>)/);if(!error)continue;const e=attrs(error[1]),stack=decode(error[2]??'');const causes=[...stack.matchAll(/Caused by: (.+)/g)].map(m=>m[1]);const text=e.message+'\n'+stack;const category=text.includes('Banco recusado pelo perfil de teste')?'guard':text.includes('ApplicationContext failure threshold')?'context-threshold':text.includes('Could not initialize class')||text.includes('ExceptionInInitializerError')?'initializer-cascade':'UNCLASSIFIED';errors.push({suite:suite.name,test:a.name,category,type:e.type,causes,message:e.message?.slice(0,1800),contextIds:[...text.matchAll(/(?:Web)?MergedContextConfiguration@([a-f0-9]+)/g)].map(x=>x[1])});}}
+assert.deepEqual(suites.map(x=>x.name).sort(),linux.selected);
+const totals=Object.fromEntries(['tests','failures','errors','skipped'].map(k=>[k,suites.reduce((n,s)=>n+s[k],0)]));assert.deepEqual(totals,{tests:927,failures:0,errors:790,skipped:0});assert.equal(errors.length,790);
+const categories=Object.fromEntries([...new Set(errors.map(e=>e.category))].map(k=>[k,errors.filter(e=>e.category===k).length]));
+write('backend-triage.json',{classes:suites.length,totals,passes:totals.tests-totals.errors,categories,suites,errors});
+console.log(JSON.stringify({preservation:{unchanged,archived11:deltas.size,assistedCount,tracked:files.length},provenance:{files:source.files.length,digest:source.digest},selection:{java:declared.length,A:manifest.A.length,B:manifest.B.length,C:manifest.C.length},coverage,triage:{totals,categories},unclassified:errors.filter(e=>e.category==='UNCLASSIFIED').map(e=>({suite:e.suite,test:e.test,causes:e.causes,message:e.message?.slice(0,220)}))}));

@@ -1,0 +1,14 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';
+const root=path.resolve(import.meta.dirname,'../../..'),runtime=path.resolve(process.argv[2]),out=path.join(runtime,process.argv[3]??'directed');fs.mkdirSync(out);
+const prior=path.resolve(runtime,'../saneamento-expanded-plataformas-01/inputs');const manifest=JSON.parse(fs.readFileSync(path.join(prior,'.ci-source.json')));const candidate=path.join(out,'candidate');fs.mkdirSync(candidate);
+const hash=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+for(const f of manifest.files){assert.equal(hash(path.join(root,f.path)),f.sha256);const target=path.join(candidate,f.path);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(root,f.path),target);}fs.copyFileSync(path.join(prior,'.ci-source.json'),path.join(candidate,'.ci-source.json'));
+const jdk=path.resolve(root,'../../controle-financeiro/controle-financeiro-backend/target/temurin21/jdk-21.0.12.1+1');
+const env={...process.env};for(const k of Object.keys(env))if(/^(SPRING_|JWT_|RESEND_|BRAPI_|DATABASE_URL|DOCKER_|TESTCONTAINERS_|CF_ZOOM_)/.test(k))delete env[k];
+const pathKey=Object.keys(env).find(k=>k.toLowerCase()==='path');env[pathKey]=path.join(jdk,'bin')+path.delimiter+env[pathKey];
+Object.assign(env,{JAVA_HOME:jdk,MAVEN_ARGS:'--offline',DOCKER_HOST:'npipe:////./pipe/dockerDesktopLinuxEngine',TESTCONTAINERS_HOST_OVERRIDE:'127.0.0.1'});
+const reports=path.join(out,'surefire'),args=['--batch-mode','-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-Dtest=DisposablePostgresGuardTest,CF015PlanningOwnershipTest','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true','-Dcf034.reportsDirectory='+reports,'test'];
+const literal=s=>"'"+s.replaceAll("'","''")+"'";const command="& './mvnw.cmd' "+args.map(literal).join(' ')+"; exit $LASTEXITCODE";
+const fd=fs.openSync(path.join(out,'maven.log'),'wx');const started=new Date();const r=spawnSync(path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe'),['-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(command,'utf16le').toString('base64')],{cwd:path.join(candidate,'controle-financeiro-backend'),env,windowsHide:true,stdio:['ignore',fd,fd]});fs.closeSync(fd);
+fs.writeFileSync(path.join(out,'invocation.json'),JSON.stringify({started,finished:new Date(),source:{commit:manifest.commit,digest:manifest.digest,files:manifest.files.length},jdk,args,environment:{MAVEN_ARGS:env.MAVEN_ARGS,DOCKER_HOST:env.DOCKER_HOST,TESTCONTAINERS_HOST_OVERRIDE:env.TESTCONTAINERS_HOST_OVERRIDE},exit:r.status,error:r.error?.message,logSha256:hash(path.join(out,'maven.log'))},null,2)+'\n');
+assert.equal(r.status,0);console.log(JSON.stringify({exit:r.status,reports}));
