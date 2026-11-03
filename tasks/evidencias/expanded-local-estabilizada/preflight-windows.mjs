@@ -3,6 +3,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {spawnSync,execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import {ryukFromLog,ownsPreflightContainer} from './preflight-ownership.mjs';
 const [runtimeArg,jdkArg,attempt='01']=process.argv.slice(2);assert.ok(runtimeArg&&jdkArg);
 const root=path.resolve(import.meta.dirname,'../../..'),runtime=fs.realpathSync.native(runtimeArg),jdk=fs.realpathSync.native(jdkArg);
 const out=path.join(runtime,'preflight-'+attempt);fs.mkdirSync(out);
@@ -51,12 +52,17 @@ try{
  await new Promise(resolve=>setTimeout(resolve,1500));
  if(session)for(const id of docker('ps','-aq','--filter','label=org.testcontainers.sessionId='+session).split('\n').filter(Boolean))ownedIds.add(id);
  if(tcp)ownedIds.add(tcp);
+ const ryuk=ryukFromLog(log);for(const id of ryuk.keys())ownedIds.add(id);
  const current=docker('ps','-aq','--no-trunc').split('\n').filter(Boolean);
  for(const own of ownedIds){
   const id=current.find(id=>id===own||id.startsWith(own));if(!id)continue;
-  const inspected=JSON.parse(docker('inspect',id))[0],labels=inspected.Config.Labels??{};
-  assert.ok(labels['cf.expanded.run']===run||labels['cf.review']===run||(session&&labels['org.testcontainers.sessionId']===session),'Unproven resource ownership');
-  docker('rm','-f','-v',id);removed.push({id,image:inspected.Config.Image,labels});
+  const inspection=spawnSync('docker',['--context','desktop-linux','inspect',id],{encoding:'utf8',windowsHide:true});
+  if(inspection.status!==0){assert.match(inspection.stderr,/no such (object|container)/i);continue;}
+  const inspected=JSON.parse(inspection.stdout)[0],labels=inspected.Config.Labels??{};
+  assert.ok(ownsPreflightContainer(inspected,{run,session,baseline:baseline.containers,ryuk}),'Unproven resource ownership');
+  const removal=spawnSync('docker',['--context','desktop-linux','rm','-f','-v',id],{encoding:'utf8',windowsHide:true});
+  if(removal.status!==0)assert.match(removal.stderr,/no such (object|container)/i);
+  removed.push({id,image:inspected.Config.Image,labels,ownership:ryuk.has(id)?'exact current-JVM Ryuk log ID + image + Testcontainers label':'exact own run/session label'});
  }
  const after=resources();write('cleanup.json',{at:new Date().toISOString(),run,session,removed,before:baseline,after,baselineEqual:JSON.stringify(baseline)===JSON.stringify(after)});
  assert.deepEqual(after,baseline,'Preflight cleanup differs from baseline; do not start suite');

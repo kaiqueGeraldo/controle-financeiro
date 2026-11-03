@@ -59,3 +59,17 @@ produto, SQL, concorrência ou assertions financeiras.
 A orquestração grava os scripts efetivos por hash, usa o probe original somente
 no Windows e acrescenta frontend Linux nativo independente. Não altera allowlist,
 guard, isolamento, autenticação, required, seleção, retries ou timeouts.
+
+## Tentativa operacional 02
+
+A tentativa 01 (commit 1e1f23cd) exportou os 860 inputs e passou C–G do preflight,
+mas o snapshot de cleanup encontrou Ryuk transitório sem a label de session.
+A consulta posterior confirmou sua remoção automática. Primeira falha preservada
+em flow.json/preflight-01. Não houve suíte de produto nessa tentativa.
+
+O observador agora correlaciona o ID exato registrado na criação de Ryuk pela JVM,
+a imagem e a label Testcontainers, sempre recusando IDs do baseline. Quatro controles
+positivos/negativos passaram; não houve alteração do probe, guard, timeout ou Ryuk.
+A tentativa 02 usa nomes novos (flow-02.json, preflight-02, expanded-local-s-02,
+linux-native-02 e windows-expanded-02), repete o preflight afetado e só então segue.
+Nenhum resultado de produto é herdado da tentativa 01, que não os produziu.
