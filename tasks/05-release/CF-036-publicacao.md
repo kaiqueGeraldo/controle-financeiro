@@ -10,7 +10,7 @@
 
 ## Saneamento local das plataformas — 03/11/2026
 
-Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. RF15 real23, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
+Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. 23 jornadas reais RF15, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
 
 ## Continuidade delimitada — 03/11/2026
 
@@ -91,3 +91,9 @@ pacote local testado não é aceite de produção nem liberação dos critérios
 Ainda não executada. Usar `tasks/evidencias/CF-036/README.md` com o [template](../templates/EVIDENCIA.md). Registrar critério, comando, versão/diff testado, resultado anterior/posterior, dados sintéticos, capturas/traces quando aplicáveis e riscos residuais. Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Revisão independente de plataformas — 03/11/2026
+
+[Seleção DEC-ZOOM-05 e saneamentos aceitos no alcance local](../evidencias/revisao-expanded-plataformas-docker/PARECER.md), com zoom/CF010/CF015 ainda pendentes sob exceção delimitada. A alternativa JVM Windows no Docker Desktop passou o preflight mínimo e 9 testes dirigidos; isso libera apenas a tentativa de uma nova rodada integral no ambiente identificado.
+
+CF-036 não está aprovada para publicação/integração por esse resultado. A rodada reprovada não produziu JAR novo; 23 jornadas reais RF15, E2E financeiro e pacote não foram alcançados. Exigir [nova execução completa](../evidencias/revisao-expanded-plataformas-docker/PROXIMO-LOTE.md), relatórios atuais, pacote vinculado às fontes e autorização da etapa externa. Nesta revisão: sem push, PR, CI remota, merge, alteração de hospedagem, deploy ou banco real. CF-017/P01/P02 preservam critérios próprios.

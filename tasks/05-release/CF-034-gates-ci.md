@@ -10,7 +10,7 @@
 
 ## Saneamento local das plataformas — 03/11/2026
 
-Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. RF15 real23, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
+Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. 23 jornadas reais RF15, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
 
 ## Continuidade delimitada — 03/11/2026
 
@@ -374,3 +374,11 @@ sucessoras mantêm condições. Usar o [template](../templates/EVIDENCIA.md) nas
 revisões seguintes; evidências anteriores não são testes do pacote desta rodada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
+
+## Revisão independente DEC-ZOOM-05 e plataformas — 03/11/2026
+
+[Parecer](../evidencias/revisao-expanded-plataformas-docker/PARECER.md): seleção da exceção e correções de frontend Linux/caminho físico Windows aceitas no recorte local revisado até f8eff56c. Universo de 116 classes e RF15 A25/B2/C23 preservados; zoom CF010/CF015 continua pendente, com exceção temporária delimitada. Nenhum aceite integral antecipado.
+
+Os 790 erros da rodada anterior foram reconciliados: 168 guard e 622 derivados, correlacionados às causas iniciais. Executor Linux sibling continua incompatível com o contrato do guard. Alternativa JVM Windows/mesmo Docker Desktop passou preflight A–H, guard 4/4 e consumidor Spring 5/5, sem relaxar segurança ou desativar Ryuk. Capacidade liberada apenas para iniciar **nova rodada local completa nesse ambiente**, conforme [próximo lote](../evidencias/revisao-expanded-plataformas-docker/PROXIMO-LOTE.md).
+
+CF-034 permanece em_revisao e sem aceite expanded integral: backend completo, 23 jornadas reais RF15, E2E financeiro e pacote ainda precisam executar seus gates atuais. Preflight/diagnóstico não substituem rodada integral nem validam CI remota. Nesta revisão não houve mudança de implementação, nova expanded, push, atualização de PR, CI remota, merge ou deploy.

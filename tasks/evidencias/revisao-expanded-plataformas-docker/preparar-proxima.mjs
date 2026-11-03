@@ -9,6 +9,7 @@ assert.equal(manifest.commit,'0aac7ccd25934ec022939464486da9fb28610279');
 assert.equal(manifest.digest,'d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660');assert.equal(manifest.files.length,860);
 for(const f of manifest.files)assert.equal(hash(fs.readFileSync(path.join(root,f.path))),f.sha256,f.path);
 const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+assert.equal(git('diff',manifest.commit,'HEAD','--','.github','controle-financeiro-backend','controle-financeiro-frontend','docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md','tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json'),'');
 assert.equal(git('status','--porcelain','--','.github','controle-financeiro-backend','controle-financeiro-frontend','docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md','tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json'),'');
 const candidate=path.join(runtime,'candidate');fs.mkdirSync(candidate,{recursive:true});
 for(const f of manifest.files){const dst=path.join(candidate,f.path);fs.mkdirSync(path.dirname(dst),{recursive:true});fs.copyFileSync(path.join(root,f.path),dst);}
