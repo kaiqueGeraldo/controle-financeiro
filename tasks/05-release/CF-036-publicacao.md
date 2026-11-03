@@ -8,6 +8,10 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Expanded local estabilizada no recorte DEC-ZOOM-05 — 03/11/2026
+
+Preparador e observador de cleanup saneados localmente, controles 8/8 e 4/4; preflight Windows aprovado. Candidato a7f2256b, mesmos 860 inputs de 0aac7ccd. Contratos 43/43 por plataforma, lint/tipos e 18 temporais Linux aprovados. Componentes Linux 624/626, dois timeouts de 5000 ms de causa inconclusiva; zero skips e nenhuma omissão no multiconjunto dos 71 arquivos. Fluxo interrompido; builds, backend comum (115 classes), RF15 (23 jornadas), E2E e pacote não alcançados. Contrato Windows independente 1/1 aprovado, cobertura Java executada1/116. [Resultado, proveniência e próximo saneamento](../evidencias/expanded-local-estabilizada/RESULTADO.md). Ajustes operacionais aguardam revisão conjunta; sem autoaprovação, prontidão de publicação, CI remota ou ação remota. CF010/CF015 seguem pendentes sob exceção delimitada; CF017/P01/P02, adoção e produção mantêm gates.
+
 ## Expanded local do recorte autorizado pela DEC-ZOOM-05 — 03/11/2026
 
 Tentativa no candidato f6297df8 **bloqueada no preparo**, exit 1: o preparador exige prefixo revisao-plataformas-docker-, incompatível com o runtime expanded-local- exigido. Nenhum gate de testes, RF15, E2E financeiro ou pacote foi iniciado. Seleção estática Windows116 = comuns115 + contratoWindows1 conferida; zero classes executadas. Lacuna e patch mínimo preparados, sem aplicação ou correção de implementação. [Resultado, primeira falha e próximo lote](../evidencias/expanded-local-topologia-validada/RESULTADO.md). CF010/CF015 continuam pendentes com exceção delimitada; CF017/P01/P02, adoção e produção mantêm gates. Sem prontidão para publicação/CI desta rodada, sem ação remota.
