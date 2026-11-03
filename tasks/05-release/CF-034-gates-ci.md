@@ -12,6 +12,8 @@
 
 [DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.
 
+Rodada local DEC-ZOOM-05: expanded **reprovada/incompleta** no gate Linux de componentes; backend/navegador/pacote não alcançados. Não pronta para atualização remota da PR. [Resultado, identidades e saneamentos delimitados](../evidencias/excecao-zoom-expanded/RESULTADO.md).
+
 
 ## Revalidação independente CPA-01/R1 — 28/10/2026
 
