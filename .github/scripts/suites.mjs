@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {decision,deferred as zoomDeferred,label} from './zoom-coverage.mjs';
 
 // Standalone historical browser investigations require their own fixtures,
 // clocks, evidence directories and/or original candidate. They are retained in
@@ -37,5 +38,5 @@ export function backendSelection(root,suite,targetPlatform,scope='all'){
     selected.push(qualified);
   }
   if(!selected.length)throw new Error('Empty mandatory backend selection');
-  return {suite,targetPlatform,scope,selected:selected.sort(),deferred,routed};
+  return {suite,targetPlatform,scope,selected:selected.sort(),deferred,routed,...(suite==='expanded'?{zoomException:{decision,label,deferred:zoomDeferred}}:{})};
 }

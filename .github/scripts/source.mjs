@@ -14,7 +14,7 @@ function walk(root,relative=''){
   });
 }
 function sourceFiles(root){
-  const inputs=['.github','controle-financeiro-backend','controle-financeiro-frontend','tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json'];
+  const inputs=['docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md','.github','controle-financeiro-backend','controle-financeiro-frontend','tasks/evidencias/CF-028/examples.json','tasks/evidencias/saneamento-CF-028-origem/snapshots.json'];
   return inputs.flatMap(p=>!fs.existsSync(path.join(root,p))?[]:fs.statSync(path.join(root,p)).isDirectory()?walk(root,p):[{path:p,sha256:hash(fs.readFileSync(path.join(root,p)))}]).sort((a,b)=>a.path.localeCompare(b.path,'en'));
 }
 export function snapshot(root,metadata){

@@ -48,7 +48,8 @@ class Rf15RemediationBrowserTest {
                 .resolve(System.getProperty("review.evidence", "."));
         evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="closure-"+UUID.randomUUID().toString().substring(0,8);
-        List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.rf15.config.ts"));
+        String runner="DEC-ZOOM-05".equals(System.getenv("CF_ZOOM_EXCEPTION")) ? "../.github/scripts/zoom-browser.mjs" : "node_modules/@playwright/test/cli.js";
+        List<String> command=new ArrayList<>(List.of("node",runner,"test","--config","tests/e2e/playwright.rf15.config.ts"));
         String grep=System.getProperty("review.grep");
         if(grep!=null){command.add("--grep");command.add(grep);}
         if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS"))) {
