@@ -8,6 +8,10 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Saneamento local das plataformas — 03/11/2026
+
+Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. RF15 real23, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
+
 ## Continuidade delimitada — 03/11/2026
 
 [DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.

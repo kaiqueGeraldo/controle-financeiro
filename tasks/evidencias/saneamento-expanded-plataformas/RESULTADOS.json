@@ -1,0 +1,684 @@
+{
+  "at": "2026-11-03T17:39:01.205Z",
+  "label": "Expanded do recorte autorizado pela DEC-ZOOM-05",
+  "status": "FAILED / INCOMPLETE; no auto-approval",
+  "base": "48d0247b98468c9526bb9af6089062c3049247a3",
+  "implementationCommits": [
+    {
+      "sha": "36d3c3e206f74c846c3ea79ed172fa188984a7f8",
+      "subject": "fix(ci): canonicaliza caminhos fisicos para builds Windows"
+    },
+    {
+      "sha": "cefd1bfd42223f218a08572551a2a602a87713a0",
+      "subject": "fix(ci): preserva erros e cobertura de componentes em runtime Linux nativo"
+    },
+    {
+      "sha": "0aac7ccd25934ec022939464486da9fb28610279",
+      "subject": "test(ci): rejeita perda de coleta e regressao de caminhos fisicos"
+    },
+    {
+      "sha": "a30bc33187a8214471e6e1bdd4deadae37886d6a",
+      "subject": "fix(harness): copia somente inputs atestados para o container Linux"
+    }
+  ],
+  "inputs": {
+    "candidate": "0aac7ccd25934ec022939464486da9fb28610279",
+    "digest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+    "files": 860,
+    "sourceAfterBackend": "All 860 source identities and bytes reattested unchanged",
+    "executorCommit": "a30bc33187a8214471e6e1bdd4deadae37886d6a",
+    "executorSha256": "ad7efca8a96ef8da46bea1f8362bb892022c5e39f29a12e851491a2cd9e4bdd1",
+    "relation": "Source-only export from 0aac7ccd; a30bc331 changes only the external copy orchestrator, excluded from app/CI source payload; actual executor hash recorded",
+    "jar": null
+  },
+  "originalLinux": {
+    "expected": 626,
+    "reported": 597,
+    "missingCases": 29,
+    "missingFiles": 8,
+    "classification": "Absent report entries, not skips/assertion failures; exact first global error was not preserved"
+  },
+  "diagnosis": {
+    "sourceInputs": "4204080aa9b2fa46c52f9d1ef6638b77231087fd",
+    "sameCodeAndPool": true,
+    "bind": {
+      "tests": 575,
+      "files": 65,
+      "errors": 6,
+      "exit": 1,
+      "workerCause": "Timeout waiting for worker to respond during startup; assertion not reached for six modules"
+    },
+    "native": {
+      "tests": 626,
+      "files": 71,
+      "errors": 0,
+      "exit": 0,
+      "durationSeconds": 11.5
+    },
+    "identityEqualityWithOriginal626": true,
+    "original29AllPresent": true,
+    "historicalLimit": "The first 597/29 occurrence omitted global errors; the exact historical worker cause is not retroactively measured. Reproduction demonstrates the same loss mechanism on identical inputs/topology, with a different set of modules."
+  },
+  "corrections": {
+    "windows": "Canonical native paths in runner; no Next/TS config/product change",
+    "linux": "Native Linux source/dependency filesystem; human reporter plus complete private error/cohort audit and identity gate; no timeout/retry/pool/test exclusion change"
+  },
+  "contracts": {
+    "Windows": 43,
+    "Linux": 43,
+    "failures": 0,
+    "skips": 0,
+    "counterproofs": [
+      {
+        "name": "ignore-global-errors",
+        "mutantExit": 1,
+        "restoredExit": 0,
+        "originalSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3",
+        "restoredSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3"
+      },
+      {
+        "name": "omit-case",
+        "mutantExit": 1,
+        "restoredExit": 0,
+        "originalSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3",
+        "restoredSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3"
+      },
+      {
+        "name": "missing-file",
+        "mutantExit": 1,
+        "restoredExit": 0,
+        "originalSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3",
+        "restoredSha256": "8098d9a95a8f20afbc3b5a79aae9875b4e915be376c6e5c29c77a40e4844f9d3"
+      },
+      {
+        "name": "logical-root",
+        "mutantExit": 1,
+        "restoredExit": 0,
+        "originalSha256": "291e2224b3109eb738fcefa16a689aee08b84e1707b3de776187800ce3e3029f",
+        "restoredSha256": "291e2224b3109eb738fcefa16a689aee08b84e1707b3de776187800ce3e3029f"
+      }
+    ]
+  },
+  "regressions": {
+    "originalEight": {
+      "cases": 29,
+      "files": 8,
+      "passed": 29
+    },
+    "fullNativeDiagnostic": {
+      "cases": 626,
+      "files": 71,
+      "passed": 626
+    },
+    "fullCorrectedLinux": {
+      "cases": 626,
+      "files": 71,
+      "coverage": {
+        "files": 71,
+        "tests": 626,
+        "errors": 0,
+        "identityCoverage": true
+      }
+    },
+    "windowsBuild": {
+      "candidate": "0aac7ccd25934ec022939464486da9fb28610279",
+      "sourceDigest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+      "cwd": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final",
+      "node": "v24.18.0",
+      "steps": [
+        {
+          "name": "lint",
+          "args": [
+            "run",
+            "lint",
+            "--",
+            "--max-warnings=0"
+          ],
+          "started": "2026-11-03T17:35:31.180Z",
+          "finished": "2026-11-03T17:36:08.824Z",
+          "exit": 0
+        },
+        {
+          "name": "typecheck",
+          "args": [
+            "run",
+            "typecheck"
+          ],
+          "started": "2026-11-03T17:36:08.826Z",
+          "finished": "2026-11-03T17:36:20.441Z",
+          "exit": 0
+        },
+        {
+          "name": "build",
+          "args": [
+            "run",
+            "build"
+          ],
+          "started": "2026-11-03T17:36:20.443Z",
+          "finished": "2026-11-03T17:36:46.996Z",
+          "exit": 0
+        }
+      ]
+    },
+    "linuxBuild": "passed in expanded-01"
+  },
+  "expanded": {
+    "status": "failed",
+    "windowsNative": {
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "identities": [
+        "com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest"
+      ]
+    },
+    "steps": [
+      {
+        "name": "install",
+        "exit": 0,
+        "durationMs": 21717
+      },
+      {
+        "name": "lint",
+        "exit": 0,
+        "durationMs": 11455
+      },
+      {
+        "name": "typecheck",
+        "exit": 0,
+        "durationMs": 7982
+      },
+      {
+        "name": "unit",
+        "exit": 0,
+        "durationMs": 571
+      },
+      {
+        "name": "components",
+        "exit": 0,
+        "durationMs": 22946
+      },
+      {
+        "name": "build",
+        "exit": 0,
+        "durationMs": 18616
+      },
+      {
+        "name": "browser-install",
+        "exit": 0,
+        "durationMs": 28273
+      },
+      {
+        "name": "maven-version",
+        "exit": 0,
+        "durationMs": 9626
+      },
+      {
+        "name": "backend",
+        "exit": 1,
+        "durationMs": 111544
+      }
+    ],
+    "frontend": {
+      "unit": {
+        "timezones": 3,
+        "tests": 18
+      },
+      "components": {
+        "tests": 626,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "componentCoverage": {
+        "files": 71,
+        "tests": 626,
+        "errors": 0,
+        "identityCoverage": true
+      }
+    },
+    "backend": {
+      "selectedClasses": 115,
+      "reports": 115,
+      "counts": {
+        "tests": 927,
+        "failures": 0,
+        "errors": 790,
+        "skipped": 0
+      },
+      "passed": 137,
+      "firstClass": "com.controlefinanceiro.api.CF015PlanningOwnershipTest",
+      "firstCause": "DisposablePostgresGuard rejected host.docker.internal; exact ephemeral PostgreSQL guard retained"
+    },
+    "notReached": [
+      "23 real mandatory RF15 journeys",
+      "full financial E2E",
+      "JAR packaging and package provenance approval"
+    ]
+  },
+  "loopbackDiagnostic": {
+    "scope": "Two classes only, not an expanded pass",
+    "exit": 1,
+    "cases": 9,
+    "errors": 5,
+    "assertionFailures": 0,
+    "guardTestsPassed": 4,
+    "consumerContextErrors": 5,
+    "cause": "Ryuk unreachable at 127.0.0.1 in Docker Desktop host network; no guard/Ryuk disablement"
+  },
+  "selection": {
+    "javaUniverse": 116,
+    "windows": 1,
+    "linux": 115,
+    "rf15": {
+      "A": 25,
+      "B": 2,
+      "C": 23,
+      "identitiesVerified": true,
+      "actualRealExecution": false
+    },
+    "deferred": [
+      {
+        "project": "review-sao-paulo",
+        "file": "cf015.native-zoom.integrated.spec.ts",
+        "titles": [
+          "R10: zoom nativo 200% com ações, rolagem e foco"
+        ]
+      },
+      {
+        "project": "review-sao-paulo",
+        "file": "rf15-native-chrome.integrated.spec.ts",
+        "titles": [
+          "RF15: zoom nativo Chrome 200% com ações, rolagem e foco"
+        ]
+      }
+    ],
+    "decisionUnchanged": true
+  },
+  "states": {
+    "CF010": "em_revisao; pending with limited authorized exception",
+    "CF015": "em_revisao; pending with limited authorized exception",
+    "CF034": "em_revisao; expanded failed",
+    "CF036": "proposta",
+    "remotePR3": "historical rejection not closed by this local run",
+    "CF017P01P02": "real adoption separate, not authorized"
+  },
+  "resources": {
+    "at": "2026-11-03T17:39:01.0179533Z",
+    "ownProcesses": [],
+    "ownActiveContainers": [],
+    "listeners3107": [],
+    "mappingRemoved": "Y: (only task-owned mapping; underlying files retained)",
+    "stoppedContainersAndImages": "retained for diagnosis",
+    "ubuntuInventory": "Ubuntu exists; node/java absent; docker CLI reports WSL integration unavailable; no settings changed"
+  },
+  "preservation": {
+    "reference": "PRESERVACAO.json",
+    "prior1113Unchanged": 1113,
+    "prior11DeltaVersionsArchived": true,
+    "originalReadmesVerified": true,
+    "assistedPackageFiles": 852
+  },
+  "next": "PROXIMO-LOTE.md; independent review of DEC-ZOOM-05 selection and current corrections; then authorized environment/publication/remote validation",
+  "evidence": [
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\initial.json",
+      "sha256": "c6d23e3e8d87103a0d27e4fce5c9dd7a908eb0a6d5d9b6b725a25df158d379bc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-diag-invocation.json",
+      "sha256": "7738631e6ebd887c628e7aa2137d028b02b65503010c5471223b77a82d18a1bd"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-diag.sh",
+      "sha256": "0416e322fe3a0d14b03d48022ad588fbdd720639d6c6c199d5e00af903b8ecab"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-resources.txt",
+      "sha256": "be9618eb22f6fdf95b77957998ccdb34eb823323974aa8882077cdec3ddc2bb7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-eight.stdout",
+      "sha256": "b2c717f0e4cff43343c62b33d170d1cefbc09e02c1cb444096f0c30a3a15e4d7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-eight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-eight.json",
+      "sha256": "f8368d656756c4fab103a670af9f5e4c0075c45b7d2fc6d806b9f4fd61141a69"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-eight.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\eight-audited.json",
+      "sha256": "55fca018781024c22e981e63470b113f1b18cc958d1b165708cdabbf6f3ce7cd"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\eight-audited-results.json",
+      "sha256": "7e31996e68f4c87f483e95655a71c5a399ee43f6d17477c29ad416e67bdedc33"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\eight-audited.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind.sh",
+      "sha256": "d4cd44f3bf51dc3f09fd28b6c2a776c4faa3e77b2909ee38d8b561b7415aaf21"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind.stdout",
+      "sha256": "a969ef6bba41469b80fbc91c52aad2ae65aa75abd73ead9bf2d8afb66579584f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind.stderr",
+      "sha256": "3c8a35951c8e0ce1bd8e3da061bd1f53743ad34b9a630b46cb8c23f7635608d0"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind.json",
+      "sha256": "b4415cd35b7e75f1d688d91e5e6b4e6479f3e0dd16ba0ee36c87a09310dcc763"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind-audit.json",
+      "sha256": "41330341531241b7155ecb2d980e747ba49647a979b57e72532bb60c527c87b8"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind.exit",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-bind-memory.txt",
+      "sha256": "28fe05a1d7b8467a03fb54454f7b6a130fab752864d0454f5f6c4a4b6ce307f2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native.sh",
+      "sha256": "eb21e568c48a240d2d5806091336503db92f286d66517a7d06c7f3da0f6f5b39"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native.stdout",
+      "sha256": "184a3f94ab9d4d24c19dc8eb00f218eeb003129c958a80e87a59d58288aa9e9c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native.stderr",
+      "sha256": "2258485e53ceb312b0e5836a610b830184ff006b03d938668484875d9dab4748"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native.json",
+      "sha256": "c9dc944b28b84f5cae3b0b5a263722d0494548201df05944e4956c93def45784"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native-audit.json",
+      "sha256": "3291058ecea34f6fd9c827f3afb092da5c8ffbaf92e6f0823dd9b9bd18b54d6c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\linux-full-native-memory.txt",
+      "sha256": "28fe05a1d7b8467a03fb54454f7b6a130fab752864d0454f5f6c4a4b6ce307f2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\full-comparison.json",
+      "sha256": "0eaa9a79c224e51ec8c70f8f41b13fbce08888eba432ef7b1771e4924ec93df7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\synthetic-unhandled.json",
+      "sha256": "c49e5d9959ce1104282023f14721396af456c4a0f814b27f6b6ea0ed484a572a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\synthetic-unhandled-audit.json",
+      "sha256": "3f6823385d32ea76a5b66e2d7a0f0efdb7906a18cca5ed704c64dd3c6f23551a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\synthetic-unhandled.stderr",
+      "sha256": "f9d8d588fe3c28c699a91967b0d11f185cf750204e965a226776ecee8aa4f7df"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\synthetic-unhandled.exit",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\baseline.log",
+      "sha256": "646e444c57dfcbf185ab9e03368838aa0b01871800f37caf5c97a9cf1d321831"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\counterproofs.json",
+      "sha256": "6906cbf408e1a5926a48d4fb67abe719dbd8f5547225aae78be83edd79599e0b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\windows-paths.json",
+      "sha256": "8725ced4703b26dfd6eecf7c585904e8e853f6826efe9dda38a22e26aec94c1c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\before-logs\\execution.json",
+      "sha256": "89014d94c01700c894feb3dffc3d77eb3bedc10acd624ceac60e6f61726080a2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\before-logs\\stdout.log",
+      "sha256": "faa319625435478faa5af2b2af6e9dc41cafad31470960090773916c36d1c1b5"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\before-logs\\stderr.log",
+      "sha256": "670b46046e54706136abf897ca7da96d971c4a41f62ece9b5ccabd389f6c18c3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\after-logs\\execution.json",
+      "sha256": "7cee2319a002e154355edc9e7d2b8ca502489b6ef69139af2f9a0f6839278c39"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\after-logs\\stdout.log",
+      "sha256": "b4cb75111ac11ee086f0ba7373216f7d581111cdf30a084554e8ec64ed1f350f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\after-logs\\stderr.log",
+      "sha256": "83abe235e3d058a43131c0b09fa938f7932614eb8f3d41c08a671ec04a6f0854"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final-logs\\execution.json",
+      "sha256": "43ec76888f6b4d66150398ace79622953e1249f3bb8b2c8f85bda75660a42f70"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final-logs\\lint.stdout",
+      "sha256": "d1c8398cf83c9ccb2ccad24f1692f917541af76a12dc28df1290be45f868ba94"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final-logs\\typecheck.stdout",
+      "sha256": "be0d8ffec2b54142d61d6684a3d039cb00ccd64e6a3c1fefd0d7401f175cdc1e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final-logs\\build.stdout",
+      "sha256": "177764499acf82473eaa0103907a2b3c3c839a3fb6e0e44a0b750fb50d56fb20"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\w\\final-logs\\build.stderr",
+      "sha256": "83abe235e3d058a43131c0b09fa938f7932614eb8f3d41c08a671ec04a6f0854"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\corrected-inputs.json",
+      "sha256": "8687c3c0ef7ee6af2551440f027cc060127242ec7e4344475849b5c28424b7cf"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\windows-native\\result.json",
+      "sha256": "6a304250cfec37c4876ed26a9512ab0b340fc178067807902d2786a74bc0f3d4"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\windows-native\\backend-selection.json",
+      "sha256": "47ddcef93aab6d61fa116f94d6e36c137ec3514e9523097af3cb3ffd74f925c8"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\windows-native\\backend.log",
+      "sha256": "13eb7d0c25ba2cb5ef3ac336cd7d945f8dbdc47b4bdf72c678d96de6ed078742"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\windows-native\\maven-version.log",
+      "sha256": "4bc62c824f051d32ff1db6f0a480d42b776cad1b158abe3b42bcda4aa509affc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\invocation.json",
+      "sha256": "72e8ef8e2cac0a474f6535177ab3db64ff5aba96ac4c9b0bad4f8bde4888eba7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\copy-inputs.mjs",
+      "sha256": "535b056a04ac328d04c835bebea75fb0bc0b4e57e5c2d0ca8b7d85a5211a91b6"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\run.sh",
+      "sha256": "55b40144fc97fe7cbddf2f18018a95ccd10f159cc782eb8d0dcb07b6538ff74e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\stdout.log",
+      "sha256": "1cfdba104077f5ead73eb39e167f51a702097a94061956925472102eadb92fcf"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\stderr.log",
+      "sha256": "5d53686c0bc1e5d051a282fb87415d49f2e0d5139d7b81e4e6106c1fdafe02cd"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\execution.json",
+      "sha256": "41ebca310f5587f672800ffe1478d61431becf53a6ccdf882c3cbe6c81897384"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\result.json",
+      "sha256": "b7422606b56c95ed7ea64ad0d87d4f43bef5c6fb3be3fd9317f141466b8f2b68"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\backend-selection.json",
+      "sha256": "232aee239090404adb3c55b24e8f7f62d5296b2fa73261511e219d7cb89c8986"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\component-audit.json",
+      "sha256": "b546be885d6ae91b9b058daf2974f4fc7d34fb1577f1c3e23ec8dbb8c93d2177"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\component-audit.json.events.jsonl",
+      "sha256": "4668113b3b7e7798d44842633e04c37d4949e674db7b5ff33204c72ab32accd9"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\components.json",
+      "sha256": "11ee4e7f8944d53263c9d370cb425bfc33fc4baeb95237bb83f7dc2702204aec"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\components.log",
+      "sha256": "e8eff10c6edd8228ca6a108ca9abcc98bfc8165ac82e5674cf874f539eefea3a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\build.log",
+      "sha256": "9159635603e9d3a85c78491f3245d824ccd3bfa76d25bbdb84a3c2b5debf0e4d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\browser-install.log",
+      "sha256": "b3b97aed6aa2f380681c017f73a665e3f42160f82bb67fa8e591e816e72d572c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\backend.log",
+      "sha256": "3ff3444b1135f81a00dd81181f8fb811f6f57fc69d8d36470be0595fbe318f38"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\expanded-01\\expanded\\maven-version.log",
+      "sha256": "25ec1064f8cf4966d6a74dcd6ca2441ddcd209a37a1ad48eec5ec527fa129b7a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\backend-identities.json",
+      "sha256": "a05a9652b26d16773f8f517f1bf18dc1b7773e197dad1d21ec9a8252f8e34cf7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\current-component-identities.json",
+      "sha256": "99cabd52c1804825ce41342be4ac101878497de138509f2ac500a8b3109e823f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\source-after-backend.log",
+      "sha256": "5c38059d7626cf88eb0afeb921355060eac5dcca9faf218f15aec5192ae90b9b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\loopback-diagnostic\\run.sh",
+      "sha256": "3845d344689a1e3abb12a8c3bcb9f71935171f53889db3b70f23c99302827450"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\loopback-diagnostic\\invocation.json",
+      "sha256": "8721b3ea64ff2a3eb36ccf648d8193eebbc5797ed05588970da7c9e4901f3589"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\loopback-diagnostic\\controller.log",
+      "sha256": "06b19768f478b506f8c7657869c186abc2c3f1ce157df5d00d5bb585f17f7482"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\loopback-diagnostic\\execution.json",
+      "sha256": "0afbb6c50a5747146687c140b5cfdb5731d2757cc9ec92be34b249386d545943"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\selection-current\\A.json",
+      "sha256": "0a19e3d3e9703d56a202d4ab077d8b6c6c40ef4b01b18635f88af23e8aad5230"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\selection-current\\C.json",
+      "sha256": "7100e67356aac3429016bbb787ba613c9bcc3593d86ec1f2a27997b18876195d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\selection-current\\manifest.json",
+      "sha256": "bebc5d6ab2306fb3ff27531bd96538b528c358fcf8153e040a518087882e14be"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\selection-current\\C.txt",
+      "sha256": "0a721481c695c1c285f9b1db72197d0042afe1592ec45a4f17803c58d28ba02b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\resources-final.json",
+      "sha256": "438e73922161d1654cba053845da8018e498f1e973520742537a047970a810c3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\ignore-global-errors\\mutation.mjs.txt",
+      "sha256": "7990dcf7046e223c31369975779498cb5ffb61dbc56e57caf5bf78e927fc77f3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\ignore-global-errors\\mutant.log",
+      "sha256": "6e7b2ce2e0792b224e2d1c26025dba03356dbc3faadbf762a6688bed5ecc4c7f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\ignore-global-errors\\restored.log",
+      "sha256": "706b6618ddf2258b3a300b8f203492e6eaabe2879c672dc0878f9dcde713a23f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\omit-case\\mutation.mjs.txt",
+      "sha256": "1aa353015c71d50fb46f09650791438a0e29afc4dacb31ee4231ae442cddf123"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\omit-case\\mutant.log",
+      "sha256": "ce17b0301b505472ec7c74b6d4dc40e9e79b376230e451ab4dc3e4d2ab743817"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\omit-case\\restored.log",
+      "sha256": "cd3ad015bba594d7d89b25b04ef851f74173065276e248e1b86dd10cdbf8182b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\missing-file\\mutation.mjs.txt",
+      "sha256": "d5507f23620789093b2a17a7e8392b320bcc07651fba9b2f422495c0f2888839"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\missing-file\\mutant.log",
+      "sha256": "de8a8b0f2d3cb9c84d009eb88fee5fabd494a943055e53651463aad57a377bbe"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\missing-file\\restored.log",
+      "sha256": "34311c7afb17e7e40458aa36ec29ef79318daf44770cee75a3156cc3c77812a7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\logical-root\\mutation.mjs.txt",
+      "sha256": "3d950d64e8200f2745598ed8fa43d786de12490f63fdb4c72b6508f349f8c27d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\logical-root\\mutant.log",
+      "sha256": "c1c6226c45e097654bc07cad23b4b5b92f4f15405485235401413f1dc883cc8e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\saneamento-expanded-plataformas-01\\contracts\\logical-root\\restored.log",
+      "sha256": "f3e0a451b467fe70f2a5a7337099f126f717bdd31612888d49906619855d07ee"
+    }
+  ]
+}
