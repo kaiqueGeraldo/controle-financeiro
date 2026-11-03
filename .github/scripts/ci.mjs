@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {physicalPath} from './paths.mjs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
@@ -42,7 +43,7 @@ export function requireBackendReports(directory,selection){
   return requireCounts(junitCounts(directory),'backend');
 }
 export function freshOutput(rootArg,outArg){
-  const root=path.resolve(rootArg),out=path.resolve(outArg);
+  const root=physicalPath(rootArg),out=physicalPath(outArg);
   if(out===root||out.startsWith(root+path.sep))throw new Error('Evidence must be outside the source checkout');
   if(fs.existsSync(out))throw new Error('Never reuse an evidence directory');
   fs.mkdirSync(out,{recursive:true});return out;
@@ -61,7 +62,7 @@ const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withhe
 async function main(){
   const [stage='all',rootArg,outArg]=process.argv.slice(2);
   if(!['all','frontend','backend','windows-native','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
-  const root=path.resolve(rootArg),out=freshOutput(root,outArg);
+  const root=physicalPath(rootArg),out=freshOutput(root,outArg);
   const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
   const report={source:{commit:source.commit,digest:source.digest,originalTreeChanges:source.originalTreeChanges},node:process.version,platform:process.platform,stage,started:new Date().toISOString(),steps:[],status:'running'};
