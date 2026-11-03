@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import {physicalPath} from './paths.mjs';
+import {requireComponentCoverage} from './components.mjs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
@@ -106,10 +107,11 @@ async function main(){
     if(tests.length!==3||tests.some(n=>n===0))throw new Error('Three nonempty timezone runs required');
     if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
     report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
-    const componentFile=path.join(out,'components.json');
+    const componentFile=path.join(out,'components.json'),auditFile=path.join(out,'component-audit.json');
+    const componentContext={candidate:source.commit,digest:source.digest,runId:control.runId};
     // These civil-midnight fixtures require the browser's São Paulo timezone.
     // The separate temporal unit gate still runs all three declared timezones.
-    try{await runNpm('components',['run','test:component','--','--reporter=json',`--outputFile=${componentFile}`],{TZ:'America/Sao_Paulo',CF_TEST_TIMEZONE:'America/Sao_Paulo'});}
+    try{await runNpm('components',['run','test:component','--','--reporter=default','--reporter=json','--reporter=./tests/component/audit-reporter.mjs',`--outputFile=${componentFile}`],{TZ:'America/Sao_Paulo',CF_TEST_TIMEZONE:'America/Sao_Paulo',CF_COMPONENT_AUDIT:auditFile,CF_COMPONENT_CONTEXT:JSON.stringify(componentContext)});}
     finally{
       if(fs.existsSync(componentFile)){
         const summary=componentSummary(JSON.parse(fs.readFileSync(componentFile)),root);
@@ -119,6 +121,7 @@ async function main(){
       }
     }
     requireCounts(report.components,'components');
+    report.componentCoverage=requireComponentCoverage(JSON.parse(fs.readFileSync(componentFile)),JSON.parse(fs.readFileSync(auditFile)),componentContext,front);
     await runNpm('build',['run','build']);
     await runNpm('browser-install',['run','test:e2e:install']);
     writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});
