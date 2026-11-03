@@ -42,7 +42,7 @@ jobs:
           $runtime = Join-Path (Split-Path $env:GITHUB_WORKSPACE -Parent) "controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-windows-native"
           "CF034_OUT=$runtime" >> $env:GITHUB_ENV
       - name: Verify selection and report contracts
-        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs .github/scripts/required.test.mjs .github/scripts/zoom-coverage.test.mjs
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs .github/scripts/required.test.mjs .github/scripts/zoom-coverage.test.mjs .github/scripts/paths.test.mjs .github/scripts/components.test.mjs
       - name: Execute mandatory Windows native contracts, zero skips
         run: node .github/scripts/ci.mjs windows-native "$env:GITHUB_WORKSPACE" "$env:CF034_OUT"
       - name: Collect sanitized diagnosis even on failure
@@ -81,7 +81,7 @@ jobs:
       - name: Set canonical external runtime path
         run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-required" >> "$GITHUB_ENV"
       - name: Verify gate failure propagation and report contracts
-        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs .github/scripts/required.test.mjs .github/scripts/zoom-coverage.test.mjs
+        run: node --test .github/scripts/ci.test.mjs .github/scripts/suites.test.mjs .github/scripts/sanitize.test.mjs .github/scripts/required.test.mjs .github/scripts/zoom-coverage.test.mjs .github/scripts/paths.test.mjs .github/scripts/components.test.mjs
       - name: Lint, types, tests, build, PostgreSQL, integrated E2E, package
         run: node .github/scripts/ci.mjs all "$GITHUB_WORKSPACE" "$CF034_OUT"
       - name: Collect sanitized diagnosis even on failure
