@@ -1,0 +1,8 @@
+diff --git a/tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs b/tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs
+--- a/tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs
++++ b/tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs
+@@ -2,3 +2,3 @@
+ const root=path.resolve(import.meta.dirname,'../../..'),runtime=path.resolve(process.argv[2]);
+-assert.ok(path.basename(runtime).startsWith('revisao-plataformas-docker-'));
++assert.ok(['revisao-plataformas-docker-','expanded-local-'].some(prefix=>path.basename(runtime).startsWith(prefix)));
+ assert.ok(!fs.existsSync(runtime),'Runtime must be new');

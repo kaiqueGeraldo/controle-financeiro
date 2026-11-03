@@ -8,6 +8,10 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Expanded local do recorte autorizado pela DEC-ZOOM-05 — 03/11/2026
+
+Tentativa no candidato f6297df8 **bloqueada no preparo**, exit 1: o preparador exige prefixo revisao-plataformas-docker-, incompatível com o runtime expanded-local- exigido. Nenhum gate de testes, RF15, E2E financeiro ou pacote foi iniciado. Seleção estática Windows116 = comuns115 + contratoWindows1 conferida; zero classes executadas. Lacuna e patch mínimo preparados, sem aplicação ou correção de implementação. [Resultado, primeira falha e próximo lote](../evidencias/expanded-local-topologia-validada/RESULTADO.md). CF010/CF015 continuam pendentes com exceção delimitada; CF017/P01/P02, adoção e produção mantêm gates. Sem prontidão para publicação/CI desta rodada, sem ação remota.
+
 ## Saneamento local das plataformas — 03/11/2026
 
 Componentes Linux626/626 por identidade, builds Windows/Linux e contratos43/43 por plataforma verificados localmente. A expanded avançou ao backend115, mas reprovou pela topologia Docker Desktop: host.docker.internal recusado corretamente pelo guard de banco descartável. Diagnóstico host/loopback também reprovou na conexão Ryuk. 23 jornadas reais RF15, E2E financeiro e pacote não alcançados. [Causas, resultados e próximo lote](../evidencias/saneamento-expanded-plataformas/RESULTADO.md). DEC-ZOOM-05 mantém somente seus dois adiamentos; CF010/015 pendentes, revisão independente da seleção e deste delta ainda necessária. Reprovação remota histórica não encerrada por este lote; sem liberação de PR, merge, adoção ou produção.
