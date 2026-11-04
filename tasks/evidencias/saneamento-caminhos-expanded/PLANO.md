@@ -60,3 +60,44 @@ O custo de manter cache0 é exigir raiz curta do executor, explicitamente confer
 antes das jornadas. Evita20 overrides duplicados; mudança futura de ferramenta ou
 prefixo deve revalidar o orçamento de caminho. Output externo é configuração
 comum, com defaults standalone históricos; o runner sempre fornece destinos.
+
+## Continuidade após os controles — 04/11/2026
+
+As raízes a/b/c/d identificam preparações distintas; as falhas de contrato,
+loader Playwright, lint e encoding anteriores foram preservadas e interromperam
+seus dependentes. A raiz efetiva da rodada completa é C:\cf-exp\1104d.
+Não houve retry automático dos componentes nem alteração de watchdog/pool.
+
+A primeira focused15 executou as15 classes:14 aprovadas e uma reprovada,
+sem erros/skips. O RF15C23 passou dentro de seu wrapper nessa rodada.
+FrontendClosureBrowserTest chegou ao produto:5 de6 jornadas passaram; o caso E
+recarregava a página sem aguardar a resposta da reversão. A observação real
+não provou cancelamento da requisição. A primeira microprova de cancelamento
+não confirmou a hipótese e permanece registrada como falha.
+
+Uma segunda microprova distinta demonstrou reload sem confirmação HTTP e o
+contraste com resposta200 aguardada. O teste passou a aguardar o mesmo POST,
+acrescentando uma assertion200; fixtures, reload, UI esperada e progresso1→0
+permanecem. O padrão já existe no browser de CF022. Nenhum código de produto
+foi alterado. O controle real corrigido executou as6 jornadas completas e,
+separadamente, a mesma identidade E no wrapperRF15:6/6 e1/1, sem retry/skip.
+Isso sustenta avançar para full116, que reexecuta todos os15 wrappers e C23;
+não se transplantam relatórios Java nem se soma cobertura de wrappers.
+
+O primeiro avanço após os controles parou antes de Maven: a fotografia de
+cleanup de1,8s capturou Ryuk/PostgreSQL em remoção. Os dois recursos sumiram
+sem intervenção. A checagem agora observa no máximo30s até a igualdade exata
+com o inventário inicial; não exclui recursos nem tolera sobras. O recibo
+seguinte confirmou8 contêineres históricos,3 redes,0 volumes e0 workers próprios.
+
+Commit de inputs do candidato:95118407cfe684430421d7f5c4b613a99d2b55d0;
+863 arquivos, digest7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a.
+A mudança de mailbox para evidence/mailbox elimina o produtor adicional que a
+primeira focused revelou; o único arquivo sintético próprio foi arquivado,
+conferido por hash e movido de forma individual. O guard não recebeu exceção.
+Lint/tipos/18 temporais/build foram executados novamente para essa geração.
+Instalação/cache/componentes são reaproveitados por inputs, com recibos explícitos.
+
+Em04:26:28UTC, full116 foi iniciada pela primeira vez neste lote. A continuação
+é canônica: backend verify, RF15C23 no wrapper, E2E financeiro e coleta de pacote,
+com mesmo controller/runId. Os resultados finais serão registrados em RESULTADO.md.
