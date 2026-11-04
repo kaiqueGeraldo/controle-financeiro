@@ -82,7 +82,7 @@ test('evidence output is new and external so an old report cannot certify anothe
 
 
 test('external artifact output rejects source paths and physical aliases',async()=>{
-  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.ts');
+  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.cjs');
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cf-artifacts-'));
   const before=process.env.CF_REVIEW_EVIDENCE;
   try{

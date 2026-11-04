@@ -1,4 +1,4 @@
-import { artifactDirectory } from "./support/artifacts";
+import { artifactDirectory } from "./support/artifacts.cjs";
 import {defineConfig} from "@playwright/test";
 import base from "./playwright.integrated.config";
 
