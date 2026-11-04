@@ -1,0 +1,582 @@
+{
+  "label": "Expanded local do recorte autorizado pela DEC-ZOOM-05",
+  "at": "2026-11-04T02:02:32.133Z",
+  "base": {
+    "initialHead": "03028231a7c1cbb9a2532adadd2ea1b9e1ea643e",
+    "candidate": "d53de50fa6e005795286f492aa8cb8d5f4b53380",
+    "observerPreparationHead": "4f4c9169a9da167b62b25da4ec770d2ede1f95ca",
+    "sourceFiles": 860,
+    "baseDigest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+    "observedDigest": "89d006248895661294f00dbe3e4f8cf9e0292fad39d89e5b8202f1e50e454799",
+    "restoredDigest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660"
+  },
+  "execution": {
+    "soleFullLinuxAttempt": true,
+    "preparationAttempts": 2,
+    "preparation01": "contracts43 passed; Node spec log rejected by TAP-only observer parser; no actual component test began",
+    "preparation02": "explicit TAP; contracts43, install, lint, types, temporal18, synthetic observer3 (one expected failure), then actual626 once",
+    "steps": [
+      {
+        "name": "contracts",
+        "command": [
+          "/opt/node24/bin/node",
+          "--test",
+          "--test-reporter=tap",
+          ".github/scripts/ci.test.mjs",
+          ".github/scripts/suites.test.mjs",
+          ".github/scripts/sanitize.test.mjs",
+          ".github/scripts/required.test.mjs",
+          ".github/scripts/zoom-coverage.test.mjs",
+          ".github/scripts/paths.test.mjs",
+          ".github/scripts/components.test.mjs"
+        ],
+        "cwd": "/work/s",
+        "extra": {},
+        "started": "2026-11-04T01:49:42.257Z",
+        "exit": 0,
+        "pid": 202,
+        "signal": null,
+        "finished": "2026-11-04T01:49:42.604Z"
+      },
+      {
+        "name": "install",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:49:42.624Z",
+        "exit": 0,
+        "pid": 359,
+        "signal": null,
+        "finished": "2026-11-04T01:50:11.097Z"
+      },
+      {
+        "name": "lint",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "run",
+          "lint",
+          "--",
+          "--max-warnings=0"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:50:11.112Z",
+        "exit": 0,
+        "pid": 391,
+        "signal": null,
+        "finished": "2026-11-04T01:50:24.080Z"
+      },
+      {
+        "name": "typecheck",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "run",
+          "typecheck"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:50:24.087Z",
+        "exit": 0,
+        "pid": 414,
+        "signal": null,
+        "finished": "2026-11-04T01:50:32.519Z"
+      },
+      {
+        "name": "unit",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "test"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:50:32.529Z",
+        "exit": 0,
+        "pid": 433,
+        "signal": null,
+        "finished": "2026-11-04T01:50:33.182Z"
+      },
+      {
+        "name": "observer-preparation",
+        "command": [
+          "/opt/node24/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "/work/obs/smoke/vitest.config.mts",
+          "--reporter=default",
+          "--reporter=json",
+          "--reporter=/work/obs/reporter.mjs",
+          "--outputFile=/evidence/linux-02/smoke.json"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {
+          "CF_OBS_OUT": "/evidence/linux-02/smoke"
+        },
+        "started": "2026-11-04T01:50:33.212Z",
+        "exit": 1,
+        "pid": 491,
+        "signal": null,
+        "finished": "2026-11-04T01:50:33.728Z"
+      },
+      {
+        "name": "instrument",
+        "command": [
+          "/opt/node24/bin/node",
+          "/work/obs/instrument.mjs"
+        ],
+        "cwd": "/work/s",
+        "extra": {},
+        "started": "2026-11-04T01:50:33.746Z",
+        "exit": 0,
+        "pid": 539,
+        "signal": null,
+        "finished": "2026-11-04T01:50:33.817Z"
+      },
+      {
+        "name": "components",
+        "command": [
+          "/opt/node24/bin/node",
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "/work/obs/vitest.config.mts",
+          "--reporter=default",
+          "--reporter=json",
+          "--reporter=./tests/component/audit-reporter.mjs",
+          "--reporter=/work/obs/reporter.mjs",
+          "--outputFile=/evidence/linux-02/components.json"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {
+          "TZ": "America/Sao_Paulo",
+          "CF_TEST_TIMEZONE": "America/Sao_Paulo",
+          "CF_COMPONENT_AUDIT": "/evidence/linux-02/component-audit.json",
+          "CF_COMPONENT_CONTEXT": "{\"candidate\":\"d53de50fa6e005795286f492aa8cb8d5f4b53380\",\"digest\":\"89d006248895661294f00dbe3e4f8cf9e0292fad39d89e5b8202f1e50e454799\",\"runId\":\"C:\\\\Users\\\\Aluga.com\\\\Documents\\\\Projetos\\\\pessoal\\\\controle-financeiro-runtimes\\\\preparacao-adocao\\\\componentes-completo-20261103-01\"}",
+          "CF_OBS_OUT": "/evidence/linux-02/observation"
+        },
+        "started": "2026-11-04T01:50:33.900Z",
+        "exit": 0,
+        "pid": 547,
+        "signal": null,
+        "finished": "2026-11-04T01:50:58.708Z"
+      },
+      {
+        "name": "build",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "run",
+          "build"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:50:58.929Z",
+        "exit": 0,
+        "pid": 1205,
+        "signal": null,
+        "finished": "2026-11-04T01:51:17.810Z"
+      },
+      {
+        "name": "browser-install",
+        "command": [
+          "/opt/node24/bin/node",
+          "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+          "run",
+          "test:e2e:install"
+        ],
+        "cwd": "/work/s/controle-financeiro-frontend",
+        "extra": {},
+        "started": "2026-11-04T01:51:17.823Z",
+        "exit": 0,
+        "pid": 1462,
+        "signal": null,
+        "finished": "2026-11-04T01:51:51.785Z"
+      }
+    ],
+    "conditions": {
+      "node": "v24.18.0",
+      "vitest": "4.1.11",
+      "lockSha": "c4bd88ec00c5a5f254729fc59bd75c111523da2a992d3b4895178f637429e517",
+      "cpuCount": 16,
+      "cpuInfo": [
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H",
+        "13th Gen Intel(R) Core(TM) i7-13620H"
+      ],
+      "memory": 16623751168,
+      "filesystem": "overlayfs",
+      "timers": "Vitest real timers; testTimeout default5000/hook10000; fixedNow metadata does not install fake timers; setup source unmodified",
+      "timeoutOverrides": false,
+      "retries": 0
+    },
+    "buildId": "v_KnynArrvonoK_p2VJR4"
+  },
+  "result": {
+    "counts": {
+      "tests": 626,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "files": 71,
+    "collected": 626,
+    "completed": 626,
+    "uniqueIds": 626,
+    "distinctFileTitleKeys": 625,
+    "selectionSha": "7debb7e4dbafd0452bc20cfefd2f0767f246f55bb3d63fc2fb8724f8a722038f",
+    "coverage": {
+      "files": 71,
+      "tests": 626,
+      "errors": 0,
+      "identityCoverage": true
+    },
+    "errors": [],
+    "reason": "passed",
+    "exit": 0,
+    "retries": 0,
+    "skips": 0,
+    "pending": 0,
+    "remainingActive": [],
+    "allIDsEnded": true
+  },
+  "configuration": {
+    "node": "v24.18.0",
+    "pid": 547,
+    "testTimeout": 5000,
+    "hookTimeout": 10000,
+    "pool": "forks",
+    "isolate": true,
+    "maxWorkers": null,
+    "fileParallelism": null,
+    "sequence": {
+      "groupOrder": 0,
+      "hooks": "stack"
+    }
+  },
+  "durationMs": {
+    "min": 0.5244740000002821,
+    "p50": 14.972276999999849,
+    "p90": 381.7973360000001,
+    "p95": 595.8976390000007,
+    "p99": 1593.310399,
+    "max": 2652.0562760000003
+  },
+  "historical": [
+    {
+      "id": "-620415050_0_4",
+      "identity": [
+        "tests/component/cards-planning-audit.test.tsx",
+        "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável"
+      ],
+      "result": {
+        "state": "passed"
+      },
+      "diagnostic": {
+        "slow": true,
+        "duration": 2652.0562760000003,
+        "startTime": 1793757043955,
+        "retryCount": 0,
+        "repeatCount": 0,
+        "flaky": false
+      },
+      "observation": {
+        "id": "-620415050_0_4",
+        "name": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+        "pid": 749,
+        "workerEnv": "19",
+        "startedEpochMs": 1793757043956,
+        "stages": [
+          {
+            "name": "body-entry",
+            "elapsedMs": 1.450878,
+            "epochMs": 1793757043957
+          },
+          {
+            "name": "fixture-complete",
+            "elapsedMs": 1.700376,
+            "epochMs": 1793757043957
+          },
+          {
+            "name": "render-complete",
+            "elapsedMs": 981.317876,
+            "epochMs": 1793757044937
+          },
+          {
+            "name": "query-complete",
+            "elapsedMs": 2473.837621,
+            "epochMs": 1793757046429
+          },
+          {
+            "name": "assertions-complete",
+            "elapsedMs": 2588.41786,
+            "epochMs": 1793757046544
+          },
+          {
+            "name": "cleanup-start",
+            "elapsedMs": 2590.327834,
+            "epochMs": 1793757046546
+          },
+          {
+            "name": "cleanup-complete",
+            "elapsedMs": 2651.517496,
+            "epochMs": 1793757046607
+          }
+        ],
+        "markCostNs": 162137,
+        "historical": true,
+        "beforeHookCostNs": 57949,
+        "finishedEpochMs": 1793757046607,
+        "elapsedIncludingHooksMs": 2651.517496,
+        "afterHookCostNs": 40807
+      }
+    },
+    {
+      "id": "905905258_5",
+      "identity": [
+        "src/screens/private/onboarding/screen.test.tsx",
+        "compares conflict snapshots and does not silently choose the server"
+      ],
+      "result": {
+        "state": "passed"
+      },
+      "diagnostic": {
+        "slow": true,
+        "duration": 1440.2083660000008,
+        "startTime": 1793757046692,
+        "retryCount": 0,
+        "repeatCount": 0,
+        "flaky": false
+      },
+      "observation": {
+        "id": "905905258_5",
+        "name": "compares conflict snapshots and does not silently choose the server",
+        "pid": 603,
+        "workerEnv": "4",
+        "startedEpochMs": 1793757046692,
+        "stages": [
+          {
+            "name": "body-entry",
+            "elapsedMs": 1.4308,
+            "epochMs": 1793757046694
+          },
+          {
+            "name": "render-start",
+            "elapsedMs": 1.487691,
+            "epochMs": 1793757046694
+          },
+          {
+            "name": "render-complete",
+            "elapsedMs": 8.38823,
+            "epochMs": 1793757046701
+          },
+          {
+            "name": "initial-heading-ready",
+            "elapsedMs": 50.47177,
+            "epochMs": 1793757046743
+          },
+          {
+            "name": "loaded-complete",
+            "elapsedMs": 51.323685,
+            "epochMs": 1793757046744
+          },
+          {
+            "name": "typing-complete",
+            "elapsedMs": 337.501818,
+            "epochMs": 1793757047030
+          },
+          {
+            "name": "save-click-complete",
+            "elapsedMs": 494.087544,
+            "epochMs": 1793757047187
+          },
+          {
+            "name": "check-click-complete",
+            "elapsedMs": 1255.787956,
+            "epochMs": 1793757047948
+          },
+          {
+            "name": "comparison-ready",
+            "elapsedMs": 1281.624647,
+            "epochMs": 1793757047974
+          },
+          {
+            "name": "assertions-complete",
+            "elapsedMs": 1411.237559,
+            "epochMs": 1793757048104
+          },
+          {
+            "name": "cleanup-start",
+            "elapsedMs": 1412.433575,
+            "epochMs": 1793757048105
+          },
+          {
+            "name": "cleanup-complete",
+            "elapsedMs": 1439.747259,
+            "epochMs": 1793757048132
+          }
+        ],
+        "markCostNs": 359729,
+        "historical": true,
+        "beforeHookCostNs": 53479,
+        "finishedEpochMs": 1793757048132,
+        "elapsedIncludingHooksMs": 1439.747259,
+        "afterHookCostNs": 39050
+      }
+    }
+  ],
+  "concurrency": {
+    "availableParallelism": 16,
+    "pool": "forks",
+    "configuredMaxWorkers": null,
+    "workerOverrides": false,
+    "uniqueWorkerPids": 71,
+    "peakWorkerPidsObservedAt1Hz": 16,
+    "peakSimultaneousTestHooks": 9,
+    "definition": "Unique PIDs reflect forks allocated across files, not simultaneous worker count. Peak sampled PIDs is a lower bound at1Hz; hook overlap excludes collection/import/idle."
+  },
+  "resources": {
+    "samples": 26,
+    "samplesWithinTestRun": 24,
+    "windowMs": 24926,
+    "cgroupLimits": {
+      "cpu.max": "max 100000\n",
+      "memory.max": "max\n",
+      "pids.max": "max\n"
+    },
+    "cpuDelta": {
+      "usage_usec": 335395555,
+      "user_usec": 292125416,
+      "system_usec": 43270138,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "averageUsedCores": 13.455650926743159,
+    "memoryCurrentPeakBytes": 3326734336,
+    "memoryEventsBefore": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "memoryEventsAfter": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cpuPressureBefore": "some avg10=0.00 avg60=0.00 avg300=0.00 total=143271\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=140835\n",
+    "cpuPressureAfter": "some avg10=17.84 avg60=6.74 avg300=1.62 total=5189570\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=211843\n",
+    "memoryPressureBefore": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+    "memoryPressureAfter": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+    "peakObservedWorkerRSSBytes": 2356940800,
+    "samplerCostMs": {
+      "min": 0.575375,
+      "p50": 2.171072,
+      "p90": 10.69561,
+      "p95": 13.310193,
+      "p99": 14.232717,
+      "max": 14.232717
+    },
+    "limitations": "1Hz may miss short peaks. cgroup memory includes file cache. Sum of RSS may count shared pages repeatedly. Sample window encloses command launch and result serialization."
+  },
+  "observerCostMs": {
+    "min": 0.019296,
+    "p50": 0.06057,
+    "p90": 0.134179,
+    "p95": 0.182205,
+    "p99": 0.654589,
+    "max": 1.975322
+  },
+  "observerLimits": "Measured hooks/marks exclude Vitest metadata transfer, callbacks, heartbeat writes, Vite module loading and scheduling disturbance. No zero-overhead claim and no causal comparison without observer.",
+  "historicalConclusion": "Inconclusive; full current run passed without functional/assertion/watchdog/fixture/concurrency correction. No claim that historical timeouts are fixed.",
+  "rawProofs": [
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\initial.json",
+      "sha256": "305c4c82a713eb5b2a52d3d238c69bfb81cb075a0909659f0c02a93bdf00d424"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\current-source.json",
+      "sha256": "8c390435f6305bd838d6b2ed4abde8286ee8a53364ec26f6d520897bc060a1e6"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\expected-selection.json",
+      "sha256": "79a531ebad290784a612b4397d95e1b394d344a8aa02139a070189e63085fbab"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\host-before.json",
+      "sha256": "a968130071a328047a909c5343f22188105f76ce93d534f4e9be46520c0612fc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\host-preparation.json",
+      "sha256": "4e54ff7480569bf721dcf6e4d34260cf101a6e01a84e8ab1ae6e1c5042c13e64"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\instrumentation.json",
+      "sha256": "91a8f3a3bc392cd1e73ec3f5bba11bb2761ae4c6405cd76912fc9b1fc2bb290d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux\\flow.json",
+      "sha256": "5749b09144c924c691cbdff8ae6792b7c968b4d340369f4aa193b1317b7bab09"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux\\contracts.log",
+      "sha256": "811390d1de9cf62212af09f07a837beee60e19d9c75c1037be604ea6d0c64d24"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\preparacao-02.json",
+      "sha256": "335a8f62acdc1f0687e451311169cfe114052452cc7247322ffc964f06150817"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\flow.json",
+      "sha256": "78899fc4c2a0f951ed84a5a3d4cc32b950589fe1874626aed90acdaa8b1079c1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\components.log",
+      "sha256": "f42d73c3e651793b9dee5c1cfbb96a759c78faa4bb79a4210c857575e07ac792"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\components.json",
+      "sha256": "e4dd98f1a33364f2b6c9dcddaebd3ec78b93f8e6fdba6fdb82f03a7076e27d15"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\component-audit.json",
+      "sha256": "ad717f477a16542549ba1d1f6c2764359f78d0661464ebc32e6ecf0b9e74371c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\observation\\observer.json",
+      "sha256": "b2011a171b6ee98ab0df4ac8663dbb1e406a17211710978d18136089621576ff"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\observation\\active.jsonl",
+      "sha256": "1fb9b53606a89673b7734d14a7272a97d6461df0fb5223cf6f444485f518af21"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\resources.jsonl",
+      "sha256": "848f608674dff3da495a797a8ac780a84ffd62ca82e696c074052fbf598ae7ce"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\smoke.json",
+      "sha256": "b1aebfed38cc1d1ecd63bbe26b4a19196c2288de8d3e878fabaa26381fd0b267"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\smoke\\observer.json",
+      "sha256": "b7acadd671a88970d352b768a5f0f45eafb05b9bc164e1a483861a3ed873a3ab"
+    }
+  ]
+}
