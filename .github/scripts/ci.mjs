@@ -18,9 +18,9 @@ export function requireCounts(counts,label){
   return counts;
 }
 export async function sequence(stages,run){for(const stage of stages)await run(stage);}
-export function mavenInvocation(platform,args){
+export function mavenInvocation(platform,args,options={}){
   if(platform==='linux')return {executable:'sh',args:['./mvnw','--batch-mode',...args]};
-  if(platform==='win32'&&process.env.CF_MAVEN_HOME)return javaArgfileInvocation(platform,args);
+  if(platform==='win32'&&options.argfile)return javaArgfileInvocation(platform,args);
   if(platform!=='win32')throw new Error(`Unknown Maven JVM platform: ${platform}`);
   // The owned Windows launcher quotes argv using Win32 rules. cmd /c parses
   // embedded quotes differently; use a literal PowerShell invocation instead.
@@ -98,7 +98,7 @@ async function main(){
     console.log(`${name}: passed`);
   }
   const runNpm=(name,args,extraEnv)=>command(name,process.execPath,[npm,...args],front,extraEnv);
-  const maven=(name,args)=>{if(process.env.CF_MAVEN_HOME){process.env.CF_MAVEN_BACKEND=back;process.env.CF_MAVEN_ARGFILE_ROOT=out;}const invocation=mavenInvocation(process.platform,args);return command(name,invocation.executable,invocation.args,back);};
+  const maven=(name,args)=>{if(process.env.CF_MAVEN_HOME){process.env.CF_MAVEN_BACKEND=back;process.env.CF_MAVEN_ARGFILE_ROOT=out;}const invocation=mavenInvocation(process.platform,args,{argfile:!!process.env.CF_MAVEN_HOME});return command(name,invocation.executable,invocation.args,back);};
   function invalidate(names){for(const name of names){const marker=path.join(root,`.ci-${name}.json`);if(fs.existsSync(marker))fs.unlinkSync(marker);}}
   async function frontend(){
     invalidate(['frontend','backend','e2e']);

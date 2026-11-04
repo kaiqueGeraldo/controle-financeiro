@@ -30,7 +30,7 @@ async function command(name,exe,args,cwd=repo,extra={}){
 }
 async function maven(name,args,extra={}){
  Object.assign(process.env,{JAVA_HOME:jdk,MAVEN_ARGS:"--offline",CF_MAVEN_HOME:mavenHome,CF_MAVEN_BACKEND:back,CF_MAVEN_ARGFILE_ROOT:out});
- const invocation=mavenInvocation("win32",args);
+ const invocation=mavenInvocation("win32",args,{argfile:true});
  await command(name,invocation.executable,invocation.args,back,extra);
 }
 function coherent(label){const source=sourceFor(candidate);report.integrity??=[];report.integrity.push({label,at:new Date().toISOString(),files:source.files.length,digest:source.digest});save();return source;}
@@ -75,4 +75,4 @@ try{
  }
  report.status="passed";
 }catch(error){report.status="failed";report.error=error.stack;process.exitCode=1;console.error(error.message);}
-finally{report.finished=new Date().toISOString();save();fs.copyFileSync(path.join(short,phase+".json"),path.join(permanent,phase+".json"));console.log(JSON.stringify({phase,status:report.status,error:report.error}));}
+finally{report.finished=new Date().toISOString();save();fs.copyFileSync(path.join(short,phase+".json"),path.join(permanent,path.basename(short)+"-"+phase+".json"));console.log(JSON.stringify({phase,status:report.status,error:report.error}));}
