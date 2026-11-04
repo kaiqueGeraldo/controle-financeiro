@@ -32,3 +32,23 @@ loopback, sem mudança de topologia. O problema de arquivamento de symlink Linux
 é independente: copiar scripts por allowlist e finalizar seu executor próprio
 após a continuidade. Se outro gate real falhar, preservar a ocorrência antes de
 qualquer decisão. Pacote só após as validações completas do controller.
+
+
+## Lançamento Maven — complemento do commit baff0e49
+
+O build e browser-install no caminho curto passaram. O wrapper Windows rejeitou
+a seleção116 com "Linha de comando muito longa.", antes de iniciar Maven/testes.
+A primeira falha e o resultado do controller permanecem em componentes-completo-w/o.
+
+A retomada seguinte usa Java @argfile com a estrutura de lançamento lida do
+Maven3.9.12 instalado: mesmo JDK21, Classworlds2.9.0, m2.conf, Maven home,
+base do projeto, native-access e offline/batch. A lista -Dtest inteira permanece
+igual por conjunto e ordem (116; AdoptionNativeSocketsTest uma vez; SHA do array
+bd7adb45b0380308f6e24344de79f0ec44aceded4cd24885d5131c1eb1f4c0c0).
+Não foram abreviados seletores nem trocado o mecanismo de relatório Surefire.
+
+O adapter externo mantém backend/RF15/E2E/pacote canônicos no mesmo runId.
+Revalida e reaproveita o frontend já completo e os626 componentes atuais,
+sem repetir testes aprovados. Seu marker inclui os comprovantes do frontend
+atual. Arquivos de argumentos, opções efetivas, hashes e ferramentas ficam no
+runtime curto. Uma falha real durante testes deste backend não autoriza repeti-lo.

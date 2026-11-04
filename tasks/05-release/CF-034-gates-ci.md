@@ -394,3 +394,26 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Os 790 erros da rodada anterior foram reconciliados: 168 guard e 622 derivados, correlacionados às causas iniciais. Executor Linux sibling continua incompatível com o contrato do guard. Alternativa JVM Windows/mesmo Docker Desktop passou preflight A–H, guard 4/4 e consumidor Spring 5/5, sem relaxar segurança ou desativar Ryuk. Capacidade liberada apenas para iniciar **nova rodada local completa nesse ambiente**, conforme [próximo lote](../evidencias/revisao-expanded-plataformas-docker/PROXIMO-LOTE.md).
 
 CF-034 permanece em_revisao e sem aceite expanded integral: backend completo, 23 jornadas reais RF15, E2E financeiro e pacote ainda precisam executar seus gates atuais. Preflight/diagnóstico não substituem rodada integral nem validam CI remota. Nesta revisão não houve mudança de implementação, nova expanded, push, atualização de PR, CI remota, merge ou deploy.
+
+
+## Rodada única de componentes e continuidade — 03/11/2026
+
+[Resultado](../evidencias/componentes-completo-instrumentado/RESULTADO.md):
+Linux626/626 e71 arquivos aprovados em uma única execução real, cobertura por
+626 IDs únicos, zero erros/skips/retries. Históricos2652,056ms e1440,208ms;
+causa anterior continua inconclusiva, sem correção funcional/watchdog novo.
+
+Preflight Windows/contratos aprovados. Frontend Windows626/71 aprovado;
+build passou após ajuste físico de caminho, com reuso explícito dos componentes
+atuais, sem repetir gate. CMD longo foi resolvido no adapter local com Java
+@argfile, preservando exatamente116 classes. Backend real:116 XML/116 classes,
+928 testes,15 falhas,0 erros/skips; contrato Windows1/1 aprovado.
+RF15A25/B2/C23 preservado, mas C23 reprovou por ENOENT no browser. Outro wrapper
+falhou após startup Next em caminho longo.860 inputs originais intactos,
+24 artefatos gerados dentro das fontes fizeram sourceFor rejeitar o conjunto.
+Sem E2E financeiro ou pacote; execução backend reprovada não foi repetida.
+
+CF034 permanece em_revisao. [Próximo passo](../evidencias/componentes-completo-instrumentado/PROXIMO-PASSO.md):
+caminhos curtos/configuração consistente de browser e runtimes preparados,
+artefatos externos e preflight real antes de novo lote. README/histórico preservados;
+sem aceite integral, CI remota, push/PR/merge/deploy ou banco real.

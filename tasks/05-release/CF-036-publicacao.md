@@ -105,3 +105,20 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 [Seleção DEC-ZOOM-05 e saneamentos aceitos no alcance local](../evidencias/revisao-expanded-plataformas-docker/PARECER.md), com zoom/CF010/CF015 ainda pendentes sob exceção delimitada. A alternativa JVM Windows no Docker Desktop passou o preflight mínimo e 9 testes dirigidos; isso libera apenas a tentativa de uma nova rodada integral no ambiente identificado.
 
 CF-036 não está aprovada para publicação/integração por esse resultado. A rodada reprovada não produziu JAR novo; 23 jornadas reais RF15, E2E financeiro e pacote não foram alcançados. Exigir [nova execução completa](../evidencias/revisao-expanded-plataformas-docker/PROXIMO-LOTE.md), relatórios atuais, pacote vinculado às fontes e autorização da etapa externa. Nesta revisão: sem push, PR, CI remota, merge, alteração de hospedagem, deploy ou banco real. CF-017/P01/P02 preservam critérios próprios.
+
+
+## Continuidade local DEC-ZOOM-05 — 03/11/2026
+
+[Rodada atual](../evidencias/componentes-completo-instrumentado/RESULTADO.md):
+componentes Linux626/626 passaram sem repetição nem correção funcional.
+A continuidade autorizada chegou ao backend Windows, com cobertura das116
+classes, mas reprovou15 de928 testes. RF15 manteve25=2+23 e suas23 jornadas
+obrigatórias reprovaram por lançamento de browser em caminho longo.
+Houve também falha de cópia preparada Next e24 artefatos adicionados ao conjunto
+de fontes do runtime, corretamente rejeitado por sourceFor;860 originais intactos.
+
+E2E financeiro e pacote não alcançados. Nenhum JAR antigo foi apresentado como
+novo. Adapters operacionais/reaproveitamentos da rodada estão identificados;
+não equivalem a nova execução integral Windows nem aprovação da expanded.
+Recursos próprios encerrados, inventário Docker preservado. CF036 permanece
+proposta, sem liberação de publicação/uso, hospedagem, CI remota, deploy ou banco real.
