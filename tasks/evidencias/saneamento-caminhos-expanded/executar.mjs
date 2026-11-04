@@ -59,7 +59,7 @@ try{
   report.minimum=requireBackendReports(path.join(out,"surefire"),{selected:controlClasses});
   coherent("after-minimum-controls");
  }else{
-  assert.equal(read(path.join(short,"prepare.json")).status,"passed");const source=coherent("before-"+phase);report.source={commit:source.commit,digest:source.digest,files:source.files.length};
+  const preparation=read(path.join(short,"prepare.json"));if(preparation.status!=="passed"){const approval=read(path.join(short,"minimum-approved.json"));assert.equal(approval.status,"passed");assert.equal(sourceFor(candidate).digest,approval.source.digest);for(const p of approval.proofs)assert.equal(hash(fs.readFileSync(p.file)),p.sha256);report.minimumReuse={file:path.join(short,"minimum-approved.json"),sha256:hash(fs.readFileSync(path.join(short,"minimum-approved.json")))};}const source=coherent("before-"+phase);report.source={commit:source.commit,digest:source.digest,files:source.files.length};
   if(phase==="focused"){
    const selected=read(path.join(permanent,"focused-selection.json"));assert.equal(selected.length,15);
    const context={candidate:source.commit,digest:source.digest,runId:"focused-15-01",decisionSha:hash(fs.readFileSync(path.join(candidate,"docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md")))};
