@@ -75,7 +75,9 @@ test('E: interação semanal passiva com persistência e reload',async({page})=>
  expect(marked.request().postDataJSON()).toEqual({date:'2027-01-15'});
  await page.reload();await expect(card.getByRole('button',{name:'Feito Hoje'})).toBeVisible();await shot(page,'E-weekly-marked');
  let goals=await (await page.request.get('/api/goals')).json();expect(goals.find((x:{id:string})=>x.id===goal.id).currentValue).toBe(1);
- await card.getByRole('button',{name:'Feito Hoje'}).click();await page.reload();await expect(card.getByRole('button',{name:'Avançar Progresso'})).toBeVisible();
+ const undoResponse=page.waitForResponse(r=>r.url()===marked.url()&&r.request().method()==='POST');
+ const [,undone]=await Promise.all([card.getByRole('button',{name:'Feito Hoje'}).click(),undoResponse]);expect(undone.status()).toBe(200);
+ await page.reload();await expect(card.getByRole('button',{name:'Avançar Progresso'})).toBeVisible();
  goals=await (await page.request.get('/api/goals')).json();expect(goals.find((x:{id:string})=>x.id===goal.id).currentValue).toBe(0);
  } finally {await writeFile(path.join(dir,'E-weekly-network.json'),JSON.stringify(events,null,2));if(!page.isClosed()) await shot(page,'E-weekly-terminal').catch(()=>undefined);}
 });
