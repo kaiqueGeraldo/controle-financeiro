@@ -1,0 +1,2163 @@
+{
+  "at": "2026-11-04T05:07:20.815Z",
+  "label": "Expanded local do recorte autorizado pela DEC-ZOOM-05",
+  "status": "passed",
+  "source": {
+    "commit": "95118407cfe684430421d7f5c4b613a99d2b55d0",
+    "digest": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+    "files": 863,
+    "guardPassed": true
+  },
+  "topology": {
+    "node": "v24.18.0",
+    "platform": "win32",
+    "jvm": "Windows JDK21",
+    "maven": "3.9.12",
+    "docker": "desktop-linux",
+    "host": "127.0.0.1",
+    "reuse": false,
+    "ryuk": true
+  },
+  "controller": {
+    "file": "C:\\cf-exp\\1104d/all/result.json",
+    "sha256": "8139de431ea2b0c4a676c97966a9c8890434f5bff9f2e0df431c70b12be1c196",
+    "runId": "26daab35-a0aa-49f4-9830-7fc3ac6fb665",
+    "started": "2026-11-04T04:26:28.658Z",
+    "finished": "2026-11-04T05:07:09.942Z",
+    "steps": [
+      {
+        "name": "maven-version",
+        "command": [
+          "java.exe",
+          "@${EVIDENCE_ROOT}\\maven-args\\maven-01.args"
+        ],
+        "cwd": "controle-financeiro-backend",
+        "environment": {},
+        "started": "2026-11-04T04:26:28.955Z",
+        "exit": 0,
+        "ownerPid": 46612,
+        "ownership": "Windows Job Object; private owner pipe",
+        "durationMs": 2952
+      },
+      {
+        "name": "backend",
+        "command": [
+          "java.exe",
+          "@${EVIDENCE_ROOT}\\maven-args\\maven-02.args"
+        ],
+        "cwd": "controle-financeiro-backend",
+        "environment": {},
+        "started": "2026-11-04T04:26:32.194Z",
+        "exit": 0,
+        "ownerPid": 48316,
+        "ownership": "Windows Job Object; private owner pipe",
+        "durationMs": 2330673
+      },
+      {
+        "name": "e2e",
+        "command": [
+          "java.exe",
+          "@${EVIDENCE_ROOT}\\maven-args\\maven-03.args"
+        ],
+        "cwd": "controle-financeiro-backend",
+        "environment": {},
+        "started": "2026-11-04T05:05:23.323Z",
+        "exit": 0,
+        "ownerPid": 19756,
+        "ownership": "Windows Job Object; private owner pipe",
+        "durationMs": 106049
+      }
+    ]
+  },
+  "frontend": {
+    "componentsWindows": {
+      "counts": {
+        "tests": 626,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "coverage": {
+        "files": 71,
+        "tests": 626,
+        "errors": 0,
+        "identityCoverage": true
+      },
+      "proof": {
+        "status": "reused by exact component input closure; not reexecuted",
+        "context": {
+          "candidate": "d53de50fa6e005795286f492aa8cb8d5f4b53380",
+          "digest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+          "runId": "32ade9fa-6624-473d-bf25-bf478f7b4254"
+        },
+        "currentSource": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+        "closureSha256": "b876de2bf03061d48dd88f9590a39a1defd61b155b9c4db131f9fe982a08d81f",
+        "report": {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\windows-expanded\\components.json",
+          "sha256": "3237ed2eb47dbdb083e7fe93c1eef90cdd52e3f99f53ccd34ac2bf7f188c687c"
+        },
+        "audit": {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\windows-expanded\\component-audit.json",
+          "sha256": "ff4ed6948734e0570f7b1e67c9a52572e271ef2e298d562a13763ab40584ad23"
+        }
+      }
+    },
+    "componentsLinux": {
+      "status": "Reused prior accepted single626/71 run; not reexecuted",
+      "baseClosureUnchanged": true,
+      "summary": {
+        "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-worktrees\\pr3-expanded-source/tasks/evidencias/componentes-completo-instrumentado/RODADA.json",
+        "sha256": "0e23ea0acda2a6a11395553257cf99c65ed206bd33d9689327cae40345aabce0"
+      },
+      "rawProofs": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\components.json",
+          "sha256": "e4dd98f1a33364f2b6c9dcddaebd3ec78b93f8e6fdba6fdb82f03a7076e27d15"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\linux-02\\component-audit.json",
+          "sha256": "ad717f477a16542549ba1d1f6c2764359f78d0661464ebc32e6ecf0b9e74371c"
+        }
+      ],
+      "historicalCause": "inconclusive"
+    },
+    "newSyncControls": {
+      "file": "C:\\cf-exp\\1104d/sync-03/flow.json",
+      "sha256": "a5070ffc04898ee9868d559de08742ea956c990b046e65335cfa6952a750e6b3"
+    },
+    "temporalTests": 18,
+    "timezones": 3,
+    "postRunReuseValidation": {
+      "file": "tasks/evidencias/saneamento-caminhos-expanded/REUSO-COMPLEMENTAR.json",
+      "validatorCommit": "d0c22c1b87826aedbf17fc171d32e5ebd5ed5ac3",
+      "reason": "Shared clock dependency included explicitly; positive626/71 and drift rejection verified; actual executed candidate/package unchanged"
+    }
+  },
+  "minimum": {
+    "file": "C:\\cf-exp\\1104d/minimum-approved.json",
+    "sha256": "0c9b54c491ac693f6c589cf08e117a791c5808f3ed53ffb2e4bdc06b88d837d4"
+  },
+  "synchronization": {
+    "file": "C:\\cf-exp\\1104d/sync-approved.json",
+    "sha256": "5cc2518685a20e67b02c88e0b955e3f1e71cb64818a0362dde33736125433fd0"
+  },
+  "firstFocused": {
+    "source": {
+      "commit": "c9aa815304461ba3d8c6a909ff1c582b1258b4f4",
+      "digest": "5ca42bb5bae421e27331ceb8385282a65c6240fada451559da9407f019c9bc9f",
+      "files": 863
+    },
+    "status": "failed",
+    "counts": {
+      "tests": 15,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "proof": {
+      "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-worktrees\\pr3-expanded-source\\tasks\\evidencias\\saneamento-caminhos-expanded/VALIDACAO-15.json",
+      "sha256": "2b7a40146488689ee4767ba5d2afe5a42c3c4f540a56c562d7c57c46365a3db4"
+    }
+  },
+  "backend": {
+    "selection": {
+      "file": "C:\\cf-exp\\1104d/all/backend-selection.json",
+      "sha256": "02cfd3be7c58d0be5933ddb9f008a172390766d96676256a58ad81e2ab8f6cd7"
+    },
+    "expected": 116,
+    "reports": 116,
+    "missing": [],
+    "extra": [],
+    "nativeSelectedOnce": 1,
+    "counts": {
+      "tests": 928,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reportHashes": [
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.CF015PaymentRecoveryTest.xml",
+        "sha256": "f1636c110e7445f43c58b8e6724a1ca2c734e7c028af7c1d576952cecbacd9e3"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.CF015PlanningOwnershipTest.xml",
+        "sha256": "63905ffca299af7bd2ee34e237b1d982deb1b63ce74b1c053592244fdf287641"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryDiagnosticTest.xml",
+        "sha256": "4a2702c3ca293791b5ffcbc9c0b77b4b04f0cee1bc78e24f32ec84492e164a90"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryReviewTest.xml",
+        "sha256": "5c7a9b41c7596de43c8748bf10946de66de3b32bf905669f86f22fd42a7f2c69"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf019Rva03DiagnosticTest.xml",
+        "sha256": "d04620a75a1bd6eb91ada99eecc7690a4ba9d1ab1eb8cfbc117c677a916e558c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.ControleFinanceiroApiApplicationTests.xml",
+        "sha256": "a72d83c1953b0494d3a273d89a4d7fea955b161aae1b46107561a100547b5f87"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest.xml",
+        "sha256": "c1835e827229bc2b6b1234f212e0089dd1ec93e8f93817f08681c778a2078d32"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.FrontendClosureBrowserTest.xml",
+        "sha256": "79ec57a953f1240e7514915ba7925eb2d6d91834a155bf48f40233506203d58e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.GoalHistoryRecordedInstantIntegrationTest.xml",
+        "sha256": "37ad1a90a7f4be6bdc63be024f3af587f65b0809febca3f543351f192661a63a"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.HarnessCredentialClockTest.xml",
+        "sha256": "75e126cffb550dc94df22ac33cc4afa760813828a23b96593cbcd77b61bb0cf1"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest.xml",
+        "sha256": "4f2d34834ab7aebb9f32e39a30f79e293ce9599872d678d232b1b19748ad914a"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.MilestoneRemediationBrowserTest.xml",
+        "sha256": "f1ffd452e6659f364f2cc2ff3781867bdac333686461f98d8c0eec419bd0602a"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.PlanningEditIntegrationTest.xml",
+        "sha256": "8613f0f642ae299bb2fa772e8b67762889de28b73935090befa270e590314390"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.PostgreSqlPersistenceTests.xml",
+        "sha256": "e751468c1fd4b5f5f6e723155dd978477e68ef8e90e32ceb9cac826a21d0483c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests.xml",
+        "sha256": "5fd4fa172dacae64fa2169af4dd4b72941d745e8e99aeca49a93a0f0b9a38998"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15IndependentBrowserTest.xml",
+        "sha256": "123b1e09e3840c6e21965e962cf4c9b7c476a4a5d4c9ed8977953b023b84a4bc"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15RemediationBrowserTest.xml",
+        "sha256": "886f6ceb86438c9b4b18c7decc53f1f07e8c06b87963f31cf904dcad04639314"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualBrowserTest.xml",
+        "sha256": "1e7fc2a9bde184360f48c7c213bb693fa7f5e0d64d0d729c73bb0708648482d2"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest.xml",
+        "sha256": "386ead02df61f049f01226db86667e1fd8ca13492b123696f41481fa265e3301"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest.xml",
+        "sha256": "d63af4a1860f2aa0f1190a0b58f5cab72b3e2173af11487ec4e5a79f3d875a20"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rvr24ReviewBrowserTest.xml",
+        "sha256": "6b00bb072b790c9b808ae17e38e1a23ffb0bcc48e50bf56afb72280453385f51"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rvr24VisualBrowserTest.xml",
+        "sha256": "e65fc7208ca656f3aadaee4cc0ae3271af92e7c6e147ff7ca4cd104d883ed593"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.SecurityHttpContractIntegrationTest.xml",
+        "sha256": "63005cf48345f182e6832a04b7b75f1e73e67c23c2cebac67dddbec220335c78"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest.xml",
+        "sha256": "ee84acbb0a6f02eddc0dcd1d9f792171fb109c8abc25ff247ea71a27c50c6e45"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.controller.AuthControllerContractTest.xml",
+        "sha256": "bd47c6b02f9b787155cdf2abb71ca6712731ed7dae54c6030117f41619cbe111"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.controller.HttpContractControllerTest.xml",
+        "sha256": "afedae05172bb757974be5864a4e401b07d3fdffb32078ffcc5d8985d0b1fe5c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest.xml",
+        "sha256": "95ae95532b26be8c7dea0b9c712c9982375c4dc387858ed9ea4c85865df9bd49"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.TemporalJsonContractTest.xml",
+        "sha256": "31b55056ac91a53f4b188a5cd9b3017c45fbddfbb430a97442d3140bb9df4be3"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest.xml",
+        "sha256": "9320692d5939910583c54056b35e8b7afcab5d0eaff967b31f1792de9610f4a6"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitFixtureIsolationIntegrationTest.xml",
+        "sha256": "f5f4cc127d0d3e9e1e75b35ec69b54cee812ca6c547ecf3ff75b9cf6aeae4d56"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest.xml",
+        "sha256": "1990a1abca51effabd6d84b5cf36406689a9728859d24605cef8903c8b9e9a30"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest.xml",
+        "sha256": "392dd09cdbef7df12f587ec9bf67bfe019d000e50856df3bf591305b28a764f8"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest.xml",
+        "sha256": "1836d493f7e602736f954b65e7858e2767d1e217686d0d31fdfc3d03ff48ade2"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.Cf033CapacityCostTest.xml",
+        "sha256": "5a461a11ba6a7fab412d986246c72e83f0a1887bceda4a03e37f8a616586ed21"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest.xml",
+        "sha256": "17be2d12ed7ac93ac7ff1f82506ac9e25817c96aadf9166c801179bb54ef59cc"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.Cf033GateTransitionReviewTest.xml",
+        "sha256": "94191848469fe5ced33e3b091f75ddb8402adc365a7c127535da2acacd6c1417"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest.xml",
+        "sha256": "dd6568df091e9ad38955f02b317e51778d30d47f94cbfa9369fb62bf2e2b5c51"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest.xml",
+        "sha256": "499bfe553c3d2c3f7e8cda1ffce845444c65b0b6365d964a7115430ea1dba9ba"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.DailyReservationConcurrencyTest.xml",
+        "sha256": "dd8c868383fa4e14dffb0b43edfa9468da12541b5a49dca2392d7e14dd648298"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.DraftValidatorTest.xml",
+        "sha256": "3a86e435e4d2c0e73590bc220495858d5d4026f1f674d90f09c817aa29f59cb7"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationTest.xml",
+        "sha256": "aec726771772b8e41d7b01db6530719102bbdb36c93ffcaf24442c23700d3af2"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingAtomicityEventTest.xml",
+        "sha256": "00840bc18fe9d08502278a1c7d2f82f5930eb5f93c6c6d0dacaa486a99c7c39b"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingBoundaryTest.xml",
+        "sha256": "4bdd9193b82bf2725d6f7f744fe0832ce43d14e4315883f3c7f832e2627c8dea"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingCanonicalContractTest.xml",
+        "sha256": "defa00bf9d4eca36c292e170cbb5aebd5e408cefa5f6134cd38baa4e717d38ad"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityCostTest.xml",
+        "sha256": "bb082a301e723684d8c5f96d3f434367fd61b801210851923cbe0234615e737b"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityHttpTest.xml",
+        "sha256": "c603266999ad00d35601361bb5221fa5a95683b75bc91891b9712a726b931c02"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingForeignZoneReviewTest.xml",
+        "sha256": "de75a9d9913041f162d296404376975a758b9cec5a3867acf1503bec273af8a3"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingGoalRevalidationTest.xml",
+        "sha256": "9a50b769c0e7d227db10e4caa7c724238eb8935386baf488be1f066984e64c04"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentContractTest.xml",
+        "sha256": "ddd8a4de0c182fb9edd52bde023ade8919b6f82af636c09e54e5692b1ec862c6"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentReviewTest.xml",
+        "sha256": "ae126478bb7ce2c17eff3df654ee79874822069f1329b0e59653f62aabf1bff4"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingIntegrationTest.xml",
+        "sha256": "34d963befcaf9a6144c2fb3ea701a3bf81466721a07866d3c126dd24623cc548"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingLifecycleConcurrencyTest.xml",
+        "sha256": "7486b296cd7c903e4f6039a5e55e6b1474e26fd331f8b70f4d60fa1bedf9317d"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationPoolIsolationTest.xml",
+        "sha256": "6be7cc137eddc132e8083cc2aa1796ae38ecfac3f24716963f5f5593590d124c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationTest.xml",
+        "sha256": "4bacfd7c33e2f7397e646cdef513513567b28b15593887acb6b6128e66c7ef19"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingPrecisionProtocolTest.xml",
+        "sha256": "2fa94bc3c8b68a5daedbb901701c6c611f2a321e8e19563e86abb21aea5fca1b"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingRc030CivilTest.xml",
+        "sha256": "18b9de5ed47cdf8b471369c7240467e1c2671153bd15e86ec0365a08fc234c6e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingRc030PaymentTest.xml",
+        "sha256": "9fd29a8011484f089bbb4888ee7f0d437a7852928f6a2d9473754c2ed82a6778"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingRc030VersionTest.xml",
+        "sha256": "47b44a3f0b9340985d5d091ec6a731c9ee48809cc91b4211176f19b2e5993a74"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingReservationIssueTest.xml",
+        "sha256": "b2e4931411ac65e144cddc72fb5c7146cbcdf0d79b98c5e6400fd9eff2385a9e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingReservationsTest.xml",
+        "sha256": "0fee115d256bfa74e59e27b8c8fd875d083182da66dddc0bd582879c136235d7"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingRevalidationCivilTest.xml",
+        "sha256": "ca3f4e2201af35325a656bd1ae81811096210e9553fda43ff75637617db45b48"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest.xml",
+        "sha256": "e22080bb7465968e964bc46d3fa8f82169614f1a3cc5a2ddb7147e13838da651"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest.xml",
+        "sha256": "e7fe9b874cec8088570c60bc23b41023c7b784c25adf1f7bdc5def29c189fe66"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingReviewTemporalTest.xml",
+        "sha256": "8b115d14a0c61a20a876f07c9d00acae8b7ae23c24b9d7a943deee87588cca9c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.onboarding.OnboardingV16MigrationTest.xml",
+        "sha256": "a1f3370b0d3f9d4a0204c92fe4da4c07889390ce5684fc804bc986a7c8e5f336"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.validation.FutureInProductZoneValidatorTest.xml",
+        "sha256": "44824e43bb1b67df2e65ce1aa4acb3fb18c143f4e352c95e08802f98f86a5613"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.infra.operations.EmailMaintenanceTest.xml",
+        "sha256": "2f0806d5cde46209788d2c241f4e651e3dddb09713713379403c4e746eee3905"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.infra.operations.HealthControllerTest.xml",
+        "sha256": "e4e4fd533f62985e5d3cac278315ca464f4617561a7b3e9ef59f772ad2e7ea91"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest.xml",
+        "sha256": "afb55ecee498bb16190194ae44f39a0349f2a37a92772b31ed58e6ea7b46af3e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest.xml",
+        "sha256": "a90656ab784b849fd7d440eb008034122cd3e386760aa696dbdeb26acb1b5a63"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest.xml",
+        "sha256": "5410f1f613664b456bbb9f400f6bb1916770856929bbec28406b452a0f6b1ceb"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.AdoptionPortAllocationTest.xml",
+        "sha256": "df73daedcac084cf8342b6f3871e9a627f6f7acba0f3f5b9a7d4b8dcb13d8990"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.AdoptionRuntimeTest.xml",
+        "sha256": "44042ae762b1bba1682b9034feee19b319e582cf71309a93ce6a36af6e65ef22"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.Cf017ManifestTest.xml",
+        "sha256": "3f9ba75fa296adcde8b0c2c6a7820e9d8d3e59f40907bd897b9d9caf3aa65fc0"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest.xml",
+        "sha256": "67f8b3baf0fc7736ca4206918d3a0428c74713a213b6c34642d3cb74d352c7b3"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.Cf017PreflightTest.xml",
+        "sha256": "097885a763147f1fe06f9d18745ab6104b53a3c988133139698fa9498f45871e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.Cf017RestoreTest.xml",
+        "sha256": "3958dd70c2fc12ed0bbf6dad3f5882f121aee9758bce1ec9523a3c6a23238af8"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest.xml",
+        "sha256": "746c61befc3d7eb617f1e21cc42272079738f49a00109a31d65045ec17732ab7"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest.xml",
+        "sha256": "5b2f21670baf2b1c97d86ab94717a3ca74dd699667466cba4b14c70b6b0231a2"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.IncrementalMilestoneReviewTest.xml",
+        "sha256": "0841a31afd7fd16e4bae044fcf65e5165b9253af43dc2795d0107237aa42c045"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest.xml",
+        "sha256": "668abb3a318865ef543012b479d94bfab2d53b1ce6efe3f89e4536981186bb95"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.migration.SchedulingBoundaryTest.xml",
+        "sha256": "2b85f5063a684a21ad45d405e60e1c6dbdb049d47c47cc824c4b84131326f982"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest.xml",
+        "sha256": "6fd8375bd5b6f995d6db3283a4f2bf966c27a00c4ac80c7d2c12057d5d10653d"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf019CardIntegrationTest.xml",
+        "sha256": "5d24b303f5b3669410bef39e6c1f2e40ea9af6df8397b4844cae66d81afeb2ab"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf020GoalAllocationTest.xml",
+        "sha256": "187de60e49184eee3cfb00425029539bfdfd36a7366f0d634e36f3963f8d8b5a"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest.xml",
+        "sha256": "261e4f6cdea8a3a22e8d77c82f73555f845abfb6aa52b2d113340673a61cb59e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest.xml",
+        "sha256": "60d4dc45e69d234e4493b1c14aee6e5e7bd6adc428bc5b158d9506735f758f98"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest.xml",
+        "sha256": "a9570bb76280844cc2b26b629851f365c664304ed34e51c92e9daa2d5cd59fe2"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Cf025QueryPerformanceIntegrationTest.xml",
+        "sha256": "afa6c6892099c4baa406488cb1027f5c7e38b820adffb044d40d6b2f24f5a6e1"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.CredentialExpiryClockTest.xml",
+        "sha256": "93f38b8c2efe61ca6d92cbfee690aee1f5b671e36ce996d957b655deb25e2d61"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.HabitServiceTemporalTest.xml",
+        "sha256": "565431ae40e809584e101ea837a3c303150aa0f232eac37eb5de5bb7bbf1ec5e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest.xml",
+        "sha256": "33915aed93e47411fac0f431037220be997a1c282f0ddfe66df2c842b3f7adcd"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest.xml",
+        "sha256": "ff4e027c46f7ba71bb720325e44e843f789841cca2d5c7bf9566f140b41233aa"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.InvestmentServiceTemporalTest.xml",
+        "sha256": "cc85281212b47634a1611845d6bae5a3a7b3424bca8214a669830607bf65898c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.InvoiceBankOperationListenerTemporalTest.xml",
+        "sha256": "bef816a6b286a6146df2c82f95fdd9f31479b413a118ef2494633cbe804d78bf"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneCashPresentationTest.xml",
+        "sha256": "9c29548bdbe4feae8677d5dbcc2bb724ff73e0bcae8eea4f1c490fb2b58848fe"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneExportSnapshotTest.xml",
+        "sha256": "cfc77de17b9b70908022d48803827f54817ca567ba812ea371a77d4358d30c99"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneGoalFlowTest.xml",
+        "sha256": "654cb9ae618dd2471aa17080958b182b1ad8a0fda2c9a1b81235060f00334a29"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest.xml",
+        "sha256": "5dfe88784f1642babd4a21bceac7b28aa5ac0fdc80cf0ef866dfc84b5a882d63"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneReportingCoverageTest.xml",
+        "sha256": "f504205dce668a9bd540a0fdd1e0b89cb3065ac72d738d51b42bfcd6d94f754c"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneReportingPositionTest.xml",
+        "sha256": "5cdd0a75eefe5abb5dca6ebfaff93ffd9eaa52cf8828a6225a1f267c2f908dab"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneSourceConcurrencyTest.xml",
+        "sha256": "8d3db057027bb226cbc9483fa4b9edaa3783a3e632a82c75087d2e8e2a48df7d"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneTransactionCommandTest.xml",
+        "sha256": "d9529a290764d943813f1132512d538e3f9f01b60451fc51795924cfabfa9d5e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneValuationTest.xml",
+        "sha256": "09ed092f064ae53281fa4fe801a51b33a014311b4589e094c46616591d1f9236"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.MilestoneWriterPolicyTest.xml",
+        "sha256": "3d66f51f472762defb9d040e6031a83187ef42214f960d5b332285aace02009d"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest.xml",
+        "sha256": "549ddf0a31be856b67fca037960dc6e0c77662d0cf1e00e00fbddc64d56e740e"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Rf15InvoiceDatesTest.xml",
+        "sha256": "a52a611aa591b9f0a3d4e3ff5052486a201c35cca07e6ce7ffd52935425b2212"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest.xml",
+        "sha256": "4ee4dedbffa8704acb0d1745634a2ac430f13bc6e3d658ef372750c09c81d715"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.ScheduledCalendarClockTest.xml",
+        "sha256": "60bed1aabc66fd53deaa10a701be9f164dcec80d3a6dd2e57c44c615584764de"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.TransactionServiceTemporalTest.xml",
+        "sha256": "3ea820c305c2c25ec7faf16114691679d16e3701a017fb27e3b551f099a4c46a"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.intent.FinancialIntentArchitectureTest.xml",
+        "sha256": "05d597ff33d920fd33892ca860e7c29672b1f8810e8028fcf4292464df784119"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.intent.FinancialIntentsIntegrationTest.xml",
+        "sha256": "bfbb20ee17600ea060440643082a9f4cd2d36ecf8e6956ecfdafe8758aaed0bc"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.service.intent.IntentFingerprintTest.xml",
+        "sha256": "4b806630e9c72c1d5086ba270d31435530681faa120afab80dd3e6f1a3af5dac"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.support.DisposablePostgresGuardTest.xml",
+        "sha256": "c5bd0c85571122452912482575500f69cedec258f8f014c62440ed59eb3cbaa0"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.utils.DateUtilTest.xml",
+        "sha256": "10146a3bda5cb02b5a7ddce34fcabaab5094d9855ca8950c9fe5c7faafebbbc7"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.utils.TemporalConfigTest.xml",
+        "sha256": "e7cba09da4bf3858f052e8f69bbcd7997c89e8199104676cae745536f31c74d6"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "class": "com.controlefinanceiro.api.Cf014HistoryDiagnosticTest",
+      "test": "persistedHistoryObservation",
+      "assertion": "[See diagnostic playwright.log] ",
+      "assertionSource": "at com.controlefinanceiro.api.Cf014HistoryDiagnosticTest.persistedHistoryObservation(Cf014HistoryDiagnosticTest.java:77)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Cf014HistoryDiagnosticTest.xml",
+          "sha256": "e08b0154bcfb5953f2f6a8ec109750339352b32ff937d144dade00c224c0385c"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\Cf014HistoryDiagnosticTest\\playwright.log",
+          "sha256": "e6c48ca25f5bbf4342bc3df31d149933b9b913523ca7bf0fb0bef844e58068c6"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "persistedHistoryObservation"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryDiagnosticTest.xml",
+        "sha256": "4a2702c3ca293791b5ffcbc9c0b77b4b04f0cee1bc78e24f32ec84492e164a90"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryDiagnosticTest.xml",
+          "sha256": "3fc61f96622da1212044b4c711d39d81d7552f6268ca41d9d2e859d5297261c7"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Cf014HistoryReviewTest",
+      "test": "persistedHistoryObservation",
+      "assertion": "[See diagnostic playwright.log] ",
+      "assertionSource": "at com.controlefinanceiro.api.Cf014HistoryReviewTest.persistedHistoryObservation(Cf014HistoryReviewTest.java:84)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Cf014HistoryReviewTest.xml",
+          "sha256": "27d46418526cd8a5e8afa59068dd8f6a03b732350908529e977e170bdc49ad29"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\Cf014HistoryReviewTest\\playwright.log",
+          "sha256": "bc7e6bc21e3797a6f4c258c375a9d71203423dffac40fe84c839ed1d994df930"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "persistedHistoryObservation"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryReviewTest.xml",
+        "sha256": "5c7a9b41c7596de43c8748bf10946de66de3b32bf905669f86f22fd42a7f2c69"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Cf014HistoryReviewTest.xml",
+          "sha256": "2bcfbc24f4dd6824a172e122ec3bfea507b0d73a9e10171a1b8cd770211df805"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Cf019Rva03DiagnosticTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.Cf019Rva03DiagnosticTest.browserBffSpringPostgresAndReload(Cf019Rva03DiagnosticTest.java:79)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Cf019Rva03DiagnosticTest.xml",
+          "sha256": "d97cb4f2ff2f9ae8bf9f43a40eab2eeb0f43c9281b20d29f77a8c1ccd860db1f"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\investigacao-CF019-RVA03\\playwright.log",
+          "sha256": "d572014cba967345a80883bc8a8816c4ca5a9cfc765e869e1a1dd203a02bab17"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Cf019Rva03DiagnosticTest.xml",
+        "sha256": "d04620a75a1bd6eb91ada99eecc7690a4ba9d1ab1eb8cfbc117c677a916e558c"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Cf019Rva03DiagnosticTest.xml",
+          "sha256": "71476727ab00ef9217dce621c2dd721ada18f6c701d30658fb9e166177e6ce7e"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.FrontendClosureBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.FrontendClosureBrowserTest.browserBffSpringPostgresAndReload(FrontendClosureBrowserTest.java:93)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.FrontendClosureBrowserTest.xml",
+          "sha256": "f9898fb3051014ebde3c489a93e2d451f6012aaab60187e9c59ba1a64f2a3170"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\fechamento-CF-010-CF-015\\browser\\playwright.log",
+          "sha256": "e1ad44c81e1279e6af2c4d071a91806e9a520f746084bee1d0083c25d8614908"
+        }
+      ],
+      "artifactRelation": "Producer also writes relative Playwright artifacts inside sources; separate contamination effect",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Path/artifacts corrected; preserved first UI failure; response-before-reload correction verified on6+1 controls and full original wrapper",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.FrontendClosureBrowserTest.xml",
+        "sha256": "79ec57a953f1240e7514915ba7925eb2d6d91834a155bf48f40233506203d58e"
+      },
+      "firstFocused": {
+        "status": "failed",
+        "counts": {
+          "tests": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": "[See browser/playwright.log; expected red findings remain red] ",
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.FrontendClosureBrowserTest.xml",
+          "sha256": "9243f7a76d2a7a19f32251f8071d9a1160e971fac44414ff58b8f3aa7b910768"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest.browserBffSpringPostgresAndReload(IntegratedMilestoneBrowserReviewTest.java:78)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest.xml",
+          "sha256": "f6977c18c6a92a2a8bb477345d23e9da9c079574ad2cbcd2621c9bf4ea660b37"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\IntegratedMilestoneBrowserReviewTest\\playwright.log",
+          "sha256": "541fa1853d68a773ad808f953c1c51a1cac62f4b6745d4e33074bb5238b9fd14"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest.xml",
+        "sha256": "4f2d34834ab7aebb9f32e39a30f79e293ce9599872d678d232b1b19748ad914a"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest.xml",
+          "sha256": "85d9703c923f013a5cd13b7059aeaf62c20eb7cb681dbeb48ed04a0ecbd5ab9a"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.MilestoneRemediationBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.MilestoneRemediationBrowserTest.browserBffSpringPostgresAndReload(MilestoneRemediationBrowserTest.java:82)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.MilestoneRemediationBrowserTest.xml",
+          "sha256": "0984c937542ed945d6425a0657634c66243a5de71798c45db454b8e5c5480bf1"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\MilestoneRemediationBrowserTest\\playwright.log",
+          "sha256": "e91947899a7f8866fae2707c9aad5ade5d544c72e5522d4cddbae90fd65d79bd"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.MilestoneRemediationBrowserTest.xml",
+        "sha256": "f1ffd452e6659f364f2cc2ff3781867bdac333686461f98d8c0eec419bd0602a"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.MilestoneRemediationBrowserTest.xml",
+          "sha256": "84184ab07a97d151abd5bd20c97a4dbfe27daeca3ddde4aae056b4b5eda5b6b8"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rf15IndependentBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rf15IndependentBrowserTest.browserBffSpringPostgresAndReload(Rf15IndependentBrowserTest.java:95)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rf15IndependentBrowserTest.xml",
+          "sha256": "717036284af22731625b1ea6ef6a3f1c18d3442afdb4a391b6b80ce4b49aad26"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\revalidacao-RF15\\browser-extra\\playwright.log",
+          "sha256": "91be4437e4a9e6bb708c9ced7133088acf157e114c935e704244c6b3fab813cb"
+        }
+      ],
+      "artifactRelation": "Producer also writes relative Playwright artifacts inside sources; separate contamination effect",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15IndependentBrowserTest.xml",
+        "sha256": "123b1e09e3840c6e21965e962cf4c9b7c476a4a5d4c9ed8977953b023b84a4bc"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rf15IndependentBrowserTest.xml",
+          "sha256": "35b5718433d73512ae9ca2d203d4f897080c7b60ab3ba8a5318eac47d91df21e"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rf15RemediationBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log; expected red findings remain red] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rf15RemediationBrowserTest.browserBffSpringPostgresAndReload(Rf15RemediationBrowserTest.java:101)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rf15RemediationBrowserTest.xml",
+          "sha256": "f801deee9ceeed9ab14816af238295912b530048f586be5815a3fc2e4afb38b9"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\Rf15RemediationBrowserTest\\playwright.log",
+          "sha256": "70ff261ce576ea1c508491f484ec47a03bf0ae01ef55c4759134ff6ebf10a9dc"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15RemediationBrowserTest.xml",
+        "sha256": "886f6ceb86438c9b4b18c7decc53f1f07e8c06b87963f31cf904dcad04639314"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rf15RemediationBrowserTest.xml",
+          "sha256": "5e2a6bb127e84678a3c530478c63900b627678c385552612fd03d226bc564c1d"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rf15ResidualBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log for the bounded residual verification] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rf15ResidualBrowserTest.browserBffSpringPostgresAndReload(Rf15ResidualBrowserTest.java:95)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rf15ResidualBrowserTest.xml",
+          "sha256": "79694b5a256a55cb9b01443c8ffbfa6beb99164a34f466c59089f801e518ea15"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\saneamento-residual-RF15\\browser\\playwright.log",
+          "sha256": "6d4286b8cb8c73bf1e79a0159bfbd14b5a1a62b62e6ca6c7b907b1b89edffec5"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualBrowserTest.xml",
+        "sha256": "1e7fc2a9bde184360f48c7c213bb693fa7f5e0d64d0d729c73bb0708648482d2"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualBrowserTest.xml",
+          "sha256": "438b343688a2ea746151c99d7efdc29bdc1850fee5436d6272cf96f214305f00"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log for the bounded residual verification] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest.browserBffSpringPostgresAndReload(Rf15ResidualIndependentBrowserTest.java:95)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest.xml",
+          "sha256": "a30821b3aa1c708f7908ba6e88dde1c8064b9cd0caa5ba23d9ca1d52b65aad26"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\revalidacao-residual-RF15\\browser-extra\\playwright.log",
+          "sha256": "dc9fa6a859a03105ada64eba41418d710c8ceb8fa8637149fe8043ee801dfa4c"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest.xml",
+        "sha256": "386ead02df61f049f01226db86667e1fd8ca13492b123696f41481fa265e3301"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest.xml",
+          "sha256": "8a1083f8da35d8cb306d769c70b2b49a31a51d5a52436d131517bb541d5a2311"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See the unique evidence run's playwright.log] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest.browserBffSpringPostgresAndReload(Rv24CreationBrowserIntegrationTest.java:94)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest.xml",
+          "sha256": "76b0ed37d84744c90a62da0b26792e6d38577c25a0d793df91336a4c6f8e7737"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\RV24-01\\browser-final\\playwright.log",
+          "sha256": "83cc3f39667ddcf78e4cfb2a1adb38a8169d3478775dc14bf055dd5ba20e27e6"
+        }
+      ],
+      "artifactRelation": "Producer also writes relative Playwright artifacts inside sources; separate contamination effect",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest.xml",
+        "sha256": "d63af4a1860f2aa0f1190a0b58f5cab72b3e2173af11487ec4e5a79f3d875a20"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest.xml",
+          "sha256": "dcae8cc5b3c1f3fab9f284333d3cd0ef346062216083fb8f8929ee652e18f898"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rvr24ReviewBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log for the bounded residual verification] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rvr24ReviewBrowserTest.browserBffSpringPostgresAndReload(Rvr24ReviewBrowserTest.java:97)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rvr24ReviewBrowserTest.xml",
+          "sha256": "da278a4b9650d8c844f8312ea3cc78f23a0b7062ecd660340d023a7e12242f93"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\saneamento-RVR24-02-ciclo-visual\\browser\\playwright.log",
+          "sha256": "6d41b27f087f17911b9719083ebec266a44f9dd476071f0730cbaa8fa295a08b"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rvr24ReviewBrowserTest.xml",
+        "sha256": "6b00bb072b790c9b808ae17e38e1a23ffb0bcc48e50bf56afb72280453385f51"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rvr24ReviewBrowserTest.xml",
+          "sha256": "dbe36f9f23a24232796531cdf6b766b78c6efd77eeb727b35c2ba13f98876346"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.Rvr24VisualBrowserTest",
+      "test": "browserBffSpringPostgresAndReload",
+      "assertion": "[See browser/playwright.log for the bounded residual verification] ",
+      "assertionSource": "at com.controlefinanceiro.api.Rvr24VisualBrowserTest.browserBffSpringPostgresAndReload(Rvr24VisualBrowserTest.java:97)",
+      "primaryError": "Error: browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.Rvr24VisualBrowserTest.xml",
+          "sha256": "265e3e20a2dbf73767c08b72dbd04c247b761d9a599ff370e9dcd3671b21c6aa"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\revalidacao-RVR24-02-ciclo-visual\\interaction\\playwright.log",
+          "sha256": "f3ec4fb63039784e7b947793bab933ea397f32d30d0836ef31cf6921d8e51600"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringPostgresAndReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.Rvr24VisualBrowserTest.xml",
+        "sha256": "e65fc7208ca656f3aadaee4cc0ae3271af92e7c6e147ff7ca4cd104d883ed593"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.Rvr24VisualBrowserTest.xml",
+          "sha256": "65af834386e454f974b9853656c1e8de43918bacaf96c0e6182ff1e528a384d6"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest",
+      "test": "browserBffSpringAndPostgresKeepDailyAndWeeklyNumericEffectsAfterReload",
+      "assertion": "[browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64",
+      "assertionSource": "at com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest.browserBffSpringAndPostgresKeepDailyAndWeeklyNumericEffectsAfterReload(HabitBrowserIntegrationTest.java:51)",
+      "primaryError": "browserType.launch: Failed to launch: Error: spawn C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\controle-financeiro-frontend\\node_modules\\playwright-core\\.local-browsers\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe ENOENT",
+      "primaryKind": "Chromium executable: launch ENOENT, installed binary exists",
+      "derivedFailure": "Java wrapper exit assertion after Playwright launch error",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest.xml",
+          "sha256": "4017cfbf2f76a3946d73f768c4fdeb7e9922fd156c75073c7e3398a49b22edb9"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\c\\tasks\\evidencias\\CF-022\\browser\\playwright.log",
+          "sha256": "713b9e0f8b0d014e295b35c732bf1ed40b413ba0d6074aa131f5688ce21c4342"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical candidate; keep hermetic Playwright0 but validate actual executable/profile path",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "browserBffSpringAndPostgresKeepDailyAndWeeklyNumericEffectsAfterReload"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest.xml",
+        "sha256": "9320692d5939910583c54056b35e8b7afcab5d0eaff967b31f1792de9610f4a6"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest.xml",
+          "sha256": "051785f3f69f64af6e82cfc01734179045d9ef01e65f609c92bd3c94ddfe46c0"
+        }
+      }
+    },
+    {
+      "class": "com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest",
+      "test": "loginLogoutAccountSwitchAndReloadUseRealBffAndPostgres",
+      "assertion": "[ExpectError: expect(received).toBe(expected) // Object.is equality",
+      "assertionSource": "at com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest.loginLogoutAccountSwitchAndReloadUseRealBffAndPostgres(UserIsolationBrowserIntegrationTest.java:60)",
+      "primaryError": "- path length for file C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\UserIsolationBrowserIntegrationTest\\frontend-runtime\\cf023-7f252f98\\.next\\build\\chunks\\[turbopack-node]_transforms_postcss_ts_6920245c._.js.map exceeds max length of filesystem",
+      "primaryKind": "Next prepared copy: physical path exceeds filesystem limit",
+      "derivedFailure": "Readiness120s ends ready=false; original browser.cjs:25; no UI ownership journey",
+      "productExercise": "Setup Spring/PG/readiness may run; browser UI scenario did not reach functional assertions",
+      "raw": [
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\surefire\\TEST-com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest.xml",
+          "sha256": "ec1402701f22223e4d2dfca3e19148a72f02d26ba9a00feda3d7636293f93f90"
+        },
+        {
+          "file": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-w\\v\\browsers\\UserIsolationBrowserIntegrationTest\\next.log",
+          "sha256": "46dbd2e1a6f20ea4230cb50c0733c6fc67335c2b8dd4b08469e71e42bed88f6d"
+        }
+      ],
+      "artifactRelation": "No causal claim that source artifacts caused launch/readiness failure",
+      "fix": "Short physical prepared frontend runtime, same build/server/120s budget",
+      "control": "Same original Java method, functional Playwright assertions and PostgreSQL postconditions; strict focused15 reports; no retries",
+      "resolution": "Original Java method and original browser/SQL assertions passed on full candidate",
+      "current": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "methods": [
+          "loginLogoutAccountSwitchAndReloadUseRealBffAndPostgres"
+        ],
+        "file": "C:\\cf-exp\\1104d/all/surefire/TEST-com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest.xml",
+        "sha256": "afb55ecee498bb16190194ae44f39a0349f2a37a92772b31ed58e6ea7b46af3e"
+      },
+      "firstFocused": {
+        "status": "passed",
+        "counts": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "firstError": null,
+        "report": {
+          "file": "C:\\cf-exp\\1104d/focused/surefire/TEST-com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest.xml",
+          "sha256": "8267e45220c99178c45a8f76ca4d7d9c7e47b8259f24d2f1990b4946b8c1a64c"
+        }
+      }
+    }
+  ],
+  "rf15": {
+    "A": 25,
+    "B": 2,
+    "C": 23,
+    "deferred": [
+      {
+        "project": "review-sao-paulo",
+        "file": "cf015.native-zoom.integrated.spec.ts",
+        "titles": [
+          "R10: zoom nativo 200% com ações, rolagem e foco"
+        ]
+      },
+      {
+        "project": "review-sao-paulo",
+        "file": "rf15-native-chrome.integrated.spec.ts",
+        "titles": [
+          "RF15: zoom nativo Chrome 200% com ações, rolagem e foco"
+        ]
+      }
+    ],
+    "context": {
+      "candidate": "95118407cfe684430421d7f5c4b613a99d2b55d0",
+      "digest": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+      "runId": "26daab35-a0aa-49f4-9830-7fc3ac6fb665",
+      "decisionSha": "995b845d48bca402c5b3bafd5ecde9ccd88b6bd7556c0f7cf86201954399389e"
+    },
+    "verified": {
+      "passed": true,
+      "coverage": {
+        "label": "Expanded do recorte autorizado, com dois cenários de zoom adiados pela decisão DEC-ZOOM-05",
+        "decision": "DEC-ZOOM-05",
+        "deferred": [
+          {
+            "project": "review-sao-paulo",
+            "file": "cf015.native-zoom.integrated.spec.ts",
+            "titles": [
+              "R10: zoom nativo 200% com ações, rolagem e foco"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-native-chrome.integrated.spec.ts",
+            "titles": [
+              "RF15: zoom nativo Chrome 200% com ações, rolagem e foco"
+            ]
+          }
+        ],
+        "required": [
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-final.integrated.spec.ts",
+            "titles": [
+              "B: download recusado não cria arquivo e binário válido preserva XLSX"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-final.integrated.spec.ts",
+            "titles": [
+              "D: competência de fechamento conserva vencimento contratual no detalhe"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-payment.integrated.spec.ts",
+            "titles": [
+              "SAN-BC-card compra, exclusão e reembolso após pagamento 20 pela UI"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-payment.integrated.spec.ts",
+            "titles": [
+              "SAN-BC-card compra, exclusão e reembolso após pagamento 120 pela UI"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-targeted.integrated.spec.ts",
+            "titles": [
+              "C: privacidade deve ocultar saldo monetário de conta arquivada"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-targeted.integrated.spec.ts",
+            "titles": [
+              "C: detalhe do extrato deve fechar por Escape e devolver foco"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-targeted.integrated.spec.ts",
+            "titles": [
+              "C: cem lançamentos, filtro, página e reload"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-visual.integrated.spec.ts",
+            "titles": [
+              "CF015: visual dirigida 360"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-visual.integrated.spec.ts",
+            "titles": [
+              "CF015: visual dirigida 768"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure-visual.integrated.spec.ts",
+            "titles": [
+              "CF015: visual dirigida 1440"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure.integrated.spec.ts",
+            "titles": [
+              "B: recuperação real com caixa falsa, rejeição e login após reload"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure.integrated.spec.ts",
+            "titles": [
+              "B/C: preferências persistidas, erro recuperável, privacidade e valores"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "frontend-closure.integrated.spec.ts",
+            "titles": [
+              "E: interação semanal passiva com persistência e reload"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-accessibility.integrated.spec.ts",
+            "titles": [
+              "RF15-01: criação mobile por nome e teclado"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-matrix.integrated.spec.ts",
+            "titles": [
+              "Matriz CF013: PAID real após fechamento, reload e saldo devido"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-matrix.integrated.spec.ts",
+            "titles": [
+              "Matriz CF014: metas hoje/concluída e formulário monetário longo"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-matrix.integrated.spec.ts",
+            "titles": [
+              "Matriz CF014: investimentos histórico carregado e ação/modal"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-matrix.integrated.spec.ts",
+            "titles": [
+              "Matriz CF014: hábito formulário longo e detalhe diário"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-surfaces.integrated.spec.ts",
+            "titles": [
+              "RF15-02: contas ativas/arquivadas, temas, privacidade acessível e reload"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-surfaces.integrated.spec.ts",
+            "titles": [
+              "RF15-03: teclado real, containment, edição cancelável e retorno"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-timezones.integrated.spec.ts",
+            "titles": [
+              "America/Sao_Paulo",
+              "RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-timezones.integrated.spec.ts",
+            "titles": [
+              "UTC",
+              "RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial"
+            ]
+          },
+          {
+            "project": "review-sao-paulo",
+            "file": "rf15-timezones.integrated.spec.ts",
+            "titles": [
+              "Pacific/Kiritimati",
+              "RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial"
+            ]
+          }
+        ],
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "stats": {
+      "startTime": "2026-11-04T04:52:53.174Z",
+      "duration": 276885.84500000003,
+      "expected": 23,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-final.integrated.spec.ts\",[\"B: download recusado não cria arquivo e binário válido preserva XLSX\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-final.integrated.spec.ts\",[\"D: competência de fechamento conserva vencimento contratual no detalhe\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-payment.integrated.spec.ts\",[\"SAN-BC-card compra, exclusão e reembolso após pagamento 20 pela UI\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-payment.integrated.spec.ts\",[\"SAN-BC-card compra, exclusão e reembolso após pagamento 120 pela UI\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-targeted.integrated.spec.ts\",[\"C: privacidade deve ocultar saldo monetário de conta arquivada\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-targeted.integrated.spec.ts\",[\"C: detalhe do extrato deve fechar por Escape e devolver foco\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-targeted.integrated.spec.ts\",[\"C: cem lançamentos, filtro, página e reload\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-visual.integrated.spec.ts\",[\"CF015: visual dirigida 360\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-visual.integrated.spec.ts\",[\"CF015: visual dirigida 768\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure-visual.integrated.spec.ts\",[\"CF015: visual dirigida 1440\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure.integrated.spec.ts\",[\"B: recuperação real com caixa falsa, rejeição e login após reload\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure.integrated.spec.ts\",[\"B/C: preferências persistidas, erro recuperável, privacidade e valores\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"frontend-closure.integrated.spec.ts\",[\"E: interação semanal passiva com persistência e reload\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-accessibility.integrated.spec.ts\",[\"RF15-01: criação mobile por nome e teclado\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-matrix.integrated.spec.ts\",[\"Matriz CF013: PAID real após fechamento, reload e saldo devido\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-matrix.integrated.spec.ts\",[\"Matriz CF014: metas hoje/concluída e formulário monetário longo\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-matrix.integrated.spec.ts\",[\"Matriz CF014: investimentos histórico carregado e ação/modal\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-matrix.integrated.spec.ts\",[\"Matriz CF014: hábito formulário longo e detalhe diário\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-surfaces.integrated.spec.ts\",[\"RF15-02: contas ativas/arquivadas, temas, privacidade acessível e reload\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-surfaces.integrated.spec.ts\",[\"RF15-03: teclado real, containment, edição cancelável e retorno\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-timezones.integrated.spec.ts\",[\"America/Sao_Paulo\",\"RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-timezones.integrated.spec.ts\",[\"UTC\",\"RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"review-sao-paulo\",\"rf15-timezones.integrated.spec.ts\",[\"Pacific/Kiritimati\",\"RF15-04: mesmo instante em fusos divergentes, vencimento civil e saldo parcial\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      }
+    ],
+    "proofs": [
+      {
+        "file": "C:\\cf-exp\\1104d/all/browsers/Rf15RemediationBrowserTest/zoom-selection/invocation.json",
+        "sha256": "0e096cc8e36be47fe40536fb7dcb10a8df72191d65cfbc7163960670fd2a4ae9"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/browsers/Rf15RemediationBrowserTest/zoom-selection/universe.json",
+        "sha256": "4545341a534664e050ba837fe957def9ffc3a2709f3221e326def86c29975ecd"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/browsers/Rf15RemediationBrowserTest/zoom-selection/manifest.json",
+        "sha256": "a139bb42cd15a63ba6f2b5d568d2bd1dc7aec67c6284d5e2ddd2bec40b8e9bb4"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/browsers/Rf15RemediationBrowserTest/zoom-selection/selection.txt",
+        "sha256": "0a721481c695c1c285f9b1db72197d0042afe1592ec45a4f17803c58d28ba02b"
+      },
+      {
+        "file": "C:\\cf-exp\\1104d/all/browsers/Rf15RemediationBrowserTest/zoom-selection/results.json",
+        "sha256": "7248eb9745c66440b6fb72eea7a57a87293abf553d5f39025327318a37bbb6ef"
+      }
+    ]
+  },
+  "financialE2E": {
+    "reached": true,
+    "java": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "browser": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "identities": [
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"A cadastro, rascunho, aplicação E01, recibo e releitura\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"B uso diário pela UI, reconciliação, reload e logout/login\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"C relatório e XLSX real com datas, origens, estados e totais independentes\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"E legado conserva proveniência, UNKNOWN e complemento sem histórico fictício\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"E2 fonte legada incerta bloqueia nova destinação também no uso cotidiano\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"F contas a receber: baixas parciais, calendário e persistência\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"G resposta perdida após commit SQL, recuperação e replay de efeito único\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"H dois usuários intercalados, ownership, exportação e troca de sessão\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"K limite disponível das telas concilia principal corrente e parcelas futuras\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"L investimento válido sem identificador continua identificável pelo nome\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"Calendar America/Sao_Paulo\",\"T0 prazo e hábito em America/Sao_Paulo\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"Calendar UTC\",\"T1 prazo e hábito em UTC\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      },
+      {
+        "identity": "[\"\",\"../../../../../s/controle-financeiro-frontend/tests/cf032/journeys.spec.ts\",[\"Calendar Pacific/Kiritimati\",\"T2 prazo e hábito em Pacific/Kiritimati\"]]",
+        "status": "expected",
+        "results": [
+          {
+            "status": "passed",
+            "retry": 0
+          }
+        ]
+      }
+    ],
+    "proof": {
+      "file": "C:\\cf-exp\\1104d/all/browser/playwright.json",
+      "sha256": "ddcb72b1708d0b7d7b9f3ba228d92f74a77eb3e28c7925507c6ef2ab4954d102"
+    }
+  },
+  "artifact": {
+    "file": "C:\\cf-exp\\1104d/all/api-0.0.1.jar",
+    "sha256": "564f87cd83f2b7ddd793b0cded03ac64080647b5522355dc88b27ce218497be9",
+    "bytes": 86235083,
+    "sourceDigest": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+    "commit": "95118407cfe684430421d7f5c4b613a99d2b55d0",
+    "manifest": {
+      "file": "C:\\cf-exp\\1104d/all/package-manifest.json",
+      "sha256": "2436bcea7c0ff827e637a110a8bd9a9fdef94001e1aafff8fc54bfe098a1062c"
+    },
+    "gates": {
+      "frontend": {
+        "source": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+        "status": "passed",
+        "componentReuse": {
+          "status": "reused by exact component input closure; not reexecuted",
+          "context": {
+            "candidate": "d53de50fa6e005795286f492aa8cb8d5f4b53380",
+            "digest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+            "runId": "32ade9fa-6624-473d-bf25-bf478f7b4254"
+          },
+          "currentSource": "8a3748feef97c60e00a835fbeefc12b6a5bacc9b20d02d2e579ce2e179bc2f6e",
+          "closureSha256": "b876de2bf03061d48dd88f9590a39a1defd61b155b9c4db131f9fe982a08d81f",
+          "report": {
+            "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\windows-expanded\\components.json",
+            "sha256": "3237ed2eb47dbdb083e7fe93c1eef90cdd52e3f99f53ccd34ac2bf7f188c687c"
+          },
+          "audit": {
+            "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-completo-20261103-01\\windows-expanded\\component-audit.json",
+            "sha256": "ff4ed6948734e0570f7b1e67c9a52572e271ef2e298d562a13763ab40584ad23"
+          }
+        },
+        "frontendReuse": {
+          "status": "reused current frontend; only Maven native argument writer changed",
+          "previousSource": "8a3748feef97c60e00a835fbeefc12b6a5bacc9b20d02d2e579ce2e179bc2f6e",
+          "currentSource": "5ca42bb5bae421e27331ceb8385282a65c6240fada451559da9407f019c9bc9f",
+          "unchangedEntireFrontend": true,
+          "frontendReport": {
+            "file": "C:\\cf-exp\\1104d/fe/result.json",
+            "sha256": "2f48597b1cc6437d044bf30c0b5627db964d2cf31f3caf0381d26386aad053d3"
+          },
+          "buildId": "VYxS5Wgvg8gkJw66BjIII"
+        },
+        "frontendSyncProof": {
+          "source": {
+            "commit": "95118407cfe684430421d7f5c4b613a99d2b55d0",
+            "digest": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+            "files": 863
+          },
+          "flow": "C:\\cf-exp\\1104d/sync-03/flow.json",
+          "scope": {
+            "new": [
+              "lint",
+              "types",
+              "unit",
+              "build"
+            ],
+            "reused": [
+              "npm install by unchanged lock",
+              "components626 by unchanged component closure",
+              "browser installation and launch by same executable hash"
+            ],
+            "previous": "5ca42bb5bae421e27331ceb8385282a65c6240fada451559da9407f019c9bc9f",
+            "current": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a"
+          }
+        }
+      },
+      "backend": {
+        "source": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+        "status": "passed",
+        "counts": {
+          "tests": 928,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "jar": "api-0.0.1.jar",
+        "jarSha256": "564f87cd83f2b7ddd793b0cded03ac64080647b5522355dc88b27ce218497be9"
+      },
+      "e2e": {
+        "source": "7d1277b5daa3e86e54e6a46a88b79f18159bc77c91af10d9b3f01e634c65aa4a",
+        "status": "passed",
+        "counts": {
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    "reproducibleBinary": "not claimed"
+  },
+  "overlap": "116 Java classes/928 methods contain browser wrappers. Focused15 is a subset. RF15C23 is inside Rf15RemediationBrowserTest; overlapping underlying browser identities are not additive. Separate FinancialJourney wrapper is a subsequent gate.",
+  "cleanup": {
+    "file": "C:\\cf-exp\\1104d/cleanup-final-validation.json",
+    "sha256": "de2ed15f46734b54c5f39fc80af735e716e18c519151deaa524808aacf7f1c34"
+  },
+  "review": "Pending independent joint review; no PR self approval",
+  "remote": "Not executed; no GitHub Actions Linux backend, push/PR/merge/deploy/production approval",
+  "cleanupAtFullCompletion": {
+    "file": "C:\\cf-exp\\1104d/cleanup-integral-02.json",
+    "sha256": "e8f63e784dba29d36d8027da8cc91e031561e30406c80bf996e6021d9cfdb872"
+  }
+}

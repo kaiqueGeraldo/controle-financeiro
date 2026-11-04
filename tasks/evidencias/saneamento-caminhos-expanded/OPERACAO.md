@@ -63,10 +63,15 @@ JVM/RC não examinadas e caracteres não representáveis. Isso evita mudança
 silenciosa de semântica, ao custo de revalidação para outro ambiente. O caminho
 Linux/cmd legado não passa a usar esse adaptador por mera variável ambiente.
 
-Reuso de componentes compara hashes de todos os inputs frontend, exceto E2E,
-e revalida JSON/audit, plataforma e626 identidades/71 arquivos (O(arquivos+casos)).
+Reuso de componentes compara hashes dos inputs frontend, exceto configurações/specs E2E, incluindo explicitamente o preload compartilhado server-clock.cjs,
+e revalida JSON/audit, plataforma e626 identidades/71 arquivos. O custo é O(B + F log F + T log T): bytes lidos B, arquivos F e casos T, incluindo a ordenação das identidades.
 A seleção não afeta fixtures, pool, watchdog ou assertions. Nenhum código de
 produto, query, regra financeira, isolamento ou atomicidade foi modificado.
 A prova local JVM Windows/Docker Desktop/loopback não certifica backend Linux
 no GitHub Actions. Zoom200% nativo continua adiado exclusivamente nas duas
 identidades DEC-ZOOM-05; CF010/015, CF017/P01/P02 e produção mantêm seus gates.
+
+A fronteira de reuso inclui explicitamente o preload compartilhado do teste de
+credenciais. Novos imports/preloads externos aos diretórios de componentes e
+produto exigem revisar essa lista. A conferência atual não alterou os inputs
+executados do candidato nem atribuiu seu pacote ao commit posterior do validador.

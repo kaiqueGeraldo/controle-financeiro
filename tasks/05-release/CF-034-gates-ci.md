@@ -417,3 +417,14 @@ CF034 permanece em_revisao. [Próximo passo](../evidencias/componentes-completo-
 caminhos curtos/configuração consistente de browser e runtimes preparados,
 artefatos externos e preflight real antes de novo lote. README/histórico preservados;
 sem aceite integral, CI remota, push/PR/merge/deploy ou banco real.
+
+
+## Saneamento operacional e expanded local — 04/11/2026
+
+[Resultado](../evidencias/saneamento-caminhos-expanded/RESULTADO.md): correções de caminhos e saídas verificadas; expanded local do recorte autorizado pela DEC-ZOOM-05 aprovada. Backend atual:116 classes/928 testes, 0 falhas/0 erros/0 skips. RF15 mantém25=2+23 por identidade, com C23 aprovado dentro do wrapper. E2E financeiro executado: 13 jornadas; pacote local vinculado aos inputs e SHA-256 no resultado.
+
+Primeira focused15 reprovada14/15 e microprovas preservadas. Ajuste operacional da espera por resposta do undo validado em6+1 controles antes da full; assertions anteriores/fixtures/watchdog/pool preservados, sem produto alterado ou retry automático. Linux626/71 e Windows626/71 reutilizados por inputs, sem nova rodada de componentes. README/2340 referências/24 artefatos históricos preservados com recibos e hashes. Revisão independente conjunta e CI remota permanecem pendentes; nenhum push/PR/merge/deploy/banco real ou aceite de zoom/CF010/CF015.
+
+CF034 permanece em_revisao, sem autoaceite integral.
+
+Revalidação complementar do observador: preload compartilhado incluído na fronteira de reuso,46 contratos e contraprova de drift aprovados. Inputs do preload e pacote do candidato95118407 intactos; sem nova rodada de componentes/backend. [Recibo](../evidencias/saneamento-caminhos-expanded/REUSO-COMPLEMENTAR.json).

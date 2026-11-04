@@ -101,3 +101,15 @@ Instalação/cache/componentes são reaproveitados por inputs, com recibos expl�
 Em04:26:28UTC, full116 foi iniciada pela primeira vez neste lote. A continuação
 é canônica: backend verify, RF15C23 no wrapper, E2E financeiro e coleta de pacote,
 com mesmo controller/runId. Os resultados finais serão registrados em RESULTADO.md.
+
+## Conferência complementar após a execução completa
+
+Full116 terminou aprovada:928/928; RF15C23 e E2E financeiro13/13 aprovados,
+com pacote vinculado ao commit95118407 e sem alteração posterior dessa cópia.
+A conferência encontrou server-clock.cjs sendo preloaded por um teste de
+componentes. O validador inicial excluía o diretório E2E inteiro; d0c22c1b inclui
+esse input explicitamente.46 contratos passaram e a prova negativa rejeita drift
+no preload. A revalidação626/71 confirmou o mesmo hash do preload nas bases
+aceitas Linux/Windows e nos inputs executados. Não se executou novamente a suíte,
+não se resnapshotou o candidato nem se reatribuiu o JAR ao commit do validador.
+O recibo REUSO-COMPLEMENTAR.json registra essa distinção e os hashes.
