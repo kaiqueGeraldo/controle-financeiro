@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
+import {spawnSync} from "node:child_process";
 import { hash } from "./source.mjs";
 
 let invocation = 0;
@@ -11,6 +12,14 @@ export function javaArgfileText(args) {
   }).join("\n") + "\n";
 }
 
+// The Windows Java launcher decodes @files using native.encoding, before JVM file.encoding.
+export function writeNativeArgfile(file, text) {
+  const script = '[Console]::InputEncoding=[Text.UTF8Encoding]::new($false);$p=[Console]::In.ReadToEnd()|ConvertFrom-Json;$enc=[Text.Encoding]::GetEncoding([Text.Encoding]::Default.CodePage,[Text.EncoderFallback]::ExceptionFallback,[Text.DecoderFallback]::ExceptionFallback);$bytes=$enc.GetBytes($p.text);$s=[IO.File]::Open($p.file,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None);try{$s.Write($bytes,0,$bytes.Length)}finally{$s.Dispose()};[Console]::Out.Write($enc.CodePage)';
+  const input = JSON.stringify({file,text}).replace(/[\u007f-\uffff]/g, c => "\\u" + c.charCodeAt(0).toString(16).padStart(4,"0"));
+  const result = spawnSync("powershell.exe", ["-NoProfile","-NonInteractive","-Command",script], {input,encoding:"utf8",windowsHide:true});
+  assert.equal(result.status,0,"Native Java argument encoding failed: "+result.stderr);
+  const codePage=Number(result.stdout.trim());assert.ok(codePage>0);return codePage;
+}
 /** Explicit local Windows option; fail closed for unreviewed JVM/RC configuration. */
 export function javaArgfileInvocation(platform, args) {
   assert.equal(platform, "win32");
@@ -42,9 +51,9 @@ export function javaArgfileInvocation(platform, args) {
   fs.mkdirSync(directory, { recursive: true });
   const name = "maven-" + String(++invocation).padStart(2, "0");
   const file = path.join(directory, name + ".args");
-  fs.writeFileSync(file, javaArgfileText(effective), { flag: "wx" });
+  const nativeCodePage=writeNativeArgfile(file,javaArgfileText(effective));
   fs.writeFileSync(path.join(directory, name + ".json"), JSON.stringify({
-    originalMavenArgs: args, effectiveJavaArgs: effective, argfileSha256: hash(fs.readFileSync(file)),
+    originalMavenArgs: args, effectiveJavaArgs: effective, nativeCodePage, strictEncoding:true, argfileSha256: hash(fs.readFileSync(file)),
     java: path.join(jdk, "bin/java.exe"), backend, mavenHome: home,
     classpath: { file: classpath, sha256: hash(fs.readFileSync(classpath)) },
     m2ConfSha256: hash(fs.readFileSync(path.join(home, "bin/m2.conf"))),
