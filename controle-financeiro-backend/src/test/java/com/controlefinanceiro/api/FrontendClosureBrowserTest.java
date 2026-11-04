@@ -58,7 +58,7 @@ class FrontendClosureBrowserTest {
         pb.environment().put("CF_E2E_NAMESPACE",namespace);
         pb.environment().put("CF_REVIEW_EVIDENCE",evidence.toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-                Path mailbox=front.resolve("tests/artifacts/closure-mailbox");
+                Path mailbox=evidence.resolve("mailbox");
         Files.createDirectories(mailbox);
         org.mockito.Mockito.doAnswer(invocation -> {
             String subject=invocation.getArgument(1);
