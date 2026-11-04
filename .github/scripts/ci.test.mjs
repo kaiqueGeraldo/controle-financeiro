@@ -79,3 +79,54 @@ test('evidence output is new and external so an old report cannot certify anothe
   fs.writeFileSync(path.join(out,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
   assert.throws(()=>freshOutput(root,out),/Never reuse/);
 });
+
+
+test('external artifact output rejects source paths and physical aliases',async()=>{
+  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.ts');
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cf-artifacts-'));
+  const before=process.env.CF_REVIEW_EVIDENCE;
+  try{
+    process.env.CF_REVIEW_EVIDENCE=directory;
+    assert.equal(artifactDirectory('trace','legacy'),path.join(fs.realpathSync.native(directory),'trace'));
+    process.env.CF_REVIEW_EVIDENCE=path.resolve('controle-financeiro-frontend/tests/artifacts');
+    assert.throws(()=>artifactDirectory('trace','legacy'),/outside/);
+    process.env.CF_REVIEW_EVIDENCE='relative';
+    assert.throws(()=>artifactDirectory('trace','legacy'),/absolute/);
+    const alias=path.join(directory,'source-alias');
+    fs.symlinkSync(process.cwd(),alias,process.platform==='win32'?'junction':'dir');
+    process.env.CF_REVIEW_EVIDENCE=alias;
+    try{assert.throws(()=>artifactDirectory('trace','legacy'),/outside/);}finally{fs.unlinkSync(alias);}
+  }finally{
+    if(before===undefined)delete process.env.CF_REVIEW_EVIDENCE;else process.env.CF_REVIEW_EVIDENCE=before;
+    fs.rmdirSync(directory);
+  }
+});
+
+test('component reuse keeps every non-E2E frontend input and rejects changed component closure',async()=>{
+  const {componentInputs}=await import('./component-reuse.mjs');
+  const source={files:[
+    {path:'controle-financeiro-frontend/src/rule.ts',sha256:'one'},
+    {path:'controle-financeiro-frontend/tests/component/case.test.tsx',sha256:'two'},
+    {path:'controle-financeiro-frontend/package-lock.json',sha256:'three'},
+    {path:'controle-financeiro-frontend/tests/e2e/config.ts',sha256:'four'},
+    {path:'controle-financeiro-backend/pom.xml',sha256:'five'},
+  ]};
+  assert.equal(componentInputs(source).length,3);
+  const e2e=structuredClone(source);e2e.files[3].sha256='new-output-routing';
+  assert.deepEqual(componentInputs(source),componentInputs(e2e));
+  for(const i of [0,1,2]){
+    const changed=structuredClone(source);changed.files[i].sha256='changed';
+    assert.notDeepEqual(componentInputs(source),componentInputs(changed));
+  }
+});
+
+test('Java argfile preserves a long mandatory selector and rejects multiline injection',async()=>{
+  const {javaArgfileText}=await import('./maven-argfile.mjs');
+  const selection=Array.from({length:116},(_,i)=>'com.synthetic.'+'Long'.repeat(18)+i).join(',');
+  assert.ok(selection.length>8191);
+  const text=javaArgfileText(['-Dtest='+selection,'C:\\with spaces\\reports',"-Dliteral=it's $notAnExpression"]);
+  assert.ok(text.includes(selection));
+  assert.equal(text.split('\n').length,4);
+  assert.throws(()=>javaArgfileText(['normal\n-DskipTests=true']),/Invalid/);
+  assert.throws(()=>javaArgfileText(['bad\0value']),/Invalid/);
+});

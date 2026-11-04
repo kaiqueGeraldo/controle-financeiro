@@ -1,3 +1,4 @@
+import { artifactDirectory } from "./support/artifacts";
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.CF_TEST_BASE_URL ?? "http://127.0.0.1:3107";
@@ -28,7 +29,7 @@ export default defineConfig({
   expect: {
     timeout: 15_000,
   },
-  outputDir: "../artifacts/cf007/playwright-results",
+  outputDir: artifactDirectory("cf007-playwright-results", "../artifacts/cf007/playwright-results"),
   reporter: [["line"]],
   metadata: {
     fixedNow,

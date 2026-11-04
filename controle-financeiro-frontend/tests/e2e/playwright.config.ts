@@ -1,3 +1,4 @@
+import { artifactDirectory } from "./support/artifacts";
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.CF_TEST_BASE_URL ?? "http://127.0.0.1:3100";
@@ -20,14 +21,14 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   forbidOnly: Boolean(process.env.CI),
-  outputDir: "../artifacts/playwright/test-results",
+  outputDir: artifactDirectory("playwright-test-results", "../artifacts/playwright/test-results"),
   reporter: [
     ["line"],
     [
       "html",
       {
         open: "never",
-        outputFolder: "../artifacts/playwright/report",
+        outputFolder: artifactDirectory("playwright-report", "../artifacts/playwright/report"),
       },
     ],
   ],

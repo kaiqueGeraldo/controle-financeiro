@@ -1,3 +1,4 @@
+import { artifactDirectory } from "./support/artifacts";
 import {defineConfig} from '@playwright/test';
 import base from './playwright.frontend-closure.config';
-export default defineConfig({...base,testMatch:['**/rf15-independent.integrated.spec.ts'],outputDir:'../artifacts/rf15-independent'});
+export default defineConfig({...base,testMatch:['**/rf15-independent.integrated.spec.ts'],outputDir:artifactDirectory("rf15-independent", "../artifacts/rf15-independent")});

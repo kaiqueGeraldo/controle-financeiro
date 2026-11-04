@@ -1,3 +1,5 @@
+import {reuseComponents} from './component-reuse.mjs';
+import {javaArgfileInvocation} from './maven-argfile.mjs';
 import fs from 'node:fs';
 import {physicalPath} from './paths.mjs';
 import {requireComponentCoverage} from './components.mjs';
@@ -18,6 +20,7 @@ export function requireCounts(counts,label){
 export async function sequence(stages,run){for(const stage of stages)await run(stage);}
 export function mavenInvocation(platform,args){
   if(platform==='linux')return {executable:'sh',args:['./mvnw','--batch-mode',...args]};
+  if(platform==='win32'&&process.env.CF_MAVEN_HOME)return javaArgfileInvocation(platform,args);
   if(platform!=='win32')throw new Error(`Unknown Maven JVM platform: ${platform}`);
   // The owned Windows launcher quotes argv using Win32 rules. cmd /c parses
   // embedded quotes differently; use a literal PowerShell invocation instead.
@@ -62,7 +65,7 @@ const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withhe
 
 async function main(){
   const [stage='all',rootArg,outArg]=process.argv.slice(2);
-  if(!['all','frontend','backend','windows-native','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
+  if(!['all','remaining','frontend','backend','windows-native','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|remaining|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
   const root=physicalPath(rootArg),out=freshOutput(root,outArg);
   const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
@@ -71,7 +74,7 @@ async function main(){
   if(zoomContext)report.zoomException={decision:zoomDecision,label:zoomLabel,deferred:zoomDeferred,context:zoomContext,status:'pending verification; not full visual acceptance'};
   const ci=process.env.GITHUB_ACTIONS==='true'?{repository:process.env.GITHUB_REPOSITORY,workflow:process.env.GITHUB_WORKFLOW,runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,job:process.env.GITHUB_JOB,event:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,headRef:process.env.GITHUB_HEAD_REF,baseRef:process.env.GITHUB_BASE_REF,checkoutSha:source.commit,runnerOS:process.env.RUNNER_OS,runnerArch:process.env.RUNNER_ARCH}:null;
   report.ci=ci;
-  const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1'};
+  const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',CF_TEST_ARTIFACTS:path.join(out,'frontend-artifacts')};
   for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
   for(const key of Object.keys(env))if(key.startsWith('CF_ZOOM_'))delete env[key];
   if(zoomContext)Object.assign(env,{CF_ZOOM_EXCEPTION:zoomDecision,CF_ZOOM_CANDIDATE:zoomContext.candidate,CF_ZOOM_DIGEST:zoomContext.digest,CF_ZOOM_RUN:zoomContext.runId,CF_ZOOM_DECISION_SHA:zoomContext.decisionSha,CF_BROWSER_DIAGNOSTICS:'1'});
@@ -95,7 +98,7 @@ async function main(){
     console.log(`${name}: passed`);
   }
   const runNpm=(name,args,extraEnv)=>command(name,process.execPath,[npm,...args],front,extraEnv);
-  const maven=(name,args)=>{const invocation=mavenInvocation(process.platform,args);return command(name,invocation.executable,invocation.args,back);};
+  const maven=(name,args)=>{if(process.env.CF_MAVEN_HOME){process.env.CF_MAVEN_BACKEND=back;process.env.CF_MAVEN_ARGFILE_ROOT=out;}const invocation=mavenInvocation(process.platform,args);return command(name,invocation.executable,invocation.args,back);};
   function invalidate(names){for(const name of names){const marker=path.join(root,`.ci-${name}.json`);if(fs.existsSync(marker))fs.unlinkSync(marker);}}
   async function frontend(){
     invalidate(['frontend','backend','e2e']);
@@ -107,6 +110,7 @@ async function main(){
     if(tests.length!==3||tests.some(n=>n===0))throw new Error('Three nonempty timezone runs required');
     if([...fs.readFileSync(path.join(out,'unit.log'),'utf8').matchAll(/# (?:skipped|todo|cancelled|fail) (\d+)/g)].some(m=>Number(m[1])!==0))throw new Error('Unit tests contain skips, todos, cancellation or failures');
     report.unit={timezones:3,tests:tests.reduce((a,b)=>a+b,0)};
+    if(process.env.CF_COMPONENT_REUSE){const reused=reuseComponents(process.env.CF_COMPONENT_REUSE,source);report.components=reused.counts;report.componentCoverage=reused.coverage;report.componentReuse=reused.proof;writeJson(path.join(out,'component-reuse.json'),reused.proof);}else{
     const componentFile=path.join(out,'components.json'),auditFile=path.join(out,'component-audit.json');
     const componentContext={candidate:source.commit,digest:source.digest,runId:control.runId};
     // These civil-midnight fixtures require the browser's São Paulo timezone.
@@ -122,9 +126,10 @@ async function main(){
     }
     requireCounts(report.components,'components');
     report.componentCoverage=requireComponentCoverage(JSON.parse(fs.readFileSync(componentFile)),JSON.parse(fs.readFileSync(auditFile)),componentContext,front);
+    }
     await runNpm('build',['run','build']);
     await runNpm('browser-install',['run','test:e2e:install']);
-    writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed'});
+    writeJson(path.join(root,'.ci-frontend.json'),{source:source.digest,status:'passed',componentReuse:report.componentReuse??null});
   }
   async function backend(scope='all'){
     if(scope==='all')invalidate(['backend','e2e']);
@@ -178,7 +183,8 @@ async function main(){
     writeJson(path.join(out,'package-manifest.json'),{...report.artifact,ci,toolchain:{node:process.version,mavenJava:'see sanitized maven-version.log from this run'},originalTreeChanges:source.originalTreeChanges,sourceFiles:source.files,gates:{frontend:JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json'))),backend:verified,e2e:JSON.parse(fs.readFileSync(path.join(root,'.ci-e2e.json')))},commands:report.steps,dependencies:{pomSha256:hash(fs.readFileSync(path.join(back,'pom.xml'))),lockSha256:hash(fs.readFileSync(path.join(front,'package-lock.json')))}});
   }
   try{
-    await sequence(stage==='all'?['frontend','backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,'windows-native':windowsNative,e2e,package:packageArtifact})[name]();control.check();});
+    if(stage==='remaining'){prerequisite('frontend');report.frontendPrerequisite=JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json')));}
+    await sequence(stage==='all'?['frontend','backend','e2e','package']:stage==='remaining'?['backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,'windows-native':windowsNative,e2e,package:packageArtifact})[name]();control.check();});
     report.status='passed';
   }catch(error){
     report.status=control.cancelled?'cancelled':'failed';report.error=control.cancelled?'Execution cancelled; subsequent gates blocked':safe(error.message);process.exitCode=control.cancelled?130:1;

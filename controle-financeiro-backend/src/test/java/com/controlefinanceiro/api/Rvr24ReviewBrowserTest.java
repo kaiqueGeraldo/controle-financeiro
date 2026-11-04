@@ -46,7 +46,7 @@ class Rvr24ReviewBrowserTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/revalidacao-RVR24-02-ciclo-visual/interaction")
                 .resolve(System.getProperty("review.evidence", "."));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="closure-"+UUID.randomUUID().toString().substring(0,8);
         List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.rvr24-review.config.ts"));
         String grep=System.getProperty("review.grep");

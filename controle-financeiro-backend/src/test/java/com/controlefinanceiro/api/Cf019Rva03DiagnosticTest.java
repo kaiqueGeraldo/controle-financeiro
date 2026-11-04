@@ -46,7 +46,7 @@ class Cf019Rva03DiagnosticTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/investigacao-CF019-RVA03")
                 .resolve(System.getProperty("review.evidence", "."));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="rva03-"+UUID.randomUUID().toString().substring(0,8);
         List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.cf019-rva03.config.ts"));
         String grep=System.getProperty("review.grep");

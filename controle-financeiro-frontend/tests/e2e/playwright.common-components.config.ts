@@ -1,3 +1,4 @@
+import { artifactDirectory } from "./support/artifacts";
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
@@ -7,7 +8,7 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   preserveOutput: "always",
-  outputDir: "../artifacts/playwright/common-components",
+  outputDir: artifactDirectory("playwright-common-components", "../artifacts/playwright/common-components"),
   reporter: "line",
   use: {
     baseURL: process.env.CF_TEST_BASE_URL ?? "http://127.0.0.1:3100",

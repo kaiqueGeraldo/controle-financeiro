@@ -64,7 +64,7 @@ class Rv24CreationBrowserIntegrationTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/RV24-01/"+System.getProperty("rv24.run","browser-final"));
         assertThat(Files.exists(evidence)).as("use a fresh evidence run name").isFalse();
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="rv24-"+UUID.randomUUID().toString().substring(0,8);
         String grep=System.getProperty("review.grep");
         String config="R03".equals(grep)?"tests/e2e/playwright.milestone-review.config.ts":"tests/e2e/playwright.rv24.config.ts";
