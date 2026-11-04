@@ -5,7 +5,7 @@ import {spawn,execFileSync} from "node:child_process";
 import {hash,sourceFor} from "/work/s/.github/scripts/source.mjs";
 import {requireComponentCoverage} from "/work/s/.github/scripts/components.mjs";
 import {componentSummary,requireCounts} from "/work/s/.github/scripts/ci.mjs";
-const root="/work/s",front=root+"/controle-financeiro-frontend",out="/evidence/linux",obs="/work/obs";
+const root="/work/s",front=root+"/controle-financeiro-frontend",out="/evidence/linux"+(process.env.CF_OBS_PREP_ATTEMPT?"-"+process.env.CF_OBS_PREP_ATTEMPT:""),obs="/work/obs";
 fs.mkdirSync(out,{recursive:true});
 const source=sourceFor(root), report={started:new Date().toISOString(),source,steps:[],status:"running"};
 const save=()=>fs.writeFileSync(out+"/flow.json",JSON.stringify(report,null,2)+"\n");
@@ -41,7 +41,7 @@ async function sample() {
  } finally {sampleBusy=false;}
 }
 try {
- await command("contracts",process.execPath,["--test",...tests],root);
+ await command("contracts",process.execPath,["--test","--test-reporter=tap",...tests],root);
  const contract=fs.readFileSync(out+"/contracts.log","utf8");assert.match(contract,/# tests 43/);assert.match(contract,/# fail 0/);assert.match(contract,/# skipped 0/);
  await command("install",process.execPath,[npm,"ci","--no-audit","--no-fund"]);
  await command("lint",process.execPath,[npm,"run","lint","--","--max-warnings=0"]);

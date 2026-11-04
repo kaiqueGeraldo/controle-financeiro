@@ -1,0 +1,8 @@
+import fs from "node:fs";import path from "node:path";import assert from "node:assert/strict";import {execFileSync,spawnSync} from "node:child_process";import {hash} from "../../../.github/scripts/source.mjs";
+const [arg]=process.argv.slice(2),runtime=fs.realpathSync.native(arg),c=JSON.parse(fs.readFileSync(path.join(runtime,"container.json"))),dir=import.meta.dirname;
+for(const e of fs.readdirSync(runtime,{withFileTypes:true}).filter(e=>e.isDirectory()&&e.name.startsWith("linux")))assert.equal(fs.existsSync(path.join(runtime,e.name,"component-attempt-start.json")),false,"No repeat of actual Linux component execution");
+execFileSync("docker",["--context","desktop-linux","cp",path.join(dir,"native.mjs"),c.id+":/work/obs/native.mjs"],{windowsHide:true});
+const nativeSha=hash(fs.readFileSync(path.join(dir,"native.mjs"))),head=execFileSync("git",["rev-parse","HEAD"],{cwd:path.resolve(dir,"../../.."),encoding:"utf8"}).trim();
+fs.writeFileSync(path.join(runtime,"preparacao-02.json"),JSON.stringify({started:new Date().toISOString(),reason:"Node24 default spec output did not match TAP parser; contracts43 actually passed; zero components had started",head,nativeSha,componentAttemptCountBefore:0},null,2)+"\n",{flag:"wx"});
+const fd=fs.openSync(path.join(runtime,"linux-02.log"),"wx"),r=spawnSync("docker",["--context","desktop-linux","exec","-e","CF_OBS_PREP_ATTEMPT=02",c.id,"node","/work/obs/native.mjs"],{windowsHide:true,stdio:["ignore",fd,fd]});fs.closeSync(fd);
+fs.writeFileSync(path.join(runtime,"linux-02-invocation.json"),JSON.stringify({finished:new Date().toISOString(),exit:r.status,error:r.error?.message,nativeSha,head},null,2)+"\n",{flag:"wx"});assert.equal(r.status,0,"Inspect evidence; never repeat actual Linux gate");
