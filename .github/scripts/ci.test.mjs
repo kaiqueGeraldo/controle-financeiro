@@ -103,7 +103,7 @@ test('external artifact output rejects source paths and physical aliases',async(
   }
 });
 
-test('component reuse keeps every non-E2E frontend input and rejects changed component closure',async()=>{
+test('component reuse includes shared clock preload and rejects changed component inputs',async()=>{
   const {componentInputs}=await import('./component-reuse.mjs');
   const source={files:[
     {path:'controle-financeiro-frontend/src/rule.ts',sha256:'one'},
@@ -111,11 +111,12 @@ test('component reuse keeps every non-E2E frontend input and rejects changed com
     {path:'controle-financeiro-frontend/package-lock.json',sha256:'three'},
     {path:'controle-financeiro-frontend/tests/e2e/config.ts',sha256:'four'},
     {path:'controle-financeiro-backend/pom.xml',sha256:'five'},
+    {path:'controle-financeiro-frontend/tests/e2e/support/server-clock.cjs',sha256:'six'},
   ]};
-  assert.equal(componentInputs(source).length,3);
+  assert.equal(componentInputs(source).length,4);
   const e2e=structuredClone(source);e2e.files[3].sha256='new-output-routing';
   assert.deepEqual(componentInputs(source),componentInputs(e2e));
-  for(const i of [0,1,2]){
+  for(const i of [0,1,2,5]){
     const changed=structuredClone(source);changed.files[i].sha256='changed';
     assert.notDeepEqual(componentInputs(source),componentInputs(changed));
   }

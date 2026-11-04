@@ -4,11 +4,13 @@ import assert from "node:assert/strict";
 import { hash } from "./source.mjs";
 import { requireComponentCoverage } from "./components.mjs";
 
-// E2E configs/specs are outside both Vitest include globs; all other frontend inputs stay exact.
+// E2E configs/specs are outside both Vitest include globs. The credential
+// component explicitly preloads server-clock.cjs, so it is a component input.
 export function componentInputs(source) {
   return source.files.filter(f =>
     f.path.startsWith("controle-financeiro-frontend/") &&
-    !f.path.startsWith("controle-financeiro-frontend/tests/e2e/")
+    (!f.path.startsWith("controle-financeiro-frontend/tests/e2e/") ||
+      f.path === "controle-financeiro-frontend/tests/e2e/support/server-clock.cjs")
   );
 }
 export function reuseComponents(directory, source) {
