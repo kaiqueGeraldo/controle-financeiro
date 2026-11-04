@@ -21,7 +21,7 @@ const env={...process.env};
 for(const key of Object.keys(env))if(/^(SPRING_|JWT_|RESEND_|BRAPI_|DATABASE_URL|BACKEND_API_URL|JDBC_|PGHOST|PGDATABASE|PGUSER|PGPASSWORD|DOCKER_|TESTCONTAINERS_|CF_ZOOM_)/.test(key)||["RF15_RVA_ONLY","GITHUB_ACTIONS"].includes(key))delete env[key];
 const pk=Object.keys(env).find(k=>k.toLowerCase()==="path");env[pk]=path.join(jdk,"bin")+path.delimiter+env[pk];
 const temp=path.join(short,"t");fs.mkdirSync(temp,{recursive:true});
-Object.assign(env,{JAVA_HOME:jdk,MAVEN_ARGS:"--offline",DOCKER_HOST:"npipe:////./pipe/dockerDesktopLinuxEngine",DOCKER_CONTEXT:"desktop-linux",TESTCONTAINERS_HOST_OVERRIDE:"127.0.0.1",TESTCONTAINERS_REUSE_ENABLE:"false",CF034_SUITE:"expanded",PLAYWRIGHT_BROWSERS_PATH:"0",CF_EXPANDED_LOCAL_RUNTIME:short,CF_MAVEN_HOME:mavenHome,CF_MAVEN_BACKEND:back,CF_MAVEN_ARGFILE_ROOT:out,CF_TEST_ARTIFACTS:path.join(out,"artifacts"),TEMP:temp,TMP:temp,CF_COMPONENT_REUSE:path.join(short,"reuse")});
+Object.assign(env,{JAVA_HOME:jdk,MAVEN_ARGS:"--offline",DOCKER_HOST:"npipe:////./pipe/dockerDesktopLinuxEngine",DOCKER_CONTEXT:"desktop-linux",TESTCONTAINERS_HOST_OVERRIDE:"127.0.0.1",TESTCONTAINERS_REUSE_ENABLE:"false",CF034_SUITE:"expanded",PLAYWRIGHT_BROWSERS_PATH:"0",CF_EXPANDED_LOCAL_RUNTIME:short,CF_MAVEN_HOME:mavenHome,CF_MAVEN_BACKEND:back,CF_MAVEN_ARGFILE_ROOT:out,CF_SOURCE_ROOT:candidate,CF_TEST_ARTIFACTS:path.join(out,"artifacts"),TEMP:temp,TMP:temp,CF_COMPONENT_REUSE:path.join(short,"reuse")});
 async function command(name,exe,args,cwd=repo,extra={}){
  const step={name,command:[exe,...args],cwd,started:new Date().toISOString(),exit:null};report.steps.push(step);save();
  const log=fs.createWriteStream(path.join(out,name+".log"),{flags:"wx"});

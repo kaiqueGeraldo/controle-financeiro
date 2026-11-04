@@ -82,9 +82,9 @@ test('evidence output is new and external so an old report cannot certify anothe
 
 
 test('external artifact output rejects source paths and physical aliases',async()=>{
-  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.cjs');
+  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.mjs');
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cf-artifacts-'));
-  const before=process.env.CF_REVIEW_EVIDENCE;
+  const before=process.env.CF_REVIEW_EVIDENCE;const previousSource=process.env.CF_SOURCE_ROOT;process.env.CF_SOURCE_ROOT=process.cwd();
   try{
     process.env.CF_REVIEW_EVIDENCE=directory;
     assert.equal(artifactDirectory('trace','legacy'),path.join(fs.realpathSync.native(directory),'trace'));
@@ -98,6 +98,7 @@ test('external artifact output rejects source paths and physical aliases',async(
     try{assert.throws(()=>artifactDirectory('trace','legacy'),/outside/);}finally{fs.unlinkSync(alias);}
   }finally{
     if(before===undefined)delete process.env.CF_REVIEW_EVIDENCE;else process.env.CF_REVIEW_EVIDENCE=before;
+    if(previousSource===undefined)delete process.env.CF_SOURCE_ROOT;else process.env.CF_SOURCE_ROOT=previousSource;
     fs.rmdirSync(directory);
   }
 });

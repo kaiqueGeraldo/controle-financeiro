@@ -1,4 +1,4 @@
-import { artifactDirectory } from "./support/artifacts.cjs";
+import { artifactDirectory } from "./support/artifacts.mjs";
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({

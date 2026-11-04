@@ -74,7 +74,7 @@ async function main(){
   if(zoomContext)report.zoomException={decision:zoomDecision,label:zoomLabel,deferred:zoomDeferred,context:zoomContext,status:'pending verification; not full visual acceptance'};
   const ci=process.env.GITHUB_ACTIONS==='true'?{repository:process.env.GITHUB_REPOSITORY,workflow:process.env.GITHUB_WORKFLOW,runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,job:process.env.GITHUB_JOB,event:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,headRef:process.env.GITHUB_HEAD_REF,baseRef:process.env.GITHUB_BASE_REF,checkoutSha:source.commit,runnerOS:process.env.RUNNER_OS,runnerArch:process.env.RUNNER_ARCH}:null;
   report.ci=ci;
-  const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',CF_TEST_ARTIFACTS:path.join(out,'frontend-artifacts')};
+  const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',CF_SOURCE_ROOT:root,CF_TEST_ARTIFACTS:path.join(out,'frontend-artifacts')};
   for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
   for(const key of Object.keys(env))if(key.startsWith('CF_ZOOM_'))delete env[key];
   if(zoomContext)Object.assign(env,{CF_ZOOM_EXCEPTION:zoomDecision,CF_ZOOM_CANDIDATE:zoomContext.candidate,CF_ZOOM_DIGEST:zoomContext.digest,CF_ZOOM_RUN:zoomContext.runId,CF_ZOOM_DECISION_SHA:zoomContext.decisionSha,CF_BROWSER_DIAGNOSTICS:'1'});

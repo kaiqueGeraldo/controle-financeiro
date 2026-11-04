@@ -1,4 +1,4 @@
-import { artifactDirectory } from "./support/artifacts.cjs";
+import { artifactDirectory } from "./support/artifacts.mjs";
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.CF_TEST_BASE_URL ?? "http://127.0.0.1:3100";
