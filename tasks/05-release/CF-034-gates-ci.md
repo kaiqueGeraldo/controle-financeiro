@@ -8,6 +8,10 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Diagnóstico dirigido de componentes — 03/11/2026
+
+Conclusão D: causa dos dois timeouts permanece inconclusiva. Casos isolados, arquivos completos e grupos de 69/100 casos passaram com watchdog original de 5000 ms; nenhuma correção causal foi aplicada. Não houve pressão de memória ou throttling nos controles, o que não reconstrói a carga histórica. Componentes 626/71 e gates posteriores não reexecutados; a expanded anterior continua reprovada. [Linhas do tempo, recursos, limites e próximo experimento](../evidencias/diagnostico-componentes-timeout/RESULTADO.md). Preparadores/observadores anteriores preservados e delta segue para revisão conjunta, sem autoaprovação ou ação remota.
+
 ## Expanded local estabilizada no recorte DEC-ZOOM-05 — 03/11/2026
 
 Preparador e observador de cleanup saneados localmente, controles 8/8 e 4/4; preflight Windows aprovado. Candidato a7f2256b, mesmos 860 inputs de 0aac7ccd. Contratos 43/43 por plataforma, lint/tipos e 18 temporais Linux aprovados. Componentes Linux 624/626, dois timeouts de 5000 ms de causa inconclusiva; zero skips e nenhuma omissão no multiconjunto dos 71 arquivos. Fluxo interrompido; builds, backend comum (115 classes), RF15 (23 jornadas), E2E e pacote não alcançados. Contrato Windows independente 1/1 aprovado, cobertura Java executada1/116. [Resultado, proveniência e próximo saneamento](../evidencias/expanded-local-estabilizada/RESULTADO.md). Ajustes operacionais aguardam revisão conjunta; sem autoaprovação, prontidão de publicação, CI remota ou ação remota. CF010/CF015 seguem pendentes sob exceção delimitada; CF017/P01/P02, adoção e produção mantêm gates.

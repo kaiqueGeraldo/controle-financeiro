@@ -1,0 +1,2557 @@
+{
+  "label": "Diagnóstico delimitado dos dois timeouts de componentes Linux",
+  "at": "2026-11-04T01:12:23.015Z",
+  "conclusion": "D: cause inconclusive; no causal product/test/configuration correction justified",
+  "base": {
+    "head": "2a22739b08b749a73b37224519ab6a3faf880ab3",
+    "branch": "codex/saneamento-pr3-expanded",
+    "status": "",
+    "readme": "e7d3458fbd8ac227520be27996ce23c73e8c3be2086d8cfbd51ad59568f4cee0"
+  },
+  "priorExecutedCandidate": "a7f2256b90a7e195df826e89ba51ea7486c6fbf1",
+  "priorOperationalReviewInterval": "9d3c384a..2a22739b",
+  "inputs": {
+    "commit": "2a22739b08b749a73b37224519ab6a3faf880ab3",
+    "productTestSourceCommit": "0aac7ccd25934ec022939464486da9fb28610279",
+    "files": 860,
+    "digest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+    "originalsUnchanged": true,
+    "diagnosticOverlays": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\instrumentation.json",
+      "sha256": "7722a2dd8a602efcb6bf1877bc30ca8e42f293d271802b2e3f48d74b5aebfa65"
+    },
+    "scriptProvenance": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\script-provenance.json",
+      "sha256": "1f4944aae6eadbe51c01906c3dad7a8c3827c2cd4524ab4a0231e5f0f33bec86"
+    },
+    "executionScriptsHadUncommittedNewFiles": true
+  },
+  "priorFailure": {
+    "result": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\result.json",
+      "sha256": "9a7d4b208595c1de51b682175f31dfd64fccc5583d9c6cbd94f8dfcf9de138e9"
+    },
+    "counts": {
+      "tests": 626,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "files": 71,
+    "caseNames": [
+      "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+      "compares conflict snapshots and does not silently choose the server"
+    ],
+    "message": "Error: Test timed out in 5000ms.",
+    "caseDurationsMs": [
+      5769.336613999998,
+      5432.948886000002
+    ],
+    "originalsPreserved": true
+  },
+  "timeoutContract": {
+    "framework": "Vitest4.1.11",
+    "nodeDefaultMs": 5000,
+    "projectOverride": false,
+    "perCaseOverride": false,
+    "hookTimeoutMs": 10000,
+    "waitForDefaultMs": 1000,
+    "waitForIntervalMs": 50,
+    "explicitPerformanceAssertion": false,
+    "normativeProductLimitIdentified": false,
+    "watchdogScope": "test callback and its returned promise; render/interaction/waits/assertions inside body; hooks, collection/transform have separate lifecycles",
+    "syncDetection": "withTimeout checks elapsed when synchronous callback returns, even if native timer could not fire while JS was blocked",
+    "source": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\framework\\contract.json",
+      "sha256": "d81deabea067fc11ca2165d2f27d8a0723fcdf8dc22338dfe71c716bf60215d2"
+    },
+    "officialDocs": [
+      "https://vitest.dev/config/testtimeout",
+      "https://vitest.dev/config/hooktimeout"
+    ]
+  },
+  "experiments": [
+    {
+      "id": "A-cards",
+      "started": "2026-11-04T01:00:38.034Z",
+      "finished": "2026-11-04T01:00:39.955Z",
+      "exit": 0,
+      "wallMs": 1921.0506300000002,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "tests/component/cards-planning-audit.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/A-cards.json",
+        "--testNamePattern",
+        "lista longa mantém a ação de pagamento fora da área rolável"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 82,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 1,
+      "rssObservedPeakMiB": 428.5390625,
+      "resourceDeltas": {
+        "cpuUsageUsec": 2617296,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 1264,
+        "cpuFullStallUsec": 1245,
+        "cpuSomeStallFraction": 0.0006579732882938124,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 7,
+        "passed": 1,
+        "failed": 0,
+        "filteredOrSkipped": 6,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": true,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-cards-execution.json",
+          "sha256": "47ccee2830ec1f680e23b9984563301ca9af14714273111f0eba757e964a9e94"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-cards.json",
+          "sha256": "22939ca3b66687e4d86604383be06b85a6ebdba14c92ba901ac748ff9846bbef"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-cards.log",
+          "sha256": "4d7be045d37c679ba0e8c14945806c0d6380e7c6856d1b3c484cdcf22ccf6a9f"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-cards-config.json",
+          "sha256": "bcdb2edc7d71193ae0574b16cef55592f8e0462a199abd163aacfc267c055c4d"
+        }
+      ],
+      "selectedFiles": [
+        "tests/component/cards-planning-audit.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "tests/component/cards-planning-audit.test.tsx",
+          "name": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+          "status": "passed",
+          "durationMs": 578.570719
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "A-onboarding",
+      "started": "2026-11-04T01:00:40.056Z",
+      "finished": "2026-11-04T01:00:42.132Z",
+      "exit": 0,
+      "wallMs": 2078.8610750000003,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "src/screens/private/onboarding/screen.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/A-onboarding.json",
+        "--testNamePattern",
+        "compares conflict snapshots and does not silently choose the server"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 132,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 1,
+      "rssObservedPeakMiB": 468.08203125,
+      "resourceDeltas": {
+        "cpuUsageUsec": 2776108,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 1636,
+        "cpuFullStallUsec": 1631,
+        "cpuSomeStallFraction": 0.0007869693745648684,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 11,
+        "passed": 1,
+        "failed": 0,
+        "filteredOrSkipped": 10,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": true,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-onboarding-execution.json",
+          "sha256": "3b084c843e2f4484140a23fa6f55ff4404c18d6fae83c92303f091ce85ce93aa"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-onboarding.json",
+          "sha256": "3f542234643538d5533fbb25b9307539816d513410e4f8880462558730a50f25"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-onboarding.log",
+          "sha256": "f830bd72289d01404fe64620fb31915417867050215d2e38965215d13b4d6959"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\A-onboarding-config.json",
+          "sha256": "e0d4349d63ee995ad64150a3d1a80715e29afd4e9d07bf6101c274f843e86471"
+        }
+      ],
+      "selectedFiles": [
+        "src/screens/private/onboarding/screen.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "src/screens/private/onboarding/screen.test.tsx",
+          "name": "compares conflict snapshots and does not silently choose the server",
+          "status": "passed",
+          "durationMs": 519.4649860000002
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "B-cards",
+      "started": "2026-11-04T01:00:42.286Z",
+      "finished": "2026-11-04T01:00:44.667Z",
+      "exit": 0,
+      "wallMs": 2380.725456,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "tests/component/cards-planning-audit.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/B-cards.json"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 182,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 1,
+      "rssObservedPeakMiB": 443.9765625,
+      "resourceDeltas": {
+        "cpuUsageUsec": 3234124,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 5541,
+        "cpuFullStallUsec": 5452,
+        "cpuSomeStallFraction": 0.0023274418249426233,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "filteredOrSkipped": 0,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": false,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-cards-execution.json",
+          "sha256": "838c57389731bb89411cfa8fd86a7cb2e3c4be5d2bf89d0a30f26ceafa7ba1f3"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-cards.json",
+          "sha256": "62324a41964edaf53265ee76b36b73f495881285bbb467664e0cf54c384c3a3e"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-cards.log",
+          "sha256": "91a980f82aaaac01da5c74e0ac71ec77de4cc9b9bb40e852b2258efabf8fc929"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-cards-config.json",
+          "sha256": "d9d619ee25a7dfd58a0c87de01064ee23476cac831f9fdb3e783dca66b71a189"
+        }
+      ],
+      "selectedFiles": [
+        "tests/component/cards-planning-audit.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "tests/component/cards-planning-audit.test.tsx",
+          "name": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+          "status": "passed",
+          "durationMs": 448.7126159999998
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "B-onboarding",
+      "started": "2026-11-04T01:00:44.792Z",
+      "finished": "2026-11-04T01:00:48.671Z",
+      "exit": 0,
+      "wallMs": 3878.9404870000008,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "src/screens/private/onboarding/screen.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/B-onboarding.json"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 232,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 1,
+      "rssObservedPeakMiB": 537.51953125,
+      "resourceDeltas": {
+        "cpuUsageUsec": 4118941,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 2819,
+        "cpuFullStallUsec": 2818,
+        "cpuSomeStallFraction": 0.0007267448442294184,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0,
+        "filteredOrSkipped": 0,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": false,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-onboarding-execution.json",
+          "sha256": "9cc3e30ed63a5ca43a1573199a29074dcc18bb3f34261fcd78cf364c784d42c2"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-onboarding.json",
+          "sha256": "c0ab90d3e84a9cd43e5fdb416552b4c7d4f490e2f3a2a5e6a70ea1d2a91c9a3b"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-onboarding.log",
+          "sha256": "c58f4a2f61fe579edeb13740044da21c1e13a881526526cab5a43ff8f8a4e4a2"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\B-onboarding-config.json",
+          "sha256": "ad1a0b78375baf88202b5f593a63ac80ef4ff0481d18c758f7562d1e4182782c"
+        }
+      ],
+      "selectedFiles": [
+        "src/screens/private/onboarding/screen.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "src/screens/private/onboarding/screen.test.tsx",
+          "name": "compares conflict snapshots and does not silently choose the server",
+          "status": "passed",
+          "durationMs": 246.54775999999993
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "C-group",
+      "started": "2026-11-04T01:00:48.959Z",
+      "finished": "2026-11-04T01:00:54.719Z",
+      "exit": 0,
+      "wallMs": 5760.228220000001,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "tests/component/cards-planning-audit.test.tsx",
+        "src/screens/private/onboarding/screen.test.tsx",
+        "tests/component/auth-settings-accessibility.test.tsx",
+        "tests/component/cf026-contracts.test.tsx",
+        "tests/component/cf015-recovery-expanded.test.tsx",
+        "tests/component/rf15-causal.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/C-group.json"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 282,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 6,
+      "rssObservedPeakMiB": 1516.01953125,
+      "resourceDeltas": {
+        "cpuUsageUsec": 28188249,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 12924,
+        "cpuFullStallUsec": 6632,
+        "cpuSomeStallFraction": 0.0022436611027192945,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 69,
+        "passed": 69,
+        "failed": 0,
+        "filteredOrSkipped": 0,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": false,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C-group-execution.json",
+          "sha256": "aa7a42f4b141300ea60e8ff84e72d2922b9029d857bd5d14a3d1cad1bf1dcc71"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C-group.json",
+          "sha256": "c0617fc6c0d6f12d6441d4db83b35c0dcd941cef159dabcff307f41b0f517402"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C-group.log",
+          "sha256": "e85d263df9df50f6024829726edec3baffa7a89a421cf74e2b7125f3e3bcdbfc"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C-group-config.json",
+          "sha256": "bd912973c59fe5da46fe66107acb90c60c16147af5dd069b9390bea71f186f3a"
+        }
+      ],
+      "selectedFiles": [
+        "tests/component/auth-settings-accessibility.test.tsx",
+        "tests/component/cards-planning-audit.test.tsx",
+        "tests/component/cf015-recovery-expanded.test.tsx",
+        "tests/component/cf026-contracts.test.tsx",
+        "tests/component/rf15-causal.test.tsx",
+        "src/screens/private/onboarding/screen.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "tests/component/cards-planning-audit.test.tsx",
+          "name": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+          "status": "passed",
+          "durationMs": 1185.1939539999998
+        },
+        {
+          "file": "src/screens/private/onboarding/screen.test.tsx",
+          "name": "compares conflict snapshots and does not silently choose the server",
+          "status": "passed",
+          "durationMs": 235.47120300000006
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "E-scaling",
+      "started": "2026-11-04T01:03:17.064Z",
+      "finished": "2026-11-04T01:03:18.652Z",
+      "exit": 0,
+      "wallMs": 1588.374159,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "tests/component/cards-planning-audit.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/E-scaling.json",
+        "--testNamePattern",
+        "diagnostic-scaling"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 391,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 1,
+      "rssObservedPeakMiB": 526.5078125,
+      "resourceDeltas": {
+        "cpuUsageUsec": 2135807,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 830,
+        "cpuFullStallUsec": 794,
+        "cpuSomeStallFraction": 0.0005225469045168469,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 10,
+        "passed": 3,
+        "failed": 0,
+        "filteredOrSkipped": 7,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": true,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\E-scaling-execution.json",
+          "sha256": "adfb95ba1cca7f28e7202274cc1bbc31569ae6216b8f011d23acf10b592e75ea"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\E-scaling.json",
+          "sha256": "16af127f5708a0677ff86a8b3d37a5208536b97a99f70e5b2f7cec0ccbfb2bc0"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\E-scaling.log",
+          "sha256": "aec57d6113e0a9130711443b478f83104b5c77c0e119613e1f1a44dabd77c57e"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\E-scaling-config.json",
+          "sha256": "40cd4e6c90241bed6688b960f021a396e4e9d7e7e5625734b4cf7bd962acac4f"
+        }
+      ],
+      "selectedFiles": [
+        "tests/component/cards-planning-audit.test.tsx"
+      ],
+      "targetCases": [],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    },
+    {
+      "id": "C8-observed-capacity",
+      "started": "2026-11-04T01:05:59.924Z",
+      "finished": "2026-11-04T01:06:03.950Z",
+      "exit": 0,
+      "wallMs": 4026.148792,
+      "command": [
+        "/opt/node24/bin/node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--config",
+        "tests/component/vitest.config.mts",
+        "tests/component/cards-planning-audit.test.tsx",
+        "src/screens/private/onboarding/screen.test.tsx",
+        "tests/component/auth-settings-accessibility.test.tsx",
+        "tests/component/cf026-contracts.test.tsx",
+        "tests/component/cf015-recovery-expanded.test.tsx",
+        "tests/component/rf15-causal.test.tsx",
+        "tests/component/temporal-forms.test.tsx",
+        "src/services/onboarding/identity-remediation.test.tsx",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=/work/diag/reporter.mjs",
+        "--outputFile=/work/diag/results/C8-observed-capacity.json"
+      ],
+      "cwd": "/work/s/controle-financeiro-frontend",
+      "config": {
+        "node": "v24.18.0",
+        "pid": 483,
+        "CI": false,
+        "root": "/work/s/controle-financeiro-frontend",
+        "pool": "forks",
+        "isolate": true,
+        "testTimeout": 5000,
+        "hookTimeout": 10000,
+        "sequence": {
+          "groupOrder": 0,
+          "hooks": "stack"
+        },
+        "derivedDefaultWorkerLimit": 15,
+        "fileParallelismObserved": true
+      },
+      "capacity": {
+        "visibleCpus": 16,
+        "cpuset": "0-15",
+        "cpuMax": "max 100000",
+        "memoryMax": "max",
+        "vmMemoryBytes": 16623751168
+      },
+      "observedWorkers": 8,
+      "rssObservedPeakMiB": 1646.4921875,
+      "resourceDeltas": {
+        "cpuUsageUsec": 19292899,
+        "throttledPeriods": 0,
+        "throttledUsec": 0,
+        "cpuSomeStallUsec": 16824,
+        "cpuFullStallUsec": 3875,
+        "cpuSomeStallFraction": 0.004178683121058384,
+        "memorySomeStallUsec": 0,
+        "memoryFullStallUsec": 0
+      },
+      "counts": {
+        "total": 100,
+        "passed": 100,
+        "failed": 0,
+        "filteredOrSkipped": 0,
+        "todo": 0
+      },
+      "filteredSelectionIsDiagnostic": false,
+      "sourceReferences": [
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C8-observed-capacity-execution.json",
+          "sha256": "902a75d8a8f76a8ed2311d5dbb9aebd3ae34549705419ed0cbc394475679ed1e"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C8-observed-capacity.json",
+          "sha256": "7b21abd72ec0a4fc0e949622739b1da1b2c68d2f6e7753e71844d139a718cfc2"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C8-observed-capacity.log",
+          "sha256": "e5eb602a3838a0861e883e4f5af2b9508705ea778cb4c38da358a48a0c7c4b03"
+        },
+        {
+          "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\results\\C8-observed-capacity-config.json",
+          "sha256": "0b82d3e493642fc7063df0cb6d1bdc665be4420d0613ef02b862ce8e1a66fb53"
+        }
+      ],
+      "selectedFiles": [
+        "tests/component/auth-settings-accessibility.test.tsx",
+        "tests/component/cards-planning-audit.test.tsx",
+        "tests/component/cf015-recovery-expanded.test.tsx",
+        "tests/component/cf026-contracts.test.tsx",
+        "tests/component/rf15-causal.test.tsx",
+        "tests/component/temporal-forms.test.tsx",
+        "src/services/onboarding/identity-remediation.test.tsx",
+        "src/screens/private/onboarding/screen.test.tsx"
+      ],
+      "targetCases": [
+        {
+          "file": "tests/component/cards-planning-audit.test.tsx",
+          "name": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+          "status": "passed",
+          "durationMs": 629.639128
+        },
+        {
+          "file": "src/screens/private/onboarding/screen.test.tsx",
+          "name": "compares conflict snapshots and does not silently choose the server",
+          "status": "passed",
+          "durationMs": 190.6973720000001
+        }
+      ],
+      "completeCases": "current JSON referenced in sourceReferences; do not sum overlapping groups"
+    }
+  ],
+  "timelines": [
+    {
+      "name": "A-cards-124-0.json",
+      "caseName": "CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável",
+      "run": "A-cards",
+      "pid": 124,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 576.949305,
+      "totalCpuMs": 844.371,
+      "render": {
+        "commits": 1,
+        "actualMs": 175.7533440000018
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 82,
+          "ms": 5.7218709999999975
+        },
+        "Number.toLocaleString": {
+          "calls": 84,
+          "ms": 8.000565
+        },
+        "getComputedStyle": {
+          "calls": 496,
+          "ms": 186.3264
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\A-cards-124-0.json",
+        "sha256": "8b261bbc093b36e3b022011c72986da0f3cbb1a58e6cc2e4affc4c895bd8139f"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 1.545298,
+          "fakeTimers": true
+        },
+        {
+          "kind": "end",
+          "name": "fixture-80",
+          "atMs": 1.917079,
+          "wallMs": 0.081019,
+          "cpuMs": 0.074
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 218.078234,
+          "wallMs": 215.689442,
+          "cpuMs": 296.229
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 218.088646,
+          "wallMs": 216.158549,
+          "cpuMs": 296.706
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 536.228255,
+          "wallMs": 318.088698,
+          "cpuMs": 473.227
+        },
+        {
+          "kind": "end",
+          "name": "assert-action-layout",
+          "atMs": 536.795263,
+          "wallMs": 0.558276,
+          "cpuMs": 0.652
+        },
+        {
+          "kind": "end",
+          "name": "assert-last-transaction",
+          "atMs": 559.94058,
+          "wallMs": 23.135073,
+          "cpuMs": 36.601
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 561.451447,
+          "nodes": 2534
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 576.642659,
+          "wallMs": 13.421474,
+          "cpuMs": 30.962
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 576.933211,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "A-onboarding-174-0.json",
+      "caseName": "compares conflict snapshots and does not silently choose the server",
+      "run": "A-onboarding",
+      "pid": 174,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 517.974868,
+      "totalCpuMs": 779.041,
+      "render": {
+        "commits": 24,
+        "actualMs": 166.57347699999013
+      },
+      "costs": {
+        "getComputedStyle": {
+          "calls": 82,
+          "ms": 82.75771499999998
+        },
+        "Date.toLocaleDateString": {
+          "calls": 28,
+          "ms": 4.195066
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\A-onboarding-174-0.json",
+        "sha256": "0baa3a1bcaa4995ac0325f4cbedd2d8016769b32076110e9a2709ce5422a45fd"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 2.138317,
+          "fakeTimers": false
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 28.308889,
+          "wallMs": 25.327341,
+          "cpuMs": 29.488
+        },
+        {
+          "kind": "end",
+          "name": "wait-initial-heading",
+          "atMs": 104.127935,
+          "wallMs": 75.793848,
+          "cpuMs": 98.096
+        },
+        {
+          "kind": "end",
+          "name": "user-event-setup",
+          "atMs": 105.281781,
+          "wallMs": 1.128184,
+          "cpuMs": 1.12
+        },
+        {
+          "kind": "end",
+          "name": "load-and-render",
+          "atMs": 105.291857,
+          "wallMs": 103.028116,
+          "cpuMs": 129.501
+        },
+        {
+          "kind": "end",
+          "name": "query-name",
+          "atMs": 122.90067,
+          "wallMs": 17.603634,
+          "cpuMs": 23.018
+        },
+        {
+          "kind": "end",
+          "name": "type-local-answer",
+          "atMs": 224.754425,
+          "wallMs": 101.843735,
+          "cpuMs": 115.153
+        },
+        {
+          "kind": "end",
+          "name": "prepare-conflict-mock",
+          "atMs": 224.937695,
+          "wallMs": 0.175556,
+          "cpuMs": 0.171
+        },
+        {
+          "kind": "end",
+          "name": "query-save",
+          "atMs": 252.433985,
+          "wallMs": 27.489073,
+          "cpuMs": 43.242
+        },
+        {
+          "kind": "end",
+          "name": "click-save",
+          "atMs": 279.472359,
+          "wallMs": 27.029034,
+          "cpuMs": 42.325
+        },
+        {
+          "kind": "end",
+          "name": "prepare-remote-mock",
+          "atMs": 279.535844,
+          "wallMs": 0.057805,
+          "cpuMs": 0.056
+        },
+        {
+          "kind": "end",
+          "name": "query-verify",
+          "atMs": 297.8379,
+          "wallMs": 18.298598,
+          "cpuMs": 28.193
+        },
+        {
+          "kind": "end",
+          "name": "click-verify",
+          "atMs": 440.061126,
+          "wallMs": 142.211224,
+          "cpuMs": 188.034
+        },
+        {
+          "kind": "end",
+          "name": "wait-comparison-region",
+          "atMs": 448.068192,
+          "wallMs": 7.996269,
+          "cpuMs": 34.09
+        },
+        {
+          "kind": "end",
+          "name": "assert-local-and-remote",
+          "atMs": 493.448344,
+          "wallMs": 45.369022,
+          "cpuMs": 109.618
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 494.586142,
+          "getCalls": 2,
+          "saveCalls": 1,
+          "nodes": 1446
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 517.633472,
+          "wallMs": 22.574659,
+          "cpuMs": 60.259
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 517.951974,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "B-cards-224-0.json",
+      "caseName": "CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável",
+      "run": "B-cards",
+      "pid": 224,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 448.136183,
+      "totalCpuMs": 670.8,
+      "render": {
+        "commits": 1,
+        "actualMs": 146.12983699999722
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 82,
+          "ms": 5.504278
+        },
+        "Number.toLocaleString": {
+          "calls": 84,
+          "ms": 4.115238999999998
+        },
+        "getComputedStyle": {
+          "calls": 496,
+          "ms": 152.454012
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\B-cards-224-0.json",
+        "sha256": "d184f81f4216a15e70a3ff13a5afafa610dadc0b1176f5c81866bff15d7c506b"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.488771,
+          "fakeTimers": true
+        },
+        {
+          "kind": "end",
+          "name": "fixture-80",
+          "atMs": 0.714792,
+          "wallMs": 0.101718,
+          "cpuMs": 0.093
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 160.837483,
+          "wallMs": 159.976341,
+          "cpuMs": 224.407
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 160.846218,
+          "wallMs": 160.113189,
+          "cpuMs": 224.553
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 410.606833,
+          "wallMs": 249.7547,
+          "cpuMs": 369.048
+        },
+        {
+          "kind": "end",
+          "name": "assert-action-layout",
+          "atMs": 410.807566,
+          "wallMs": 0.192482,
+          "cpuMs": 0.265
+        },
+        {
+          "kind": "end",
+          "name": "assert-last-transaction",
+          "atMs": 433.642642,
+          "wallMs": 22.827572,
+          "cpuMs": 44.524
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 435.398477,
+          "nodes": 2534
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 448.037259,
+          "wallMs": 11.943544,
+          "cpuMs": 25.911
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 448.125407,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "B-onboarding-274-0.json",
+      "caseName": "compares conflict snapshots and does not silently choose the server",
+      "run": "B-onboarding",
+      "pid": 274,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 246.020318,
+      "totalCpuMs": 325.517,
+      "render": {
+        "commits": 24,
+        "actualMs": 103.9253090000011
+      },
+      "costs": {
+        "getComputedStyle": {
+          "calls": 82,
+          "ms": 22.854032999999998
+        },
+        "Date.toLocaleDateString": {
+          "calls": 28,
+          "ms": 3.877718
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\B-onboarding-274-0.json",
+        "sha256": "5cc628287ca5972224fa19554918a49c3b6bbd273ac0c4a76d93599c3f8d1596"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.792856,
+          "fakeTimers": false
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 3.141656,
+          "wallMs": 2.295319,
+          "cpuMs": 2.853
+        },
+        {
+          "kind": "end",
+          "name": "wait-initial-heading",
+          "atMs": 13.925551,
+          "wallMs": 10.750944,
+          "cpuMs": 11.943
+        },
+        {
+          "kind": "end",
+          "name": "user-event-setup",
+          "atMs": 14.082338,
+          "wallMs": 0.117992,
+          "cpuMs": 0.115
+        },
+        {
+          "kind": "end",
+          "name": "load-and-render",
+          "atMs": 14.117936,
+          "wallMs": 13.319827,
+          "cpuMs": 15.06
+        },
+        {
+          "kind": "end",
+          "name": "query-name",
+          "atMs": 18.070931,
+          "wallMs": 3.946424,
+          "cpuMs": 8.88
+        },
+        {
+          "kind": "end",
+          "name": "type-local-answer",
+          "atMs": 79.651671,
+          "wallMs": 61.572055,
+          "cpuMs": 54.417
+        },
+        {
+          "kind": "end",
+          "name": "prepare-conflict-mock",
+          "atMs": 79.756225,
+          "wallMs": 0.097504,
+          "cpuMs": 0.095
+        },
+        {
+          "kind": "end",
+          "name": "query-save",
+          "atMs": 88.927749,
+          "wallMs": 9.136549,
+          "cpuMs": 10.079
+        },
+        {
+          "kind": "end",
+          "name": "click-save",
+          "atMs": 103.606111,
+          "wallMs": 14.670262,
+          "cpuMs": 16.249
+        },
+        {
+          "kind": "end",
+          "name": "prepare-remote-mock",
+          "atMs": 103.679466,
+          "wallMs": 0.067085,
+          "cpuMs": 0.066
+        },
+        {
+          "kind": "end",
+          "name": "query-verify",
+          "atMs": 115.354406,
+          "wallMs": 11.669602,
+          "cpuMs": 22.962
+        },
+        {
+          "kind": "end",
+          "name": "click-verify",
+          "atMs": 208.203496,
+          "wallMs": 92.833097,
+          "cpuMs": 135.462
+        },
+        {
+          "kind": "end",
+          "name": "wait-comparison-region",
+          "atMs": 214.88408,
+          "wallMs": 6.667052,
+          "cpuMs": 9.42
+        },
+        {
+          "kind": "end",
+          "name": "assert-local-and-remote",
+          "atMs": 238.860588,
+          "wallMs": 23.962087,
+          "cpuMs": 41.312
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 239.644602,
+          "getCalls": 2,
+          "saveCalls": 1,
+          "nodes": 1446
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 245.894367,
+          "wallMs": 6.020633,
+          "cpuMs": 9.32
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 246.00802,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "C-group-331-0.json",
+      "caseName": "compares conflict snapshots and does not silently choose the server",
+      "run": "C-group",
+      "pid": 331,
+      "worker": "2",
+      "pool": "3",
+      "totalWallMs": 234.969986,
+      "totalCpuMs": 299.963,
+      "render": {
+        "commits": 24,
+        "actualMs": 101.96437500004504
+      },
+      "costs": {
+        "getComputedStyle": {
+          "calls": 82,
+          "ms": 21.791281999999995
+        },
+        "Date.toLocaleDateString": {
+          "calls": 28,
+          "ms": 3.30729
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\C-group-331-0.json",
+        "sha256": "48fcfbb87b56975a07c2d203fcda1641628112446a664cfb65687452da4e1170"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.865849,
+          "fakeTimers": false
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 3.160326,
+          "wallMs": 2.237491,
+          "cpuMs": 2.776
+        },
+        {
+          "kind": "end",
+          "name": "wait-initial-heading",
+          "atMs": 13.241921,
+          "wallMs": 10.04927,
+          "cpuMs": 11.218
+        },
+        {
+          "kind": "end",
+          "name": "user-event-setup",
+          "atMs": 13.394336,
+          "wallMs": 0.121444,
+          "cpuMs": 0.118
+        },
+        {
+          "kind": "end",
+          "name": "load-and-render",
+          "atMs": 13.430816,
+          "wallMs": 12.559616,
+          "cpuMs": 14.255
+        },
+        {
+          "kind": "end",
+          "name": "query-name",
+          "atMs": 17.038633,
+          "wallMs": 3.602028,
+          "cpuMs": 6.547
+        },
+        {
+          "kind": "end",
+          "name": "type-local-answer",
+          "atMs": 76.202584,
+          "wallMs": 59.155772,
+          "cpuMs": 52.438
+        },
+        {
+          "kind": "end",
+          "name": "prepare-conflict-mock",
+          "atMs": 76.303433,
+          "wallMs": 0.094234,
+          "cpuMs": 0.092
+        },
+        {
+          "kind": "end",
+          "name": "query-save",
+          "atMs": 85.407696,
+          "wallMs": 9.061061,
+          "cpuMs": 10.053
+        },
+        {
+          "kind": "end",
+          "name": "click-save",
+          "atMs": 102.040989,
+          "wallMs": 16.624973,
+          "cpuMs": 20.05
+        },
+        {
+          "kind": "end",
+          "name": "prepare-remote-mock",
+          "atMs": 102.123871,
+          "wallMs": 0.075602,
+          "cpuMs": 0.074
+        },
+        {
+          "kind": "end",
+          "name": "query-verify",
+          "atMs": 113.481133,
+          "wallMs": 11.35151,
+          "cpuMs": 22.177
+        },
+        {
+          "kind": "end",
+          "name": "click-verify",
+          "atMs": 202.571959,
+          "wallMs": 89.03775,
+          "cpuMs": 122.981
+        },
+        {
+          "kind": "end",
+          "name": "wait-comparison-region",
+          "atMs": 208.468938,
+          "wallMs": 5.886575,
+          "cpuMs": 6.252
+        },
+        {
+          "kind": "end",
+          "name": "assert-local-and-remote",
+          "atMs": 228.278387,
+          "wallMs": 19.798149,
+          "cpuMs": 33.076
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 228.939779,
+          "getCalls": 2,
+          "saveCalls": 1,
+          "nodes": 1446
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 234.865213,
+          "wallMs": 5.711673,
+          "cpuMs": 9.847
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 234.95842,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "C-group-338-0.json",
+      "caseName": "CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável",
+      "run": "C-group",
+      "pid": 338,
+      "worker": "4",
+      "pool": "5",
+      "totalWallMs": 1184.350382,
+      "totalCpuMs": 1766.285,
+      "render": {
+        "commits": 1,
+        "actualMs": 415.87220300000126
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 82,
+          "ms": 19.859187
+        },
+        "Number.toLocaleString": {
+          "calls": 84,
+          "ms": 15.782096
+        },
+        "getComputedStyle": {
+          "calls": 496,
+          "ms": 372.771468
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\C-group-338-0.json",
+        "sha256": "d1852ed7778c008f586569df352941c0f601638ee19518ffe6fc14a6b362ddbf"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.9628,
+          "fakeTimers": true
+        },
+        {
+          "kind": "end",
+          "name": "fixture-80",
+          "atMs": 1.36063,
+          "wallMs": 0.159211,
+          "cpuMs": 0.145
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 449.721054,
+          "wallMs": 447.920508,
+          "cpuMs": 669.179
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 449.744337,
+          "wallMs": 448.360213,
+          "cpuMs": 669.642
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 1110.0737,
+          "wallMs": 660.318266,
+          "cpuMs": 936.71
+        },
+        {
+          "kind": "end",
+          "name": "assert-action-layout",
+          "atMs": 1110.480059,
+          "wallMs": 0.39252,
+          "cpuMs": 1.1
+        },
+        {
+          "kind": "end",
+          "name": "assert-last-transaction",
+          "atMs": 1158.932383,
+          "wallMs": 48.436709,
+          "cpuMs": 94.589
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 1161.445966,
+          "nodes": 2534
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 1184.187877,
+          "wallMs": 21.314757,
+          "cpuMs": 52.705
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 1184.325274,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "C8-observed-capacity-543-0.json",
+      "caseName": "compares conflict snapshots and does not silently choose the server",
+      "run": "C8-observed-capacity",
+      "pid": 543,
+      "worker": "4",
+      "pool": "5",
+      "totalWallMs": 190.214246,
+      "totalCpuMs": 235.171,
+      "render": {
+        "commits": 24,
+        "actualMs": 73.96051499999749
+      },
+      "costs": {
+        "getComputedStyle": {
+          "calls": 82,
+          "ms": 18.58409999999999
+        },
+        "Date.toLocaleDateString": {
+          "calls": 28,
+          "ms": 2.8510240000000007
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\C8-observed-capacity-543-0.json",
+        "sha256": "c3ae5a37074ebadd2ab9a414084e45bf82cdda4a72d3532d2575af56b1083e05"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.730883,
+          "fakeTimers": false
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 2.635544,
+          "wallMs": 1.855847,
+          "cpuMs": 2.254
+        },
+        {
+          "kind": "end",
+          "name": "wait-initial-heading",
+          "atMs": 11.22192,
+          "wallMs": 8.563107,
+          "cpuMs": 9.022
+        },
+        {
+          "kind": "end",
+          "name": "user-event-setup",
+          "atMs": 11.340581,
+          "wallMs": 0.089709,
+          "cpuMs": 0.087
+        },
+        {
+          "kind": "end",
+          "name": "load-and-render",
+          "atMs": 11.344792,
+          "wallMs": 10.609877,
+          "cpuMs": 11.48
+        },
+        {
+          "kind": "end",
+          "name": "query-name",
+          "atMs": 14.954551,
+          "wallMs": 3.606119,
+          "cpuMs": 6.583
+        },
+        {
+          "kind": "end",
+          "name": "type-local-answer",
+          "atMs": 68.105776,
+          "wallMs": 53.144466,
+          "cpuMs": 42.929
+        },
+        {
+          "kind": "end",
+          "name": "prepare-conflict-mock",
+          "atMs": 68.189919,
+          "wallMs": 0.078159,
+          "cpuMs": 0.076
+        },
+        {
+          "kind": "end",
+          "name": "query-save",
+          "atMs": 75.894646,
+          "wallMs": 7.699394,
+          "cpuMs": 8.114
+        },
+        {
+          "kind": "end",
+          "name": "click-save",
+          "atMs": 89.819745,
+          "wallMs": 13.917418,
+          "cpuMs": 13.616
+        },
+        {
+          "kind": "end",
+          "name": "prepare-remote-mock",
+          "atMs": 89.904116,
+          "wallMs": 0.078333,
+          "cpuMs": 0.117
+        },
+        {
+          "kind": "end",
+          "name": "query-verify",
+          "atMs": 98.972965,
+          "wallMs": 9.063073,
+          "cpuMs": 16.878
+        },
+        {
+          "kind": "end",
+          "name": "click-verify",
+          "atMs": 162.926852,
+          "wallMs": 63.938186,
+          "cpuMs": 94.678
+        },
+        {
+          "kind": "end",
+          "name": "wait-comparison-region",
+          "atMs": 168.514453,
+          "wallMs": 5.579577,
+          "cpuMs": 5.254
+        },
+        {
+          "kind": "end",
+          "name": "assert-local-and-remote",
+          "atMs": 184.167525,
+          "wallMs": 15.640173,
+          "cpuMs": 25.958
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 184.979196,
+          "getCalls": 2,
+          "saveCalls": 1,
+          "nodes": 1446
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 190.120347,
+          "wallMs": 4.809338,
+          "cpuMs": 7.359
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 190.205351,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "C8-observed-capacity-562-0.json",
+      "caseName": "CF-013: cartões, faturas e planejamento > lista longa mantém a ação de pagamento fora da área rolável",
+      "run": "C8-observed-capacity",
+      "pid": 562,
+      "worker": "7",
+      "pool": "8",
+      "totalWallMs": 628.926746,
+      "totalCpuMs": 896.215,
+      "render": {
+        "commits": 1,
+        "actualMs": 228.26137499999982
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 82,
+          "ms": 9.883723999999997
+        },
+        "Number.toLocaleString": {
+          "calls": 84,
+          "ms": 7.493996999999999
+        },
+        "getComputedStyle": {
+          "calls": 496,
+          "ms": 185.65396300000015
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\C8-observed-capacity-562-0.json",
+        "sha256": "329c852f4b11a588495991ad25d528e8b271ebcde14ddfc32a1343b14bad0417"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.481299,
+          "fakeTimers": true
+        },
+        {
+          "kind": "end",
+          "name": "fixture-80",
+          "atMs": 0.805708,
+          "wallMs": 0.153869,
+          "cpuMs": 0.142
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 250.831108,
+          "wallMs": 249.898555,
+          "cpuMs": 349.001
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 250.842236,
+          "wallMs": 250.019984,
+          "cpuMs": 349.133
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 597.076853,
+          "wallMs": 346.228908,
+          "cpuMs": 481.523
+        },
+        {
+          "kind": "end",
+          "name": "assert-action-layout",
+          "atMs": 597.376779,
+          "wallMs": 0.290685,
+          "cpuMs": 0.352
+        },
+        {
+          "kind": "end",
+          "name": "assert-last-transaction",
+          "atMs": 616.35323,
+          "wallMs": 18.967775,
+          "cpuMs": 36.743
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 618.037405,
+          "nodes": 2534
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 628.823016,
+          "wallMs": 10.107279,
+          "cpuMs": 22.981
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 628.917369,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "E-scaling-433-0.json",
+      "caseName": "diagnostic-scaling / lista longa mantém n=20",
+      "run": "E-scaling",
+      "pid": 433,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 179.360812,
+      "totalCpuMs": 255.104,
+      "render": {
+        "commits": 1,
+        "actualMs": 66.95675600000015
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 22,
+          "ms": 1.497392
+        },
+        "Number.toLocaleString": {
+          "calls": 24,
+          "ms": 3.1803290000000004
+        },
+        "getComputedStyle": {
+          "calls": 136,
+          "ms": 56.174871999999986
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\E-scaling-433-0.json",
+        "sha256": "c9e0e261a429b075fe47167a40313bc91b75248f02fb389010ca45d07fb0ddd4"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.145331,
+          "fakeTimers": true,
+          "fixtureSize": 20
+        },
+        {
+          "kind": "end",
+          "name": "fixture-20",
+          "atMs": 0.213367,
+          "wallMs": 0.039131,
+          "cpuMs": 0.036
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 87.236256,
+          "wallMs": 86.678817,
+          "cpuMs": 112.285
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 87.241898,
+          "wallMs": 87.020621,
+          "cpuMs": 112.632
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 165.391482,
+          "wallMs": 78.104717,
+          "cpuMs": 120.292
+        },
+        {
+          "kind": "end",
+          "name": "assert-layout-and-last",
+          "atMs": 171.818172,
+          "wallMs": 6.420308,
+          "cpuMs": 10.919
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 172.196623,
+          "nodes": 674
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 179.173622,
+          "wallMs": 5.780966,
+          "cpuMs": 7.855
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 179.349438,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "E-scaling-433-1.json",
+      "caseName": "diagnostic-scaling / lista longa mantém n=40",
+      "run": "E-scaling",
+      "pid": 433,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 145.83975,
+      "totalCpuMs": 212.35,
+      "render": {
+        "commits": 1,
+        "actualMs": 51.05161200000282
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 42,
+          "ms": 1.8478909999999997
+        },
+        "Number.toLocaleString": {
+          "calls": 44,
+          "ms": 1.363187
+        },
+        "getComputedStyle": {
+          "calls": 256,
+          "ms": 50.18118300000005
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\E-scaling-433-1.json",
+        "sha256": "57bbadce4dc8474bb08b4dc664a2965b819f525475814bd98b98f5d105671ed6"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.015383,
+          "fakeTimers": true,
+          "fixtureSize": 40
+        },
+        {
+          "kind": "end",
+          "name": "fixture-40",
+          "atMs": 0.027621,
+          "wallMs": 0.010188,
+          "cpuMs": 0.008
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 56.957575,
+          "wallMs": 56.803981,
+          "cpuMs": 83.479
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 56.961671,
+          "wallMs": 56.932606,
+          "cpuMs": 83.668
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 128.963609,
+          "wallMs": 71.995291,
+          "cpuMs": 100.793
+        },
+        {
+          "kind": "end",
+          "name": "assert-layout-and-last",
+          "atMs": 139.514879,
+          "wallMs": 10.543883,
+          "cpuMs": 18.771
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 140.181872,
+          "nodes": 1294
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 145.76251,
+          "wallMs": 4.579852,
+          "cpuMs": 7.166
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 145.835618,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    },
+    {
+      "name": "E-scaling-433-2.json",
+      "caseName": "diagnostic-scaling / lista longa mantém n=80",
+      "run": "E-scaling",
+      "pid": 433,
+      "worker": "0",
+      "pool": "1",
+      "totalWallMs": 258.987064,
+      "totalCpuMs": 360.344,
+      "render": {
+        "commits": 1,
+        "actualMs": 79.08468899999366
+      },
+      "costs": {
+        "Date.toLocaleDateString": {
+          "calls": 82,
+          "ms": 3.6897309999999996
+        },
+        "Number.toLocaleString": {
+          "calls": 84,
+          "ms": 2.6314349999999997
+        },
+        "getComputedStyle": {
+          "calls": 496,
+          "ms": 84.43365299999994
+        }
+      },
+      "unfinishedStages": [],
+      "source": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\traces\\E-scaling-433-2.json",
+        "sha256": "4b048fe530e9727301d00a131e9483d01243f2b3261d8df03d39daca23a41afe"
+      },
+      "stages": [
+        {
+          "kind": "mark",
+          "name": "prepared",
+          "atMs": 0.011738,
+          "fakeTimers": true,
+          "fixtureSize": 80
+        },
+        {
+          "kind": "end",
+          "name": "fixture-80",
+          "atMs": 0.028712,
+          "wallMs": 0.014704,
+          "cpuMs": 0.014
+        },
+        {
+          "kind": "end",
+          "name": "render",
+          "atMs": 89.908261,
+          "wallMs": 89.813341,
+          "cpuMs": 127.447
+        },
+        {
+          "kind": "end",
+          "name": "render-invoice",
+          "atMs": 89.91161,
+          "wallMs": 89.881877,
+          "cpuMs": 127.518
+        },
+        {
+          "kind": "end",
+          "name": "query-payment-role",
+          "atMs": 240.934635,
+          "wallMs": 151.020136,
+          "cpuMs": 209.265
+        },
+        {
+          "kind": "end",
+          "name": "assert-layout-and-last",
+          "atMs": 252.605418,
+          "wallMs": 11.662062,
+          "cpuMs": 13.603
+        },
+        {
+          "kind": "mark",
+          "name": "body-complete",
+          "atMs": 253.515804,
+          "nodes": 2534
+        },
+        {
+          "kind": "end",
+          "name": "cleanup",
+          "atMs": 258.925943,
+          "wallMs": 4.660926,
+          "cpuMs": 7.819
+        },
+        {
+          "kind": "mark",
+          "name": "after-cleanup",
+          "atMs": 258.983296,
+          "nodesRemaining": 0,
+          "fakeTimers": false,
+          "pendingTimers": null
+        }
+      ],
+      "nestedDurationsAreNotAdditive": true
+    }
+  ],
+  "findings": {
+    "cards": {
+      "originalNotReproduced": true,
+      "currentTargetDurationsMs": [
+        {
+          "run": "A-cards",
+          "durationMs": 578.570719
+        },
+        {
+          "run": "B-cards",
+          "durationMs": 448.7126159999998
+        },
+        {
+          "run": "C-group",
+          "durationMs": 1185.1939539999998
+        },
+        {
+          "run": "C8-observed-capacity",
+          "durationMs": 629.639128
+        }
+      ],
+      "fixtureOriginalSize": 80,
+      "domAt80": 2534,
+      "computedStyleCallsAt80": 496,
+      "dominantObservedStage": "query-payment-role",
+      "dateAndMoneyFormattingDominant": false,
+      "structuralGrowth": "20/40/80 rows -> 674/1294/2534 DOM elements, 136/256/496 computed-style calls; consistent with O(n) traversal for fixed row structure",
+      "measurementLimit": "warm-up makes20 total wall greater than40; three measurements do not establish a general timing bound",
+      "atOriginalDeadline": "not observable retrospectively; no new expiration under instrumentation; synchronous original error does not identify its slowest stage"
+    },
+    "onboarding": {
+      "originalNotReproduced": true,
+      "currentTargetDurationsMs": [
+        {
+          "run": "A-onboarding",
+          "durationMs": 519.4649860000002
+        },
+        {
+          "run": "B-onboarding",
+          "durationMs": 246.54775999999993
+        },
+        {
+          "run": "C-group",
+          "durationMs": 235.47120300000006
+        },
+        {
+          "run": "C8-observed-capacity",
+          "durationMs": 190.6973720000001
+        }
+      ],
+      "observedProfilerCommits": 24,
+      "mockGetCalls": 2,
+      "mockSaveCalls": 1,
+      "completedTrackedWaits": true,
+      "cleanupDomEmpty": true,
+      "atOriginalDeadline": "unknown from historical stack; no new expiration to correlate"
+    },
+    "isolation": {
+      "pool": "forks",
+      "isolate": true,
+      "cardFakeTimersRestoredBeforeGlobalCleanup": true,
+      "onboardingRealTimers": true,
+      "allTrackedStagesCompleted": true,
+      "allObservedDomCleanupEmpty": true,
+      "noGlobalPromiseOrListenerAbsenceClaimed": true
+    },
+    "resources": {
+      "defaultWorkerCeilingDerivedFromPinnedCode": 15,
+      "actualDirectedWorkers": [
+        1,
+        6,
+        8
+      ],
+      "cpuThrottleObserved": false,
+      "memoryPressureObserved": false,
+      "lowCurrentCpuStall": true,
+      "historicalCpuMemorySamplesAvailable": false,
+      "workerIntervalPeakInHistoricalReport": 8,
+      "fileIntervalsAreNotWorkerMeasurements": true,
+      "originalFullSuitePressureNotReconstructed": true,
+      "cacheAndOrderingLimitation": "Fresh Vitest processes, single native installation; A/B precede C/C8; within-file warm-up and module/filesystem caches do not recreate the original full cold context."
+    },
+    "correction": {
+      "applied": false,
+      "reason": "No demonstrated mechanism for the historical timeouts; changing assertions,fixture,watchdog or concurrency would be speculative",
+      "productChanges": [],
+      "testChanges": [],
+      "configurationChanges": []
+    },
+    "conditionalD": {
+      "executed": false,
+      "reason": "No measured resource contention adequate to justify worker reduction; no global parallelism change"
+    },
+    "counterproofs": {
+      "causalOldMechanismReintroduced": false,
+      "reason": "No correction/causal mechanism demonstrated; no artificial timeout or sleep introduced",
+      "diagnosticOverlaysRestoredByHash": true,
+      "scalingOriginalRestoredByHash": true
+    },
+    "allComponents": {
+      "executed": false,
+      "expectedOccurrences": 626,
+      "expectedFiles": 71,
+      "reason": "Condition requiring causal correction before626 not met; subset greens do not approve failed original"
+    },
+    "dependentExpandedGates": {
+      "executed": false,
+      "build": false,
+      "backend": false,
+      "rf15": false,
+      "financialE2E": false,
+      "package": false,
+      "sha256": null
+    },
+    "nextExperiment": {
+      "proposedNotExecuted": true,
+      "scope": "A single instrumented626-component reproduction of the original71-file context, default worker ceiling unchanged, capturing actual fork/transform activity and host+VM scheduling/resource samples with per-case stages before expiry",
+      "requiresSeparateBoundedScope": true,
+      "noExpandedIntegral": true,
+      "stopAfterOneExecution": true
+    }
+  },
+  "cleanup": {
+    "at": "2026-11-04T01:10:10.851Z",
+    "id": "ed31b4d23fbef07ebf23b21f55783e76d52be44707ece48930ac6ab007ef5175",
+    "image": "sha256:c7492c6f8ef9a57a98ff15dc7a6c82a96712b99a97a5fa19edb9576a7b34d5b1",
+    "name": "/cf-component-timeout-componentes-timeout-20261103-01",
+    "labels": {
+      "cf.component.run": "componentes-timeout-20261103-01",
+      "org.opencontainers.image.revision": "2d446f9e1b79886103c79406b81cc5408364487a"
+    },
+    "mounts": [
+      {
+        "type": "bind",
+        "source": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01",
+        "destination": "/evidence",
+        "rw": true
+      },
+      {
+        "type": "bind",
+        "source": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-worktrees\\pr3-expanded-source\\tasks\\evidencias\\diagnostico-componentes-timeout",
+        "destination": "/probes",
+        "rw": false
+      },
+      {
+        "type": "bind",
+        "source": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\inputs",
+        "destination": "/inputs",
+        "rw": false
+      }
+    ],
+    "limits": {
+      "nanoCpus": 0,
+      "memory": 0,
+      "shmSize": 1073741824
+    },
+    "processesBeforeRemoval": "PID                 PPID                COMMAND\n9085                9063                sleep",
+    "removed": true,
+    "ownRemaining": [],
+    "before": {
+      "containers": [
+        "0838457a6524",
+        "176613c1323c",
+        "27646fb19cff",
+        "2e1770984c9f",
+        "54e317443d29",
+        "77f718b9f2e4",
+        "c4ad580e6f78",
+        "ebc6cd5ed990"
+      ],
+      "networks": [
+        "8639d165a8b9",
+        "9489b76717be",
+        "f7384ce12fdb"
+      ],
+      "volumes": []
+    },
+    "after": {
+      "containers": [
+        "0838457a6524",
+        "176613c1323c",
+        "27646fb19cff",
+        "2e1770984c9f",
+        "54e317443d29",
+        "77f718b9f2e4",
+        "c4ad580e6f78",
+        "ebc6cd5ed990"
+      ],
+      "networks": [
+        "8639d165a8b9",
+        "9489b76717be",
+        "f7384ce12fdb"
+      ],
+      "volumes": []
+    },
+    "baselineEqual": true,
+    "nativeRestore": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\native-restored.json",
+      "sha256": "144e872cb3e6a1ed8ba5417e0f77f75dfe89ef79bba4b41d80d14c318df4c451"
+    }
+  },
+  "provenance": {
+    "at": "2026-11-04T01:10:10.084Z",
+    "baseCommit": "2a22739b08b749a73b37224519ab6a3faf880ab3",
+    "scripts": [
+      {
+        "file": "capacity.mjs",
+        "executedSha256": "38c9735cdc1815f6f9d629a022de32497db2bde18ad1a8932fcd96e6bf4769db",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\capacity.mjs",
+        "deliveredSha256": "ab3d2dc1d1bdbc0788ccb46153a1b65618fc182187e106e6bce42a0a3cb7a99c",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "diagnostic-probe.tsx",
+        "executedSha256": "a00b503eab8e5086fbf9d36a0ab98f3c0a0130ee92e3e3cb35913b6d63001519",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\diagnostic-probe.tsx",
+        "deliveredSha256": "cc120ca81a3ddf6019110a7d66009aa4b03a7cfe4682a4c2de45ea4c637ba444",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "experiments.mjs",
+        "executedSha256": "a426e4e2cb1a5eaf1cf9d9b25dc317e7c547f527d294f4e69691c798ab86d6e6",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\experiments.mjs",
+        "deliveredSha256": "3cd044f4bff2e583700ed08b1790903207c2ae464f369c36c378f15688e37fbb",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "fechar.mjs",
+        "executedSha256": "1ebd88272ed855c2eaf13b8d61fee7c5307cd8f1779c106c2a37560ece07faad",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\fechar.mjs",
+        "deliveredSha256": "d4616c6be638feb4e60b69ba8bda0538535056f82bcae620a106b39c3af07a33",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "framework.mjs",
+        "executedSha256": "2a6f7a011a4e7a086eaf2feeb70fb3581d0250e844a998e10a3d2deb1b8fc623",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\framework.mjs",
+        "deliveredSha256": "4205057455a6aeca79d6eeeca7a0899fd2490be4c92dff2aa735ff83aaf14fbb",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "iniciar.mjs",
+        "executedSha256": "50fa7bfd5cd2a7db625ab8957d047f90058d5de2dbdea0b3d4d3d45aa21ca980",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\iniciar.mjs",
+        "deliveredSha256": "a17770e531e68bd172579234e291ea873dc0dcc377f2e27f7f543aa785fdc083",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "instrument.mjs",
+        "executedSha256": "4635db2585ae2cd6fbf6fc06fc6fd2903611bb1298a4a1e09fe825e4489f049b",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\instrument.mjs",
+        "deliveredSha256": "ff20194b27c3dc14968cb3c7c46ac2b6d93aa0a99957be5c71d83b98675422ae",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "reporter.mjs",
+        "executedSha256": "5f0ed0c3833327232505807e775dbc3c81107ae812704f583751b1f985612b28",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\reporter.mjs",
+        "deliveredSha256": "6ede602f97b1038d7f37038c388ad00d7b4e5d20071ef54644f1b26516092912",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      },
+      {
+        "file": "scaling.mjs",
+        "executedSha256": "2305dcae088089caaf9985e68577b47c4972de35301d0ead650946a0a8e4b4c9",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\execution-scripts\\scaling.mjs",
+        "deliveredSha256": "9e0f69580a5d156f1deb22deaaaa9ffa69299e6932c465480f6d6b135c5950d3",
+        "changeAfterExecution": "EOF whitespace only; exact executed bytes archived"
+      }
+    ],
+    "nativeCopiesMatch": true,
+    "native": [
+      {
+        "file": "diagnostic-probe.tsx",
+        "sha256": "a00b503eab8e5086fbf9d36a0ab98f3c0a0130ee92e3e3cb35913b6d63001519"
+      },
+      {
+        "file": "instrument.mjs",
+        "sha256": "4635db2585ae2cd6fbf6fc06fc6fd2903611bb1298a4a1e09fe825e4489f049b"
+      },
+      {
+        "file": "reporter.mjs",
+        "sha256": "5f0ed0c3833327232505807e775dbc3c81107ae812704f583751b1f985612b28"
+      },
+      {
+        "file": "experiments.mjs",
+        "sha256": "a426e4e2cb1a5eaf1cf9d9b25dc317e7c547f527d294f4e69691c798ab86d6e6"
+      },
+      {
+        "file": "scaling.mjs",
+        "sha256": "2305dcae088089caaf9985e68577b47c4972de35301d0ead650946a0a8e4b4c9"
+      },
+      {
+        "file": "framework.mjs",
+        "sha256": "2a6f7a011a4e7a086eaf2feeb70fb3581d0250e844a998e10a3d2deb1b8fc623"
+      },
+      {
+        "file": "capacity.mjs",
+        "sha256": "38c9735cdc1815f6f9d629a022de32497db2bde18ad1a8932fcd96e6bf4769db"
+      }
+    ]
+  },
+  "references": [
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\initial.json",
+      "sha256": "514f6b5a82bc96ee599a27b19d53a65bc7f5013a629350d66170e1faad080469"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\inputs\\.ci-source.json",
+      "sha256": "0b80ded845130f4c09d4516ce9425893ab0a0c93033120283633ae9fb80ce79e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\container.json",
+      "sha256": "634b364bc93f6267f10eb449c2e31e5bf73313b11f0b18845695be071c98c554"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\copy-native-invocation.json",
+      "sha256": "b023b577316ee7c7692be84bbb31e97b1b0fef5ebc3af9d2fd08c358828520fc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\install-invocation.json",
+      "sha256": "b2468af8999cbad29c5f414065fb6e4c02d1a0e58b8d84f5b16f1c78eb36322e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\install.log",
+      "sha256": "25246f58a17124693211cebc27b22f1b7351b1a5bf8e2c220084efee64514ae5"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\instrument-invocation.json",
+      "sha256": "b152d65cd20fe7a314e86bb461ed4b4f8467661a684db2699b3754d5f690beb3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\instrumentation.json",
+      "sha256": "7722a2dd8a602efcb6bf1877bc30ca8e42f293d271802b2e3f48d74b5aebfa65"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\initial-matrix-invocation.json",
+      "sha256": "f51e0e5848ccf0112f1d1cd8a98fabc7f441530799e8c157e476ed5638be0bef"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\initial-matrix.log",
+      "sha256": "199fa4a1fc7b27b62fdf06dda8892ab7797f2bc4d8bf2747746f37ecc70fdeb3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\scaling-overlay.json",
+      "sha256": "810fa677f1feb7e1535674208add0ffdb4c0baec19f87eb70438685a03201ec3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\scaling-restored.json",
+      "sha256": "aabcc0af89c789f4e23537d388c11d8193e8e883aff45d3a6f4830e753f4729f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\scaling-invocation.json",
+      "sha256": "5acf03fac9b410e71ff1c963a4d8692b0d0352d56cb2d87b29473615739eeb25"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\capacity-invocation.json",
+      "sha256": "505143a2c540489a2ece12230b4b28ba5097e4eea3dfdbcdb7e2c3f92a221e8b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\toolchain.json",
+      "sha256": "4462d8b70e6c7f0ba490342f71e7833f8ae39fb5be33de1408b81c190ce6abec"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\framework\\contract.json",
+      "sha256": "d81deabea067fc11ca2165d2f27d8a0723fcdf8dc22338dfe71c716bf60215d2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\framework\\async-waits.json",
+      "sha256": "c4ada77a22bbc10dd11802e729875f67a5cb276765a164d1bdd50ef27de3d8a0"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\script-provenance.json",
+      "sha256": "1f4944aae6eadbe51c01906c3dad7a8c3827c2cd4524ab4a0231e5f0f33bec86"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\native-restored.json",
+      "sha256": "144e872cb3e6a1ed8ba5417e0f77f75dfe89ef79bba4b41d80d14c318df4c451"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\cleanup-final.json",
+      "sha256": "15c4155b9e7b1afab3b5e3f39c33d7ed88a1a125de3f8b200e23e5d274435497"
+    }
+  ],
+  "prohibitedActionsPerformed": [],
+  "completeAnalysis": {
+    "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\diagnostic-analysis.json",
+    "sha256": "89ea533a59eb4446a9d8bf926136705c907e50c016acb650df94e32fbe0084b3"
+  },
+  "executionScriptPackaging": {
+    "baseCommit": "2a22739b08b749a73b37224519ab6a3faf880ab3",
+    "executedFromUncommittedDiagnosticDelta": true,
+    "onlyPackagingEofNormalizationAfterExecution": true,
+    "exactExecutedBytesRetained": true
+  },
+  "preservation": {
+    "at": "2026-11-04T01:18:03.122Z",
+    "initialTracked": 1229,
+    "unchangedTracked": 1228,
+    "authorizedDocumentationChanges": [
+      {
+        "file": "tasks/05-release/CF-034-gates-ci.md",
+        "before": "ea8ef26b652c3509324680b49e48afc5047e150dbaf2b02fccb2fb5dad916921",
+        "after": "f33f526894dabdb7f04d3e878899a497d9fd7835cf53b16786d00b510b6d5d0e",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\originals\\tasks\\05-release\\CF-034-gates-ci.md"
+      }
+    ],
+    "protectedManifestEntriesChecked": 2267,
+    "referenceGroups": {
+      "1113": 1113,
+      "original11": 11,
+      "historicalManifest": 5,
+      "historicalArtifact": 75,
+      "protected97": 97,
+      "independentProof": 59,
+      "previousAttempt": 7,
+      "assistedPackage": 852,
+      "assistedOriginal": 3,
+      "failedExpanded": 43,
+      "priorOutcome": 2
+    },
+    "readmes": {
+      "main": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+      "worktree": "e7d3458fbd8ac227520be27996ce23c73e8c3be2086d8cfbd51ad59568f4cee0"
+    },
+    "principal": {
+      "head": "c16e6545488c8f13efda4dab9efa8aa896fcddaa",
+      "branch": "codex/saneamento-cpa01-selecao-testes",
+      "status": "M README.md",
+      "readme": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca"
+    },
+    "receipt": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\preservation-final.json",
+      "sha256": "f8eaf15543c26a69d2b3026340da8abbba4b1ced9b27959497241a627c5a18c3"
+    },
+    "processes": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\componentes-timeout-20261103-01\\processes-final.json",
+      "sha256": "d7febef46b1d31cbd411c8a8d9633ab072bcc0e8ba48866e6fdb85987e447327"
+    },
+    "productTestCiMigrationsDelta": []
+  },
+  "packagedDiagnosticScriptsCommit": "b74c51f5d2ea4fbba6744c683d52dee72d2a74b0"
+}
