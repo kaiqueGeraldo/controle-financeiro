@@ -75,9 +75,21 @@ test('evidence output is new and external so an old report cannot certify anothe
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-fresh-'));
   const root=path.join(directory,'source');fs.mkdirSync(root);
   assert.throws(()=>freshOutput(root,path.join(root,'reports')),/outside/);
-  const out=path.join(directory,'new-run');assert.equal(freshOutput(root,out),out);
+  const out=path.join(directory,'new-run');assert.equal(freshOutput(root,out),path.join(fs.realpathSync.native(directory),'new-run'));
   fs.writeFileSync(path.join(out,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
   assert.throws(()=>freshOutput(root,out),/Never reuse/);
+});
+
+test('fresh evidence uses the physical external path through an aliased parent',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-fresh-alias-'));
+  const root=path.join(directory,'source'),external=path.join(directory,'external'),alias=path.join(directory,'external-alias');
+  fs.mkdirSync(root);fs.mkdirSync(external);
+  fs.symlinkSync(external,alias,process.platform==='win32'?'junction':'dir');
+  const request=path.join(alias,'new-run'),expected=path.join(fs.realpathSync.native(external),'new-run');
+  assert.equal(freshOutput(root,request),expected);
+  fs.writeFileSync(path.join(expected,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
+  assert.throws(()=>freshOutput(root,request),/Never reuse/);
+  assert.throws(()=>freshOutput(root,path.join(root,'reports')),/outside/);
 });
 
 
