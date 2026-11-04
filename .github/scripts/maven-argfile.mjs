@@ -14,7 +14,7 @@ export function javaArgfileText(args) {
 
 // The Windows Java launcher decodes @files using native.encoding, before JVM file.encoding.
 export function writeNativeArgfile(file, text) {
-  const script = '[Console]::InputEncoding=[Text.UTF8Encoding]::new($false);$p=[Console]::In.ReadToEnd()|ConvertFrom-Json;$enc=[Text.Encoding]::GetEncoding([Text.Encoding]::Default.CodePage,[Text.EncoderFallback]::ExceptionFallback,[Text.DecoderFallback]::ExceptionFallback);$bytes=$enc.GetBytes($p.text);$s=[IO.File]::Open($p.file,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None);try{$s.Write($bytes,0,$bytes.Length)}finally{$s.Dispose()};[Console]::Out.Write($enc.CodePage)';
+  const script = '$ErrorActionPreference="Stop";[Console]::InputEncoding=[Text.UTF8Encoding]::new($false);$p=[Console]::In.ReadToEnd()|ConvertFrom-Json;$enc=[Text.Encoding]::GetEncoding([Text.Encoding]::Default.CodePage,[Text.EncoderFallback]::ExceptionFallback,[Text.DecoderFallback]::ExceptionFallback);$bytes=$enc.GetBytes($p.text);$s=[IO.File]::Open($p.file,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None);try{$s.Write($bytes,0,$bytes.Length)}finally{$s.Dispose()};[Console]::Out.Write($enc.CodePage)';
   const input = JSON.stringify({file,text}).replace(/[\u007f-\uffff]/g, c => "\\u" + c.charCodeAt(0).toString(16).padStart(4,"0"));
   const result = spawnSync("powershell.exe", ["-NoProfile","-NonInteractive","-Command",script], {input,encoding:"utf8",windowsHide:true});
   assert.equal(result.status,0,"Native Java argument encoding failed: "+result.stderr);
