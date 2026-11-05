@@ -11,7 +11,7 @@ on:
     inputs:
       suite:
         type: choice
-        options: [smoke, expanded]
+        options: [smoke, expanded, diagnostic]
         default: smoke
 
 permissions:
@@ -49,6 +49,14 @@ jobs:
         id: collect
         if: always()
         run: node .github/scripts/publish-evidence.mjs "$env:CF034_OUT"
+      - name: Publish collection failure status
+        if: always() && steps.collect.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          path: ${{ env.CF034_OUT }}/collection-status.json
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: always() && steps.collect.outcome == 'success'
         with:
@@ -58,6 +66,7 @@ jobs:
           retention-days: 7
 
   linux:
+    if: github.event_name != 'workflow_dispatch' || inputs.suite != 'diagnostic'
     needs: windows-native
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -88,6 +97,14 @@ jobs:
         id: collect
         if: always()
         run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
+      - name: Publish collection failure status
+        if: always() && steps.collect.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          path: ${{ env.CF034_OUT }}/collection-status.json
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: always() && steps.collect.outcome == 'success'
         with:
@@ -134,6 +151,14 @@ jobs:
         id: collect
         if: always()
         run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
+      - name: Publish collection failure status
+        if: always() && steps.collect.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          path: ${{ env.CF034_OUT }}/collection-status.json
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: always() && steps.collect.outcome == 'success'
         with:
@@ -151,7 +176,54 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  browser-diagnostic:
+    if: github.event_name == 'workflow_dispatch' && inputs.suite == 'diagnostic'
+    needs: windows-native
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CF034_SUITE: expanded
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: controle-financeiro-frontend/package-lock.json
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Set canonical external runtime path
+        run: echo "CF034_OUT=$(dirname "$GITHUB_WORKSPACE")/controle-financeiro-runtimes/CF-034/${{ github.run_id }}-${{ github.run_attempt }}-diagnostic" >> "$GITHUB_ENV"
+      - name: Directed browser diagnosis only; never acceptance
+        run: node .github/scripts/ci.mjs diagnose "$GITHUB_WORKSPACE" "$CF034_OUT"
+      - name: Collect diagnosis
+        id: collect
+        if: always()
+        run: node .github/scripts/publish-evidence.mjs "$CF034_OUT"
+      - name: Publish collection failure status
+        if: always() && steps.collect.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          path: ${{ env.CF034_OUT }}/collection-status.json
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.collect.outcome == 'success'
+        with:
+          name: diagnostic-only-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: ${{ env.CF034_OUT }}/public/
+          if-no-files-found: error
+          retention-days: 7
+
   required:
+    name: ${{ inputs.suite == 'diagnostic' && 'diagnostic-not-acceptance' || 'required' }}
     if: ${{ always() }}
     needs: [windows-native, linux, expanded]
     runs-on: ubuntu-latest

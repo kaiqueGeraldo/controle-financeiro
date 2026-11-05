@@ -72,3 +72,17 @@ test('uses the visible text range after scrolling',async({page})=>{
  await target.evaluate(el=>el.parentElement!.style.filter='opacity(0)');
  expect((await textGeometry(target,text)).ok).toBe(false);
 });
+
+test('diagnostic sampling preserves positive and negative oracle observations',async({page})=>{
+ const {textGeometryDiagnostic}=await import('./support/text-geometry-diagnostic');
+ const target=page.locator('#text');
+ for(const hidden of [false,true]){
+  await target.evaluate((el,hidden)=>el.parentElement!.style.opacity=hidden?'0':'1',hidden);
+  const observation=await textGeometry(target,text),before=JSON.stringify(observation),html=await target.evaluate(el=>el.outerHTML);
+  const receipt=await textGeometryDiagnostic(target,360,observation,null,new Date().toISOString());
+  expect(receipt.targetConfirmed).toBe(true);expect(receipt.viewport?.width).toBe(360);
+  expect(receipt.outcome).toBe(hidden?'target-rejected':'accepted');
+  expect(JSON.stringify(observation)).toBe(before);expect(await target.evaluate(el=>el.outerHTML)).toBe(html);
+  expect((await textGeometry(target,text)).ok).toBe(!hidden);
+ }
+});

@@ -18,13 +18,14 @@ function fixture(t){
 }
 function write(root,file,value){const target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,typeof value==='string'?value:JSON.stringify(value));}
 function receipt(root,wrapper,{failed=false,message='SYNTHETIC_FAILURE',second=false}={}){
-  const folder='browsers/'+wrapper+'/diagnostics/',invocationId=wrapper+'-invocation';
+  const folder=(wrapperDefinitions[wrapper].directory??'browsers/'+wrapper)+'/diagnostics/',invocationId=wrapper+'-invocation';
   const identity={id:wrapper+'-case',project:'synthetic-project',file:'synthetic.spec.ts',titles:['synthetic-project',wrapper,'case'],line:12,column:3,repeatEachIndex:0};
   const expected=[identity,...(second?[{...identity,id:wrapper+'-remaining',titles:['remaining']}]:[])];
   write(root,folder+'invocation.json',{version:1,wrapper,invocationId,config:wrapperDefinitions[wrapper].config,sourceRoot:root,argumentsSha256:'c'.repeat(64),context:{source,ci},grepSupplied:false});
   write(root,folder+'process.json',{version:1,wrapper,invocationId,listing:{exit:0},execution:{exit:failed?1:0,durationMs:456,signal:null,error:null}});
   const events=(phase,items)=>items.map((e,i)=>JSON.stringify({version:1,wrapper,invocationId,phase,sequence:i+1,...e})).join('\n')+'\n';
   write(root,folder+'events-list.jsonl',events('list',[{kind:'reporter-loaded'},{kind:'begin',expected},{kind:'end',status:'passed'}]));
+  write(root,folder+'browser-events-run.jsonl',events('run',[{kind:'browser-started'}]));
   const error={message,location:{file:path.join(root,'synthetic.spec.ts'),line:13,column:5}};
   write(root,folder+'events-run.jsonl',events('run',[
     {kind:'reporter-loaded'},{kind:'begin',expected},
@@ -59,7 +60,7 @@ test('workflow publication retains both wrapper failures, identities and first s
 });
 test('positive evidence passes only for matching source, job and complete selection',t=>{
   const root=fixture(t);for(const w of wrappers)receipt(root,w);
-  assert.equal(requireWrapperDiagnostics(root,selection,source,ci).length,2);
+  assert.equal(requireWrapperDiagnostics(root,selection,source,ci).length,wrappers.length);
   assert.throws(()=>requireWrapperDiagnostics(root,selection,{...source,commit:'d'.repeat(40)},ci),/another execution/);
   assert.throws(()=>requireWrapperDiagnostics(root,selection,source,{...ci,attempt:'3'}),/another execution/);
 });
@@ -93,7 +94,7 @@ test('public projection removes sentinel, URLs, HTTP detail and unrelated raw fi
   const publicFiles=walk(path.join(root,'public'));
   const publicText=publicFiles.map(f=>fs.readFileSync(f,'utf8')).join('\n');
   assert.doesNotMatch(publicText,new RegExp(sentinel+'|private.invalid|trace.zip'));
-  assert.equal(publicFiles.filter(f=>f.endsWith('diagnosis.json')).length,2);
+  assert.equal(publicFiles.filter(f=>f.endsWith('diagnosis.json')).length,wrappers.length);
   assert.match(publicText,/REDACTED/);
 });
 test('sanitization failure never exposes public directory or a raw fallback',t=>{
@@ -119,5 +120,54 @@ test('launcher preserves nonzero child exit and captures a failure before any re
   assert.equal(summary.firstError.phase,'process before reporter');assert.match(summary.firstError.message,/SYNTHETIC_DEPENDENCY_FAILURE/);
   collectPublic(output);
   assert.doesNotMatch(fs.readFileSync(path.join(output,'public','browsers',wrapper,'diagnosis.json'),'utf8'),/SYNTHETIC_PRIVATE_17/);
+});
+
+
+test('all selected browser entries use the shared boundary and preserve their deadlines',async()=>{
+ const {backendSelection,historicalBrowserHarnesses}=await import('./suites.mjs');
+ const selected=backendSelection(path.resolve(import.meta.dirname,'../..'),'expanded','linux').selected;
+ assert.equal(wrappers.length,16);
+ assert.equal(wrappers.filter(w=>selected.includes(wrapperDefinitions[w].qualified)).length,15);
+ assert.deepEqual(wrappers.filter(w=>selected.includes(wrapperDefinitions[w].qualified)).sort(),[...historicalBrowserHarnesses].sort());
+ for(const w of wrappers){
+  const file=path.resolve(import.meta.dirname,'../../controle-financeiro-backend/src/test/java',wrapperDefinitions[w].qualified.replaceAll('.','/')+'.java');
+  const code=fs.readFileSync(file,'utf8');
+  assert.match(code,/BrowserEvidence\.start\(/,w);assert.match(code,/BrowserEvidence\.waitFor\(/,w);
+  const deadline=['HabitBrowserIntegrationTest','UserIsolationBrowserIntegrationTest'].includes(w)?/waitFor\(\w+,180,TimeUnit\.SECONDS,evidence\)/:['Cf014HistoryDiagnosticTest','Cf014HistoryReviewTest'].includes(w)?/waitFor\(\w+,8,TimeUnit\.MINUTES,evidence\)/:/waitFor\(\w+,15,TimeUnit\.MINUTES,evidence\)/;
+  assert.match(code,deadline,w);
+ }
+});
+test('parent deadline keeps partial lifecycle public and the failed gate blocked',t=>{
+ const root=fixture(t),w=wrappers[0],folder=receipt(root,w,{second:true});
+ fs.unlinkSync(path.join(root,folder,'process.json'));
+ write(root,'browsers/'+w+'/interruption.json',{reason:'timeout',timeoutMs:200});
+ const file=path.join(root,folder,'events-run.jsonl');
+ const events=fs.readFileSync(file,'utf8').split('\n').filter(Boolean).map(JSON.parse).filter(e=>!['test-end','end'].includes(e.kind));
+ fs.writeFileSync(file,events.map(e=>JSON.stringify(e)).join('\n')+'\n');
+ write(root,'result.json',{selection:{selected:[wrapperDefinitions[w].qualified]},status:'failed'});
+ collectPublic(root);
+ const summary=JSON.parse(fs.readFileSync(path.join(root,'public/browsers',w,'diagnosis.json')));
+ assert.equal(summary.process.termination,'timeout');assert.equal(summary.complete,false);
+ assert.equal(summary.started.length,1);assert.equal(summary.finished.length,0);
+ assert.equal(summary.remaining[0].state,'started without end');assert.equal(summary.remaining[1].state,'not started');
+ assert.throws(()=>requireWrapperDiagnostics(root,{selected:[wrapperDefinitions[w].qualified]},source,ci));
+});
+test('collection CLI publishes an explicit failure receipt without raw fallback',t=>{
+ const root=fixture(t);receipt(root,wrappers[0],{failed:true,message:"password='UNTERMINATED_SYNTHETIC_SECRET"});
+ const cli=fileURLToPath(new URL('./publish-evidence.mjs',import.meta.url));
+ const result=spawnSync(process.execPath,[cli,root],{encoding:'utf8',windowsHide:true});
+ assert.equal(result.status,1);assert.equal(fs.existsSync(path.join(root,'public')),false);
+ assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root,'collection-status.json'))),{version:1,status:'failed',code:'COLLECTION_FAILED',rawFallback:false});
+ assert.doesNotMatch(result.stdout+result.stderr,/UNTERMINATED_SYNTHETIC_SECRET/);
+});
+
+test('SAN-E2 last observation and rejection details reach the sanitized upload namespace',t=>{
+ const root=fixture(t),w=wrappers[0];receipt(root,w,{failed:true});
+ write(root,'browsers/'+w+'/san-e2-diagnosis-360.json',{version:1,targetKey:'SAN-E2-visual/unavailable-valuation',width:360,targetConfirmed:true,outcome:'target-rejected',failures:['clipped-x'],viewport:{width:360,height:900,dpr:1},rects:[{x:12,y:40,width:200,height:18}],font:{status:'loaded',family:'synthetic font'},paint:{stable:true,wrongDirectionPixels:0},lastError:{message:"password='SYNTHETIC_MEASURE_SECRET' https://private.invalid/path"},unrelatedRaw:'SYNTHETIC_UNRELATED_RAW'});
+ collectPublic(root);
+ const text=fs.readFileSync(path.join(root,'public/browsers',w,'diagnosis.json'),'utf8'),summary=JSON.parse(text);
+ assert.deepEqual(summary.measurements[0].failures,['clipped-x']);assert.equal(summary.measurements[0].width,360);
+ assert.equal(summary.measurements[0].targetConfirmed,true);assert.equal(summary.measurements[0].font.status,'loaded');
+ assert.doesNotMatch(text,/SYNTHETIC_MEASURE_SECRET|SYNTHETIC_UNRELATED_RAW|private.invalid/);
 });
 

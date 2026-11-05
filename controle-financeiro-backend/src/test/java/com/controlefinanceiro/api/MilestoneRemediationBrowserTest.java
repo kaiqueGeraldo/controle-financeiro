@@ -63,8 +63,8 @@ class MilestoneRemediationBrowserTest {
         if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS")))
             pb.environment().put("PLAYWRIGHT_JSON_OUTPUT_FILE",evidence.resolve("playwright-private.json").toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-        Process p=pb.start();
-        boolean finished=p.waitFor(15,TimeUnit.MINUTES);
+        Process p=com.controlefinanceiro.api.support.BrowserEvidence.start(pb,getClass(),evidence);
+        boolean finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(p,15,TimeUnit.MINUTES,evidence);
         if(!finished){p.descendants().forEach(ProcessHandle::destroyForcibly);p.destroyForcibly();}
         StringBuilder persisted=new StringBuilder("Namespace: "+namespace+"\nFlyway versions: "+sql.queryForList("select version from flyway_schema_history order by installed_rank",String.class)+"\n");
         for(String query:List.of(

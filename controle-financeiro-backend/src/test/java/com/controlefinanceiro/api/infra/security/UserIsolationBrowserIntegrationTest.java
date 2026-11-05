@@ -54,7 +54,7 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
             var runner=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/browser.cjs").toString(),frontend.toString(),evidence.toString(),namespace,instant,preparedFrontend.resolve("loopback.crt").toString());
             runner.directory(frontend.toFile());runner.redirectErrorStream(true);runner.redirectOutput(evidence.resolve("playwright.log").toFile());
             runner.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-            Process browser=runner.start();boolean completed=browser.waitFor(180,TimeUnit.SECONDS);
+            Process browser=com.controlefinanceiro.api.support.BrowserEvidence.start(runner,getClass(),evidence);boolean completed=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(browser,180,TimeUnit.SECONDS,evidence);
             if(!completed){browser.descendants().forEach(ProcessHandle::destroyForcibly);browser.destroyForcibly();}
             assertThat(completed).as("Browser completed").isTrue();
             assertThat(browser.exitValue()).as(Files.readString(evidence.resolve("playwright.log"))).isZero();

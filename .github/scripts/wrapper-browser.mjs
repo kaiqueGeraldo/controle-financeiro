@@ -7,38 +7,70 @@ import {physicalPath} from './paths.mjs';
 import {hash} from './source.mjs';
 import {wrapperDefinitions} from './wrapper-diagnostics.mjs';
 
-const [flag,wrapper,...original]=process.argv.slice(2);
-if(flag!=='--wrapper'||!Object.hasOwn(wrapperDefinitions,wrapper))throw new Error('Unknown wrapper diagnostic boundary');
-const definition=wrapperDefinitions[wrapper];
-if(original[0]!=='test'||original[1]!=='--config'||original[2]!==definition.config)throw new Error('Wrapper selection differs from its declared configuration');
-const front=physicalPath(process.cwd()),source=physicalPath(process.env.CF_SOURCE_ROOT??path.dirname(front));
-if(!process.env.CF_REVIEW_EVIDENCE||!path.isAbsolute(process.env.CF_REVIEW_EVIDENCE))throw new Error('Absolute private evidence directory required');
-const evidence=physicalPath(process.env.CF_REVIEW_EVIDENCE);
-if(evidence===source||evidence.startsWith(source+path.sep))throw new Error('Wrapper diagnosis must remain outside sources');
-const directory=path.join(evidence,'diagnostics');fs.mkdirSync(directory);
-const invocationId=randomUUID(),started=new Date().toISOString();
-const sourceFile=path.join(source,'.ci-source.json');
-const recorded=fs.existsSync(sourceFile)?JSON.parse(fs.readFileSync(sourceFile,'utf8')):{};
-const context={source:{commit:recorded.commit??null,digest:recorded.digest??null},ci:Object.fromEntries(['runId','attempt','job','event'].map((key,i)=>[key,process.env[['GITHUB_RUN_ID','GITHUB_RUN_ATTEMPT','GITHUB_JOB','GITHUB_EVENT_NAME'][i]]??null]))};
-const invocation={version:1,wrapper,invocationId,started,context,config:definition.config,cwd:front,sourceRoot:source,originalCommand:[process.execPath,path.join(front,'node_modules/@playwright/test/cli.js'),...original],argumentsSha256:hash(JSON.stringify(original)),grepSupplied:original.some(x=>x==='--grep'||x.startsWith('--grep='))};
-fs.writeFileSync(path.join(directory,'invocation.json'),JSON.stringify(invocation,null,2)+'\n',{flag:'wx'});
-const reporter=path.join(path.dirname(fileURLToPath(import.meta.url)),'wrapper-reporter.mjs');
-if(reporter.includes(','))throw new Error('Reporter path contains unsupported list separator');
-const args=[];
-for(let i=0;i<original.length;i++){if(original[i]==='--reporter'){i++;continue;}if(original[i].startsWith('--reporter='))continue;args.push(original[i]);}
-const cli=path.join(front,'node_modules/@playwright/test/cli.js');
-function execute(phase,extra,reporters) {
-  const output=path.join(directory,phase+'.log'),fd=fs.openSync(output,'wx'),at=Date.now();
-  let result;
-  try {result=spawnSync(process.execPath,[cli,...args,...extra,'--reporter='+reporters],{cwd:front,env:{...process.env,CF_WRAPPER_DIAGNOSTICS:directory,CF_WRAPPER_PHASE:phase,CF_WRAPPER_NAME:wrapper,CF_WRAPPER_INVOCATION:invocationId,PLAYWRIGHT_JSON_OUTPUT_FILE:path.join(directory,'results.json')},stdio:['ignore',fd,fd],windowsHide:true,shell:false,...(phase==='list'?{timeout:120000}:{})});}
-  finally {fs.closeSync(fd);}
-  return {started:new Date(at).toISOString(),finished:new Date().toISOString(),durationMs:Date.now()-at,exit:result.status,signal:result.signal,error:result.error?{code:result.error.code??null,message:result.error.message}:null};
+const here=path.dirname(fileURLToPath(import.meta.url));
+export function reporterArguments(original,reporters){
+ const args=[];
+ for(let i=0;i<original.length;i++){
+  if(original[i]==='--reporter'){i++;continue;}
+  if(original[i].startsWith('--reporter='))continue;
+  args.push(original[i]);
+  if(['--config','--grep','--grep-invert','--project','--output','--test-list'].includes(original[i])&&i+1<original.length)args.push(original[++i]);
+ }
+ return [...args,'--reporter='+reporters];
 }
-const listing=execute('list',['--list'],reporter);
-fs.writeFileSync(path.join(directory,'listing-process.json'),JSON.stringify(listing,null,2)+'\n',{flag:'wx'});
-// Discovery does not replace execution or change its exit code, even when discovery failed.
-const execution=execute('run',[],'line,json,'+reporter);
-fs.writeFileSync(path.join(directory,'process.json'),JSON.stringify({version:1,wrapper,invocationId,context,listing,execution,finished:new Date().toISOString()},null,2)+'\n',{flag:'wx'});
-console.log('Wrapper '+wrapper+' finished; discovery='+listing.exit+'; execution='+execution.exit+'; private diagnostic receipt recorded');
-process.exitCode=execution.exit??1;
-
+export function playwrightPhase(phase,args,jsonOutput){
+ const directory=process.env.CF_WRAPPER_DIAGNOSTICS;
+ const fd=fs.openSync(path.join(directory,phase+'.log'),'wx'),at=Date.now();
+ const reporter=path.join(here,'wrapper-reporter.mjs');
+ let result;
+ try{
+  result=spawnSync(process.execPath,[path.resolve('node_modules/@playwright/test/cli.js'),...reporterArguments(args,phase==='list'?reporter:'line,json,'+reporter)],{
+   cwd:process.cwd(),env:{...process.env,CF_WRAPPER_PHASE:phase,PLAYWRIGHT_JSON_OUTPUT_FILE:jsonOutput,NODE_OPTIONS:[process.env.NODE_OPTIONS,'--require "'+path.join(here,'browser-preload.cjs').replaceAll('\\','/')+'"'].filter(Boolean).join(' ')},
+   stdio:['ignore',fd,fd],windowsHide:true,shell:false,...(phase==='list'?{timeout:120000}:{})
+  });
+ }finally{fs.closeSync(fd);}
+ return {started:new Date(at).toISOString(),finished:new Date().toISOString(),durationMs:Date.now()-at,exit:result.status,signal:result.signal,error:result.error?{code:result.error.code??null,message:result.error.message}:null};
+}
+function main(){
+ const [flag,wrapper,...input]=process.argv.slice(2),definition=wrapperDefinitions[wrapper];
+ if(flag!=='--wrapper'||!definition)throw new Error('Unknown wrapper diagnostic boundary');
+ let entry='node_modules/@playwright/test/cli.js',args=input;
+ if(input[0]==='--entry'){entry=input[1];args=input.slice(2);}
+ const front=physicalPath(process.cwd()),source=physicalPath(process.env.CF_SOURCE_ROOT??path.dirname(front));
+ const config=definition.kind==='programmatic'?definition.config:args[args.indexOf('--config')+1];
+ if(!(definition.configs??[definition.config]).includes(config))throw new Error('Unexpected wrapper config');
+ const evidence=physicalPath(process.env.CF_REVIEW_EVIDENCE);
+ if(evidence===source||evidence.startsWith(source+path.sep))throw new Error('Wrapper diagnosis must remain outside sources');
+ const directory=path.join(evidence,'diagnostics');fs.mkdirSync(directory);
+ const invocationId=randomUUID(),recorded=JSON.parse(fs.readFileSync(path.join(source,'.ci-source.json'),'utf8'));
+ const context={source:{commit:recorded.commit,digest:recorded.digest},ci:Object.fromEntries(['runId','attempt','job','event'].map((k,i)=>[k,process.env[['GITHUB_RUN_ID','GITHUB_RUN_ATTEMPT','GITHUB_JOB','GITHUB_EVENT_NAME'][i]]??null]))};
+ fs.writeFileSync(path.join(directory,'invocation.json'),JSON.stringify({version:1,wrapper,invocationId,context,config,cwd:front,sourceRoot:source,originalCommand:['node',path.relative(front,path.resolve(entry)),...args],argumentsSha256:hash(JSON.stringify([entry,...args])),grepSupplied:args.some(x=>x==='--grep'||x.startsWith('--grep='))}),{flag:'wx'});
+ Object.assign(process.env,{CF_WRAPPER_DIAGNOSTICS:directory,CF_WRAPPER_NAME:wrapper,CF_WRAPPER_INVOCATION:invocationId});
+ let listing,execution;
+ if(definition.kind==='programmatic'||definition.kind==='zoom'){
+  const fd=fs.openSync(path.join(directory,definition.kind==='zoom'?'boundary.log':'run.log'),'wx'),at=Date.now();
+  const synthetic={id:wrapper,project:'programmatic',file:definition.config,titles:[wrapper,'script entry'],line:1,column:1};
+  const emit=(kind,data={})=>fs.appendFileSync(path.join(directory,'events-run.jsonl'),JSON.stringify({version:1,wrapper,invocationId,phase:'run',sequence:Date.now()-at,kind,...data})+'\n');
+  if(definition.kind==='programmatic'){
+   const begin={version:1,wrapper,invocationId,phase:'list',sequence:1,kind:'begin',expected:[synthetic]};
+   fs.writeFileSync(path.join(directory,'events-list.jsonl'),JSON.stringify(begin)+'\n',{flag:'wx'});
+   emit('begin',{expected:[synthetic]});emit('test-start',{test:synthetic,workerIndex:0,retry:0,startTime:new Date().toISOString()});
+  }
+  let result;
+  try{result=spawnSync(process.execPath,[path.resolve(entry),...args],{cwd:front,env:{...process.env,CF_WRAPPER_PHASE:'run',NODE_OPTIONS:[process.env.NODE_OPTIONS,'--require "'+path.join(here,'browser-preload.cjs').replaceAll('\\','/')+'"'].filter(Boolean).join(' ')},stdio:['ignore',fd,fd],windowsHide:true,shell:false});}finally{fs.closeSync(fd);}
+  execution={started:new Date(at).toISOString(),finished:new Date().toISOString(),exit:result.status,signal:result.signal,durationMs:Date.now()-at,error:result.error?{code:result.error.code,message:result.error.message}:null};
+  if(definition.kind==='programmatic'){
+   listing={exit:0,method:'declared script entry; no scenario discovery API'};
+   emit('test-end',{test:synthetic,workerIndex:0,retry:0,status:result.status===0?'passed':'failed',expectedStatus:'passed',durationMs:execution.durationMs,errors:[]});emit('end',{status:result.status===0?'passed':'failed'});
+  }else listing=fs.existsSync(path.join(directory,'listing-process.json'))?JSON.parse(fs.readFileSync(path.join(directory,'listing-process.json'))):{exit:null};
+ }else{
+  listing=playwrightPhase('list',[...args,'--list'],path.join(directory,'listing.json'));
+  fs.writeFileSync(path.join(directory,'listing-process.json'),JSON.stringify(listing),{flag:'wx'});
+  execution=playwrightPhase('run',args,definition.jsonOutput?path.join(evidence,definition.jsonOutput):path.join(directory,'results.json'));
+ }
+ fs.writeFileSync(path.join(directory,'process.json'),JSON.stringify({version:1,wrapper,invocationId,context,listing,execution}),{flag:'wx'});
+ console.log('Wrapper '+wrapper+' execution='+execution.exit+'; private diagnostics retained');
+ if(execution.signal){process.kill(process.pid,execution.signal);return;}
+ process.exitCode=execution.exit??1;
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main();

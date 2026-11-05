@@ -1,3 +1,4 @@
+import {wrapperDefinitions} from './browser-wrappers.mjs';
 import {requireWrapperDiagnostics} from './wrapper-diagnostics.mjs';
 import {reuseComponents} from './component-reuse.mjs';
 import {javaArgfileInvocation} from './maven-argfile.mjs';
@@ -79,7 +80,7 @@ const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withhe
 
 async function main(){
   const [stage='all',rootArg,outArg]=process.argv.slice(2);
-  if(!['all','remaining','frontend','backend','windows-native','e2e','package'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|remaining|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
+  if(!['all','remaining','frontend','backend','windows-native','e2e','package','diagnose'].includes(stage)||!rootArg||!outArg)throw new Error('Usage: node .github/scripts/ci.mjs <all|remaining|frontend|backend|windows-native|e2e|package> <isolated-root> <new-output-dir>');
   const root=physicalPath(rootArg),out=freshOutput(root,outArg);
   const control=cancellation(out);
   const source=sourceFor(root),front=path.join(root,'controle-financeiro-frontend'),back=path.join(root,'controle-financeiro-backend');
@@ -88,6 +89,10 @@ async function main(){
   if(zoomContext)report.zoomException={decision:zoomDecision,label:zoomLabel,deferred:zoomDeferred,context:zoomContext,status:'pending verification; not full visual acceptance'};
   const ci=process.env.GITHUB_ACTIONS==='true'?{repository:process.env.GITHUB_REPOSITORY,workflow:process.env.GITHUB_WORKFLOW,runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,job:process.env.GITHUB_JOB,event:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,headRef:process.env.GITHUB_HEAD_REF,baseRef:process.env.GITHUB_BASE_REF,checkoutSha:source.commit,runnerOS:process.env.RUNNER_OS,runnerArch:process.env.RUNNER_ARCH}:null;
   report.ci=ci;
+  report.diagnosticOnly=stage==='diagnose';
+  report.e2ePlanned=stage==='all'||stage==='remaining'||stage==='e2e';
+  report.browserPlan=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform).selected.filter(q=>Object.values(wrapperDefinitions).some(d=>d.qualified===q));
+  if(stage==='diagnose')report.browserPlan=report.browserPlan.filter(q=>/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q));
   const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',CF_SOURCE_ROOT:root,CF_TEST_ARTIFACTS:path.join(out,'frontend-artifacts')};
   for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
   for(const key of Object.keys(env))if(key.startsWith('CF_ZOOM_'))delete env[key];
@@ -149,7 +154,8 @@ async function main(){
     if(scope==='all')invalidate(['backend','e2e']);
     // Maven below launches a local JVM on this process platform. Container
     // callers must run this controller inside the target container as well.
-    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform,scope);
+    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform,scope==='diagnostic'?'all':scope);
+    if(scope==='diagnostic'){selection.selected=selection.selected.filter(q=>/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q));report.browserPlan=selection.selected;}
     writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
     await maven('maven-version',['--version']);
     const reports=path.join(out,'surefire');
@@ -159,7 +165,7 @@ async function main(){
     report.wrapperDiagnostics=requireWrapperDiagnostics(out,selection,source,ci);
     if(zoomContext&&selection.selected.includes('com.controlefinanceiro.api.Rf15RemediationBrowserTest'))report.zoomCoverage=verifyDirectory(path.join(out,'browsers/Rf15RemediationBrowserTest/zoom-selection'),zoomContext);
     report.junitReports=fs.readdirSync(reports).filter(f=>f.startsWith('TEST-')&&f.endsWith('.xml')).sort().map(file=>({file,sha256:hash(fs.readFileSync(path.join(reports,file)))}));
-    if(scope==='platform-only')return;
+    if(scope==='platform-only'||scope==='diagnostic')return;
     const jars=fs.readdirSync(path.join(back,'target')).filter(f=>f.endsWith('.jar'));
     if(jars.length!==1)throw new Error('Verify must produce exactly one executable JAR');
     writeJson(path.join(root,'.ci-backend.json'),{source:source.digest,status:'passed',counts:report.backend,jar:jars[0],jarSha256:hash(fs.readFileSync(path.join(back,'target',jars[0])))});
@@ -182,6 +188,7 @@ async function main(){
     const playwright=JSON.parse(fs.readFileSync(path.join(evidence,'playwright.json')));
     report.browser=requireCounts({tests:playwright.stats.expected,failures:playwright.stats.unexpected,errors:playwright.errors?.length??0,skipped:playwright.stats.skipped},'browser');
     report.financialEvidence=financialEvidence(playwright,evidence);
+    report.financialDiagnostics=requireWrapperDiagnostics(out,{selected:[wrapperDefinitions.FinancialJourneyPostgresE2E.qualified]},source,ci);
     if(playwright.stats.flaky)throw new Error('Flaky E2E is not approval');
     if(process.env.CF034_SUITE!=='expanded'&&report.browser.tests!==6)throw new Error('All six mandatory browser journeys must run');
     writeJson(path.join(root,'.ci-e2e.json'),{source:source.digest,status:'passed',counts:report.browser});
@@ -200,7 +207,7 @@ async function main(){
   }
   try{
     if(stage==='remaining'){prerequisite('frontend');report.frontendPrerequisite=JSON.parse(fs.readFileSync(path.join(root,'.ci-frontend.json')));}
-    await sequence(stage==='all'?['frontend','backend','e2e','package']:stage==='remaining'?['backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,'windows-native':windowsNative,e2e,package:packageArtifact})[name]();control.check();});
+    await sequence(stage==='all'?['frontend','backend','e2e','package']:stage==='diagnose'?['frontend','diagnostic']:stage==='remaining'?['backend','e2e','package']:[stage],async name=>{control.check();await ({frontend,backend,diagnostic:()=>backend('diagnostic'),'windows-native':windowsNative,e2e,package:packageArtifact})[name]();control.check();});
     report.status='passed';
   }catch(error){
     report.status=control.cancelled?'cancelled':'failed';report.error=control.cancelled?'Execution cancelled; subsequent gates blocked':safe(error.message);process.exitCode=control.cancelled?130:1;

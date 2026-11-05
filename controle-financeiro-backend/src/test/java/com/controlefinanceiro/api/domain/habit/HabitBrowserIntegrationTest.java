@@ -44,8 +44,8 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
                     frontend.toString(), evidence.toString(), namespace, instant);
             browser.directory(frontend.toFile()); browser.redirectErrorStream(true); browser.redirectOutput(evidence.resolve("playwright.log").toFile());
             browser.environment().put("PLAYWRIGHT_BROWSERS_PATH", "0");
-            Process process = browser.start();
-            boolean completed = process.waitFor(180, TimeUnit.SECONDS);
+            Process process=com.controlefinanceiro.api.support.BrowserEvidence.start(browser,getClass(),evidence);
+            boolean completed = com.controlefinanceiro.api.support.BrowserEvidence.waitFor(process,180,TimeUnit.SECONDS,evidence);
             if (!completed) { process.descendants().forEach(ProcessHandle::destroyForcibly); process.destroyForcibly(); }
             assertThat(completed).as("Browser process completed").isTrue();
             assertThat(process.exitValue()).as(Files.readString(evidence.resolve("playwright.log"))).isZero();

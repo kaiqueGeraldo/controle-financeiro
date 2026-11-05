@@ -1,3 +1,4 @@
+import {playwrightPhase} from './wrapper-browser.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -25,7 +26,14 @@ fs.writeFileSync(path.join(directory,'selection.txt'),testList(manifest.C),{flag
 const started=new Date().toISOString();
 writeJson(path.join(directory,'invocation.json'),{context,started,universeSha:hash(fs.readFileSync(env.PLAYWRIGHT_JSON_OUTPUT_FILE)),selectionSha:hash(fs.readFileSync(path.join(directory,'selection.txt')))});
 env.PLAYWRIGHT_JSON_OUTPUT_FILE=path.join(directory,'results.json');
-const result=spawnSync(process.execPath,[cli,...args,'--test-list',path.join(directory,'selection.txt'),'--reporter=line,json'],{env,stdio:'inherit',windowsHide:true});
+let result;
+if(process.env.CF_WRAPPER_DIAGNOSTICS){
+ const selected=[...args,'--test-list',path.join(directory,'selection.txt')];
+ const discovered=playwrightPhase('list',[...selected,'--list'],path.join(process.env.CF_WRAPPER_DIAGNOSTICS,'listing.json'));
+ writeJson(path.join(process.env.CF_WRAPPER_DIAGNOSTICS,'listing-process.json'),discovered);
+ const executed=playwrightPhase('run',selected,env.PLAYWRIGHT_JSON_OUTPUT_FILE);
+ result={status:executed.exit,error:executed.error};
+}else result=spawnSync(process.execPath,[cli,...args,'--test-list',path.join(directory,'selection.txt'),'--reporter=line,json'],{env,stdio:'inherit',windowsHide:true});
 let verified;try{verified=verifyDirectory(directory,context);}finally{writeJson(path.join(directory,'process.json'),{started,finished:new Date().toISOString(),exit:result.status,error:result.error?.message});}
 assert.equal(result.status,0,'Browser process failed');
 writeJson(path.join(directory,'verified.json'),verified);

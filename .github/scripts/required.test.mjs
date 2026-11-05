@@ -78,9 +78,10 @@ function workflowJobs(){
 test('required is always eligible, covers exactly the policy jobs and executes the real evaluator',()=>{
  const {text,jobs,needs}=workflowJobs(),aggregate=jobs.required;
  assert.ok(aggregate);assert.deepEqual(needs(aggregate).sort(),Object.keys(jobRequirements).sort());
+ assert.match(aggregate,/^    name: \$\{\{ inputs.suite == 'diagnostic' && 'diagnostic-not-acceptance' \|\| 'required' \}\}$/m);
  assert.match(aggregate,/^    if: \$\{\{ always\(\) \}\}$/m);
  assert.match(aggregate,/^    timeout-minutes: 5$/m);
- assert.doesNotMatch(aggregate,/^    name:|strategy:|ci\.mjs|upload-artifact|continue-on-error/m);
+ assert.doesNotMatch(aggregate,/^    strategy:|ci\.mjs|upload-artifact|continue-on-error/m);
  assert.match(aggregate,/NEEDS_JSON: \$\{\{ toJSON\(needs\) \}\}/);
  assert.match(aggregate,/CF_REQUIRED_SUITE: \$\{\{ inputs.suite \}\}/);
  const commands=[...aggregate.matchAll(/^        run: (.+)$/gm)].map(m=>m[1]);assert.deepEqual(commands,['node .github/scripts/required.mjs']);
@@ -91,12 +92,22 @@ test('execution and package remain behind Windows; expanded completes before agg
  const {text,jobs,needs}=workflowJobs();
  assert.deepEqual(needs(jobs.linux),['windows-native']);assert.deepEqual(needs(jobs.expanded),['linux']);
  assert.deepEqual(needs(jobs['windows-native']),[]);
- assert.doesNotMatch(jobs.linux.split('    steps:')[0],/\bif:/);
+ assert.match(jobs.linux.split('    steps:')[0],/if: github.event_name != 'workflow_dispatch' \|\| inputs.suite != 'diagnostic'/);
  assert.doesNotMatch(jobs['windows-native'].split('    steps:')[0],/\bif:/);
  assert.match(jobs['windows-native'],/ci\.mjs windows-native/);assert.match(jobs.linux,/ci\.mjs all/);
  assert.match(jobs.linux,/name: tested-package-\$\{\{ github.sha \}\}/);
  assert.doesNotMatch(jobs.linux.split('name: tested-package-')[0].split('uses: actions\/upload-artifact@v4').at(-1),/if: always/);
  assert.match(jobs.expanded,/^    if: github.event_name == 'workflow_dispatch' && inputs.suite == 'expanded'$/m);
  assert.match(jobs.expanded,/CF034_SUITE: expanded/);
- assert.match(text,/push:\n    branches: \[main\]/);assert.match(text,/pull_request:\n    branches: \[main\]/);assert.match(text,/options: \[smoke, expanded\]/);
+ assert.match(text,/push:\n    branches: \[main\]/);assert.match(text,/pull_request:\n    branches: \[main\]/);assert.match(text,/options: \[smoke, expanded, diagnostic\]/);
+});
+
+test('diagnostic dispatch never satisfies official required, even if its browser job passes',()=>{
+ for(const result of ['success','failure','skipped']){
+  const payload=JSON.stringify({'windows-native':{result:'success'},linux:{result},expanded:{result:'skipped'}});
+  assert.equal(evaluateRequired(payload,'workflow_dispatch','diagnostic').approved,false);
+ }
+ const text=fs.readFileSync(path.join(root,'.github/workflows/ci.yml'),'utf8').replaceAll('\r\n','\n');
+ assert.match(text,/browser-diagnostic:[\s\S]*?needs: windows-native/);
+ assert.match(text,/ci\.mjs diagnose/);
 });

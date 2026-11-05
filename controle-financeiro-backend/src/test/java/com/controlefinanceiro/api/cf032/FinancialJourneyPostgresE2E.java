@@ -88,9 +88,9 @@ class FinancialJourneyPostgresE2E extends PostgresIntegrationTest {
         String grep=System.getenv("CF032_GREP");if(grep!=null&&!grep.isBlank())command.addAll(List.of("--grep",grep));
         var runner=new ProcessBuilder(command).directory(runtime.resolve("frontend").toFile()).redirectErrorStream(true).redirectOutput(evidence.resolve("playwright.log").toFile());
         runner.environment().putAll(Map.of("BACKEND_API_URL","http://127.0.0.1:"+port,"CF032_OBSERVER","http://127.0.0.1:"+observer.getAddress().getPort(),"CF_E2E_NAMESPACE",namespace,"CF032_EVIDENCE",evidence.toString(),"CF032_RUNTIME",runtime.toString(),"CF032_REPO",required("CF032_REPO"),"PLAYWRIGHT_BROWSERS_PATH","0"));
-        Process process=runner.start();
+        Process process=com.controlefinanceiro.api.support.BrowserEvidence.start(runner,getClass(),evidence);
         boolean finished;
-        try {finished=process.waitFor(15,TimeUnit.MINUTES);}
+        try {finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(process,15,TimeUnit.MINUTES,evidence);}
         finally {
             if(process.isAlive()){process.descendants().forEach(ProcessHandle::destroyForcibly);process.destroyForcibly();}
             observer.stop(0);

@@ -2,6 +2,7 @@ import {expect,test,type Page} from "@playwright/test";
 import {mkdir,writeFile} from "node:fs/promises";
 import path from "node:path";
 import {registerSyntheticUser,syntheticUser} from "./support/synthetic-auth";
+import {textGeometryDiagnostic} from './support/text-geometry-diagnostic';
 import {textGeometry} from "./support/text-geometry";
 import {setCivilDateOnly} from "./support/civil-date-clock";
 const dir=process.env.CF_REVIEW_EVIDENCE!;
@@ -209,7 +210,15 @@ test("SAN-E2-visual motivo de indisponibilidade legível em 360, 768 e 1440",asy
  for(const width of [360,768,1440]){
    await page.setViewportSize({width,height:900});await reason.scrollIntoViewIfNeeded();
    await expect(reason).toHaveCount(1);
-   await expect.poll(async()=>textGeometry(reason,"Custo ou avaliação indisponível")).toMatchObject({ok:true});
+   let last:Awaited<ReturnType<typeof textGeometry>>|null=null,observedAt:string|null=null,probeError:unknown=null;
+   try {
+     await expect.poll(async()=>{
+       try {const value=await textGeometry(reason,"Custo ou avaliação indisponível");probeError=null;last=value;observedAt=new Date().toISOString();return value;}
+       catch(error){probeError=error;throw error;}
+     }).toMatchObject({ok:true});
+   } finally {
+     await writeFile(path.join(dir,'san-e2-diagnosis-'+width+'.json'),JSON.stringify(await textGeometryDiagnostic(reason,width,last,probeError,observedAt),null,2));
+   }
    await writeFile(path.join(dir,`san-e2-geometry-${width}.json`),JSON.stringify(await textGeometry(reason,"Custo ou avaliação indisponível"),null,2));
    await page.screenshot({path:path.join(dir,`san-e2-investimentos-${width}.png`),animations:"disabled"});
  }

@@ -68,7 +68,7 @@ test('every CI entry reaches unconditional Windows before Linux/package and expa
  assert.match(jobs['windows-native'],/ci\.mjs windows-native/);
  assert.doesNotMatch(workflow,/continue-on-error/);
  assert.match(jobs.linux,/needs: windows-native/);
- assert.doesNotMatch(jobs.linux.split('    steps:')[0],/\bif:/);
+ assert.match(jobs.linux.split('    steps:')[0],/if: github.event_name != 'workflow_dispatch' \|\| inputs.suite != 'diagnostic'/);
  assert.match(jobs.linux,/runs-on: ubuntu-latest/);
  assert.match(jobs.linux,/ci\.mjs all/);
  assert.match(jobs.expanded,/needs: linux/);

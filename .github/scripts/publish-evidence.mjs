@@ -30,5 +30,8 @@ export function collectPublic(rootArg){
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   try{if(!process.argv[2])throw new Error('Evidence root required');collectPublic(process.argv[2]);}
-  catch{console.error('Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.');process.exitCode=1;}
+  catch{
+    if(process.argv[2])writeJson(path.join(path.resolve(process.argv[2]),'collection-status.json'),{version:1,status:'failed',code:'COLLECTION_FAILED',rawFallback:false});
+    console.error('Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.');process.exitCode=1;
+  }
 }

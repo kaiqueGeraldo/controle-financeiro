@@ -65,8 +65,8 @@ class Cf014HistoryDiagnosticTest {
         pb.environment().put("CF_E2E_AUTH_NOW","2027-01-15T12:00:00Z");
         pb.environment().put("CF_REVIEW_EVIDENCE",evidence.toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-        Process process=pb.start();
-        boolean finished=process.waitFor(8,TimeUnit.MINUTES);
+        Process process=com.controlefinanceiro.api.support.BrowserEvidence.start(pb,getClass(),evidence);
+        boolean finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(process,8,TimeUnit.MINUTES,evidence);
         if(!finished){process.descendants().forEach(ProcessHandle::destroyForcibly);process.destroyForcibly();}
         var after=sql.queryForList(query);
         Files.writeString(evidence.resolve("fixture-after.txt"),after.toString());
