@@ -93,7 +93,7 @@ export function summarizeWrapper(root,wrapper) {
   const measurements=[];
   if(fs.existsSync(folder))for(const name of fs.readdirSync(folder).filter(n=>/^san-e2-diagnosis-(360|768|1440)\.json$/.test(n))){
     const raw=JSON.parse(safeInput(root,path.join(base,name),inputs,missing));
-    const allowed=['version','targetKey','width','targetConfirmed','outcome','failures','viewport','rects','clip','font','clipping','paint','reference','lastError','observationAt','sampleAt'];
+    const allowed=['version','targetKey','width','targetConfirmed','outcome','failures','viewport','rects','clip','font','clipping','ancestors','raster','paint','reference','lastError','observationAt','sampleAt'];
     measurements.push(JSON.parse(sanitizeJson(JSON.stringify(Object.fromEntries(allowed.filter(k=>Object.hasOwn(raw,k)).map(k=>[k,diagnosticValue(raw[k])]))))));
   }
   const complete=!interruption&&browserStarted===true&&!!invocation&&!!process&&process.listing.exit===0&&process.execution.exit===0&&selectionMatches&&!!end&&end.status==='passed'&&!run.some(e=>e.kind==='global-error')&&expected.length>0&&new Set(expectedIds).size===expected.length&&JSON.stringify([...expectedIds].sort())===JSON.stringify([...startedIds].sort())&&JSON.stringify([...expectedIds].sort())===JSON.stringify([...endedIds].sort())&&ended.every(x=>x.status==='passed'&&x.expectedStatus==='passed'&&x.retry===0);

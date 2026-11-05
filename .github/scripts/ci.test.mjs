@@ -162,3 +162,14 @@ test('financial receipt exposes exact case outcomes and checkpoint hashes withou
     assert.equal(fs.existsSync(path.join(root,'public/A-applied-sql.json')),false);
   }finally{assert.equal(path.dirname(root),fs.realpathSync.native(os.tmpdir()));fs.rmSync(root,{recursive:true,force:true});}
 });
+
+
+test('directed SAN-E2 selection stays explicit and cannot become official acceptance',async()=>{
+ const {directedBrowserSelection}=await import('./ci.mjs');
+ const {evaluateRequired}=await import('./required.mjs');
+ const input={selected:['com.test.OtherTest','com.test.MilestoneRemediationBrowserTest','com.test.Rf15RemediationBrowserTest']};
+ assert.deepEqual(directedBrowserSelection(input,'san-e2').selected,['com.test.MilestoneRemediationBrowserTest']);
+ assert.deepEqual(directedBrowserSelection(input,'pair').selected,input.selected.slice(1));
+ assert.equal(input.selected.length,3);assert.throws(()=>directedBrowserSelection(input,'all'));
+ assert.equal(evaluateRequired(JSON.stringify({'windows-native':{result:'success'},linux:{result:'success'},expanded:{result:'success'}}),'workflow_dispatch','diagnostic').approved,false);
+});

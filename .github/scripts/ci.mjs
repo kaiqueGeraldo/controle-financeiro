@@ -15,6 +15,10 @@ import {spawnOwned} from './owned-process.mjs';
 import {cancellation} from './cancellation.mjs';
 import {decision as zoomDecision,label as zoomLabel,deferred as zoomDeferred,verifyDirectory,browserCases} from './zoom-coverage.mjs';
 
+export function directedBrowserSelection(selection,target='pair'){
+ if(!['pair','san-e2'].includes(target))throw new Error('Unknown directed diagnostic target');
+ return {...selection,selected:selection.selected.filter(q=>target==='san-e2'?q.endsWith('.MilestoneRemediationBrowserTest'):/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q))};
+}
 export function requireCounts(counts,label){
   if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
   return counts;
@@ -90,9 +94,10 @@ async function main(){
   const ci=process.env.GITHUB_ACTIONS==='true'?{repository:process.env.GITHUB_REPOSITORY,workflow:process.env.GITHUB_WORKFLOW,runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,job:process.env.GITHUB_JOB,event:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,headRef:process.env.GITHUB_HEAD_REF,baseRef:process.env.GITHUB_BASE_REF,checkoutSha:source.commit,runnerOS:process.env.RUNNER_OS,runnerArch:process.env.RUNNER_ARCH}:null;
   report.ci=ci;
   report.diagnosticOnly=stage==='diagnose';
+  if(report.diagnosticOnly)report.diagnosticTarget=process.env.CF_DIAGNOSTIC_TARGET||'pair';
   report.e2ePlanned=stage==='all'||stage==='remaining'||stage==='e2e';
   report.browserPlan=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform).selected.filter(q=>Object.values(wrapperDefinitions).some(d=>d.qualified===q));
-  if(stage==='diagnose')report.browserPlan=report.browserPlan.filter(q=>/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q));
+  if(stage==='diagnose')report.browserPlan=directedBrowserSelection({selected:report.browserPlan},report.diagnosticTarget).selected;
   const env={...process.env,BACKEND_API_URL:'http://127.0.0.1:65535',PLAYWRIGHT_BROWSERS_PATH:'0',NEXT_TELEMETRY_DISABLED:'1',CF_SOURCE_ROOT:root,CF_TEST_ARTIFACTS:path.join(out,'frontend-artifacts')};
   for(const key of Object.keys(env))if(/^(SPRING_|RESEND_|BRAPI_|JWT_|DATABASE_URL|BACKEND_API_URL$)/.test(key)&&key!=='BACKEND_API_URL')delete env[key];
   for(const key of Object.keys(env))if(key.startsWith('CF_ZOOM_'))delete env[key];
@@ -154,12 +159,12 @@ async function main(){
     if(scope==='all')invalidate(['backend','e2e']);
     // Maven below launches a local JVM on this process platform. Container
     // callers must run this controller inside the target container as well.
-    const selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform,scope==='diagnostic'?'all':scope);
-    if(scope==='diagnostic'){selection.selected=selection.selected.filter(q=>/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q));report.browserPlan=selection.selected;}
+    let selection=backendSelection(root,process.env.CF034_SUITE==='expanded'?'expanded':'smoke',process.platform,scope==='diagnostic'?'all':scope);
+    if(scope==='diagnostic'){selection=directedBrowserSelection(selection,report.diagnosticTarget);report.browserPlan=selection.selected;}
     writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
     await maven('maven-version',['--version']);
     const reports=path.join(out,'surefire');
-    try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,`-Dcf.browser.evidence=${path.join(out,'browsers')}`,scope==='all'?'verify':'test']);}
+    try{await maven('backend',[...(scope==='diagnostic'&&report.diagnosticTarget==='san-e2'?['-Dreview.grep=^SAN-E2-visual']:[]),'-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,`-Dcf.browser.evidence=${path.join(out,'browsers')}`,scope==='all'?'verify':'test']);}
     finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
     report.backend=requireBackendReports(reports,selection);
     report.wrapperDiagnostics=requireWrapperDiagnostics(out,selection,source,ci);

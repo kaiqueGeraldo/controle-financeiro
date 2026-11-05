@@ -163,11 +163,12 @@ test('collection CLI publishes an explicit failure receipt without raw fallback'
 
 test('SAN-E2 last observation and rejection details reach the sanitized upload namespace',t=>{
  const root=fixture(t),w=wrappers[0];receipt(root,w,{failed:true});
- write(root,'browsers/'+w+'/san-e2-diagnosis-360.json',{version:1,targetKey:'SAN-E2-visual/unavailable-valuation',width:360,targetConfirmed:true,outcome:'target-rejected',failures:['clipped-x'],viewport:{width:360,height:900,dpr:1},rects:[{x:12,y:40,width:200,height:18}],font:{status:'loaded',family:'synthetic font'},paint:{stable:true,wrongDirectionPixels:0},lastError:{message:"password='SYNTHETIC_MEASURE_SECRET' https://private.invalid/path"},unrelatedRaw:'SYNTHETIC_UNRELATED_RAW'});
+ write(root,'browsers/'+w+'/san-e2-diagnosis-360.json',{raster:{clip:{width:237,height:18},images:Array.from({length:3},()=>Array.from({length:18},()=>Array.from({length:237},()=>[12,34,56,255])))},version:1,targetKey:'SAN-E2-visual/unavailable-valuation',width:360,targetConfirmed:true,outcome:'target-rejected',failures:['clipped-x'],viewport:{width:360,height:900,dpr:1},rects:[{x:12,y:40,width:200,height:18}],font:{status:'loaded',family:'synthetic font'},paint:{stable:true,wrongDirectionPixels:0},lastError:{message:"password='SYNTHETIC_MEASURE_SECRET' https://private.invalid/path"},unrelatedRaw:'SYNTHETIC_UNRELATED_RAW'});
  collectPublic(root);
  const text=fs.readFileSync(path.join(root,'public/browsers',w,'diagnosis.json'),'utf8'),summary=JSON.parse(text);
  assert.deepEqual(summary.measurements[0].failures,['clipped-x']);assert.equal(summary.measurements[0].width,360);
  assert.equal(summary.measurements[0].targetConfirmed,true);assert.equal(summary.measurements[0].font.status,'loaded');
+ assert.deepEqual(summary.measurements[0].raster.images[2][17][236],[12,34,56,255]);
  assert.doesNotMatch(text,/SYNTHETIC_MEASURE_SECRET|SYNTHETIC_UNRELATED_RAW|private.invalid/);
 });
 

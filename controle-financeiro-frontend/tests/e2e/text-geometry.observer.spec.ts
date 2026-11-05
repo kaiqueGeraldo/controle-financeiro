@@ -86,3 +86,19 @@ test('diagnostic sampling preserves positive and negative oracle observations',a
   expect((await textGeometry(target,text)).ok).toBe(!hidden);
  }
 });
+
+test('retained paint sample preserves the oracle and reuses exactly three captures',async({page})=>{
+ const {textPaintRaster}=await import('./support/text-geometry-diagnostic');
+ const target=page.locator('#text'),native=page.screenshot.bind(page),before=await target.evaluate(el=>el.outerHTML);
+ let calls=0,sample:import('./support/text-geometry').TextPaintSample|null=null;
+ page.screenshot=async options=>{calls++;return native(options);};
+ try{
+  const observed=await textGeometry(target,text,value=>{sample=value;});
+  expect(observed.ok).toBe(true);expect(calls).toBe(3);
+  const raster=await textPaintRaster(page,sample);
+  expect(raster&&'images'in raster?raster.images.length:0).toBe(3);expect(calls).toBe(3);
+  expect(await target.evaluate(el=>el.outerHTML)).toBe(before);
+  expect(await page.evaluate(()=>({sheets:document.adoptedStyleSheets.length,highlights:CSS.highlights.size}))).toEqual({sheets:0,highlights:0});
+  expect((await textGeometry(target,text)).ok).toBe(true);
+ }finally{page.screenshot=native;}
+});

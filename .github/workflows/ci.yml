@@ -13,6 +13,10 @@ on:
         type: choice
         options: [smoke, expanded, diagnostic]
         default: smoke
+      diagnostic_target:
+        type: choice
+        options: [pair, san-e2]
+        default: pair
 
 permissions:
   contents: read
@@ -183,6 +187,7 @@ jobs:
     timeout-minutes: 45
     env:
       CF034_SUITE: expanded
+      CF_DIAGNOSTIC_TARGET: ${{ inputs.diagnostic_target || 'pair' }}
     steps:
       - uses: actions/checkout@v4
         with:

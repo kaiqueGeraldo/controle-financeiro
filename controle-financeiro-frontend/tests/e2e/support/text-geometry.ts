@@ -1,5 +1,6 @@
 import type {Locator, Page} from '@playwright/test';
-import {prepareTextPaint,verifyTextPaint} from './text-paint.mjs';
+import {prepareTextPaint,verifyTextPaint,type PaintBox,type PaintReference} from './text-paint.mjs';
+export type TextPaintSample={images:Buffer[];clip:PaintBox;reference:PaintReference;glyphs:Array<{text:string;rects:PaintBox[]}>};
 
 // A paint probe briefly masks glyph fill. Do not interleave probes on one page.
 const probing = new WeakSet<Page>();
@@ -63,7 +64,7 @@ function inspectText(element: Element, expected: string) {
 }
 
 /** Exact static HTML text: range geometry plus independent glyph attribution. See v2 decision/limits. */
-export async function textGeometry(locator: Locator, expectedText: string) {
+export async function textGeometry(locator: Locator, expectedText: string, retainPaint?: (sample:TextPaintSample)=>void) {
   const page=locator.page(),element=await locator.elementHandle();
   if(!element)throw new Error('Exact text element is absent');
   try{
@@ -89,6 +90,7 @@ export async function textGeometry(locator: Locator, expectedText: string) {
         const restored=await screenshot(),after=await element.evaluate(inspectText,expectedText),restoredState=await saved.evaluate(s=>s.state());
         if(JSON.stringify(after)!==JSON.stringify(geometry))return reject('text-state-changed');
         const paint=await page.evaluate(verifyTextPaint,{images:[Array.from(before),Array.from(masked),Array.from(restored)],clip,glyphs:geometry.glyphs,reference});
+        retainPaint?.({images:[before,masked,restored],clip,reference,glyphs:geometry.glyphs});
         const failures=[...geometry.failures];
         if(!paint.stable)failures.push('unstable-paint');
         if(state!==maskState||state!==maskAfterState||state!==restoredState)failures.push('paint-side-effects');
