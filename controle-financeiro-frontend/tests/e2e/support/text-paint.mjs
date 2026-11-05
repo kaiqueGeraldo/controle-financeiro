@@ -4,7 +4,11 @@ export function prepareTextPaint(element, clip) {
     const canvas = document.createElement('canvas');
     canvas.width = clip.width;
     canvas.height = clip.height;
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+    // Transparent canvases force grayscale glyphs even when the document uses LCD.
+    // Independent white-on-black coverage retains the active rasterizer's RGB fringes.
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, clip.width, clip.height);
     const ranges = [], walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
     const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
     if (!('highlights' in CSS) || typeof Highlight === 'undefined')
@@ -75,7 +79,7 @@ export function prepareTextPaint(element, clip) {
         }
     }
     const pixels = ctx.getImageData(0, 0, clip.width, clip.height).data;
-    reference.alpha = Array.from({ length: clip.width * clip.height }, (_, i) => pixels[4 * i + 3]);
+    reference.alpha = Array.from({ length: clip.width * clip.height }, (_, i) => Math.max(pixels[4 * i], pixels[4 * i + 1], pixels[4 * i + 2]));
     if (!reference.alpha.some(a => a >= 192))
         reference.error = 'no-reference-core';
     const name = 'rr3paint' + Array.from(crypto.getRandomValues(new Uint32Array(4)), n => n.toString(16)).join('');

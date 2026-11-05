@@ -102,3 +102,15 @@ test('retained paint sample preserves the oracle and reuses exactly three captur
   expect((await textGeometry(target,text)).ok).toBe(true);
  }finally{page.screenshot=native;}
 });
+
+test('independent reference supports opaque Latin text under system LCD or grayscale rasterization',async({page})=>{
+ const {readFile}=await import('node:fs/promises'),{createRequire}=await import('node:module'),{dirname,join}=await import('node:path');
+ const font=await readFile(join(dirname(createRequire(join(process.cwd(),'package.json')).resolve('next/package.json')),'dist/next-devtools/server/font/geist-latin.woff2'));
+ await page.setContent('<style>@font-face{font-family:RR3Geist;font-style:normal;font-weight:100 900;src:url(data:font/woff2;base64,'+font.toString('base64')+')}body{margin:20px;background:#28111a}.badge{display:flex;width:max-content;font:700 14px/20px RR3Geist;color:lab(56.101 79.4328 31.4532)}#text{display:contents}</style><span class="badge"><span id="text">'+text+'</span></span>');
+ await page.evaluate(()=>document.fonts.ready);
+ expect(await page.evaluate(()=>document.fonts.check('700 14px RR3Geist'))).toBe(true);
+ const target=page.locator('#text'),visible=await textGeometry(target,text);
+ expect(visible.ok,JSON.stringify(visible)).toBe(true);
+ await target.evaluate(el=>el.parentElement!.style.filter='opacity(0)');
+ expect((await textGeometry(target,text)).ok).toBe(false);
+});

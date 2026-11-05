@@ -1,4 +1,5 @@
 export type PaintBox = {x:number;y:number;width:number;height:number};
+// alpha is independent glyph coverage (max RGB on the opaque reference), 0..255.
 export type PaintReference = {alpha:number[];color:number[];width:number;height:number;error?:string};
 export type PaintState = {
  reference:PaintReference;
