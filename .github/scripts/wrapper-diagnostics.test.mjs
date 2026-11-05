@@ -171,3 +171,18 @@ test('SAN-E2 last observation and rejection details reach the sanitized upload n
  assert.doesNotMatch(text,/SYNTHETIC_MEASURE_SECRET|SYNTHETIC_UNRELATED_RAW|private.invalid/);
 });
 
+
+test('web server envelope retains the first underlying process error, sanitized',t=>{
+ const root=fixture(t),w=wrappers[0],folder=receipt(root,w,{failed:true});
+ const file=path.join(root,folder,'events-run.jsonl');
+ const items=fs.readFileSync(file,'utf8').split('\n').filter(Boolean).map(JSON.parse).filter(e=>['reporter-loaded','begin','end'].includes(e.kind));
+ items.splice(2,0,{version:1,wrapper:w,invocationId:w+'-invocation',phase:'run',sequence:3,kind:'global-error',error:{message:'Error: Process from config.webServer was not able to start. Exit code: 1'}});
+ fs.writeFileSync(file,items.map(e=>JSON.stringify(e)).join('\n')+'\n');
+ write(root,folder+'run.log',"[WebServer] Error: SYNTHETIC_SERVER_STARTUP password='SYNTHETIC_SERVER_PRIVATE'\n[WebServer] at /synthetic/server.cjs:8:2\nError: Process from config.webServer was not able to start. Exit code: 1\n");
+ collectPublic(root);
+ const text=fs.readFileSync(path.join(root,'public/browsers',w,'diagnosis.json'),'utf8'),s=JSON.parse(text);
+ assert.equal(s.firstError.phase,'application preparation');assert.match(s.firstError.message,/SYNTHETIC_SERVER_STARTUP/);
+ assert.match(s.firstError.reporterMessage,/Process from config.webServer/);assert.doesNotMatch(text,/SYNTHETIC_SERVER_PRIVATE/);
+ assert.equal(s.process.exit,1);assert.equal(s.complete,false);
+});
+

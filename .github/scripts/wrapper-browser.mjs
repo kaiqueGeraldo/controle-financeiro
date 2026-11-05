@@ -24,8 +24,8 @@ export function playwrightPhase(phase,args,jsonOutput){
  const reporter=path.join(here,'wrapper-reporter.mjs');
  let result;
  try{
-  result=spawnSync(process.execPath,[path.resolve('node_modules/@playwright/test/cli.js'),...reporterArguments(args,phase==='list'?reporter:'line,json,'+reporter)],{
-   cwd:process.cwd(),env:{...process.env,CF_WRAPPER_PHASE:phase,PLAYWRIGHT_JSON_OUTPUT_FILE:jsonOutput,NODE_OPTIONS:[process.env.NODE_OPTIONS,'--require "'+path.join(here,'browser-preload.cjs').replaceAll('\\','/')+'"'].filter(Boolean).join(' ')},
+  result=spawnSync(process.execPath,['--require',path.join(here,'browser-preload.cjs'),path.resolve('node_modules/@playwright/test/cli.js'),...reporterArguments(args,phase==='list'?reporter:'line,json,'+reporter)],{
+   cwd:process.cwd(),env:{...process.env,CF_WRAPPER_PHASE:phase,PLAYWRIGHT_JSON_OUTPUT_FILE:jsonOutput,NODE_OPTIONS:process.env.NODE_OPTIONS??''},
    stdio:['ignore',fd,fd],windowsHide:true,shell:false,...(phase==='list'?{timeout:120000}:{})
   });
  }finally{fs.closeSync(fd);}
@@ -57,7 +57,7 @@ function main(){
    emit('begin',{expected:[synthetic]});emit('test-start',{test:synthetic,workerIndex:0,retry:0,startTime:new Date().toISOString()});
   }
   let result;
-  try{result=spawnSync(process.execPath,[path.resolve(entry),...args],{cwd:front,env:{...process.env,CF_WRAPPER_PHASE:'run',NODE_OPTIONS:[process.env.NODE_OPTIONS,'--require "'+path.join(here,'browser-preload.cjs').replaceAll('\\','/')+'"'].filter(Boolean).join(' ')},stdio:['ignore',fd,fd],windowsHide:true,shell:false});}finally{fs.closeSync(fd);}
+  try{result=spawnSync(process.execPath,['--require',path.join(here,'browser-preload.cjs'),path.resolve(entry),...args],{cwd:front,env:{...process.env,CF_WRAPPER_PHASE:'run',NODE_OPTIONS:process.env.NODE_OPTIONS??''},stdio:['ignore',fd,fd],windowsHide:true,shell:false});}finally{fs.closeSync(fd);}
   execution={started:new Date(at).toISOString(),finished:new Date().toISOString(),exit:result.status,signal:result.signal,durationMs:Date.now()-at,error:result.error?{code:result.error.code,message:result.error.message}:null};
   if(definition.kind==='programmatic'){
    listing={exit:0,method:'declared script entry; no scenario discovery API'};

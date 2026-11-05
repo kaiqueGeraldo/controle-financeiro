@@ -75,6 +75,13 @@ export function summarizeWrapper(root,wrapper) {
     const output=get('run.log')??get('boundary.log')??safeInput(root,path.join(base,'playwright.log'),inputs,missing);
     if(output!==null){const lines=strip(output).split(/\r?\n/),index=lines.findIndex(line=>/Error:|\bERR_|SyntaxError:|TimeoutError:/.test(line));if(index>=0)firstError={case:wrapperDefinitions[wrapper].kind==='programmatic'&&expected[0]?safeIdentity(expected[0],source):null,phase:runBegin?'process after collection':run.some(x=>x.kind==='reporter-loaded')?'setup before collection':'process before reporter',step:null,message:diagnosticText(lines.slice(index,index+15).join('\n')),location:location({stack:lines.slice(index,index+15).join('\n')},source,null),durationMs:process?.execution.durationMs??null};}
   }
+  if(firstError?.message.includes('Process from config.webServer')){
+    const output=get('run.log');
+    if(output){
+      const lines=strip(output).split(/\r?\n/),index=lines.findIndex(l=>/Error:|\bERR_/.test(l)&&!l.includes('Process from config.webServer'));
+      if(index>=0){const message=diagnosticText(lines.slice(index,index+15).join('\n'));firstError={...firstError,phase:'application preparation',message,reporterMessage:firstError.message,location:location({stack:message},source,null)};}
+    }
+  }
   if(!firstError&&process?.execution.error)firstError={case:null,phase:'process spawn',step:null,message:diagnosticText(process.execution.error.message),location:null,durationMs:process.execution.durationMs};
   const expectedIds=expected.map(x=>x.id),startedIds=started.map(x=>x.test.id),endedIds=ended.map(x=>x.test.id);
   const startedSet=new Set(startedIds),endedSet=new Set(endedIds);
