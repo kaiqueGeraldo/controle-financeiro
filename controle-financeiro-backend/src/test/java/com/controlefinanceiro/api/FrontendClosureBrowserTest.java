@@ -48,7 +48,7 @@ class FrontendClosureBrowserTest {
                 .resolve(System.getProperty("review.evidence", "."));
         evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="closure-"+UUID.randomUUID().toString().substring(0,8);
-        List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.frontend-closure.config.ts"));
+        List<String> command=new ArrayList<>(List.of("node",front.resolveSibling(".github/scripts/wrapper-browser.mjs").toString(),"--wrapper","FrontendClosureBrowserTest","test","--config","tests/e2e/playwright.frontend-closure.config.ts"));
         String grep=System.getProperty("review.grep");
         if(grep!=null){command.add("--grep");command.add(grep);}
         ProcessBuilder pb=new ProcessBuilder(command).directory(front.toFile()).redirectErrorStream(true).redirectOutput(evidence.resolve("playwright.log").toFile());

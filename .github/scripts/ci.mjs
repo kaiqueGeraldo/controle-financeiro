@@ -1,3 +1,4 @@
+import {requireWrapperDiagnostics} from './wrapper-diagnostics.mjs';
 import {reuseComponents} from './component-reuse.mjs';
 import {javaArgfileInvocation} from './maven-argfile.mjs';
 import fs from 'node:fs';
@@ -142,6 +143,7 @@ async function main(){
     try{await maven('backend',['-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,`-Dcf.browser.evidence=${path.join(out,'browsers')}`,scope==='all'?'verify':'test']);}
     finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
     report.backend=requireBackendReports(reports,selection);
+    report.wrapperDiagnostics=requireWrapperDiagnostics(out,selection,source,ci);
     if(zoomContext&&selection.selected.includes('com.controlefinanceiro.api.Rf15RemediationBrowserTest'))report.zoomCoverage=verifyDirectory(path.join(out,'browsers/Rf15RemediationBrowserTest/zoom-selection'),zoomContext);
     report.junitReports=fs.readdirSync(reports).filter(f=>f.startsWith('TEST-')&&f.endsWith('.xml')).sort().map(file=>({file,sha256:hash(fs.readFileSync(path.join(reports,file)))}));
     if(scope==='platform-only')return;

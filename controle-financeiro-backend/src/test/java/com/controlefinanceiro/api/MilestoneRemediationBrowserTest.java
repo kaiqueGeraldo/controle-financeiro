@@ -48,7 +48,7 @@ class MilestoneRemediationBrowserTest {
                 .resolve(System.getProperty("review.evidence", "."));
         evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="san1821-"+UUID.randomUUID().toString().substring(0,8);
-        List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.milestone-remediation.config.ts"));
+        List<String> command=new ArrayList<>(List.of("node",front.resolveSibling(".github/scripts/wrapper-browser.mjs").toString(),"--wrapper","MilestoneRemediationBrowserTest","test","--config","tests/e2e/playwright.milestone-remediation.config.ts"));
         String grep=System.getProperty("review.grep");
         if(grep!=null){command.add("--grep");command.add(grep);}
         if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS"))) {
