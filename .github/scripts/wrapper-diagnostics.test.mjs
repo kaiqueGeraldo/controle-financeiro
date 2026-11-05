@@ -12,7 +12,7 @@ const source={commit:'a'.repeat(40),digest:'b'.repeat(64)};
 const ci={runId:'100',attempt:'2',job:'expanded',event:'workflow_dispatch'};
 const wrappers=Object.keys(wrapperDefinitions);
 function fixture(t){
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'cf-wrapper-contract-'));
+  const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'cf-wrapper-contract-')));
   t.after(()=>{assert.equal(path.dirname(root),fs.realpathSync.native(os.tmpdir()));fs.rmSync(root,{recursive:true,force:true});});
   return root;
 }
