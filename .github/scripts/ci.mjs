@@ -12,7 +12,7 @@ import {backendSelection} from './suites.mjs';
 import {sanitizeText} from './sanitize.mjs';
 import {spawnOwned} from './owned-process.mjs';
 import {cancellation} from './cancellation.mjs';
-import {decision as zoomDecision,label as zoomLabel,deferred as zoomDeferred,verifyDirectory} from './zoom-coverage.mjs';
+import {decision as zoomDecision,label as zoomLabel,deferred as zoomDeferred,verifyDirectory,browserCases} from './zoom-coverage.mjs';
 
 export function requireCounts(counts,label){
   if(!counts.tests||counts.failures||counts.errors||counts.skipped)throw new Error(`${label}: invalid counts ${JSON.stringify(counts)}`);
@@ -61,6 +61,19 @@ export function componentSummary(vitest,root){
       tests:(result.assertionResults??[]).filter(assertion=>assertion.status==='failed').map(assertion=>assertion.fullName),
     })),
   };
+}
+export function financialEvidence(report,directory){
+  const root=fs.realpathSync.native(directory);
+  const cases=browserCases(report).map(({project,file,titles,test})=>({
+    project,file:file.replaceAll('\\','/'),titles,expectedStatus:test.expectedStatus,status:test.status,
+    results:(test.results??[]).map(result=>({status:result.status,retry:result.retry,durationMs:result.duration})),
+  }));
+  const checkpoints=fs.readdirSync(root).filter(name=>/^(?:A|B|C|E2?|F|G|H|K|L|T[0-2])-[A-Za-z0-9-]+(?:\.xlsx\.analysis)?\.json$/.test(name)&&!name.endsWith('-network.json')).sort().map(file=>{
+    const target=path.join(root,file);
+    if(!fs.lstatSync(target).isFile()||!fs.realpathSync.native(target).startsWith(root+path.sep))throw new Error('Unsafe financial checkpoint path');
+    const bytes=fs.readFileSync(target);return {file,sha256:hash(bytes),bytes:bytes.length};
+  });
+  return {cases,checkpoints,contents:'private; only identities, statuses and checkpoint file hashes published'};
 }
 const safe=text=>{try{return sanitizeText(text);}catch{return 'Diagnostic withheld: sanitization failed';}};
 
@@ -168,6 +181,7 @@ async function main(){
     report.e2eJava=requireCounts(junitCounts(path.join(out,'e2e-surefire')),'E2E Java');
     const playwright=JSON.parse(fs.readFileSync(path.join(evidence,'playwright.json')));
     report.browser=requireCounts({tests:playwright.stats.expected,failures:playwright.stats.unexpected,errors:playwright.errors?.length??0,skipped:playwright.stats.skipped},'browser');
+    report.financialEvidence=financialEvidence(playwright,evidence);
     if(playwright.stats.flaky)throw new Error('Flaky E2E is not approval');
     if(process.env.CF034_SUITE!=='expanded'&&report.browser.tests!==6)throw new Error('All six mandatory browser journeys must run');
     writeJson(path.join(root,'.ci-e2e.json'),{source:source.digest,status:'passed',counts:report.browser});

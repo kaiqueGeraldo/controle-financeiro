@@ -1,9 +1,10 @@
+import {collectPublic} from './publish-evidence.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {sequence,requireCounts,junitCounts,requireReportedClasses,requireBackendReports,freshOutput,mavenInvocation,componentSummary} from './ci.mjs';
+import {sequence,requireCounts,junitCounts,requireReportedClasses,requireBackendReports,freshOutput,mavenInvocation,componentSummary,financialEvidence} from './ci.mjs';
 import {snapshot,sourceFor} from './source.mjs';
 
 test('a failed required gate prevents E2E and packaging',async()=>{
@@ -143,4 +144,21 @@ test('Java argfile preserves a long mandatory selector and rejects multiline inj
   assert.equal(text.split('\n').length,4);
   assert.throws(()=>javaArgfileText(['normal\n-DskipTests=true']),/Invalid/);
   assert.throws(()=>javaArgfileText(['bad\0value']),/Invalid/);
+});
+
+test('financial receipt exposes exact case outcomes and checkpoint hashes without payloads',()=>{
+  const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'cf-financial-receipt-')));
+  try{
+    fs.writeFileSync(path.join(root,'A-applied-sql.json'),'SYNTHETIC_PRIVATE_FINANCIAL_PAYLOAD');
+    fs.writeFileSync(path.join(root,'A-network.json'),'SYNTHETIC_PRIVATE_NETWORK');
+    fs.writeFileSync(path.join(root,'A-completed.png'),'SYNTHETIC_PRIVATE_IMAGE');
+    const receipt=financialEvidence({suites:[{specs:[{file:'journeys.spec.ts',title:'A independent case',tests:[{projectName:'synthetic',expectedStatus:'passed',status:'expected',results:[{status:'passed',retry:0,duration:123}]}]}]}]},root);
+    assert.deepEqual(receipt.cases,[{project:'synthetic',file:'journeys.spec.ts',titles:['A independent case'],expectedStatus:'passed',status:'expected',results:[{status:'passed',retry:0,durationMs:123}]}]);
+    assert.deepEqual(receipt.checkpoints,[{file:'A-applied-sql.json',sha256:'f7ac8e73d42cce03c3589be644c2d52855668ee199dc22e681c6cbf9fc9d06ba',bytes:35}]);
+    assert.doesNotMatch(JSON.stringify(receipt),/SYNTHETIC_PRIVATE|network|png/);
+    fs.writeFileSync(path.join(root,'result.json'),JSON.stringify({financialEvidence:receipt}));
+    collectPublic(root);
+    assert.doesNotMatch(fs.readFileSync(path.join(root,'public/result.json'),'utf8'),/SYNTHETIC_PRIVATE|network|png/);
+    assert.equal(fs.existsSync(path.join(root,'public/A-applied-sql.json')),false);
+  }finally{assert.equal(path.dirname(root),fs.realpathSync.native(os.tmpdir()));fs.rmSync(root,{recursive:true,force:true});}
 });
