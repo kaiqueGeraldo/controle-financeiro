@@ -15,6 +15,7 @@ import {spawnOwned} from './owned-process.mjs';
 import {cancellation} from './cancellation.mjs';
 import {decision as zoomDecision,label as zoomLabel,deferred as zoomDeferred,verifyDirectory,browserCases} from './zoom-coverage.mjs';
 
+export const sanE2DiagnosticGrep='SAN-E2-visual motivo de indisponibilidade legível em 360, 768 e 1440$';
 export function directedBrowserSelection(selection,target='pair'){
  if(!['pair','san-e2'].includes(target))throw new Error('Unknown directed diagnostic target');
  return {...selection,selected:selection.selected.filter(q=>target==='san-e2'?q.endsWith('.MilestoneRemediationBrowserTest'):/\.(MilestoneRemediationBrowserTest|Rf15RemediationBrowserTest)$/.test(q))};
@@ -164,7 +165,7 @@ async function main(){
     writeJson(path.join(out,'backend-selection.json'),selection);report.selection=selection;
     await maven('maven-version',['--version']);
     const reports=path.join(out,'surefire');
-    try{await maven('backend',[...(scope==='diagnostic'&&report.diagnosticTarget==='san-e2'?['-Dreview.grep=^SAN-E2-visual']:[]),'-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,`-Dcf.browser.evidence=${path.join(out,'browsers')}`,scope==='all'?'verify':'test']);}
+    try{await maven('backend',[...(scope==='diagnostic'&&report.diagnosticTarget==='san-e2'?['-Dreview.grep='+sanE2DiagnosticGrep]:[]),'-Duser.timezone=UTC','-Dspring.test.context.cache.maxSize=4','-DfailIfNoTests=true','-Dsurefire.failIfNoSpecifiedTests=true',`-Dtest=${selection.selected.join(',')}`,`-Dcf034.reportsDirectory=${reports}`,`-Dcf.browser.evidence=${path.join(out,'browsers')}`,scope==='all'?'verify':'test']);}
     finally{if(fs.existsSync(reports))report.backend=junitCounts(reports);}
     report.backend=requireBackendReports(reports,selection);
     report.wrapperDiagnostics=requireWrapperDiagnostics(out,selection,source,ci);
