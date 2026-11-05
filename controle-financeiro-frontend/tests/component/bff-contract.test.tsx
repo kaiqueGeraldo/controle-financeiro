@@ -35,6 +35,24 @@ describe("contrato do BFF [AC-UI-006/007]", () => {
     vi.restoreAllMocks();
   });
 
+  test.each(["POST", "GET", "DELETE", "PATCH", "HEAD", "OPTIONS"])(
+    "preview recusa %s antes de cookies, corpo ou qualquer upstream",
+    async (method) => {
+      vi.stubEnv("VERCEL_ENV", "preview");
+      vi.stubEnv("BACKEND_API_URL", "https://outro-destino.example.test");
+      vi.stubGlobal("fetch", vi.fn());
+      vi.mocked(cookies).mockClear();
+      const input = request(method);
+      const response = await proxyRequest(input, context);
+      expect(response.status).toBe(503);
+      expect(response.headers.get("cache-control")).toBe("no-store");
+      expect(await response.text()).not.toContain("outro-destino");
+      expect(fetch).not.toHaveBeenCalled();
+      expect(cookies).not.toHaveBeenCalled();
+      expect(input.arrayBuffer).not.toHaveBeenCalled();
+    },
+  );
+
   test("204 permanece sem corpo e sem content-type inventado", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 204 })));
 

@@ -1,0 +1,779 @@
+{
+  "label": "Expanded local do recorte autorizado pela DEC-ZOOM-05",
+  "at": "2026-11-03T22:14:21.170Z",
+  "status": "failed/incomplete; first product gate block is two component test timeouts",
+  "initialHead": "9d3c384a5b36085a1c82014302b1c4191ba3b8e1",
+  "candidate": "a7f2256b90a7e195df826e89ba51ea7486c6fbf1",
+  "productTestCiInputs": {
+    "commit": "0aac7ccd25934ec022939464486da9fb28610279",
+    "count": 860,
+    "digest": "d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660",
+    "allBytesMatchCurrentWorktree": true
+  },
+  "executionScripts": {
+    "commit": "a7f2256b90a7e195df826e89ba51ea7486c6fbf1",
+    "files": [
+      {
+        "file": "tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs",
+        "sha256": "3b4dedd2366833fdbd51a36162bf82beb3dc1b88513ab717828d1e549adbf0cb"
+      },
+      {
+        "file": "tasks/evidencias/revisao-expanded-plataformas-docker/runtime-path.mjs",
+        "sha256": "ba69222ee95e191cd9eee5272ca45303f86af106c350ecbb1c85d28a2cc554d9"
+      },
+      {
+        "file": "tasks/evidencias/expanded-local-estabilizada/executar.mjs",
+        "sha256": "4dec9c72a19c67e3c93597ae59c28e03fe9ba912083e5d5cf6e20b075ea58300"
+      },
+      {
+        "file": "tasks/evidencias/expanded-local-estabilizada/preflight-windows.mjs",
+        "sha256": "8359bce4053466d2df2108d02992441dde9c529034d850cee2f507b595bb538b"
+      },
+      {
+        "file": "tasks/evidencias/expanded-local-estabilizada/preflight-ownership.mjs",
+        "sha256": "4f87e995d6293c1ed07e685b71e0256741b7e92cb33f54e23f2f6b68318ed620"
+      },
+      {
+        "file": "tasks/evidencias/expanded-local-estabilizada/frontend-linux.mjs",
+        "sha256": "bf266029c129d74585278cc6379b07f8b04464e7a5eb0d193d931eff68e9b3dd"
+      }
+    ],
+    "autoApproved": false,
+    "review": "pending combined review of implementation and results"
+  },
+  "operationalControls": {
+    "preparer": {
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    "cleanupObserver": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "attempts": [
+    {
+      "attempt": "01",
+      "candidate": "1e1f23cdbf48ddd18ab6396d2db375ca95fa6627",
+      "result": "probe C-G passed; cleanup snapshot failed on transient Ryuk",
+      "classification": "observer; preserved; fixed by exact current-JVM ID/image/label ownership",
+      "flow": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\flow.json",
+        "sha256": "4f16158fa83e1ac9d38eb3d0af3af890736badf9c0ec7a69eb0e284f7bbbed27"
+      }
+    },
+    {
+      "attempt": "02",
+      "candidate": "a7f2256b90a7e195df826e89ba51ea7486c6fbf1",
+      "result": "preflight and CI contracts passed; Linux component gate failed; dependent all Windows not started",
+      "flow": {
+        "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\flow-02.json",
+        "sha256": "a076b36deb47ac12ad115d20591d9fe0f18e1ddb84629115ea91e80866de6af1"
+      }
+    }
+  ],
+  "platforms": {
+    "controller": "Node v24.18.0 Windows 11 amd64",
+    "preflightJvm": "Temurin 21.0.12.1+1 Windows amd64",
+    "nativeContractJvm": "Temurin 21.0.12.1+1 Windows amd64, Maven 3.9.12",
+    "docker": "Docker Desktop/context desktop-linux; same approved daemon; PostgreSQL16 Linux containers, Windows JVM uses 127.0.0.1",
+    "frontend": "Linux native /work/s in current Docker image; source/dependency bind execution not used; Node v24.18.0",
+    "browser": "not started; component environment is jsdom",
+    "linuxBackendActionsCertified": false
+  },
+  "gates": {
+    "preflight": "passed attempt02; unchanged guard, Ryuk active, JDBC synthetic, cleanup verified",
+    "contracts": {
+      "windows": {
+        "tests": 43,
+        "passed": 43,
+        "failed": 0,
+        "skipped": 0
+      },
+      "linux": {
+        "tests": 43,
+        "passed": 43,
+        "failed": 0,
+        "skipped": 0
+      },
+      "same43IdentitiesNotSummed": true
+    },
+    "frontendLinux": {
+      "status": "failed",
+      "steps": [
+        {
+          "name": "install",
+          "command": [
+            "node",
+            "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "environment": {},
+          "started": "2026-11-03T22:02:30.141Z",
+          "exit": 0,
+          "ownerPid": 175,
+          "ownership": "POSIX process group; remote validation pending",
+          "durationMs": 74853
+        },
+        {
+          "name": "lint",
+          "command": [
+            "node",
+            "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+            "run",
+            "lint",
+            "--",
+            "--max-warnings=0"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "environment": {},
+          "started": "2026-11-03T22:03:44.998Z",
+          "exit": 0,
+          "ownerPid": 211,
+          "ownership": "POSIX process group; remote validation pending",
+          "durationMs": 26782
+        },
+        {
+          "name": "typecheck",
+          "command": [
+            "node",
+            "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+            "run",
+            "typecheck"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "environment": {},
+          "started": "2026-11-03T22:04:11.784Z",
+          "exit": 0,
+          "ownerPid": 234,
+          "ownership": "POSIX process group; remote validation pending",
+          "durationMs": 37046
+        },
+        {
+          "name": "unit",
+          "command": [
+            "node",
+            "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+            "test"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "environment": {},
+          "started": "2026-11-03T22:04:48.838Z",
+          "exit": 0,
+          "ownerPid": 253,
+          "ownership": "POSIX process group; remote validation pending",
+          "durationMs": 2320
+        },
+        {
+          "name": "components",
+          "command": [
+            "node",
+            "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
+            "run",
+            "test:component",
+            "--",
+            "--reporter=default",
+            "--reporter=json",
+            "--reporter=./tests/component/audit-reporter.mjs",
+            "--outputFile=${EVIDENCE_ROOT}/components.json"
+          ],
+          "cwd": "controle-financeiro-frontend",
+          "environment": {
+            "TZ": "America/Sao_Paulo",
+            "CF_TEST_TIMEZONE": "America/Sao_Paulo",
+            "CF_COMPONENT_AUDIT": "/evidence/frontend/component-audit.json",
+            "CF_COMPONENT_CONTEXT": "{\"candidate\":\"a7f2256b90a7e195df826e89ba51ea7486c6fbf1\",\"digest\":\"d7453567d9e08a02bd33846b0c739fed15be55d3117faf9598a720fa44d2d660\",\"runId\":\"b3aecfec-9cd2-48e4-a4ba-6cf0fcec4996\"}"
+          },
+          "started": "2026-11-03T22:04:51.194Z",
+          "exit": 1,
+          "ownerPid": 311,
+          "ownership": "POSIX process group; remote validation pending",
+          "durationMs": 61263
+        }
+      ],
+      "unit": {
+        "timezones": 3,
+        "tests": 18,
+        "distinctCases": 6,
+        "sameCasesAcrossThreeTimezonesNotSummed": true
+      },
+      "components": {
+        "caseOccurrences": 626,
+        "files": 71,
+        "passed": 624,
+        "failures": 2,
+        "globalErrors": 0,
+        "skipped": 0,
+        "todo": 0,
+        "identityMultisetMatchesCollectedAndReviewed": true,
+        "distinctFileTitleKeys": 625,
+        "existingTitleCollision": [
+          {
+            "identity": [
+              "src/services/onboarding/contract.test.tsx",
+              "authoritative reading, no false completion rejects invalid envelope/session {}"
+            ],
+            "occurrences": 2
+          }
+        ],
+        "failuresByIdentity": [
+          {
+            "file": "tests/component/cards-planning-audit.test.tsx",
+            "identity": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+            "durationMs": 5769.336613999998,
+            "classification": "timeout at existing 5000ms; underlying cause inconclusive",
+            "functionalAssertionDifferenceObserved": false
+          },
+          {
+            "file": "src/screens/private/onboarding/screen.test.tsx",
+            "identity": "compares conflict snapshots and does not silently choose the server",
+            "durationMs": 5432.948886000002,
+            "classification": "timeout at existing 5000ms; underlying cause inconclusive",
+            "functionalAssertionDifferenceObserved": false
+          }
+        ]
+      }
+    },
+    "windowsContract": {
+      "status": "passed independent",
+      "selected": [
+        "com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest"
+      ],
+      "caseIdentity": {
+        "class": "com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest",
+        "method": "liveOwnedListenerCannotBeCertifiedReleasedOrTerminated"
+      },
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "steps": [
+        {
+          "name": "maven-version",
+          "command": [
+            "powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-EncodedCommand",
+            "JgAgACcALgAvAG0AdgBuAHcALgBjAG0AZAAnACAAJwAtAC0AYgBhAHQAYwBoAC0AbQBvAGQAZQAnACAAJwAtAC0AdgBlAHIAcwBpAG8AbgAnADsAIABlAHgAaQB0ACAAJABMAEEAUwBUAEUAWABJAFQAQwBPAEQARQA="
+          ],
+          "cwd": "controle-financeiro-backend",
+          "environment": {},
+          "started": "2026-11-03T22:08:09.984Z",
+          "exit": 0,
+          "ownerPid": 40104,
+          "ownership": "Windows Job Object; private owner pipe",
+          "durationMs": 12775
+        },
+        {
+          "name": "backend",
+          "command": [
+            "powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-EncodedCommand",
+            "JgAgACcALgAvAG0AdgBuAHcALgBjAG0AZAAnACAAJwAtAC0AYgBhAHQAYwBoAC0AbQBvAGQAZQAnACAAJwAtAEQAdQBzAGUAcgAuAHQAaQBtAGUAegBvAG4AZQA9AFUAVABDACcAIAAnAC0ARABzAHAAcgBpAG4AZwAuAHQAZQBzAHQALgBjAG8AbgB0AGUAeAB0AC4AYwBhAGMAaABlAC4AbQBhAHgAUwBpAHoAZQA9ADQAJwAgACcALQBEAGYAYQBpAGwASQBmAE4AbwBUAGUAcwB0AHMAPQB0AHIAdQBlACcAIAAnAC0ARABzAHUAcgBlAGYAaQByAGUALgBmAGEAaQBsAEkAZgBOAG8AUwBwAGUAYwBpAGYAaQBlAGQAVABlAHMAdABzAD0AdAByAHUAZQAnACAAJwAtAEQAdABlAHMAdAA9AGMAbwBtAC4AYwBvAG4AdAByAG8AbABlAGYAaQBuAGEAbgBjAGUAaQByAG8ALgBhAHAAaQAuAG0AaQBnAHIAYQB0AGkAbwBuAC4AQQBkAG8AcAB0AGkAbwBuAE4AYQB0AGkAdgBlAFMAbwBjAGsAZQB0AHMAVABlAHMAdAAnACAAJwAtAEQAYwBmADAAMwA0AC4AcgBlAHAAbwByAHQAcwBEAGkAcgBlAGMAdABvAHIAeQA9AEMAOgBcAFUAcwBlAHIAcwBcAEEAbAB1AGcAYQAuAGMAbwBtAFwARABvAGMAdQBtAGUAbgB0AHMAXABQAHIAbwBqAGUAdABvAHMAXABwAGUAcwBzAG8AYQBsAFwAYwBvAG4AdAByAG8AbABlAC0AZgBpAG4AYQBuAGMAZQBpAHIAbwAtAHIAdQBuAHQAaQBtAGUAcwBcAHAAcgBlAHAAYQByAGEAYwBhAG8ALQBhAGQAbwBjAGEAbwBcAGUAeABwAGEAbgBkAGUAZAAtAGwAbwBjAGEAbAAtADIAMAAyADYAMQAxADAAMwAtADAAMgBcAHcAaQBuAGQAbwB3AHMALQBuAGEAdABpAHYAZQAtAGkAbgBkAGUAcABlAG4AZABlAG4AdAAtADAAMgBcAHMAdQByAGUAZgBpAHIAZQAnACAAJwAtAEQAYwBmAC4AYgByAG8AdwBzAGUAcgAuAGUAdgBpAGQAZQBuAGMAZQA9AEMAOgBcAFUAcwBlAHIAcwBcAEEAbAB1AGcAYQAuAGMAbwBtAFwARABvAGMAdQBtAGUAbgB0AHMAXABQAHIAbwBqAGUAdABvAHMAXABwAGUAcwBzAG8AYQBsAFwAYwBvAG4AdAByAG8AbABlAC0AZgBpAG4AYQBuAGMAZQBpAHIAbwAtAHIAdQBuAHQAaQBtAGUAcwBcAHAAcgBlAHAAYQByAGEAYwBhAG8ALQBhAGQAbwBjAGEAbwBcAGUAeABwAGEAbgBkAGUAZAAtAGwAbwBjAGEAbAAtADIAMAAyADYAMQAxADAAMwAtADAAMgBcAHcAaQBuAGQAbwB3AHMALQBuAGEAdABpAHYAZQAtAGkAbgBkAGUAcABlAG4AZABlAG4AdAAtADAAMgBcAGIAcgBvAHcAcwBlAHIAcwAnACAAJwB0AGUAcwB0ACcAOwAgAGUAeABpAHQAIAAkAEwAQQBTAFQARQBYAEkAVABDAE8ARABFAA=="
+          ],
+          "cwd": "controle-financeiro-backend",
+          "environment": {},
+          "started": "2026-11-03T22:08:22.760Z",
+          "exit": 0,
+          "ownerPid": 22064,
+          "ownership": "Windows Job Object; private owner pipe",
+          "durationMs": 86250
+        }
+      ],
+      "notContinuationOfFailedFlow": true
+    },
+    "notReached": [
+      "Linux build",
+      "Linux browser-install",
+      "Windows frontend gates",
+      "backend expanded common115/verify",
+      "RF15 real23",
+      "financial E2E13",
+      "package/provenance"
+    ]
+  },
+  "java": {
+    "universeCount": 116,
+    "commonCount": 115,
+    "windowsOnlyCount": 1,
+    "executedClasses": [
+      "com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest"
+    ],
+    "pendingClasses": [
+      "com.controlefinanceiro.api.CF015PaymentRecoveryTest",
+      "com.controlefinanceiro.api.CF015PlanningOwnershipTest",
+      "com.controlefinanceiro.api.Cf014HistoryDiagnosticTest",
+      "com.controlefinanceiro.api.Cf014HistoryReviewTest",
+      "com.controlefinanceiro.api.Cf019Rva03DiagnosticTest",
+      "com.controlefinanceiro.api.ControleFinanceiroApiApplicationTests",
+      "com.controlefinanceiro.api.DirectedGoalHistoryTemporalTest",
+      "com.controlefinanceiro.api.FrontendClosureBrowserTest",
+      "com.controlefinanceiro.api.GoalHistoryRecordedInstantIntegrationTest",
+      "com.controlefinanceiro.api.HarnessCredentialClockTest",
+      "com.controlefinanceiro.api.IntegratedMilestoneBrowserReviewTest",
+      "com.controlefinanceiro.api.MilestoneRemediationBrowserTest",
+      "com.controlefinanceiro.api.PlanningEditIntegrationTest",
+      "com.controlefinanceiro.api.PostgreSqlPersistenceTests",
+      "com.controlefinanceiro.api.PostgreSqlTemporalRoundTripTests",
+      "com.controlefinanceiro.api.Rf15IndependentBrowserTest",
+      "com.controlefinanceiro.api.Rf15RemediationBrowserTest",
+      "com.controlefinanceiro.api.Rf15ResidualBrowserTest",
+      "com.controlefinanceiro.api.Rf15ResidualIndependentBrowserTest",
+      "com.controlefinanceiro.api.Rv24CreationBrowserIntegrationTest",
+      "com.controlefinanceiro.api.Rvr24ReviewBrowserTest",
+      "com.controlefinanceiro.api.Rvr24VisualBrowserTest",
+      "com.controlefinanceiro.api.SecurityHttpContractIntegrationTest",
+      "com.controlefinanceiro.api.TemporalCompatibilityIntegrationTest",
+      "com.controlefinanceiro.api.controller.AuthControllerContractTest",
+      "com.controlefinanceiro.api.controller.HttpContractControllerTest",
+      "com.controlefinanceiro.api.controller.TemporalBoundaryReviewTest",
+      "com.controlefinanceiro.api.domain.TemporalJsonContractTest",
+      "com.controlefinanceiro.api.domain.habit.HabitBrowserIntegrationTest",
+      "com.controlefinanceiro.api.domain.habit.HabitFixtureIsolationIntegrationTest",
+      "com.controlefinanceiro.api.domain.habit.HabitIntegrityIntegrationTest",
+      "com.controlefinanceiro.api.domain.habit.HabitStreakCalculatorTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033AdversarialIntegrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033CapacityCostTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033CapacityProtocolTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033GateTransitionReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.Cf033ProgressIndependenceProbeTest",
+      "com.controlefinanceiro.api.domain.onboarding.DailyReservationCapacityTest",
+      "com.controlefinanceiro.api.domain.onboarding.DailyReservationConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.DraftValidatorTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingApplicationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingAtomicityEventTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingBoundaryTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCanonicalContractTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityCostTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingCapacityHttpTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingForeignZoneReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingGoalRevalidationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentContractTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIndependentReviewTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingIntegrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingLifecycleConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationPoolIsolationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingMigrationTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingPrecisionProtocolTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030CivilTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030PaymentTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRc030VersionTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReservationIssueTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReservationsTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingRevalidationCivilTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewConcurrencyTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewFinancialTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingReviewTemporalTest",
+      "com.controlefinanceiro.api.domain.onboarding.OnboardingV16MigrationTest",
+      "com.controlefinanceiro.api.domain.validation.FutureInProductZoneValidatorTest",
+      "com.controlefinanceiro.api.infra.operations.EmailMaintenanceTest",
+      "com.controlefinanceiro.api.infra.operations.HealthControllerTest",
+      "com.controlefinanceiro.api.infra.security.UserIsolationBrowserIntegrationTest",
+      "com.controlefinanceiro.api.infra.security.UserIsolationIntegrationTest",
+      "com.controlefinanceiro.api.migration.AdoptionPortAllocationTest",
+      "com.controlefinanceiro.api.migration.AdoptionRuntimeTest",
+      "com.controlefinanceiro.api.migration.Cf017ManifestTest",
+      "com.controlefinanceiro.api.migration.Cf017OriginalFindingsTest",
+      "com.controlefinanceiro.api.migration.Cf017PreflightTest",
+      "com.controlefinanceiro.api.migration.Cf017RestoreTest",
+      "com.controlefinanceiro.api.migration.EmptyDatabaseMigrationIntegrationTest",
+      "com.controlefinanceiro.api.migration.GoalHistoryUpgradeTest",
+      "com.controlefinanceiro.api.migration.IncrementalMilestoneReviewTest",
+      "com.controlefinanceiro.api.migration.LegacyDatabaseMigrationIntegrationTest",
+      "com.controlefinanceiro.api.migration.SchedulingBoundaryTest",
+      "com.controlefinanceiro.api.service.Cf018RegressionIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf019CardIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf020GoalAllocationTest",
+      "com.controlefinanceiro.api.service.Cf020InvestmentGoalIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf021ReportingIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf024ConcurrencyCacheIntegrationTest",
+      "com.controlefinanceiro.api.service.Cf025QueryPerformanceIntegrationTest",
+      "com.controlefinanceiro.api.service.CredentialExpiryClockTest",
+      "com.controlefinanceiro.api.service.HabitServiceTemporalTest",
+      "com.controlefinanceiro.api.service.IndependentRemediationBoundaryTest",
+      "com.controlefinanceiro.api.service.IntegratedMilestoneReviewTest",
+      "com.controlefinanceiro.api.service.InvestmentServiceTemporalTest",
+      "com.controlefinanceiro.api.service.InvoiceBankOperationListenerTemporalTest",
+      "com.controlefinanceiro.api.service.MilestoneCashPresentationTest",
+      "com.controlefinanceiro.api.service.MilestoneExportSnapshotTest",
+      "com.controlefinanceiro.api.service.MilestoneGoalFlowTest",
+      "com.controlefinanceiro.api.service.MilestoneInvestmentCorrectionTest",
+      "com.controlefinanceiro.api.service.MilestoneReportingCoverageTest",
+      "com.controlefinanceiro.api.service.MilestoneReportingPositionTest",
+      "com.controlefinanceiro.api.service.MilestoneSourceConcurrencyTest",
+      "com.controlefinanceiro.api.service.MilestoneTransactionCommandTest",
+      "com.controlefinanceiro.api.service.MilestoneValuationTest",
+      "com.controlefinanceiro.api.service.MilestoneWriterPolicyTest",
+      "com.controlefinanceiro.api.service.ResidualInvestmentRegressionTest",
+      "com.controlefinanceiro.api.service.Rf15InvoiceDatesTest",
+      "com.controlefinanceiro.api.service.Rv24DeletionIntegrationTest",
+      "com.controlefinanceiro.api.service.ScheduledCalendarClockTest",
+      "com.controlefinanceiro.api.service.TransactionServiceTemporalTest",
+      "com.controlefinanceiro.api.service.intent.FinancialIntentArchitectureTest",
+      "com.controlefinanceiro.api.service.intent.FinancialIntentsIntegrationTest",
+      "com.controlefinanceiro.api.service.intent.IntentFingerprintTest",
+      "com.controlefinanceiro.api.support.DisposablePostgresGuardTest",
+      "com.controlefinanceiro.api.utils.DateUtilTest",
+      "com.controlefinanceiro.api.utils.TemporalConfigTest"
+    ],
+    "unionExact": true,
+    "unexpected": [],
+    "newExecutedCases": 1
+  },
+  "rf15": {
+    "inventory": "prior reviewed identity inventory; current source unchanged, no new browser listing or result",
+    "originalCount": 25,
+    "deferredCount": 2,
+    "requiredCount": 23,
+    "deferred": [
+      {
+        "project": "review-sao-paulo",
+        "file": "cf015.native-zoom.integrated.spec.ts",
+        "titles": [
+          "R10: zoom nativo 200% com ações, rolagem e foco"
+        ]
+      },
+      {
+        "project": "review-sao-paulo",
+        "file": "rf15-native-chrome.integrated.spec.ts",
+        "titles": [
+          "RF15: zoom nativo Chrome 200% com ações, rolagem e foco"
+        ]
+      }
+    ],
+    "newExecuted": 0,
+    "newSkipped": 0,
+    "exceptionExpanded": false,
+    "fullZoomApproved": false
+  },
+  "failure": {
+    "gate": "Linux components",
+    "kind": "test timeouts; underlying cause inconclusive",
+    "limitMs": 5000,
+    "identities": [
+      {
+        "file": "tests/component/cards-planning-audit.test.tsx",
+        "identity": "CF-013: cartões, faturas e planejamento lista longa mantém a ação de pagamento fora da área rolável",
+        "durationMs": 5769.336613999998,
+        "classification": "timeout at existing 5000ms; underlying cause inconclusive",
+        "functionalAssertionDifferenceObserved": false
+      },
+      {
+        "file": "src/screens/private/onboarding/screen.test.tsx",
+        "identity": "compares conflict snapshots and does not silently choose the server",
+        "durationMs": 5432.948886000002,
+        "classification": "timeout at existing 5000ms; underlying cause inconclusive",
+        "functionalAssertionDifferenceObserved": false
+      }
+    ],
+    "functionalAssertionMismatchObserved": false,
+    "environmentCauseProven": false,
+    "firstOccurrencePreserved": true,
+    "repeatedForGreen": false,
+    "testsAssertionsTimeoutRetriesChanged": false
+  },
+  "package": {
+    "produced": false,
+    "sha256": null,
+    "oldJarUsed": false,
+    "skipTestsClaimedAsTesting": false
+  },
+  "cleanup": {
+    "createdContainerIds": [
+      "b35c946a54884930d3d43b3cdd4ce79f143622bb582894823bc9a9e10efa455e",
+      "f270016598019094a6f88a901a7f41a8be9064a7e1d7491349880ed35a835403",
+      "88952a6e2b31fb76c3cab20ec521aaae9ea67111a4f15734a4390794b348aa60",
+      "36a9772cb6178b32292dc8b466c99c30eb1d4da1362f6b38f95e4d168e8165d7",
+      "eecd5f37fa68c37a0fcb32e19c8e60f50883d101cd5775929432db7da5bdac1a",
+      "f5c0d49e0fabc462997ba434cbd314f97b57fd19f251657309f4d2f488d4dd29",
+      "b69d06fbe45f376836deb7a2a6d443f64461d97aef264214b6723f24f7052ece"
+    ],
+    "ownContainersRemaining": [],
+    "before": {
+      "containers": [
+        "0838457a6524",
+        "176613c1323c",
+        "27646fb19cff",
+        "2e1770984c9f",
+        "54e317443d29",
+        "77f718b9f2e4",
+        "c4ad580e6f78",
+        "ebc6cd5ed990"
+      ],
+      "networks": [
+        "8639d165a8b9",
+        "9489b76717be",
+        "f7384ce12fdb"
+      ],
+      "volumes": []
+    },
+    "after": {
+      "containers": [
+        "0838457a6524",
+        "176613c1323c",
+        "27646fb19cff",
+        "2e1770984c9f",
+        "54e317443d29",
+        "77f718b9f2e4",
+        "c4ad580e6f78",
+        "ebc6cd5ed990"
+      ],
+      "networks": [
+        "8639d165a8b9",
+        "9489b76717be",
+        "f7384ce12fdb"
+      ],
+      "volumes": []
+    },
+    "baselineEqual": true,
+    "matchingProcesses": [],
+    "resourcesCreated": "TCP/PG/Ryuk for preflight plus Linux frontend executor only; native TCP contract owns its listener",
+    "persistentInfrastructureChanged": false
+  },
+  "limitations": [
+    "No Windows common backend suite, RF15 browser journeys, financial E2E, build or new package",
+    "No backend Linux/Actions certification",
+    "No conclusion about financial correctness from component timeout alone",
+    "Component identity multiset has 626 occurrences but 625 distinct file/title strings, matching prior inventory",
+    "CF010/CF015 still pending under only the two exact DEC-ZOOM-05 deferrals; CF017/P01/P02, adoption and production gates unchanged"
+  ],
+  "nextAction": "Separate bounded diagnosis of the two 5000ms timeouts with unchanged fixtures/assertions/timeouts and resource/timing profiling; no repeat until green or extension of zoom exception",
+  "references": [
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\initial.json",
+      "sha256": "bec45c0251e8ca50969d415327af12b4feec09040095ca5f5d81ae6f3be37a7c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preparador-tests.log",
+      "sha256": "26ff433596cc791c53afcd3609015363252f30f8c7af3037933e36aa393b9960"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\observer-tests.log",
+      "sha256": "b6b6fb0d04bbc9966202c9eaaa1b92a6193cd0dd26d18121de309589b39379e7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\flow.json",
+      "sha256": "4f16158fa83e1ac9d38eb3d0af3af890736badf9c0ec7a69eb0e284f7bbbed27"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\prepare.log",
+      "sha256": "8f903188e320a323bc01f2890e2bdf621499e8c416c927c0db5382397ccf97d9"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight.log",
+      "sha256": "38a6380bd3f119595e73b370c13403a2858071500ea4a1beea8f0b036654479f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\flow-02.json",
+      "sha256": "a076b36deb47ac12ad115d20591d9fe0f18e1ddb84629115ea91e80866de6af1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\prepare-02.log",
+      "sha256": "baf528b573d48043dddde4dd17e3be2f6e54aab4d37913c9d6c03885fdb8f433"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02.log",
+      "sha256": "9ced0004e681baf94381787ba84d85845418ded78ff2af88b54d18ad3a0bf71e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\contracts-windows-02.log",
+      "sha256": "4aa43a99f556454c8391abd6f0d372520c13028bdb73f02bb6a94e1af0b2a542"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\frontend-linux-02.log",
+      "sha256": "68ad31146e445d2b7a1824d2e6fc06e390d145b00639cb4a26953c5e04efa46e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\selection-plan.json",
+      "sha256": "a4316a33ab4cb67361d8df7bad646df3b3974f2b7000671047de094ab9e8679c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\component-reconciliation.json",
+      "sha256": "a5350f92f7ec73cfcee203cd6de67cf30a557df02beab1f0bbcf0c0527a280c9"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\processes-final.json",
+      "sha256": "3e36aa8e22ca9bcda16bdc02e74e40e5e0bcd54d5c361a2d94dfbeba6e76be29"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-01\\baseline.json",
+      "sha256": "93b88b85cf63df4f357465d3684796069592bad9d2b9068115657a70e548926f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-01\\inputs.json",
+      "sha256": "c1462b44bf2831cc9f5913d7f659db1820e1f7844b2628e961dd40a3bdf2d09b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-01\\execution.json",
+      "sha256": "f9b8ff4a206fcf94d9b7c29919930150ad28c537da09bde3f4b58723331266b2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-01\\windows.log",
+      "sha256": "7587251da139d061ff2aa54e5b6416de4a75bf2275ad41b0bde7a570ae365020"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-01\\cleanup.json",
+      "sha256": "3016fd475c248631f6b9a15b64bbe07d617249b3c67cdb6f1e1fb77ac29c412a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02\\baseline.json",
+      "sha256": "32699e7de87bdab11e9c05c10e15c1b6cde38144a07381d93457617dee8f8b2a"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02\\inputs.json",
+      "sha256": "c1462b44bf2831cc9f5913d7f659db1820e1f7844b2628e961dd40a3bdf2d09b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02\\execution.json",
+      "sha256": "014b628095dfb8de7e44664930958a5b626800da24707fb61a4d1b5d178333cc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02\\windows.log",
+      "sha256": "6bc3e2e771f91a3ca88a03d9aef5839cdbe3626a6ad7474c8343d881fe53b9ce"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preflight-02\\cleanup.json",
+      "sha256": "c07f456b2a2cc329e2d22b42dbf93261ab57575eb83cc48a389cc3479a8f4ed3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\invocation.json",
+      "sha256": "62cdd922da056f97e42d682c38e7fcf1de6871b080b30748ec0458aa8b5d6ba6"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\native-inputs.json",
+      "sha256": "f3ff250ce5d001eb58dbd6d1a89b4fb7892737ed6d44c76da3f31711483443d1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\contracts.log",
+      "sha256": "deb783dafc8bfdb15a26521181c5c0b3aa57e8bacc53e29eace2e6fefca2ca72"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\execution.json",
+      "sha256": "e53e24bfb6838bab3e915449151fe8c27c8677e068793c4707540553447836d2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\cleanup.json",
+      "sha256": "780ad91583ae14403b31999b0d9193172e25dd8c05143e116eb435956f769834"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\result.json",
+      "sha256": "9a7d4b208595c1de51b682175f31dfd64fccc5583d9c6cbd94f8dfcf9de138e9"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\components.json",
+      "sha256": "7fb57cdecd6a8012ee766a170e53f7aa4161bf0d912922d83bcf60bb97391015"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\component-audit.json",
+      "sha256": "e442cc2e45f2cb9a31397ccd1328b6185a679e076ba39c0f7fba17995f8cb79c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\component-audit.json.events.jsonl",
+      "sha256": "d7fd19e4228740f8473efdca0a4aca782f88e76ff2bb1f7d679231582b35bc9e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\components.log",
+      "sha256": "3acc0d8c8958303dec76e70839839329342b78846fc827f05187f2852749bff1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\linux-native-02\\frontend\\public\\collection.json",
+      "sha256": "a12f69bb7297d8d935ba2341d6f9e39f90d3ab052a19ba8b4b9ebe0f41bb03dd"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-invocation.json",
+      "sha256": "ad27e44d2e73faa93752d52f0b6d22bf2142a9c54d7c2a0d6b85938713e0f7ca"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\result.json",
+      "sha256": "3b87b6cef9e1ec27eb66102383745340a16211e6dd6f95be434b8e265340d1e1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\backend-selection.json",
+      "sha256": "47ddcef93aab6d61fa116f94d6e36c137ec3514e9523097af3cb3ffd74f925c8"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\maven-version.log",
+      "sha256": "4bc62c824f051d32ff1db6f0a480d42b776cad1b158abe3b42bcda4aa509affc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\backend.log",
+      "sha256": "2f29182bc515a523d8e41602cae1b09e7cfafee0cae9e115f5444c41f7648ef2"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\public\\collection.json",
+      "sha256": "521e0783dcc05a69634ce7f6606d3f20cf0104bfe3b628fc542a467b833d87a4"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\windows-native-independent-02\\surefire\\TEST-com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest.xml",
+      "sha256": "43eee25c39321950a63fba718a96f9924e36cfcaf5a32d07dfa22cbd363b06d6"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\expanded-local-s-02\\candidate\\.ci-source.json",
+      "sha256": "b49f32cd4a1825d85b1ae1cf010db36cd923d480fed495c25a56ba7f121a3b7d"
+    }
+  ],
+  "prohibitedActionsPerformed": [],
+  "preservation": {
+    "at": "2026-11-03T22:16:47.597Z",
+    "initialTracked": 1219,
+    "unchangedTracked": 1216,
+    "authorizedChanges": [
+      {
+        "file": "tasks/05-release/CF-034-gates-ci.md",
+        "before": "eaa5dd567338eba178eb2b0eea8e704fdfc976666bf4cf94e3f2fd438937704d",
+        "after": "ea8ef26b652c3509324680b49e48afc5047e150dbaf2b02fccb2fb5dad916921",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\originals\\tasks\\05-release\\CF-034-gates-ci.md"
+      },
+      {
+        "file": "tasks/05-release/CF-036-publicacao.md",
+        "before": "50b596574affadf8df1454f4293c0d6aea0d9faebb7dae98c2d93d95bdf00c38",
+        "after": "7a680c8532a65ed5dd882ae2cf2b84b103bb9aafaeb835bf85e6ecd7a6148645",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\originals\\tasks\\05-release\\CF-036-publicacao.md"
+      },
+      {
+        "file": "tasks/evidencias/revisao-expanded-plataformas-docker/preparar-proxima.mjs",
+        "before": "f6ae7d5db85c53445804af1be26e234c0c23e3041a448c188b0387e6585830dd",
+        "after": "3b4dedd2366833fdbd51a36162bf82beb3dc1b88513ab717828d1e549adbf0cb",
+        "archived": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\originals\\tasks\\evidencias\\revisao-expanded-plataformas-docker\\preparar-proxima.mjs"
+      }
+    ],
+    "referenceCounts": {
+      "1113": 1113,
+      "original11": 11,
+      "historicalManifest": 5,
+      "historicalArtifact": 75,
+      "protected97": 97,
+      "independentProof": 59,
+      "previousAttempt": 7,
+      "assistedPackage": 852,
+      "assistedOriginal": 3
+    },
+    "protectedReferencesChecked": 2222,
+    "readmes": {
+      "main": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca",
+      "worktree": "e7d3458fbd8ac227520be27996ce23c73e8c3be2086d8cfbd51ad59568f4cee0"
+    },
+    "principal": {
+      "head": "c16e6545488c8f13efda4dab9efa8aa896fcddaa",
+      "branch": "codex/saneamento-cpa01-selecao-testes",
+      "status": "M README.md",
+      "readme": "6235da8e1d2247dad2c585fe7b2e7b0d2fd41f47414a4a2701b20f7fbf7d12ca"
+    },
+    "finalReceipt": {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\expanded-local-20261103-02\\preservation-commit.json",
+      "sha256": "7780bdd48e82435eca6117f07fe4e3e84745aa6d3dfa6af9b7d3c1444378a69f"
+    }
+  }
+}

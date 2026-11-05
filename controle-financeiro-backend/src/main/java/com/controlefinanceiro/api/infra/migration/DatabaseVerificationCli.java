@@ -28,9 +28,10 @@ public final class DatabaseVerificationCli {
             PgSchemaInventory.identifier(database);
             try (var c = DriverManager.getConnection(required(env,"CF017_JDBC_URL"),
                     required(env,"CF017_DB_USER"), required(env,"CF017_DB_PASSWORD"))) {
-                try (var s = c.createStatement(); var r = s.executeQuery("SELECT current_database()")) {
+                try (var s = c.createStatement(); var r = s.executeQuery("SELECT current_database(),current_setting('server_version_num')::int")) {
                     r.next();
                     if (!database.equals(r.getString(1))) throw new IllegalArgumentException("Wrong target");
+                    out.println("SERVER version_num=" + r.getInt(2));
                 }
                 out.println("TARGET database=" + database + " schema=" + schema);
                 if (args[0].equals("preflight")) {

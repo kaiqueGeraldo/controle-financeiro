@@ -1,0 +1,28 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createRequire} from 'node:module';import {pathToFileURL} from 'node:url';import {createHash} from 'node:crypto';
+const runtime=path.resolve(process.argv[2]),front=path.join(runtime,'s/f'),out=path.join(runtime,'attribution-value');fs.mkdirSync(out);process.env.PLAYWRIGHT_BROWSERS_PATH='0';
+const require=createRequire(import.meta.url),{chromium}=require(path.join(front,'node_modules/@playwright/test')),sharp=require(path.join(front,'node_modules/sharp')),{textGeometry}=await import(pathToFileURL(path.join(front,'tests/e2e/support/text-geometry.ts')));
+const hash=b=>createHash('sha256').update(b).digest('hex'),text='Custo ou avaliação indisponível',browser=await chromium.launch(),records=[];
+try{
+ for(const kind of ['visible-background','invisible-no-reaction','invisible-style-value-reaction']){
+  const context=await browser.newContext({viewport:{width:360,height:900}}),page=await context.newPage();
+  try{
+   const css='body{margin:20px;background:white;color:black}.badge{display:flex;width:max-content}#text{display:contents}'+(kind!=='visible-background'?'.badge{filter:opacity(0)}':'.badge{background:#ddeeff}')+(kind==='invisible-style-value-reaction'?'body:has(#text[style*="-webkit-text-fill-color"]){background:black}':'');
+   await page.setContent('<style>'+css+'</style><div class="badge"><span id="text" style="color: rgb(0, 0, 0);">'+text+'</span></div><button id="continue">Continuar</button>');
+   await page.locator('#continue').evaluate(el=>el.addEventListener('click',()=>el.textContent='Funcional'));
+   const element=await page.locator('#text').elementHandle(),before=await element.evaluate(el=>el.outerHTML),native=page.screenshot.bind(page),shots=[];
+   page.screenshot=async options=>{
+    const state=await element.evaluate(el=>{const s=getComputedStyle(el),p=getComputedStyle(el.parentElement),r=document.createRange();r.selectNodeContents(el);return {text:el.textContent,style:el.getAttribute('style'),fill:s.getPropertyValue('-webkit-text-fill-color'),parentFilter:p.filter,background:getComputedStyle(document.body).backgroundColor,box:r.getBoundingClientRect().toJSON(),scroll:{x:scrollX,y:scrollY},dpr:devicePixelRatio,animations:document.getAnimations().length};});
+    const image=await native(options),file=path.join(out,kind+'-'+(shots.length+1)+'.png');fs.writeFileSync(file,image,{flag:'wx'});
+    const {data,info}=await sharp(image).ensureAlpha().raw().toBuffer({resolveWithObject:true});let nonWhite=0;for(let i=0;i<data.length;i+=4)if(data[i]!==255||data[i+1]!==255||data[i+2]!==255)nonWhite++;
+    shots.push({file:path.relative(runtime,file),state,clip:options.clip,width:info.width,height:info.height,nonWhite,pngSha256:hash(image),rgbaSha256:hash(data)});return image;
+   };
+   const memoryBefore=process.memoryUsage(),started=performance.now(),observed=await textGeometry(page.locator('#text'),text),ms=performance.now()-started,memoryAfter=process.memoryUsage();page.screenshot=native;
+   const after=await element.evaluate(el=>el.outerHTML);assert.equal(after,before);await page.locator('#continue').click();assert.equal(await page.locator('#continue').innerText(),'Funcional');await element.dispose();
+   const expected=kind==='visible-background';records.push({kind,expected,accepted:observed.ok,correct:expected===observed.ok,observed,before,after,restored:true,functional:true,shots,ms,memoryBefore,memoryAfter});
+  }finally{await context.close();}
+ }
+ const result={at:new Date(),probeSha256:hash(fs.readFileSync(import.meta.filename)),observerSha256:hash(fs.readFileSync(path.join(front,'tests/e2e/support/text-geometry.ts'))),cases:records,memoryScope:'Node driver only; not browser RSS; PNG/hash instrumentation included in elapsed time'};
+ fs.writeFileSync(path.join(runtime,'attribution-value.json'),JSON.stringify(result,null,2)+'\n',{flag:'wx'});
+ console.log(JSON.stringify(records.map(r=>({kind:r.kind,expected:r.expected,accepted:r.accepted,restored:r.restored,pixels:r.shots.map(s=>s.nonWhite),ms:r.ms}))));
+ assert.ok(records.every(r=>r.correct),'invisible target must not be accepted from pixels caused by the mask');
+}finally{await browser.close();}

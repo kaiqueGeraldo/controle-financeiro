@@ -64,7 +64,7 @@ class Rv24CreationBrowserIntegrationTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/RV24-01/"+System.getProperty("rv24.run","browser-final"));
         assertThat(Files.exists(evidence)).as("use a fresh evidence run name").isFalse();
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="rv24-"+UUID.randomUUID().toString().substring(0,8);
         String grep=System.getProperty("review.grep");
         String config="R03".equals(grep)?"tests/e2e/playwright.milestone-review.config.ts":"tests/e2e/playwright.rv24.config.ts";
@@ -77,8 +77,8 @@ class Rv24CreationBrowserIntegrationTest {
         pb.environment().put("CF_E2E_NAMESPACE",namespace);
         pb.environment().put("CF_REVIEW_EVIDENCE",evidence.toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-        Process p=pb.start();
-        boolean finished=p.waitFor(15,TimeUnit.MINUTES);
+        Process p=com.controlefinanceiro.api.support.BrowserEvidence.start(pb,getClass(),evidence);
+        boolean finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(p,15,TimeUnit.MINUTES,evidence);
         if(!finished){p.descendants().forEach(ProcessHandle::destroyForcibly);p.destroyForcibly();}
         StringBuilder persisted=new StringBuilder("Namespace: "+namespace+"\nFlyway versions: "+sql.queryForList("select version from flyway_schema_history order by installed_rank",String.class)+"\n");
         for(String query:List.of(

@@ -21,6 +21,14 @@ async function start(page:Page,suffix:string){
   await registerSyntheticUser(page,syntheticUser("A",`${ns}-${suffix}`));
 }
 async function post(page:Page,url:string,data:unknown){
+  // These opening fixtures use small exact literals; the accepted transport
+  // requires decimal strings. Do not loosen the backend's precision contract.
+  if(url==="/investments"&&data&&typeof data==="object"){
+    const opening={...data} as Record<string,unknown>;
+    for(const field of ["openingQuantity","openingCost","openingValue"])
+      if(opening[field]!=null)opening[field]=String(opening[field]);
+    data=opening;
+  }
   const r=await page.request.post(`/api${url}`,{data});
   expect(r.ok(),`${url}: ${r.status()} ${await r.text()}`).toBe(true);
   return (await r.text())?r.json():null;
@@ -44,7 +52,8 @@ test("UI01 abertura real, lançamento, lacunas de previsão/transferência e arq
   await modal.getByRole("button",{name:"Fechar modal"}).click();
   await page.reload();
   const a=(await json(page,"/accounts")).find((x:{name:string})=>x.name===`${ns}-account`); expect(a.balance).toBe(1000);
-  expect((await json(page,"/dashboard/flow?month=1&year=2027")).income).toBe(0);
+  const openingFlow=await json(page,"/dashboard/flow?month=1&year=2027");
+  expect(openingFlow).toMatchObject({income:null,coverage:{state:"PARTIAL",requestedFrom:"2027-01-01",requestedThrough:"2027-01-31",knownFrom:"2027-01-15",knownThrough:"2027-01-15"},observed:{income:"0.00"}});
   await page.goto("/extrato"); await page.getByRole("button",{name:"Lançar",exact:true}).click();
   const form=page.getByRole("dialog",{name:"Nova Transação",exact:true});
   await capture(page,"ui01-new-transaction");
@@ -57,7 +66,9 @@ test("UI01 abertura real, lançamento, lacunas de previsão/transferência e arq
   const saved=page.waitForResponse(r=>r.url().endsWith("/api/transactions")&&r.request().method()==="POST");
   await form.getByRole("button",{name:"Salvar Transação"}).click(); expect((await saved).status()).toBe(200);
   await page.reload(); expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(880);
-  expect((await json(page,"/transactions/summary?month=1&year=2027")).exits).toBe(120);
+  const expenseSummary=await json(page,"/transactions/summary?month=1&year=2027");
+  expect(expenseSummary).toMatchObject({entries:null,exits:null,balance:null,coverage:{state:"PARTIAL",knownFrom:"2027-01-15",knownThrough:"2027-01-15"},observed:{entries:"0.00",exits:"120.00",balance:"-120.00"}});
+  await writeFile(path.join(dir,"ui01-coverage.json"),JSON.stringify({openingFlow,expenseSummary},null,2));
   await capture(page,"ui01-extract");
   // Archived position: request is an API-layer subprobe, then real screen reload.
   expect((await page.request.delete(`/api/accounts/${a.id}`)).status()).toBe(204);
@@ -93,44 +104,47 @@ test("UI02 parcela, dois pagamentos legítimos iguais, saldo pagável e conflito
 
 test("UI03 reserva, compra com saldo da meta e exclusão",async({page})=>{
   await start(page,"goal");const a=await account(page,`${ns}-goal-account`);
+  const decoy=await account(page,`${ns}-goal-account-similar`);
   const g=await post(page,"/goals",{title:`${ns}-goal`,targetValue:1000,deadline:"2028-01-01",type:"MONETARY",useChecklist:true,color:"BLUE"});
+  const other=await post(page,"/goals",{title:`${ns}-goal-similar`,targetValue:1000,deadline:"2028-01-01",type:"MONETARY",useChecklist:true,color:"BLUE"});
   await post(page,`/goals/${g.id}/deposit`,{accountId:a.id,amount:300,note:"Reserva sintética"});
+  await post(page,`/goals/${other.id}/deposit`,{accountId:decoy.id,amount:300,note:"Reserva semelhante de outra meta"});
+  const allocation=(await json(page,`/goals/${g.id}/allocations`)).find((v:{accountId:string})=>v.accountId===a.id);
+  const otherAllocation=(await json(page,`/goals/${other.id}/allocations`)).find((v:{accountId:string})=>v.accountId===decoy.id);
+  expect(allocation.amount).toBe(300);
+  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(1000);
   const savedItem=await post(page,`/goals/${g.id}/items`,{name:"Notebook sintético",estimatedPrice:120});
+  const similarItem=await post(page,`/goals/${g.id}/items`,{name:"Notebook sintético similar",estimatedPrice:120});
+  // An allocation from another intent must not pay this item.
+  const wrong=await page.request.patch(`/api/goals/items/${savedItem.id}/purchase`,{data:{paidPrice:120,accountId:decoy.id,allocationId:otherAllocation.id}});
+  expect(wrong.status()).toBe(400);
+  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===decoy.id).balance).toBe(1000);
   await page.goto("/metas");await page.getByText(g.title,{exact:true}).click();
-  await writeFile(path.join(dir,"ui03-goals.json"),JSON.stringify(await json(page,"/goals"),null,2));
-  await capture(page,"ui03-checklist");
-  const visibleItem=page.getByText("Notebook sintético",{exact:true});
-  expect.soft(await visibleItem.count(),"persisted checklist item must survive GET and reload").toBe(1);
-  if(await visibleItem.count()){
-  const item=page.getByText("Notebook sintético",{exact:true}).locator("..").locator("..");
-  await item.locator("button").first().click();
-  await page.locator("select").filter({has:page.locator('option[value="GOAL_BALANCE"]')}).selectOption("GOAL_BALANCE");
-  const purchase=page.waitForResponse(r=>r.url().includes("/purchase")&&r.request().method()==="PATCH");
-  await page.getByRole("button",{name:"Confirmar",exact:true}).click();const pr=await purchase;
-  await writeFile(path.join(dir,"ui03-purchase.json"),JSON.stringify({request:pr.request().postDataJSON(),status:pr.status(),body:await pr.text()},null,2));
-  expect.soft(pr.status(),"reservation must be consumed via real source").toBe(200);
-  await capture(page,"ui03-purchase-rejected");
-  }else{
-    // UI journey is blocked. This is explicitly a separate HTTP compatibility probe.
-    const pr=await page.request.patch(`/api/goals/items/${savedItem.id}/purchase`,{data:{paidPrice:120}});
-    await writeFile(path.join(dir,"ui03-purchase-api-only.json"),JSON.stringify({layer:"HTTP only; checklist missing prevents UI purchase",status:pr.status(),body:await pr.text()},null,2));
-  }
-  await page.getByRole("button",{name:"Deletar Meta",exact:true}).click();
-  await page.locator("select").filter({has:page.locator('option[value="'+a.id+'"]')}).last().selectOption(a.id);
-  const clickable=await page.getByRole("button",{name:"Excluir",exact:true}).click({trial:true,timeout:5000}).then(()=>true,()=>false);
-  expect.soft(clickable,"delete control must be reachable without bypassing overlay").toBe(true);
-  let dr,layer;
-  if(clickable){
-    const deletion=page.waitForResponse(r=>r.url().includes(`/api/goals/${g.id}?`)&&r.request().method()==="DELETE");
-    await page.getByRole("button",{name:"Excluir",exact:true}).click();dr=await deletion;layer="UI";
-  }else{
-    await capture(page,"ui03-delete-overlay");
-    dr=await page.request.delete(`/api/goals/${g.id}?targetAccountId=${a.id}`);layer="HTTP only; UI deletion blocked by overlay";
-  }
-  await writeFile(path.join(dir,"ui03-delete.json"),JSON.stringify({layer,url:dr.url(),status:dr.status(),body:await dr.text()},null,2));
-  expect.soft(dr.status(),"intent deletion must release reservation").toBe(204);
-  await capture(page,"ui03-delete-rejected");
-  await page.reload();expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1000);
+  await expect(page.getByText("Notebook sintético",{exact:true})).toHaveCount(1);
+  await page.reload();await page.getByText(g.title,{exact:true}).click();
+  await page.getByRole("button",{name:"Comprar Notebook sintético",exact:true}).click();
+  const source=page.locator("select").filter({has:page.locator(`option[value="RES_${allocation.id}"]`)});
+  await expect(source).toHaveCount(1);await source.selectOption(`RES_${allocation.id}`);
+  const purchase=page.waitForResponse(r=>r.url().endsWith(`/api/goals/items/${savedItem.id}/purchase`)&&r.request().method()==="PATCH");
+  await page.getByRole("button",{name:"Confirmar",exact:true}).click();const bought=await purchase;
+  expect(bought.status()).toBe(200);expect(bought.request().postDataJSON()).toMatchObject({paidPrice:120,accountId:a.id,allocationId:allocation.id});
+  await page.reload();
+  const goals=await json(page,"/goals"),stored=goals.find((v:{id:string})=>v.id===g.id);
+  expect(stored.items.find((v:{id:string})=>v.id===savedItem.id)).toMatchObject({status:"PURCHASED",paidPrice:120});
+  expect(stored.items.find((v:{id:string})=>v.id===similarItem.id).status).toBe("PENDING");
+  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(880);
+  expect((await json(page,`/goals/${g.id}/allocations`)).find((v:{id:string})=>v.id===allocation.id).amount).toBe(180);
+  await page.getByText(g.title,{exact:true}).click();await page.getByRole("button",{name:"Deletar Meta",exact:true}).click();
+  const modal=page.getByRole("dialog",{name:"Excluir Meta",exact:true});
+  const deletion=page.waitForResponse(r=>new URL(r.url()).pathname===`/api/goals/${g.id}`&&r.request().method()==="DELETE");
+  await modal.getByRole("button",{name:"Excluir",exact:true}).click();const deleted=await deletion;expect(deleted.status()).toBe(204);
+  await expect(modal).toHaveCount(0);await page.reload();
+  expect((await json(page,"/accounts")).find((v:{id:string})=>v.id===a.id).balance).toBe(880);
+  expect((await json(page,"/goals")).some((v:{id:string})=>v.id===g.id)).toBe(false);
+  expect((await json(page,`/goals/${other.id}/allocations`)).find((v:{id:string})=>v.id===otherAllocation.id).amount).toBe(300);
+  const flow=await json(page,"/dashboard/flow?month=1&year=2027");expect(flow).toMatchObject({income:null,expense:null,coverage:{state:"PARTIAL"},observed:{income:"0.00",expense:"120.00"}});
+  await writeFile(path.join(dir,"ui03-reservation.json"),JSON.stringify({accountId:a.id,goalId:g.id,allocation,itemId:savedItem.id,similarItemId:similarItem.id,wrongStatus:wrong.status(),purchase:{request:bought.request().postDataJSON(),body:await bought.json()},remainingBeforeDeletion:180,finalCash:880,flow},null,2));
+  await capture(page,"ui03-after-delete");
 });
 
 test("UI06 renda fixa resgate parcial mantém custo e ganho da posição",async({page})=>{
@@ -148,7 +162,7 @@ test("UI06 renda fixa resgate parcial mantém custo e ganho da posição",async(
   const asset=(await json(page,"/investments")).find((x:{id:string})=>x.id===i.id);
   const flow=await json(page,"/dashboard/flow?month=1&year=2027");
   await writeFile(path.join(dir,"ui06-observed.json"),JSON.stringify({asset,flow},null,2));
-  expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect.soft(flow.investmentResult).toBe(20);
+  expect.soft(asset.quantity).toBe(800);expect.soft(asset.totalCost).toBe(800);expect.soft(asset.valuationAmount).toBe(880);expect(flow).toMatchObject({investmentResult:null,coverage:{state:"PARTIAL"},observed:{investmentResult:"20.00"}});
   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(1220);
 });
 
@@ -210,9 +224,10 @@ test("UI05 investimento compra e venda reais, caixa versus resultado e XLSX",asy
     await expect(form).toHaveCount(0);await page.reload();
   }
   expect((await json(page,"/accounts")).find((x:{id:string})=>x.id===a.id).balance).toBe(900);
-  const assets=await json(page,"/investments");expect(assets[0].quantity).toBe(6);expect(assets[0].totalCost).toBe(120);
-  const flow=await json(page,"/dashboard/flow?month=1&year=2027");expect(flow.income).toBe(0);expect(flow.expense).toBe(0);expect(flow.investmentResult).toBe(20);
-  const cash=await json(page,"/transactions/summary?month=1&year=2027");expect(cash).toEqual({entries:100,exits:200,balance:-100});
+  const assets=await json(page,"/investments"),asset=assets.find((v:{id:string})=>v.id===i.id);expect(asset.quantity).toBe(6);expect(asset.totalCost).toBe(120);
+  const flow=await json(page,"/dashboard/flow?month=1&year=2027");expect(flow).toMatchObject({income:null,expense:null,investmentResult:null,coverage:{state:"PARTIAL",requestedFrom:"2027-01-01",requestedThrough:"2027-01-31",knownFrom:"2027-01-15",knownThrough:"2027-01-15"},observed:{income:"0.00",expense:"0.00",investmentResult:"20.00"}});
+  const cash=await json(page,"/transactions/summary?month=1&year=2027");expect(cash).toMatchObject({entries:null,exits:null,balance:null,coverage:{state:"PARTIAL"},observed:{entries:"100.00",exits:"200.00",balance:"-100.00"}});
+  await writeFile(path.join(dir,"ui05-coverage.json"),JSON.stringify({investmentId:i.id,asset,flow,cash},null,2));
   const exported=await page.request.get("/api/transactions/export?month=1&year=2027");expect(exported.status()).toBe(200);
   await writeFile(path.join(dir,"ui05-export.xlsx"),await exported.body());
   await page.goto("/resumo-anual");await expect(page.locator("h1").first()).toBeVisible();await capture(page,"ui05-annual");

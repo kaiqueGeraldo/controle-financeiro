@@ -1,0 +1,30 @@
+import {test,expect} from '@playwright/test';
+import {writeFile} from 'node:fs/promises';import path from 'node:path';
+import {fixtureUser,type FixtureOwner} from './support/fixture-owner';import {syntheticUser,registerSyntheticUser} from './support/synthetic-auth';
+import {setCivilDateOnly} from './support/civil-date-clock';
+const pairs:[FixtureOwner,FixtureOwner,'privacy'|'zoom','A'|'B'][]=[['frontend-closure','rf15-surfaces','privacy','A'],['cf015-native-zoom','rf15-native-chrome','zoom','B']];
+for(const [a,b,scenario,alias] of pairs)for(const reverse of [false,true])test('Independent ownership '+scenario+' reverse='+reverse,async({browser})=>{
+ const ns=process.env.CF_E2E_NAMESPACE+'-r'+scenario[0]+Number(reverse),owners=reverse?[b,a]:[a,b],records:any[]=[],contexts=[];
+ try{
+ for(const [index,owner] of owners.entries()){
+  const context=await browser.newContext({baseURL:process.env.CF_TEST_BASE_URL??'http://127.0.0.1:3107',locale:'pt-BR',timezoneId:'America/Sao_Paulo'});contexts.push(context);
+  const page=await context.newPage();await setCivilDateOnly(page,new Date('2027-01-15T12:00:00Z'));
+  const user=fixtureUser(alias,ns,owner,scenario);
+  await registerSyntheticUser(page,user);
+  const get=async(url:string)=>{const r=await page.request.get('/api'+url);expect(r.ok()).toBe(true);return r.json();};
+  const post=async(url:string,data:unknown)=>{const r=await page.request.post('/api'+url,{data});expect(r.ok(),await r.text()).toBe(true);return r.json();};
+  const profile=await get('/auth/user'),target=await post('/accounts',{name:'RF15 entidade exata',type:'CHECKING',initialBalance:1000+index,color:'BLUE'}),decoy=await post('/accounts',{name:'RF15 entidade exata semelhante',type:'CHECKING',initialBalance:71,color:'BLUE'});
+  const categories=await get('/categories?type=EXPENSE');await post('/transactions',{description:'Efeito somente na entidade '+owner,amount:120,type:'EXPENSE',date:'2027-01-15',accountId:target.id,categoryId:categories[0].id,isPaid:true});
+  await page.goto('/contas');await page.reload();
+  const title=page.getByText('RF15 entidade exata',{exact:true});await expect(title).toHaveCount(1);
+  const accounts=await get('/accounts');expect(accounts.find((x:any)=>x.id===target.id).balance).toBe(880+index);expect(accounts.find((x:any)=>x.id===decoy.id).balance).toBe(71);
+  for(const previous of records){expect(profile.id).not.toBe(previous.userId);expect(accounts.some((x:any)=>x.id===previous.accountId)).toBe(false);}
+  await context.clearCookies();await page.goto('/auth?modo=login');await page.locator('input[name=email]').fill(user.email);await page.locator('input[name=senha]').fill(user.password);await page.getByRole('button',{name:'Entrar',exact:true}).click();await expect(page).toHaveURL(/\/$/);await page.goto('/contas');await page.reload();expect((await get('/auth/user')).id).toBe(profile.id);expect((await get('/accounts')).find((x:any)=>x.id===target.id).balance).toBe(880+index);
+  records.push({owner,email:user.email,userId:profile.id,accountId:target.id,balance:880+index,decoyId:decoy.id});
+ }
+ const legacyContext=await browser.newContext({baseURL:'http://127.0.0.1:3107'});contexts.push(legacyContext);const old=syntheticUser(alias,ns+'-legacy-'+scenario);
+ const first=await legacyContext.request.post('/api/auth/register',{data:{nome:old.name,email:old.email,senha:old.password}});expect(first.status()).toBe(200);
+ const second=await legacyContext.request.post('/api/auth/register',{data:{nome:old.name,email:old.email,senha:old.password}});expect(second.status()).toBe(400);expect(await second.text()).toContain('E-mail já cadastrado');
+ await writeFile(path.join(process.env.CF_REVIEW_EVIDENCE!,'identity-'+scenario+'-'+reverse+'.json'),JSON.stringify({records,legacyStatuses:[first.status(),second.status()]},null,2));
+ }finally{for(const c of contexts)await c.close();}
+});

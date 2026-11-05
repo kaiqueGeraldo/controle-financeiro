@@ -10,18 +10,18 @@
 
 ## Prontidão independente local — 15/10/2026
 
-[Reconferência independente sobre d806f82](../evidencias/reconferencia-CF-017/README.md)
+Reconferência independente sobre d806f82 (registro de execução privado)
 mantém esta prontidão e seus limites; código da fundação idêntico a bcec50c.
 Nenhuma implementação desta tarefa foi iniciada.
 
-Base `bcec50c`, [parecer CF-017 e decisão de dependência](../evidencias/revalidacao-CF-017/README.md).
+Base `bcec50c`, parecer CF-017 e decisão de dependência (registro de execução privado).
 Fundação versionada V1–V14/upgrade/Hibernate/restore local aprovada; CF-023 aceita
 no recorte de isolamento/sessão e CF-028 concluída como SPEC-001 v1, integradas e
 conferidas nos deltas pertinentes. Satisfeita a regra de liberação parcial de
 EXECUCAO.md, sem concluir CF-017/P01/P02 nem executar esta tarefa.
 
-Usar somente banco novo/gerenciado descartável. O [resíduo RV17-01 foi encerrado
-localmente/documentalmente](../evidencias/revalidacao-RV17-01-P2/README.md), sem ampliar
+Usar somente banco novo/gerenciado descartável. O resíduo RV17-01 foi encerrado
+localmente/documentalmente (registro de execução privado), sem ampliar
 esta prontidão nem concluir adoção real. Nova migração
 posterior à V14, persistência protegida de evidência/atribuição, ownership, versão,
 conflitos, retomada e ausência de efeito financeiro exigem testes próprios conforme
@@ -64,7 +64,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 ## Evidências e estado
 
 Iniciada em 18/10/2026 na branch local `codex/cf029-onboarding`, base integrada
-`dd554d188976144ccf00e00f9b20242196f70d90`. [Matriz e evidências](../evidencias/CF-029/README.md).
+`dd554d188976144ccf00e00f9b20242196f70d90`. Matriz e evidências (registro de execução privado).
 Evidência das correções anteriores não equivale à conclusão desta tarefa.
 
 Entrega local em 19/10/2026: GET/PUT, SAVE/PAUSE/RESUME/DISCARD, versão string,
@@ -73,8 +73,8 @@ propostas de confirmação protegidas e exclusão transacional. 176 regressões
 aprovadas; delta final validado por53/53 em São Paulo e53/53 na cópia restaurada
 em UTC+14. Três contraprovas causais detectadas e restauradas. Contagens são
 seleções/reexecuções, não somadas como casos únicos. Falhas anteriores preservadas.
-[Decisões/limites](../evidencias/CF-029/DECISOES.md) e
-[comandos/resultados](../evidencias/CF-029/EXECUCOES.md).
+Decisões/limites (registro de execução privado) e
+comandos/resultados (registro de execução privado).
 
 Checkboxes atualizados pelo parecer independente abaixo; a entrega do executor
 e suas contagens permanecem históricas. Intervalo completo desde dd554d1 revisado.
@@ -90,7 +90,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 Registro histórico anterior ao saneamento e ao aceite final abaixo.
 
 **Não aprovada integralmente; em_revisao mantido.** Candidato5bac46e:
-[parecer, matriz e execuções](../evidencias/revisao-CF-029/README.md).
+parecer, matriz e execuções (registro de execução privado).
 RC029-01/P2: reserva vinculada por tempId a meta NUMERIC é salva e relida com
 issues vazias. Deve permanecer persistível com diagnóstico por campo, sem efeito
 financeiro; não transferir essa validação já possível no draft para CF030.
@@ -103,7 +103,7 @@ de fuso efetivo+14 passou; parâmetro JVM sozinho era insuficiente porque o star
 redefine São Paulo. Erro de fixture do revisor preservado e corrigido separadamente.
 
 Próximo lote restrito: saneamento RC029-01 e revalidação independente, conforme
-[condição de encerramento](../evidencias/revisao-CF-029/ACHADOS.md).
+condição de encerramento (registro de execução privado).
 Nenhuma correção de produto nesta revisão. CF030/031/032 não liberadas/iniciadas;
 aceites anteriores, zoom200% e adoção real preservados. Sem publicação ou banco real.
 
@@ -117,7 +117,7 @@ ID persistido e proposta ASSIGN recebem `GOAL_TYPE_MISMATCH` no campo `goal` do
 item afetado. Salvamento preserva respostas, valores e vínculos; GET recupera as
 mesmas issues persistidas. Correção/remoção reavalia no próximo SAVE/PAUSE/RESUME.
 
-[Provas antes/depois, regressões, contraprova e encaminhamento](../evidencias/saneamento-CF-029-RC029-01/README.md).
+Provas antes/depois, regressões, contraprova e encaminhamento (registro de execução privado).
 O checkbox de diagnóstico permanece pendente de revalidação independente; este
 registro do executor não encerra RC029-01 nem autoaprova CF-029. Persistência,
 isolamento, concorrência, precisão, V15, exclusão e ausência de efeitos financeiros
@@ -127,7 +127,7 @@ sem liberação; nenhum prepare, aplicação financeira ou UI foi implementado.
 ## Aceite independente final RC029-01 — 19/10/2026
 
 **RC029-01 encerrado; CF-029 concluída no escopo local/descartável.**
-[Parecer, matriz, contrato do GET, provas e limites](../evidencias/revalidacao-CF-029-RC029-01/README.md).
+Parecer, matriz, contrato do GET, provas e limites (registro de execução privado).
 Candidato aa88ecc: 19 controles dirigidos/original e três probes independentes
 aprovados. Remoção isolada da regra produziu sete falhas causais em 13 controles;
 restauração por hash recuperou 13/13. Contagens sobrepostas não são somadas.

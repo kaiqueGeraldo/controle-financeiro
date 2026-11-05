@@ -10,7 +10,7 @@
 
 ## Aceite independente — 03/10/2026, candidato 06c1a51
 
-Quatro critérios aceitos na [revisão independente CF-025/026/027](../evidencias/revisao-CF-025-CF-027-RV24/README.md), com [matriz de provas](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md). Intervalo integral `846c64c..04cad8d` confrontado com o candidato. Nova medição3/30/120 confirma1 SELECT + N UPDATEs, dados/paginação/ownership preservados, waiter PostgreSQL em commit/rollback e dias/logs intactos. Contraprova EAGER reprova4≠1; restauração e consumidores passam.
+Quatro critérios aceitos na revisão independente CF-025/026/027 (registro de execução privado), com matriz de provas (registro de execução privado). Intervalo integral `846c64c..04cad8d` confrontado com o candidato. Nova medição3/30/120 confirma1 SELECT + N UPDATEs, dados/paginação/ownership preservados, waiter PostgreSQL em commit/rollback e dias/logs intactos. Contraprova EAGER reprova4≠1; restauração e consumidores passam.
 
 SELECT constante não torna reorder O(1): escritas/execuções JDBC/memória O(N), ordenação SQL potencial O(N log N); sem SLA/heap/carga de produção certificados. RJ-022-01/H24-01 continuam inconclusivos. Satisfeita somente sua aresta CF-033; sem liberação integral de release. Notas abaixo preservam estados e provas históricos.
 
@@ -18,7 +18,7 @@ SELECT constante não torna reorder O(1): escritas/execuções JDBC/memória O(N
 
 Estado `em_revisao` mantido. Categoria 1: revisão independente de 846c64c..65ec14e, evidências em 04cad8d. Examinar N+1, LAZY/coleções, dias/logs, paginação/ownership, locks e limites de memória/volume. Condição: parecer separado cobrindo os quatro critérios; 396 verdes do executor não são aceite nem SLA. Aprovação satisfaz apenas sua dependência em CF-033.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Problema e resultado esperado
 
@@ -63,7 +63,7 @@ do escopo, com PostgreSQL descartável e Flyway integrado. Nenhuma outra tarefa
 será implementada; CF-022 continua com ressalva de browser.
 
 Implementação/testes em `65ec14e`; fechamento local e limites registrados na
-[evidência CF-025](../evidencias/CF-025/README.md). Checkboxes refletem validação
+evidência CF-025 (registro de execução privado). Checkboxes refletem validação
 local, aguardando revisão independente; não constituem conclusão antecipada.
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
@@ -73,17 +73,17 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Checklist usa duas queries em lote; cobertura usa dois agregados por escopo; H-02 comprova export consistente com páginas 500/SXSSF 100. Custos MVCC/conexão durante geração, bytes finais em memória e replay O(operações) estão documentados. Benchmark/plano/índices/limites de volume desta tarefa não foram executados; estado preservado.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Prontidão local após revisão independente — 01/10/2026
 
 > Registro histórico anterior à entrega em `65ec14e`/`04cad8d`. O estado
 > canônico atual é `em_revisao`, como detalhado na entrega abaixo; falta revisão
 > independente da CF-025. A liberação anterior não é aprovação da implementação.
-> [Consolidação documental](../evidencias/consolidacao-CF-001-CF-026/MATRIZ.md).
+> Consolidação documental (registro de execução privado).
 
 **CF-025 apta a iniciar localmente.** Estado `pronta`, sem implementação,
-benchmark ou otimização iniciados. Ver [parecer F](../evidencias/revisao-CF-024/README.md).
+benchmark ou otimização iniciados. Ver parecer F (registro de execução privado).
 
 CF-021 tem agregados/export/posição aceitos no próprio escopo; CF-024 concluiu
 as invariantes backend, protocolo opcional e cache após commit delimitados na
@@ -122,7 +122,7 @@ O(N), sem materialização dos dias no reorder. Listas completas seguem O(H+L)
 e não representam volume ilimitado seguro. Benchmark local aquecido,20 amostras,
 sem SLA/carga HTTP, sem pico de heap e sem volume de cartões/investimentos;
 planos desses ramos vazios não justificaram novos índices/predicados. Todos os
-limites e comandos estão em [EXECUCOES.md](../evidencias/CF-025/EXECUCOES.md).
+limites e comandos estão em EXECUCOES.md (registro de execução privado).
 
 Estado `em_revisao`: revisão independente CF-025 liberada para iniciar.
 Nenhuma nova tarefa de implementação liberada por conclusão de dependência;

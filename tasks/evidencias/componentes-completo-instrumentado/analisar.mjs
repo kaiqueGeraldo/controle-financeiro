@@ -1,0 +1,32 @@
+import fs from "node:fs";import path from "node:path";import assert from "node:assert/strict";import {hash} from "../../../.github/scripts/source.mjs";
+const runtime=fs.realpathSync.native(process.argv[2]),dir=import.meta.dirname,out=path.join(runtime,"linux-02");
+const read=f=>JSON.parse(fs.readFileSync(f,"utf8").replace(/^\uFEFF/,"")),o=read(path.join(out,"observation/observer.json")),flow=read(path.join(out,"flow.json")),json=read(path.join(out,"components.json"));
+assert.equal(flow.status,"passed");assert.equal(o.completed.length,626);
+const expected=read(path.join(runtime,"expected-selection.json")).identities;
+assert.deepEqual(o.collected.map(t=>JSON.stringify(t.identity)).sort(),expected);
+assert.deepEqual(o.completed.map(t=>JSON.stringify(t.identity)).sort(),expected);
+const moduleFiles=event=>o.moduleEvents.filter(e=>e.event===event).map(e=>e.file).sort();assert.equal(new Set(moduleFiles("start")).size,71);assert.deepEqual(moduleFiles("start"),moduleFiles("end"));assert.equal(o.completed.filter(t=>t.observation.historical).length,2);
+const resources=fs.readFileSync(path.join(out,"resources.jsonl"),"utf8").trim().split("\n").map(JSON.parse),dur=o.completed.map(t=>t.diagnostic.duration).sort((a,b)=>a-b);
+const distribution=values=>({min:values[0],p50:values[Math.ceil(values.length*.5)-1],p90:values[Math.ceil(values.length*.9)-1],p95:values[Math.ceil(values.length*.95)-1],p99:values[Math.ceil(values.length*.99)-1],max:values.at(-1)});
+const countPeak=events=>{let active=0,peak=0;for(const e of events.sort((a,b)=>a[0]-b[0]||a[1]-b[1])){active+=e[1];peak=Math.max(peak,active);}return peak;};
+const pids=new Set(o.completed.map(t=>t.observation.pid));
+const selectedResources=resources.filter(r=>r.at>=o.started&&r.at<=o.finished);
+const parseKv=text=>Object.fromEntries(text.trim().split("\n").map(line=>line.trim().split(/\s+/)).map(([k,v])=>[k,Number(v)]));
+const a=resources[0],b=resources.at(-1),ca=parseKv(a.cgroup["cpu.stat"]),cb=parseKv(b.cgroup["cpu.stat"]),cpuDelta=Object.fromEntries(Object.keys(cb).map(k=>[k,cb[k]-ca[k]]));
+const memorySamples=selectedResources.map(r=>Number(r.cgroup["memory.current"]));
+const workerSamples=selectedResources.map(r=>({at:r.at,count:r.processes.filter(p=>pids.has(p.pid)).length,rssBytes:r.processes.filter(p=>pids.has(p.pid)).reduce((s,p)=>s+p.rssPages*4096,0)}));
+const historical=o.completed.filter(t=>t.observation.historical);
+const hooks=o.completed.map(t=>(t.observation.beforeHookCostNs+t.observation.afterHookCostNs+t.observation.markCostNs)/1e6).sort((a,b)=>a-b);
+const analysis={
+label:"Expanded local do recorte autorizado pela DEC-ZOOM-05",at:new Date().toISOString(),
+base:{initialHead:"03028231a7c1cbb9a2532adadd2ea1b9e1ea643e",candidate:flow.source.commit,observerPreparationHead:read(path.join(runtime,"preparacao-02.json")).head,sourceFiles:860,baseDigest:flow.baseDigest,observedDigest:flow.context.digest,restoredDigest:flow.restoredSourceDigest},
+execution:{soleFullLinuxAttempt:true,preparationAttempts:2,preparation01:"contracts43 passed; Node spec log rejected by TAP-only observer parser; no actual component test began",preparation02:"explicit TAP; contracts43, install, lint, types, temporal18, synthetic observer3 (one expected failure), then actual626 once",steps:flow.steps,conditions:flow.conditions,buildId:flow.buildId},
+result:{counts:flow.summary.counts,files:71,collected:626,completed:626,uniqueIds:new Set(o.completed.map(t=>t.id)).size,distinctFileTitleKeys:625,selectionSha:flow.observerValidation.selectionSha,coverage:flow.coverage,errors:o.errors,reason:o.reason,exit:flow.steps.find(s=>s.name==="components").exit,retries:0,skips:0,pending:0,remainingActive:o.remainingActive,allIDsEnded:true},
+configuration:o.config,durationMs:distribution(dur),historical,
+concurrency:{availableParallelism:flow.conditions.cpuCount,pool:o.config.pool,configuredMaxWorkers:o.config.maxWorkers,workerOverrides:false,uniqueWorkerPids:pids.size,peakWorkerPidsObservedAt1Hz:Math.max(...workerSamples.map(r=>r.count)),peakSimultaneousTestHooks:countPeak(o.completed.flatMap(t=>[[t.observation.startedEpochMs,1],[t.observation.finishedEpochMs,-1]])),definition:"Unique PIDs reflect forks allocated across files, not simultaneous worker count. Peak sampled PIDs is a lower bound at1Hz; hook overlap excludes collection/import/idle."},
+resources:{samples:resources.length,samplesWithinTestRun:selectedResources.length,windowMs:b.at-a.at,cgroupLimits:{"cpu.max":a.cgroup["cpu.max"],"memory.max":a.cgroup["memory.max"],"pids.max":a.cgroup["pids.max"]},cpuDelta,averageUsedCores:cpuDelta.usage_usec/((b.at-a.at)*1000),memoryCurrentPeakBytes:Math.max(...memorySamples),memoryEventsBefore:a.cgroup["memory.events"],memoryEventsAfter:b.cgroup["memory.events"],cpuPressureBefore:a.cgroup["cpu.pressure"],cpuPressureAfter:b.cgroup["cpu.pressure"],memoryPressureBefore:a.cgroup["memory.pressure"],memoryPressureAfter:b.cgroup["memory.pressure"],peakObservedWorkerRSSBytes:Math.max(...workerSamples.map(r=>r.rssBytes)),samplerCostMs:distribution(resources.map(r=>r.samplerNs/1e6).sort((a,b)=>a-b)),limitations:"1Hz may miss short peaks. cgroup memory includes file cache. Sum of RSS may count shared pages repeatedly. Sample window encloses command launch and result serialization."},
+observerCostMs:distribution(hooks),observerLimits:"Measured hooks/marks exclude Vitest metadata transfer, callbacks, heartbeat writes, Vite module loading and scheduling disturbance. No zero-overhead claim and no causal comparison without observer.",
+historicalConclusion:"Inconclusive; full current run passed without functional/assertion/watchdog/fixture/concurrency correction. No claim that historical timeouts are fixed.",
+rawProofs:["initial.json","current-source.json","expected-selection.json","host-before.json","host-preparation.json","instrumentation.json","linux/flow.json","linux/contracts.log","preparacao-02.json","linux-02/flow.json","linux-02/components.log","linux-02/components.json","linux-02/component-audit.json","linux-02/observation/observer.json","linux-02/observation/active.jsonl","linux-02/resources.jsonl","linux-02/smoke.json","linux-02/smoke/observer.json"].map(f=>({path:path.join(runtime,f),sha256:hash(fs.readFileSync(path.join(runtime,f)))}))
+};
+fs.writeFileSync(path.join(dir,"RODADA.json"),JSON.stringify(analysis,null,2)+"\n");console.log(JSON.stringify({counts:analysis.result,distribution:analysis.durationMs,concurrency:analysis.concurrency,resources:analysis.resources,observerCostMs:analysis.observerCostMs},null,2));

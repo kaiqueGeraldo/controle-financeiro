@@ -1,0 +1,20 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync,execFileSync} from 'node:child_process';
+import {createHash,randomUUID} from 'node:crypto';
+const runtime=path.resolve(process.argv[2]),root=path.resolve(import.meta.dirname,'../../..');
+if(!path.basename(runtime).startsWith('pr3-expanded-'))throw Error('explicit private runtime required');
+const out=path.join(runtime,'linux-fixtures');fs.mkdirSync(out);
+const back=path.join(root,'controle-financeiro-backend');
+const inputs=[];
+function copy(relative){const from=path.join(back,relative),to=path.join(out,'backend',relative);if(fs.statSync(from).isDirectory()){fs.mkdirSync(to,{recursive:true});for(const name of fs.readdirSync(from))copy(path.join(relative,name));}else {fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(from,to);inputs.push({file:relative,sha256:createHash('sha256').update(fs.readFileSync(from)).digest('hex')});}}
+for(const name of ['pom.xml','src'])copy(name);
+const image='eclipse-temurin@sha256:85f00967bcc624fc19fa9c2cf124ea426a5363898e267141726f31f358c2e14b';
+const m2=path.join(process.env.USERPROFILE,'.m2');
+const maven='/m2/wrapper/dists/apache-maven-3.9.12/59fe215c0ad6947fea90184bf7add084544567b927287592651fda3782e0e798/bin/mvn';
+const command=`java -version; uname -a; sh ${maven} --offline --batch-mode -Dmaven.repo.local=/m2/repository -Duser.timezone=UTC -Dspring.test.context.cache.maxSize=4 -Dtest=Pr3FixtureIsolationProbe -Dcf034.reportsDirectory=/work/surefire test`;
+const args=['run','--rm','--name','pr3-fixtures-'+randomUUID(),'--mount',`type=bind,source=${out},target=/work`,'--mount',`type=bind,source=${m2},target=/m2,readonly`,'--mount','type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock','--env','DOCKER_HOST=unix:///var/run/docker.sock','--env','TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal','--workdir','/work/backend','--entrypoint','sh',image,'-c',command];
+const log=fs.openSync(path.join(out,'maven.log'),'wx'),start=new Date();
+const result=spawnSync('docker',args,{windowsHide:true,stdio:['ignore',log,log],timeout:10*60*1000});fs.closeSync(log);
+fs.writeFileSync(path.join(out,'execution.json'),JSON.stringify({start,end:new Date(),head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),image,args,inputs,exit:result.status,error:result.error?.message},null,2)+'\n');
+console.log(JSON.stringify({label:'linux-fixtures',exit:result.status}));process.exitCode=result.status??1;

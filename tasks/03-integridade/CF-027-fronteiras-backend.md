@@ -10,7 +10,7 @@
 
 ## Aceite independente — 03/10/2026, candidato 06c1a51
 
-Quatro critérios aceitos exclusivamente na fronteira intenção/recibo, intervalo `40e07ef..a8c3724`. [Parecer separado](../evidencias/revisao-CF-025-CF-027-RV24/README.md), [matriz](../evidencias/revisao-CF-025-CF-027-RV24/MATRIZ.md) e novas provas PostgreSQL confirmam MANDATORY/mesmo commit, owner/fingerprint/snapshot/replay, ordem de locks, HTTP/schema e consumidores. Contraprovas de dependência proibida, transação adicional e ausência de owner falham causalmente; restauração passa. Gate210 inclui CF-02430 e seis jornadas; variante inválida posterior também tem SQL/reload.
+Quatro critérios aceitos exclusivamente na fronteira intenção/recibo, intervalo `40e07ef..a8c3724`. Parecer separado (registro de execução privado), matriz (registro de execução privado) e novas provas PostgreSQL confirmam MANDATORY/mesmo commit, owner/fingerprint/snapshot/replay, ordem de locks, HTTP/schema e consumidores. Contraprovas de dependência proibida, transação adicional e ausência de owner falham causalmente; restauração passa. Gate210 inclui CF-02430 e seis jornadas; variante inválida posterior também tem SQL/reload.
 
 Interface não impõe sequência por tipos; fronteira de pacote depende do teste e DTO mantém Jackson transitivamente. Incidente target preservado: outputs antigos perdidos não foram recuperados, decisões necessárias usam novas execuções duráveis. RVR24-01 frontend permanece aberto; RV24-02 conserva aceite. Satisfeita somente sua aresta CF-033; sem microsserviços, onboarding ou deploy. Notas abaixo são históricas.
 
@@ -18,7 +18,7 @@ Interface não impõe sequência por tipos; fronteira de pacote depende do teste
 
 Estado `em_revisao` mantido. Categoria 1: revisão independente de 40e07ef..a8c3724, produto dcac7c5, somente fronteira intenção/recibo. Confirmar dependência proibida, MANDATORY, owner/fingerprint/snapshot/locks, API/schema e consumidores. Incidente target limita proveniência dos outputs históricos; cópia reconstruída não é original. Condição: parecer separado pelos quatro critérios, sem ampliar fronteiras. Aprovação satisfaz apenas sua aresta CF-033.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Problema e resultado esperado
 
@@ -55,7 +55,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 ## Evidências e estado
 
-Executada localmente em 01/10/2026 sobre `40e07ef`, somente na fronteira de intenção/recibo liberada abaixo. [Mapa anterior, implementação, regressões e limitações](../evidencias/CF-027/README.md). Checkboxes são evidência do executor, não aceite independente; estado `em_revisao`. Gate consolidado203/203 Java/verify/JAR, incluindo CF-02430; seis jornadas Playwright com SQL/reload; três mutações causais detectadas. API/schema/fingerprints/snapshots/ownership/atomicidade/ordem de locks/replay/recuperação preservados.
+Executada localmente em 01/10/2026 sobre `40e07ef`, somente na fronteira de intenção/recibo liberada abaixo. Mapa anterior, implementação, regressões e limitações (registro de execução privado). Checkboxes são evidência do executor, não aceite independente; estado `em_revisao`. Gate consolidado203/203 Java/verify/JAR, incluindo CF-02430; seis jornadas Playwright com SQL/reload; três mutações causais detectadas. API/schema/fingerprints/snapshots/ownership/atomicidade/ordem de locks/replay/recuperação preservados.
 
 Incidente explícito: `clean` acidental atingiu artefatos ignorados de target; runtime e fontes de duas cópias históricas reconstruídos, sem recuperação integral dos outputs originais. Fontes/evidências versionados e README alheio intactos. Detalhes/proveniência na evidência; não declarar preservação integral dos artefatos locais. RV24-01/RVR24-01/02 e ECONNRESET inconclusivo continuam abertos; RV24-02 permanece concluída. Frontend e CF-028 não alterados.
 
@@ -66,14 +66,14 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Serviços de metas/cartões/investimentos/transações coordenam atomicidade do marco com política de fonte e locks documentados. Reorganização ampla de domínios, extração de módulos e contrato transversal permanecem nesta tarefa futura; saneamento não equivale à sua conclusão.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Prontidão local delimitada — 01/10/2026
 
 **CF-027 apta a iniciar localmente**, apenas na fronteira de identidade/recibos
 duráveis de criação entre TransactionService/InvestmentService/controller e a
 implementação PostgreSQL/JSON hoje em FinancialIntentService. Ver
-[parecer independente, dependências e testes obrigatórios](../evidencias/revalidacao-RV24-01-RV24-02/README.md).
+parecer independente, dependências e testes obrigatórios (registro de execução privado).
 Na liberação histórica, estado `pronta`: nenhuma interface, módulo, movimento de pacote ou refatoração
 desta tarefa havia sido implementada pela revisão. Entrega posterior acima, em revisão própria.
 

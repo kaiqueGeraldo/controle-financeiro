@@ -1,0 +1,18 @@
+import {test,expect} from '@playwright/test';import {writeFile} from 'node:fs/promises';import path from 'node:path';
+import {registerSyntheticUser,syntheticUser} from './support/synthetic-auth';import {setCivilDateOnly} from './support/civil-date-clock';import {textGeometry} from './support/text-geometry';
+test('Independent live reason must reject invisible painting',async({page})=>{
+ await setCivilDateOnly(page,new Date('2027-01-15T12:00:00Z'));await registerSyntheticUser(page,syntheticUser('A',process.env.CF_E2E_NAMESPACE+'-live'));
+ const r=await page.request.post('/api/investments',{data:{ticker:'RVLIVE',name:'Entidade independente exata',type:'STOCK',openingQuantity:'10',openingCost:'200'}});expect(r.status()).toBe(200);const asset=await r.json();
+ await page.setViewportSize({width:360,height:900});await page.goto('/investimentos');await expect(page.getByText('RVLIVE',{exact:true})).toBeVisible();
+ const reason=page.getByText('Custo ou avaliação indisponível',{exact:true});await expect(reason).toHaveCount(1);await reason.scrollIntoViewIfNeeded();await expect.poll(()=>textGeometry(reason,'Custo ou avaliação indisponível')).toMatchObject({ok:true});
+ const observations=[],dir=process.env.CF_REVIEW_EVIDENCE!;
+ for(const kind of ['baseline','filter-opacity','pointerless-overlay','restored']){
+  if(kind==='filter-opacity')await reason.evaluate(el=>{const p=el.parentElement!;p.dataset.reviewStyle=p.getAttribute('style')??'';p.style.filter='opacity(0)';});
+  if(kind==='pointerless-overlay'){await reason.evaluate(el=>{const p=el.parentElement!;p.setAttribute('style',p.dataset.reviewStyle??'');const r=p.getBoundingClientRect(),cover=document.createElement('div');cover.id='reviewer-cover';Object.assign(cover.style,{position:'fixed',left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px',background:'white',zIndex:'2147483647',pointerEvents:'none'});document.body.append(cover);});}
+  if(kind==='restored')await page.evaluate(()=>document.getElementById('reviewer-cover')?.remove());
+  const observed=await textGeometry(reason,'Custo ou avaliação indisponível');await page.screenshot({path:path.join(dir,'live-'+kind+'.png')});observations.push({kind,observed,locatorVisible:await reason.isVisible()});
+ }
+ await page.reload();const stored=(await (await page.request.get('/api/investments')).json()).find((x:{id:string})=>x.id===asset.id);expect(stored).toMatchObject({ticker:'RVLIVE',quantity:10,totalCost:200,valuationAmount:null});
+ await writeFile(path.join(dir,'live-geometry.json'),JSON.stringify({assetId:asset.id,observations,stored,onlyDomExperiment:true},null,2));
+ for(const o of observations)expect.soft(o.observed.ok,o.kind+' painting').toBe(o.kind==='baseline'||o.kind==='restored');
+});

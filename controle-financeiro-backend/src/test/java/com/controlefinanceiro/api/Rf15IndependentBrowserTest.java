@@ -46,7 +46,7 @@ class Rf15IndependentBrowserTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/revalidacao-RF15/browser-extra")
                 .resolve(System.getProperty("review.evidence", "."));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="closure-"+UUID.randomUUID().toString().substring(0,8);
         List<String> command=new ArrayList<>(List.of("node","node_modules/@playwright/test/cli.js","test","--config","tests/e2e/playwright.rf15-independent.config.ts"));
         String grep=System.getProperty("review.grep");
@@ -75,8 +75,8 @@ class Rf15IndependentBrowserTest {
         }).when(email).sendTemplatedEmail(org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString(),org.mockito.ArgumentMatchers.anyString());
         pb.environment().put("CF_MAILBOX",mailbox.toString());
         pb.environment().put("CF015_VISUAL_DIR",evidence.resolve("visual").toString());
-        Process p=pb.start();
-        boolean finished=p.waitFor(15,TimeUnit.MINUTES);
+        Process p=com.controlefinanceiro.api.support.BrowserEvidence.start(pb,getClass(),evidence);
+        boolean finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(p,15,TimeUnit.MINUTES,evidence);
         if(!finished){p.descendants().forEach(ProcessHandle::destroyForcibly);p.destroyForcibly();}
         StringBuilder persisted=new StringBuilder("Namespace: "+namespace+"\nFlyway versions: "+sql.queryForList("select version from flyway_schema_history order by installed_rank",String.class)+"\n");
         for(String query:List.of(

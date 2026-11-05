@@ -1,0 +1,4 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {hash} from '../../../.github/scripts/source.mjs';
+const [perm]=process.argv.slice(2),repo=path.resolve(import.meta.dirname,'../../..'),initial=JSON.parse(fs.readFileSync(perm+'/initial.json')),rows=[];
+for(const file of ['tasks/05-release/CF-034-gates-ci.md','tasks/05-release/CF-036-publicacao.md']){const input=initial.files.find(x=>x.file===file);assert.ok(input);const bytes=fs.readFileSync(repo+'/'+file);assert.equal(hash(bytes),input.sha256);const archive=perm+'/task-originals/'+file;fs.mkdirSync(path.dirname(archive),{recursive:true});fs.writeFileSync(archive,bytes,{flag:'wx'});rows.push({file,archive,sha256:hash(bytes)});}
+fs.writeFileSync(perm+'/task-originals.json',JSON.stringify({at:new Date().toISOString(),rows},null,2)+'\n',{flag:'wx'});console.log('Two original task notes archived with initial hashes');

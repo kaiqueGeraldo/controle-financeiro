@@ -1,0 +1,38 @@
+import {test,expect} from '@playwright/test';
+import {writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {fixtureUser,type FixtureOwner} from './support/fixture-owner';
+import {syntheticUser,registerSyntheticUser,type SyntheticUser} from './support/synthetic-auth';
+import {setCivilDateOnly} from './support/civil-date-clock';
+const pairs:Array<{owners:FixtureOwner[],alias:SyntheticUser['alias'],scenario:string}>=[{owners:['frontend-closure','rf15-surfaces'],alias:'A',scenario:'privacy'},{owners:['cf015-native-zoom','rf15-native-chrome'],alias:'B',scenario:'zoom'}];
+for(const pair of pairs)for(const reverse of [false,true])for(const legacy of [true,false])test(`RESIDUAL identity ${pair.scenario} reverse=${reverse} legacy=${legacy}`,async({browser})=>{
+ const owners=reverse?[...pair.owners].reverse():pair.owners;
+ const namespace=process.env.CF_E2E_NAMESPACE+'-'+pair.scenario[0]+Number(reverse)+Number(legacy);
+ const contexts=[],records:Array<{id:string,accountId:string}>=[];
+ try{
+  for(const owner of owners){
+   const user=legacy?syntheticUser(pair.alias,namespace+'-'+pair.scenario):fixtureUser(pair.alias,namespace,owner,pair.scenario);
+   const context=await browser.newContext({baseURL:'http://127.0.0.1:3107',timezoneId:'America/Sao_Paulo',locale:'pt-BR'});contexts.push(context);
+   const page=await context.newPage();await setCivilDateOnly(page,new Date('2027-01-15T12:00:00Z'));
+   if(legacy && records.length===1){
+    const rejected=await page.request.post('/api/auth/register',{data:{nome:user.name,email:user.email,senha:user.password}});expect(rejected.status()).toBe(400);expect(await rejected.text()).toContain('E-mail já cadastrado');break;
+   }
+   await registerSyntheticUser(page,user);
+   const read=async(url:string)=>{const response=await page.request.get('/api'+url);expect(response.ok()).toBe(true);return response.json();};
+   const post=async(url:string,data:unknown)=>{const response=await page.request.post('/api'+url,{data});expect(response.ok(),await response.text()).toBe(true);return response.json();};
+   const identity=await read('/auth/user');expect(typeof identity.id).toBe('string');
+   const account=await post('/accounts',{name:'Conta RF15 alvo',type:'CHECKING',initialBalance:1000,color:'BLUE'});
+   const similar=await post('/accounts',{name:'Conta RF15 alvo similar',type:'CHECKING',initialBalance:71,color:'BLUE'});
+   const categories=await read('/categories?type=EXPENSE');
+   await post('/transactions',{description:'Despesa da entidade RF15 correta',amount:120,type:'EXPENSE',date:'2027-01-15',accountId:account.id,categoryId:categories[0].id,isPaid:true});
+   await page.goto('/contas');await page.reload();await expect(page.getByText('Conta RF15 alvo',{exact:true})).toBeVisible();
+   const accounts=await read('/accounts');expect(accounts.find((v:{id:string})=>v.id===account.id).balance).toBe(880);expect(accounts.find((v:{id:string})=>v.id===similar.id).balance).toBe(71);
+   for(const previous of records){expect(identity.id).not.toBe(previous.id);expect(accounts.some((v:{id:string})=>v.id===previous.accountId)).toBe(false);}
+   await context.clearCookies();await page.goto('/auth?modo=login');await page.locator('input[name="email"]').fill(user.email);await page.locator('input[name="senha"]').fill(user.password);await page.getByRole('button',{name:'Entrar',exact:true}).click();await expect(page).toHaveURL(/\/$/);
+   await page.goto('/contas');await page.reload();expect((await read('/auth/user')).id).toBe(identity.id);expect((await read('/accounts')).find((v:{id:string})=>v.id===account.id).balance).toBe(880);
+   records.push({id:identity.id,accountId:account.id});
+  }
+  expect(records).toHaveLength(legacy?1:2);
+  await writeFile(path.join(process.env.CF_REVIEW_EVIDENCE!,`identity-${pair.scenario}-${reverse}-${legacy}.json`),JSON.stringify({owners,legacy,reverse,records,legacySecondStatus:legacy?400:undefined},null,2));
+ }finally{for(const context of contexts)await context.close();}
+});

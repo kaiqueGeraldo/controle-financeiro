@@ -8,14 +8,180 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Atualização CPA-01/R1 — 28/10/2026
+
+Revalidação independente de81b20bca (registro de execução privado):
+R1 encerrado localmente e parecer A da consolidação para publicação controlada/CI
+remota. Suporte PG16/17, produto, startup/TCP/RVPLA e16 migrations preservados.
+CF017 continua em_revisao pelos critérios reais já registrados; sem adoção, banco
+real ou novo checkbox. Notas CPA anteriores abaixo conservam valor histórico.
+
+## Histórico da atualização CPA-01 — 28/10/2026
+
+Revalidação independente (registro de execução privado): seleção
+Windows/Linux aceita; resíduo R1 de agregação required mantém parecer C para
+publicação/CI. Não afeta suporte PG16/17, startup/TCP/RVPLA ou os gates reais de
+CF017. Estado em_revisao e checkboxes preservados, sem adoção/banco real.
+
+## Consolidação pré-adoção — 28/10/2026
+
+Parecer integrado e matriz (registro de execução privado),
+entrada56eb80b5/mainfb986456: aceites locais PG16/17, guard/writers/jobs, saúde,
+startup40s, TCP e RVPLA/audit preservados. **CPA-01/P2** exige saneamento separado
+da seleção do teste Windows no job Linux antes de publicação/CI; não é regressão
+do suporte PG ou reabertura de startup/TCP. Limite JSON diagnóstico delimitado.
+CF017 permanece em_revisao: A–D, backup/restore, proveniência e consumidores reais
+pendentes, sem novo checkbox, banco, baseline, migration ou adoção autorizados.
+
+## Revisão independente de startup HQL — 28/10/2026
+
+Parecer do candidato ed42309f (registro de execução privado):
+startup aceito no recorte local da matriz, histórico E inconclusivo não bloqueante
+para preparação/consolidação/revisão do próximo candidato.40s e testes obrigatórios
+preservados; falhas antigas continuam falhas, nova ocorrência bloqueia seu gate.
+Sem requisito normativo de causa raiz completa, sem suíte17 artificialmente verde.
+Aceites TCP/RVPLA/EPERM preservados. CF017 continua em_revisao; inventário A–D,
+backup/restore, temporalidade, freeze e coordenação reais não foram dispensados.
+Sem produto/pacote novo, banco real, CI remota ou publicação. Notas anteriores
+conservam seu valor histórico; startup não é impedimento geral da preparação local.
+
+## Revalidação independente TCP/reuso nativo — 28/10/2026
+
+Parecer do candidato b7a2c206 (registro de execução privado):
+TCP/reuso aceito no harness Windows nativo/JAR/PG16/17, originais 3/3 por
+invocação, contraprova antiga vermelha e controle restaurado verde. Bind único,
+mesma porta e alheios preservados; certificação em 10s/5s, limpeza de erro até
+2s adicionais. Não prova as tuplas históricas. RVPLA-01/03/04/05 e EPERM
+preservados; HQL inconclusivo/40s intactos, próximo experimento só delimitado.
+CF017/P01/P02 permanecem em_revisao, produto/migrations/JAR intactos. Inventário,
+backup/restore, freeze, baseline/DDL e adoção em banco real continuam pendentes;
+nenhum gate remoto liberado. Sem correção de implementação nesta revisão.
+
+## Investigação TCP/reuso nativo — 28/10/2026
+
+Provas e limites (registro de execução privado),
+base3b245d9d/correçãob8b645d0: close do harness Windows confirma liberação TCP
+depois do término; originais PG16/17 e contraprovas causais/restauração registrados.
+Implementado localmente, aguardando revisão independente, sem autoencerramento.
+Aceites RVPLA-01/03/04/05 e EPERM preservados. HQL inconclusivo/40s mantidos;
+CF017/P01/P02 em_revisao, produto/migrations/JAR intactos. Adoção/banco real e
+gates remotos não liberados; próximo experimento HQL somente preparado.
+
+## Revalidação independente residual RVPLA-05 — 28/10/2026
+
+Parecer do candidato d8bd180a (registro de execução privado):
+RVPLA-05/P2 encerrado no original Windows/mesma sessão,3/3 no20s, margem mínima
+4,916s. Redução9/3/13 verificada com confirmação externa/identidade/restauração
+preservadas; aceites específicos RVPLA-03/04 e EPERM mantidos. Preflight/resume/
+audit PG17 limitados passaram. TCP/HQL inconclusivos,40s mantidos. CF017/P01/P02
+permanecem em_revisao: produto/migrations/JAR intactos; inventário, backup/restore,
+freeze, baseline ou DDL reais não executados/liberados. Nenhuma adoção real.
+
+## Saneamento residual RVPLA-05 — 28/10/2026
+
+Medições, contraprovas e preservação (registro de execução privado),
+baseacaa6ed9, implementaçãoe88ee50a:3/3 no original20s, margem mínima7,774s,
+sem relaxar contenção/identidade/confirmação externa. Preflight/resume/audit PG17
+limitados passaram;834 inputs restaurados e checkpoint estável no reuso.
+Saneamento local aguardando revisão independente; aceites RVPLA-03/04 e EPERM
+preservados. TCP/HQL inconclusivos,40s intactos. CF017/P01/P02 em_revisao:
+migrations, JAR e históricos intactos; inventário, backup/restore, freeze,
+baseline e DDL reais não executados nem liberados por esse delta do harness.
+
+## Revalidação independente RVPLA-05 — 27/10/2026
+
+Parecer do candidato019a6ce3 (registro de execução privado):
+RVPLA-05/P2 aberto,0/3 no original20s; cauda reduzida não aprovou o ciclo integral.
+RVPLA-03/04 específicos preservados. Fixture30s expirava naturalmente; complemento
+controlado sustentou preservação do alheio. EPERM causal corrigido e audit PG17
+limitado aprovado, sem identificar detentor histórico. TCP/HQL inconclusivos,40s
+mantidos. Produto/migrations/JAR e históricos preservados. CF017/P01/P02 continuam
+em_revisao; inventário, backup/restore, freeze, baseline ou DDL reais não liberados.
+
+## Saneamento local RVPLA-05 e audit — 27/10/2026
+
+Medições, provas e preservação (registro de execução privado),
+base9c27881, implementação762a085/d254822: prazo20s atendido3/3 localmente;
+canal EPERM corrigido após demonstração causal, audit/preflight PG17 limitados
+passaram com834 inputs restaurados e checkpoint idêntico no reuso. Sem aceite
+independente novo; falha da fixture alheia no grupo antigo explicitada.
+RVPLA-03/04 preservam o alcance específico; TCP/HQL inconclusivos,40s mantidos.
+CF017/P01/P02 permanecem em_revisao. Migrations, JAR e históricos intactos;
+nenhum inventário, backup/restore, freeze, baseline, DDL ou banco real executado
+ou liberado por este saneamento do harness.
+
+## Revalidação independente RVPLA-04 — 27/10/2026
+
+Parecer do candidato badecb55 (registro de execução privado):
+RVPLA-04 encerrado no handoff Windows/mesma sessão; contenção específica RVPLA-03
+preservada. Retomada original20s falhou por latência (RVPLA-05/P2); audit PG17
+falhou por EPERM, causa inconclusiva, após preflight/resume aprovados no recorte.
+Runner integral pendente; TCP/reuso e HQL inconclusivos, 40s intactos. Migrations,
+JAR e históricos preservados. CF017/P01/P02 em_revisao: sem checkbox real
+encerrado, inventário, backup/restore, freeze, baseline ou DDL reais liberados.
+
+## Revalidação independente RVPLA-03 — 27/10/2026
+
+Parecer do candidato0b4c6598 (registro de execução privado):
+abandono original RVPLA-03 encerrado no recorte Windows; novo RVPLA-04 mantém
+pendente a quiescência durante handoff. Reuso nativo e HQL inconclusivos. Suporte
+PG16/17, migrations, controles locais e pacote preservados; CF017/P01/P02 em_revisao,
+sem execução/liberação de inventário, backup/restore, freeze ou DDL reais.
+
+## Revalidação independente do saneamento — 27/10/2026
+
+Parecer do candidatoaa068d1 (registro de execução privado):
+RVPLA-01 encerrado, corrida de porta aceita; novo RVPLA-03 de quiescência do runner
+e startup inconclusivo permanecem pendentes. Suporte local PG16/17, migrations,
+guard/writers/jobs e proveniência preservados. CF017/P01/P02 em_revisao; nenhum
+inventário, backup/restore, freeze, baseline ou migration real executado/liberado.
+
+## Revisão independente da preparação — 26/10/2026
+
+Parecer e evidências (registro de execução privado),
+candidato6f70a87: suporte operacional local16.15/17.11 aprovado, incluindo
+servidores/clientes, migrations/validate, preflight rigoroso e restore. Controles
+de bootstrap/writers/jobs aprovados no alcance local; startup estável não aprovado.
+RVPLA-01 afeta resume do observador, não o comparador ou migrations. Nenhuma
+correção de produto/runner realizada nesta revisão.
+
+CF017/P01/P02 permanecem em_revisao pelas obrigações reais de classificação,
+backup/restore, proveniência e writers. Matriz/configuração e ordem A–D preparadas,
+sem acesso ao banco, baseline, migration, ativação ou deploy remotos.
+
+## Preparação exclusivamente local após revisão — 26/10/2026
+
+Lote local delimitado e resultados (registro de execução privado), entrada
+46b85ee: suporte explícito16/17, marcador de snapshot com major efetiva e teste dos
+clientes reais; perfil adoption separa migrations de bootstrap e mantém validate.
+Migrations V1–V16, comparador rigoroso e provas independentes preservados. Evidência
+local não conclui inventário/backup/restore/proveniência/writers do alvo real.
+Estado em_revisao mantido; provas locais registradas e revisão independente
+pendente. Startup estável não certificado: estouros de40s em Windows e Linux.
+
+## Plano de adoção após revisão CF034 — 26/10/2026
+
+Revisão de prontidão e procedimento A–D (registro de execução privado),
+base integrada fb98645. Cadeia atual V1–V16 preservada; aceites locais RV17-01/02
+e regra da janela continuam válidos, sem reabertura. Imagem Railway configurada
+PG17 e banco offline confirmados; PgSchemaInventory/CLI aprovado recusa major
+diferente16. Preparar/revisar suporte17 em descartável antes de usar essa ferramenta
+no alvo. Nenhuma mudança do verificador ou migrations nesta revisão.
+
+Hibernate externo update, Flyway no bootstrap e agendadores exigem controles
+antes de uma inicialização autorizada. Compatibilidade/inventário/backup/restore,
+proveniência temporal e coordenação de writers reais continuam sem evidência;
+CF017/P01/P02 **em_revisao**, sem novos critérios reais marcados. Plano/documentação
+não executam CF035/036 nem autorizam ligar banco/API, baseline, migrate ou deploy.
+
 ## Delta documental RV17-01/P2 — 15/10/2026
 
-**Situação vigente:** [revalidação independente de 6e64aad](../evidencias/revalidacao-RV17-01-P2/README.md)
+**Situação vigente:** revalidação independente de 6e64aad (registro de execução privado)
 encerra P2 e RV17-01 no escopo local/procedimento documentado. RV17-02 e V1–V14
 preservados. CF-017 permanece em_revisao pelas obrigações de adoção real; CF-029
 continua pronta somente local/descartável. O registro de candidatura abaixo é histórico.
 
-Base `ef08950`: [regra de validade, cenários e encaminhamento restrito](../evidencias/saneamento-RV17-01-P2/README.md).
+Base `ef08950`: regra de validade, cenários e encaminhamento restrito (registro de execução privado).
 Runbook explicita identidade/versões, continuidade da janela, invalidação e parada
 antes da baseline. Candidato aguardando revalidação independente; P2 não encerrado
 pelo executor. Estado em_revisao, aceites locais e prontidão exclusivamente
@@ -24,11 +190,11 @@ local/descartável da CF-029 preservados; nenhuma execução de CF-029 ou adoç�
 ## Revisão independente do saneamento — 15/10/2026
 
 Reconferência sobre HEAD `d806f82`, código `bcec50c` sem delta posterior:
-[75 testes reexecutados e parecer preservado](../evidencias/reconferencia-CF-017/README.md).
+75 testes reexecutados e parecer preservado (registro de execução privado).
 RV17-01 residual P2 aberto, RV17-02 encerrado localmente e adoção real pendente.
 
 Base `bcec50c`, intervalo `4206d88..bcec50c`:
-[parecer, matriz e provas](../evidencias/revalidacao-CF-017/README.md).
+parecer, matriz e provas (registro de execução privado).
 RV17-02 encerrado localmente. RV17-01 aprovado no comparador/read-only/fail-closed,
 mas permanece aberto somente por resíduo operacional P2: validade do preflight
 entre verificação, freeze e baseline, com repetição quando o alvo muda.
@@ -49,7 +215,7 @@ operacional read-only contra inventário semântico da V1, adversariais e oracle
 restore por linha/campo/schema com pg_dump/pg_restore em destinos descartáveis novos.
 Cadeia atual V1–V14 preservada, sem editar migrations nem fabricar proveniência.
 
-[Evidências, matriz, custos e encaminhamento independente](../evidencias/saneamento-CF-017/README.md).
+Evidências, matriz, custos e encaminhamento independente (registro de execução privado).
 Saneamento do executor não encerra achados por autoaprovação: CF-017 e sua derivada
 continuam `em_revisao`. Inventário/backup/proveniência/writers/adoção reais permanecem
 não autorizados e não comprovados. CF-029 permanece proposta, sem liberação automática.
@@ -60,7 +226,7 @@ foram preservadas, sem nova revisão integral do marco.
 
 Estado `em_revisao` mantido. Categorias 2 e 5, separadas: RV17-01 exige preflight versionado completo com adversariais antes da baseline; RV17-02 exige fingerprint por PK/campos brutos/origem/saldos/relações e schema no restore. Inventário, backup/restore, proveniência e writers do ambiente real dependem de autorização e evidência próprias. V13 local aprovada não satisfaz esses três gates.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -70,7 +236,7 @@ anteriores. Isso não encerra RV17-01/RV17-02, P01/P02, proveniência, backup/re
 adoção reais. A derivada temporal mantém seus critérios ainda não atendidos; V1/V2 é a
 referência histórica da primeira liberação, não a versão máxima atual da base local.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -115,7 +281,7 @@ Execução local de 22/09/2026 sobre `2269b22`: Flyway 11.14.1, V1 pré-temporal
 V2 aditiva, fixture legada independente, Hibernate validate, checksum,
 falha/recuperação e backup/restore sintético implementados e aprovados em PostgreSQL
 16 descartável. `ddl-auto=update` local foi substituído por `validate`; baseline
-automática e clean permanecem desabilitados. [Evidência, inventário e rollout](../evidencias/CF-017/README.md).
+automática e clean permanecem desabilitados. Evidência, inventário e rollout (registro de execução privado).
 Implementação/testes: `ae494c0be844dc1d7fa3d39073ab2acef2005533`.
 
 Permanece `em_revisao`: schema/volume/backup/restore reais não existem nesta base.
@@ -127,22 +293,22 @@ para iniciar CF-018 em PostgreSQL descartável. Adoção real permanece bloquead
 o preflight sintético aceita ao menos uma incompatibilidade de FK; o restore
 sintético também possui oracle parcial. Estado mantido `em_revisao` para não
 confundir fundação local apta com baseline/publicação autorizadas.
-[Parecer, achados e execuções](../evidencias/revisao-CF-017/README.md).
+Parecer, achados e execuções (registro de execução privado).
 
 ## Saneamento do marco em 30/09/2026
 
 Saneamento acrescentou V6–V11 sem editar V1–V5. Provas locais de banco vazio/legado/upgrades, checksum, falha/recuperação e Hibernate validate em PostgreSQL descartável. V11 não fabrica cobertura para legados. RV17-01/RV17-02, inventário/backup/restore e adoção reais permanecem pendentes; não há autorização para publicação.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Revalidação independente — 30/09/2026
 
-Base local V1–V11 revalidada. Mantidas RV17-01/RV17-02 e adoção real; nenhuma autorização de publicação. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+Base local V1–V11 revalidada. Mantidas RV17-01/RV17-02 e adoção real; nenhuma autorização de publicação. Consulte a matriz e o parecer (registro de execução privado) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
 
 ## Consolidação conjunta — 30/09/2026
 
 Estado em_revisao preservado. A revisão CF-022/023 executou V12, banco vazio,
 upgrade/legado/checksum/falha/recuperação e Hibernatevalidate em ambiente
 descartável, sem encerrar RV17-01/RV17-02, adoção real ou P01/P02.
-[Critérios pendentes e prontidão local](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+Critérios pendentes e prontidão local (registro de execução privado).
 Base local apta não é autorização de baseline/migração/publicação em banco real.

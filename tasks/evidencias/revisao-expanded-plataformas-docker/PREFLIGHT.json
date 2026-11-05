@@ -1,0 +1,90 @@
+{
+  "runtime": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-plataformas-docker-20261103-01",
+  "daemonId": "2455a676-938f-48d8-a0ef-67c98474314d",
+  "context": {
+    "Host": "npipe:////./pipe/dockerDesktopLinuxEngine",
+    "SkipTLSVerify": false
+  },
+  "stepsAB": "Docker connection and identified disposable TCP container created through desktop-linux; both JVMs proved same daemon ID and received exact run token",
+  "topologies": [
+    {
+      "topology": "linux-sibling",
+      "exit": 1,
+      "stages": [
+        {
+          "stage": "C",
+          "status": "PASS",
+          "detail": "host=host.docker.internal port=53066 tokenMatches=true"
+        },
+        {
+          "stage": "D",
+          "status": "PASS",
+          "detail": "Ryuk initialized and handshake active"
+        },
+        {
+          "stage": "E",
+          "status": "PASS",
+          "detail": "disposable PostgreSQL started"
+        },
+        {
+          "stage": "F",
+          "status": "FAIL",
+          "detail": "java.lang.IllegalStateException: Banco recusado pelo perfil de teste: host loopback e nome efemero exato sao obrigatorios. URL recebida: jdbc:postgresql://host.docker.internal:53070/cf_test_cfreview2026110301?loggerLevel=OFF"
+        }
+      ],
+      "session": "e91a5cf7-e123-44db-9ef4-10998290ac5b",
+      "daemon": "2455a676-938f-48d8-a0ef-67c98474314d",
+      "remainingAfter": "",
+      "logSha256": "37cb208e10ee215d9c6be69fc3c3cafff738da204ae4ee6026b3e76a15759bf2"
+    },
+    {
+      "topology": "windows-native",
+      "exit": 0,
+      "stages": [
+        {
+          "stage": "C",
+          "status": "PASS",
+          "detail": "host=127.0.0.1 port=53066 tokenMatches=true"
+        },
+        {
+          "stage": "D",
+          "status": "PASS",
+          "detail": "Ryuk initialized and handshake active"
+        },
+        {
+          "stage": "E",
+          "status": "PASS",
+          "detail": "disposable PostgreSQL started"
+        },
+        {
+          "stage": "F",
+          "status": "PASS",
+          "detail": "original guard and external/wrong-name negatives"
+        },
+        {
+          "stage": "G",
+          "status": "PASS",
+          "detail": "JDBC current_database and 1+1=2"
+        }
+      ],
+      "session": "24b2e3d9-03d9-43fc-a0aa-403b137f0ce9",
+      "daemon": "2455a676-938f-48d8-a0ef-67c98474314d",
+      "remainingAfter": "",
+      "logSha256": "368aedeb29b79304340b9ae3b669292546f0bd87926d6147c64b7b273934fc14"
+    }
+  ],
+  "stageH": {
+    "status": "PASS",
+    "finalCleanup": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-plataformas-docker-20261103-01\\cleanup-final.json",
+    "sha256": "96a1f9664784fc66e31a9f2a2affdc437dc8c3345610b8a80cdf2ea585942306",
+    "baselineContainersPreserved": 8
+  },
+  "directed": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "invocation": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\revisao-plataformas-docker-20261103-01\\directed-02\\invocation.json",
+    "sha256": "f0908e641aabfa0a9a82d00a4e989a37ac3900331cb4a4256ff1e6ae1447edf2"
+  }
+}

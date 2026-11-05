@@ -16,7 +16,7 @@ do Clock, SQL/HTTP/reload preservam UTC e proveniência; legado bruto/null perma
 UNKNOWN. V14 aprovada localmente em banco vazio e upgrade V13, sem backfill.
 Os quatro critérios originais e trabalhos1/2/3 foram confrontados com aceites
 acumulados: todos atendidos no escopo próprio; tarefa **concluida**.
-[Parecer, matriz, hashes, validação e limites](../evidencias/revalidacao-RD58/README.md).
+Parecer, matriz, hashes, validação e limites (registro de execução privado).
 Não se transfere obrigação para encerrar a tarefa: adoção real já pertence ao
 escopo original CF-017/derivada e continua aberta, sem certificação Railway.
 CF-007/008 local, CF-009/RV24-01 e contratos financeiros preservados.
@@ -33,7 +33,7 @@ incompleto nesse writer/DTO; não atribuir origem ao legado para encerrá-lo.
 Clock/fuso, civil/hora informada, bordas/token e P01/P02 sintéticos preservam
 aceites nos caminhos comprovados. Adoção real continua na CF-017/derivada.
 
-[Matriz por critério, parecer e condições de encerramento](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+Matriz por critério, parecer e condições de encerramento (registro de execução privado),
 base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. Não é pendência genérica de
 revisão ou exigência de operar banco real; as notas datadas abaixo são históricas.
 
@@ -41,7 +41,7 @@ revisão ou exigência de operar banco real; as notas datadas abaixo são histó
 
 Estado `em_revisao` mantido. Categorias 1 e 5: falta decisão integral por critério sobre Clock/fuso, round trip/horário, bordas/token e writers; schema/proveniência/coordenação reais continuam CF-017/P01/P02. Calendário backend local já foi liberado para CF-022. Encerrar exige parecer delimitado, sem converter aprovação sintética em adoção real.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -51,7 +51,7 @@ local. Estado `em_revisao` mantido para o aceite final e adoção temporal real,
 CF-017/derivada; nenhuma migração remota ou proveniência foi certificada. Adoção pendente
 não é impedimento automático de desenvolvimento descartável.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -94,7 +94,7 @@ Concluída em 08/09/2026 sobre `main`, HEAD `169d7be4c7d3db97d4c318ff3f99d9de3a8
 
 O schema foi verificado em PostgreSQL descartável e não houve troca de tipo: `date` continua representando dia civil e os `timestamp without time zone` legados permanecem mapeados para decisão da CF-017. A exceção de caminho `infra/security/TokenService.java` foi necessária e coberta por teste de fronteira de expiração; controllers/envelopes HTTP continuam na CF-008.
 
-Evidência completa, falha anterior, mutações, comandos, mapa de schema e riscos residuais: [tasks/evidencias/CF-006/README.md](../evidencias/CF-006/README.md).
+Evidência completa, falha anterior, mutações, comandos, mapa de schema e riscos residuais: tasks/evidencias/CF-006/README.md (registro de execução privado).
 
 Gate final em JDK 21 com JVM UTC: `mvnw.cmd ... -Duser.timezone=UTC clean verify` — `BUILD SUCCESS`, 45 testes, 0 falhas, 0 erros, 0 ignorados, com integração em PostgreSQL `16-alpine` descartável e JAR empacotado. Nenhum teste foi enfraquecido; três mutações temporárias produziram quatro falhas causais e foram executadas apenas em cópia isolada.
 
@@ -105,7 +105,7 @@ Dependências: a CF-007 fica integralmente liberada. CF-019 e CF-022 passam a te
 
 R06/R07/R15/R16 corrigidos. P01/P02 dependem de proveniência e transição de esquema; perfil canônico não está integralmente entregue.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
 
@@ -115,7 +115,7 @@ foi verificado; commits intermediários não são apresentados como testados.
 
 P01/P02 receberam armazenamento aditivo candidato, writers explícitos e testes PostgreSQL. Migração real/proveniência continuam abertas na derivada CF-017.
 
-[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Implementação, autotestes e limites (registro de execução privado).
 Estado permanece em_revisao; esta execução não substitui revisão independente.
 
 ## Saneamento restrito RD58 — 09/10/2026
@@ -127,4 +127,4 @@ RD58-02 adiciona auditoria de GoalHistory por Clock, V14 sem backfill, DTO com
 proveniência e apresentação de legado com fuso desconhecido. Provas originais
 preservadas; integração PostgreSQL, upgrade/legado e regressões documentados.
 Aceites locais CF-007/008 e CF-009/RV24-01 preservados; adoção real sob CF-017.
-CF-028 não iniciada. [Causas, provas, limites e encaminhamento](../evidencias/saneamento-RD58/README.md).
+CF-028 não iniciada. Causas, provas, limites e encaminhamento (registro de execução privado).

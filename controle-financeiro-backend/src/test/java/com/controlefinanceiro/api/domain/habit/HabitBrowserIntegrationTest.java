@@ -31,7 +31,7 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
         Path backend = Path.of(System.getProperty("user.dir")).toAbsolutePath();
         Path frontend = backend.resolveSibling("controle-financeiro-frontend");
         Path evidence = backend.resolve(System.getProperty("cf022.evidence", "../tasks/evidencias/CF-022/browser")).normalize();
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace = "cf022-" + UUID.randomUUID().toString().substring(0, 8);
         var server = new ProcessBuilder("node", "node_modules/next/dist/bin/next", "dev", "--hostname", "127.0.0.1", "--port", "3112");
         server.directory(frontend.toFile()); server.redirectErrorStream(true); server.redirectOutput(evidence.resolve("next.log").toFile());
@@ -44,8 +44,8 @@ class HabitBrowserIntegrationTest extends PostgresIntegrationTest {
                     frontend.toString(), evidence.toString(), namespace, instant);
             browser.directory(frontend.toFile()); browser.redirectErrorStream(true); browser.redirectOutput(evidence.resolve("playwright.log").toFile());
             browser.environment().put("PLAYWRIGHT_BROWSERS_PATH", "0");
-            Process process = browser.start();
-            boolean completed = process.waitFor(180, TimeUnit.SECONDS);
+            Process process=com.controlefinanceiro.api.support.BrowserEvidence.start(browser,getClass(),evidence);
+            boolean completed = com.controlefinanceiro.api.support.BrowserEvidence.waitFor(process,180,TimeUnit.SECONDS,evidence);
             if (!completed) { process.descendants().forEach(ProcessHandle::destroyForcibly); process.destroyForcibly(); }
             assertThat(completed).as("Browser process completed").isTrue();
             assertThat(process.exitValue()).as(Files.readString(evidence.resolve("playwright.log"))).isZero();

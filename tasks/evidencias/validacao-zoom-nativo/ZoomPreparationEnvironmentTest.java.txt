@@ -1,0 +1,51 @@
+package com.controlefinanceiro.api;
+
+import com.controlefinanceiro.api.infra.mail.EmailService;
+import com.controlefinanceiro.api.migration.EmptyMigrationTestInitializer;
+import com.controlefinanceiro.api.service.MarketDataService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
+import java.time.Instant;
+
+/** Environment preparation only. Does not execute or approve either native zoom scenario. */
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties={"server.address=127.0.0.1", "spring.flyway.enabled=true", "spring.jpa.hibernate.ddl-auto=validate"})
+@ContextConfiguration(initializers=EmptyMigrationTestInitializer.class)
+@Import(Rf15RemediationBrowserTest.FixedClock.class)
+class ZoomPreparationEnvironmentTest {
+    @LocalServerPort int port;
+    @Autowired JdbcTemplate sql;
+    @MockitoBean EmailService email;
+    @MockitoBean MarketDataService quotes;
+
+    @Test void provideDisposableEnvironment() throws Exception {
+        Path runtime=Path.of(System.getProperty("zoom.preparation.output")).toAbsolutePath().normalize();
+        if (!Files.isDirectory(runtime) || !runtime.getFileName().toString().equals("preparation"))
+            throw new IllegalArgumentException("Explicit existing preparation output required");
+        Integer migrations=sql.queryForObject("select count(*) from flyway_schema_history where version='11' and success",Integer.class);
+        if (!Integer.valueOf(1).equals(migrations)) throw new IllegalStateException("Migration 11 required");
+        Files.writeString(runtime.resolve("backend-ready.json"),
+                "{\"url\":\"http://127.0.0.1:"+port+"\",\"migration11\":true,\"pid\":"+ProcessHandle.current().pid()+"}");
+        Instant deadline=Instant.now().plus(Duration.ofMinutes(10));
+        while (!Files.exists(runtime.resolve("stop"))) {
+            if (Instant.now().isAfter(deadline)) throw new IllegalStateException("Preparation environment deadline exceeded");
+            Thread.sleep(100);
+        }
+        Files.writeString(runtime.resolve("database-after.json"),
+                "{\"users\":"+sql.queryForObject("select count(*) from users",Integer.class)
+                +",\"accounts\":"+sql.queryForObject("select count(*) from accounts",Integer.class)
+                +",\"cards\":"+sql.queryForObject("select count(*) from credit_cards",Integer.class)
+                +",\"purchases\":"+sql.queryForObject("select count(*) from card_transactions",Integer.class)+"}");
+    }
+}

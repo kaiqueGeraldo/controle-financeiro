@@ -1,0 +1,27 @@
+# API only. Run the separately authorized Flyway job BEFORE starting this profile.
+# Environment/CLI overrides still win; AdoptionSafetyInitializer rejects unsafe DDL.
+spring:
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: never
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    hikari:
+      connection-timeout: 3000
+      validation-timeout: 1000
+
+app:
+  operations:
+    writers-enabled: false
+    jobs-enabled: false
+
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+
+spring.lifecycle.timeout-per-shutdown-phase: 30s

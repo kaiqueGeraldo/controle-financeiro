@@ -1,4 +1,4 @@
--- PostgreSQL 16 semantic inventory. Names of constraints/indexes and physical
+-- PostgreSQL 16/17 semantic inventory. Names of constraints/indexes and physical
 -- column order are deliberately excluded; multiplicity is preserved.
 WITH rel AS (
  SELECT c.* FROM pg_catalog.pg_class c

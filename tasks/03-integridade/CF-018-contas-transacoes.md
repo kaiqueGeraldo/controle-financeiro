@@ -56,13 +56,13 @@ PostgreSQL descartável. A parte necessária de CF-008 (contratos HTTP/temporais
 contas/transações) está comprovada nos limites registrados; pendências de
 planejamento, hábitos, UI e a política global CF-023/024 não exigem encerrar toda
 a CF-008 antes desta implementação. Adoção de banco real continua bloqueada e não
-faz parte dessa autorização local. [Parecer dirigido CF-017](../evidencias/revisao-CF-017/README.md).
+faz parte dessa autorização local. Parecer dirigido CF-017 (registro de execução privado).
 
 Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar integradas na base utilizada. Se um critério essencial não puder ser validado, manter pendência ou bloqueio explícito, sem declarar conclusão.
 
 Implementação local encerrada em 28/09/2026 no commit de produto `4203f18`,
 com V3 aditiva, 24 regressões PostgreSQL da CF-018, 8 verificações de migração
-e a suíte backend completa em 136/136. A [evidência](../evidencias/CF-018/README.md)
+e a suíte backend completa em 136/136. A evidência (registro de execução privado)
 registra a reprodução anterior, comandos, atomicidade, concorrência, trade-offs
 e limites. O estado é `em_revisao`: não houve revisão independente nesta
 execução, nem baseline/migração em banco real. RV17-01/RV17-02, backup/restore e
@@ -72,11 +72,11 @@ adoção temporal real permanecem abertos exatamente como na revisão CF-017.
 
 RVI-01/02/03/09/19 e parte de RVI-21: política de fonte ativa/capacidade sob lock, déficit bancário real distinto de gasto voluntário, baixa legada preserva previsão, baixa/transferência prevista atômica e estorno parcial com data/motivo/chave/recibo. UI executa e relê os fatos após reload. H-01 reproduzido e corrigido por ordem conta→investimento; arquivamento espera writer independente.
 
-[Matriz, checkpoints e limitações](../evidencias/saneamento-CF-016-CF-021/README.md). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
+Matriz, checkpoints e limitações (registro de execução privado). Marco aguardando revisão independente; autotestes não são aceite. Sem banco real, Railway, email real, push ou deploy.
 
 ## Revalidação independente — 30/09/2026
 
-Correções de reserva, arquivo, baixa, transferência e estorno aprovadas no recorte. O parecer não encerra auditorias transversais nem altera automaticamente o estado integral da tarefa. Consulte a [matriz e o parecer](../evidencias/revalidacao-CF-016-CF-021/README.md) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
+Correções de reserva, arquivo, baixa, transferência e estorno aprovadas no recorte. O parecer não encerra auditorias transversais nem altera automaticamente o estado integral da tarefa. Consulte a matriz e o parecer (registro de execução privado) antes de considerar o marco encerrado. Sem correção de produto ou início de CF-022+ nesta revisão.
 
 ## Consolidação de aceite — 30/09/2026
 
@@ -84,6 +84,6 @@ Concluída no escopo próprio após confrontar cada critério com a revisão ori
 e os encerramentos RVI-01/02/03/09/19, H-01 e as provas de rollback/detecção de
 regressão. Abertura, fluxo realizado/pendente, transferência, baixa/estorno e
 atomicidade têm aceite independente; nenhuma pendência própria restante foi
-identificada. [Matriz por critério e limites](../evidencias/revisao-CF-022-CF-023/MATRIZ-ESTADOS.md).
+identificada. Matriz por critério e limites (registro de execução privado).
 Auditoria transversal de todos os writers/concorrência/cache, desempenho e adoção
 real conservam seus gates CF-024/025/017. Esta conclusão não libera publicação.

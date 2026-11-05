@@ -9,7 +9,7 @@ import java.util.List;
 
 /** Catalog only: never creates a reference schema on the inspected target. */
 public final class PgSchemaInventory {
-    // PostgreSQL 16 dump/reparse distributes varchar[] -> text[] over literal
+    // PostgreSQL 16/17 dump/reparse distributes varchar[] -> text[] over literal
     // elements. Only this exact enum-literal form is equivalent here; no general
     // SQL rewriting, no typmod removal, no literal values/order discarded.
     private static final String ENUM_LITERAL = "'[A-Z_][A-Z_0-9]*'";
@@ -49,7 +49,8 @@ public final class PgSchemaInventory {
             try (var r = s.executeQuery("SELECT current_schema(),current_setting('server_version_num')::int")) {
                 r.next();
                 if (!schema.equals(r.getString(1))) throw new SQLException("Target schema absent/inaccessible");
-                if (r.getInt(2) / 10000 != 16) throw new SQLException("Only PostgreSQL 16 verified");
+                int major = r.getInt(2) / 10000;
+                if (major != 16 && major != 17) throw new SQLException("Only PostgreSQL 16/17 supported");
             }
         }
     }

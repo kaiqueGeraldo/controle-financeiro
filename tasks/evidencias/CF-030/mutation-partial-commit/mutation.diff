@@ -1,6 +1,0 @@
---- service/onboarding/OnboardingApplicationService.java
-+++ isolated/service/onboarding/OnboardingApplicationService.java
--    @Transactional
-    public JsonNode complete(
-+    @Transactional(noRollbackFor=IllegalStateException.class)
-    public JsonNode complete(

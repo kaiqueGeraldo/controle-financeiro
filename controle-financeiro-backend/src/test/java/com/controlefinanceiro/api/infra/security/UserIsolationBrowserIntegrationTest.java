@@ -17,7 +17,22 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers=IsolationSchemaInitializer.class)
+@org.springframework.context.annotation.Import(UserIsolationBrowserIntegrationTest.CredentialClock.class)
 class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
+    /** Edge middleware evaluates expiry on its real clock, outside the Node preload. */
+    @org.springframework.boot.test.context.TestConfiguration
+    static class CredentialClock {
+        @org.springframework.context.annotation.Bean
+        static org.springframework.beans.factory.config.BeanPostProcessor credentialClock() {
+            return new org.springframework.beans.factory.config.BeanPostProcessor() {
+                @Override public Object postProcessBeforeInitialization(Object bean,String name) {
+                    if(bean instanceof TokenService)
+                        org.springframework.test.util.ReflectionTestUtils.setField(bean,"clock",Clock.systemUTC());
+                    return bean;
+                }
+            };
+        }
+    }
     @LocalServerPort int port;
     @Autowired JdbcTemplate sql;
     @MockitoBean Clock clock;
@@ -27,25 +42,33 @@ class UserIsolationBrowserIntegrationTest extends PostgresIntegrationTest {
         Path backend=Path.of(System.getProperty("user.dir")).toAbsolutePath();
         Path frontend=backend.resolveSibling("controle-financeiro-frontend");
         Path evidence=backend.resolve(System.getProperty("cf023.evidence", "../tasks/evidencias/CF-023/browser/"+System.getProperty("cf023.run","candidate"))).normalize();
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         String namespace="cf023-"+UUID.randomUUID().toString().substring(0,8);
-        var server=new ProcessBuilder("node","node_modules/next/dist/bin/next","dev","--hostname","127.0.0.1","--port","3113");
+        Path preparedFrontend=Path.of(System.getProperty("cf023.frontend.runtime",evidence.resolve("frontend-runtime").toString())).resolve(namespace);
+        Files.writeString(evidence.resolve("prepared-frontend-path.txt"),preparedFrontend.toAbsolutePath().toString());
+        var server=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/prepared-server.cjs").toString(),frontend.toString(),preparedFrontend.toString());
         server.directory(frontend.toFile());server.redirectErrorStream(true);server.redirectOutput(evidence.resolve("next.log").toFile());
         server.environment().put("BACKEND_API_URL","http://127.0.0.1:"+port);
-        server.environment().put("CF_E2E_SERVER_CLOCK","1");server.environment().put("CF_E2E_AUTH_NOW",instant);
-        server.environment().put("NODE_OPTIONS","--require ./tests/e2e/support/server-clock.cjs");
         Process next=server.start();
         try {
-            var runner=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/browser.cjs").toString(),frontend.toString(),evidence.toString(),namespace,instant);
+            var runner=new ProcessBuilder("node",backend.resolve("src/test/java/com/controlefinanceiro/api/infra/security/browser.cjs").toString(),frontend.toString(),evidence.toString(),namespace,instant,preparedFrontend.resolve("loopback.crt").toString());
             runner.directory(frontend.toFile());runner.redirectErrorStream(true);runner.redirectOutput(evidence.resolve("playwright.log").toFile());
             runner.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-            Process browser=runner.start();boolean completed=browser.waitFor(180,TimeUnit.SECONDS);
+            Process browser=com.controlefinanceiro.api.support.BrowserEvidence.start(runner,getClass(),evidence);boolean completed=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(browser,180,TimeUnit.SECONDS,evidence);
             if(!completed){browser.descendants().forEach(ProcessHandle::destroyForcibly);browser.destroyForcibly();}
             assertThat(completed).as("Browser completed").isTrue();
             assertThat(browser.exitValue()).as(Files.readString(evidence.resolve("playwright.log"))).isZero();
             assertThat(sql.queryForList("select balance from accounts where name like ? order by name",java.math.BigDecimal.class,namespace+"-ACCOUNT-%"))
                     .containsExactly(new java.math.BigDecimal("1000.00"),new java.math.BigDecimal("2300.00"));
             assertThat(sql.queryForObject("select count(distinct user_id) from accounts where name like ?",Integer.class,namespace+"-ACCOUNT-%")).isEqualTo(2);
-        } finally {next.descendants().forEach(ProcessHandle::destroyForcibly);next.destroyForcibly();}
+        } finally {
+            try {
+                if("1".equals(System.getenv("CF_BROWSER_DIAGNOSTICS"))) {
+                    var accounts=sql.queryForList("select a.name,a.balance,a.user_id from accounts a join users u on u.id=a.user_id where u.email like ? order by a.name",namespace+"-%@example.invalid");
+                    var receipts=sql.queryForList("select r.kind,count(*) from financial_intent_receipts r join users u on u.id=r.user_id where u.email like ? group by r.kind",namespace+"-%@example.invalid");
+                    Files.writeString(evidence.resolve("sql-state-private.txt"),"Accounts: "+accounts+"\nReceipts: "+receipts+"\n");
+                }
+            } finally {next.descendants().forEach(ProcessHandle::destroyForcibly);next.destroyForcibly();}
+        }
     }
 }

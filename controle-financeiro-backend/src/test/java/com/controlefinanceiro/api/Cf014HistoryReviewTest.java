@@ -2,7 +2,7 @@ package com.controlefinanceiro.api;
 
 import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.MarketDataService;
-import com.controlefinanceiro.api.migration.EmptyMigrationTestInitializer;
+import com.controlefinanceiro.api.migration.IsolatedHistorySchemaInitializer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,9 +23,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties={"spring.flyway.enabled=true","spring.jpa.hibernate.ddl-auto=validate"})
-@ContextConfiguration(initializers=EmptyMigrationTestInitializer.class)
+@ContextConfiguration(initializers=Cf014HistoryReviewTest.Schema.class)
+@org.springframework.test.annotation.DirtiesContext(classMode=org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS)
 @Import(Rvr24VisualBrowserTest.FixedClock.class)
 class Cf014HistoryReviewTest {
+    // A distinct initializer type also prevents Spring's context cache from
+    // reusing the Diagnostic context with its already populated fixed IDs.
+    public static class Schema extends IsolatedHistorySchemaInitializer {}
     @LocalServerPort int port;
     @Autowired JdbcTemplate sql;
     @MockitoBean EmailService email;
@@ -35,7 +39,7 @@ class Cf014HistoryReviewTest {
         Path front=Path.of(System.getProperty("user.dir")).toAbsolutePath().resolveSibling("controle-financeiro-frontend");
         Path evidence=front.resolveSibling("tasks/evidencias/revalidacao-CF014-historico-invisivel")
                 .resolve(System.getProperty("diagnostic.run","browser"));
-        Files.createDirectories(evidence);
+        evidence=com.controlefinanceiro.api.support.BrowserEvidence.directory(getClass(),evidence);
         sql.update("insert into users(id,nome,email,senha,dark_mode,privacy_mode) values (?,?,?,?,true,false)",
                 id(1),"Pessoa Sintética CF014","cf014-diagnostic@example.invalid",new BCryptPasswordEncoder().encode("Cf014-Synthetic-2026"));
         for(int asset=0;asset<3;asset++) {
@@ -65,8 +69,8 @@ class Cf014HistoryReviewTest {
         pb.environment().put("CF_E2E_AUTH_NOW","2027-01-15T12:00:00Z");
         pb.environment().put("CF_REVIEW_EVIDENCE",evidence.toString());
         pb.environment().put("PLAYWRIGHT_BROWSERS_PATH","0");
-        Process process=pb.start();
-        boolean finished=process.waitFor(8,TimeUnit.MINUTES);
+        Process process=com.controlefinanceiro.api.support.BrowserEvidence.start(pb,getClass(),evidence);
+        boolean finished=com.controlefinanceiro.api.support.BrowserEvidence.waitFor(process,8,TimeUnit.MINUTES,evidence);
         if(!finished){process.descendants().forEach(ProcessHandle::destroyForcibly);process.destroyForcibly();}
         var after=sql.queryForList(query);
         var fullAfter=financialSnapshot();

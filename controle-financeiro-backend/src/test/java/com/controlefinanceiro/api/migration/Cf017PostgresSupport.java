@@ -16,7 +16,7 @@ import java.util.UUID;
 
 final class Cf017PostgresSupport {
     private static final String DATABASE_NAME = "cf_test_cf017_" + UUID.randomUUID().toString().replace("-", "");
-    private static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres:16-alpine")
+    private static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer(postgresImage())
             .withDatabaseName(DATABASE_NAME)
             .withUsername("cf017")
             .withPassword("cf017");
@@ -24,10 +24,19 @@ final class Cf017PostgresSupport {
     private Cf017PostgresSupport() {
     }
 
+    private static String postgresImage() {
+        String major = System.getProperty("cf017.postgres.major", "16");
+        if (!java.util.Set.of("16", "17").contains(major)) {
+            throw new IllegalArgumentException("CF017 tests support only PostgreSQL 16/17; no external fallback");
+        }
+        return "postgres:" + major + "-alpine";
+    }
+
     static synchronized void start() {
         if (!POSTGRES.isRunning()) {
             try {
                 POSTGRES.start();
+                verifyToolchain();
             } catch (RuntimeException exception) {
                 throw new IllegalStateException(
                         "PostgreSQL descartavel CF-017 indisponivel; nenhum banco externo sera usado como fallback.",
@@ -36,6 +45,27 @@ final class Cf017PostgresSupport {
             }
         }
         DisposablePostgresGuard.requireDisposable(POSTGRES.getJdbcUrl(), DATABASE_NAME);
+    }
+
+    private static void verifyToolchain() {
+        try (var c = DriverManager.getConnection(POSTGRES.getJdbcUrl(), username(), password());
+             var s = c.createStatement(); var r = s.executeQuery("SELECT current_setting('server_version_num')::int,version()")) {
+            r.next();
+            int major = r.getInt(1) / 10000;
+            if (!Integer.toString(major).equals(System.getProperty("cf017.postgres.major", "16"))) {
+                throw new IllegalStateException("Unexpected PostgreSQL server major");
+            }
+            System.out.println("CF017_SERVER " + r.getString(2) + " container=" + POSTGRES.getContainerId());
+            for (String tool : java.util.List.of("psql", "pg_dump", "pg_restore")) {
+                var result = POSTGRES.execInContainer(tool, "--version");
+                if (result.getExitCode() != 0 || !result.getStdout().contains("(PostgreSQL) " + major + ".")) {
+                    throw new IllegalStateException("Incompatible client " + tool);
+                }
+                System.out.println("CF017_CLIENT " + result.getStdout().trim());
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("Disposable PostgreSQL toolchain verification failed", e);
+        }
     }
 
     static String createSchema(String prefix) {
@@ -147,5 +177,13 @@ final class Cf017PostgresSupport {
     static void writeContainerTestFile(String filename, String contents) {
         if (!filename.matches("/tmp/cf017_[a-z0-9_]+\\.list")) throw new IllegalArgumentException("Not a test TOC path");
         POSTGRES.copyFileToContainer(org.testcontainers.images.builder.Transferable.of(contents.getBytes(java.nio.charset.StandardCharsets.UTF_8)), filename);
+    }
+
+    static void pauseServer() {
+        POSTGRES.getDockerClient().pauseContainerCmd(POSTGRES.getContainerId()).exec();
+    }
+
+    static void resumeServer() {
+        POSTGRES.getDockerClient().unpauseContainerCmd(POSTGRES.getContainerId()).exec();
     }
 }

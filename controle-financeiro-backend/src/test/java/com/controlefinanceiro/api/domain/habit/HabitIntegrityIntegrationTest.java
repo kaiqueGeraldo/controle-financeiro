@@ -32,7 +32,10 @@ import javax.sql.DataSource;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(properties = {"spring.flyway.enabled=true", "spring.jpa.hibernate.ddl-auto=validate"})
+// These cases deliberately inspect/run the real scheduler and ShedLock. Other
+// test contexts keep scheduling disabled to avoid unrelated background work.
+@SpringBootTest(properties = {"spring.flyway.enabled=true", "spring.jpa.hibernate.ddl-auto=validate",
+        "app.operations.jobs-enabled=true"})
 @ContextConfiguration(initializers = HabitSchemaInitializer.class)
 // Worker transactions commit outside the test thread. Close their context after each
 // method and give its replacement a new schema; retain old schemas until container exit.

@@ -10,7 +10,7 @@
 
 ## Prontidão independente restrita — 03/10/2026
 
-**Apta a iniciar exclusivamente a especificação**, base `06c1a51`. [Decisão independente](../evidencias/revisao-CF-025-CF-027-RV24/README.md) confronta CF-016/018/019/020/023 e alterações posteriores. CF-016/018/020/023 conservam aceite próprio; CF-019 oferece dívida/parcelas/abertura e backend aceitos em J/C, suficientes para definir contrato/DTOs/validações do onboarding sem consumir a interação de pagamento120 investigada em RVA-03.
+**Apta a iniciar exclusivamente a especificação**, base `06c1a51`. Decisão independente (registro de execução privado) confronta CF-016/018/019/020/023 e alterações posteriores. CF-016/018/020/023 conservam aceite próprio; CF-019 oferece dívida/parcelas/abertura e backend aceitos em J/C, suficientes para definir contrato/DTOs/validações do onboarding sem consumir a interação de pagamento120 investigada em RVA-03.
 
 Liberação explícita de capacidade CF-019→CF-028, sem concluir CF-019 ou fechar RVA-03. Não há dependência direta criada de CF-025/026/027. Não implementada nem aprovada antecipadamente: todos os critérios abaixo permanecem pendentes. CF-029–034, finalização, UI, migração real e deploy não liberados por esta nota; protocolo/concorrência próprios do onboarding ainda serão especificados e validados nas tarefas correspondentes.
 
@@ -56,7 +56,7 @@ A tarefa envolve decisão de contrato ou revisão crítica entre domínios; o es
 
 Executada exclusivamente como especificação em 09/10/2026 sobre
 `c6a7c3ef3b563e9a432f80166aa4982a25180cd5`, branch
-`codex/cf-028-contrato-onboarding`. [Evidências e reprodução](../evidencias/CF-028/README.md).
+`codex/cf-028-contrato-onboarding`. Evidências e reprodução (registro de execução privado).
 README raiz preexistente preservado por hash e fora dos commits. Estado passou
 pronta→em_execucao→em_revisao, sem autoaprovação ou execução das sucessoras.
 
@@ -79,7 +79,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 ## Revisão independente — 10/10/2026
 
 **Não aprovada; em_revisao mantido.** Candidato `b7ebac8`, intervalo
-`c6a7c3e..b7ebac8`. [Parecer, matriz, achados e provas](../evidencias/revisao-CF-028/README.md).
+`c6a7c3e..b7ebac8`. Parecer, matriz, achados e provas (registro de execução privado).
 E01 reconciliado independentemente: patrimônio1451/dívida350/reservas550.
 Protocolo de recuperação/concorrência e proibições de histórico fictício atendem
 ao contrato; primeiro critério permanece parcial por R28-01/02 (P2): detalhes do
@@ -94,7 +94,7 @@ Somente após aceite, sequência planejada de fechamento dirigido CF-010–015.
 
 Sobre a revisão `ef5cfae`, corrigidos agregados exatos e estados de conhecimento
 no Summary, com E16–E20, atualização de E01 e contraprovas documentais.
-[Delta, resultados e encaminhamento ao mesmo revisor](../evidencias/saneamento-CF-028-R28/README.md).
+Delta, resultados e encaminhamento ao mesmo revisor (registro de execução privado).
 Parecer/provas independentes e README raiz preservados por hash. Sem implementação,
 mudança de dependências ou nova decisão de produto. **em_revisao mantido**; saneamento
 é candidato à revalidação, não encerramento dos achados nem aprovação do executor.
@@ -102,7 +102,7 @@ mudança de dependências ou nova decisão de produto. **em_revisao mantido**; s
 ## Revalidação independente R28 — 10/10/2026
 
 Candidato `4dc5f67`, intervalo `ef5cfae..4dc5f67`:
-[parecer, matriz e provas independentes](../evidencias/revalidacao-CF-028-R28/README.md).
+parecer, matriz e provas independentes (registro de execução privado).
 **R28-01 encerrado; R28-02 parcialmente saneado, permanece aberto (P2).**
 Agregados exatos e representação de conhecimento aprovados no recorte. Falta
 determinar fontes afetadas/bloqueios quando reserva legada não tem vínculo de
@@ -118,7 +118,7 @@ Nenhuma implementação, liberação CF-029–034 ou início do fechamento front
 Base `1c54533`, mesma branch. Política conservadora autorizada nesta conversa
 incorporada como DEC-ONB-02: candidatas comprovadas, universo elegível quando
 indeterminado, independência comprovada, união dos riscos e reconciliação atual
-sem histórico fictício. [Evidências e encaminhamento](../evidencias/saneamento-CF-028-origem/README.md).
+sem histórico fictício. Evidências e encaminhamento (registro de execução privado).
 E21–E35 e revalidação documental E01/E16–E20; provas anteriores preservadas.
 CF-028 **em_revisao**, R28-02 candidato a encerramento somente pelo revisor.
 R28-01 encerrado e demais aceites mantidos; sucessoras/frontend não iniciados.
@@ -126,7 +126,7 @@ R28-01 encerrado e demais aceites mantidos; sucessoras/frontend não iniciados.
 ## Revalidação independente de origem — 10/10/2026
 
 Candidato `dc02cd1`, intervalo `1c54533..dc02cd1`:
-[parecer e provas independentes](../evidencias/revalidacao-CF-028-origem/README.md).
+parecer e provas independentes (registro de execução privado).
 Política de fontes, evidências, união dos bloqueios, reconciliação e concorrência
 atendidas. **R28-02 permanece aberto (P2) somente por inconsistência documental
 introduzida nos totais por dimensão; CF-028 permanece em_revisao.** E23/E28/E34
@@ -145,14 +145,14 @@ requerida. Sem implementação, CF-029, frontend, push/deploy ou banco real.
 
 Sobre `bbbe8c3`, corrigidos somente os totais E23/E28/E34=KNOWN400.00 e
 E32=KNOWN500.00, com avaliador/fixtures coerentes e regressão dirigida.
-[Evidência e encaminhamento](../evidencias/saneamento-CF-028-totais/README.md).
+Evidência e encaminhamento (registro de execução privado).
 Demais campos e aceites preservados, incluindo R28-01 encerrado. CF-028 permanece
 **em_revisao** e R28-02 aguarda revalidação independente, sem autoaprovação.
 
 ## Aceite independente final — 10/10/2026
 
 Base `a7bc256`, intervalo `bbbe8c3..a7bc256`:
-[parecer, cálculos e provas](../evidencias/revalidacao-CF-028-totais/README.md).
+parecer, cálculos e provas (registro de execução privado).
 **Resíduo dos totais aprovado; R28-02 encerrado; CF-028 concluida exclusivamente
 como especificação.** E23/E28/E34=KNOWN400.00 e E32=KNOWN500.00 derivados das
 entradas, com atribuição incerta, bloqueios e demais campos dos14 casos preservados.

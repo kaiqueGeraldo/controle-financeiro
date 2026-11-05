@@ -1,6 +1,0 @@
-frontend/src/hooks/useCards.ts
-- available: monetaryAggregate(cards.map(card => cardLimitMetrics(card).available ?? NaN)),
-+ available: totalLimit === null || totalInvoice === null ? null : monetaryAggregate([totalLimit,-totalInvoice]),
-frontend/src/components/screens/cards/creditCardItem.tsx
-- const { available, percentage: percentual } = cardLimitMetrics(card);
-+ const { percentage: percentual } = cardLimitMetrics(card); const available = card.limit - card.currentInvoiceValue;

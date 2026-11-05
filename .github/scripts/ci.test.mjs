@@ -1,15 +1,23 @@
+import {collectPublic} from './publish-evidence.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {sequence,requireCounts,junitCounts,requireReportedClasses,componentSummary} from './ci.mjs';
+import {sequence,requireCounts,junitCounts,requireReportedClasses,requireBackendReports,freshOutput,mavenInvocation,componentSummary,financialEvidence} from './ci.mjs';
 import {snapshot,sourceFor} from './source.mjs';
 
 test('a failed required gate prevents E2E and packaging',async()=>{
   const visited=[];
   await assert.rejects(sequence(['lint','backend','e2e','package'],async stage=>{visited.push(stage);if(stage==='backend')throw new Error('invariant failed');}),/invariant failed/);
   assert.deepEqual(visited,['lint','backend']);
+});
+test('Windows Maven passes paths and literals without cmd quote reinterpretation',()=>{
+  const invocation=mavenInvocation('win32',['-Dcf034.reportsDirectory=C:\\with spaces\\reports',"-Dliteral=it's $notAnExpression",'test']);
+  assert.equal(invocation.executable,'powershell.exe');
+  assert.equal(Buffer.from(invocation.args.at(-1),'base64').toString('utf16le'),"& './mvnw.cmd' '--batch-mode' '-Dcf034.reportsDirectory=C:\\with spaces\\reports' '-Dliteral=it''s $notAnExpression' 'test'; exit $LASTEXITCODE");
+  assert.deepEqual(mavenInvocation('linux',['test']),{executable:'sh',args:['./mvnw','--batch-mode','test']});
+  assert.throws(()=>mavenInvocation('unknown',['test']),/Unknown Maven JVM platform/);
 });
 test('zero, skipped, failed and errored tests cannot approve a gate',()=>{
   for(const counts of [{tests:0,failures:0,errors:0,skipped:0},{tests:1,failures:0,errors:0,skipped:1},{tests:1,failures:1,errors:0,skipped:0},{tests:1,failures:0,errors:1,skipped:0}])assert.throws(()=>requireCounts(counts,'probe'));
@@ -49,4 +57,121 @@ test('source attestation rejects changed content and additional unrecorded sourc
     assert.throws(()=>sourceFor(directory),/file set changed/);fs.unlinkSync(extra);
     assert.equal(sourceFor(directory).commit,'synthetic');
   }finally{fs.unlinkSync(input);fs.unlinkSync(path.join(directory,'.ci-source.json'));fs.rmdirSync(backend);fs.rmdirSync(directory);}
+});
+
+test('backend selection needs every report and rejects empty, skipped and failed executions',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-reports-'));
+  const selection={selected:['example.CommonTest','example.WindowsTest']};
+  const report=(name,attrs)=>fs.writeFileSync(path.join(directory,`TEST-example.${name}.xml`),`<testsuite ${attrs}></testsuite>`);
+  report('CommonTest','tests="1" failures="0" errors="0" skipped="0"');
+  assert.throws(()=>requireBackendReports(directory,selection),/WindowsTest/);
+  assert.throws(()=>requireBackendReports(directory,{selected:[]}),/Empty mandatory/);
+  for(const attrs of ['tests="1" failures="0" errors="0" skipped="1"','tests="1" failures="1" errors="0" skipped="0"','tests="1" failures="0" errors="1" skipped="0"']){
+    report('WindowsTest',attrs);assert.throws(()=>requireBackendReports(directory,selection),/invalid counts/);
+  }
+  report('WindowsTest','tests="1" failures="0" errors="0" skipped="0"');
+  assert.deepEqual(requireBackendReports(directory,selection),{tests:2,failures:0,errors:0,skipped:0});
+});
+test('evidence output is new and external so an old report cannot certify another run',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-fresh-'));
+  const root=path.join(directory,'source');fs.mkdirSync(root);
+  assert.throws(()=>freshOutput(root,path.join(root,'reports')),/outside/);
+  const out=path.join(directory,'new-run');assert.equal(freshOutput(root,out),path.join(fs.realpathSync.native(directory),'new-run'));
+  fs.writeFileSync(path.join(out,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
+  assert.throws(()=>freshOutput(root,out),/Never reuse/);
+});
+
+test('fresh evidence uses the physical external path through an aliased parent',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cpa01-fresh-alias-'));
+  const root=path.join(directory,'source'),external=path.join(directory,'external'),alias=path.join(directory,'external-alias');
+  fs.mkdirSync(root);fs.mkdirSync(external);
+  fs.symlinkSync(external,alias,process.platform==='win32'?'junction':'dir');
+  const request=path.join(alias,'new-run'),expected=path.join(fs.realpathSync.native(external),'new-run');
+  assert.equal(freshOutput(root,request),expected);
+  fs.writeFileSync(path.join(expected,'TEST-old.xml'),'<testsuite tests="1" failures="0" errors="0" skipped="0"/>');
+  assert.throws(()=>freshOutput(root,request),/Never reuse/);
+  assert.throws(()=>freshOutput(root,path.join(root,'reports')),/outside/);
+});
+
+
+test('external artifact output rejects source paths and physical aliases',async()=>{
+  const {artifactDirectory}=await import('../../controle-financeiro-frontend/tests/e2e/support/artifacts.mjs');
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'cf-artifacts-'));
+  const before=process.env.CF_REVIEW_EVIDENCE;const previousSource=process.env.CF_SOURCE_ROOT;process.env.CF_SOURCE_ROOT=process.cwd();
+  try{
+    process.env.CF_REVIEW_EVIDENCE=directory;
+    assert.equal(artifactDirectory('trace','legacy'),path.join(fs.realpathSync.native(directory),'trace'));
+    process.env.CF_REVIEW_EVIDENCE=path.resolve('controle-financeiro-frontend/tests/artifacts');
+    assert.throws(()=>artifactDirectory('trace','legacy'),/outside/);
+    process.env.CF_REVIEW_EVIDENCE='relative';
+    assert.throws(()=>artifactDirectory('trace','legacy'),/absolute/);
+    const alias=path.join(directory,'source-alias');
+    fs.symlinkSync(process.cwd(),alias,process.platform==='win32'?'junction':'dir');
+    process.env.CF_REVIEW_EVIDENCE=alias;
+    try{assert.throws(()=>artifactDirectory('trace','legacy'),/outside/);}finally{fs.unlinkSync(alias);}
+  }finally{
+    if(before===undefined)delete process.env.CF_REVIEW_EVIDENCE;else process.env.CF_REVIEW_EVIDENCE=before;
+    if(previousSource===undefined)delete process.env.CF_SOURCE_ROOT;else process.env.CF_SOURCE_ROOT=previousSource;
+    fs.rmdirSync(directory);
+  }
+});
+
+test('component reuse includes shared clock preload and rejects changed component inputs',async()=>{
+  const {componentInputs}=await import('./component-reuse.mjs');
+  const source={files:[
+    {path:'controle-financeiro-frontend/src/rule.ts',sha256:'one'},
+    {path:'controle-financeiro-frontend/tests/component/case.test.tsx',sha256:'two'},
+    {path:'controle-financeiro-frontend/package-lock.json',sha256:'three'},
+    {path:'controle-financeiro-frontend/tests/e2e/config.ts',sha256:'four'},
+    {path:'controle-financeiro-backend/pom.xml',sha256:'five'},
+    {path:'controle-financeiro-frontend/tests/e2e/support/server-clock.cjs',sha256:'six'},
+  ]};
+  assert.equal(componentInputs(source).length,4);
+  const e2e=structuredClone(source);e2e.files[3].sha256='new-output-routing';
+  assert.deepEqual(componentInputs(source),componentInputs(e2e));
+  for(const i of [0,1,2,5]){
+    const changed=structuredClone(source);changed.files[i].sha256='changed';
+    assert.notDeepEqual(componentInputs(source),componentInputs(changed));
+  }
+});
+
+test('Java argfile preserves a long mandatory selector and rejects multiline injection',async()=>{
+  const {javaArgfileText}=await import('./maven-argfile.mjs');
+  const selection=Array.from({length:116},(_,i)=>'com.synthetic.'+'Long'.repeat(18)+i).join(',');
+  assert.ok(selection.length>8191);
+  const text=javaArgfileText(['-Dtest='+selection,'C:\\with spaces\\reports',"-Dliteral=it's $notAnExpression"]);
+  assert.ok(text.includes(selection));
+  assert.equal(text.split('\n').length,4);
+  assert.throws(()=>javaArgfileText(['normal\n-DskipTests=true']),/Invalid/);
+  assert.throws(()=>javaArgfileText(['bad\0value']),/Invalid/);
+});
+
+test('financial receipt exposes exact case outcomes and checkpoint hashes without payloads',()=>{
+  const root=fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(),'cf-financial-receipt-')));
+  try{
+    fs.writeFileSync(path.join(root,'A-applied-sql.json'),'SYNTHETIC_PRIVATE_FINANCIAL_PAYLOAD');
+    fs.writeFileSync(path.join(root,'A-network.json'),'SYNTHETIC_PRIVATE_NETWORK');
+    fs.writeFileSync(path.join(root,'A-completed.png'),'SYNTHETIC_PRIVATE_IMAGE');
+    const receipt=financialEvidence({suites:[{specs:[{file:'journeys.spec.ts',title:'A independent case',tests:[{projectName:'synthetic',expectedStatus:'passed',status:'expected',results:[{status:'passed',retry:0,duration:123}]}]}]}]},root);
+    assert.deepEqual(receipt.cases,[{project:'synthetic',file:'journeys.spec.ts',titles:['A independent case'],expectedStatus:'passed',status:'expected',results:[{status:'passed',retry:0,durationMs:123}]}]);
+    assert.deepEqual(receipt.checkpoints,[{file:'A-applied-sql.json',sha256:'f7ac8e73d42cce03c3589be644c2d52855668ee199dc22e681c6cbf9fc9d06ba',bytes:35}]);
+    assert.doesNotMatch(JSON.stringify(receipt),/SYNTHETIC_PRIVATE|network|png/);
+    fs.writeFileSync(path.join(root,'result.json'),JSON.stringify({financialEvidence:receipt}));
+    collectPublic(root);
+    assert.doesNotMatch(fs.readFileSync(path.join(root,'public/result.json'),'utf8'),/SYNTHETIC_PRIVATE|network|png/);
+    assert.equal(fs.existsSync(path.join(root,'public/A-applied-sql.json')),false);
+  }finally{assert.equal(path.dirname(root),fs.realpathSync.native(os.tmpdir()));fs.rmSync(root,{recursive:true,force:true});}
+});
+
+
+test('directed SAN-E2 selection stays explicit and cannot become official acceptance',async()=>{
+ const {directedBrowserSelection,sanE2DiagnosticGrep}=await import('./ci.mjs');
+ const {evaluateRequired}=await import('./required.mjs');
+ const input={selected:['com.test.OtherTest','com.test.MilestoneRemediationBrowserTest','com.test.Rf15RemediationBrowserTest']};
+ assert.deepEqual(directedBrowserSelection(input,'san-e2').selected,['com.test.MilestoneRemediationBrowserTest']);
+ assert.deepEqual(directedBrowserSelection(input,'pair').selected,input.selected.slice(1));
+ assert.match('review-sao-paulo milestone-remediation.integrated.spec.ts SAN-E2-visual motivo de indisponibilidade legível em 360, 768 e 1440',new RegExp(sanE2DiagnosticGrep));
+ assert.doesNotMatch('review-sao-paulo milestone-remediation.integrated.spec.ts outro cenário',new RegExp(sanE2DiagnosticGrep));
+ assert.equal(input.selected.length,3);assert.throws(()=>directedBrowserSelection(input,'all'));
+ assert.equal(evaluateRequired(JSON.stringify({'windows-native':{result:'success'},linux:{result:'success'},expanded:{result:'success'}}),'workflow_dispatch','diagnostic').approved,false);
 });

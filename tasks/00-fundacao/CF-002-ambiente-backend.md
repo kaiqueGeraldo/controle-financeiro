@@ -48,7 +48,7 @@ Iniciada e concluída em 07/09/2026 sobre a base `169d7be4c7d3db97d4c318ff3f99d9
 
 Validação local com Temurin 21.0.12.1, Maven 3.9.12, Docker Desktop 4.83.0/Engine 29.6.2 e Testcontainers 2.0.3: `mvnw.cmd --batch-mode clean verify` aprovou 7 testes, incluindo persistência após `flush/clear`, rollback observado fora da transação, isolamento A/B, ausência de chamadas aos doubles e quatro recusas/aceites adversariais do guard. A execução foi repetida, gerou o JAR e deixou zero contêineres Testcontainers ativos. Com Docker desligado, a suíte falhou explicitamente como ambiente indisponível e declarou que nenhum banco externo seria usado.
 
-[Evidência completa, comandos e limitações](../evidencias/CF-002/README.md). O `ddl-auto=create-drop` existe somente no perfil de teste e não é baseline de produção; inventário/migrações continuam pertencendo à CF-017. O workflow foi atualizado por ser o caminho CI exigido quando Docker local não existir, única alteração de implementação fora dos caminhos originalmente enumerados.
+Evidência completa, comandos e limitações (registro de execução privado). O `ddl-auto=create-drop` existe somente no perfil de teste e não é baseline de produção; inventário/migrações continuam pertencendo à CF-017. O workflow foi atualizado por ser o caminho CI exigido quando Docker local não existir, única alteração de implementação fora dos caminhos originalmente enumerados.
 
 Dependências: nenhuma nova tarefa ficou integralmente liberada apenas por esta conclusão. CF-006 ainda depende de CF-004; CF-008, de CF-003 e CF-004; CF-017, de CF-016; CF-007 e CF-023 mantêm dependências adicionais. CF-003 continua pronta e CF-004 já havia sido liberada pela CF-001. Nenhuma tarefa seguinte foi iniciada nem teve estado alterado.
 
@@ -57,6 +57,6 @@ Dependências: nenhuma nova tarefa ficou integralmente liberada apenas por esta 
 
 PostgreSQL descartável, JDK 21 e suíte completa revalidados; R16 fortalece a observação do Clock real.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.

@@ -1,0 +1,23 @@
+import {test,expect} from '@playwright/test';
+import {writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {textGeometry} from './support/text-geometry';
+
+test('RESIDUAL geometry identity hidden clipped covered outside',async({page})=>{
+ await page.setViewportSize({width:360,height:900});const observations=[];
+ for(const kind of ['visible','wrong','hidden','transparent','clipped','covered','outside']){
+  await page.setContent('<style>body{margin:20px}.badge{display:flex;width:max-content}#text{display:contents}</style><div class="badge"><span id="text">Custo ou avaliação indisponível</span></div>');
+  const text=page.locator('#text');
+  if(kind==='hidden')await text.evaluate(el=>(el as HTMLElement).style.visibility='hidden');
+  if(kind==='transparent')await text.evaluate(el=>(el as HTMLElement).style.color='transparent');
+  if(kind==='clipped')await page.locator('.badge').evaluate(el=>Object.assign((el as HTMLElement).style,{width:'20px',overflow:'hidden',whiteSpace:'nowrap'}));
+  if(kind==='covered')await page.evaluate(()=>{const overlay=document.createElement('div');Object.assign(overlay.style,{position:'fixed',inset:'0',zIndex:'999',background:'white'});document.body.append(overlay);});
+  if(kind==='outside')await page.locator('.badge').evaluate(el=>Object.assign((el as HTMLElement).style,{position:'absolute',left:'1000px'}));
+  const result=await textGeometry(text,kind==='wrong'?'Outro texto':'Custo ou avaliação indisponível');
+  expect(result.ok,kind+': '+JSON.stringify(result)).toBe(kind==='visible');
+  if(kind==='visible')expect(await text.boundingBox(),'display:contents has no own box').toBeNull();
+  const reason:Record<string,string>={wrong:'identity',hidden:'not-painted',transparent:'not-painted',clipped:'clipped-x',covered:'occluded',outside:'outside-viewport'};
+  if(kind!=='visible')expect(result.failures).toContain(reason[kind]);observations.push({kind,result});
+ }
+ await writeFile(path.join(process.env.CF_REVIEW_EVIDENCE!,'geometry-negative.json'),JSON.stringify(observations,null,2));
+});

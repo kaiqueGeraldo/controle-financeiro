@@ -1,0 +1,412 @@
+{
+  "at": "2026-11-03T16:38:41.423Z",
+  "label": "Expanded do recorte autorizado, com dois cenários de zoom adiados pela decisão DEC-ZOOM-05",
+  "status": "FAILED / INCOMPLETE; not approved",
+  "decision": {
+    "id": "DEC-ZOOM-05",
+    "path": "docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md",
+    "sha256": "995b845d48bca402c5b3bafd5ecde9ccd88b6bd7556c0f7cf86201954399389e",
+    "scope": "Only two exact native cases deferred for this local stage; no other exclusions, generic skips, visual approval, remote action, real adoption, deploy or production"
+  },
+  "provenance": {
+    "inputCommit": "4204080aa9b2fa46c52f9d1ef6638b77231087fd",
+    "sourceDigest": "310680d084a72cebd66e01fd400c79f5eeeac1d0639cb5c281f5d3a187183164",
+    "sourceFiles": 855,
+    "sourceCopiesFinalAttestation": "Both physical copies rechecked unchanged after execution",
+    "testedPackage": null,
+    "historicalAssistedPackageNotUsedAsCurrentEvidence": true,
+    "localNotActions": true
+  },
+  "selection": {
+    "javaClassesOriginal": 116,
+    "linuxMandatory": 115,
+    "windowsMandatory": 1,
+    "affectedPlaywright": {
+      "A": 25,
+      "B": 2,
+      "C": 23,
+      "identityUnionVerified": true,
+      "disjointVerified": true
+    },
+    "deferred": [
+      {
+        "kind": "playwright",
+        "wrapper": "com.controlefinanceiro.api.Rf15RemediationBrowserTest#browserBffSpringPostgresAndReload",
+        "project": "review-sao-paulo",
+        "file": "cf015.native-zoom.integrated.spec.ts",
+        "titles": [
+          "R10: zoom nativo 200% com ações, rolagem e foco"
+        ]
+      },
+      {
+        "kind": "playwright",
+        "wrapper": "com.controlefinanceiro.api.Rf15RemediationBrowserTest#browserBffSpringPostgresAndReload",
+        "project": "review-sao-paulo",
+        "file": "rf15-native-chrome.integrated.spec.ts",
+        "titles": [
+          "RF15: zoom nativo Chrome 200% com ações, rolagem e foco"
+        ]
+      }
+    ],
+    "manifest": "CONJUNTOS-A-B-C.json"
+  },
+  "contracts": {
+    "windows": {
+      "tests": 39,
+      "passed": 39,
+      "skipped": 0
+    },
+    "linux": {
+      "tests": 39,
+      "passed": 39,
+      "skipped": 0
+    },
+    "counterproofs": {
+      "originalSha256": "619ed9043391ea144c64cd63c353f5562971c33537fd72b6939794ad992ed6e0",
+      "results": [
+        {
+          "name": "third-exclusion",
+          "mutantExit": 1,
+          "restoredExit": 0,
+          "restoredSha256": "619ed9043391ea144c64cd63c353f5562971c33537fd72b6939794ad992ed6e0"
+        },
+        {
+          "name": "missing-exception",
+          "mutantExit": 1,
+          "restoredExit": 0,
+          "restoredSha256": "619ed9043391ea144c64cd63c353f5562971c33537fd72b6939794ad992ed6e0"
+        },
+        {
+          "name": "generic-skip",
+          "mutantExit": 1,
+          "restoredExit": 0,
+          "restoredSha256": "619ed9043391ea144c64cd63c353f5562971c33537fd72b6939794ad992ed6e0"
+        },
+        {
+          "name": "omitted-required",
+          "mutantExit": 1,
+          "restoredExit": 0,
+          "restoredSha256": "619ed9043391ea144c64cd63c353f5562971c33537fd72b6939794ad992ed6e0"
+        }
+      ]
+    },
+    "realPlaywrightSyntheticCLI": [
+      {
+        "mode": "pass",
+        "exit": 0,
+        "A": 5,
+        "B": 2,
+        "C": 3,
+        "logSha256": "32f68a8c4ec442c647165a0c5361e5ac667ad34d1c74c2cac44a8fe15dea5bc8",
+        "scope": "Synthetic runner contract; no product, browser or native zoom tested"
+      },
+      {
+        "mode": "unexpected-skip",
+        "exit": 1,
+        "A": 5,
+        "B": 2,
+        "C": 3,
+        "logSha256": "15fed5f0d9afbe2f9c1ed599d36c7aecd453971b2f82661f7645b8fdd19f7f0c",
+        "scope": "Synthetic runner contract; no product, browser or native zoom tested"
+      }
+    ],
+    "realProductRF15Execution": false
+  },
+  "executions": {
+    "windowsNative": {
+      "status": "passed",
+      "identity": [
+        "com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest"
+      ],
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "windowsSupplementalFrontend": {
+      "status": "failed",
+      "lint": "passed",
+      "types": "passed",
+      "unit": {
+        "timezones": 3,
+        "tests": 18
+      },
+      "components": {
+        "tests": 626,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure": "Turbopack physical path outside mapped Z: root; environment/topology; first occurrence preserved; not repeated"
+    },
+    "linuxExpanded": {
+      "status": "failed",
+      "lint": "passed",
+      "types": "passed",
+      "unit": {
+        "timezones": 3,
+        "tests": 18
+      },
+      "componentsReported": {
+        "tests": 597,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "componentExit": 1,
+      "componentReportFiles": 63,
+      "missingComparedWithWindows": 29,
+      "classification": "inconclusive, harness/environment diagnosis required; JSON success does not override exit 1 or absent identities",
+      "notReached": [
+        "build",
+        "browser-install",
+        "backend 115 classes",
+        "RF15 real C=23",
+        "full financial E2E",
+        "package"
+      ]
+    }
+  },
+  "versions": {
+    "nodeWindows": "24.18.0",
+    "nodeLinux": "24.18.0",
+    "jdkWindows": "21.0.12.1+1, per current maven-version.log",
+    "jdkLinux": "Temurin 21.0.12+8, prepared; backend JVM tests not reached",
+    "mavenWindows": "3.9.12",
+    "mavenLinux": "not invoked",
+    "npmWindows": "11.16.0",
+    "npmLinux": "10.9.8",
+    "playwrightPackage": "1.63.0; listing and synthetic CLI used",
+    "browserExecutable": "not launched in this round; install/version gate not reached",
+    "postgres": "not started in this round",
+    "dockerServer": "29.6.2",
+    "linuxToolchainImage": "sha256:c7492c6f8ef9a57a98ff15dc7a6c82a96712b99a97a5fa19edb9576a7b34d5b1"
+  },
+  "firstOccurrences": [
+    "toolchain docker cp cannot create Linux symlink on Windows",
+    "toolchain first image build lacks xz; preserved image-build.log",
+    "auxiliary Python unavailable before extraction; no tests executed",
+    "supplemental Windows frontend build root mismatch",
+    "Linux components exit 1 and missing 29 identities",
+    "synthetic CLI auxiliary expected later guard message; actual gate rejected earlier expectedStatus=skipped; first harness/logs/reports preserved; corrected auxiliary fixture passed"
+  ],
+  "canonicalStates": {
+    "CF010": "em_revisao",
+    "CF015": "em_revisao",
+    "zoom": "pendente, com exceção temporária autorizada para a continuidade delimitada",
+    "CF034": "em_revisao; current local expanded failed/incomplete",
+    "CF036": "proposta; no readiness for current PR update",
+    "RR301": "previous scoped independent acceptance preserved",
+    "CF017P01P02": "real adoption not authorized"
+  },
+  "next": "SANEAMENTO-SEGUINTE.md; independent review of exception code and scoped results; current local expanded not approved; no auto-approval",
+  "preservation": "PRESERVACAO.json; existing manifests referenced; authorized changes and archived originals explicit",
+  "evidence": [
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\baseline.log",
+      "sha256": "8134845485e90330b377122ba024fe42aaebe57330d2f455c631051ef95440b3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\counterproofs.json",
+      "sha256": "7bb5107f8f3ad19a6fa8b4d6bdeb8484b2afae52e2bad672085561d99a7eaa39"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\third-exclusion\\mutant.log",
+      "sha256": "584da6afedd154592e06f9590890ee81d36d17c935d91b8386af48952702ebe3"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\third-exclusion\\restored.log",
+      "sha256": "d43e49a4d32c9993a2530e66b4673e217f1357595e3ed8ce53187f686060f801"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\missing-exception\\mutant.log",
+      "sha256": "e54ba311eada98ed70d1a07d0e7d14b7e7faeb63bf4aaa5231b026b5673d3f09"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\missing-exception\\restored.log",
+      "sha256": "cb300f18a848c6c43bcd35fd3f8319d8da878bbacfa1f3f88d9e986dee35386c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\generic-skip\\mutant.log",
+      "sha256": "28c52e6d764c4246c8b944b7a5d0cb0c080d3907bb582a73aaf4c5808c7e8090"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\generic-skip\\restored.log",
+      "sha256": "590777e032306af6e15fcc2548e78d6482c2d48e2c965b721be20fa6bac434c9"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\omitted-required\\mutant.log",
+      "sha256": "b7569322ba583b864eecc603307309441b7b99c8c5623a72f26675f9fa0fcf9e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\contracts\\omitted-required\\restored.log",
+      "sha256": "4a2b8585182e5fafd4953819bde7bfb19203503442bc60f24369dbbc480b3132"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\rf15-original-list.json",
+      "sha256": "294f8fed0117558d1329e79ff8ea426627117d0db0392b8cd23df0fa9539d725"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\selection-check.json",
+      "sha256": "948a0f4cb78371881f1599eb2fcc86009052803d42af405c28fd3a0a61f94e86"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\selection-check.txt",
+      "sha256": "0a721481c695c1c285f9b1db72197d0042afe1592ec45a4f17803c58d28ba02b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\selection-check-manifest.json",
+      "sha256": "e4ccc37689b9405bbfdbca6d4ee6990ce9fd7163cf1076fb3518ff48b0dee177"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\selection-check.log",
+      "sha256": "b17156a61634b6ff80db9463e8050be791b0bcac09dd83718d505565a5f08d9c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\s-export.json",
+      "sha256": "cbb8b6e232d14ace6e1f23675c1635808944e3870682de57bacb440878768f3d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux-s-export.json",
+      "sha256": "cbb8b6e232d14ace6e1f23675c1635808944e3870682de57bacb440878768f3d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\coverage-A-B-C.json",
+      "sha256": "8a70e28b5edc25ff8323bbde1665d67a8785af1b807acc22cd344b390148d842"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\windows-native\\result.json",
+      "sha256": "276c74b425c5f002554d1384ea6c8e7fbb1abbbbd63d7155e86dd3fdcd57fc27"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\windows-native\\backend-selection.json",
+      "sha256": "47ddcef93aab6d61fa116f94d6e36c137ec3514e9523097af3cb3ffd74f925c8"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\windows-native\\maven-version.log",
+      "sha256": "4bc62c824f051d32ff1db6f0a480d42b776cad1b158abe3b42bcda4aa509affc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\windows-native\\backend.log",
+      "sha256": "f9e6161969f64300ae5692e03c4ffa5bc13a29624a9685e6b064172c172ee6b8"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\windows-native\\surefire\\TEST-com.controlefinanceiro.api.migration.AdoptionNativeSocketsTest.xml",
+      "sha256": "4605f8fbaebab5b1842ee2993a299833b20580e468f5822778cb05895254ef9d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\frontend\\result.json",
+      "sha256": "f9df8c79193542fff589677e19b03896bf20456b713f5a725c238b8086e8e426"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\frontend\\unit.log",
+      "sha256": "0ef2e3b59e38cdc0c1ffb6865b0930f631453fa8f7ce03ba3d18c2aa999bdd63"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\frontend\\components.json",
+      "sha256": "34dae2fd94fcc30ff9b2531207883910bd716ebf90548ddbcc506fcfc29db2f0"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\frontend\\build.log",
+      "sha256": "9f33cdf630b4c0a4f628c1e762903b529ea7781f960d2625f7ab022fdb0165ea"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\invocation.json",
+      "sha256": "af38bffdb82feab29c1d70e1dbf2dc9d9ba6186a3aa7e40b0396de32297ec242"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\run.sh",
+      "sha256": "291a0ac7e64ab826999171dd14a9b234e5c69ecc0f976e968435f047f607caf7"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\controller.log",
+      "sha256": "9ab5893954f43490b3110d08b91ffbafa7eaffc97057dca5fa07cc10a0afc67c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\execution.json",
+      "sha256": "21510ee742bb295fe2d1a40d80c5c465015fcf6d757029f9cf4586966003512f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\expanded\\result.json",
+      "sha256": "6ca0ec4efdf9a9bbfcb9f7c5189dc6a6097232b1693919ecedfa76a1b13394ec"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\expanded\\unit.log",
+      "sha256": "254fcaaf8eff17c92d0b53216441dcf2fc8f455afa6a6ae18cebeacff0044355"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\expanded\\components.json",
+      "sha256": "5a8478de3127da90d2ba014a4156079b1ca44c333672cc25528742b9d429ed05"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\expanded\\components.log",
+      "sha256": "c0f14c362e41981dc8ef35ffce3afe91292023d7c3df8ff5a82eca5e63350744"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\linux\\component-diagnosis.json",
+      "sha256": "07dad0d1ee1433388953b0bef65069d2037f4ce6c7ba1c768ddb4f7cfdcd69dc"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract\\first-harness-failure.json",
+      "sha256": "a65b8d1965186e4d0d0fedf6ec5a89e7ab1925ef8ff3ba5d7f850fd1c6fc2568"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract\\pass\\cli.log",
+      "sha256": "4badae389c5625a56fb67acb5ca42c874a939d8d6c3b0f8130ce921c19939c76"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract\\unexpected-skip\\cli.log",
+      "sha256": "093ba44acd9687db817f55c2bfb163a63ea3eadea02e803f2775f409c0c97f46"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract-02\\results.json",
+      "sha256": "3c69956fc4a3de1d8fe46ce0b2565ee07e1f5f73125087040fd66da38cfb2c3d"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract-02\\pass\\evidence\\zoom-selection\\manifest.json",
+      "sha256": "72237cd53af6d07a7e1bf98b3cbf4bd204b252ac5f754795b441c3eab08c76b4"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract-02\\pass\\evidence\\zoom-selection\\results.json",
+      "sha256": "f64a1d4f7e242b480e690b4789df4be1b224553c449c5a6af443b44bc8872931"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\cli-contract-02\\unexpected-skip\\evidence\\zoom-selection\\results.json",
+      "sha256": "455f8f9dbff2f3895367de7019ef4ec7a8cc9dc286f3587295c62ea3fd73b130"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\SHASUMS256.txt",
+      "sha256": "3927bab574a00ca0560c9583fe19655ba19603a1c5851414e4325d34ac50e469"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\node-v24.18.0-linux-x64.tar.xz",
+      "sha256": "55aa7153f9d88f28d765fcdad5ae6945b5c0f98a36881703817e4c450fa76742"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\node-linux",
+      "sha256": "41a74efb34cbde5c7632cdac0cf8bd1a14d0b8d73dc1e82755014d9a9ce70f5c"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\Dockerfile",
+      "sha256": "8aab019a67eea5e0e3a3312520c093f18579fd121f2d4d86c20be7562afae50e"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\image-build.log",
+      "sha256": "1d4eb3680f2ca33f4b9b8419538f16bd9702c0605566988cee287ca2ee7e2d7f"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\toolchain\\image-build-02.log",
+      "sha256": "e204c9274b7c401825732ac72586b5388ac0bb3ca641beebfc33e220461c1a1b"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\assisted-package-preservation.json",
+      "sha256": "2672735e4f9818a4c42e26d060db4f92cb75869196a0e6720d9264d0842639a1"
+    },
+    {
+      "path": "C:\\Users\\Aluga.com\\Documents\\Projetos\\pessoal\\controle-financeiro-runtimes\\preparacao-adocao\\excecao-zoom-expanded-20261103-01\\resources-final.json",
+      "sha256": "5d0b8f8230d6a8d694768404039c65058c1a6f7f57345d91d3c2051f4dad6512"
+    }
+  ]
+}

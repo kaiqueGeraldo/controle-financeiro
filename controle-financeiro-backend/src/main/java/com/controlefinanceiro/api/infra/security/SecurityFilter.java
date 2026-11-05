@@ -19,6 +19,13 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return "GET".equals(request.getMethod()) &&
+                (request.getServletPath().equals("/ops/health/liveness")
+                        || request.getServletPath().equals("/ops/health/readiness"));
+    }
+
     @Autowired
     private TokenService tokenService;
     @Autowired

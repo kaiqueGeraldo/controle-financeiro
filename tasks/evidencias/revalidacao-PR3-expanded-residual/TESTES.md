@@ -1,0 +1,27 @@
+# Provas novas e reaproveitadas
+
+Onze invocações Maven nesta revisão. Contagens por invocação e camada; não somar repetições, casos internos dos wrappers nem provas históricas. Todas preservam zero skips. Nenhuma é expanded integral.
+
+| Invocação | JUnit (testes/falhas/erros) | Playwright (casos/falhos) | Interpretação |
+|---|---|---|---|
+| directed | 4/0/0 | 12/0 | 4 wrappers aprovados, incluindo CF023 original;12 casos internos, sendo4 de identidade independentes. O filtro SAN-E2 também incluiu SAN-E27 e SAN-E2 arquivamento. |
+| counter-income | 1/1/0 | 0/0 | Preparação inválida da revisão: nenhum caso Playwright selecionado. Não prova sensibilidade. |
+| counter-gain | 1/1/0 | 0/0 | Preparação inválida da revisão: nenhum caso Playwright selecionado. Não prova sensibilidade. |
+| counter-reserve | 1/1/0 | 0/0 | Preparação inválida da revisão: nenhum caso Playwright selecionado. Não prova sensibilidade. |
+| counter-clock | 1/1/0 | 1/1 | Contraprova efetiva: modal residual esperado0/observado1 após pagamento. |
+| counter-credential | 1/1/0 | 0/0 | Jornada procedural: relógio antigo retorna307 e remove cookie. Não há JSON Playwright de casos neste driver. |
+| counter-income-directed | 1/1/0 | 1/1 | UI01 detecta observado1000 em vez0; fonte restaurado. |
+| counter-gain-directed | 1/1/0 | 2/2 | UI05 e UI06 detectam observado0 em vez20; renda não mutada junto; fonte restaurado. |
+| counter-reserve-directed | 1/1/0 | 1/1 | UI03 detecta caixa1060 em vez880; fonte restaurado. |
+| restored-and-boundaries | 8/2/0 | 8/1 | 6/8 JUnit aprovados. Quatro wrappers originais restaurados e2 testes de expiração aprovados; probe visual reproduz RR3-01; primeiro probe novo de assinatura exigia redirect automático incorretamente.7/8 casos Playwright passam; o único vermelho é o visual. |
+| credential-boundaries-corrected | 1/0/0 | 0/0 | Probe independente corrigido conforme AC-UI004: jornada original inteira+sessões válida/ausente/expirada/assinatura inválida e ação do diálogo; SQL1000/2300. Sem retry ou novo timeout. |
+
+Mais provas novas:32 contratos CI aprovados,0 skips; probe sintético de geometria com10 condições,8 corretamente classificadas e2 falsos positivos; complemento real com baseline/filtro/cobertura/restauração; pixels do motivo1285/0/0/1285 apesar de ok=true nos quatro. A posição RVLIVE permanece10/200/avaliaçãonull. Os oracles finais foram conferidos diretamente em SQL/JSON por verificar-estado.mjs.
+
+Oito experimentos de fonte restaurados por SHA:3 preparações financeiras sem seleção,3 contraprovas financeiras efetivas e2 clocks. Não contabilizar os três experimentos sem seleção como mutações eliminadas por testes financeiros. A alteração posterior do próprio probe de credenciais possui driver anterior, SHA e recibo próprios; não modifica o candidato.
+
+Reaproveitados após conferência:15 recibos históricos do saneamento, seus XML/logs/inputs e11 fontes críticos;88 JUnit restaurados (83 sem navegador+5 wrappers),11 Playwright internos+1 jornada procedural CF023; tipagem histórica com recibo exit0 e hash do log; ZIP/log original da expanded remota; aceites CF014/transporte decimal/UI04, medições de clocks e XLSX independente históricos. Novo build Next verifica novamente tipos dos fontes físicos de produto; não é apresentada como reexecução de toda a tipagem de testes.
+
+Os32 contratos novos executam o mesmo conjunto histórico: não representam64 contratos distintos. Os2 testes CredentialExpiryClockTest novos já pertenciam aos88 históricos. Os wrappers financeiros são reexecutados após mutações com objetivo de controle, não somados como cobertura adicional.
+
+As novas provas usam classes compiladas dos fontes, sem novo JAR. Testcontainers PostgreSQL16, wrappers e controles cobrem o delta, não toda matriz de fusos/Windows/Linux. O job Windows nativo e outros testes intocados conservam evidência histórica; não foram certificados novamente. Recursos próprios encerrados: nenhum processo identificado ativo, portas3107/3113 livres,0 containers ativos na observação final. Apenas3 IDs de containers estavam explicitamente recuperáveis nos logs e foram conferidos; não se inventa uma contagem total de todos os containers usados.

@@ -1,0 +1,36 @@
+package com.controlefinanceiro.api;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestContextManager;
+import org.springframework.context.ConfigurableApplicationContext;
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.cache.CacheManager;
+import org.springframework.jdbc.core.JdbcTemplate;
+import java.nio.file.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+/** Real Spring cache keys, pools and @DirtiesContext lifecycle, without browser mutation. */
+class ReviewerContextLifecycleProbe {
+ @Test void distinctRealContextsClosePoolsAndRetainSeparateCachesInReverseOrder() throws Exception {
+  var review=new TestContextManager(Cf014HistoryReviewTest.class);
+  var diagnostic=new TestContextManager(Cf014HistoryDiagnosticTest.class);
+  ConfigurableApplicationContext a=null,b=null;HikariDataSource pa=null,pb=null;
+  try {
+   review.beforeTestClass();review.prepareTestInstance(new Cf014HistoryReviewTest());
+   a=(ConfigurableApplicationContext)review.getTestContext().getApplicationContext();pa=a.getBean(HikariDataSource.class);
+   diagnostic.beforeTestClass();diagnostic.prepareTestInstance(new Cf014HistoryDiagnosticTest());
+   b=(ConfigurableApplicationContext)diagnostic.getTestContext().getApplicationContext();pb=b.getBean(HikariDataSource.class);
+   assertThat(a).isNotSameAs(b);assertThat(pa).isNotSameAs(pb);
+   assertThat(a.getBean(CacheManager.class)).isNotSameAs(b.getBean(CacheManager.class));
+   String sa=new JdbcTemplate(pa).queryForObject("select current_schema()",String.class),sb=new JdbcTemplate(pb).queryForObject("select current_schema()",String.class);
+   assertThat(sa).startsWith("cf014_history_").isNotEqualTo(sb);
+   assertThat(sb).startsWith("cf014_history_");
+   assertThat(a.containsBean("lockProvider")).isFalse();assertThat(b.containsBean("lockProvider")).isFalse();
+   Files.writeString(Path.of(System.getProperty("pr3.probe.evidence"),"lifecycle.txt"),"order=Review->Diagnostic; distinct real contexts, Hikari pools and CacheManagers; schemas="+sa+","+sb+"; poolLimits="+pa.getMaximumPoolSize()+","+pb.getMaximumPoolSize()+"; scheduler lockProvider absent\n");
+  } finally {
+   diagnostic.afterTestClass();review.afterTestClass();
+   if(a!=null){assertThat(a.isActive()).isFalse();assertThat(pa.isClosed()).isTrue();}
+   if(b!=null){assertThat(b.isActive()).isFalse();assertThat(pb.isClosed()).isTrue();}
+  }
+  Files.writeString(Path.of(System.getProperty("pr3.probe.evidence"),"lifecycle-closed.txt"),"both original @DirtiesContext AFTER_CLASS listeners closed their contexts and Hikari pools\n");
+ }
+}

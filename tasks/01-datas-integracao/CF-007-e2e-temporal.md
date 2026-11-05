@@ -18,7 +18,7 @@ bases, reconferidos diffs/consumidores e complementados com testes atuais.
 Não houve novo Playwright nesta revisão; as jornadas históricas permanecem
 identificadas como tais, sem contagem duplicada.
 
-[Matriz, parecer individual, comandos e limites](../evidencias/revisao-dirigida-CF-005-CF-008/README.md),
+Matriz, parecer individual, comandos e limites (registro de execução privado),
 base `1b0d9bcefaba0bcc37a21955caa94db65a3bf383`. RD58-01/02 mantêm CF-005/006
 em revisão, mas não violam a data escolhida nas jornadas próprias comprovadas
 desta tarefa. Capacidades temporais consumidas têm liberação independente e
@@ -31,7 +31,7 @@ Esta decisão supera as pendências genéricas das notas históricas abaixo.
 
 Estado `em_revisao` mantido. Categorias 1 e 5: P03/P04/P05 foram revalidados; falta parecer final sobre criar/editar/reabrir, erro recuperável e sensibilidade do E2E, confrontando as jornadas existentes e mudanças posteriores. Adoção P01/P02 conserva gate próprio. Não executar novamente toda a matriz apenas pelo estado em revisão.
 
-[Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências](../evidencias/consolidacao-CF-001-CF-026/RECONCILIACAO-CF-001-CF-027.md). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
+Critérios, pareceres, bases, alterações posteriores e efeitos nas dependências (registro de execução privado). As seções anteriores de execução/revisão conservam sua data e alcance; esta nota não é novo aceite independente.
 
 ## Consolidação documental — 01/10/2026
 
@@ -42,7 +42,7 @@ preservou condições P01/P02. Próximo parecer deve confrontar os critérios co
 temporal já existente e delimitar aceite local versus adoção real, sem repetir auditoria
 ampla por status.
 
-[Snapshot, evidências, condições e limites](../evidencias/consolidacao-CF-001-CF-026/README.md).
+Snapshot, evidências, condições e limites (registro de execução privado).
 As seções datadas abaixo preservam o histórico de suas respectivas bases.
 
 ## Problema e resultado esperado
@@ -82,7 +82,7 @@ O escopo exige implementação e validação de comportamento entre camadas; pri
 
 Concluída em 08/09/2026 sobre `main` (`HEAD 169d7be4c7d3db97d4c318ff3f99d9de3a808067`), preservando o patch local das CF-001–006. Foi adicionada uma jornada Playwright real que atravessa navegador, BFF Next, Spring e PostgreSQL descartável para transação, cartão, investimento, meta, hábito e exportação, com JVM UTC e Chromium em São Paulo/UTC+14. O cenário compara payload, resposta, SQL e UI após reload, mantém o formulário recuperável em 400 e não simula sucesso das APIs financeiras.
 
-Validação final: matriz integrada 2/2, backend `clean verify` 45/45, frontend unitário 15/15 em três fusos, componentes 11/11, typecheck, lint dos E2Es e build Next aprovados. Uma mutação temporária de `date.plusDays(1)` falhou com esperado `2027-01-30`/recebido `2027-01-31`, foi removida e seguida da execução verde. [Evidência completa, falhas encontradas, comandos e riscos](../evidencias/CF-007/README.md).
+Validação final: matriz integrada 2/2, backend `clean verify` 45/45, frontend unitário 15/15 em três fusos, componentes 11/11, typecheck, lint dos E2Es e build Next aprovados. Uma mutação temporária de `date.plusDays(1)` falhou com esperado `2027-01-30`/recebido `2027-01-31`, foi removida e seguida da execução verde. Evidência completa, falhas encontradas, comandos e riscos (registro de execução privado).
 
 Limites principais: o relógio do middleware de autenticação não é injetável; fatura ainda não expõe horário; o carregamento único de hábitos evita N+1 mas materializa todos os logs; duas violações `no-explicit-any` preexistentes permanecem fora das linhas alteradas. Contratos detalhados, migrações e lint amplo continuam em suas tarefas próprias.
 
@@ -95,7 +95,7 @@ Atualizar este arquivo ao iniciar e finalizar. Dependências precisam estar inte
 
 Jornadas reais São Paulo/UTC+14 aprovadas; P04 (relógio real do middleware) e P05 (dias divergentes) impedem aprovação integral.
 
-O [parecer da revisão](../evidencias/revisao-CF-001-CF-009/README.md) prevalece
+O parecer da revisão (registro de execução privado) prevalece
 sobre a conclusão histórica acima para o aceite atual. Somente o conjunto final
 foi verificado; commits intermediários não são apresentados como testados.
 
@@ -105,5 +105,5 @@ foi verificado; commits intermediários não são apresentados como testados.
 
 P04 separa relógios somente no harness; P03 tem percurso de edição UI/BFF/Spring/PostgreSQL. Os gates e tentativas finais estão na evidência de saneamento.
 
-[Implementação, autotestes e limites](../evidencias/saneamento-P01-P05-2026-09-09/README.md).
+Implementação, autotestes e limites (registro de execução privado).
 Estado permanece em_revisao; esta execução não substitui revisão independente.

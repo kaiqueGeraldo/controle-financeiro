@@ -1,3 +1,4 @@
+import {publishWrapperDiagnostics} from './wrapper-diagnostics.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {randomUUID} from 'node:crypto';
@@ -20,11 +21,17 @@ export function collectPublic(rootArg){
     fs.writeFileSync(path.join(pending,name),representation);
     files.push({input:file,rawLocalSha256:hash(bytes),publicFile:name,sanitizedSha256:hash(Buffer.from(representation))});
   }
+  const resultFile=path.join(root,'result.json');
+  const result=fs.existsSync(resultFile)?JSON.parse(fs.readFileSync(resultFile,'utf8')):null;
+  files.push(...publishWrapperDiagnostics(root,pending,result));
   writeJson(path.join(pending,'collection.json'),{status:'sanitized',gateResult:files.some(f=>f.input==='result.json')?'present; inspect gate status':'missing; incomplete; no approval inferred',policy:'allowlist; originals retained locally; no arbitrary-secret guarantee',files});
   // Failed transformation leaves only a private pending directory, never public/.
   fs.renameSync(pending,output);return files;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   try{if(!process.argv[2])throw new Error('Evidence root required');collectPublic(process.argv[2]);}
-  catch{console.error('Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.');process.exitCode=1;}
+  catch{
+    if(process.argv[2])writeJson(path.join(path.resolve(process.argv[2]),'collection-status.json'),{version:1,status:'failed',code:'COLLECTION_FAILED',rawFallback:false});
+    console.error('Evidence sanitization/collection failed; publication blocked. Raw originals retained locally.');process.exitCode=1;
+  }
 }

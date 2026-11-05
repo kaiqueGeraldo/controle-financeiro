@@ -1,0 +1,16 @@
+import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+const runtime=path.resolve(process.argv[2]),prior=path.resolve(runtime,'../saneamento-expanded-plataformas-01');
+const data=JSON.parse(fs.readFileSync(path.join(runtime,'analysis-02/backend-triage.json'))),log=fs.readFileSync(path.join(prior,'expanded-01/expanded/backend.log'),'utf8');
+const decode=s=>s.replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(Number(n))).replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+const messages=new Map();
+for(const file of fs.readdirSync(path.join(prior,'expanded-01/expanded/surefire')).filter(f=>/^TEST-.*\.xml$/.test(f))) {
+ const xml=fs.readFileSync(path.join(prior,'expanded-01/expanded/surefire',file),'utf8'),suite=decode(xml.match(/<testsuite\b[^>]*\bname="([^"]+)"/)[1]);
+ for(const t of xml.matchAll(/<testcase\b([^>]*?)(?:\/>|>([\s\S]*?)<\/testcase>)/g)) {const name=decode(t[1].match(/\bname="([^"]+)"/)[1]),e=(t[2]??'').match(/<error\b([^>]*?)(?:\/>|>)/);if(e)messages.set(JSON.stringify([suite,name]),decode((e[1].match(/\bmessage="([^"]*)"/)?.[1]??"")));}
+}
+for(const e of data.errors)e.message=messages.get(JSON.stringify([e.suite,e.test]));
+const sha=s=>createHash('sha256').update(s).digest('hex');
+function normalized(e){let m=e.message?.match(/\[((?:Web)?MergedContextConfiguration)@[a-f0-9]+ (.*)\]$/s);if(!m)return null;return m[1]+' '+m[2].replace(/testClass = [\w.$]+, /,'').replace(/ImportsContextCustomizer@[a-f0-9]+/g,'ImportsContextCustomizer');}
+const groups=new Map();for(const e of data.errors){const n=normalized(e);if(!n)continue;const k=sha(n),g=groups.get(k)??{key:k,guard:[],threshold:[],normalized:n};g[e.category==='guard'?'guard':'threshold'].push(e);groups.set(k,g);}
+const result=[...groups.values()].map(g=>{const first=g.guard.map(e=>({suite:e.suite,test:e.test,index:log.indexOf(e.message)})).filter(e=>e.index>=0).sort((a,b)=>a.index-b.index)[0];return {key:g.key,guardErrors:g.guard.length,thresholdErrors:g.threshold.length,guardSuites:[...new Set(g.guard.map(e=>e.suite))],thresholdSuites:[...new Set(g.threshold.map(e=>e.suite))],firstRawLog:first?{suite:first.suite,test:first.test,line:log.slice(0,first.index).split('\n').length}:null,initializers:g.normalized.match(/contextInitializerClasses = (\[[^\]]*\])/)?.[1],matched:g.guard.length>0};});
+const report={method:'Cache-key descriptors compared after removing testClass and object identities of MergedContextConfiguration and ImportsContextCustomizer only. The Imports key contents are retained; local Spring Boot 4.0.2 bytecode confirms equals/hashCode delegate to key and toString uses ToStringCreator(this). Original messages stay private.',groups:result,unmatchedThreshold:result.filter(g=>!g.matched&&g.thresholdErrors).length,matchedThresholdCases:result.filter(g=>g.matched).reduce((n,g)=>n+g.thresholdErrors,0)};
+fs.writeFileSync(path.join(runtime,process.argv[3]??'context-cache-correlation.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({groups:result.length,unmatchedThreshold:report.unmatchedThreshold,matchedThresholdCases:report.matchedThresholdCases,unmatched:result.filter(x=>!x.matched).map(x=>({key:x.key,suites:x.thresholdSuites,initializers:x.initializers}))}));
