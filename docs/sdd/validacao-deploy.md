@@ -90,6 +90,87 @@ configuração. Se faltarem o arquivo ou a identificação inequívoca,
 manter classe D e interromper antes do start. A ausência de PG_VERSION
 não comprova banco vazio.
 
+#### Retomada em 06/11/2026 — inspeção física e suporte
+
+O lote 1 segue em classe D. O conector reencontrou o mesmo serviço e
+volume, sem deployment ativo, patch preparado ou operação pendente. A
+imagem pública ainda resolve para o mesmo índice OCI PG17.11. O
+deployment histórico abfd21e0-ebf1-46ef-8b2c-44e48d09c343 retornou zero
+linhas de log. O identificador de snapshot pertence ao deployment e não
+demonstra backup ou a versão do volume.
+
+| Alternativa | Capacidade comprovada e decisão |
+|---|---|
+| Metadados de API e conector | Identificam serviço, volume, montagem, estado e configuração, sem ler arquivos do cluster. Nenhuma operação somente leitura de PG_VERSION apareceu entre as capacidades disponíveis. |
+| railway volume files ou SSH/SFTP | O código do CLI exige deployment ativo para o alvo de arquivos. SSH/SFTP também acessam o filesystem do container em execução. A via padrão não atende à inspeção offline. |
+| Pre-deploy e montagem simultânea | O Railway documenta que o pré-deploy não monta volumes. A montagem normal dá leitura e escrita e os deployments ativos não compartilham a montagem do serviço. O conector oferece mover/anexar/destacar e alterar mountPath, com redeploy, sem opção somente leitura. |
+| Deployment de manutenção | Há override de start documentado. Falta comprovar a montagem estritamente somente leitura e a substituição completa do entrypoint para a receita exata. O wrapper da imagem configurada pode alcançar o fluxo de inicialização. Comando aparentemente de leitura dentro de um volume gravável não satisfaz a garantia. |
+| Snapshot ou clone | O painel do lote 1 não listou backup. O snapshot do deployment histórico não prova snapshot do volume. Criar backup, clone ou remontar exigiria aprovação e um procedimento do provedor com leitura isolada demonstrada. |
+
+[Volumes Railway](https://docs.railway.com/volumes/reference) ·
+[API de volumes Railway](https://docs.railway.com/integrations/api/manage-volumes) ·
+[Montagem padrão](https://docs.railway.com/volumes) ·
+[CLI de arquivos](https://github.com/railwayapp/cli/blob/master/src/commands/volume.rs) ·
+[SSH Railway](https://docs.railway.com/cli/ssh) ·
+[Pre-deploy](https://docs.railway.com/deployments/pre-deploy-command) ·
+[Comandos de start](https://docs.railway.com/builds/build-and-start-commands)
+
+Se o Railway demonstrar um método de manutenção, revisar antes de autorizar
+a receita exata. Exigir imagem identificada e entrada que execute somente
+a leitura de PG_VERSION e a checagem de global/pg_control, montagem somente
+leitura da geração confirmada e API/Postgres normal desligados. O recibo
+deve confirmar o modo de montagem e a identidade antes de ler. Limitar a
+janela a 10 minutos, incluindo retirada do inspetor e verificação de
+offline. Aprovar o teto de custo antes de provisionar. Preservar a associação
+original e exigir um caminho de restauração da configuração que não inicie o
+Postgres. Se o Railway não garantir algum desses controles, encerrar sem
+provisionar. Essa alternativa depende de evidência e nova autorização.
+
+**Próxima operação proposta.** Entrar no [Central Station](https://station.railway.com/)
+com a conta proprietária do projeto. Se houver opção de thread privada,
+enviar o texto abaixo após autorização específica para envio. Caso só
+exista canal público, perguntar de forma genérica se há uma inspeção offline
+somente leitura para PG_VERSION e global/pg_control, sem divulgar IDs, e
+solicitar canal privado para o caso concreto. O suporte documenta threads
+privadas no Pro e atendimento comunitário nos planos inferiores.
+[Suporte Railway](https://docs.railway.com/platform/support)
+
+**Texto para a Central Station pública**
+
+> Qual procedimento o Railway oferece para ler PG_VERSION e verificar a presença de global/pg_control em um volume PostgreSQL com o serviço offline, sem executar o entrypoint ou montar com escrita? Se a inspeção depender da equipe Railway, por qual canal privado posso informar os identificadores do recurso?
+
+**Minuta para canal privado**
+
+> **Inspeção offline do PGDATA de um PostgreSQL Railway**
+>
+> Olá, equipe Railway. Preciso confirmar a versão física do cluster antes de
+> reativar o PostgreSQL. O Postgres e a API estão offline.
+>
+> - Projeto controle-financeiro, 19974952-914d-4072-9140-e62e5ed23c31
+> - Ambiente production, 73f7324a-a15f-4940-b2dc-d5bcb5510441
+> - Serviço Postgres, 79d2ee56-cfd0-47bc-8744-e932cf49ba69
+> - Volume postgres-volume, 1fe34e12-e948-4c99-8448-7cfbf871ec54
+> - PGDATA em /var/lib/postgresql/data/pgdata
+>
+> O acesso por railway volume files exige um deployment ativo. O histórico
+> acessível do deployment removido não mostrou logs que comprovem a versão da
+> geração atual do volume.
+>
+> É possível confirmar em modo somente leitura, na geração atual do volume e
+> nesse PGDATA, o conteúdo de PG_VERSION e a presença de global/pg_control?
+> Por favor, informem como a leitura pode ser vinculada à geração correta.
+> Se a equipe não puder consultar os dois metadados, qual é o procedimento
+> suportado para verificá-los sem iniciar o PostgreSQL, sem executar seu
+> entrypoint e sem montar o volume com escrita? Se houver qualquer ação ou
+> custo, enviem o procedimento para avaliação antes de executá-lo.
+
+Aceitar a resposta como evidência de major somente se ela vincular o
+arquivo, PGDATA, volume e geração. A presença do arquivo de controle não
+demonstra integridade completa ou recuperabilidade. Após resposta compatível,
+reconferir rota privada, papel de leitura, exclusividade, startup e parada.
+Somente quando essas condições forem satisfeitas vale retomar o inventário
+na autorização original. [Layout PostgreSQL](https://www.postgresql.org/docs/17/storage-file-layout.html)
+
 ### Inventário somente de leitura
 
 No terminal do operador com rede privada, usar psql com PGSERVICEFILE/PGPASSFILE
@@ -128,9 +209,9 @@ de exclusividade ou falha de integridade.
 | 0–2. Alvo e leitura inicial no PG | Executar o lote 1 acima. Se houver alteração pendente ou restart em cadeia, parar antes de tocar o volume. | Recibo da geração, major, inventário e classificação. D bloqueia schema e API. | Fechar sessão e retornar a offline preservando volume. Autorizar inventário e start/stop do Postgres. |
 | 3. Backup da origem e restore isolado | A/B/C identificados, capacidade e custódia definidas, freeze de DDL, DML, jobs e sequences. Usar clientes compatíveis, dump lógico e cópia separada com controles de acesso, roles e extensões equivalentes. | SHA-256 do dump, recibo do restore, equivalência de schema, chaves/campos, relações, saldos e sequences. Parar por erro, visibilidade parcial ou diferença. | Preservar fonte, dump e falha. Repetir em destino novo após diagnóstico. Autorizar backup, dados no clone e recursos da janela. |
 | 4. Preflight e ensaio | Mesmo alvo/ferramenta, restore equivalente. B usa preflight legado, A confirma vazio integral, C compara schema/history e Flyway info/validate. Ensaiar até V16 no clone antes da origem. | Recibo com hashes, versões, tempos/locks e janela contínua. B exige exit 0 e relatório compatível sem REVIEW_REQUIRED. | Perdeu validade, reidentificar, restabelecer freeze e repetir o gate. Autorizar ensaio e preflight no alvo. |
-| 5. Homologação CF-035 | Ensaiar o rollout em alvo sintético isolado antes de intervenção de produção, com a mesma imagem/contrato. Validar BFF/frontend HTTPS em Preview protegido e isolado, e-mail com caixa de teste e cotação controlada. | Login/logout, onboarding, operação, reload/persistência, exportação, ownership, saldo e UX em erro. Medir boot, locks, pool e queries. | Fechar writers e corrigir no alvo isolado. Autorizar recursos e smoke de homologação. |
+| 5. Homologação CF-035 | Ensaiar o rollout em alvo sintético isolado antes de intervenção de produção, com a mesma imagem/contrato. Validar BFF/frontend HTTPS em alvo isolado, com caixa de teste e cotação controlada. Um Preview Vercel para a jornada funcional exige revisão própria do bloqueio padrão. | Login/logout, onboarding, operação, reload/persistência, exportação, ownership, saldo e UX em erro. Medir boot, locks, pool e queries. | Fechar writers e corrigir no alvo isolado. Autorizar recursos e smoke de homologação. |
 | 6. Baseline/migração no PG | Janela exclusiva vigente, recuperação ensaiada. Um executor Flyway e API offline. Aplicar caminho A/B/C com o plugin do POM. | BASELINE 1 apenas em B, migrations esperadas, info/validate final, reconciliação e Hibernate validate depois. Parar em erro, lock fora do orçamento ou efeito inesperado. | Inspecionar history/transações antes de retomar. Preservar versões já aplicadas. Autorizar baseline B e migrate explicitamente. |
-| 7. API em manutenção | Schema final conferido, imagem/JAR identificados, perfil adoption, writers/jobs false. Iniciar uma instância com acesso restrito e a configuração abaixo. | Liveness 200, readiness 503, rotas funcionais inclusive GET e OPTIONS 503, logs sem DDL/migrate e validação JPA no startup. Qualquer escrita, falha de boot ou pacote divergente interrompe. | Parar a instância e preservar schema, logs e receita de build. Autorizar configuração e start restrito. |
+| 7. API em manutenção | Schema final conferido, credenciais rotacionadas, imagem/JAR identificados, perfil adoption, writers/jobs false. Iniciar uma instância com acesso restrito e a configuração abaixo. | Liveness 200, readiness 503, rotas funcionais inclusive GET e OPTIONS 503, logs sem DDL/migrate e validação JPA no startup. Qualquer escrita, falha de boot ou pacote divergente interrompe. | Parar a instância e preservar schema, logs e receita de build. Autorizar configuração e start restrito. |
 | 8. Candidato de produção CF-036 | CF-033/034/035 e adoção CF-017 revisados no alcance necessário, decisão de zoom para release, autorizações e rollback compatível. Isolar previews antigos e clientes antigos antes de abrir writers. Configurar BFF Production e criar deployment Vercel manual sem alias de produção. | BFF para destino confirmado, revisão identificável, domínio/HTTPS/cookie corretos e acesso restrito. Se o isolamento do BFF antigo/API não for demonstrável, parar. | Manter alias anterior e API em manutenção. Autorizar configuração e publicação controlada separadamente. |
 | 9. Smoke controlado e promoção | Manter público e clientes antigos fora. Parar/drenar processo de manutenção e iniciar o mesmo digest com writers true/jobs false e readiness. Validar o deployment Vercel sem alias com conta sintética autorizada. | Readiness 200 e reconciliação após reload. Com GO, promover o mesmo deployment, liberar clientes da revisão compatível e validar domínio oficial. | Falha congela writers. Retornar frontend/API apenas para versões compatíveis com schema e efeitos já gravados. Autorizar smoke com escrita, promoção e abertura de uso. |
 | 10. Jobs e observação | Uso estável, revisar backlog, cron, timezone, ShedLock, replay, notificações e mercado. Reinício separado para jobs true. | Primeira rodada e checkpoints propostos de 30 min e 24 h. Disponibilidade, 5xx/503/504, pool, CPU/memória/locks, reconciliação e e-mails sem PII. | Falha monetária/auth/ownership congela escrita imediatamente. Três falhas de readiness em intervalos de 30 s disparam avaliação de manutenção. Autorizar jobs e efeitos externos. |
@@ -254,6 +335,8 @@ consultas por requisição antes de aprovar índice ou afirmar ausência de N+1.
 
 ### Diff operacional proposto
 
+Aplicar as etapas abaixo na ordem do [plano de rotação](rotacao-credenciais.md). O conector reconfirmou os nomes das variáveis e os escopos da Vercel. Hibernate update e JDBC privado constam da observação anterior do painel. O fluxo de nova leitura desses valores foi interrompido pelo limite da revisão automática e nenhum valor sensível foi aberto.
+
 | Serviço/ambiente e configuração | Atual | Proposto e momento | Validação e recuperação |
 |---|---|---|---|
 | Railway production/Postgres, imagem/volume e rede | PG17 configurado, major do volume desconhecida, volume 5 GB, DNS privado, sem proxy público. | Preservar volume/DNS. Lote 1 só com runtime compatível. Upgrade de major segue procedimento próprio. | Conferir geração/PG_VERSION/version_num e ausência de exposição. Se divergente, parar sem reset. |
@@ -262,9 +345,9 @@ consultas por requisição antes de aprovar índice ou afirmar ausência de N+1.
 | Railway production/API, Hibernate/Flyway/SQL init | Hibernate update. Sem perfil ou override Flyway/SQL init informado. Defaults implicariam Flyway ativo ao iniciar. | Antes do start, SPRING_PROFILES_ACTIVE=adoption, SPRING_JPA_HIBERNATE_DDL_AUTO=validate, SPRING_FLYWAY_ENABLED=false, SPRING_SQL_INIT_MODE=never, SPRING_JPA_GENERATE_DDL=false. Flyway pelo executor separado. | Guard de adoção, Hibernate validate e logs sem DDL. Parar ao recusar override, mantendo proteção. |
 | Railway production/API, flags/jobs | APP_OPERATIONS_WRITERS_ENABLED e APP_OPERATIONS_JOBS_ENABLED ausentes, defaults normais true. Sem cron Railway. | false/false no start restrito, true/false no smoke autorizado, true/true somente após GO de jobs e reinício separado. Manter clientes antigos isolados. | Manutenção 503, ausência de jobs/escrita, depois smoke e primeiro job observado. Falha retorna a false/false com drenagem. |
 | Railway production/API, PORT/health/recursos | Domínio HTTP porta 8080. Sem healthcheck ou start override. 1 réplica, limite de 8 vCPU/8 GB, restart On Failure 10. | PORT=8080 alinhado ao domínio, uma réplica. Liveness no start restrito, readiness para liberar. 300 s como ponto de ensaio, ajustar por startup real. Evitar loop de restart após falha de configuração. | Conferir probes e consumo por ambiente. Parar deployment defeituoso preservando logs antes de mudar orçamento. |
-| Railway production/API, conexão, CORS e auth | JDBC aponta postgres.railway.internal:5432. FRONT_URL aponta controle-financeiro-kaiquedev.vercel.app. JWT/Resend/BRAPI presentes por nome. | Preservar JDBC privado, revisar papel, TLS e timeout. Fixar FRONT_URL em origem HTTPS exata do alias de uso aprovado. Recuperação usa código por e-mail. Revisar destinatários e logs de auth antes de uso. | Confirmar conexão, login/logout e recuperação em destinatário controlado. Evitar coleta de PII e isolar efeitos externos no ensaio. Corrigir destino preservando sessão quando compatível. |
+| Railway production/API, conexão, CORS e auth | JDBC aponta postgres.railway.internal:5432. FRONT_URL aponta controle-financeiro-kaiquedev.vercel.app. JWT/Resend/BRAPI presentes por nome. | Após verificar o papel real, rotacionar a senha no PostgreSQL e sincronizar apenas os consumidores confirmados. Preservar JDBC privado em postgres.railway.internal:5432. Compor host/porta/database por referência sem credenciais se o vínculo for aprovado. Evitar DATABASE_URL completa no JDBC. Conferir TLS, timeout e CORS exato. Inserir JWT, BRAPI e Resend novos no cutover autorizado. | Conferir conexão com papel novo, rejeição de JWT anterior e login novo. Validar os fluxos Resend e BRAPI em ensaios autorizados, sem dados reais. Manter a API offline ou em manutenção se falhar. Nunca restaurar credencial exposta. |
 | Vercel Production, BFF e publicação | BACKEND_API_URL com um valor para três ambientes. Host histórico API Railway, valor atual exige reautenticação. Alias público em release anterior. | Destino servidor-only de Production para API aprovada. Publicar manualmente sem alias inicial e promover a mesma revisão após smoke. Confirmar domínio canônico, hoje FRONT_URL difere do primário do painel. | BFF → API, cookies host-only HttpOnly, Secure em produção, SameSite=Lax. Testar origens, sessão e HTTPS. Restaurar alias/frontend compatível após congelar writes. |
-| Vercel Preview/Development, rede e deploys antigos | Mesma variável compartilhada, previews READY antigos, proteção Vercel Authentication. | Remover destino compartilhado ou usar backend exclusivamente sintético. Antes de writers reais, conter deploys/aliases antigos que mantenham o destino. Manter git.deploymentEnabled=false no candidato. | Confirmar isolamento de preview/cliente/BFF antigo. Variáveis novas não alteram deployments existentes. Se a contenção for insuficiente, manter manutenção e revisar controle de ingresso em escopo próprio. |
+| Vercel Preview/Development, rede e deploys antigos | Mesma variável compartilhada, previews READY antigos, proteção Vercel Authentication. | Retirar destino real de Preview e Development. Development usa backend local ou descartável. No candidato integrado, com VERCEL_ENV=preview, o BFF responde 503 antes de chamar upstream. Confirmar a presença da variável de sistema no deployment. Homologação em Preview exige backend isolado e revisão própria do guard. A versão histórica 272001f7 não possui esse guard. Conter deploys/aliases antigos antes de writers reais e manter git.deploymentEnabled=false. | Confirmar isolamento de preview/cliente/BFF antigo. Variáveis novas não alteram deployments existentes. Se a contenção for insuficiente, manter manutenção e revisar controle de ingresso em escopo próprio. |
 
 Preparar contexto isolado contendo apenas api.jar e usar Dockerfile.release da
 revisão. Revalidar hash antes da construção. Passar JAVA_RUNTIME com digest,

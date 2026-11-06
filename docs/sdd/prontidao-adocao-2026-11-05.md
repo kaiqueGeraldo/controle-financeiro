@@ -6,6 +6,67 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Retomada — volume e credenciais em 06/11/2026
+
+A investigação partiu de d900c30471f58438d3a9c42f8eea425dba41787e e do
+recibo do lote 1. Às 09:12:13 de 06/11 em America/Sao_Paulo
+(12:12:13 UTC), o Railway continuava sem deployment ativo para API ou
+Postgres, sem changeset e sem trabalho pendente. O Postgres permaneceu
+offline por toda a execução. Não houve SQL real, alteração remota,
+emissão/revogação de credenciais ou mensagem enviada. O índice OCI
+consultado continua sendo o da imagem 17.11 do recibo anterior. A
+versão do cluster persistido permanece inconclusiva. Não foi demonstrada
+uma leitura offline do volume pelo acesso disponível.
+
+O [runbook](validacao-deploy.md) reúne as capacidades confirmadas e a
+minuta do Central Station. A evidência exigida é PG_VERSION, presença
+de global/pg_control e vínculo inequívoco ao PGDATA e à geração atual
+do volume. O lote 1 não foi retomado. CF-017/P01/P02 permanecem em
+revisão, com inventário real, recuperabilidade, compatibilidade e
+migrações ainda pendentes.
+
+As quatro credenciais relatadas são tratadas como expostas. O
+[plano de rotação](rotacao-credenciais.md)
+separa contenção dos provedores, troca da senha no papel PostgreSQL,
+renovação do JWT e cutover da API. O conector atual listou variáveis
+com valores ocultos. Uma releitura visual restrita a Hibernate e
+destino JDBC foi interrompida pelo limite de revisão automática. O
+runbook usa para esses valores a última leitura registrada e a
+captura relatada. A identidade do papel e o encadeamento de
+referências de credenciais continuam a confirmar. A revisão de
+metadados não vinculou a chave antiga a um ID inequívoco no provedor.
+
+### Auditoria sanitizada
+
+- Varredura local de 107.780 arquivos de texto e 24.416 entradas de texto
+  em 404 ZIPs, entre checkouts, logs e acervos. Foram registrados
+  somente tipo, arquivo e linha. As 151 ocorrências candidatas apontaram
+  para contextos sintéticos. 148 coincidiram em memória com as
+  bases sintéticas do Docker Compose, do inicializador de teste e de
+  um timeline histórico. As três restantes estão em um timeline de
+  startup local, com marcadores sintéticos e sem destino Railway.
+- Histórico local, refs e reflogs. Os 17.238 blobs de texto elegíveis
+  produziram cinco ocorrências, todas coincidentes com fixtures
+  controladas. Nenhuma evidência de exposição adicional foi confirmada
+  nesse recorte.
+- Passada complementar dirigida a traces e texto escapado dos 11
+  artefatos preservados do smoke da PR, expanded da PR e smoke da main.
+  83 entradas de texto elegíveis, sem candidato adicional e sem erro de
+  leitura nesse recorte. Traces fora desses ZIPs não têm essa mesma
+  cobertura complementar.
+- O conector não retornou linhas dos logs Railway da API consultados.
+  Uma busca por padrões não compara os valores de produção, que
+  permaneceram ocultos. Imagens, formatos binários, ZIP aninhado,
+  quatro itens acima do limite de tamanho e 29 erros de abertura ou
+  leitura ficaram fora da primeira passada. A captura relatada
+  continua sendo o motivo da rotação.
+- O acervo externo
+  controle-financeiro-runtimes/prontidao-adocao/20261105-retomada
+  guarda os resultados sanitizados. Para tratar uma eventual cópia
+  adicional, revogar primeiro a credencial, restringir acesso à
+  evidência sob aprovação separada e reavaliar retenção e cópias.
+  Preservar histórico e acervos durante a investigação.
+
 ## Lote 1 — parada anterior à ativação em 05/11/2026
 
 Leituras de **21:38:53 a 21:43:45 em America/Sao_Paulo**, equivalentes a
