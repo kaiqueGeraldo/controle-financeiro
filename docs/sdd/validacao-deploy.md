@@ -60,6 +60,36 @@ O lote exige autorização para inventário do alvo real e, condicionalmente,
 start/stop do Postgres. A API permanece offline. O inventário inicial independe
 do zoom nativo, do deploy da API e de CI novo.
 
+#### Resultado do lote 1 em 05/11/2026
+
+A execução autorizada parou antes da ativação. O Postgres e a API continuaram
+offline. A imagem configurada resolve para PostgreSQL 17.11 no registro
+consultado. A geração e a versão major do volume não foram comprovadas.
+Nenhum inventário SQL do alvo ocorreu. Consulte a
+[matriz e o recibo do lote](prontidao-adocao-2026-11-05.md#lote-1--parada-anterior-à-ativação-em-05112026).
+
+O próximo passo é obter do Railway um recibo do PG_VERSION em
+/var/lib/postgresql/data/pgdata, ligado à geração atual do volume
+1fe34e12-e948-4c99-8448-7cfbf871ec54. Pedir confirmação da presença de
+global/pg_control como evidência de cluster inicializado. A inspeção deve
+ocorrer offline, sem montagem com escrita, execução do entrypoint ou
+transferência de arquivos de dados. Alternativamente, obter histórico
+verificável de startup bem-sucedido vinculado ao mesmo volume, geração e
+PGDATA, com confirmação de que não houve substituição ou restauração
+posterior. O CLI de arquivos exige deployment ativo, então é preciso
+confirmar com o provedor um caminho offline. Abrir chamado em nome do
+usuário ou criar snapshot/montagem depende de autorização própria.
+
+Com PG17 comprovado, reconferir a resolução da imagem e os scripts de
+startup, a exclusividade, o papel de leitura, a rota privada e a parada
+antes de retomar a janela. Preparar um limite de 30 minutos que inclua
+tempo para remover o deployment e confirmar offline, com relógio e
+operador disponíveis antes do start. Se o major for 16, o caminho com
+runtime compatível exige um procedimento separado caso altere imagem ou
+configuração. Se faltarem o arquivo ou a identificação inequívoca,
+manter classe D e interromper antes do start. A ausência de PG_VERSION
+não comprova banco vazio.
+
 ### Inventário somente de leitura
 
 No terminal do operador com rede privada, usar psql com PGSERVICEFILE/PGPASSFILE

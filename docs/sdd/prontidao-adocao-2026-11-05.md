@@ -6,6 +6,51 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Lote 1 — parada anterior à ativação em 05/11/2026
+
+Leituras de **21:38:53 a 21:43:45 em America/Sao_Paulo**, equivalentes a
+**00:38:53–00:43:45 UTC de 06/11**. A worktree iniciou limpa em
+ba0331441701e5a487a1131f6e25926d3f9ef7e5. O lote terminou com **0 min de
+PostgreSQL ativo**. API e Postgres foram observados offline no painel, sem
+deployment ativo no início e no fechamento do conector. Nenhum comando de
+ativação ou desligamento foi enviado. O estado offline foi confirmado
+diretamente.
+
+| Controle | Evidência sanitizada e limite |
+|---|---|
+| Alvo | Railway controle-financeiro 19974952-914d-4072-9140-e62e5ed23c31, production 73f7324a-a15f-4940-b2dc-d5bcb5510441. Postgres 79d2ee56-cfd0-47bc-8744-e932cf49ba69, API f4ad9689-58ed-4112-8bb2-2cfe4af24483. |
+| Associação e PGDATA | postgres-volume 1fe34e12-e948-4c99-8448-7cfbf871ec54 associado ao Postgres, mount /var/lib/postgresql/data. Variável PGDATA conferida no painel como /var/lib/postgresql/data/pgdata. Identidade da geração física e major do cluster seguem sem prova. |
+| Imagem e startup | Tag configurada ghcr.io/railwayapp-templates/postgres-ssl:17. O manifesto público retornou índice OCI sha256:5e806d28c18198f933d25e79989470a47a938f465bf0634e030b416961b3463e. Configurações amd64 e arm64 anunciam pacote 17.11-1.pgdg13+2. Sem override de start nem pre-deploy informado. O comando da imagem executa postgres na porta 5432, via tini e wrapper.sh, que delega ao docker-entrypoint.sh com fluxo de inicialização. A tag é mutável e o registro histórico não traz digest efetivamente executado. |
+| Histórico e armazenamento | Deployment Postgres abfd21e0-ebf1-46ef-8b2c-44e48d09c343 REMOVED, com a mesma tag declarada. O painel não mostrou logs de startup disponíveis e a consulta histórica do conector não forneceu logs. Nenhum backup listado. A indicação histórica de PG16 não está vinculada a uma geração do volume. |
+| Exclusividade e acesso | Só API e Postgres no ambiente, ambos offline, sem cron declarado, patch staged ou pending work. Autodeploy da API desativado. Sem proxy TCP público, DNS postgres.railway.internal. A listagem de automações pelo conector falhou. A visibilidade disponível não prova exclusividade de clientes externos nem um papel de leitura com acesso ao schema/history. |
+| Desligamento | A operação Remove no deployment específico para seu processo e preserva o serviço e volume. O painel mostrava apenas o deployment histórico removido. O procedimento foi conferido para uso futuro. |
+| Resultado do inventário | Versão efetiva do servidor, major do volume, schemas e histórico Flyway não observados. Classificação **D, inconclusiva**. Nenhuma sessão SQL real, nenhuma leitura de registros financeiros ou pessoais e nenhuma alteração de estado remoto. |
+
+A consulta do arquivo esperado /var/lib/postgresql/data/pgdata/PG_VERSION
+depende de acesso de leitura à geração física correta. A implementação oficial
+do CLI Railway exige deployment ativo para railway volume files. Um caminho
+de leitura offline não foi encontrado no painel nem no conector. A versão
+do pacote no manifesto da imagem e a tag histórica não demonstram a versão
+do cluster gravada no volume. [CLI Railway](https://github.com/railwayapp/cli/blob/master/src/commands/volume.rs) ·
+[Layout PostgreSQL](https://www.postgresql.org/docs/17/storage-file-layout.html) ·
+[Wrapper da imagem identificada](https://github.com/railwayapp-templates/postgres-ssl/blob/09ff77dca25f9af407827b9f27c7de9c5c660790/wrapper.sh) ·
+[Operações de deployment Railway](https://docs.railway.com/deployments/reference)
+
+O SQL gravado em ba033144 continha um delimitador de bloco inválido. A
+validação anterior aceitava o texto da instrução no erro de sintaxe como se
+fosse a mensagem emitida pelo guard. Reproduzi SQLSTATE 42601 no arquivo
+original e corrigi os três delimitadores em c5700fbf. Em PostgreSQL local
+16.15 e 17.11, a revisão corrigida encerrou os três guards com P0001 e a
+falta de SELECT no history com 42501. Os dois casos válidos retornaram 0
+e executaram ROLLBACK. Foram sete verificações por major contando a
+contraprova original. Fixtures sem rede, em tmpfs e removidas.
+
+Recibo sanitizado no acervo externo em
+controle-financeiro-runtimes/prontidao-adocao/20261105-lote1/recibo.json.
+SHA-256 423f32953b8a69d06500a306c760fb55639fc7645211d7043a8d0bb5c20042f1.
+O [runbook](validacao-deploy.md) registra a próxima verificação. Os critérios
+de CF-017/P01/P02 permanecem no alcance anterior.
+
 ## Base, evidência e diferenças
 
 A leitura ao vivo de refs/heads/main por git ls-remote e a comparação do GitHub

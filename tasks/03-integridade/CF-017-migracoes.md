@@ -8,6 +8,13 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Lote 1 Railway — 05/11/2026
+
+Compatibilidade da geração do volume não comprovada. O lote autorizado
+encerrou antes da ativação, com API e Postgres offline. Versão efetiva,
+schema e Flyway seguem desconhecidos. Os critérios reais continuam
+pendentes. [Evidência e próximo passo](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Consolidação pós-PR #3 — 05/11/2026
 
 Os aceites sintéticos e a revalidação local de RV17-01/P2 e RV17-02 são

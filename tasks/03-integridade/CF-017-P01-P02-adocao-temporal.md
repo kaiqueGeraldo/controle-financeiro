@@ -5,6 +5,13 @@
 - Origem: P01/P02 da revisão independente (registro de execução privado)
 - Preparação local: saneamento de 13/09/2026 (registro de execução privado)
 
+## Lote 1 Railway — 05/11/2026
+
+Compatibilidade da geração do volume não comprovada. O lote autorizado
+encerrou antes da ativação, com API e Postgres offline. Versão efetiva,
+schema e Flyway seguem desconhecidos. Os critérios reais continuam
+pendentes. [Evidência e próximo passo](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Consolidação pós-PR #3 — 05/11/2026
 
 P01/P02 permanece em_revisao. Fundação e plano de rollout/reversão mantêm
