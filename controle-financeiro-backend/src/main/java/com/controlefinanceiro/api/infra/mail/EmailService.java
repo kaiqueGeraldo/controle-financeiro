@@ -1,18 +1,33 @@
 package com.controlefinanceiro.api.infra.mail;
 
-import com.resend.Resend;
-import com.resend.core.exception.ResendException;
-import com.resend.services.emails.model.SendEmailRequest;
+import com.controlefinanceiro.api.infra.operations.OperationsState;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.controlefinanceiro.api.infra.operations.OperationsState;
+import tools.jackson.databind.json.JsonMapper;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
 public class EmailService {
+
+    private static final JsonMapper REQUEST_MAPPER = JsonMapper.builder().build();
+    private static final MediaType JSON = MediaType.get("application/json");
+
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .followRedirects(false)
+            .followSslRedirects(false)
+            .retryOnConnectionFailure(false)
+            .build();
 
     @Autowired private OperationsState operations;
 
@@ -25,23 +40,26 @@ public class EmailService {
     @Async("emailTaskExecutor")
     public void sendTemplatedEmail(String to, String subject, String title, String bodyContent) {
         if (!operations.writersEnabled()) return;
-        log.info("Iniciando envio de e-mail com template para: {}", to);
-
-        String htmlTemplate = buildHtmlTemplate(title, bodyContent);
-
-        Resend resend = new Resend(apiKey);
-        SendEmailRequest sendEmailRequest = SendEmailRequest.builder()
-                .from("Controle Financeiro <" + fromEmail + ">")
-                .to(to)
-                .subject(subject)
-                .html(htmlTemplate)
-                .build();
-
         try {
-            resend.emails().send(sendEmailRequest);
-            log.info("E-mail enviado com sucesso para: {}", to);
-        } catch (ResendException e) {
-            log.error("Falha ao enviar e-mail via Resend para {}. Erro: {}", to, e.getMessage(), e);
+            var payload = REQUEST_MAPPER.writeValueAsString(Map.of(
+                    "from", "Controle Financeiro <" + fromEmail + ">",
+                    "to", List.of(to),
+                    "subject", subject,
+                    "html", buildHtmlTemplate(title, bodyContent)));
+            var request = new Request.Builder()
+                    .url("https://api.resend.com/emails")
+                    .header("Authorization", "Bearer " + apiKey)
+                    .post(RequestBody.create(payload, JSON))
+                    .build();
+            try (var response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    log.info("Envio aceito pelo Resend.");
+                } else {
+                    log.warn("Falha no envio pelo Resend (status={}).", response.code());
+                }
+            }
+        } catch (IOException | RuntimeException e) {
+            log.error("Falha no envio pelo Resend (tipo={}).", e.getClass().getSimpleName());
         }
     }
 
