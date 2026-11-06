@@ -8,6 +8,18 @@ valores ocultos e sem indicação de selo nessas variáveis. A Vercel tem soment
 BACKEND_API_URL entre as variáveis do projeto retornadas. O frontend recebe o
 JWT como cookie e o encaminha como Bearer, sem conhecer a chave de assinatura.
 
+## Alvo novo na adoção do zero
+
+O proprietário dispensou os dados do volume antigo em 06/11/2026. Para o
+cutover, a senha exposta de SPRING_DATASOURCE_PASSWORD será substituída por
+uma credencial inédita de um papel da API no cluster novo. A linha da matriz
+que descreve a troca da senha de um papel existente aplica-se somente à
+hipótese de reaproveitar o Postgres antigo. O bootstrap do novo serviço tem
+credencial própria. O executor Flyway e a API recebem credenciais e grants
+próprios antes do cutover autorizado. O serviço antigo permanece offline,
+sem tentativa de validar ou reaproveitar a senha exposta. A contenção e a
+rotação de BRAPI, Resend e JWT continuam necessárias.
+
 ## Matriz de rotação
 
 | Credencial e emissor | Consumidores e dependências | Aplicação e revogação | Validação e recuperação |

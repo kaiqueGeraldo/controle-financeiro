@@ -9,7 +9,7 @@ O plano atualiza o procedimento A–D da revisão local 46b85ee0 e preserva as
 regras do ROLLOUT-LEGADO de 8a83c357. Ambos continuam recuperáveis pelo Git.
 A cadeia atual termina em **V16**.
 
-### Alvos e decisão atual
+### Alvos da revisão anterior
 
 - Railway, projeto controle-financeiro, ID 19974952-914d-4072-9140-e62e5ed23c31,
   ambiente production 73f7324a-a15f-4940-b2dc-d5bcb5510441. API
@@ -24,7 +24,42 @@ A cadeia atual termina em **V16**.
   de PG16 operacional. Resolver o major do volume antes de iniciar um binário
   contra ele.
 
-### Lote 1 para autorização — somente Postgres e inventário
+### Adoção do zero — decisão de 06/11/2026
+
+O proprietário confirmou que os dados antigos não precisam ser reaproveitados.
+O destino da adoção passa a ser um cluster novo. O serviço Postgres original
+e o volume postgres-volume 1fe34e12-e948-4c99-8448-7cfbf871ec54 permanecem
+offline e fora do fluxo de ativação. A inspeção física, o chamado ao Railway e
+o lote 1 do banco antigo deixam de ser pré-condições. As seções históricas
+abaixo preservam a decisão anterior e não se aplicam ao novo alvo.
+
+#### Lote A1 para autorização — provisionar e conferir somente o banco novo
+
+| Controle | Operação proposta |
+|---|---|
+| Alvo | Railway controle-financeiro, projeto 19974952-914d-4072-9140-e62e5ed23c31, production 73f7324a-a15f-4940-b2dc-d5bcb5510441. Criar serviço postgres-adocao e volume novo postgres-adocao-volume, limite de capacidade proposto de 1 GB, na região da API. Reconfirmar nomes livres, quota e ausência de patch alheio. Registrar os IDs novos antes de iniciar. |
+| Imagem e configuração | PostgreSQL 17.11 da imagem Railway postgres-ssl, índice OCI verificado sha256:5e806d28c18198f933d25e79989470a47a938f465bf0634e030b416961b3463e. Usar referência por digest se aceita e conferir o alvo efetivo. Montar o volume novo em /var/lib/postgresql/data, com PGDATA=/var/lib/postgresql/data/pgdata. Banco controle_financeiro e papel de bootstrap dedicado cf_adocao_admin, com senha nova injetada via mecanismo protegido. O papel de bootstrap fica fora da configuração da API. |
+| Preparação | Criar serviço e volume com staging, selecionar somente o ambiente acima e preparar as variáveis do novo serviço antes de aplicar o conjunto. Em serviço criado diretamente por imagem, usar segredo do cofre aprovado ou entrada protegida. A função secret() do Railway é documentada para templates e não será presumida em variável de serviço avulso. Conferir mount, PGDATA, credencial presente, ausência de domínio/proxy TCP público e de alterações nos serviços antigos. Parar se houver ativação em cadeia ou staged changes alheios. |
+| Janela | Aplicar somente a configuração nova e iniciar exclusivamente postgres-adocao por até 30 minutos, incluindo parada. O entrypoint inicializa os catálogos e o banco novos no volume novo. A API permanece offline e sem referência ao novo serviço. Usar um canal privado autorizado, como Railway SSH no novo container com identidade registrada, sem abrir proxy. Validar disponibilidade desse canal e a operação de parada antes da ativação. |
+| Critério de avanço | Confirmar os IDs novos e a montagem, a versão efetiva e o database controle_financeiro com schema public. Executar o SQL de inventário vigente em transação somente leitura e confirmar ausência de objetos da aplicação e de flyway_schema_history. Registrar versão, vínculo do volume, modo privado e estado final. Objeto ou history inesperado, mount ausente, identidade divergente ou falta de visibilidade interrompem a janela. |
+| Parada e custo | Remover somente o deployment do novo serviço e confirmar offline, preservando o volume novo para a próxima janela. Custo de CPU/RAM durante o start e armazenamento utilizado enquanto os volumes existirem. A tarifa publicada de volume é US$ 0,15 por GB-mês de uso. Confirmar quota e custos aplicáveis antes de autorizar. |
+
+[PostgreSQL privado no Railway](https://docs.railway.com/databases/postgresql) ·
+[Staged changes](https://docs.railway.com/deployments/staged-changes) ·
+[Preços Railway](https://docs.railway.com/pricing/plans)
+
+A autorização anterior de start para o Postgres antigo não cobre criação
+ou ativação de postgres-adocao. Este lote cria apenas o cluster vazio.
+Depois de comprovar a classe A, preparar recuperação do alvo novo e
+solicitar a execução do Flyway V1–V16 desde V1, sem baseline e com a API
+offline. A prova descartável anterior em PG17.11 já exercitou banco vazio
+V1–V16, JPA validate, history e reaplicação. Ela orienta o ensaio do novo
+alvo e não certifica a configuração real. O cutover usa credencial nova
+para um papel da API distinto do bootstrap e, quando aprovado, do executor
+de migrations. A rotação de JWT, BRAPI e Resend e a contenção dos previews
+antigos continuam no caminho de liberação.
+
+### Histórico do lote 1 — Postgres original e inventário
 
 1. Reconfirmar os IDs acima, a geração/volume, API offline, ausência de changeset
    Railway, autodeploy desligado e exclusividade frente a clientes, scripts,

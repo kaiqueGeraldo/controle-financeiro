@@ -6,6 +6,18 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Decisão de adoção do zero — 06/11/2026
+
+O usuário dispensou os dados históricos. O volume antigo continua
+inconclusivo, fora do caminho de adoção. A consulta ao suporte e o start do
+banco antigo deixam de ser necessários. O alvo candidato passa a ser o
+serviço novo postgres-adocao, condicionado a autorização de provisionamento,
+identificação do volume e confirmação do schema vazio. Sem critério de
+produção encerrado. A compatibilidade do legado fica fora do escopo desta
+adoção. Para CF-017/P01/P02, permanecem inventário do alvo novo, recuperação,
+cadeia Flyway, verificação de schema e validação dos consumidores reais.
+[Lote A1 e critérios de avanço](validacao-deploy.md)
+
 ## Retomada — volume e credenciais em 06/11/2026
 
 A investigação partiu de d900c30471f58438d3a9c42f8eea425dba41787e e do
