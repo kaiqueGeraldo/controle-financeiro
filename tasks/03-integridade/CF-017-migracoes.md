@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Recuperação V16 no A3 complementar — 06/11/2026
+
+O checkpoint do banco novo restaurou as 16 linhas do histórico Flyway e o
+catálogo V16 em PostgreSQL 17.11 isolado. Scripts, versões e checksums
+conferidos, Flyway validate e info passaram sem pendências e sem migrate.
+O candidato corrigido passou em Hibernate validate no clone com papel
+restrito. A evidência cobre o alvo novo vazio. O estado segue em revisão
+até a revisão independente e o startup no Railway.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Revisão dirigida e preparação A3 — 06/11/2026
 
 Revisão dirigida confirmou os 16 checksums do A2, o catálogo e a

@@ -5,6 +5,15 @@
 - Origem: P01/P02 da revisão independente (registro de execução privado)
 - Preparação local: saneamento de 13/09/2026 (registro de execução privado)
 
+## Recuperação V16 no A3 complementar — 06/11/2026
+
+Restaurados histórico, constraints e índices do alvo novo vazio. A
+validação estrutural usou o JAR corrigido e o papel restrito na cópia
+isolada. Os requisitos de writers, ordenação, exportação e EXPLAIN com
+volume representativo seguem em aberto, assim como a revisão independente
+e a verificação em runtime Railway.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Revisão dirigida e preparação A3 — 06/11/2026
 
 Revisão dirigida confirmou os 16 checksums do A2, o catálogo e a

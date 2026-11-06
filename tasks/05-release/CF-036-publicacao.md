@@ -8,6 +8,15 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Preparação e adiamento no A3 complementar — 06/11/2026
+
+Novo commit e JAR verificados em imagem local, com recuperação V16 e
+startup isolado do artefato. O proprietário manteve a chave Resend exposta
+e adiou a API. A proposta depende da revisão independente, da janela
+restrita no Railway, da homologação funcional e da comprovação do
+artefato publicado.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Contenção e configuração A3 — 06/11/2026
 
 A configuração segura da API foi aplicada sem deploy. O domínio público

@@ -6,6 +6,22 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Resultado do A3 complementar — 06/11/2026
+
+A janela real do banco novo durou 18 s. O backup consistente confirmou
+36 tabelas de aplicação vazias e preservou o histórico Flyway. A recuperação
+em PostgreSQL 17.11 isolado comprovou V1–V16, zero pendências, catálogo e
+grants. O novo candidato `b396630d` passou em cinco testes focados dos
+clientes e controles de manutenção. A cópia restaurada sustentou o
+startup do JAR com TLS JDBC `verify-full` e o papel de leitura.
+
+O proprietário confirmou a revogação do token BRAPI antigo, manteve
+`Onboarding` e adiou a API. Banco novo, API e banco legado terminaram
+desligados. A revisão independente do novo candidato e da recuperação,
+a prova com réplica no Railway e a homologação funcional seguem pendentes.
+CF-017/P01/P02 ficam em revisão, CF-035 em execução e CF-036 como proposta.
+[Runbook e recibo](validacao-deploy.md)
+
 ## Resultado do lote A3 — 06/11/2026
 
 Revisão dirigida do A2 consistente, inclusive a causa do código 13 e o

@@ -135,50 +135,91 @@ Recibo no acervo externo
 `controle-financeiro-runtimes/prontidao-adocao/20261106-lote-a3/recibo.json`.
 SHA-256 `854dbb82733550e2b4fc13879f30fcf3b2308b2791e2ed5f702bf2e724cce1bb`.
 
+##### A3 complementar em 06/11/2026
+
+O proprietário manteve a chave Resend `Onboarding` e adiou a API. Confirmou
+a revogação do token BRAPI antigo. A matriz distingue o que foi confirmado
+pelo operador, pelo emissor e pelo Railway. [Rotação](rotacao-credenciais.md)
+
+| Controle | Evidência e alcance |
+|---|---|
+| Revisão e captura real | Revisão dirigida do A2 conferiu 24 hashes e os 16 checksums. O novo backup saiu do `postgres-adocao` 17.11 no volume `b4a172ec-5771-4bca-8b10-2ae7976b1f6e`. O mesmo snapshot confirmou 36 tabelas de aplicação vazias e incluiu as 16 linhas Flyway. A captura ocorreu das 17:16:00 às 17:16:18 de Brasília, das 20:16:00 às 20:16:18 UTC. Deployment `f8cfb642-00ca-49a5-941e-22d2cc3745df` removido. API e banco legado ficaram desligados. |
+| Restauração isolada | PostgreSQL 17.11 restaurou o archive completo. Flyway `validate` e `info` confirmaram V1–V16, 16 sucessos e zero pendências, sem `migrate`. Foram reconciliados 36 tabelas vazias, 166 constraints e 97 índices. Em 17 checks, a recriação de SQL apresentou casts equivalentes dos mesmos elementos de arrays. Os demais itens compararam exatamente. |
+| Papel restrito | `cf_adocao_api` preservou CONNECT, USAGE em `public`, SELECT em `public.users` e padrão somente leitura. Sem escrita, DDL, TEMP ou acesso ao histórico. O papel tem alcance para startup e health em manutenção. `cf_adocao_migrator` possui os objetos e segue sem login. A verificação Flyway usou o bootstrap descartável da cópia. Grants para uso funcional ficam para etapa própria. |
+| Candidato novo | Commit `b396630d1a821c5de4a5f626f81476aeb9626e9e`. JAR SHA-256 `e624abbc36155a36720ea92156298cd3d58ccb004dbd76a82134e4146a1eff64`. Os 16 SQLs embarcados correspondem aos hashes do A2. A imagem local `cf-adocao-api:b396630d-a3c` contém o JAR verificado em `/app/app.jar`. Cinco testes focados passaram. A revisão dos caminhos de vazamento orientou a correção e a revisão independente do candidato empacotado fica pendente. |
+| Runtime do JAR em cópia isolada | Hibernate validate passou em 21,8 s de startup. PgJDBC com `verify-full`, CA da cópia e hostname `localhost`. PostgreSQL confirmou dez sessões TLS de `cf_adocao_api`. Liveness 200. Readiness, login e cadastro 503 por manutenção. Catálogo, histórico e contagens permaneceram iguais. O ensaio confirmou a fronteira de manutenção e não exercitou uma sessão autenticada. |
+| Configuração e tráfego real | Railway reconfirmou JDBC privado, CA configurada, Hibernate validate, Flyway/SQL init e writers/jobs desligados, uma réplica configurada e healthcheck liveness de 300 s. Borda Railway bloqueou a origem pública (403) com API desligada. Oito previews existentes retornaram 302 de autenticação anônima e `BACKEND_API_URL` continua só em Production para novos builds. O upstream dos builds existentes e o comportamento com a réplica ligada ficam para a janela. |
+| Encerramento | A chave SSH temporária foi removida do Railway e do host. Os volumes novo e legado foram preservados. A réplica de produção, o JDBC da API no DNS privado, a contenção com runtime ativo e a homologação funcional seguem pendentes. |
+
+O acervo externo está em
+`controle-financeiro-runtimes/prontidao-adocao/20261106-lote-a3-complementar`.
+O recibo vincula `backup-protegido/v16-completo.dump` (SHA-256
+`7bffc68fc2c984c1138bf372b0dc1cb664e7d0f155dfee5f6d959eea6fa49323`)
+e `backup-protegido/roles-sem-senhas.sql` (SHA-256
+`dfe01c230cc991505dce10dd7ea38761e6d606bd8d53f1da9332d1b69f32a531`).
+
+Para reproduzir a recuperação, conferir os dois hashes e preparar
+PostgreSQL 17.11 descartável com bootstrap exclusivo. Aplicar o SQL de
+roles sem senhas em `postgres` e usar `pg_restore --exit-on-error --create
+-d postgres` com o archive completo. Validar banco, grants, catálogo e
+histórico V1–V16 com o bootstrap. Usar Flyway `validate` e `info` sem
+ignorar pendências. Criar senha sintética apenas para o papel da cópia,
+usar a CA e o hostname dela com JDBC `verify-full` e executar o JAR em
+`adoption`. Conferir as sondas e repetir catálogo, histórico e contagens
+antes de remover a cópia. O script externo `restaurar-v16.mjs` registra
+as etapas e compara com o manifesto A2.
+
 ##### Próxima janela de primeira inicialização restrita
 
-O startup aguarda o encerramento das revogações de BRAPI e Resend e a
-revisão da sanitização dos clientes. A primeira réplica ainda precisa
-comprovar identidade do artefato, startup, TLS JDBC real, Hibernate
-validate e probes. O catálogo V16 está pronto para esse teste. Sem
-publicação, smoke com dados de uso ou abertura de writers nesta etapa.
+A decisão vigente mantém `Onboarding` e adia a API. Retomar quando houver
+decisão explícita de revogar a chave exposta e a revisão independente aceitar
+o candidato e a prova de recuperação. O proprietário confirmou a revogação
+do token BRAPI antigo. A validação das substitutas em uso real fica no recorte
+autorizado de cada integração. Manter os jobs e writers fechados.
 
-Usar o mesmo candidato aprovado somente se os controles forem satisfeitos, ou
-registrar e homologar explicitamente outro SHA e seu artefato antes do start.
-
-1. Confirmar V16, o volume do A2 e a recuperação. Criar um papel de runtime
-   para a API, com credencial inédita e grants específicos de tabelas e
-   sequences. O owner `cf_adocao_migrator` permanece sem login. Conferir
-   CONNECT, USAGE e DML necessários, ausência de CREATE no schema e de
-   permissão de escrita no history. Configurar JDBC privado com verificação
-   de CA e hostname. O certificado usado no túnel A2 valida `localhost`.
-   Antes de ligar a API, provar a cadeia e a identidade do certificado para o
-   hostname efetivamente usado pela API. Se o SAN atual não cobrir o DNS
-   privado, preparar certificado com esse SAN e preservação do acesso do
-   operador para aprovação junto do A3.
-2. Coordenar a contenção e a rotação das credenciais expostas pelo
-   [plano de rotação](rotacao-credenciais.md). Identificar consumidores e
-   revogar BRAPI e Resend no emissor no momento acordado. Para BRAPI,
-   aprovar primeiro o cliente com Bearer e erros sanitizados. Validar a
-   chave Resend limitada ao domínio e a permissão de envio. Selar JWT novo
-   e testar reautenticação. Instalar na API somente a senha nova de runtime.
-3. Manter autodeploy desativado e preparar um deploy restrito com uma réplica,
-   `PORT=8080`, `SPRING_PROFILES_ACTIVE=adoption`,
-   `SPRING_JPA_HIBERNATE_DDL_AUTO=validate`, `SPRING_JPA_GENERATE_DDL=false`,
-   `SPRING_FLYWAY_ENABLED=false` e `SPRING_SQL_INIT_MODE=never`. Manter
+1. Confirmar ambiente, IDs de serviço e volume, ausência de deployments
+   ativos e regra de borda `rul_u0e4loeh3q43u` bloqueando `/*`. Conferir
+   retenção, hashes do checkpoint V16 e restauração. Fixar o commit e o
+   binário aprovados. A fonte Railway ainda aponta para `main`. Usar imagem
+   aprovada por digest ou fixar a fonte do build, verificar a proveniência
+   e medir o hash de `/app/app.jar` dentro da réplica.
+2. Conferir uma réplica, `PORT=8080`, perfil `adoption`, Hibernate
+   `validate`, `SPRING_JPA_GENERATE_DDL=false`,
+   `SPRING_FLYWAY_ENABLED=false`, `SPRING_SQL_INIT_MODE=never`,
    `APP_OPERATIONS_WRITERS_ENABLED=false` e
-   `APP_OPERATIONS_JOBS_ENABLED=false`. Usar `/ops/health/liveness` no
-   healthcheck inicial. Exigir 200 nesse endpoint, 503 em
-   `/ops/health/readiness` enquanto writers estiverem fechados, Hibernate
-   validate concluído e catálogo/history preservados. Em falha, remover
-   apenas o deploy restrito e preservar o volume e o diagnóstico.
-4. Antes de abrir writers, validar o destino server-only do BFF de
-   Production, CORS e isolamento dos previews atuais e antigos. Confirmar
-   `VERCEL_ENV=preview` e 503 sem chamada ao upstream no candidato. Isolar
-   previews legados e Development do backend real. Publicação do frontend,
-   promoção de alias, smoke com escrita e abertura dos jobs seguem
-   decisões próprias. Testar readiness 200 no smoke autorizado com writers
-   abertos e jobs fechados.
+   `APP_OPERATIONS_JOBS_ENABLED=false`. Manter autodeploy desligado.
+   O comando de partida grava a CA no contêiner e executa
+   `java -jar /app/app.jar`. A URL JDBC usa
+   `postgres-adocao.railway.internal:5432/controle_financeiro`,
+   `sslmode=verify-full` e `sslrootcert=/tmp/cf-adocao-root.crt`.
+   Usar somente a credencial selada de `cf_adocao_api`.
+3. Armar o desligamento e reservar 15 minutos para encerrar dentro de
+   uma janela autorizada de até 60 minutos. Ativar apenas o banco novo.
+   Conferir identidade, V16, ausência de escritas inesperadas e
+   conectividade privada. Preservar os grants do papel restrito. Ativar
+   a réplica e verificar startup dentro dos 300 s de liveness. Usar
+   acesso privado para provar Hibernate validate, papel, banco e TLS
+   no JDBC da réplica, além de liveness 200 e readiness 503. Com writers
+   fechados, readiness retorna antes de consultar o banco. Complementar
+   com sessão PostgreSQL da API identificada em `pg_stat_activity` e
+   `pg_stat_ssl` e uma prova de leitura sob o mesmo papel.
+4. Validar login e cadastro bloqueados por manutenção, ausência de jobs,
+   de migrations automáticas e de alterações no catálogo/history. Com a
+   réplica ativa, reconferir 403 no domínio público e testar a contenção
+   de previews/Development e do upstream efetivo quando houver acesso
+   autorizado. As respostas anônimas 302 da Vercel confirmam proteção de
+   entrada. A regra da origem Railway cobre o tráfego dos previews
+   existentes que ainda apontem para a URL pública.
+5. Registrar binário, deployment, tempos, probes e primeira falha.
+   Desligar a API, fechar conexões e desligar o banco novo. Confirmar os
+   deployments removidos e revogar acessos temporários. Preservar os
+   volumes. Homologação funcional, smoke com escrita e publicação do
+   frontend exigem etapa própria, após revisão independente.
+
+Antes de abrir writers, validar CORS, destino server-only do BFF de
+Production, isolamento de previews e Development e `VERCEL_ENV=preview`
+com 503 sem chamada ao upstream no candidato. A homologação com escrita
+deve comprovar readiness 200 com jobs fechados.
 
 ### Histórico do lote 1 — Postgres original e inventário
 

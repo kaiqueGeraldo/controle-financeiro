@@ -21,6 +21,31 @@ O patch dos provedores e do JWT foi aplicado com skipDeploys após
 confirmação explícita. A primeira inicialização da API depende dos
 controles pendentes no [runbook](validacao-deploy.md).
 
+## Decisões após o A3 complementar — 06/11/2026
+
+- **BRAPI.** O proprietário confirmou a revogação do token antigo. Essa
+  confirmação é operacional. A equipe não obteve recibo do painel nem testou
+  a substituta no provedor neste lote.
+- **Resend.** `Onboarding` (`fd894a5b-9bb8-4fe9-b2fa-bf1af2c4a545`) é
+  a mesma chave exposta identificada no A3. O proprietário informou que
+  somente o Controle Financeiro usava a chave e decidiu mantê-la e adiar
+  a inicialização. A substituta `controle-financeiro`
+  (`080fcdc7-8f3a-4651-8c07-d493f7958327`) segue selada. A verificação
+  do emissor foi limitada a metadados, sem envio de mensagens.
+- **JWT e PostgreSQL.** O Railway reconfirmou o selo do JWT novo, da senha
+  de `cf_adocao_api` e do bootstrap de `cf_adocao_admin`. O papel da API
+  tem acesso de leitura restrito ao alvo novo. O bootstrap é administrativo
+  e exclusivo desse banco. A referência legada já saiu da API no A3.
+  A validade ou revogação da senha no cluster legado segue sem confirmação.
+- **Candidato.** O commit `b396630d1a821c5de4a5f626f81476aeb9626e9e`
+  usa Bearer em cabeçalho na BRAPI e elimina o registro de destinatário,
+  corpo de resposta e exceção bruta nos dois clientes. A regressão usou
+  credenciais e respostas sintéticas. Os logs dos chamadores de autenticação
+  ainda exigem revisão antes do uso funcional.
+
+A revogação de `Onboarding` e a revisão independente do candidato são
+condições para retomar a janela restrita.
+
 ## Alvo novo na adoção do zero
 
 O proprietário dispensou os dados do volume antigo em 06/11/2026. Para o
