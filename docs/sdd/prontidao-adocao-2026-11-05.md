@@ -6,6 +6,21 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Resultado do lote A3 — 06/11/2026
+
+Revisão dirigida do A2 consistente, inclusive a causa do código 13 e o
+restore do checkpoint original. O papel restrito da API conectou ao
+Postgres novo com TLS verify-full e o history V16 ficou igual. O
+checkpoint de estrutura V16 restaurou em fixture isolada. A API foi
+configurada sem deploy e os dois serviços terminaram desligados.
+
+JWT e as substitutas de BRAPI e Resend ficaram selados. A chave Resend
+Onboarding foi mantida por decisão do proprietário e o token antigo
+BRAPI continua ativo. O startup restrito aguarda os controles de rotação
+e a revisão da sanitização. BFF limitado a Production nos próximos builds
+e acesso público à API bloqueado na origem Railway.
+[Runbook e recibo](validacao-deploy.md)
+
 ## Resultado do lote A2 — 06/11/2026
 
 No `postgres-adocao`, o executor dedicado confirmou a classe A e restaurou

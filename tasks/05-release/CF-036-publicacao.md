@@ -8,6 +8,14 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Contenção e configuração A3 — 06/11/2026
+
+A configuração segura da API foi aplicada sem deploy. O domínio público
+ficou bloqueado na borda Railway e BACKEND_API_URL foi limitado a Production
+para builds futuros. A versão efetivamente publicada, o TLS do runtime,
+o smoke com dados sintéticos e a revisão independente permanecem pendentes.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Consolidação pós-PR #3 — 05/11/2026
 
 Plano de publicação e recuperação preparado no

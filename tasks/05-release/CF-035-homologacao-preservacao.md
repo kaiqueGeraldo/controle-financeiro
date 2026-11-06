@@ -8,6 +8,14 @@
 - Depende de: [CF-017](../03-integridade/CF-017-migracoes.md), [CF-034](../05-release/CF-034-gates-ci.md)
 - Origem: T-012; prontidão Railway/Vercel
 
+## Provas de recuperação no A3 — 06/11/2026
+
+Restaurados em PostgreSQL 17.11 isolado o checkpoint inicial do A2 e a
+estrutura V16 capturada no A3. A segunda prova cobre schema e objetos.
+O backup completo de V16 com history, o startup real da API, o smoke
+HTTPS/autenticação/onboarding e a revisão independente seguem pendentes.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Consolidação pós-PR #3 — 05/11/2026
 
 A preparação de homologação está em_execucao. Inventário em leitura e

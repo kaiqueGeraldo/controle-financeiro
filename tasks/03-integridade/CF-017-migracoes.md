@@ -8,6 +8,14 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Revisão dirigida e preparação A3 — 06/11/2026
+
+Revisão dirigida confirmou os 16 checksums do A2, o catálogo e a
+recuperação lógica inicial. O papel restrito da API conectou com
+verify-full e não alterou history. A revisão independente, a recuperação
+V16 com conteúdo do histórico e a validação do candidato em runtime
+real seguem pendentes. [Runbook](../../docs/sdd/validacao-deploy.md)
+
 ## Lote A2 no banco novo — 06/11/2026
 
 **Estado em revisão.** O alvo novo atende aos controles de

@@ -8,6 +8,19 @@ valores ocultos e sem indicação de selo nessas variáveis. A Vercel tem soment
 BACKEND_API_URL entre as variáveis do projeto retornadas. O frontend recebe o
 JWT como cookie e o encaminha como Bearer, sem conhecer a chave de assinatura.
 
+## Estado após o lote A3 — 06/11/2026
+
+| Credencial | Estado |
+|---|---|
+| JWT_SECRET | Novo segredo HMAC256 de 32 bytes aleatórios em Base64, selado no serviço da API. A Vercel recebe e encaminha o token sem precisar da chave de assinatura. As sessões antigas precisarão de nova autenticação após o primeiro start. |
+| BRAPI_TOKEN | Máscara da antiga coincidiu em memória com a configuração anterior. Substituta preparada pelo proprietário e selada no Railway sem deploy. O token antigo continua ativo. Revogar no painel e registrar metadados. Preparar Bearer e logs sem URL ou exceção bruta antes de usar o cliente real. |
+| RESEND_API_KEY | Máscara da antiga confirmou a chave Onboarding. Substituta identificada no emissor e selada na API. O remetente configurado pertence ao domínio verificado kaique.dev.br. O proprietário pediu manter Onboarding. A revogação fica pendente e nenhum envio de teste foi feito. |
+| PostgreSQL | O datasource da API aponta ao banco novo com o papel cf_adocao_api e senha inédita selada. A referência anterior apontava ao serviço Postgres original e foi retirada da API. A validade no cluster antigo continua sem verificação. O bootstrap do novo banco segue selado e separado do runtime. |
+
+O patch dos provedores e do JWT foi aplicado com skipDeploys após
+confirmação explícita. A primeira inicialização da API depende dos
+controles pendentes no [runbook](validacao-deploy.md).
+
 ## Alvo novo na adoção do zero
 
 O proprietário dispensou os dados do volume antigo em 06/11/2026. Para o
