@@ -26,38 +26,87 @@ A cadeia atual termina em **V16**.
 
 ### Adoção do zero — decisão de 06/11/2026
 
-O proprietário confirmou que os dados antigos não precisam ser reaproveitados.
-O destino da adoção passa a ser um cluster novo. O serviço Postgres original
-e o volume postgres-volume 1fe34e12-e948-4c99-8448-7cfbf871ec54 permanecem
-offline e fora do fluxo de ativação. A inspeção física, o chamado ao Railway e
-o lote 1 do banco antigo deixam de ser pré-condições. As seções históricas
-abaixo preservam a decisão anterior e não se aplicam ao novo alvo.
+O destino é o PostgreSQL privado `postgres-adocao`, iniciado com volume novo
+e sem importação. A API e o Postgres original ficam offline até as respectivas
+decisões. A exclusão do serviço e do volume antigos é uma decisão posterior.
 
-#### Lote A1 para autorização — provisionar e conferir somente o banco novo
-
-| Controle | Operação proposta |
+| Controles dispensados para o alvo novo | Controles exigidos para a adoção |
 |---|---|
-| Alvo | Railway controle-financeiro, projeto 19974952-914d-4072-9140-e62e5ed23c31, production 73f7324a-a15f-4940-b2dc-d5bcb5510441. Criar serviço postgres-adocao e volume novo postgres-adocao-volume, limite de capacidade proposto de 1 GB, na região da API. Reconfirmar nomes livres, quota e ausência de patch alheio. Registrar os IDs novos antes de iniciar. |
-| Imagem e configuração | PostgreSQL 17.11 da imagem Railway postgres-ssl, índice OCI verificado sha256:5e806d28c18198f933d25e79989470a47a938f465bf0634e030b416961b3463e. Usar referência por digest se aceita e conferir o alvo efetivo. Montar o volume novo em /var/lib/postgresql/data, com PGDATA=/var/lib/postgresql/data/pgdata. Banco controle_financeiro e papel de bootstrap dedicado cf_adocao_admin, com senha nova injetada via mecanismo protegido. O papel de bootstrap fica fora da configuração da API. |
-| Preparação | Criar serviço e volume com staging, selecionar somente o ambiente acima e preparar as variáveis do novo serviço antes de aplicar o conjunto. Em serviço criado diretamente por imagem, usar segredo do cofre aprovado ou entrada protegida. A função secret() do Railway é documentada para templates e não será presumida em variável de serviço avulso. Conferir mount, PGDATA, credencial presente, ausência de domínio/proxy TCP público e de alterações nos serviços antigos. Parar se houver ativação em cadeia ou staged changes alheios. |
-| Janela | Aplicar somente a configuração nova e iniciar exclusivamente postgres-adocao por até 30 minutos, incluindo parada. O entrypoint inicializa os catálogos e o banco novos no volume novo. A API permanece offline e sem referência ao novo serviço. Usar um canal privado autorizado, como Railway SSH no novo container com identidade registrada, sem abrir proxy. Validar disponibilidade desse canal e a operação de parada antes da ativação. |
-| Critério de avanço | Confirmar os IDs novos e a montagem, a versão efetiva e o database controle_financeiro com schema public. Executar o SQL de inventário vigente em transação somente leitura e confirmar ausência de objetos da aplicação e de flyway_schema_history. Registrar versão, vínculo do volume, modo privado e estado final. Objeto ou history inesperado, mount ausente, identidade divergente ou falta de visibilidade interrompem a janela. |
-| Parada e custo | Remover somente o deployment do novo serviço e confirmar offline, preservando o volume novo para a próxima janela. Custo de CPU/RAM durante o start e armazenamento utilizado enquanto os volumes existirem. A tarifa publicada de volume é US$ 0,15 por GB-mês de uso. Confirmar quota e custos aplicáveis antes de autorizar. |
+| Inspeção de PG_VERSION no volume antigo, consulta ao suporte, start do Postgres original, compatibilidade do esquema anterior, preflight legado, baseline explícita e importação. | Identidade de serviço e volume, versão real, acesso privado, confirmação de catálogo vazio, recuperação ensaiada, exclusividade de escrita, credenciais segregadas, integridade da cadeia V1–V16 e validação do candidato. |
 
-[PostgreSQL privado no Railway](https://docs.railway.com/databases/postgresql) ·
-[Staged changes](https://docs.railway.com/deployments/staged-changes) ·
+#### Lote A1 — banco novo provisionado, verificado e desligado
+
+| Controle | Evidência em 06/11/2026 |
+|---|---|
+| Identidade | Railway controle-financeiro, projeto 19974952-914d-4072-9140-e62e5ed23c31, production 73f7324a-a15f-4940-b2dc-d5bcb5510441. Sem duplicata no início. Serviço `postgres-adocao` f8b0e3e0-322e-4c68-b6c0-4972168957c8, uma réplica em `us-east4-eqdc4a`. Patch f1fdfff7-1ff7-42f1-865b-3b184d0ed386 restrito ao serviço e volume novos. |
+| Volume | `postgres-adocao-volume` b4a172ec-5771-4bca-8b10-2ae7976b1f6e, capacidade 1.000 MB, vinculado ao serviço e montado em `/var/lib/postgresql/data`. `PGDATA=/var/lib/postgresql/data/pgdata`, `PG_VERSION=17` e presença de `global/pg_control` conferidos no container. |
+| Versão e credencial | Imagem `ghcr.io/railwayapp-templates/postgres-ssl@sha256:5e806d28c18198f933d25e79989470a47a938f465bf0634e030b416961b3463e`. O servidor respondeu PostgreSQL 17.11, `server_version_num=170011`. Senha de bootstrap de `cf_adocao_admin` gerada em memória e enviada por entrada padrão à API oficial do Railway. `POSTGRES_PASSWORD` confirmada como selada. |
+| Rede e catálogo | `postgres-adocao.railway.internal:5432`, sem domínio público ou proxy TCP. Pelo Railway SSH no próprio container, o psql autenticou via DNS privado, TCP fora de loopback e TLS com `sslmode=require`. A conexão de outro serviço e a verificação de identidade do certificado ainda serão aferidas no A2. O banco `controle_financeiro` tem somente `public` entre os schemas de usuário, com zero relações, tipos, rotinas ou restrições. `flyway_schema_history` ausente. Inventário em transação somente leitura encerrado com ROLLBACK e código 0. **Classe A, vazio.** |
+| Janela e parada | Solicitação de aplicação às 09:47:53 e estado REMOVED confirmado às 09:52:02, em America/Sao_Paulo. Deployment 7d69c67b-3ab8-4495-9509-36d49bc67e08 criado às 09:50:02. A leitura final confirmou os três serviços sem deploy ativo, os dois volumes preservados e nenhum patch pendente. A chave SSH temporária foi revogada. |
+| Custo | A tarifa publicada é US$ 20/vCPU-mês, US$ 10/GB-mês de RAM e US$ 0,15/GB-mês de volume utilizado. CPU e RAM são cobradas pelo uso durante a execução. O armazenamento utilizado persiste e pode gerar custo com o deploy desligado. O valor efetivamente faturado para esta janela não foi apurado. |
+
+Recibo sanitizado no acervo externo
+`controle-financeiro-runtimes/prontidao-adocao/20261106-lote-a1/recibo.json`.
+SHA-256 `c4d35f56d1703a202b6b5f159e6d2324ffc624d7cca5caca3cca6c27181c6bdf`.
+[Operações de deployment](https://docs.railway.com/deployments/deployment-actions) ·
+[Rede privada](https://docs.railway.com/networking/private-networking) ·
+[Variáveis seladas](https://docs.railway.com/variables) ·
 [Preços Railway](https://docs.railway.com/pricing/plans)
 
-A autorização anterior de start para o Postgres antigo não cobre criação
-ou ativação de postgres-adocao. Este lote cria apenas o cluster vazio.
-Depois de comprovar a classe A, preparar recuperação do alvo novo e
-solicitar a execução do Flyway V1–V16 desde V1, sem baseline e com a API
-offline. A prova descartável anterior em PG17.11 já exercitou banco vazio
-V1–V16, JPA validate, history e reaplicação. Ela orienta o ensaio do novo
-alvo e não certifica a configuração real. O cutover usa credencial nova
-para um papel da API distinto do bootstrap e, quando aprovado, do executor
-de migrations. A rotação de JWT, BRAPI e Resend e a contenção dos previews
-antigos continuam no caminho de liberação.
+#### Lote A2 — execução futura do Flyway V1–V16 no banco vazio
+
+O candidato aprovado é `99025fa9fe93da19e9d40678d1e9eeeb78e698f9`.
+No artefato GitHub Actions `13464315355`, o JAR de SHA-256
+`36d9393bc6348555285411319c73a966c0d2be760f78dc0b2fe706cc81e604f0`
+contém exatamente V1 a V16, com SHA-256 igual ao blob Git para cada SQL.
+A última versão é `V16__onboarding_application.sql`. O JAR e o plugin
+Maven usam Flyway 11.14.1. O ensaio local em PG17.11 cobriu banco vazio,
+histórico, reaplicação e Hibernate validate. A execução real depende de
+um novo lote autorizado.
+
+1. Reconfirmar os IDs do A1, a API e o Postgres original offline, ausência de
+   deploys pendentes e exclusividade de escrita. Preparar um único executor
+   com JDK 21 e Maven Wrapper do commit aprovado, em rede privada ou por
+   túnel SSH autorizado. Testar seu próprio caminho TCP/TLS e a política de
+   confiança do certificado antes de qualquer DDL. Preparar a parada por ID.
+2. Iniciar somente o banco novo. Repetir o inventário e confirmar PG17.11,
+   `controle_financeiro/public`, ausência de objetos e de history. Registrar
+   encoding, locale, extensões, papéis e ACLs. Preservar um ponto de recuperação
+   e demonstrar restore em alvo isolado antes de migrar. Ensaiar o mesmo
+   candidato e grants no clone.
+3. Provisionar o papel dedicado do migrador com CONNECT, USAGE e CREATE
+   necessários e ownership dos objetos que criar. Injetar `FLYWAY_URL`,
+   `FLYWAY_USER` e `FLYWAY_PASSWORD` por canal protegido. A URL JDBC aponta
+   ao banco `controle_financeiro` pelo caminho privado confirmado. O papel
+   de bootstrap fica reservado à administração. O futuro papel da API
+   recebe credencial própria e somente os grants de runtime requeridos.
+4. A partir do backend do candidato, usar os argumentos do
+   [comando Flyway](#comandos-para-backup-preflight-e-migração). Fixar
+   `schemas=public`, `defaultSchema=public`, `createSchemas=false`,
+   `target=16`, `outOfOrder=false`, `baselineOnMigrate=false`,
+   `cleanDisabled=true` e `validateOnMigrate=true`. O plugin lê
+   `filesystem:src/main/resources/db/migration`. Em `flyway:info`, exigir
+   exatamente 16 pendências, de 1 a 16. Rodar `flyway:validate` com
+   `ignoreMigrationPatterns=*:pending` somente nesse precheck. Executar
+   `flyway:migrate` uma vez desde V1, sem chamar `flyway:baseline`.
+5. Rodar `flyway:validate` com a lista de padrões vazia e depois
+   `flyway:info`. Conferir em leitura `public.flyway_schema_history`
+   com 16 entradas SQL bem-sucedidas, versões 1 a 16 em ordem, checksums
+   compatíveis e zero pendências. Conferir os objetos esperados e o resultado
+   de Hibernate validate com o JAR aprovado no ensaio isolado. Registrar os
+   resultados e remover apenas o deploy novo ao encerrar a janela, preservando
+   seu volume. Manter a API de produção offline.
+6. Em divergência de identidade, catálogo, versão, checksum ou falha de
+   migração, bloquear o cutover, preservar estado e logs sanitizados e
+   aplicar o procedimento de recuperação ensaiado. Reavaliar a janela antes
+   de retomar. `repair`, `clean` e reedição de SQL aplicado ficam fora
+   do procedimento.
+
+A ativação da API tem seu próprio lote. O cutover usa a conexão privada
+nova e o perfil `adoption`, com Hibernate em `validate`, Flyway e SQL init
+desabilitados no Spring, e writers e jobs inicialmente contidos. A rotação
+de JWT, BRAPI e Resend e a contenção de previews antigos continuam exigidas
+para a liberação.
 
 ### Histórico do lote 1 — Postgres original e inventário
 
@@ -374,13 +423,13 @@ Aplicar as etapas abaixo na ordem do [plano de rotação](rotacao-credenciais.md
 
 | Serviço/ambiente e configuração | Atual | Proposto e momento | Validação e recuperação |
 |---|---|---|---|
-| Railway production/Postgres, imagem/volume e rede | PG17 configurado, major do volume desconhecida, volume 5 GB, DNS privado, sem proxy público. | Preservar volume/DNS. Lote 1 só com runtime compatível. Upgrade de major segue procedimento próprio. | Conferir geração/PG_VERSION/version_num e ausência de exposição. Se divergente, parar sem reset. |
-| Railway production/Postgres, backups | Painel sem backups. Criação e PITR condicionados a Pro no plano atual. | Backup lógico privado, restore isolado antes de qualquer mudança. Definir retenção/RPO/RTO ao aprovar a janela. | Validar restore e equivalência. Preservar fonte e recibos. Mudança de plano exige decisão própria. |
+| Railway production/postgres-adocao, imagem/volume e rede | PG17.11 verificado, volume novo de 1.000 MB montado, DNS privado e sem exposição pública. Deploy removido após o A1. | A2 inicia somente o novo banco para aplicar V1–V16, com o original offline. | Reconfirmar identidade, montagem, versão e isolamento antes de migrar. Remover apenas o deploy ao final. |
+| Railway production/postgres-adocao, recuperação | Cluster vazio ao final do A1. | Preservar ponto de recuperação e ensaiar restore em destino isolado antes de DDL no A2. Definir retenção, RPO e RTO na janela. | Validar restore, papéis e equivalência do catálogo. Preservar fonte e recibos. Mudança de plano exige decisão própria. |
 | Railway production/API, origem/build | Git main, autodeploy off, Dockerfile recompila, sem deployment ativo. | Manter autodeploy off. No plano atual, manter fonte Git se o registro privado exigir upgrade. Fixar o SHA, conferir o build e homologar os bytes resultantes antes de produção. Dockerfile.release é a via para reaproveitar exatamente o JAR da main, condicionada ao transporte privado aprovado. | Conferir JAR embarcado, labels, digest e arch do deployment. Se aprovado caminho Git, verificar checkout, base, toolchain, JAR real e imagem Railway, homologando esse binário. Retornar à imagem comprovadamente compatível se necessário. |
 | Railway production/API, Hibernate/Flyway/SQL init | Hibernate update. Sem perfil ou override Flyway/SQL init informado. Defaults implicariam Flyway ativo ao iniciar. | Antes do start, SPRING_PROFILES_ACTIVE=adoption, SPRING_JPA_HIBERNATE_DDL_AUTO=validate, SPRING_FLYWAY_ENABLED=false, SPRING_SQL_INIT_MODE=never, SPRING_JPA_GENERATE_DDL=false. Flyway pelo executor separado. | Guard de adoção, Hibernate validate e logs sem DDL. Parar ao recusar override, mantendo proteção. |
 | Railway production/API, flags/jobs | APP_OPERATIONS_WRITERS_ENABLED e APP_OPERATIONS_JOBS_ENABLED ausentes, defaults normais true. Sem cron Railway. | false/false no start restrito, true/false no smoke autorizado, true/true somente após GO de jobs e reinício separado. Manter clientes antigos isolados. | Manutenção 503, ausência de jobs/escrita, depois smoke e primeiro job observado. Falha retorna a false/false com drenagem. |
 | Railway production/API, PORT/health/recursos | Domínio HTTP porta 8080. Sem healthcheck ou start override. 1 réplica, limite de 8 vCPU/8 GB, restart On Failure 10. | PORT=8080 alinhado ao domínio, uma réplica. Liveness no start restrito, readiness para liberar. 300 s como ponto de ensaio, ajustar por startup real. Evitar loop de restart após falha de configuração. | Conferir probes e consumo por ambiente. Parar deployment defeituoso preservando logs antes de mudar orçamento. |
-| Railway production/API, conexão, CORS e auth | JDBC aponta postgres.railway.internal:5432. FRONT_URL aponta controle-financeiro-kaiquedev.vercel.app. JWT/Resend/BRAPI presentes por nome. | Após verificar o papel real, rotacionar a senha no PostgreSQL e sincronizar apenas os consumidores confirmados. Preservar JDBC privado em postgres.railway.internal:5432. Compor host/porta/database por referência sem credenciais se o vínculo for aprovado. Evitar DATABASE_URL completa no JDBC. Conferir TLS, timeout e CORS exato. Inserir JWT, BRAPI e Resend novos no cutover autorizado. | Conferir conexão com papel novo, rejeição de JWT anterior e login novo. Validar os fluxos Resend e BRAPI em ensaios autorizados, sem dados reais. Manter a API offline ou em manutenção se falhar. Nunca restaurar credencial exposta. |
+| Railway production/API, conexão, CORS e auth | JDBC histórico aponta ao Postgres original. FRONT_URL aponta controle-financeiro-kaiquedev.vercel.app. JWT/Resend/BRAPI presentes por nome. | No cutover autorizado, apontar a API a postgres-adocao.railway.internal:5432/controle_financeiro por JDBC privado, com papel e senha inéditos de runtime. Conferir TLS, timeout e CORS exato. Inserir JWT, BRAPI e Resend novos no cutover. | Verificar grants do papel da API, rejeição de JWT anterior e login novo. Validar Resend e BRAPI em ensaios autorizados com fixtures. Manter a API offline ou em manutenção se falhar. |
 | Vercel Production, BFF e publicação | BACKEND_API_URL com um valor para três ambientes. Host histórico API Railway, valor atual exige reautenticação. Alias público em release anterior. | Destino servidor-only de Production para API aprovada. Publicar manualmente sem alias inicial e promover a mesma revisão após smoke. Confirmar domínio canônico, hoje FRONT_URL difere do primário do painel. | BFF → API, cookies host-only HttpOnly, Secure em produção, SameSite=Lax. Testar origens, sessão e HTTPS. Restaurar alias/frontend compatível após congelar writes. |
 | Vercel Preview/Development, rede e deploys antigos | Mesma variável compartilhada, previews READY antigos, proteção Vercel Authentication. | Retirar destino real de Preview e Development. Development usa backend local ou descartável. No candidato integrado, com VERCEL_ENV=preview, o BFF responde 503 antes de chamar upstream. Confirmar a presença da variável de sistema no deployment. Homologação em Preview exige backend isolado e revisão própria do guard. A versão histórica 272001f7 não possui esse guard. Conter deploys/aliases antigos antes de writers reais e manter git.deploymentEnabled=false. | Confirmar isolamento de preview/cliente/BFF antigo. Variáveis novas não alteram deployments existentes. Se a contenção for insuficiente, manter manutenção e revisar controle de ingresso em escopo próprio. |
 

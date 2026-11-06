@@ -6,17 +6,23 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
-## Decisão de adoção do zero — 06/11/2026
+## Decisão de adoção do zero e conclusão do A1 — 06/11/2026
 
-O usuário dispensou os dados históricos. O volume antigo continua
-inconclusivo, fora do caminho de adoção. A consulta ao suporte e o start do
-banco antigo deixam de ser necessários. O alvo candidato passa a ser o
-serviço novo postgres-adocao, condicionado a autorização de provisionamento,
-identificação do volume e confirmação do schema vazio. Sem critério de
-produção encerrado. A compatibilidade do legado fica fora do escopo desta
-adoção. Para CF-017/P01/P02, permanecem inventário do alvo novo, recuperação,
-cadeia Flyway, verificação de schema e validação dos consumidores reais.
-[Lote A1 e critérios de avanço](validacao-deploy.md)
+O alvo novo `postgres-adocao` foi provisionado em Railway
+controle-financeiro / production com volume novo de 1.000 MB. O servidor
+respondeu PostgreSQL 17.11 por TCP e TLS via DNS privado. O catálogo de
+`controle_financeiro` tinha apenas o schema padrão `public`, sem objetos
+da aplicação nem histórico Flyway. O deploy novo foi removido às 09:52:02
+em America/Sao_Paulo e o volume foi preservado. A API e o Postgres antigo
+continuaram offline. O [runbook vigente](validacao-deploy.md) registra os
+identificadores, o recibo sanitizado e a preparação do lote A2.
+
+Os dados históricos ficam fora do fluxo de adoção. A inspeção do volume
+antigo e os controles de preflight e baseline do legado foram dispensados
+para o alvo novo. CF-017/P01/P02 continuam em revisão. Permanecem
+recuperação, exclusividade de escrita, credenciais segregadas, execução
+e validação da cadeia V1–V16 e validação dos consumidores reais. O A1
+encerrou o provisionamento e a classificação do alvo como vazio.
 
 ## Retomada — volume e credenciais em 06/11/2026
 
