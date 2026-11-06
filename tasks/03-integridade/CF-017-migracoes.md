@@ -8,6 +8,16 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Consolidação pós-PR #3 — 05/11/2026
+
+Os aceites sintéticos e a revalidação local de RV17-01/P2 e RV17-02 são
+preservados. A main 99025fa9 contém V1–V16, verificador para PostgreSQL 16/17
+e perfil adoption. O alvo continua desconhecido. Imagem configurada PG17,
+major efetiva do volume, schema e backup restaurável pendentes. CF-017
+permanece em_revisao até compatibilidade real. A etapa mínima é o lote de
+inventário autorizado do [runbook](../../docs/sdd/validacao-deploy.md).
+[Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Atualização CPA-01/R1 — 28/10/2026
 
 Revalidação independente de81b20bca (registro de execução privado):

@@ -8,6 +8,16 @@
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
 
+## Consolidação pós-PR #3 — 05/11/2026
+
+Plano de publicação e recuperação preparado no
+[runbook](../../docs/sdd/validacao-deploy.md). O JAR do Actions está identificado
+para a main integrada. A imagem efetivamente publicada precisa de prova por
+digest e smoke no alvo. CF-036 permanece proposta, condicionada a CF-035,
+compatibilidade e recuperação do banco, decisão de release sobre zoom e
+autorização de publicação. O último deployment Production Vercel ainda é
+272001f7. [Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Expanded local estabilizada no recorte DEC-ZOOM-05 — 03/11/2026
 
 Preparador e observador de cleanup saneados localmente, controles 8/8 e 4/4; preflight Windows aprovado. Candidato a7f2256b, mesmos 860 inputs de 0aac7ccd. Contratos 43/43 por plataforma, lint/tipos e 18 temporais Linux aprovados. Componentes Linux 624/626, dois timeouts de 5000 ms de causa inconclusiva; zero skips e nenhuma omissão no multiconjunto dos 71 arquivos. Fluxo interrompido; builds, backend comum (115 classes), RF15 (23 jornadas), E2E e pacote não alcançados. Contrato Windows independente 1/1 aprovado, cobertura Java executada1/116. [Resultado, proveniência e próximo saneamento](../evidencias/expanded-local-estabilizada/RESULTADO.md). Ajustes operacionais aguardam revisão conjunta; sem autoaprovação, prontidão de publicação, CI remota ou ação remota. CF010/CF015 seguem pendentes sob exceção delimitada; CF017/P01/P02, adoção e produção mantêm gates.

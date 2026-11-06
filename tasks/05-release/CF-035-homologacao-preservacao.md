@@ -1,12 +1,22 @@
 # CF-035 — Preparar homologação, backup e reversão
 
-- Estado: proposta
+- Estado: em_execucao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-017](../03-integridade/CF-017-migracoes.md), [CF-034](../05-release/CF-034-gates-ci.md)
 - Origem: T-012; prontidão Railway/Vercel
+
+## Consolidação pós-PR #3 — 05/11/2026
+
+A preparação de homologação está em_execucao. Inventário em leitura e
+[runbook atualizado](../../docs/sdd/validacao-deploy.md) entregues. O critério
+de registrar o bloqueio de promoção está atendido. Banco desconhecido,
+API/PG offline e nenhum backup listado. Backup/restore real, compatibilidade,
+smoke HTTPS e revisão da evidência de homologação ficam pendentes. Ensaio
+sintético em alvo isolado pode avançar com escopo autorizado e sem aguardar
+classificação do banco real. [Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
 
 ## Problema e resultado esperado
 
@@ -37,7 +47,7 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 - [ ] Restauração é comprovada, não apenas arquivo de backup existente; checksum/revisão/schema registrados sem dados pessoais.
 - [ ] Smoke HTTPS/autenticação/entrevista/operação/reload/exportação passa na homologação.
-- [ ] Sem informação/acesso ao banco, registrar bloqueio da promoção e manter produção intacta; não inventar sucesso de backup.
+- [x] Sem informação/acesso ao banco, registrar bloqueio da promoção e manter produção intacta; não inventar sucesso de backup.
 - [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo

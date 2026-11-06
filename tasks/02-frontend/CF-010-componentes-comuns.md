@@ -8,6 +8,14 @@
 - Depende de: [CF-003](../00-fundacao/CF-003-harness-frontend.md)
 - Origem: T-008; F-015
 
+## Consolidação pós-PR #3 — 05/11/2026
+
+Os aceites anteriores de foco, geometria e evidências permanecem. CF-010
+continua em_revisao por AC-UI-001. Os dois casos de zoom nativo 200% seguem
+pendentes com a exceção delimitada da DEC-ZOOM-05. A expanded da PR #3
+confirmou os controles obrigatórios no alcance integrado.
+[Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Continuidade delimitada — 03/11/2026
 
 [DEC-ZOOM-05](../../docs/sdd/decisoes/005-excecao-temporaria-zoom-expanded.md): zoom **pendente, com exceção temporária autorizada para a continuidade delimitada**. Somente os dois casos exatos ali registrados são adiados na expanded desta etapa. Estados e aceites integrais permanecem; não há autorização de uso, deploy, produção ou ação remota. [Matriz e plano correntes](../evidencias/excecao-zoom-expanded/MATRIZ.md) substituem somente a regra de continuidade desta etapa; notas datadas abaixo conservam seu alcance histórico. Implementação/gates/resultados aguardam revisão independente.

@@ -8,6 +8,19 @@
 - Depende de: [CF-015](../02-frontend/CF-015-revisao-marco-frontend.md), [CF-026](../03-integridade/CF-026-lint-tipagem-frontend.md), [CF-032](../04-onboarding/CF-032-e2e-financeiro.md), [CF-033](../05-release/CF-033-revisao-adversarial.md)
 - Origem: T-011; F-012, F-014, F-017
 
+## Consolidação pós-PR #3 — 05/11/2026
+
+Smoke PR/main e expanded do recorte DEC-ZOOM-05 aprovados no Actions, com
+required success nos três runs. Árvores de 8ad56033, 0ce5ab00 e 99025fa9 iguais.
+A [matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md) encerra bloqueio
+por regressão e verificação da configuração do CI, vínculo do pacote publicado
+no Actions e registro de evidências do recorte integrado. A operação ordinária
+limpa foi observada. Permanecem os limites de Ctrl+C/cancelamento fora das
+provas específicas de Windows/processos e Linux/fixture, e a dependência
+integral de CF-015/zoom. Estado em_revisao. A imagem de hospedagem e a
+adoção real têm gates próprios. Os resultados anteriores são históricos
+no alcance substituído pelos runs reconciliados.
+
 ## Diagnóstico dirigido de componentes — 03/11/2026
 
 Conclusão D: causa dos dois timeouts permanece inconclusiva. Casos isolados, arquivos completos e grupos de 69/100 casos passaram com watchdog original de 5000 ms; nenhuma correção causal foi aplicada. Não houve pressão de memória ou throttling nos controles, o que não reconstrói a carga histórica. Componentes 626/71 e gates posteriores não reexecutados; a expanded anterior continua reprovada. [Linhas do tempo, recursos, limites e próximo experimento](../evidencias/diagnostico-componentes-timeout/RESULTADO.md). Preparadores/observadores anteriores preservados e delta segue para revisão conjunta, sem autoaprovação ou ação remota.
@@ -357,10 +370,10 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Regressão real numa regra/data faz pipeline falhar e bloqueia avanço; validar configuração numa execução real quando acesso disponível.
+- [x] Regressão real numa regra/data faz pipeline falhar e bloqueia avanço; validar configuração numa execução real quando acesso disponível.
 - [ ] Checkout limpo roda sem segredos de produção e finaliza processos/banco; teste flaky não fica verde só por retry.
-- [ ] Build e pacote publicados correspondem à revisão testada; resultado remoto não executado é declarado pendente.
-- [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
+- [x] Build e pacote publicados correspondem à revisão testada; resultado remoto não executado é declarado pendente.
+- [x] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo
 

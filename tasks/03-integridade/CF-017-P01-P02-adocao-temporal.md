@@ -5,6 +5,16 @@
 - Origem: P01/P02 da revisão independente (registro de execução privado)
 - Preparação local: saneamento de 13/09/2026 (registro de execução privado)
 
+## Consolidação pós-PR #3 — 05/11/2026
+
+P01/P02 permanece em_revisao. Fundação e plano de rollout/reversão mantêm
+aceite no seu alcance. O [runbook](../../docs/sdd/validacao-deploy.md) atualiza
+as fases para V1–V16 e registra a janela de validade do preflight.
+Schema/geração reais, backup/restore, proveniência por lote, writers e
+consumidores, EXPLAIN e revisão do upgrade permanecem pendentes. Preservar
+bruto, UNKNOWN/null e precisão sem backfill presumido.
+[Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
 ## Atualização CPA-01/R1 — 28/10/2026
 
 Revalidação independente de81b20bca (registro de execução privado):
