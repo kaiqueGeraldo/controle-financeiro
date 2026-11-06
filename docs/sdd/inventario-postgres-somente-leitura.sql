@@ -12,7 +12,7 @@ SELECT current_database() = :'expected_database' AS target_ok
 \gset
 \if :target_ok
 \else
-  DO $ BEGIN RAISE EXCEPTION 'STOP: database divergente'; END; $;
+  DO $stop$ BEGIN RAISE EXCEPTION 'STOP: database divergente'; END; $stop$;
 \endif
 
 SELECT current_database() AS database_name, :'target_schema' AS target_schema,
@@ -35,14 +35,14 @@ SELECT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname = :'target_schema') AS s
 \gset
 \if :schema_exists
 \else
-  DO $ BEGIN RAISE EXCEPTION 'STOP: schema ausente; confirmar escopo e objetos em outros schemas'; END; $;
+  DO $stop$ BEGIN RAISE EXCEPTION 'STOP: schema ausente; confirmar escopo e objetos em outros schemas'; END; $stop$;
 \endif
 
 SELECT has_schema_privilege(:'target_schema', 'USAGE') AS schema_visible
 \gset
 \if :schema_visible
 \else
-  DO $ BEGIN RAISE EXCEPTION 'STOP: papel sem USAGE no schema'; END; $;
+  DO $stop$ BEGIN RAISE EXCEPTION 'STOP: papel sem USAGE no schema'; END; $stop$;
 \endif
 
 SELECT c.relkind, count(*) AS objects
