@@ -1,5 +1,10 @@
 # CF-035 — Preparar homologação, backup e reversão
 
+A revisão independente de 06/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado. A janela Railway segue bloqueada por achados nos clientes,
+pela identidade do próximo pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
 - Estado: em_execucao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol

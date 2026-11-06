@@ -1,5 +1,10 @@
 # Consolidação pós-PR #3 — 05/11/2026
 
+A revisão independente de 06/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado. A janela Railway segue bloqueada por achados nos clientes,
+pela identidade do próximo pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
+
 Base Git e produto **99025fa9fe93da19e9d40678d1e9eeeb78e698f9**. O
 [runbook vigente](validacao-deploy.md)
 concentra sequência, comandos, diff de configuração, recuperação e o primeiro

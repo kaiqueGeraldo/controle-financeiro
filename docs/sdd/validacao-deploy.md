@@ -1,5 +1,10 @@
 # Validação e deploy
 
+A revisão independente de 06/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado. A janela Railway segue bloqueada por achados nos clientes,
+pela identidade do próximo pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
+
 ## Adoção Railway/Vercel após a PR #3 — 05/11/2026
 
 Este é o procedimento vigente. A seção de destino e as pendências ao fim deste

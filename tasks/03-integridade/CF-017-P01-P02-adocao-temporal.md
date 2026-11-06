@@ -1,5 +1,10 @@
 # CF-017/P01/P02 — Adoção coordenada dos metadados temporais
 
+A revisão independente de 06/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado. A janela Railway segue bloqueada por achados nos clientes,
+pela identidade do próximo pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
 - Estado: em_revisao
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
 - Origem: P01/P02 da revisão independente (registro de execução privado)

@@ -1,5 +1,10 @@
 # Rotação de credenciais antes da adoção
 
+A revisão independente de 06/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado. A janela Railway segue bloqueada por achados nos clientes,
+pela identidade do próximo pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
+
 Plano de execução para autorização separada. Alvo Railway controle-financeiro /
 production, serviço da API controle-financeiro. BRAPI_TOKEN, JWT_SECRET,
 RESEND_API_KEY e SPRING_DATASOURCE_PASSWORD são tratadas como comprometidas pela
