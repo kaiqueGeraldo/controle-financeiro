@@ -6,6 +6,20 @@ concentra sequência, comandos, diff de configuração, recuperação e o primei
 lote autorizável. Esta matriz registra a decisão desta rodada. Os arquivos
 individuais das tarefas mantêm os estados canônicos.
 
+## Resultado do lote A2 — 06/11/2026
+
+No `postgres-adocao`, o executor dedicado confirmou a classe A e restaurou
+o ponto de recuperação real em PostgreSQL 17.11 isolado. Aplicou V1–V16 uma
+vez pelo Flyway 11.14.1. A leitura final confirmou 16 checksums compatíveis,
+zero pendências e catálogo igual ao ensaio, sem linhas de aplicação. O
+Hibernate validate foi exercitado com o JAR aprovado no ensaio isolado.
+
+A janela encerrou às 10:50:16 em America/Sao_Paulo, 5 min 06 s após a
+solicitação de ativação. O deploy do banco novo foi removido, os volumes
+preservados e a API e o Postgres original ficaram offline. O
+[runbook vigente](validacao-deploy.md) vincula o recibo e descreve o A3
+para primeira inicialização restrita da API.
+
 ## Decisão de adoção do zero e conclusão do A1 — 06/11/2026
 
 O alvo novo `postgres-adocao` foi provisionado em Railway

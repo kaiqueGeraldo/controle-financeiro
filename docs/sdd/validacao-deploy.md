@@ -53,16 +53,32 @@ SHA-256 `c4d35f56d1703a202b6b5f159e6d2324ffc624d7cca5caca3cca6c27181c6bdf`.
 [Variáveis seladas](https://docs.railway.com/variables) ·
 [Preços Railway](https://docs.railway.com/pricing/plans)
 
-#### Lote A2 — execução futura do Flyway V1–V16 no banco vazio
+#### Lote A2 — V1–V16 aplicadas e banco desligado em 06/11/2026
+
+| Controle | Evidência observada |
+|---|---|
+| Alvo e janela | Railway production, serviço e volume do A1. Deployment `159fd4eb-86a3-4de2-9f76-48cca60987a6`. Start solicitado às 10:45:10 e `REMOVED` confirmado às 10:50:16 em America/Sao_Paulo (13:45:10–13:50:16 UTC). Janela de 5 min 06 s. API e Postgres original sem deploy ativo, volumes preservados, nenhum patch pendente. |
+| Executor e TLS | Executor local Windows com Node 24.18.0, Temurin 21.0.12.1+1, Maven Wrapper 3.3.4, Maven 3.9.12, Flyway 11.14.1 e JDBC PostgreSQL 42.7.9. Túnel SSH com chave do gateway fixada, limitado ao loopback e encaminhado ao DNS privado do banco. O JDBC validou CA e nome `localhost` com `sslmode=verify-full`. A contraprova do ensaio rejeitou a CA errada. |
+| Pré-condições | Identidade e montagem do volume confirmadas no container. PostgreSQL 17.11, database `controle_financeiro`, schema `public` vazio, zero history e zero clientes concorrentes antes do migrate. Autodeploy da API desativado. O executor autenticou com `cf_adocao_migrator`, com CONNECT, USAGE e CREATE e sem privilégios administrativos. |
+| Recuperação | Arquivo lógico custom de catálogo vazio, com criação do database, roles sem senhas, ACLs e parâmetros relevantes. Restore do checkpoint real em PG17.11 isolado com metadados equivalentes. No ensaio de perda de conexão, o DDL em curso foi desfeito e o commit anterior preservado. O ponto cobre o catálogo vazio e seus metadados lógicos. Recuperação física, WAL e indisponibilidade do provedor ficaram fora do ensaio. |
+| Flyway e catálogo | `info` inicial com 16 Pending, `validate` prévio com exceção apenas para pendências, um `migrate` de V1 a V16, `validate` final estrito e `info` final com 16 Success e zero pendências. Cinco comandos com código 0. As 16 entradas SQL em history conferiram versão, arquivo, ordem e checksum independente. Catálogo igual ao ensaio, com 36 tabelas de aplicação, 166 constraints e 97 índices, sem linhas de aplicação. O único INSERT da cadeia copia dados existentes em V6 e inseriu zero linhas no banco vazio. |
+| Encerramento | Sessões do migrador drenadas. O owner `cf_adocao_migrator` permaneceu para preservar ownership, com NOLOGIN, senha removida e CREATE revogado. Túnel, watchdog e fixtures locais encerrados, chave SSH revogada. Um erro no fechamento local do túnel impediu a gravação do primeiro recibo após o estado `REMOVED`. O recibo foi reconciliado a partir dos logs, do catálogo e de consulta independente ao Railway. |
+| Compatibilidade | Hibernate validate com o JAR aprovado e o perfil `adoption` passou no PostgreSQL descartável e preservou catálogo e history. A primeira inicialização da API real, os consumidores e a homologação funcional permanecem no A3 e nas fases seguintes. |
+
+Recibo sanitizado, manifesto e logs no acervo externo
+`controle-financeiro-runtimes/prontidao-adocao/20261106-lote-a2`.
+SHA-256 do recibo `6511df02cebea8ed01837a5a86ff00a1c34e199c450b7c81bd670d8dcd1fce2b`.
+O recibo associa os 16 SHA-256 de origem aos checksums gravados no Flyway.
+
+##### Procedimento aplicado no A2
 
 O candidato aprovado é `99025fa9fe93da19e9d40678d1e9eeeb78e698f9`.
 No artefato GitHub Actions `13464315355`, o JAR de SHA-256
 `36d9393bc6348555285411319c73a966c0d2be760f78dc0b2fe706cc81e604f0`
 contém exatamente V1 a V16, com SHA-256 igual ao blob Git para cada SQL.
 A última versão é `V16__onboarding_application.sql`. O JAR e o plugin
-Maven usam Flyway 11.14.1. O ensaio local em PG17.11 cobriu banco vazio,
-histórico, reaplicação e Hibernate validate. A execução real depende de
-um novo lote autorizado.
+Maven usam Flyway 11.14.1. O executor leu apenas os 16 SQLs do candidato na localização aprovada. A pasta isolada não continha callbacks, scripts de inicialização ou overrides adicionais. O ensaio local em PG17.11 cobriu banco vazio,
+histórico, reaplicação e Hibernate validate.
 
 1. Reconfirmar os IDs do A1, a API e o Postgres original offline, ausência de
    deploys pendentes e exclusividade de escrita. Preparar um único executor
@@ -102,11 +118,44 @@ um novo lote autorizado.
    de retomar. `repair`, `clean` e reedição de SQL aplicado ficam fora
    do procedimento.
 
-A ativação da API tem seu próprio lote. O cutover usa a conexão privada
-nova e o perfil `adoption`, com Hibernate em `validate`, Flyway e SQL init
-desabilitados no Spring, e writers e jobs inicialmente contidos. A rotação
-de JWT, BRAPI e Resend e a contenção de previews antigos continuam exigidas
-para a liberação.
+#### Lote A3 — configuração segura e primeira inicialização da API
+
+Preparar para autorização separada. Usar o mesmo candidato aprovado, ou
+registrar e homologar explicitamente outro SHA e seu artefato antes do start.
+
+1. Confirmar V16, o volume do A2 e a recuperação. Criar um papel de runtime
+   para a API, com credencial inédita e grants específicos de tabelas e
+   sequences. O owner `cf_adocao_migrator` permanece sem login. Conferir
+   CONNECT, USAGE e DML necessários, ausência de CREATE no schema e de
+   permissão de escrita no history. Configurar JDBC privado com verificação
+   de CA e hostname. O certificado usado no túnel A2 valida `localhost`.
+   Antes de ligar a API, provar a cadeia e a identidade do certificado para o
+   hostname efetivamente usado pela API. Se o SAN atual não cobrir o DNS
+   privado, preparar certificado com esse SAN e preservação do acesso do
+   operador para aprovação junto do A3.
+2. Coordenar a contenção e a rotação das credenciais expostas pelo
+   [plano de rotação](rotacao-credenciais.md). Identificar consumidores e
+   revogar BRAPI e Resend no emissor no momento acordado. Para BRAPI,
+   aprovar primeiro o cliente com Bearer e erros sanitizados. Validar a
+   chave Resend limitada ao domínio e a permissão de envio. Selar JWT novo
+   e testar reautenticação. Instalar na API somente a senha nova de runtime.
+3. Manter autodeploy desativado e preparar um deploy restrito com uma réplica,
+   `PORT=8080`, `SPRING_PROFILES_ACTIVE=adoption`,
+   `SPRING_JPA_HIBERNATE_DDL_AUTO=validate`, `SPRING_JPA_GENERATE_DDL=false`,
+   `SPRING_FLYWAY_ENABLED=false` e `SPRING_SQL_INIT_MODE=never`. Manter
+   `APP_OPERATIONS_WRITERS_ENABLED=false` e
+   `APP_OPERATIONS_JOBS_ENABLED=false`. Usar `/ops/health/liveness` no
+   healthcheck inicial. Exigir 200 nesse endpoint, 503 em
+   `/ops/health/readiness` enquanto writers estiverem fechados, Hibernate
+   validate concluído e catálogo/history preservados. Em falha, remover
+   apenas o deploy restrito e preservar o volume e o diagnóstico.
+4. Antes de abrir writers, validar o destino server-only do BFF de
+   Production, CORS e isolamento dos previews atuais e antigos. Confirmar
+   `VERCEL_ENV=preview` e 503 sem chamada ao upstream no candidato. Isolar
+   previews legados e Development do backend real. Publicação do frontend,
+   promoção de alias, smoke com escrita e abertura dos jobs seguem
+   decisões próprias. Testar readiness 200 no smoke autorizado com writers
+   abertos e jobs fechados.
 
 ### Histórico do lote 1 — Postgres original e inventário
 

@@ -8,6 +8,21 @@
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
 
+## Lote A2 no banco novo — 06/11/2026
+
+**Estado em revisão.** O alvo novo atende aos controles de
+identidade e inventário do volume, checkpoint lógico restaurado em alvo
+isolado, janela exclusiva e cadeia V1–V16 aplicada e validada. History
+com 16 sucessos, checksums reconciliados, zero pendências, catálogo
+equivalente ao ensaio e nenhuma linha de aplicação. A API ficou offline.
+
+Compatibilidade do schema legado, baseline, reaproveitamento de dados e
+preflight do volume antigo foram dispensados nesta adoção. Os critérios
+históricos de legado permanecem registrados para esse recorte. Faltam
+revisão independente do resultado, grants do papel da API e verificação
+do candidato em execução real antes de liberar uso.
+[Runbook e recibo](../../docs/sdd/validacao-deploy.md)
+
 ## Lote 1 Railway — 05/11/2026
 
 Compatibilidade da geração do volume não comprovada. O lote autorizado

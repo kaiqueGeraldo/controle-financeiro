@@ -1,9 +1,26 @@
 # CF-017/P01/P02 — Adoção coordenada dos metadados temporais
 
-- Estado: em_revisao; base local V1/V2 apta para CF-018, adoção/publicação em banco existente bloqueada
+- Estado: em_revisao
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
 - Origem: P01/P02 da revisão independente (registro de execução privado)
 - Preparação local: saneamento de 13/09/2026 (registro de execução privado)
+
+## Lote A2 no banco novo — 06/11/2026
+
+**Estado em revisão.** Inventário do volume e do catálogo vazio, restauração
+lógica do checkpoint, reconciliação de versões/checksums e verificação de
+tipos, precisão, constraints e índices foram cumpridos no alvo novo
+em V16. Hibernate validate com o JAR aprovado passou no ensaio isolado.
+A API ficou offline durante a janela. A base local V1/V2 está apta para CF-018.
+
+Foram dispensadas para esta adoção a investigação de origens e fusos de
+linhas antigas, a reconciliação de saldos legados e qualquer backfill
+histórico. As regras de UNKNOWN/null e precisão continuam aplicáveis
+aos consumidores e dados novos. Permanecem validação de writers, BFF,
+DTOs, ordenação e exportação, EXPLAIN com volume representativo e revisão
+independente. O ensaio vazio verifica a estrutura, sem medir custo de
+sort nem estabilidade sob escrita concorrente.
+[Runbook e recibo](../../docs/sdd/validacao-deploy.md)
 
 ## Lote 1 Railway — 05/11/2026
 
