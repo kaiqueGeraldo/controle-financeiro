@@ -24,6 +24,9 @@ import type { Account, AccountPosition, Category } from "@/types";
 
 const toastError = vi.fn();
 const refreshFinance = vi.fn().mockResolvedValue(undefined);
+let financeAccounts: Account[] = [];
+let financeLoading = false;
+let financeError: Error | null = null;
 
 let authenticatedUser: {
   user: { id: string } | null;
@@ -43,10 +46,11 @@ vi.mock("@/hooks/useUser", () => ({
 
 vi.mock("@/hooks/useFinanceData", () => ({
   useFinanceData: () => ({
-    accounts: [],
+    accounts: financeAccounts,
     categories: [],
     refresh: refreshFinance,
-    isLoading: false,
+    isLoading: financeLoading,
+    error: financeError,
   }),
 }));
 
@@ -100,6 +104,9 @@ function deferred<T>(): Deferred<T> {
 describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    financeAccounts = [];
+    financeLoading = false;
+    financeError = null;
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 8, 8, 12));
     authenticatedUser = { user: { id: "user-a" }, isLoading: false };
@@ -403,6 +410,35 @@ describe("AC-UI-008: resposta mais recente e isolamento por usuário", () => {
     expect(result.current.error).toBeNull();
     expect(result.current.saldoTotal).toBe(42);
     consoleError.mockRestore();
+  });
+
+  test("keeps a valid account filter through refresh and clears it only after a successful removal", async () => {
+    financeAccounts = [account("a", "Conta A", 100), account("b", "Conta B", 200)];
+    vi.mocked(transactionService.getAll).mockResolvedValue({ status: 200, data: { content: [], page: { number: 0, totalPages: 0, size: 30, totalElements: 0 } } });
+    const { result, rerender } = renderHook(() => useExtract());
+    await act(async () => { result.current.setFilterType("INCOME"); result.current.setFilterAccountId("a"); });
+    const requested = vi.mocked(transactionService.getAll).mock.calls.length;
+    const date = result.current.filters.date;
+    financeLoading = true;
+    financeAccounts = [];
+    rerender();
+    expect(result.current.filters.accountId).toBe("a");
+    financeLoading = false;
+    financeError = new Error("Leitura indisponível");
+    rerender();
+    expect(result.current.filters.accountId).toBe("a");
+    expect(result.current.error).toBe(financeError);
+    await act(async () => { await result.current.retry(); });
+    expect(refreshFinance).toHaveBeenCalledTimes(1);
+    financeError = null;
+    financeAccounts = [account("a", "Conta A", 120)];
+    rerender();
+    expect(result.current.filters.accountId).toBe("a");
+    expect(transactionService.getAll).toHaveBeenCalledTimes(requested);
+    financeAccounts = [account("b", "Conta B", 200)];
+    await act(async () => { rerender(); });
+    expect(result.current.filters).toMatchObject({ accountId: "todas", type: "INCOME", date });
+    expect(transactionService.getAll).toHaveBeenLastCalledWith(expect.objectContaining({ accountId: undefined, type: "INCOME" }));
   });
 
   test("CF-012: extrato com erro não vira página vazia e retry requisita a primeira página", async () => {

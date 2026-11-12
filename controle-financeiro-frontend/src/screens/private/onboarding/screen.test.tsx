@@ -6,6 +6,12 @@ import { beforeEach, expect, it, vi } from "vitest";
 import { onboardingClient } from "@/services/onboarding/client";
 import { ApiError } from "@/services/api";
 import type { Session } from "@/services/onboarding/model";
+import { TransactionModalManager } from "@/components/modals/managers/transactionModalManager";
+import { FinanceProvider, notifyOnboardingCompleted } from "@/contexts/financeContext";
+import { TransactionModalProvider, useTransactionModals } from "@/contexts/modals/transactionModalContext";
+import { ToastProvider } from "@/contexts/toastContext";
+import { accountService } from "@/services/accountService";
+import { categoryService } from "@/services/categoryService";
 import OnboardingScreen from "./OnboardingScreen";
 import { Amount } from "./Review";
 import { ReservationEditor } from "./ReservationEditor";
@@ -72,4 +78,67 @@ it("reopens persisted reservation declarations without inventing a new revision"
   const change = vi.fn(); render(<ReservationEditor previous={null} draft={draft} issues={[]} choices={[]} onChange={change} confirm={(_message, action) => action()} />);
   await userEvent.setup().selectOptions(screen.getByRole("combobox", { name: "Situação atual da reserva 1" }), "ASSIGN");
   expect(change.mock.calls[0][0].reservationConfirmations).toEqual([{ reservationId: id, expectedRevision: "7", action: "ASSIGN", currentSituationConfirmed: false, parts: [] }]);
+});
+
+
+function LaunchTransaction() {
+  const { openNewTransaction } = useTransactionModals();
+  return <><button onClick={openNewTransaction}>Lançar no extrato</button><TransactionModalManager /></>;
+}
+
+it.each([false, true])("offers the new account without reload (refresh fails first: %s)", async (failsFirst) => {
+  const wallet = { id: "wallet", name: "Carteira Física", balance: 0, type: "CASH" as const, color: "#000000", isArchived: false };
+  const opened = { ...wallet, id: "new-checking", name: "Corrente sintética", balance: 1000, type: "CHECKING" as const };
+  const updatedAccounts = { status: 200, data: [wallet, opened] };
+  let finishRefresh!: () => void;
+  const pendingRefresh = new Promise<typeof updatedAccounts>((resolve, reject) => {
+    finishRefresh = () => failsFirst ? reject(new ApiError("Leitura indisponível", 503)) : resolve(updatedAccounts);
+  });
+  const accounts = vi.spyOn(accountService, "getAll")
+    .mockResolvedValueOnce({ status: 200, data: [wallet] })
+    .mockReturnValueOnce(pendingRefresh)
+    .mockResolvedValue(updatedAccounts);
+  vi.spyOn(accountService, "getPosition").mockResolvedValue({
+    status: 200, data: { asOfDate: "2026-10-21", totalBalance: "0.00", checkingBalance: "0.00", archivedBalance: "0.00", outsideSupportedRange: false, accounts: [] },
+  });
+  vi.spyOn(categoryService, "getAll").mockResolvedValue({ status: 200, data: [] });
+  render(<ToastProvider><FinanceProvider><TransactionModalProvider>
+    <OnboardingScreen /><LaunchTransaction />
+  </TransactionModalProvider></FinanceProvider></ToastProvider>);
+  const user = userEvent.setup();
+  await screen.findByRole("heading", { name: "Etapa 1 de 8: Contexto" });
+  await user.click(screen.getByRole("button", { name: "Lançar no extrato" }));
+  expect(within(screen.getByLabelText("Conta do lançamento")).getByRole("option", { name: /Carteira Física/ })).toBeTruthy();
+  expect(within(screen.getByLabelText("Conta do lançamento")).queryByRole("option", { name: /Corrente sintética/ })).toBeNull();
+  await user.click(screen.getByRole("button", { name: "Fechar modal" }));
+  await user.click(screen.getByRole("button", { name: "8. Revisão" }));
+  await user.click(screen.getByRole("button", { name: "Preparar revisão financeira" }));
+  await user.click(await screen.findByRole("button", { name: "Confirmar informações e registrar posições" }));
+  await screen.findByRole("heading", { name: "Entrevista concluída" });
+  await user.click(screen.getByRole("button", { name: "Lançar no extrato" }));
+  const selector = screen.getByLabelText<HTMLSelectElement>("Conta do lançamento");
+  expect(selector.matches(":disabled")).toBe(true);
+  const logError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+  await act(async () => finishRefresh());
+  if (failsFirst) {
+    await screen.findByText("Não foi possível atualizar as contas e categorias.");
+    expect(selector.matches(":disabled")).toBe(true);
+    await user.click(screen.getByRole("button", { name: /^Tentar novamente$/ }));
+  }
+  await within(selector).findByRole("option", { name: /Corrente sintética/ });
+  expect(accounts).toHaveBeenCalledTimes(failsFirst ? 3 : 2);
+  expect(onboardingClient.complete).toHaveBeenCalledTimes(1);
+  const [{ operationId }] = vi.mocked(onboardingClient.complete).mock.calls[0];
+  await act(async () => {
+    notifyOnboardingCompleted(auth.user.id, operationId);
+    notifyOnboardingCompleted("previous-owner", "previous-operation");
+  });
+  expect(accounts).toHaveBeenCalledTimes(failsFirst ? 3 : 2);
+  await user.selectOptions(selector, "new-checking");
+  await act(async () => window.dispatchEvent(new Event("refreshFinance")));
+  expect(selector.value).toBe("new-checking");
+  accounts.mockResolvedValueOnce({ status: 200, data: [wallet] });
+  await act(async () => window.dispatchEvent(new Event("refreshFinance")));
+  expect(selector.value).toBe("");
+  logError.mockRestore();
 });

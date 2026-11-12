@@ -28,7 +28,7 @@ public class GoalController {
 
     @PostMapping
     public ResponseEntity<GoalResponseDTO> create(@RequestBody @Valid CreateGoalDTO data, @AuthenticationPrincipal User user) {
-        log.info("API: Criar Meta '{}' para usuário {}", data.title(), user.getEmail());
+        log.info("API: Criar Meta '{}' para usuário {}", data.title(), user.getId());
         return ResponseEntity.ok(service.create(data, user));
     }
 

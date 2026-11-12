@@ -1,90 +1,142 @@
 package com.controlefinanceiro.api.service;
 
 import com.controlefinanceiro.api.domain.investment.InvestType;
-import com.controlefinanceiro.api.domain.investment.Investment;
 import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
 import com.controlefinanceiro.api.domain.investment.dto.BrapiResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.json.JsonMapper;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
 public class MarketDataService {
 
-    @Autowired
-    private InvestmentRepository investmentRepository;
-    @Autowired
-    private Clock clock;
-    @Autowired private MarketPriceWriter priceWriter;
+    private static final HttpUrl BRAPI_BASE_URL = HttpUrl.get("https://brapi.dev/api/quote/");
+    private static final List<InvestType> SUPPORTED_TYPES = List.of(InvestType.STOCK, InvestType.FII);
+    private static final Pattern TICKER = Pattern.compile("[A-Z0-9]{1,20}");
+    // One request per symbol. Even a 31-day cycle uses at most 11,160 scheduled calls.
+    private static final int REQUESTS_PER_RUN = 15;
+    private static final JsonMapper RESPONSE_MAPPER = JsonMapper.builder()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build();
 
+    @Autowired private InvestmentRepository investmentRepository;
+    @Autowired private Clock clock;
+    @Autowired private MarketPriceWriter priceWriter;
     @Value("${api.brapi.token}")
     private String brapiToken;
 
-    private static final String BRAPI_BASE_URL = "https://brapi.dev/api/quote/";
-    private final RestTemplate restTemplate;
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .callTimeout(Duration.ofSeconds(8))
+            .retryOnConnectionFailure(false)
+            // HTTP/1.1 avoids coalesced HTTP/2 follow-ups. OkHttp also retries 503 with Retry-After: 0
+            // even when retryOnConnectionFailure is disabled.
+            .protocols(List.of(Protocol.HTTP_1_1))
+            .addNetworkInterceptor(chain -> {
+                var response = chain.proceed(chain.request());
+                return response.code() == 503 ? response.newBuilder().removeHeader("Retry-After").build() : response;
+            })
+            .followRedirects(false)
+            .followSslRedirects(false)
+            .build();
 
-    public MarketDataService() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(10000); // tempo máximo para conectar à Brapi
-        factory.setReadTimeout(10000);    // tempo máximo esperando a resposta da Brapi
+    private int nextIndex;
 
-        this.restTemplate = new RestTemplate(factory);
-    }
-
-    @Scheduled(fixedRate = 1800000)
-    @SchedulerLock(name = "updateVariableIncomePricesLock", lockAtLeastFor = "1m", lockAtMostFor = "5m")
+    @Scheduled(fixedDelay = 3_600_000)
+    @SchedulerLock(name = "updateVariableIncomePricesLock", lockAtLeastFor = "1h", lockAtMostFor = "1h")
     public void updateVariableIncomePrices() {
         log.info("MARKET: Iniciando atualização de cotações via Brapi...");
+        if (brapiToken == null || brapiToken.isBlank()
+                || !brapiToken.chars().allMatch(value -> value >= 33 && value <= 126)) {
+            log.warn("MARKET: Credencial da BRAPI ausente ou inválida.");
+            return;
+        }
 
-        List<String> uniqueTickers = investmentRepository.findDistinctTickersByTypes(
-                List.of(InvestType.STOCK, InvestType.FII, InvestType.CRYPTO)
-        );
+        List<String> tickers = investmentRepository.findDistinctTickersByTypes(SUPPORTED_TYPES).stream()
+                .map(ticker -> ticker.strip().toUpperCase(Locale.ROOT))
+                .filter(ticker -> TICKER.matcher(ticker).matches())
+                .distinct()
+                .sorted()
+                .toList();
+        if (tickers.isEmpty()) return;
 
-        if (uniqueTickers.isEmpty()) return;
+        var quotes = new LinkedHashMap<String, Quote>();
+        for (int i = 0; i < Math.min(REQUESTS_PER_RUN, tickers.size()); i++) {
+            int index = nextIndex % tickers.size();
+            String ticker = tickers.get(index);
+            nextIndex = index + 1;
+            var request = new Request.Builder()
+                    .url(BRAPI_BASE_URL.newBuilder().addPathSegment(ticker).build())
+                    .header("Authorization", "Bearer " + brapiToken)
+                    .build();
 
-        int batchSize = 15;
-        for (int i = 0; i < uniqueTickers.size(); i += batchSize) {
-            List<String> batch = uniqueTickers.subList(i, Math.min(i + batchSize, uniqueTickers.size()));
-            String tickersParam = String.join(",", batch);
-            String url = BRAPI_BASE_URL + tickersParam + "?token=" + brapiToken;
-
-            try {
-                BrapiResponseDTO response = restTemplate.getForObject(url, BrapiResponseDTO.class);
-                if (response != null && response.results() != null) {
-                    for (BrapiResponseDTO.StockDTO stockData : response.results()) {
-                        updateAssetPrice(stockData.symbol(), stockData.regularMarketPrice());
-                    }
+            try (var response = client.newCall(request).execute()) {
+                int status = response.code();
+                if (!response.isSuccessful()) {
+                    log.warn("MARKET: BRAPI recusou a cotação (status={}).", status);
+                    if (status == 401 || status == 403 || status == 429 || status >= 500) break;
+                    continue;
                 }
-            } catch (Exception e) {
-                log.error("MARKET: Erro ao processar lote [{}].", tickersParam, e);
+                if (response.body() == null || status == 204) continue;
+                var data = RESPONSE_MAPPER.readValue(response.body().byteStream(), BrapiResponseDTO.class);
+                Quote quote = quoteFor(ticker, data);
+                if (quote != null) quotes.put(ticker, quote);
+            } catch (IOException | RuntimeException e) {
+                log.warn("MARKET: Falha ao consultar cotação (tipo={}).", e.getClass().getSimpleName());
+                break;
             }
+        }
 
+        // The persisted valuation remains available when a call fails or the ticker is outside this run.
+        if (quotes.isEmpty()) return;
+        for (var position : investmentRepository.findQuotePositions(quotes.keySet(), SUPPORTED_TYPES)) {
+            Quote quote = quotes.get(position.getTicker());
+            try {
+                priceWriter.update(position.getOwnerId(), position.getInvestmentId(), quote.price(), quote.date());
+            } catch (RuntimeException e) {
+                log.warn("MARKET: Falha ao persistir cotação (tipo={}).", e.getClass().getSimpleName());
+            }
         }
     }
 
-    private void updateAssetPrice(String ticker, BigDecimal newPrice) {
-        if (newPrice == null || newPrice.signum() < 0 || newPrice.scale() > 8) return;
-
-        List<Investment> investments = investmentRepository.findAllByTicker(ticker);
-
-        for (Investment asset : investments) {
-            priceWriter.update(asset.getUser().getId(),asset.getId(),newPrice);
+    private Quote quoteFor(String ticker, BrapiResponseDTO data) {
+        if (data == null || data.results() == null || data.results().size() != 1) return null;
+        var item = data.results().getFirst();
+        if (item == null || !ticker.equals(item.symbol()) || item.regularMarketTime() == null) return null;
+        BigDecimal price = item.regularMarketPrice();
+        if (price == null || price.signum() <= 0 || price.scale() > 8 || price.precision() - (long) price.scale() > 12) {
+            return null;
+        }
+        try {
+            var now = clock.instant();
+            var instant = Instant.parse(item.regularMarketTime());
+            if (instant.isAfter(now)) return null;
+            return new Quote(price, LocalDate.ofInstant(instant, clock.getZone()));
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 
-    private boolean isVariableIncome(InvestType type) {
-        return type == InvestType.STOCK || type == InvestType.FII || type == InvestType.CRYPTO;
-    }
+    private record Quote(BigDecimal price, LocalDate date) {}
 }

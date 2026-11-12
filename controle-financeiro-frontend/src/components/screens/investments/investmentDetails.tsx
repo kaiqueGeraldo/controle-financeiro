@@ -159,7 +159,7 @@ export function InvestmentDetails({
                     </div>
                     <div className="bg-bg-base/50 p-3 rounded-xl border border-border-divider/50">
                       <p className="text-text-muted text-[10px] uppercase font-bold">
-                        Cotação Atual
+                        Última cotação
                       </p>
                       <p className="text-text-main font-medium">
                         {asset.currentPrice == null ? "Indisponível" : formatCurrency(asset.currentPrice)}

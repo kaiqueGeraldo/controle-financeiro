@@ -1,5 +1,10 @@
 # CF-036 — Publicar versão validada e verificar produção
 
+A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
+bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
 - Estado: proposta
 - Prioridade: P1
 - Modelo executor: gpt-6-astra
@@ -7,6 +12,33 @@
 - Revisor sugerido: gpt-5.6-sol / high
 - Depende de: [CF-033](../05-release/CF-033-revisao-adversarial.md), [CF-034](../05-release/CF-034-gates-ci.md), [CF-035](../05-release/CF-035-homologacao-preservacao.md)
 - Origem: T-012; primeiro uso diário
+
+## Preparação e adiamento no A3 complementar — 06/11/2026
+
+Novo commit e JAR verificados em imagem local, com recuperação V16 e
+startup isolado do artefato. O proprietário manteve a chave Resend exposta
+e adiou a API. A proposta depende da revisão independente, da janela
+restrita no Railway, da homologação funcional e da comprovação do
+artefato publicado.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Contenção e configuração A3 — 06/11/2026
+
+A configuração segura da API foi aplicada sem deploy. O domínio público
+ficou bloqueado na borda Railway e BACKEND_API_URL foi limitado a Production
+para builds futuros. A versão efetivamente publicada, o TLS do runtime,
+o smoke com dados sintéticos e a revisão independente permanecem pendentes.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Consolidação pós-PR #3 — 05/11/2026
+
+Plano de publicação e recuperação preparado no
+[runbook](../../docs/sdd/validacao-deploy.md). O JAR do Actions está identificado
+para a main integrada. A imagem efetivamente publicada precisa de prova por
+digest e smoke no alvo. CF-036 permanece proposta, condicionada a CF-035,
+compatibilidade e recuperação do banco, decisão de release sobre zoom e
+autorização de publicação. O último deployment Production Vercel ainda é
+272001f7. [Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
 
 ## Expanded local estabilizada no recorte DEC-ZOOM-05 — 03/11/2026
 

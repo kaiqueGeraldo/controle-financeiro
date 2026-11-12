@@ -1,9 +1,65 @@
 # CF-017/P01/P02 — Adoção coordenada dos metadados temporais
 
-- Estado: em_revisao; base local V1/V2 apta para CF-018, adoção/publicação em banco existente bloqueada
+A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
+bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
+- Estado: em_revisao
 - Derivada de: [CF-017](CF-017-migracoes.md), [SPEC-002](../../docs/sdd/specs/002-datas.md)
 - Origem: P01/P02 da revisão independente (registro de execução privado)
 - Preparação local: saneamento de 13/09/2026 (registro de execução privado)
+
+## Recuperação V16 no A3 complementar — 06/11/2026
+
+Restaurados histórico, constraints e índices do alvo novo vazio. A
+validação estrutural usou o JAR corrigido e o papel restrito na cópia
+isolada. Os requisitos de writers, ordenação, exportação e EXPLAIN com
+volume representativo seguem em aberto, assim como a revisão independente
+e a verificação em runtime Railway.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Revisão dirigida e preparação A3 — 06/11/2026
+
+Revisão dirigida confirmou os 16 checksums do A2, o catálogo e a
+recuperação lógica inicial. O papel restrito da API conectou com
+verify-full e não alterou history. A revisão independente, a recuperação
+V16 com conteúdo do histórico e a validação do candidato em runtime
+real seguem pendentes. [Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Lote A2 no banco novo — 06/11/2026
+
+**Estado em revisão.** Inventário do volume e do catálogo vazio, restauração
+lógica do checkpoint, reconciliação de versões/checksums e verificação de
+tipos, precisão, constraints e índices foram cumpridos no alvo novo
+em V16. Hibernate validate com o JAR aprovado passou no ensaio isolado.
+A API ficou offline durante a janela. A base local V1/V2 está apta para CF-018.
+
+Foram dispensadas para esta adoção a investigação de origens e fusos de
+linhas antigas, a reconciliação de saldos legados e qualquer backfill
+histórico. As regras de UNKNOWN/null e precisão continuam aplicáveis
+aos consumidores e dados novos. Permanecem validação de writers, BFF,
+DTOs, ordenação e exportação, EXPLAIN com volume representativo e revisão
+independente. O ensaio vazio verifica a estrutura, sem medir custo de
+sort nem estabilidade sob escrita concorrente.
+[Runbook e recibo](../../docs/sdd/validacao-deploy.md)
+
+## Lote 1 Railway — 05/11/2026
+
+Compatibilidade da geração do volume não comprovada. O lote autorizado
+encerrou antes da ativação, com API e Postgres offline. Versão efetiva,
+schema e Flyway seguem desconhecidos. Os critérios reais continuam
+pendentes. [Evidência e próximo passo](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
+## Consolidação pós-PR #3 — 05/11/2026
+
+P01/P02 permanece em_revisao. Fundação e plano de rollout/reversão mantêm
+aceite no seu alcance. O [runbook](../../docs/sdd/validacao-deploy.md) atualiza
+as fases para V1–V16 e registra a janela de validade do preflight.
+Schema/geração reais, backup/restore, proveniência por lote, writers e
+consumidores, EXPLAIN e revisão do upgrade permanecem pendentes. Preservar
+bruto, UNKNOWN/null e precisão sem backfill presumido.
+[Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
 
 ## Atualização CPA-01/R1 — 28/10/2026
 

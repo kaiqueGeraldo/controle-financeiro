@@ -1,5 +1,10 @@
 # CF-017 — Criar migrações reproduzíveis e plano para banco legado
 
+A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
+bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
 - Estado: em_revisao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
@@ -7,6 +12,56 @@
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-002](../00-fundacao/CF-002-ambiente-backend.md), [CF-016](../03-integridade/CF-016-regras-financeiras.md)
 - Origem: T-005; F-011
+
+## Recuperação V16 no A3 complementar — 06/11/2026
+
+O checkpoint do banco novo restaurou as 16 linhas do histórico Flyway e o
+catálogo V16 em PostgreSQL 17.11 isolado. Scripts, versões e checksums
+conferidos, Flyway validate e info passaram sem pendências e sem migrate.
+O candidato corrigido passou em Hibernate validate no clone com papel
+restrito. A evidência cobre o alvo novo vazio. O estado segue em revisão
+até a revisão independente e o startup no Railway.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Revisão dirigida e preparação A3 — 06/11/2026
+
+Revisão dirigida confirmou os 16 checksums do A2, o catálogo e a
+recuperação lógica inicial. O papel restrito da API conectou com
+verify-full e não alterou history. A revisão independente, a recuperação
+V16 com conteúdo do histórico e a validação do candidato em runtime
+real seguem pendentes. [Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Lote A2 no banco novo — 06/11/2026
+
+**Estado em revisão.** O alvo novo atende aos controles de
+identidade e inventário do volume, checkpoint lógico restaurado em alvo
+isolado, janela exclusiva e cadeia V1–V16 aplicada e validada. History
+com 16 sucessos, checksums reconciliados, zero pendências, catálogo
+equivalente ao ensaio e nenhuma linha de aplicação. A API ficou offline.
+
+Compatibilidade do schema legado, baseline, reaproveitamento de dados e
+preflight do volume antigo foram dispensados nesta adoção. Os critérios
+históricos de legado permanecem registrados para esse recorte. Faltam
+revisão independente do resultado, grants do papel da API e verificação
+do candidato em execução real antes de liberar uso.
+[Runbook e recibo](../../docs/sdd/validacao-deploy.md)
+
+## Lote 1 Railway — 05/11/2026
+
+Compatibilidade da geração do volume não comprovada. O lote autorizado
+encerrou antes da ativação, com API e Postgres offline. Versão efetiva,
+schema e Flyway seguem desconhecidos. Os critérios reais continuam
+pendentes. [Evidência e próximo passo](../../docs/sdd/prontidao-adocao-2026-11-05.md)
+
+## Consolidação pós-PR #3 — 05/11/2026
+
+Os aceites sintéticos e a revalidação local de RV17-01/P2 e RV17-02 são
+preservados. A main 99025fa9 contém V1–V16, verificador para PostgreSQL 16/17
+e perfil adoption. O alvo continua desconhecido. Imagem configurada PG17,
+major efetiva do volume, schema e backup restaurável pendentes. CF-017
+permanece em_revisao até compatibilidade real. A etapa mínima é o lote de
+inventário autorizado do [runbook](../../docs/sdd/validacao-deploy.md).
+[Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
 
 ## Atualização CPA-01/R1 — 28/10/2026
 

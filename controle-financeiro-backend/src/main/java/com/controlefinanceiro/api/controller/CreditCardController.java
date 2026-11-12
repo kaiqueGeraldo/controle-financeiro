@@ -31,13 +31,13 @@ public class CreditCardController {
 
     @PostMapping
     public ResponseEntity<CreditCardResponseDTO> create(@RequestBody @Valid CreateCardDTO data, @AuthenticationPrincipal User user) {
-        log.info("API: Criar Cartão '{}'. Usuário: {}", data.name(), user.getEmail());
+        log.info("API: Criar Cartão '{}'. Usuário: {}", data.name(), user.getId());
         return ResponseEntity.ok(service.createCard(data, user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        log.warn("API: Excluir Cartão {}. Usuário: {}", id, user.getEmail());
+        log.warn("API: Excluir Cartão {}. Usuário: {}", id, user.getId());
         service.deleteCard(id, user);
         return ResponseEntity.noContent().build();
     }

@@ -1,12 +1,44 @@
 # CF-035 — Preparar homologação, backup e reversão
 
-- Estado: proposta
+A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
+ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
+bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
+[Parecer e condições de retomada](../evidencias/revisao-a3-complementar/PARECER.md)
+
+- Estado: em_execucao
 - Prioridade: P1
 - Modelo executor: gpt-5.6-sol
 - Esforço: high
 - Revisor sugerido: gpt-6-astra / high
 - Depende de: [CF-017](../03-integridade/CF-017-migracoes.md), [CF-034](../05-release/CF-034-gates-ci.md)
 - Origem: T-012; prontidão Railway/Vercel
+
+## Recuperação V16 no A3 complementar — 06/11/2026
+
+Comprovado o restore completo de V16 para o banco novo, com history,
+checksum, catálogo e grants conferidos. As 36 tabelas de aplicação
+estavam vazias. O JAR corrigido iniciou em manutenção na cópia restaurada.
+O smoke HTTPS funcional, a prova da primeira réplica no Railway e a
+revisão independente permanecem pendentes. O estado segue em execução.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Provas de recuperação no A3 — 06/11/2026
+
+Restaurados em PostgreSQL 17.11 isolado o checkpoint inicial do A2 e a
+estrutura V16 capturada no A3. A segunda prova cobre schema e objetos.
+O backup completo de V16 com history, o startup real da API, o smoke
+HTTPS/autenticação/onboarding e a revisão independente seguem pendentes.
+[Runbook](../../docs/sdd/validacao-deploy.md)
+
+## Consolidação pós-PR #3 — 05/11/2026
+
+A preparação de homologação está em_execucao. Inventário em leitura e
+[runbook atualizado](../../docs/sdd/validacao-deploy.md) entregues. O critério
+de registrar o bloqueio de promoção está atendido. Banco desconhecido,
+API/PG offline e nenhum backup listado. Backup/restore real, compatibilidade,
+smoke HTTPS e revisão da evidência de homologação ficam pendentes. Ensaio
+sintético em alvo isolado pode avançar com escopo autorizado e sem aguardar
+classificação do banco real. [Matriz](../../docs/sdd/prontidao-adocao-2026-11-05.md)
 
 ## Problema e resultado esperado
 
@@ -35,9 +67,9 @@ Caminhos de implementação relativos à raiz; infraestrutura de testes/arquivos
 
 ## Aceite e testes adversariais
 
-- [ ] Restauração é comprovada, não apenas arquivo de backup existente; checksum/revisão/schema registrados sem dados pessoais.
+- [x] Restauração comprovada para o banco novo V16, com checksum, catálogo e histórico registrados sem dados pessoais.
 - [ ] Smoke HTTPS/autenticação/entrevista/operação/reload/exportação passa na homologação.
-- [ ] Sem informação/acesso ao banco, registrar bloqueio da promoção e manter produção intacta; não inventar sucesso de backup.
+- [x] Sem informação/acesso ao banco, registrar bloqueio da promoção e manter produção intacta; não inventar sucesso de backup.
 - [ ] Evidências e limitações registradas; testes não foram enfraquecidos para aceitar a implementação.
 
 ## Fora de escopo

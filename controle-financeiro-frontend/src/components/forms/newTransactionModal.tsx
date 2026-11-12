@@ -17,6 +17,9 @@ interface NewTransactionModalProps {
   onSuccess: () => void;
   accounts: Account[];
   categories: Category[];
+  isLoadingData?: boolean;
+  dataError?: Error | null;
+  onReloadData?: () => Promise<void>;
   initialDate?: string;
 }
 
@@ -26,6 +29,9 @@ export function NewTransactionModal({
   onSuccess,
   accounts,
   categories,
+  isLoadingData = false,
+  dataError,
+  onReloadData,
   initialDate,
 }: NewTransactionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,9 +77,23 @@ export function NewTransactionModal({
     }
   }, [isOpen, initialDate]);
 
+  const accountId = accounts.some(account => account.id === formData.accountId) ? formData.accountId : "";
+  const destinationAccountId = accountId !== formData.destinationAccountId &&
+    accounts.some(account => account.id === formData.destinationAccountId) ? formData.destinationAccountId : "";
+
+  useEffect(() => {
+    if (isLoadingData || dataError) return;
+    if (accountId === formData.accountId && destinationAccountId === formData.destinationAccountId) return;
+    setFormData(previous => (
+      previous.accountId === formData.accountId && previous.destinationAccountId === formData.destinationAccountId
+        ? { ...previous, accountId, destinationAccountId }
+        : previous
+    ));
+  }, [isLoadingData, dataError, accountId, destinationAccountId, formData.accountId, formData.destinationAccountId]);
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (submitting.current || intent.pending || intent.blocked || intent.busy) return;
+    if (submitting.current || intent.pending || intent.blocked || intent.busy || isLoadingData || dataError) return;
     submitting.current = true;
     setIsLoading(true);
 
@@ -84,10 +104,10 @@ export function NewTransactionModal({
         date: formData.date,
         time: formData.time || null,
         type,
-        accountId: formData.accountId,
+        accountId,
         categoryId: type === "TRANSFER" ? "" : formData.categoryId,
         isPaid: formData.isPaid,
-        ...(type === "TRANSFER" ? {destinationAccountId: formData.destinationAccountId, fee: formData.fee} : {}),
+        ...(type === "TRANSFER" ? {destinationAccountId, fee: formData.fee} : {}),
       }, send);
       if (success === "confirmed") confirmed();
     } catch (error) {
@@ -105,7 +125,12 @@ export function NewTransactionModal({
         <CreationRecovery busy={intent.busy} message={intent.message} pending={intent.pending}
           recover={() => { void intent.recover().then(outcome => { if (outcome === "confirmed") confirmed(); }); }}
           retry={() => { void intent.retry(send).then(outcome => { if (outcome === "confirmed") confirmed(); }); }} />
-        <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked} className="space-y-4">
+        {isLoadingData && <p role="status">Atualizando contas e categorias…</p>}
+        {dataError && <div role="alert" className="text-sm text-amber-400">
+          <p>Não foi possível atualizar as contas e categorias.</p>
+          <button type="button" onClick={() => void onReloadData?.()}>Tentar novamente</button>
+        </div>}
+        <fieldset disabled={isLoading || intent.busy || !!intent.pending || intent.blocked || isLoadingData || !!dataError} className="space-y-4">
         {/* TIPO (Receita / Despesa) */}
         <div className="grid grid-cols-3 gap-2 p-1 bg-bg-base rounded-xl border border-border-divider">
           <button
@@ -243,7 +268,7 @@ export function NewTransactionModal({
               <select
                 required
                 aria-label="Conta do lançamento"
-                value={formData.accountId}
+                value={accountId}
                 onChange={(e) =>
                   setFormData({ ...formData, accountId: e.target.value })
                 }
@@ -268,8 +293,8 @@ export function NewTransactionModal({
         </div>
 
         {type==="TRANSFER"&&<div className="space-y-3">
-          <label className="block text-sm">Conta destino<select required value={formData.destinationAccountId} onChange={e=>setFormData({...formData,destinationAccountId:e.target.value})} className="w-full bg-bg-base border border-border-divider rounded-xl p-3">
-            <option value="">Selecione</option>{accounts.filter(a=>a.id!==formData.accountId).map(a=><option key={a.id} value={a.id}>{a.name}</option>)}
+          <label className="block text-sm">Conta destino<select required value={destinationAccountId} onChange={e=>setFormData({...formData,destinationAccountId:e.target.value})} className="w-full bg-bg-base border border-border-divider rounded-xl p-3">
+            <option value="">Selecione</option>{accounts.filter(a=>a.id!==accountId).map(a=><option key={a.id} value={a.id}>{a.name}</option>)}
           </select></label>
           <label className="block text-sm">Taxa da transferência<input type="number" min="0" max="999999999999.99" step="0.01" required value={formData.fee} onChange={e=>setFormData({...formData,fee:e.target.value})} className="w-full bg-bg-base border border-border-divider rounded-xl p-3"/></label>
         </div>}

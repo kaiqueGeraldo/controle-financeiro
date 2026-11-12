@@ -25,6 +25,7 @@ export function useExtract() {
     categories,
     refresh: refreshGlobal,
     isLoading: isLoadingGlobal,
+    error: financeError,
   } = useFinanceData();
   const { user, isLoading: isUserLoading } = useUser();
   const userId = user?.id;
@@ -47,7 +48,17 @@ export function useExtract() {
   const [filterType, setFilterType] = useState<"todos" | "INCOME" | "EXPENSE" | "TRANSFER">(
     "todos",
   );
-  const [filterAccountId, setFilterAccountId] = useState<string>("todas");
+  const [accountFilter, setAccountFilter] = useState<{ owner: string; accountId: string } | null>(null);
+  const requestedAccount = accountFilter && accountFilter.owner === userId ? accountFilter.accountId : "todas";
+  const removedAccount = requestedAccount !== "todas" && !isLoadingGlobal && !financeError &&
+    !accounts.some(account => account.id === requestedAccount);
+  const filterAccountId = removedAccount ? "todas" : requestedAccount;
+
+  useEffect(() => {
+    if (removedAccount || (accountFilter && accountFilter.owner !== userId)) {
+      setAccountFilter(previous => previous === accountFilter ? null : previous);
+    }
+  }, [accountFilter, removedAccount, userId]);
 
   // CAMADA DE CACHE ESTRATÉGICA
   const extractCache = useRef<Record<string, ExtractCacheData>>({});
@@ -324,8 +335,8 @@ export function useExtract() {
     isInitialLoading: isFirstLoad || isLoadingGlobal,
     isFiltering: isLoadingList && !isFirstLoad && requestedPage === 0,
     isLoadingMore: isLoadingList && requestedPage > 0,
-    error,
-    retry: () => fetchExtract(0, false, true),
+    error: financeError ?? error,
+    retry: () => financeError ? refreshGlobal() : fetchExtract(0, false, true),
     reconcile: () => fetchExtract(0, false, true, true),
     hasMore,
     loadMore,
@@ -339,7 +350,9 @@ export function useExtract() {
       accountId: filterAccountId,
     },
     setFilterType,
-    setFilterAccountId,
+    setFilterAccountId: (accountId: string) => setAccountFilter(
+      userId && accountId !== "todas" ? { owner: userId, accountId } : null,
+    ),
     changeMonth,
     selectedTransactionId,
     setSelectedTransactionId,

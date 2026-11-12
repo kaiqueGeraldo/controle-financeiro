@@ -33,6 +33,8 @@ describe("contrato do BFF [AC-UI-006/007]", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
   });
 
   test.each(["POST", "GET", "DELETE", "PATCH", "HEAD", "OPTIONS"])(
@@ -52,6 +54,56 @@ describe("contrato do BFF [AC-UI-006/007]", () => {
       expect(input.arrayBuffer).not.toHaveBeenCalled();
     },
   );
+
+  test("somente o BFF de produção envia a credencial do upstream configurado", async () => {
+    const privateKey = "a".repeat(64);
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("BACKEND_API_URL", "https://api.example.test");
+    vi.stubEnv("BFF_UPSTREAM_ACCESS_KEY", privateKey);
+    const upstream = vi.fn().mockResolvedValue(new Response(null, {
+      status: 302,
+      headers: { location: "https://outro.example.test" },
+    }));
+    vi.stubGlobal("fetch", upstream);
+    const input = request();
+    input.headers.set("x-cf-bff-access", "fornecido-pelo-cliente");
+
+    const response = await proxyRequest(input, context);
+
+    expect(upstream).toHaveBeenCalledExactlyOnceWith(
+      "https://api.example.test/transactions/export?year=2026",
+      expect.objectContaining({ redirect: "manual" }),
+    );
+    const headers = upstream.mock.calls[0][1].headers as Headers;
+    expect(headers.get("x-cf-bff-access")).toBe(privateKey);
+    expect(headers.get("authorization")).toBe("Bearer token-sintetico");
+    expect(response.headers.get("location")).toBeNull();
+    expect(response.headers.has("x-cf-bff-access")).toBe(false);
+  });
+
+  test("desenvolvimento nunca repassa a credencial de produção nem a do navegador", async () => {
+    vi.stubEnv("VERCEL_ENV", "development");
+    vi.stubEnv("BFF_UPSTREAM_ACCESS_KEY", "b".repeat(64));
+    const upstream = vi.fn().mockResolvedValue(new Response(null, { status: 204 }));
+    vi.stubGlobal("fetch", upstream);
+    const input = request();
+    input.headers.set("x-cf-bff-access", "fornecido-pelo-cliente");
+
+    await proxyRequest(input, context);
+
+    const headers = upstream.mock.calls[0][1].headers as Headers;
+    expect(headers.has("x-cf-bff-access")).toBe(false);
+  });
+
+  test("configuração inválida de acesso ao upstream falha antes de consultar a API", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("BACKEND_API_URL", "http://api.example.test");
+    vi.stubEnv("BFF_UPSTREAM_ACCESS_KEY", "c".repeat(64));
+    vi.stubGlobal("fetch", vi.fn());
+
+    expect((await proxyRequest(request(), context)).status).toBe(503);
+    expect(fetch).not.toHaveBeenCalled();
+  });
 
   test("204 permanece sem corpo e sem content-type inventado", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 204 })));
