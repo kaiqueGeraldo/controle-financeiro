@@ -52,7 +52,7 @@ public class EmailService {
         if (!operations.writersEnabled()) return;
         boolean recipientRestricted = allowedRecipient != null && !allowedRecipient.isBlank();
         if (singleDelivery && !recipientRestricted) return;
-        if (recipientRestricted && !allowedRecipient.equalsIgnoreCase(to)) return;
+        if (recipientRestricted && !allowedRecipient.equals(to)) return;
         if (apiKey == null || apiKey.isBlank()
                 || !apiKey.chars().allMatch(value -> value >= 33 && value <= 126)) {
             log.warn("Credencial do Resend ausente ou inválida.");
