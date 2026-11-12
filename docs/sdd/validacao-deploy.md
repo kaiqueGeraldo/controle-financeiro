@@ -1,9 +1,10 @@
 # Validação e deploy
 
-A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
-ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
-bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
-[Parecer e condições de retomada](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
+Em 12/11/2026, o A3 restrito passou com o JAR aprovado no CI, a API em
+manutenção e o PostgreSQL de adoção em TLS privado. API e bancos estão
+offline. A liberação funcional segue condicionada aos controles abaixo.
+[Execução e fechamento](../../tasks/evidencias/revisao-a3-complementar/EXECUCAO-2026-11-12.md) ·
+[Parecer independente de 06–07/11](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
 
 ## Adoção Railway/Vercel após a PR #3 — 05/11/2026
 
@@ -176,11 +177,11 @@ as etapas e compara com o manifesto A2.
 
 ##### Próxima janela de primeira inicialização restrita
 
-A decisão vigente mantém `Onboarding` e adia a API. Retomar quando houver
-decisão explícita de revogar a chave exposta e a revisão independente aceitar
-o candidato e a prova de recuperação. O proprietário confirmou a revogação
-do token BRAPI antigo. A validação das substitutas em uso real fica no recorte
-autorizado de cada integração. Manter os jobs e writers fechados.
+Em 06/11, a decisão de manter `Onboarding` adiou a API. O proprietário
+autorizou a revogação depois, e a janela descrita abaixo foi executada em
+12/11. A validação das substitutas em uso real fica no recorte autorizado
+de cada integração. Manter os jobs e writers fechados.
+[Execução de 12/11](../../tasks/evidencias/revisao-a3-complementar/EXECUCAO-2026-11-12.md)
 
 1. Confirmar ambiente, IDs de serviço e volume, ausência de deployments
    ativos e regra de borda `rul_u0e4loeh3q43u` bloqueando `/*`. Conferir

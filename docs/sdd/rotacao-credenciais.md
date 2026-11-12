@@ -1,9 +1,11 @@
 # Rotação de credenciais antes da adoção
 
-A revisão independente de 06–07/11/2026 aceitou o restore V16 e o startup no
-ensaio isolado e aprovou a sanitização no alcance demonstrado. A janela segue
-bloqueada pelos gates do pacote e pela decisão vigente sobre Onboarding.
-[Parecer e condições de retomada](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
+A decisão mais recente do proprietário autorizou revogar `Onboarding`.
+As chaves antigas do Resend e da BRAPI foram desativadas após confirmação
+no emissor. O plano Gratuito da BRAPI suporta um ativo por requisição e
+bloqueia o lote de 15. A API e os bancos estão offline após o A3 restrito.
+[Recibos e limites da validação](../../tasks/evidencias/revisao-a3-complementar/EXECUCAO-2026-11-12.md) ·
+[Parecer independente de 06–07/11](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
 
 Plano de execução para autorização separada. Alvo Railway controle-financeiro /
 production, serviço da API controle-financeiro. BRAPI_TOKEN, JWT_SECRET,
