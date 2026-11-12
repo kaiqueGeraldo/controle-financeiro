@@ -1,6 +1,7 @@
 package com.controlefinanceiro.api.infra.operations;
 
 import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
+import com.sun.net.httpserver.HttpServer;
 import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.MarketDataService;
 import com.controlefinanceiro.api.service.MarketPriceWriter;
@@ -20,6 +21,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -217,12 +221,62 @@ class ProviderLoggingTest {
         verifyNoInteractions(client);
     }
 
+    @Test
+    void brapiTransportDoesNotRetryA503EvenWhenTheProviderAsksForImmediateRetry() throws IOException {
+        var attempts = new AtomicInteger();
+        var server = HttpServer.create(new InetSocketAddress(InetAddress.getLoopbackAddress(), 0), 0);
+        server.createContext("/api/quote/PETR4", exchange -> {
+            int attempt = attempts.incrementAndGet();
+            exchange.getResponseHeaders().set("Retry-After", "0");
+            exchange.sendResponseHeaders(attempt == 1 ? 503 : 200, -1);
+            exchange.close();
+        });
+        server.start();
+        var client = (OkHttpClient) ReflectionTestUtils.getField(new MarketDataService(), "client");
+        try {
+            var url = new okhttp3.HttpUrl.Builder().scheme("http").host(server.getAddress().getAddress().getHostAddress())
+                    .port(server.getAddress().getPort()).addPathSegments("api/quote/PETR4").build();
+            try (var result = client.newCall(new Request.Builder().url(url).build()).execute()) {
+                assertThat(result.code()).isEqualTo(503);
+            }
+            assertThat(attempts).hasValue(1);
+        } finally {
+            server.stop(0);
+            client.connectionPool().evictAll();
+        }
+    }
+
+    @Test
+    void resendReservesOnlyOneDeliveryInHomologationAndRejectsUnconfiguredScope() throws IOException {
+        var email = new EmailService();
+        ReflectionTestUtils.setField(email, "operations", new OperationsState(true, false));
+        ReflectionTestUtils.setField(email, "apiKey", TOKEN);
+        ReflectionTestUtils.setField(email, "fromEmail", "sender@example.test");
+        ReflectionTestUtils.setField(email, "singleDelivery", true);
+        var client = mockClient(email);
+        when(client.newCall(any(Request.class))).thenAnswer(invocation ->
+                callReturning(invocation.getArgument(0), 200, "{}"));
+
+        email.sendTemplatedEmail(RECIPIENT, "subject", "title", "body");
+        verifyNoInteractions(client);
+        ReflectionTestUtils.setField(email, "allowedRecipient", RECIPIENT);
+        email.sendTemplatedEmail("another@example.test", "subject", "title", "body");
+        email.sendTemplatedEmail(RECIPIENT, "subject", "title", "body");
+        email.sendTemplatedEmail(RECIPIENT, "subject", "title", "body");
+
+        verify(client, times(1)).newCall(any(Request.class));
+    }
+
     private static OkHttpClient mockClient(Object service) {
         var real = (OkHttpClient) ReflectionTestUtils.getField(service, "client");
         assertThat(real.followRedirects()).isFalse();
         assertThat(real.followSslRedirects()).isFalse();
         assertThat(real.interceptors()).isEmpty();
-        assertThat(real.networkInterceptors()).isEmpty();
+        if (service instanceof MarketDataService) {
+            assertThat(real.networkInterceptors()).hasSize(1);
+        } else {
+            assertThat(real.networkInterceptors()).isEmpty();
+        }
         var client = mock(OkHttpClient.class);
         ReflectionTestUtils.setField(service, "client", client);
         return client;

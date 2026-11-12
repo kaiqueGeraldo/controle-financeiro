@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,13 @@ public class MarketDataService {
     private final OkHttpClient client = new OkHttpClient.Builder()
             .callTimeout(Duration.ofSeconds(8))
             .retryOnConnectionFailure(false)
+            // HTTP/1.1 avoids coalesced HTTP/2 follow-ups. OkHttp also retries 503 with Retry-After: 0
+            // even when retryOnConnectionFailure is disabled.
+            .protocols(List.of(Protocol.HTTP_1_1))
+            .addNetworkInterceptor(chain -> {
+                var response = chain.proceed(chain.request());
+                return response.code() == 503 ? response.newBuilder().removeHeader("Retry-After").build() : response;
+            })
             .followRedirects(false)
             .followSslRedirects(false)
             .build();
@@ -58,6 +66,7 @@ public class MarketDataService {
     @Scheduled(fixedDelay = 3_600_000)
     @SchedulerLock(name = "updateVariableIncomePricesLock", lockAtLeastFor = "1h", lockAtMostFor = "1h")
     public void updateVariableIncomePrices() {
+        log.info("MARKET: Iniciando atualização de cotações via Brapi...");
         if (brapiToken == null || brapiToken.isBlank()
                 || !brapiToken.chars().allMatch(value -> value >= 33 && value <= 126)) {
             log.warn("MARKET: Credencial da BRAPI ausente ou inválida.");

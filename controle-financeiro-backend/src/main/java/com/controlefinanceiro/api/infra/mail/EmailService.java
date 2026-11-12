@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Service
@@ -41,16 +42,23 @@ public class EmailService {
     @Value("${api.resend.allowed-recipient:}")
     private String allowedRecipient;
 
+    @Value("${api.resend.single-delivery:false}")
+    private boolean singleDelivery;
+
+    private final AtomicBoolean deliveryReserved = new AtomicBoolean();
+
     @Async("emailTaskExecutor")
     public void sendTemplatedEmail(String to, String subject, String title, String bodyContent) {
         if (!operations.writersEnabled()) return;
-        if (allowedRecipient != null && !allowedRecipient.isBlank()
-                && !allowedRecipient.equalsIgnoreCase(to)) return;
+        boolean recipientRestricted = allowedRecipient != null && !allowedRecipient.isBlank();
+        if (singleDelivery && !recipientRestricted) return;
+        if (recipientRestricted && !allowedRecipient.equalsIgnoreCase(to)) return;
         if (apiKey == null || apiKey.isBlank()
                 || !apiKey.chars().allMatch(value -> value >= 33 && value <= 126)) {
             log.warn("Credencial do Resend ausente ou inválida.");
             return;
         }
+        if (singleDelivery && !deliveryReserved.compareAndSet(false, true)) return;
         try {
             var payload = REQUEST_MAPPER.writeValueAsString(Map.of(
                     "from", "Controle Financeiro <" + fromEmail + ">",
