@@ -36,7 +36,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<TransactionResponseDTO> create(@RequestBody @Valid CreateTransactionDTO data, @AuthenticationPrincipal User user) {
-        log.info("API: Requisição para CRIAR transação. Usuário: {} | Valor: {} | Tipo: {}", user.getEmail(), data.amount(), data.type());
+        log.info("API: Requisição para CRIAR transação. Usuário: {} | Valor: {} | Tipo: {}", user.getId(), data.amount(), data.type());
         var newTransaction = service.create(data, user);
         return ResponseEntity.ok(newTransaction);
     }
@@ -84,7 +84,7 @@ public class TransactionController {
             @RequestBody @Valid UpdateTransactionDTO data,
             @AuthenticationPrincipal User user
     ) {
-        log.info("API: Requisição para ATUALIZAR transação {}. Usuário: {}", id, user.getEmail());
+        log.info("API: Requisição para ATUALIZAR transação {}. Usuário: {}", id, user.getId());
         var updatedTransaction = service.update(id, data, user);
         return ResponseEntity.ok(updatedTransaction);
     }
@@ -95,13 +95,13 @@ public class TransactionController {
             @RequestBody @Valid SettleTransactionDTO data,
             @AuthenticationPrincipal User user
     ) {
-        log.info("API: Requisição para BAIXAR transação {}. Usuário: {} | Valor: {}", id, user.getEmail(), data.amount());
+        log.info("API: Requisição para BAIXAR transação {}. Usuário: {} | Valor: {}", id, user.getId(), data.amount());
         return ResponseEntity.ok(service.settle(id, data, user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        log.warn("API: Requisição para EXCLUIR transação {}. Usuário: {}", id, user.getEmail());
+        log.warn("API: Requisição para EXCLUIR transação {}. Usuário: {}", id, user.getId());
         service.delete(id, user);
         return ResponseEntity.noContent().build();
     }
@@ -143,7 +143,7 @@ public class TransactionController {
         if ((month == null) != (year == null)) {
             throw new MissingServletRequestParameterException(month == null ? "month" : "year", "Integer");
         }
-        log.info("API: Exportando extrato em Excel. Usuário: {}", user.getEmail());
+        log.info("API: Exportando extrato em Excel. Usuário: {}", user.getId());
         byte[] excelData = service.exportToExcel(user, month, year, type, accountId);
 
         return ResponseEntity.ok()

@@ -15,6 +15,7 @@ import tools.jackson.databind.json.JsonMapper;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -37,9 +38,19 @@ public class EmailService {
     @Value("${api.resend.from}")
     private String fromEmail;
 
+    @Value("${api.resend.allowed-recipient:}")
+    private String allowedRecipient;
+
     @Async("emailTaskExecutor")
     public void sendTemplatedEmail(String to, String subject, String title, String bodyContent) {
         if (!operations.writersEnabled()) return;
+        if (allowedRecipient != null && !allowedRecipient.isBlank()
+                && !allowedRecipient.equalsIgnoreCase(to)) return;
+        if (apiKey == null || apiKey.isBlank()
+                || !apiKey.chars().allMatch(value -> value >= 33 && value <= 126)) {
+            log.warn("Credencial do Resend ausente ou inválida.");
+            return;
+        }
         try {
             var payload = REQUEST_MAPPER.writeValueAsString(Map.of(
                     "from", "Controle Financeiro <" + fromEmail + ">",
@@ -49,6 +60,7 @@ public class EmailService {
             var request = new Request.Builder()
                     .url("https://api.resend.com/emails")
                     .header("Authorization", "Bearer " + apiKey)
+                    .header("Idempotency-Key", UUID.randomUUID().toString())
                     .post(RequestBody.create(payload, JSON))
                     .build();
             try (var response = client.newCall(request).execute()) {

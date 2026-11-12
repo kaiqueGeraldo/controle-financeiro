@@ -55,7 +55,7 @@ public class InvestmentController {
     public ResponseEntity<InvestmentResponseDTO> create(
             @RequestBody @Valid CreateInvestmentDTO data,
             @AuthenticationPrincipal User user) {
-        log.info("API: Novo Ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getEmail());
+        log.info("API: Novo Ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getId());
         return ResponseEntity.ok(service.create(data, user));
     }
 

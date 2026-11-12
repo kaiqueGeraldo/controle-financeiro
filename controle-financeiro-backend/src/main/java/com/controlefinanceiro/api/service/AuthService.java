@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -47,10 +49,10 @@ public class AuthService {
 
     @Transactional
     public void register(RegisterRequestDTO data) {
-        log.info("Tentativa de registro de novo usuário: {}", data.email());
+        log.info("Tentativa de registro de novo usuário.");
 
         if (userRepository.findByEmail(data.email()) != null) {
-            log.warn("Tentativa de registro falhou: E-mail {} já existe.", data.email());
+            log.warn("Tentativa de registro falhou: e-mail já cadastrado.");
             throw new BusinessRuleException("E-mail já cadastrado");
         }
 
@@ -77,30 +79,40 @@ public class AuthService {
                 "</ul>" +
                 "<p style=\"margin-top: 32px;\">Prepare-se para mudar sua vida financeira para melhor.<br>Um abraço,<br><strong>Equipe Controle Financeiro</strong></p>";
 
-        emailService.sendTemplatedEmail(savedUser.getEmail(), "Bem-vindo ao Controle Financeiro \uD83D\uDE80", "Olá, " + savedUser.getNome() + "!", welcomeBody);
+        String recipient = savedUser.getEmail();
+        String title = "Olá, " + savedUser.getNome() + "!";
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                try {
+                    emailService.sendTemplatedEmail(recipient, "Bem-vindo ao Controle Financeiro \uD83D\uDE80", title, welcomeBody);
+                } catch (RuntimeException failure) {
+                    log.warn("Não foi possível agendar boas-vindas após o cadastro (tipo={}).",
+                            failure.getClass().getSimpleName());
+                }
+            }
+        });
     }
 
     public LoginResponseDTO login(LoginRequestDTO data) {
-        log.debug("Processando login para: {}", data.email());
         User user = (User) userRepository.findByEmail(data.email());
 
         if (user == null || !passwordEncoder.matches(data.senha(), user.getSenha())) {
-            log.warn("Falha de login (credenciais inválidas): {}", data.email());
+            log.warn("Falha de login: credenciais inválidas.");
             throw new BusinessRuleException("E-mail ou senha inválidos");
         }
 
         String token = tokenService.generateToken(user);
-        log.info("Login efetuado com sucesso: {}", user.getEmail());
+        log.info("Login efetuado com sucesso.");
 
         return new LoginResponseDTO(token, user.getNome(), user.getEmail());
     }
 
     public void recoverPassword(String email) {
-        log.info("Solicitação de recuperação de senha para: {}", email);
+        log.info("Solicitação de recuperação de senha.");
         User user = (User) userRepository.findByEmail(email);
 
         if (user == null) {
-            log.warn("Recuperação solicitada para e-mail inexistente: {}", email);
             return;
         }
 
@@ -122,7 +134,7 @@ public class AuthService {
     }
 
     public void resetPassword(ResetPasswordDTO data) {
-        log.info("Tentativa de reset de senha solicitada para o e-mail: {}", data.email());
+        log.info("Tentativa de redefinição de senha.");
 
         User user = (User) userRepository.findByEmail(data.email());
         if (user == null) {
@@ -145,7 +157,7 @@ public class AuthService {
                 user.setRecoveryTokenExpiry(null);
                 user.setResetAttempts(0);
                 userRepository.save(user);
-                log.warn("Múltiplas tentativas falhas. Token invalidado por segurança para o usuário {}", user.getEmail());
+                log.warn("Múltiplas tentativas falhas. Código de recuperação invalidado.");
                 throw new BusinessRuleException("Múltiplas tentativas incorretas. Por segurança, o código foi invalidado. Solicite um novo envio.");
             }
 

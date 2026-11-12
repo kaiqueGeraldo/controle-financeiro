@@ -82,7 +82,7 @@ public class InvestmentService {
     public InvestmentResponseDTO create(CreateInvestmentDTO data, User user) {
         if(data.goalId()!=null)inventoryGuard.structure(user.getId());
         else inventoryGuard.writer(user.getId());
-        log.info("SERVICE: Iniciando criação de ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getEmail());
+        log.info("SERVICE: Iniciando criação de ativo '{}' ({}) para usuário {}", data.ticker(), data.type(), user.getId());
 
         Investment investment = new Investment();
         investment.setReportingKnownFrom(LocalDate.now(clock));

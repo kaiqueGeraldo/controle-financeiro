@@ -44,25 +44,25 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO data) {
         try {
-            log.info("API: Tentativa de login: {}", data.email());
+            log.info("API: Tentativa de login.");
             var response = authService.login(data);
             return ResponseEntity.ok(response);
         } catch (BusinessRuleException e) {
-            log.warn("API: Erro no login para {}: {}", data.email(), e.getMessage());
+            log.warn("API: Falha no login (tipo={}).", e.getClass().getSimpleName());
             throw new BadCredentialsException("Credenciais inválidas.");
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterRequestDTO data) {
-        log.info("API: Novo registro solicitado: {}", data.email());
+        log.info("API: Novo registro solicitado.");
         authService.register(data);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/recover-password")
     public ResponseEntity<Void> recoverPassword(@RequestBody @Valid RecoveryRequestDTO data) {
-        log.info("API: Recuperação de senha solicitada para {}", data.email());
+        log.info("API: Recuperação de senha solicitada.");
         authService.recoverPassword(data.email());
         return ResponseEntity.ok().build();
     }

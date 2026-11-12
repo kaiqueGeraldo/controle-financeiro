@@ -25,7 +25,7 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<AccountResponseDTO> create(@RequestBody @Valid CreateAccountDTO data, @AuthenticationPrincipal User user) {
-        log.info("API: Criar Conta '{}'. Usuário: {}", data.name(), user.getEmail());
+        log.info("API: Criar Conta '{}'. Usuário: {}", data.name(), user.getId());
         var newAccount = service.create(data, user);
         return ResponseEntity.ok(newAccount);
     }
@@ -52,7 +52,7 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        log.warn("API: Excluir Conta {}. Usuário: {}", id, user.getEmail());
+        log.warn("API: Excluir Conta {}. Usuário: {}", id, user.getId());
         service.delete(id, user);
         return ResponseEntity.noContent().build();
     }

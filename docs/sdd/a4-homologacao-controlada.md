@@ -1,0 +1,42 @@
+# A4 · Homologação funcional controlada
+
+Base de trabalho `07c126a6a4c920fe41b52c7434b2284200cc389a`. O A3 aceitou o restore V16, o startup restrito e a identidade do JAR. Para o A4, repetir a identidade do pacote, a validação do catálogo e TLS no alvo, o isolamento com a réplica ativa e o fechamento. Readiness 200, DML sob o papel restrito e efeitos financeiros exigem prova nova. [Fechamento do A3](../../tasks/evidencias/revisao-a3-complementar/EXECUCAO-2026-11-12.md) · [Runbook](validacao-deploy.md)
+
+| Pendência | Ação e evidência de conclusão | Bloqueia |
+| --- | --- | --- |
+| BRAPI | Ensaio de uma cotação protegida, fora dos quatro símbolos de teste, com o Bearer selado. Verificar 200, identidade, preço válido e data, registrando somente campos permitidos. Exercitar falhas e cota com respostas simuladas. | Cotações automáticas. A jornada de investimento pode usar avaliação manual. |
+| Resend | Domínio e chave substituta conferidos por metadados. Enviar o único e-mail real pelo cadastro para a caixa autorizada. Conferir aceitação e, quando observável, entrega. | Aceite do e-mail. Cadastro, sessão e onboarding têm resultados observáveis próprios. |
+| Tráfego | Conservar bloqueio geral da origem Railway. Admitir somente a requisição autenticada do BFF A4, com credencial exclusiva e temporária, antes da regra geral. Publicar em URL de deployment protegida, sem alias. Verificar 403 direto, isolamento dos previews autenticados, do alias anterior e de Development e caminho autorizado com réplica ativa. | Escritas no banco de adoção. |
+| Candidato | Fixar SHA do frontend e backend, pacote expanded, digest e deploy. Exigir gates, revisão independente e permissões da PR. | Deploy e integração. |
+| Dados | Conferir backup V16 e estado inicial. Conceder DML por tabela no clone primeiro. Rastrear uma conta sintética e reconciliar os efeitos antes de desligar. | Escritas e aceite financeiro. |
+
+## Provedores
+
+O contrato REST observado permite no Gratuito uma chamada simultânea e um símbolo por requisição, com 15.000 requisições por ciclo de cobrança. A documentação descreve a cota mensal e a concorrência como causas de 429. A renovação segue a data da conta. O atraso aproximado de ações é de 30 minutos. A rota v1 oferece cotação básica de ações e, conforme a documentação atual, também de FIIs. Os endpoints detalhados de FII em v2 têm outro escopo. Criptomoedas usam um contrato distinto e permanecem fora desta coleta. [Autenticação BRAPI](https://brapi.dev/docs/authentication) · [Limites](https://brapi.dev/docs/mcp) · [FIIs](https://brapi.dev/docs/fiis) · [Erros](https://brapi.dev/docs/troubleshooting)
+
+Antes do ajuste, 15 símbolos a cada 30 min implicariam 22.320 requisições em 31 dias com o plano de uma cotação por chamada. O candidato tem um ciclo por hora com até 15 símbolos distintos, uma chamada por vez. Com 15 símbolos ou mais, o teto do job é 11.160 por ciclo de 31 dias. A folga de 3.840 cobre variação operacional e consumo de outros clientes, sujeito à confirmação do painel. Com uma carteira estável de 15 símbolos, a coleta completa cabe em um ciclo. Acima do teto por rodada, o cursor avança nos próximos ciclos e reinicia se o processo for substituído. O conjunto de símbolos é ordenado em O(n log n). A seleção de posições usa uma consulta em lote por rodada, seguida de uma transação curta por posição. O lock do agendador limita a frequência e nenhuma transação financeira atravessa a rede.
+
+A API utiliza a última avaliação persistida como cache de leitura, com data da cotação no fuso do produto. Cada rodada tem janela de coleta de uma hora. Depois disso o valor pode ficar defasado e a data continua visível. Respostas vazias, símbolos divergentes, preço não positivo, timestamps inválidos e erro de transporte preservam a avaliação anterior. A rodada encerra por 401, 403, 429, timeout ou indisponibilidade. As leituras por tela e usuário não disparam consultas externas. No A4, o investimento usa avaliação informada e os jobs ficam fechados.
+
+O Resend usa o domínio verificado e a chave substituta. O cliente restringe o destinatário por `RESEND_ALLOWED_RECIPIENT` na janela e aplica uma chave de idempotência por invocação para o follow-up HTTP. Cadastro, recuperação, exclusão de usuário, fechamento de fatura, lembretes e resumo semanal são pontos de envio. Só o cadastro do usuário sintético está no percurso real. A mensagem de boas-vindas é agendada após o commit. Recuperação e demais caminhos ficam nas verificações simuladas ou nos fluxos posteriores autorizados. Preservar o resultado do cadastro e conferir a fila/recibo antes de qualquer retomada. [Idempotência Resend](https://resend.com/docs/dashboard/emails/idempotency-keys)
+
+## Isolamento e decisão de tráfego
+
+Os oito previews históricos, acessados com sessão Vercel autorizada em 12/11, devolveram o marcador `A3 restricted` no endpoint do BFF. Isso identifica a origem Railway ainda usada pelos oito builds e comprova o bloqueio observado com a API offline. Com a réplica ativa, repetir o acesso autorizado e comparar com o BFF A4. Novos previews retornam 503 antes de chamar o upstream. A variável `BACKEND_API_URL` do projeto tem escopo Production e Development deve usar backend local ou descartável. O segredo de origem do A4 pertence apenas ao deployment sem alias, nunca ao escopo geral Production, Preview ou Development. O BFF ignora o cabeçalho recebido do navegador e nunca segue redirecionamentos com a credencial de origem. [Edge Rules Railway](https://docs.railway.com/networking/edge-rules) · [Proteção Vercel](https://vercel.com/docs/deployment-protection)
+
+Confirmar no preflight a permissão para a regra adicional. O bloqueio geral permanece ao final da lista, inclusive se a regra de admissão falhar. Verificar o controle no host público, no alias anterior, nos previews históricos e pelo BFF restrito. Usar HTTPS e cookie de sessão host-only, Secure, HttpOnly, SameSite=Lax. Abrir writers apenas com essas provas e com os mesmos SHAs aprovados. Expirar o acesso ao BFF e remover a admissão antes do fechamento.
+
+## Dados, resultados esperados e recuperação
+
+Usar marcador visível `A4-20261112` no nome e nas descrições sintéticas. Registrar o UUID do usuário após o primeiro cadastro. Usar uma data civil compatível com a execução em America/Sao_Paulo e registrar data civil e instante separadamente. O e-mail real aprovado fica nos dados da operação, com evidências sanitizadas.
+
+| Operação | Expectativa independente |
+| --- | --- |
+| Abertura de conta e onboarding | A R$ 1.000, B R$ 200, carteira física R$ 0. Abertura aparece como posição, sem receita ou despesa. Revisar e confirmar uma vez, com recibo reconciliado por chave. |
+| Entrada, saída e transferência | Receber R$ 120 em A, gastar R$ 40 em A, transferir R$ 100 de A para B. A R$ 980, B R$ 300. Transferência conserva R$ 1.280 no consolidado, com duas pernas vinculadas. |
+| Cartão e pagamento | Compra de R$ 60 cria dívida de R$ 60 e consumo de R$ 60. Pagar uma vez com A deixa A R$ 920, dívida R$ 0, consumo do cartão inalterado. |
+| Meta | Reservar R$ 75 de A para meta R$ 300. Progresso 25%, com R$ 75 comprometidos e sem débito de caixa. |
+| Investimento | Aplicar R$ 50 de A e registrar avaliação manual de R$ 50 na mesma data civil. A R$ 870, B R$ 300, caixa R$ 1.170, investimento R$ 50, dívida R$ 0 e patrimônio R$ 1.220. Disponível em A R$ 795 após a reserva. |
+| Relatório e XLSX | Confirmar receita R$ 120 e consumo total R$ 100. Conferir datas, descrição, valores assinados e origem das operações no XLSX aberto. Transferência, pagamento e aporte preservam sua classificação e a reserva não é nova despesa. Conferir cobertura parcial quando o relatório não puder afirmar fechamento integral. |
+
+No PostgreSQL, provar somente as permissões por tabela exigidas pelos fluxos escolhidos, sem ownership ou CREATE, TEMP, grants de administração ou acesso a history e ShedLock. A trilha separa leitura da UI, DML do percurso e DDL do migrador. Comparar as permissões com um clone V16, registrar as negativas e aplicar ao alvo depois do checkpoint. Após a janela, congelar writers, parar API, drenar conexões e parar banco. Manter o identificador da conta de teste para remoção posterior pelo fluxo de exclusão de usuário, após conferir cascatas e desativar o envio de e-mail de despedida. A remoção depende de revisão da evidência e da identidade exata. [Regras financeiras](specs/004-regras-financeiras.md) · [Onboarding](specs/001-onboarding.md) · [DEC-ZOOM-05](decisoes/005-excecao-temporaria-zoom-expanded.md)

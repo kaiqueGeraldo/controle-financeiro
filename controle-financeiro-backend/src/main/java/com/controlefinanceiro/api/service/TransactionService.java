@@ -978,7 +978,7 @@ public class TransactionService {
     @Transactional(readOnly=true, isolation=org.springframework.transaction.annotation.Isolation.REPEATABLE_READ)
     public byte[] exportToExcel(User user, Integer month, Integer year,
                                 TransactionType type, UUID accountId) {
-        log.info("Gerando Excel em lotes para o usuário {}", user.getEmail());
+        log.info("Gerando Excel em lotes para o usuário {}", user.getId());
 
         if ((month == null) != (year == null)) {
             throw new BusinessRuleException("Mês e ano devem ser informados juntos.");

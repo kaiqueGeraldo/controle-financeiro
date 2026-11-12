@@ -1,10 +1,6 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const SPRING_BOOT_URL = (
-  process.env.BACKEND_API_URL || "http://localhost:8080"
-).replace(/\/$/, "");
-
 const configuredTimeout = Number(process.env.BFF_TIMEOUT_MS ?? "10000");
 const BFF_TIMEOUT_MS =
   Number.isFinite(configuredTimeout) && configuredTimeout > 0
@@ -63,13 +59,26 @@ export async function proxyRequest(request: NextRequest, context: RouteContext) 
   try {
     const resolvedParams = await context.params;
     const path = resolvedParams.path.join("/");
-    const backendUrl = `${SPRING_BOOT_URL}/${path}${request.nextUrl.search}`;
+    const upstreamBase = (process.env.BACKEND_API_URL || "http://localhost:8080").replace(/\/$/, "");
+    const backendUrl = new URL(`${upstreamBase}/${path}${request.nextUrl.search}`);
+    const accessKey = process.env.VERCEL_ENV === "production"
+      ? process.env.BFF_UPSTREAM_ACCESS_KEY
+      : undefined;
+    if (accessKey !== undefined &&
+        (!/^[0-9a-f]{64}$/.test(accessKey) || backendUrl.protocol !== "https:" ||
+          backendUrl.username !== "" || backendUrl.password !== "")) {
+      return NextResponse.json(
+        { message: "Destino da API indisponível." },
+        { status: 503, headers: { "Cache-Control": "no-store" } },
+      );
+    }
 
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
     const headers = new Headers();
 
     if (token) headers.set("authorization", `Bearer ${token}`);
+    if (accessKey !== undefined) headers.set("x-cf-bff-access", accessKey);
 
     for (const name of ["content-type", "accept"]) {
       const value = request.headers.get(name);
@@ -81,7 +90,8 @@ export async function proxyRequest(request: NextRequest, context: RouteContext) 
         ? await request.arrayBuffer()
         : undefined;
 
-    const response = await fetch(backendUrl, {
+    const response = await fetch(backendUrl.href, {
+      redirect: accessKey !== undefined ? "manual" : "follow",
       method: request.method,
       headers,
       body,
@@ -116,7 +126,7 @@ export async function proxyRequest(request: NextRequest, context: RouteContext) 
       );
     }
 
-    console.error("Erro inesperado no BFF ao acessar a API.", error);
+    console.error("Erro inesperado no BFF ao acessar a API.", error instanceof Error ? error.name : "desconhecido");
     return NextResponse.json(
       { message: "Erro interno no proxy (BFF)." },
       { status: 500 },

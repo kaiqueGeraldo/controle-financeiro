@@ -3,6 +3,7 @@ package com.controlefinanceiro.api.infra.operations;
 import com.controlefinanceiro.api.domain.investment.InvestmentRepository;
 import com.controlefinanceiro.api.infra.mail.EmailService;
 import com.controlefinanceiro.api.service.MarketDataService;
+import com.controlefinanceiro.api.service.MarketPriceWriter;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -18,14 +19,29 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyCollection;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,32 +55,103 @@ class ProviderLoggingTest {
     private static final String TRANSPORT = "raw-transport-error-sentinel";
 
     @Test
-    void brapiKeepsBearerOutsideTheEncodedUrlAndContinuesAfterFailedBatch() throws IOException {
-        var tickers = Stream.concat(IntStream.rangeClosed(1, 15).mapToObj(i -> "TEST" + i),
-                Stream.of("A/B?C#D")).toList();
+    void brapiRequestsEachNormalizedTickerOnceAndBoundsTheScheduledRun() throws IOException {
+        var tickers = Stream.concat(IntStream.rangeClosed(1, 16).mapToObj(i -> "TEST%02d".formatted(i)),
+                Stream.of(" test01 ", "A/B?C#D", ".", "..", "TEST01,TEST02")).toList();
         var repository = mock(InvestmentRepository.class);
         when(repository.findDistinctTickersByTypes(anyList())).thenReturn(tickers);
-        var market = new MarketDataService();
-        ReflectionTestUtils.setField(market, "investmentRepository", repository);
-        ReflectionTestUtils.setField(market, "brapiToken", TOKEN);
+        var market = market(repository);
         var client = mockClient(market);
+        var requested = new ArrayList<String>();
 
         when(client.newCall(any(Request.class))).thenAnswer(invocation -> {
             Request request = invocation.getArgument(0);
             assertThat(request.header("Authorization")).isEqualTo("Bearer " + TOKEN);
-            if (request.url().encodedPath().endsWith("TEST15")) {
-                assertThat(request.url().toString()).isEqualTo(QUOTE_URL + String.join(",", tickers.subList(0, 15)));
-                return callReturning(request, 429, RESPONSE);
-            }
-            assertThat(request.url().toString()).isEqualTo(QUOTE_URL + "A%2FB%3FC%23D");
-            return callReturning(request, 200, """
-                    {"results":[{"symbol":"PETR4","regularMarketPrice":12.34,"other":true}],"other":true}
-                    """);
+            assertThat(request.url().query()).isNull();
+            String ticker = request.url().pathSegments().getLast();
+            assertThat(request.url().toString()).isEqualTo(QUOTE_URL + ticker);
+            requested.add(ticker);
+            return callReturning(request, 404, RESPONSE);
         });
 
         market.updateVariableIncomePrices();
 
-        verify(repository).findAllByTicker("PETR4");
+        assertThat(requested).containsExactlyElementsOf(
+                IntStream.rangeClosed(1, 15).mapToObj(i -> "TEST%02d".formatted(i)).toList());
+        requested.clear();
+
+        market.updateVariableIncomePrices();
+
+        assertThat(requested).hasSize(15).doesNotHaveDuplicates().startsWith("TEST16", "TEST01");
+        verify(repository, never()).findQuotePositions(anyCollection(), anyList());
+    }
+
+    @Test
+    void brapiWritesOnlyTheRequestedPositiveDatedQuoteAndStopsAfterQuota() throws IOException {
+        var repository = mock(InvestmentRepository.class);
+        when(repository.findDistinctTickersByTypes(anyList()))
+                .thenReturn(List.of("ABEV3", "BBDC4", "ITUB4", "PETR4", "VALE3", "ZZZZ3"));
+        var market = market(repository);
+        var writer = mock(MarketPriceWriter.class);
+        ReflectionTestUtils.setField(market, "priceWriter", writer);
+        var position = mock(InvestmentRepository.QuotePosition.class);
+        var owner = UUID.randomUUID();
+        var investment = UUID.randomUUID();
+        when(position.getOwnerId()).thenReturn(owner);
+        when(position.getInvestmentId()).thenReturn(investment);
+        when(position.getTicker()).thenReturn("ABEV3");
+        when(repository.findQuotePositions(eq(Set.of("ABEV3")), anyList())).thenReturn(List.of(position));
+        var client = mockClient(market);
+        var requested = new ArrayList<String>();
+
+        when(client.newCall(any(Request.class))).thenAnswer(invocation -> {
+            Request request = invocation.getArgument(0);
+            String ticker = request.url().pathSegments().getLast();
+            requested.add(ticker);
+            return switch (ticker) {
+                case "ABEV3" -> callReturning(request, 200, quoteJson("ABEV3", "12.34"));
+                case "BBDC4" -> callReturning(request, 200, quoteJson("BBDC4", "0"));
+                case "ITUB4" -> callReturning(request, 200, quoteJson("UNEXPECTED", "12.34"));
+                case "PETR4" -> callReturning(request, 200, "{\"results\":[]}");
+                case "VALE3" -> callReturning(request, 429, RESPONSE);
+                default -> throw new AssertionError("The quota response must stop the cycle");
+            };
+        });
+
+        market.updateVariableIncomePrices();
+
+        assertThat(requested).containsExactly("ABEV3", "BBDC4", "ITUB4", "PETR4", "VALE3");
+        var order = inOrder(client, writer);
+        order.verify(client, times(5)).newCall(any(Request.class));
+        order.verify(writer).update(owner, investment, new BigDecimal("12.34"), LocalDate.of(2026, 11, 11));
+        verifyNoMoreInteractions(writer);
+    }
+
+    @Test
+    void brapiSkipsTransportForAnInvalidCredential() {
+        var repository = mock(InvestmentRepository.class);
+        var market = market(repository);
+        ReflectionTestUtils.setField(market, "brapiToken", "bad\nvalue");
+        var client = mockClient(market);
+
+        market.updateVariableIncomePrices();
+
+        verifyNoInteractions(repository, client);
+    }
+
+    private static MarketDataService market(InvestmentRepository repository) {
+        var market = new MarketDataService();
+        ReflectionTestUtils.setField(market, "investmentRepository", repository);
+        ReflectionTestUtils.setField(market, "brapiToken", TOKEN);
+        ReflectionTestUtils.setField(market, "clock",
+                Clock.fixed(Instant.parse("2026-11-12T12:00:00Z"), ZoneId.of("America/Sao_Paulo")));
+        return market;
+    }
+
+    private static String quoteJson(String symbol, String price) {
+        return """
+                {"results":[{"symbol":"%s","regularMarketPrice":%s,"regularMarketTime":"2026-11-12T01:00:00Z"}]}
+                """.formatted(symbol, price);
     }
 
     @Test
@@ -102,6 +189,7 @@ class ProviderLoggingTest {
             assertThat(request.url().toString()).isEqualTo(EMAIL_URL);
             assertThat(request.method()).isEqualTo("POST");
             assertThat(request.header("Authorization")).isEqualTo("Bearer " + TOKEN);
+            assertThat(request.header("Idempotency-Key")).isNotBlank();
             var payload = new Buffer();
             request.body().writeTo(payload);
             assertThat(payload.readUtf8()).contains(RECIPIENT, "subject", "body", "sender@example.test");
@@ -114,6 +202,19 @@ class ProviderLoggingTest {
 
         assertThat(output.getAll()).contains("Envio aceito pelo Resend", "status=307", "status=429", "IOException")
                 .doesNotContain(TOKEN, RECIPIENT, RESPONSE, TRANSPORT);
+    }
+
+    @Test
+    void resendDoesNotContactTheProviderForAnUnapprovedRecipient() {
+        var email = new EmailService();
+        ReflectionTestUtils.setField(email, "operations", new OperationsState(true, false));
+        ReflectionTestUtils.setField(email, "allowedRecipient", RECIPIENT);
+        ReflectionTestUtils.setField(email, "apiKey", TOKEN);
+        var client = mockClient(email);
+
+        email.sendTemplatedEmail("another@example.test", "subject", "title", "body");
+
+        verifyNoInteractions(client);
     }
 
     private static OkHttpClient mockClient(Object service) {
