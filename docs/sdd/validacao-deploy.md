@@ -6,6 +6,8 @@ offline. A liberação funcional segue condicionada aos controles abaixo.
 [Execução e fechamento](../../tasks/evidencias/revisao-a3-complementar/EXECUCAO-2026-11-12.md) ·
 [Parecer independente de 06–07/11](../../tasks/evidencias/revisao-a3-complementar/PARECER.md)
 
+O [roteiro e a matriz do A4](a4-homologacao-controlada.md) registram a preparação da homologação funcional restrita.
+
 ## Adoção Railway/Vercel após a PR #3 — 05/11/2026
 
 Este é o procedimento vigente. A seção de destino e as pendências ao fim deste

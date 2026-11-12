@@ -61,7 +61,7 @@ public class TransactionController {
             throw new MissingServletRequestParameterException(month == null ? "month" : "year", "Integer");
         }
         log.info("API: Requisição para LISTAR transações filtradas. Usuário: {} | Mês: {} | Conta: {}",
-                user.getEmail(), month, accountId);
+                user.getId(), month, accountId);
 
         var transactions = service.listAllFiltered(user, month, year, type, accountId, pageable);
         return ResponseEntity.ok(new PagedModel<>(transactions));
