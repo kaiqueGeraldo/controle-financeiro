@@ -72,6 +72,17 @@ test("E01 complete profile: persisted answers, real review, keyboard confirmatio
   await page.getByRole("button", { name: "Confirmar informações e registrar posições" }).focus(); await page.keyboard.press("Enter"); await expect(page.getByRole("heading", { name: "Entrevista concluída", exact: true })).toBeVisible();
   const completed = await view(page); expect(completed.completedReceipt.summary).toEqual(summary); expect(completed.completedReceipt.mapping).toHaveLength(16);
   const financialAccounts = await (await page.request.get("/api/accounts")).json(); expect(financialAccounts).toHaveLength(3); expect(financialAccounts.map((a: { balance: number }) => a.balance).sort((a: number, b: number) => a - b)).toEqual([100, 200, 1000]);
+
+  const openMenu = page.getByRole("button", { name: "Abrir menu de navegação" });
+  if (await openMenu.isVisible()) await openMenu.click();
+  await page.getByRole("link", { name: "Extrato", exact: true }).click();
+  await page.getByRole("button", { name: /^(Lançar|Novo lançamento)$/ }).click();
+  const accountOptions = page.getByLabel("Conta do lançamento").getByRole("option");
+  await expect(accountOptions.filter({ hasText: /Corrente sintética.*1\.000,00/ })).toHaveCount(1);
+  await expect(accountOptions.filter({ hasText: /Poupança sintética.*200,00/ })).toHaveCount(1);
+  await page.getByRole("button", { name: "Fechar modal" }).click();
+  if (await openMenu.isVisible()) await openMenu.click();
+  await page.getByRole("link", { name: "Configuração inicial", exact: true }).click();
   await page.reload(); await expect(page.getByRole("heading", { name: "Entrevista concluída", exact: true })).toBeVisible();
   const privacy = await page.request.patch("/api/users/me/preferences", { data: { privacyMode: true } }); expect(privacy.status()).toBe(200); await page.reload(); await expect(page.getByText("Valor oculto").first()).toBeVisible();
   expect(await page.getByText("R$ 1.451,00", { exact: true }).isVisible()).toBe(false); await screenshot(page, info, "full-private-completed");

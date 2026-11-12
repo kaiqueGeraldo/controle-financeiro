@@ -34,6 +34,14 @@ interface FinanceContextType {
 }
 
 const FinanceContext = createContext<FinanceContextType | undefined>(undefined);
+const onboardingCompletedEvent = "onboardingCompleted";
+type OnboardingCompletion = { owner: string; operationId: string };
+
+export function notifyOnboardingCompleted(owner: string, operationId: string) {
+  window.dispatchEvent(new CustomEvent<OnboardingCompletion>(onboardingCompletedEvent, {
+    detail: { owner, operationId },
+  }));
+}
 
 export function FinanceProvider({ children }: { children: ReactNode }) {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -109,10 +117,22 @@ export function FinanceProvider({ children }: { children: ReactNode }) {
   }, [userId, isLoadingUser, fetchData]);
 
   useEffect(() => {
+    const refreshedReceipts = new Set<string>();
     const handleRefresh = () => { void fetchData(); };
+    const handleOnboardingCompleted = (event: Event) => {
+      const receipt = (event as CustomEvent<OnboardingCompletion>).detail;
+      if (!receipt || receipt.owner !== userId || refreshedReceipts.has(receipt.operationId)) return;
+
+      refreshedReceipts.add(receipt.operationId);
+      handleRefresh();
+    };
     window.addEventListener("refreshFinance", handleRefresh);
-    return () => window.removeEventListener("refreshFinance", handleRefresh);
-  }, [fetchData]);
+    window.addEventListener(onboardingCompletedEvent, handleOnboardingCompleted);
+    return () => {
+      window.removeEventListener("refreshFinance", handleRefresh);
+      window.removeEventListener(onboardingCompletedEvent, handleOnboardingCompleted);
+    };
+  }, [fetchData, userId]);
 
   const saldoTotal = useMemo(() => {
     return !accountPosition || accountPosition.outsideSupportedRange ? null : Number(accountPosition.totalBalance);

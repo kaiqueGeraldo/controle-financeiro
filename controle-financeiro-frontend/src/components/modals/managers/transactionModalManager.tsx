@@ -18,6 +18,9 @@ export function TransactionModalManager() {
         onSuccess={finance.refresh}
         accounts={finance.accounts}
         categories={finance.categories}
+        isLoadingData={finance.isLoading}
+        dataError={finance.error}
+        onReloadData={finance.refresh}
       />}
 
       <ConfirmationModal
